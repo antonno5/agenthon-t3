@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+*credentials*
+*.secret
+*.key
+t3-handoff*.md
+team-claim.json
+submission*.zip
+submission*.json
+.venv*/
+__pycache__/
+*.py[cod]
+run_outputs/

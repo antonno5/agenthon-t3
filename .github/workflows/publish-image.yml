@@ -1,0 +1,55 @@
+name: Publish Docker image
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publish-image-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      IMAGE: ghcr.io/antonno5/agenthon-t3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Check build input
+        run: |
+          if [ ! -f Dockerfile ]; then
+            echo '::error::Add the T3 solution and its Dockerfile to the repository root before publishing.'
+            exit 1
+          fi
+
+      - name: Build Linux amd64 image
+        run: |
+          docker build --platform linux/amd64 \
+            --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --label 'qfbench2.interface_version=2.0' \
+            --tag "$IMAGE:sha-$GITHUB_SHA" .
+
+      - name: Authenticate to GHCR
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+
+      - name: Publish and record digest
+        run: |
+          docker push "$IMAGE:sha-$GITHUB_SHA"
+          image_ref="$(docker image inspect --format '{{index .RepoDigests 0}}' "$IMAGE:sha-$GITHUB_SHA")"
+          printf '%s\n' "$image_ref" >> "$GITHUB_STEP_SUMMARY"
+          printf '%s\n' 'Use this immutable image reference when packaging the submission.' >> "$GITHUB_STEP_SUMMARY"
+          printf '%s\n' 'The first package publication defaults to private. The owner must set its visibility to Public in Package settings.' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Sign out of GHCR
+        if: always()
+        run: docker logout ghcr.io

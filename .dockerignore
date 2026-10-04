@@ -1,0 +1,14 @@
+.git
+.github
+.env
+.env.*
+*credentials*
+*.secret
+*.key
+t3-handoff*.md
+team-claim.json
+submission*.zip
+submission*.json
+.venv*
+__pycache__
+run_outputs
