@@ -23,20 +23,49 @@ import resource
 import time
 from typing import Any, Optional
 
-from abides_core import abides
-from abides_core.message import Message
-from abides_markets.orders import Order
-
-from abides_fork.config import build_config
+from abides_fork import native
 from abides_fork.scenario_io import read_scenario
-from abides_fork.trace import extract_message_trace, extract_trace
 
 
 def reset_abides_counters() -> None:
     """Reset ABIDES's class-level id counters so a run is deterministic in-process."""
+    from abides_core.message import Message
+    from abides_markets.orders import Order
+
     Order._order_id_counter = 0
     # Name-mangled private class var on Message.
     setattr(Message, "_Message__message_id_counter", 1)
+
+
+def _run_abides(scenario: dict[str, Any]):
+    """The Python ABIDES path: returns (trace_df, message_trace_df, wall_clock_sec)."""
+    from abides_core import abides
+
+    from abides_fork.config import build_config
+    from abides_fork.trace import extract_message_trace, extract_trace
+
+    reset_abides_counters()
+    config = build_config(scenario)
+    t0 = time.perf_counter()
+    end_state = abides.run(config)
+    wall_clock_sec = time.perf_counter() - t0
+    return extract_trace(end_state), extract_message_trace(end_state), wall_clock_sec
+
+
+def _run_native(scenario: dict[str, Any]):
+    """The native engine path, or None when the scenario must take the Python path."""
+    cfg = native.build_native_config(scenario)
+    if cfg is None:
+        return None
+    t0 = time.perf_counter()
+    try:
+        result = native.run_native(cfg)
+    except RuntimeError:  # a state the Python reference handles differently
+        return None
+    wall_clock_sec = time.perf_counter() - t0
+    if result is None:
+        return None
+    return result[0], result[1], wall_clock_sec
 
 
 def _sha256(path: pathlib.Path) -> str:
@@ -63,15 +92,17 @@ def simulate(
     if seed is not None:
         scenario = {**scenario, "seed": int(seed)}
 
-    reset_abides_counters()
-    config = build_config(scenario)
-    t0 = time.perf_counter()
-    end_state = abides.run(config)
-    wall_clock_sec = time.perf_counter() - t0
+    if os.environ.get("T3_ENGINE", "native") == "python":
+        ran = None
+    else:
+        ran = _run_native(scenario)
+    engine = "native" if ran is not None else "abides"
+    if ran is None:
+        ran = _run_abides(scenario)
+    trace, message_trace, wall_clock_sec = ran
+    if os.environ.get("T3_DEBUG"):
+        print(f"engine={engine}", file=sys.stderr)
     peak_memory_bytes = _peak_rss_bytes()
-
-    trace = extract_trace(end_state)
-    message_trace = extract_message_trace(end_state)
 
     out_path = pathlib.Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)

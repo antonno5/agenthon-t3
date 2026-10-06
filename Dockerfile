@@ -34,7 +34,7 @@ ARG ABIDES_COMMIT=f9cbe51342b7dedd9587e4e069040d68a5c6477f
 ENV PIP_NO_CACHE_DIR=1
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git gcc libc6-dev \
+    && apt-get install -y --no-install-recommends git gcc g++ libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install cython==3.3.0 setuptools
 
@@ -68,7 +68,12 @@ RUN git clone "${ABIDES_REPO}" /tmp/abides \
 # to a C extension. Directives keep Python semantics (no annotation typing, no type
 # inference); see build/cy_build.py. Measured ~15% off the simulation loop, byte-identical.
 COPY abides_fork /src/abides_fork
-COPY build/cy_build.py /tmp/cy_build.py
+COPY native /tmp/t3/native
+COPY build/cy_build.py build/native_build.py /tmp/
+# Native engine (abides_fork._t3engine): a C++ re-implementation of the exact ABIDES path
+# this adapter drives, byte-identical outputs; see native/engine.hpp and abides_fork/native.py.
+# IEEE-strict flags (no fast-math, no FMA contraction, no -march), see build/native_build.py.
+RUN python /tmp/native_build.py /tmp/t3 /src/abides_fork
 RUN python /tmp/cy_build.py /src \
     && find /src \( -name "*.c" -o -name "__pycache__" \) -prune -exec rm -rf {} + \
     && rm -rf /src/build
