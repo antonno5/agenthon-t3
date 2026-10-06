@@ -110,6 +110,7 @@ struct Order {
 struct Message {
   int64_t id;
   uint8_t type;
+  int32_t refs = 0;  // pending deliveries (heap entries); the slot is recycled at 0
   Order order{};  // LimitOrder / CancelOrder / OrderAccepted / OrderExecuted / OrderCancelled
   // QuerySpreadResponseMsg (depth 1)
   bool has_bid = false, has_ask = false, mkt_closed = false;
@@ -126,8 +127,10 @@ struct QEntry {
   int64_t time;
   int32_t sender, recipient;
   int64_t msg_id;
-  int32_t slot;       // index into Kernel::msgs
-  int64_t ledger_row; // send-time ledger row, -1 for wakeups (logged on delivery)
+  int32_t slot;  // index into Sim::msgs
+  // Send-time ledger fields (the Python ledger row is fixed at send time; a requeue moves
+  // `time` but not `t_recv`). t_send < 0 marks a wakeup, whose row is built on delivery.
+  int64_t t_send, t_recv, causal;  // causal < 0: None
   bool operator>(const QEntry& o) const {
     if (time != o.time) return time > o.time;
     if (sender != o.sender) return sender > o.sender;
@@ -136,17 +139,6 @@ struct QEntry {
   }
 };
 
-struct LedgerRow {
-  int64_t message_id;
-  int32_t src, dst;
-  bool has_send;
-  int64_t t_send, t_recv, latency;
-  uint8_t type;
-  bool has_oid;
-  int64_t oid;
-  bool has_causal;
-  int64_t causal;
-};
 
 // agent.log rows that extract_trace keeps.
 enum OrderEvent : uint8_t { EV_SUBMITTED, EV_ACCEPTED, EV_CANCELLED, EV_EXECUTED };
@@ -203,8 +195,8 @@ class Sim {
   // deque: handlers hold references to the message being delivered while creating new
   // ones, and push_back on a deque never invalidates references to existing elements.
   std::deque<Message> msgs;
-  std::vector<LedgerRow> ledger;
-  std::vector<LedgerRow> delivered;  // in delivery (== seq) order
+  std::vector<int32_t> free_slots;  // recycled message slots
+  MessageColumns mcols;              // delivered ledger rows, appended in seq order
   bool has_causal = false;
   int64_t causal = 0;
   int64_t next_msg_id = 1;
@@ -230,8 +222,33 @@ class Sim {
     Message m;
     m.id = next_msg_id++;
     m.type = type;
+    if (!free_slots.empty()) {
+      const int32_t slot = free_slots.back();
+      free_slots.pop_back();
+      msgs[slot] = m;
+      return slot;
+    }
     msgs.push_back(m);
     return static_cast<int32_t>(msgs.size() - 1);
+  }
+  void release(int32_t slot) {
+    if (--msgs[slot].refs == 0) free_slots.push_back(slot);
+  }
+  void deliver_row(int64_t msg_id, int32_t src, int32_t dst, bool has_send, int64_t t_send,
+                   int64_t t_recv, uint8_t type, bool has_oid, int64_t oid, int64_t causal_v) {
+    MessageColumns& c = mcols;
+    c.t_recv.push_back(t_recv);
+    c.t_send.push_back(has_send ? t_send : 0);
+    c.t_send_null.push_back(!has_send);
+    c.latency.push_back(has_send ? t_recv - t_send : 0);
+    c.src.push_back(src);
+    c.dst.push_back(dst);
+    c.message_id.push_back(msg_id);
+    c.msg_type.push_back(type);
+    c.order_id.push_back(has_oid ? oid : 0);
+    c.order_id_null.push_back(!has_oid);
+    c.causal_parent.push_back(causal_v >= 0 ? causal_v : 0);
+    c.causal_null.push_back(causal_v < 0);
   }
   void heap_push(const QEntry& e) {
     heap.push_back(e);
@@ -265,20 +282,18 @@ class Sim {
   void send(int32_t sender, int32_t recipient, int32_t slot, int64_t delay = 0) {
     const int64_t sent_time = current_time + comp_delays[sender] + delay;
     const int64_t deliver_at = sent_time + latency(sender, recipient);
-    const Message& m = msgs[slot];
-    heap_push(QEntry{deliver_at, sender, recipient, m.id, slot,
-                     static_cast<int64_t>(ledger.size())});
-    LedgerRow row{m.id, sender, recipient, true, sent_time, deliver_at, deliver_at - sent_time,
-                  m.type, m.has_order(), m.has_order() ? m.order.order_id : 0, has_causal,
-                  causal};
-    ledger.push_back(row);
+    Message& m = msgs[slot];
+    m.refs++;
+    heap_push(QEntry{deliver_at, sender, recipient, m.id, slot, sent_time, deliver_at,
+                     has_causal ? causal : -1});
   }
   // Kernel.set_wakeup
   void set_wakeup(int32_t agent, int64_t t) {
     if (current_time != 0 && t < current_time)
       throw std::runtime_error("set_wakeup() called with requested time not in future");
     const int32_t slot = new_msg(MT_WAKEUP);
-    heap_push(QEntry{t, agent, agent, msgs[slot].id, slot, -1});
+    msgs[slot].refs = 1;
+    heap_push(QEntry{t, agent, agent, msgs[slot].id, slot, -1, t, -1});
   }
 
   // --- oracle (SparseMeanRevertingOracle) ---
@@ -390,6 +405,7 @@ void Sim::exchange_wakeup(int64_t t) {
   if (t >= P.mkt_close) {
     const int32_t slot = new_msg(MT_MKT_CLOSE_PRICE);  // one message, many recipients
     for (int32_t a : close_price_subs) ex_send(a, slot);
+    if (close_price_subs.empty()) free_slots.push_back(slot);
   }
 }
 
@@ -808,8 +824,7 @@ Result Sim::run() {
     if (m.type == MT_WAKEUP) {
       has_causal = true;
       causal = m.id;
-      delivered.push_back(LedgerRow{m.id, r, r, false, 0, current_time, 0, MT_WAKEUP, false, 0,
-                                    false, 0});
+      deliver_row(m.id, r, r, false, 0, current_time, MT_WAKEUP, false, 0, -1);
       if (r == 0)
         exchange_wakeup(current_time);
       else
@@ -819,12 +834,14 @@ Result Sim::run() {
       agent_times[r] += comp_delays[r];
       has_causal = true;
       causal = m.id;
-      delivered.push_back(ledger[e.ledger_row]);
+      deliver_row(m.id, e.sender, r, true, e.t_send, e.t_recv, m.type, m.has_order(),
+                  m.order.order_id, e.causal);
       if (r == 0)
         exchange_receive(current_time, e.sender, e.slot);
       else
         trader_receive(trader(r), current_time, e.slot);
     }
+    release(e.slot);
   }
   return extract();
 }
@@ -860,12 +877,17 @@ Result Sim::extract() {
       orows.push_back(r);
     }
   }
-  std::stable_sort(orows.begin(), orows.end(),
-                   [](const Row& a, const Row& b) { return a.t < b.t; });
-  // final ORDER_EXECUTED per order_id (last in EventTime order) -> ORDER_FILLED
+  // Python: stable sort by EventTime, mark the last ORDER_EXECUTED per order_id, then a
+  // final stable sort by (t_ns, order_id). One stable sort by (t, order_id) gives the same
+  // final order, and rows sharing an order_id keep the same relative order in both, so the
+  // "last execution" is the same row.
+  std::stable_sort(orows.begin(), orows.end(), [](const Row& a, const Row& b) {
+    if (a.t != b.t) return a.t < b.t;
+    return a.oid < b.oid;
+  });
   {
     std::unordered_map<int64_t, size_t> last_exec;
-    last_exec.reserve(orows.size());
+    last_exec.reserve(orows.size() / 2 + 16);
     for (size_t i = 0; i < orows.size(); i++)
       if (orows[i].type == TM_PARTIAL_FILL) last_exec[orows[i].oid] = i;
     for (const auto& kv : last_exec) orows[kv.second].type = TM_ORDER_FILLED;
@@ -887,15 +909,22 @@ Result Sim::extract() {
       }
     }
   }
-  // --- concat + stable sort by (t_ns, order_id) ---
+  // Quotes come from the exchange's log, whose time never decreases, so qrows is already
+  // sorted by t; with order_id -1 they precede every order row at the same t. A stable
+  // merge of the two runs is the (t_ns, order_id) stable sort of their concatenation.
   std::vector<Row> all;
   all.reserve(orows.size() + qrows.size());
-  all.insert(all.end(), orows.begin(), orows.end());
-  all.insert(all.end(), qrows.begin(), qrows.end());
-  std::stable_sort(all.begin(), all.end(), [](const Row& a, const Row& b) {
-    if (a.t != b.t) return a.t < b.t;
-    return a.oid < b.oid;
-  });
+  {
+    size_t i = 0, j = 0;
+    while (i < orows.size() || j < qrows.size()) {
+      if (j == qrows.size() || (i < orows.size() && orows[i].t < qrows[j].t))
+        all.push_back(orows[i++]);
+      else
+        all.push_back(qrows[j++]);
+    }
+  }
+  for (size_t i = 1; i < qrows.size(); i++)
+    if (qrows[i].t < qrows[i - 1].t) throw std::runtime_error("quote log not time-ordered");
   TraceColumns& tc = res.trace;
   const size_t n = all.size();
   tc.t_ns.resize(n);
@@ -914,36 +943,8 @@ Result Sim::extract() {
     tc.size[i] = all[i].size;
     tc.order_id[i] = all[i].oid;
   }
-  // --- message ledger, delivered rows in seq order ---
-  MessageColumns& mc = res.messages;
-  const size_t k = delivered.size();
-  mc.t_recv.resize(k);
-  mc.t_send.resize(k);
-  mc.latency.resize(k);
-  mc.message_id.resize(k);
-  mc.order_id.resize(k);
-  mc.causal_parent.resize(k);
-  mc.t_send_null.resize(k);
-  mc.order_id_null.resize(k);
-  mc.causal_null.resize(k);
-  mc.src.resize(k);
-  mc.dst.resize(k);
-  mc.msg_type.resize(k);
-  for (size_t i = 0; i < k; i++) {
-    const LedgerRow& l = delivered[i];
-    mc.t_recv[i] = l.t_recv;
-    mc.t_send[i] = l.has_send ? l.t_send : 0;
-    mc.t_send_null[i] = !l.has_send;
-    mc.latency[i] = l.latency;
-    mc.src[i] = l.src;
-    mc.dst[i] = l.dst;
-    mc.message_id[i] = l.message_id;
-    mc.msg_type[i] = l.type;
-    mc.order_id[i] = l.has_oid ? l.oid : 0;
-    mc.order_id_null[i] = !l.has_oid;
-    mc.causal_parent[i] = l.has_causal ? l.causal : 0;
-    mc.causal_null[i] = !l.has_causal;
-  }
+  // --- message ledger: rows were appended in delivery (seq) order ---
+  res.messages = std::move(mcols);
   return res;
 }
 

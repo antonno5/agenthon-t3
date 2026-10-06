@@ -352,7 +352,25 @@ def run_and_write(cfg: dict[str, Any], trace_path, msg_path) -> Optional[tuple[i
             metadata={b"pandas": _MSG_META},
         ),
     )
-    # pandas' to_parquet(compression="snappy") is pq.write_table(table, handle, compression=...)
-    pq.write_table(trace, str(trace_path), compression="snappy")
-    pq.write_table(msgs, str(msg_path), compression="snappy")
+    # pandas' to_parquet(compression="snappy") is pq.write_table(table, handle, compression=...).
+    # The two files are independent and write_table releases the GIL, so write them
+    # concurrently; each file's bytes are unaffected.
+    import threading
+
+    errors: list[BaseException] = []
+
+    def write_msgs() -> None:
+        try:
+            pq.write_table(msgs, str(msg_path), compression="snappy")
+        except BaseException as e:  # re-raised in the caller's thread
+            errors.append(e)
+
+    th = threading.Thread(target=write_msgs)
+    th.start()
+    try:
+        pq.write_table(trace, str(trace_path), compression="snappy")
+    finally:
+        th.join()
+    if errors:
+        raise errors[0]
     return n, k, wall
