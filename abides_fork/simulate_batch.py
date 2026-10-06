@@ -25,6 +25,8 @@ Contract (Docker entrypoint form; track-owned, no shared-infra change):
 from __future__ import annotations
 
 import argparse
+import os
+import sys
 import json
 import pathlib
 import time
@@ -112,4 +114,10 @@ def main(argv: Optional[list[str]] = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    code = main()
+    # Every output file is written and closed by now. Skip interpreter teardown: tearing
+    # down the simulation's object graph (agents, books, per-agent logs, the message
+    # ledger) only costs container wall time, which is what the harness measures.
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os._exit(code)

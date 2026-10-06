@@ -22,7 +22,6 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from abides_core.utils import parse_logs_df
 
 TRACE_COLUMNS: list[str] = [
     "t_ns",
@@ -101,6 +100,62 @@ def _side_to_str(value: Any) -> str | None:
     return None
 
 
+def _raw_from_logs(end_state: dict[str, Any]) -> pd.DataFrame:
+    """The subset of ``abides_core.utils.parse_logs_df`` that ``extract_trace`` reads.
+
+    Same rows in the same order (agents in list order, each agent's log in append order),
+    same ``EventTime`` / ``agent_id`` fallbacks, but only the columns used below, built
+    straight from the ``_OrderSnapshot`` tuples ``config.py`` logs instead of exploding a
+    dict per row.
+    """
+    ev_time: list = []
+    ev_type: list = []
+    agent_ids: list = []
+    order_ids: list = []
+    sides: list = []
+    limit_prices: list = []
+    fill_prices: list = []
+    quantities: list = []
+    scalars: list = []
+    nan = np.nan
+    int_types = (int, np.int64)
+    for agent in end_state["agents"]:
+        aid = agent.id
+        for t, etype, ev in agent.log:
+            ev_time.append(t if isinstance(t, int_types) else 0)
+            ev_type.append(etype)
+            if isinstance(ev, tuple):
+                o_agent, side, limit_price, fill_price, qty, oid = ev
+                agent_ids.append(aid if o_agent is None else o_agent)
+                order_ids.append(nan if oid is None else oid)
+                sides.append(side)
+                limit_prices.append(nan if limit_price is None else limit_price)
+                fill_prices.append(nan if fill_price is None else fill_price)
+                quantities.append(nan if qty is None else qty)
+                scalars.append(nan)
+            else:
+                agent_ids.append(aid)
+                order_ids.append(nan)
+                sides.append(nan)
+                limit_prices.append(nan)
+                fill_prices.append(nan)
+                quantities.append(nan)
+                scalars.append(nan if ev is None else ev)
+    return pd.DataFrame(
+        {
+            "EventTime": np.array(ev_time, dtype=np.int64),
+            "EventType": ev_type,
+            "agent_id": agent_ids,
+            "order_id": np.array(order_ids, dtype=np.float64),
+            "side": sides,
+            "limit_price": np.array(limit_prices, dtype=np.float64),
+            "fill_price": np.array(fill_prices, dtype=np.float64),
+            "quantity": np.array(quantities, dtype=np.float64),
+            "ScalarEventValue": scalars,
+        }
+    )
+
+
 def extract_trace(end_state: dict[str, Any]) -> pd.DataFrame:
     """Build the canonical 7-column trace DataFrame from an ABIDES ``end_state``.
 
@@ -111,7 +166,7 @@ def extract_trace(end_state: dict[str, Any]) -> pd.DataFrame:
         A DataFrame with columns ``TRACE_COLUMNS`` and canonical dtypes, sorted by
         ``(t_ns, order_id)``.
     """
-    raw = parse_logs_df(end_state)
+    raw = _raw_from_logs(end_state)
 
     # --- order-lifecycle events (rows carrying an order_id), vectorized ---------
     # parse_logs_df returns a non-unique index (per-agent row numbers); sort by
@@ -252,33 +307,51 @@ def extract_message_trace(end_state: dict[str, Any]) -> pd.DataFrame:
 
     # Attach the faithful delivery seq (keyed by (message_id, recipient) — a broadcast message
     # carries one id but N deliveries) and keep only DELIVERED rows (undelivered sends past
-    # stop_time have no seq). Sort by processing order.
+    # stop_time have no seq). Sort by processing order. Ledger rows are kernel tuples:
+    # (message_id, src_id, dst_id, t_send_ns, t_recv_ns, latency_ns, msg_type, order_id,
+    #  causal_parent).
+    get = seqmap.get
     rows = [
-        (seq, r)
-        for r in ledger
-        if (seq := seqmap.get((int(r["message_id"]), int(r["dst_id"])))) is not None
+        (seq, r) for r in ledger if (seq := get((r[0], r[2]))) is not None
     ]
     if not rows:
         return empty
     rows.sort(key=lambda sr: sr[0])
-    led = [r for _, r in rows]
+    seqs = [s for s, _ in rows]
+    (
+        message_id,
+        src_id,
+        dst_id,
+        t_send,
+        t_recv,
+        latency,
+        msg_type,
+        order_id,
+        causal_parent,
+    ) = zip(*(r for _, r in rows))
 
-    # The nullable-int columns (t_send_ns, order_id, causal_parent) MUST be built as Int64
-    # directly: routing None+int through pandas' float64 inference silently rounds the ~1.6e18 ns
-    # timestamps (float64 has ~15-16 sig figs), breaking t_recv - t_send == latency_ns. The
-    # remaining columns have no nulls, so plain lists infer exact int64/string before astype.
+    # The nullable-int columns (t_send_ns, order_id, causal_parent) MUST stay exact int64:
+    # routing None+int through float64 would round the ~1.6e18 ns timestamps. Build each as
+    # an int64 value array plus a null mask (the IntegerArray pd.array would produce).
+    def _nullable_int(values: tuple) -> pd.arrays.IntegerArray:
+        mask = np.fromiter((v is None for v in values), dtype=bool, count=len(values))
+        data = np.fromiter(
+            (0 if v is None else v for v in values), dtype=np.int64, count=len(values)
+        )
+        return pd.arrays.IntegerArray(data, mask)
+
     df = pd.DataFrame(
         {
-            "seq": [s for s, _ in rows],
-            "t_recv_ns": [r["t_recv_ns"] for r in led],
-            "t_send_ns": pd.array([r["t_send_ns"] for r in led], dtype="Int64"),
-            "latency_ns": [r["latency_ns"] for r in led],
-            "src_id": [r["src_id"] for r in led],
-            "dst_id": [r["dst_id"] for r in led],
-            "message_id": [r["message_id"] for r in led],
-            "msg_type": [r["msg_type"] for r in led],
-            "order_id": pd.array([r["order_id"] for r in led], dtype="Int64"),
-            "causal_parent": pd.array([r["causal_parent"] for r in led], dtype="Int64"),
+            "seq": np.array(seqs, dtype=np.int64),
+            "t_recv_ns": np.array(t_recv, dtype=np.int64),
+            "t_send_ns": _nullable_int(t_send),
+            "latency_ns": np.array(latency, dtype=np.int64),
+            "src_id": np.array(src_id, dtype=np.int32),
+            "dst_id": np.array(dst_id, dtype=np.int32),
+            "message_id": np.array(message_id, dtype=np.int64),
+            "msg_type": pd.array(msg_type, dtype="string"),
+            "order_id": _nullable_int(order_id),
+            "causal_parent": _nullable_int(causal_parent),
         }
     ).astype(_MSG_DTYPES)
     return df[MESSAGE_TRACE_COLUMNS]

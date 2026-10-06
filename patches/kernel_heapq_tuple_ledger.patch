@@ -1,0 +1,135 @@
+diff --git a/abides-core/abides_core/kernel.py b/abides-core/abides_core/kernel.py
+index 995c2e7..a6d42c7 100644
+--- a/abides-core/abides_core/kernel.py
++++ b/abides-core/abides_core/kernel.py
+@@ -1,5 +1,6 @@
+ import logging
+ import queue
++from heapq import heappop, heappush
+ import os
+ from datetime import datetime
+ from typing import Any, Dict, List, Optional, Tuple, Type
+@@ -17,6 +18,44 @@ from .utils import fmt_ts, str_to_ns
+ logger = logging.getLogger(__name__)
+ 
+ 
++
++LEDGER_FIELDS = (
++    "message_id",
++    "src_id",
++    "dst_id",
++    "t_send_ns",
++    "t_recv_ns",
++    "latency_ns",
++    "msg_type",
++    "order_id",
++    "causal_parent",
++)
++
++class _HeapQueue:
++    """Single-threaded drop-in for ``queue.PriorityQueue``.
++
++    ``PriorityQueue`` is itself a ``heapq`` over ``self.queue`` guarded by a lock and two
++    condition variables; the kernel is single-threaded, so the locking is pure overhead.
++    Same heap, same tuple comparisons, therefore the exact same pop order.
++    """
++
++    __slots__ = ("queue",)
++
++    def __init__(self) -> None:
++        self.queue: list = []
++
++    def put(self, item) -> None:
++        heappush(self.queue, item)
++
++    def get(self):
++        return heappop(self.queue)
++
++    def empty(self) -> bool:
++        return not self.queue
++
++    def qsize(self) -> int:
++        return len(self.queue)
++
+ class Kernel:
+     """
+     ABIDES Kernel
+@@ -65,7 +104,7 @@ class Kernel:
+ 
+         # A single message queue to keep everything organized by increasing
+         # delivery timestamp.
+-        self.messages: queue.PriorityQueue[(int, str, Message)] = queue.PriorityQueue()
++        self.messages = _HeapQueue()
+ 
+         # Timestamp at which the Kernel was created.  Primarily used to
+         # create a unique log directory for this run.  Also used to
+@@ -119,7 +158,8 @@ class Kernel:
+         # Captured deterministically at the send/deliver chokepoints (zero extra RNG) and
+         # surfaced in end_state (custom_state) for the fork adapter. The delivery seq is keyed by
+         # (message_id, recipient_id): a broadcast message carries ONE id but has N deliveries.
+-        self._msg_ledger: List[Dict[str, Any]] = []
++        # One tuple per (sub)message, fields in LEDGER_FIELDS order.
++        self._msg_ledger: List[Tuple[Any, ...]] = []
+         self._deliver_seq: int = 0
+         self._deliver_seq_by_key: Dict[Tuple[int, int], int] = {}
+         self._current_causal_uid: Optional[int] = None
+@@ -389,18 +429,19 @@ class Kernel:
+                 self._current_causal_uid = message.message_id
+                 self._deliver_seq_by_key[(message.message_id, recipient_id)] = self._deliver_seq
+                 self._deliver_seq += 1
++                # Ledger rows are tuples in LEDGER_FIELDS order (see below).
+                 self._msg_ledger.append(
+-                    {
+-                        "message_id": message.message_id,
+-                        "src_id": recipient_id,
+-                        "dst_id": recipient_id,
+-                        "t_send_ns": None,
+-                        "t_recv_ns": self.current_time,
+-                        "latency_ns": 0,
+-                        "msg_type": "AGENT_WAKEUP",
+-                        "order_id": None,
+-                        "causal_parent": None,
+-                    }
++                    (
++                        message.message_id,
++                        recipient_id,
++                        recipient_id,
++                        None,
++                        self.current_time,
++                        0,
++                        "AGENT_WAKEUP",
++                        None,
++                        None,
++                    )
+                 )
+ 
+                 # Wake the agent and get value passed to kernel to listen for kernel interruption signal
+@@ -685,17 +726,17 @@ class Kernel:
+         for _lm in _ledger_msgs:
+             _ord = getattr(_lm, "order", None)
+             self._msg_ledger.append(
+-                {
+-                    "message_id": _lm.message_id,
+-                    "src_id": sender_id,
+-                    "dst_id": recipient_id,
+-                    "t_send_ns": sent_time,
+-                    "t_recv_ns": deliver_at,
+-                    "latency_ns": deliver_at - sent_time,
+-                    "msg_type": _lm.type(),
+-                    "order_id": getattr(_ord, "order_id", None),
+-                    "causal_parent": self._current_causal_uid,
+-                }
++                (
++                    _lm.message_id,
++                    sender_id,
++                    recipient_id,
++                    sent_time,
++                    deliver_at,
++                    deliver_at - sent_time,
++                    _lm.__class__.__name__,
++                    getattr(_ord, "order_id", None),
++                    self._current_causal_uid,
++                )
+             )
+ 
+         if self.show_trace_messages:

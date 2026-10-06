@@ -26,6 +26,7 @@ from abides_core.agent import Agent
 from abides_core.latency_model import LatencyModel
 from abides_core.utils import str_to_ns
 from abides_markets.agents import ExchangeAgent
+from abides_markets.orders import Order
 from abides_markets.oracles import SparseMeanRevertingOracle
 from abides_markets.utils import generate_latency_model
 
@@ -76,7 +77,11 @@ def _fast_log_event(
         return
 
     track = event_type in _TRACKED_EVENT_TYPES
-    if deepcopy_event and (track or append_summary_log):
+    if (
+        deepcopy_event
+        and (track or append_summary_log)
+        and type(event) is not _OrderSnapshot
+    ):
         event = deepcopy(event)
 
     if track:
@@ -88,6 +93,37 @@ def _fast_log_event(
 
 
 Agent.logEvent = _fast_log_event
+
+
+class _OrderSnapshot(tuple):
+    """Immutable snapshot of the order fields ``trace.extract_trace`` reads:
+    ``(agent_id, side, limit_price, fill_price, quantity, order_id)``.
+
+    Replaces ``Order.to_dict()``, whose only consumers are ``logEvent`` call sites. The
+    original deep-copied the whole order (tag included) and formatted ``time_placed`` as a
+    date string on every call -- ~50k calls per typical run -- just so ``parse_logs_df`` could
+    later explode the dict into DataFrame columns, of which the trace keeps these six. The
+    fields are read at call time, so the snapshot is as point-in-time as the deep copy was.
+    Being a tuple of immutables, it needs no further copy in ``_fast_log_event``.
+    """
+
+    __slots__ = ()
+
+
+def _order_snapshot(self: Order) -> _OrderSnapshot:
+    return _OrderSnapshot(
+        (
+            self.agent_id,
+            self.side,
+            getattr(self, "limit_price", None),
+            self.fill_price,
+            self.quantity,
+            self.order_id,
+        )
+    )
+
+
+Order.to_dict = _order_snapshot
 
 
 def _draw_random_state() -> np.random.RandomState:
@@ -297,7 +333,10 @@ def build_config(scenario: dict[str, Any], seed: int | None = None) -> dict[str,
             mkt_open=mkt_open,
             mkt_close=mkt_close,
             symbols=[ticker],
-            book_logging=True,
+            # book_log2 (an L2 depth-10 snapshot per book change) feeds only the exchange's
+            # end-of-run MetricTracker liquidity stats, which nothing in this adapter reads;
+            # the trace's quote rows come from BEST_BID/BEST_ASK logEvents, not book_log2.
+            book_logging=False,
             book_log_depth=10,
             log_orders=None,
             pipeline_delay=_ack_delay,
@@ -338,6 +377,11 @@ def build_config(scenario: dict[str, Any], seed: int | None = None) -> dict[str,
     else:
         latency_model = generate_latency_model(len(agents))
     random_state_kernel = _draw_random_state()
+
+    # The kernel runs with skip_log=True, so Agent.kernel_terminating's per-agent
+    # pd.DataFrame(self.log) is built only to be handed to a write_log that returns early.
+    for agent in agents:
+        agent.log_to_file = False
 
     return {
         "seed": seed,
