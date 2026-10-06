@@ -5,13 +5,16 @@
 #
 # Baseline correctness and speed, both independently verified locally against the public
 # regression suite (regression_suite/run_regression.py, 65/65 scenarios, Tier A exact +
-# Tier B statistical + all 4 stylized-fact checks):
-#   - unmodified upstream + patches 1-4 (organizer baseline): geomean 11,132.5 events/sec
-#   - + patch 5 (debug_log_guard) + config.py get_latency fix (this image): geomean 15,541.2
-#     events/sec -- +39.6%, with byte-identical trace_sha256/message_trace_sha256 on every
-#     scenario (these two changes touch zero simulation logic, RNG draws, or event ordering --
-#     they only stop constructing debug-log strings/arrays that were discarded immediately
-#     at the configured stdout_log_level="WARNING").
+# Tier B statistical + all 4 stylized-fact checks), on every revision below:
+#   - unmodified upstream + patches 1-4 (organizer baseline):            geomean 11,132.5 events/sec
+#   - + patch 5 (debug_log_guard) + config.py get_latency fix:           geomean 15,541.2 ev/s (+39.6%)
+#   - + config.py Agent.logEvent fast path (this image):                geomean 17,064.8 ev/s (+53.3%)
+# All three changes touch zero simulation logic, RNG draws, or event ordering -- each was
+# verified byte-identical (trace_sha256/message_trace_sha256) against every one of the 65
+# public reference traces before being kept. The logEvent fast path (see config.py) skips
+# the deepcopy + self.log append for the ~51% of logged events (HOLDINGS_UPDATED,
+# QuerySpreadMsg, BID_DEPTH/ASK_DEPTH, IMBALANCE, LAST_TRADE, ...) that trace.py's
+# extract_trace always discards -- those rows never reach trace.parquet either way.
 #
 # Deliberate exception to the org's Python 3.13 standard: ABIDES requires pandas 1.x, which
 # publishes no cp313 wheels. This image is self-contained (the harness only reads the parquet

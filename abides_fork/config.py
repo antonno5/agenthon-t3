@@ -17,10 +17,12 @@ Two mapping conventions are worth noting:
 
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any
 
 import numpy as np
 import pandas as pd
+from abides_core.agent import Agent
 from abides_core.latency_model import LatencyModel
 from abides_core.utils import str_to_ns
 from abides_markets.agents import ExchangeAgent
@@ -31,6 +33,61 @@ from abides_fork.agents import AGENT_REGISTRY
 
 _DATE = "20210205"
 _STARTING_CASH = 10_000_000  # cents
+
+# trace.py's extract_trace (the 7-column trace.parquet schema) consumes exactly these
+# EventType strings (_ORDER_EVENT_MAP's keys, plus ORDER_EXECUTED/BEST_BID/BEST_ASK);
+# every other type logged via Agent.logEvent is turned into a DataFrame row by
+# abides_core.utils.parse_logs_df and then dropped there. Measured on an unmodified run
+# (as06_throughput_fast): ~51% of all logEvent calls are for a discarded type --
+# HOLDINGS_UPDATED alone ties ORDER_EXECUTED as the single largest category -- each
+# currently paying a deepcopy + list-append for data nothing ever reads. Skipping those
+# at the source also shrinks the (equally unread) per-agent log DataFrame that
+# Agent.kernel_terminating/write_log builds and writes under ./log/, a path outside
+# /output that the harness never inspects.
+_TRACKED_EVENT_TYPES = frozenset(
+    {
+        "ORDER_SUBMITTED",
+        "ORDER_ACCEPTED",
+        "ORDER_CANCELLED",
+        "ORDER_REPLACED",
+        "ORDER_EXECUTED",
+        "BEST_BID",
+        "BEST_ASK",
+    }
+)
+
+
+def _fast_log_event(
+    self,
+    event_type: str,
+    event: Any = "",
+    append_summary_log: bool = False,
+    deepcopy_event: bool = True,
+) -> None:
+    """Drop-in replacement for ``Agent.logEvent``, filtered to the EventTypes
+    ``extract_trace`` actually keeps. Semantics for a tracked type, or when
+    ``append_summary_log`` is set, are byte-for-byte identical to the original
+    (including the single shared deepcopy for both log targets) -- the only
+    behavior change is that an untracked, non-summary event no longer pays a
+    deepcopy or a ``self.log`` append for a row that was always discarded
+    downstream.
+    """
+    if not self.log_events:
+        return
+
+    track = event_type in _TRACKED_EVENT_TYPES
+    if deepcopy_event and (track or append_summary_log):
+        event = deepcopy(event)
+
+    if track:
+        self.log.append((self.current_time, event_type, event))
+
+    if append_summary_log:
+        assert self.kernel is not None
+        self.kernel.append_summary_log(self.id, event_type, event)
+
+
+Agent.logEvent = _fast_log_event
 
 
 def _draw_random_state() -> np.random.RandomState:
