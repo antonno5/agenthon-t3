@@ -36,7 +36,9 @@ ENV PIP_NO_CACHE_DIR=1
 RUN apt-get update \
     && apt-get install -y --no-install-recommends git gcc g++ libc6-dev \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install cython==3.3.0 setuptools
+# pyarrow (+ its numpy) only for the headers and libarrow/libparquet the native engine links
+# against; same pinned versions as the runtime stage, so the rpath and ABI match there.
+RUN pip install cython==3.3.0 setuptools numpy==1.26.4 pyarrow==15.0.2
 
 # Apply, in order:
 #   1. order_size_model.pomegranate-free.patch — drop the unbuildable pomegranate dependency.
@@ -73,6 +75,9 @@ COPY build/cy_build.py build/native_build.py /tmp/
 # Native engine (abides_fork._t3engine): a C++ re-implementation of the exact ABIDES path
 # this adapter drives, byte-identical outputs; see native/engine.hpp and abides_fork/native.py.
 # IEEE-strict flags (no fast-math, no FMA contraction, no -march), see build/native_build.py.
+# It also writes the parquet files through the wheel's libparquet (native/pqwrite.cpp) and
+# reproduces numpy's float64 log dispatch (native/nplog.cpp + vendored SVML), so the native
+# path imports neither pyarrow nor numpy at run time.
 RUN python /tmp/native_build.py /tmp/t3 /src/abides_fork
 RUN python /tmp/cy_build.py /src \
     && find /src \( -name "*.c" -o -name "__pycache__" \) -prune -exec rm -rf {} + \

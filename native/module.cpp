@@ -4,10 +4,15 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+#include <chrono>
+#include <exception>
 #include <stdexcept>
 #include <string>
+#include <thread>
 
 #include "engine.hpp"
+#include "nplog.hpp"
+#include "pqwrite.hpp"
 
 namespace {
 
@@ -188,6 +193,78 @@ PyObject* py_run(PyObject*, PyObject* cfg) {
   return out;
 }
 
+// run_write(cfg, trace_path, msg_path) -> (n_events, n_messages, engine_seconds) | None.
+// Runs the engine and writes both parquet files (concurrently) without touching pyarrow.
+// None, with nothing written, when the trace is empty (the Python path builds that frame
+// with different dtypes, so it must produce it).
+PyObject* py_run_write(PyObject*, PyObject* args) {
+  PyObject* cfg;
+  const char* trace_path;
+  const char* msg_path;
+  if (!PyArg_ParseTuple(args, "Oss", &cfg, &trace_path, &msg_path)) return nullptr;
+  t3::Params params;
+  try {
+    params = parse(cfg);
+  } catch (const std::exception& e) {
+    if (!PyErr_Occurred()) PyErr_SetString(PyExc_ValueError, e.what());
+    return nullptr;
+  }
+  t3::Result r;
+  double seconds = 0;
+  std::string error;
+  bool empty = false;
+  Py_BEGIN_ALLOW_THREADS;
+  try {
+    const auto t0 = std::chrono::steady_clock::now();
+    r = t3::run(std::move(params));
+    seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
+    if (r.trace.t_ns.empty()) {
+      empty = true;
+    } else {
+      std::exception_ptr msg_err;
+      std::thread th([&] {
+        try {
+          t3::write_messages(r.messages, msg_path);
+        } catch (...) {
+          msg_err = std::current_exception();
+        }
+      });
+      try {
+        t3::write_trace(r.trace, trace_path);
+      } catch (...) {
+        th.join();
+        throw;
+      }
+      th.join();
+      if (msg_err) std::rethrow_exception(msg_err);
+    }
+  } catch (const std::exception& e) {
+    error = e.what();
+  }
+  Py_END_ALLOW_THREADS;
+  if (!error.empty()) {
+    PyErr_SetString(PyExc_RuntimeError, error.c_str());
+    return nullptr;
+  }
+  if (empty) Py_RETURN_NONE;
+  return Py_BuildValue("(nnd)", static_cast<Py_ssize_t>(r.trace.t_ns.size()),
+                       static_cast<Py_ssize_t>(r.messages.t_recv.size()), seconds);
+}
+
+// numpy_log(x: float) -> float | None : float64 np.log(x) as numpy 1.26.4 computes it on this
+// CPU (see nplog.cpp), or None when that cannot be reproduced here (caller imports numpy).
+PyObject* py_numpy_log(PyObject*, PyObject* arg) {
+  const double x = PyFloat_AsDouble(arg);
+  if (x == -1.0 && PyErr_Occurred()) return nullptr;
+  double y;
+  if (!t3::numpy_log(x, &y)) Py_RETURN_NONE;
+  return PyFloat_FromDouble(y);
+}
+
+PyObject* py_numpy_log_dispatch(PyObject*, PyObject*) {
+  return PyUnicode_FromString(t3::numpy_log_dispatch());
+}
+
 PyObject* msg_type_names(PyObject*, PyObject*) {
   PyObject* t = PyTuple_New(t3::MT_COUNT);
   if (!t) return nullptr;
@@ -198,7 +275,11 @@ PyObject* msg_type_names(PyObject*, PyObject*) {
 
 PyMethodDef methods[] = {
     {"run", py_run, METH_O, "Run one scenario natively; returns column buffers."},
+    {"run_write", py_run_write, METH_VARARGS,
+     "Run one scenario natively and write both parquet files."},
     {"msg_type_names", msg_type_names, METH_NOARGS, "Ledger msg_type names by code."},
+    {"numpy_log", py_numpy_log, METH_O, "np.log(x) for a float64, or None."},
+    {"numpy_log_dispatch", py_numpy_log_dispatch, METH_NOARGS, "svml | libm | unknown"},
     {nullptr, nullptr, 0, nullptr},
 };
 

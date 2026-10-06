@@ -128,11 +128,15 @@ def _build(scenario: dict[str, Any]) -> Optional[dict[str, Any]]:
     if not (-1e15 <= lmin <= 1e15 and -1e15 <= lmax <= 1e15 and -1e15 <= mean_ns <= 1e15):
         return None
     if mean_ns > 0:
-        # ScenarioLatencyModel: float(np.log(mean_ns)) -- numpy's log, not math.log, so the
-        # value is whatever the Python path computes on this machine.
-        import numpy as np
+        # ScenarioLatencyModel: float(np.log(mean_ns)). numpy's log is NOT libm's on AVX512
+        # CPUs (it runs Intel SVML there), so reproduce numpy's own dispatch natively
+        # (native/nplog.cpp, verified bit-exact against numpy); import numpy only when that
+        # dispatch cannot be reproduced on this CPU/environment.
+        lmu = _t3engine.numpy_log(mean_ns)
+        if lmu is None:
+            import numpy as np
 
-        lmu = float(np.log(mean_ns))
+            lmu = float(np.log(mean_ns))
     else:
         lmu = 0.0
 
@@ -218,159 +222,12 @@ def _build(scenario: dict[str, Any]) -> Optional[dict[str, Any]]:
     }
 
 
-# Schema metadata pandas' to_parquet(index=False) writes for trace.py's two frames. With no
-# index it depends only on column names and dtypes, so it is a constant per file; writing it
-# verbatim keeps the parquet output byte-identical to the pandas path (tests compare hashes).
-def _pandas_meta(cols: list[tuple[str, str, str]]) -> bytes:
-    import json
-
-    return json.dumps(
-        {
-            "index_columns": [],
-            "column_indexes": [],
-            "columns": [
-                {"name": n, "field_name": n, "pandas_type": pt, "numpy_type": nt, "metadata": None}
-                for n, pt, nt in cols
-            ],
-            "creator": {"library": "pyarrow", "version": "15.0.2"},
-            "pandas_version": "1.5.3",
-        }
-    ).encode()
-
-
-_TRACE_META = _pandas_meta(
-    [
-        ("t_ns", "int64", "int64"),
-        ("agent_id", "int32", "int32"),
-        ("msg_type", "unicode", "string"),
-        ("side", "unicode", "string"),
-        ("price", "int64", "int64"),
-        ("size", "int64", "int64"),
-        ("order_id", "int64", "int64"),
-    ]
-)
-_MSG_META = _pandas_meta(
-    [
-        ("seq", "int64", "int64"),
-        ("t_recv_ns", "int64", "int64"),
-        ("t_send_ns", "int64", "Int64"),
-        ("latency_ns", "int64", "int64"),
-        ("src_id", "int32", "int32"),
-        ("dst_id", "int32", "int32"),
-        ("message_id", "int64", "int64"),
-        ("msg_type", "unicode", "string"),
-        ("order_id", "int64", "Int64"),
-        ("causal_parent", "int64", "Int64"),
-    ]
-)
-
-
 def run_and_write(cfg: dict[str, Any], trace_path, msg_path) -> Optional[tuple[int, int, float]]:
-    """Run the engine and write both parquet files with pyarrow directly (no pandas import).
+    """Run the engine and write both parquet files from C++ (native/pqwrite.cpp: the
+    libparquet bundled in the pinned pyarrow wheel, configured as pq.write_table is, so the
+    bytes equal the pandas path's). No pyarrow/pandas import in this process.
 
     Returns ``(n_events, n_messages, engine_wall_clock_sec)``, or ``None`` -- before writing
-    anything -- if the result is a shape the Python path builds differently (empty trace).
+    anything -- if the trace is empty (the Python path builds that frame with other dtypes).
     """
-    import time
-
-    t0 = time.perf_counter()
-    out = _t3engine.run(cfg)
-    wall = time.perf_counter() - t0
-    n = len(out["t_ns"]) // 8
-    if n == 0:
-        return None
-    k = len(out["m_t_recv"]) // 8
-
-    import pyarrow as pa
-    import pyarrow.parquet as pq
-
-    buf = pa.py_buffer
-
-    def num(key: str, typ, rows: int):
-        return pa.Array.from_buffers(typ, rows, [None, buf(out[key])])
-
-    def text(key: str, rows: int):
-        return pa.Array.from_buffers(
-            pa.string(), rows, [None, buf(out[key + "_offsets"]), buf(out[key + "_data"])]
-        )
-
-    def nullable(key: str, valid: str, rows: int):
-        nulls = out[valid + "_count"]
-        return pa.Array.from_buffers(
-            pa.int64(), rows, [buf(out[valid]) if nulls else None, buf(out[key])], null_count=nulls
-        )
-
-    trace = pa.Table.from_arrays(
-        [
-            num("t_ns", pa.int64(), n),
-            num("agent_id", pa.int32(), n),
-            text("msg_type_s", n),
-            text("side_s", n),
-            num("price", pa.int64(), n),
-            num("size", pa.int64(), n),
-            num("order_id", pa.int64(), n),
-        ],
-        schema=pa.schema(
-            [
-                ("t_ns", pa.int64()),
-                ("agent_id", pa.int32()),
-                ("msg_type", pa.string()),
-                ("side", pa.string()),
-                ("price", pa.int64()),
-                ("size", pa.int64()),
-                ("order_id", pa.int64()),
-            ],
-            metadata={b"pandas": _TRACE_META},
-        ),
-    )
-    msgs = pa.Table.from_arrays(
-        [
-            num("m_seq", pa.int64(), k),
-            num("m_t_recv", pa.int64(), k),
-            nullable("m_t_send", "m_t_send_valid", k),
-            num("m_latency", pa.int64(), k),
-            num("m_src", pa.int32(), k),
-            num("m_dst", pa.int32(), k),
-            num("m_message_id", pa.int64(), k),
-            text("m_msg_type_s", k),
-            nullable("m_order_id", "m_order_id_valid", k),
-            nullable("m_causal", "m_causal_valid", k),
-        ],
-        schema=pa.schema(
-            [
-                ("seq", pa.int64()),
-                ("t_recv_ns", pa.int64()),
-                ("t_send_ns", pa.int64()),
-                ("latency_ns", pa.int64()),
-                ("src_id", pa.int32()),
-                ("dst_id", pa.int32()),
-                ("message_id", pa.int64()),
-                ("msg_type", pa.string()),
-                ("order_id", pa.int64()),
-                ("causal_parent", pa.int64()),
-            ],
-            metadata={b"pandas": _MSG_META},
-        ),
-    )
-    # pandas' to_parquet(compression="snappy") is pq.write_table(table, handle, compression=...).
-    # The two files are independent and write_table releases the GIL, so write them
-    # concurrently; each file's bytes are unaffected.
-    import threading
-
-    errors: list[BaseException] = []
-
-    def write_msgs() -> None:
-        try:
-            pq.write_table(msgs, str(msg_path), compression="snappy")
-        except BaseException as e:  # re-raised in the caller's thread
-            errors.append(e)
-
-    th = threading.Thread(target=write_msgs)
-    th.start()
-    try:
-        pq.write_table(trace, str(trace_path), compression="snappy")
-    finally:
-        th.join()
-    if errors:
-        raise errors[0]
-    return n, k, wall
+    return _t3engine.run_write(cfg, str(trace_path), str(msg_path))
