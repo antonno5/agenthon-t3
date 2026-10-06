@@ -37,8 +37,9 @@ def reset_abides_counters() -> None:
     setattr(Message, "_Message__message_id_counter", 1)
 
 
-def _run_abides(scenario: dict[str, Any]):
-    """The Python ABIDES path: returns (trace_df, message_trace_df, wall_clock_sec)."""
+def _run_abides(scenario: dict[str, Any], trace_path: pathlib.Path, msg_path: pathlib.Path):
+    """The Python ABIDES path. Writes both parquet files; returns
+    (n_events, n_messages, wall_clock_sec)."""
     from abides_core import abides
 
     from abides_fork.config import build_config
@@ -49,23 +50,23 @@ def _run_abides(scenario: dict[str, Any]):
     t0 = time.perf_counter()
     end_state = abides.run(config)
     wall_clock_sec = time.perf_counter() - t0
-    return extract_trace(end_state), extract_message_trace(end_state), wall_clock_sec
+    trace = extract_trace(end_state)
+    message_trace = extract_message_trace(end_state)
+    trace.to_parquet(trace_path, compression="snappy", index=False)
+    message_trace.to_parquet(msg_path, compression="snappy", index=False)
+    return int(len(trace)), int(len(message_trace)), wall_clock_sec
 
 
-def _run_native(scenario: dict[str, Any]):
-    """The native engine path, or None when the scenario must take the Python path."""
+def _run_native(scenario: dict[str, Any], trace_path: pathlib.Path, msg_path: pathlib.Path):
+    """The native engine path (same outputs, same return), or None -- with nothing written --
+    when the scenario must take the Python path."""
     cfg = native.build_native_config(scenario)
     if cfg is None:
         return None
-    t0 = time.perf_counter()
     try:
-        result = native.run_native(cfg)
+        return native.run_and_write(cfg, trace_path, msg_path)
     except RuntimeError:  # a state the Python reference handles differently
         return None
-    wall_clock_sec = time.perf_counter() - t0
-    if result is None:
-        return None
-    return result[0], result[1], wall_clock_sec
 
 
 def _sha256(path: pathlib.Path) -> str:
@@ -92,27 +93,23 @@ def simulate(
     if seed is not None:
         scenario = {**scenario, "seed": int(seed)}
 
-    if os.environ.get("T3_ENGINE", "native") == "python":
-        ran = None
-    else:
-        ran = _run_native(scenario)
+    out_path = pathlib.Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    # v2 companion: the message-level enriched trace for the latency/event-order/wakeup/
+    # reactive/protocol gates. Written next to trace.parquet as message_trace.parquet.
+    msg_out = out_path.parent / "message_trace.parquet"
+
+    ran = None
+    if os.environ.get("T3_ENGINE", "native") != "python":
+        ran = _run_native(scenario, out_path, msg_out)
     engine = "native" if ran is not None else "abides"
     if ran is None:
-        ran = _run_abides(scenario)
-    trace, message_trace, wall_clock_sec = ran
+        ran = _run_abides(scenario, out_path, msg_out)
+    n_events, n_messages, wall_clock_sec = ran
     if os.environ.get("T3_DEBUG"):
         print(f"engine={engine}", file=sys.stderr)
     peak_memory_bytes = _peak_rss_bytes()
 
-    out_path = pathlib.Path(out_path)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    trace.to_parquet(out_path, compression="snappy", index=False)
-    # v2 companion: the message-level enriched trace for the latency/event-order/wakeup/
-    # reactive/protocol gates. Written next to trace.parquet as message_trace.parquet.
-    msg_out = out_path.parent / "message_trace.parquet"
-    message_trace.to_parquet(msg_out, compression="snappy", index=False)
-
-    n_events = int(len(trace))
     events = {
         "scenario_id": str(scenario["scenario_id"]),
         "seed": int(scenario["seed"]),
@@ -122,7 +119,7 @@ def simulate(
         if wall_clock_sec > 0
         else 0.0,
         "trace_sha256": _sha256(out_path),
-        "n_messages": int(len(message_trace)),
+        "n_messages": n_messages,
         "message_trace_sha256": _sha256(msg_out),
         # Phase-4 secondary-diagnostic telemetry (memory-efficiency + efficiency). Self-reported like
         # wall_clock_sec, and the ranked primary metric is untouched. The awards pipeline does not

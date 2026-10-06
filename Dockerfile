@@ -100,6 +100,11 @@ RUN pip install \
 
 # Compiled ABIDES (abides_core, abides_markets) + the `simulate`/`simulate-batch` adapter.
 COPY --from=build /src/ /opt/
+# Byte-compile everything Python imports at run time. The official python:*-slim image
+# strips every .pyc (stdlib included) and this image runs with PYTHONDONTWRITEBYTECODE=1, so
+# without this each container start re-compiles enum/typing/ast/datetime/inspect/... from
+# source -- measured ~0.15 s of every run's wall clock. Output is unaffected.
+RUN python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt || true
 COPY simulate /usr/local/bin/simulate
 COPY simulate-batch /usr/local/bin/simulate-batch
 RUN chmod +x /usr/local/bin/simulate /usr/local/bin/simulate-batch

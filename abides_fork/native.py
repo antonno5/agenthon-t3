@@ -218,65 +218,141 @@ def _build(scenario: dict[str, Any]) -> Optional[dict[str, Any]]:
     }
 
 
-_TRACE_MSG_TYPES = (
-    "ORDER_SUBMITTED",
-    "ORDER_ACCEPTED",
-    "ORDER_CANCELLED",
-    "PARTIAL_FILL",
-    "ORDER_FILLED",
-    "QUOTE_UPDATE",
+# Schema metadata pandas' to_parquet(index=False) writes for trace.py's two frames. With no
+# index it depends only on column names and dtypes, so it is a constant per file; writing it
+# verbatim keeps the parquet output byte-identical to the pandas path (tests compare hashes).
+def _pandas_meta(cols: list[tuple[str, str, str]]) -> bytes:
+    import json
+
+    return json.dumps(
+        {
+            "index_columns": [],
+            "column_indexes": [],
+            "columns": [
+                {"name": n, "field_name": n, "pandas_type": pt, "numpy_type": nt, "metadata": None}
+                for n, pt, nt in cols
+            ],
+            "creator": {"library": "pyarrow", "version": "15.0.2"},
+            "pandas_version": "1.5.3",
+        }
+    ).encode()
+
+
+_TRACE_META = _pandas_meta(
+    [
+        ("t_ns", "int64", "int64"),
+        ("agent_id", "int32", "int32"),
+        ("msg_type", "unicode", "string"),
+        ("side", "unicode", "string"),
+        ("price", "int64", "int64"),
+        ("size", "int64", "int64"),
+        ("order_id", "int64", "int64"),
+    ]
 )
-_SIDES = ("BID", "ASK")
+_MSG_META = _pandas_meta(
+    [
+        ("seq", "int64", "int64"),
+        ("t_recv_ns", "int64", "int64"),
+        ("t_send_ns", "int64", "Int64"),
+        ("latency_ns", "int64", "int64"),
+        ("src_id", "int32", "int32"),
+        ("dst_id", "int32", "int32"),
+        ("message_id", "int64", "int64"),
+        ("msg_type", "unicode", "string"),
+        ("order_id", "int64", "Int64"),
+        ("causal_parent", "int64", "Int64"),
+    ]
+)
 
 
-def run_native(cfg: dict[str, Any]):
-    """Run the engine; return ``(trace_df, message_trace_df)`` with trace.py's exact dtypes,
-    or ``None`` if the result is a shape the Python path builds differently (empty trace)."""
-    import numpy as np
-    import pandas as pd
+def run_and_write(cfg: dict[str, Any], trace_path, msg_path) -> Optional[tuple[int, int, float]]:
+    """Run the engine and write both parquet files with pyarrow directly (no pandas import).
 
-    from abides_fork.trace import MESSAGE_TRACE_COLUMNS, TRACE_COLUMNS, _MSG_DTYPES, _TRACE_DTYPES
+    Returns ``(n_events, n_messages, engine_wall_clock_sec)``, or ``None`` -- before writing
+    anything -- if the result is a shape the Python path builds differently (empty trace).
+    """
+    import time
 
+    t0 = time.perf_counter()
     out = _t3engine.run(cfg)
+    wall = time.perf_counter() - t0
     n = len(out["t_ns"]) // 8
     if n == 0:
         return None
-    fb = np.frombuffer
-
-    def strings(codes: bytes, names: tuple) -> Any:
-        return pd.array(np.array(names, dtype=object)[fb(codes, dtype=np.uint8)], dtype="string")
-
-    trace = pd.DataFrame(
-        {
-            "t_ns": fb(out["t_ns"], dtype=np.int64),
-            "agent_id": fb(out["agent_id"], dtype=np.int32),
-            "msg_type": strings(out["msg_type"], _TRACE_MSG_TYPES),
-            "side": strings(out["side"], _SIDES),
-            "price": fb(out["price"], dtype=np.int64),
-            "size": fb(out["size"], dtype=np.int64),
-            "order_id": fb(out["order_id"], dtype=np.int64),
-        }
-    )[TRACE_COLUMNS].astype(_TRACE_DTYPES)
-
     k = len(out["m_t_recv"]) // 8
 
-    def nullable(values: bytes, nulls: bytes) -> Any:
-        return pd.arrays.IntegerArray(
-            fb(values, dtype=np.int64).copy(), fb(nulls, dtype=np.uint8).astype(bool)
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    buf = pa.py_buffer
+
+    def num(key: str, typ, rows: int):
+        return pa.Array.from_buffers(typ, rows, [None, buf(out[key])])
+
+    def text(key: str, rows: int):
+        return pa.Array.from_buffers(
+            pa.string(), rows, [None, buf(out[key + "_offsets"]), buf(out[key + "_data"])]
         )
 
-    msg = pd.DataFrame(
-        {
-            "seq": np.arange(k, dtype=np.int64),
-            "t_recv_ns": fb(out["m_t_recv"], dtype=np.int64),
-            "t_send_ns": nullable(out["m_t_send"], out["m_t_send_null"]),
-            "latency_ns": fb(out["m_latency"], dtype=np.int64),
-            "src_id": fb(out["m_src"], dtype=np.int32),
-            "dst_id": fb(out["m_dst"], dtype=np.int32),
-            "message_id": fb(out["m_message_id"], dtype=np.int64),
-            "msg_type": strings(out["m_msg_type"], _t3engine.msg_type_names()),
-            "order_id": nullable(out["m_order_id"], out["m_order_id_null"]),
-            "causal_parent": nullable(out["m_causal"], out["m_causal_null"]),
-        }
-    ).astype(_MSG_DTYPES)[MESSAGE_TRACE_COLUMNS]
-    return trace, msg
+    def nullable(key: str, valid: str, rows: int):
+        nulls = out[valid + "_count"]
+        return pa.Array.from_buffers(
+            pa.int64(), rows, [buf(out[valid]) if nulls else None, buf(out[key])], null_count=nulls
+        )
+
+    trace = pa.Table.from_arrays(
+        [
+            num("t_ns", pa.int64(), n),
+            num("agent_id", pa.int32(), n),
+            text("msg_type_s", n),
+            text("side_s", n),
+            num("price", pa.int64(), n),
+            num("size", pa.int64(), n),
+            num("order_id", pa.int64(), n),
+        ],
+        schema=pa.schema(
+            [
+                ("t_ns", pa.int64()),
+                ("agent_id", pa.int32()),
+                ("msg_type", pa.string()),
+                ("side", pa.string()),
+                ("price", pa.int64()),
+                ("size", pa.int64()),
+                ("order_id", pa.int64()),
+            ],
+            metadata={b"pandas": _TRACE_META},
+        ),
+    )
+    msgs = pa.Table.from_arrays(
+        [
+            num("m_seq", pa.int64(), k),
+            num("m_t_recv", pa.int64(), k),
+            nullable("m_t_send", "m_t_send_valid", k),
+            num("m_latency", pa.int64(), k),
+            num("m_src", pa.int32(), k),
+            num("m_dst", pa.int32(), k),
+            num("m_message_id", pa.int64(), k),
+            text("m_msg_type_s", k),
+            nullable("m_order_id", "m_order_id_valid", k),
+            nullable("m_causal", "m_causal_valid", k),
+        ],
+        schema=pa.schema(
+            [
+                ("seq", pa.int64()),
+                ("t_recv_ns", pa.int64()),
+                ("t_send_ns", pa.int64()),
+                ("latency_ns", pa.int64()),
+                ("src_id", pa.int32()),
+                ("dst_id", pa.int32()),
+                ("message_id", pa.int64()),
+                ("msg_type", pa.string()),
+                ("order_id", pa.int64()),
+                ("causal_parent", pa.int64()),
+            ],
+            metadata={b"pandas": _MSG_META},
+        ),
+    )
+    # pandas' to_parquet(compression="snappy") is pq.write_table(table, handle, compression=...)
+    pq.write_table(trace, str(trace_path), compression="snappy")
+    pq.write_table(msgs, str(msg_path), compression="snappy")
+    return n, k, wall

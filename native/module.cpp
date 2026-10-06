@@ -101,6 +101,51 @@ int put(PyObject* out, const char* key, const std::vector<T>& v) {
   return rc;
 }
 
+// Arrow utf8 layout for a code column: int32 offsets (n + 1) + concatenated bytes.
+int put_strings(PyObject* out, const char* key, const std::vector<uint8_t>& codes,
+                const char* const* names) {
+  std::vector<int32_t> offsets(codes.size() + 1);
+  std::string data;
+  offsets[0] = 0;
+  for (size_t i = 0; i < codes.size(); i++) {
+    data += names[codes[i]];
+    offsets[i + 1] = static_cast<int32_t>(data.size());
+  }
+  std::string ko = std::string(key) + "_offsets", kd = std::string(key) + "_data";
+  if (put(out, ko.c_str(), offsets)) return -1;
+  std::vector<char> d(data.begin(), data.end());
+  return put(out, kd.c_str(), d);
+}
+
+// Arrow validity bitmap (LSB first, 1 = valid) from per-row null flags.
+int put_validity(PyObject* out, const char* key, const std::vector<uint8_t>& nulls) {
+  std::vector<uint8_t> bm((nulls.size() + 7) / 8, 0);
+  int64_t null_count = 0;
+  for (size_t i = 0; i < nulls.size(); i++) {
+    if (nulls[i])
+      null_count++;
+    else
+      bm[i >> 3] |= static_cast<uint8_t>(1u << (i & 7));
+  }
+  if (put(out, key, bm)) return -1;
+  std::string kc = std::string(key) + "_count";
+  PyObject* c = PyLong_FromLongLong(null_count);
+  if (!c) return -1;
+  const int rc = PyDict_SetItemString(out, kc.c_str(), c);
+  Py_DECREF(c);
+  return rc;
+}
+
+std::vector<int64_t> iota64(size_t n) {
+  std::vector<int64_t> v(n);
+  for (size_t i = 0; i < n; i++) v[i] = static_cast<int64_t>(i);
+  return v;
+}
+
+const char* const kTraceMsgTypes[] = {"ORDER_SUBMITTED", "ORDER_ACCEPTED", "ORDER_CANCELLED",
+                                      "PARTIAL_FILL",    "ORDER_FILLED",   "QUOTE_UPDATE"};
+const char* const kSides[] = {"BID", "ASK"};
+
 PyObject* py_run(PyObject*, PyObject* cfg) {
   t3::Params params;
   try {
@@ -129,7 +174,14 @@ PyObject* py_run(PyObject*, PyObject* cfg) {
       put(out, "m_dst", m.dst) || put(out, "m_message_id", m.message_id) ||
       put(out, "m_msg_type", m.msg_type) || put(out, "m_order_id", m.order_id) ||
       put(out, "m_order_id_null", m.order_id_null) ||
-      put(out, "m_causal", m.causal_parent) || put(out, "m_causal_null", m.causal_null)) {
+      put(out, "m_causal", m.causal_parent) || put(out, "m_causal_null", m.causal_null) ||
+      put(out, "m_seq", iota64(m.t_recv.size())) ||
+      put_strings(out, "msg_type_s", t.msg_type, kTraceMsgTypes) ||
+      put_strings(out, "side_s", t.side, kSides) ||
+      put_strings(out, "m_msg_type_s", m.msg_type, t3::kMsgTypeNames) ||
+      put_validity(out, "m_t_send_valid", m.t_send_null) ||
+      put_validity(out, "m_order_id_valid", m.order_id_null) ||
+      put_validity(out, "m_causal_valid", m.causal_null)) {
     Py_DECREF(out);
     return nullptr;
   }
