@@ -12,3 +12,5 @@ submission*.json
 __pycache__/
 *.py[cod]
 run_outputs/
+out/
+.DS_Store

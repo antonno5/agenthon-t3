@@ -2,6 +2,10 @@ name: Publish Docker image
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
+      - 'codex/publish-*'
 
 permissions:
   contents: read
@@ -36,6 +40,9 @@ jobs:
             --label "org.opencontainers.image.revision=$GITHUB_SHA" \
             --label 'qfbench2.interface_version=2.0' \
             --tag "$IMAGE:sha-$GITHUB_SHA" .
+
+      - name: Verify measured runtime without running scenarios
+        run: python3 scripts/verify-image.py "$IMAGE:sha-$GITHUB_SHA"
 
       - name: Authenticate to GHCR
         env:

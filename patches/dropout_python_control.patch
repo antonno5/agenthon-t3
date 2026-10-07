@@ -1,0 +1,34 @@
+--- a/abides-markets/abides_markets/agents/exchange_agent.py
++++ b/abides-markets/abides_markets/agents/exchange_agent.py
+@@ -913,28 +913,9 @@
+         df = pd.DataFrame(book)
+ 
+         total_time = df["QuoteTime"].iloc[-1] - df["QuoteTime"].iloc[0]
+-        is_null_bids = False
+-        t_null_bids_first = 0
+-        T_null_bids = 0
+-
+-        is_null_asks = False
+-        t_null_asks_first = 0
+-        T_null_asks = 0
+-
+-        for _, row in df.iterrows():
+-            if (len(row["bids"]) == 0) & (is_null_bids == False):
+-                t_null_bids_first = row["QuoteTime"]
+-                is_null_bids = True
+-            elif (len(row["bids"]) != 0) & (is_null_bids == True):
+-                T_null_bids += row["QuoteTime"] - t_null_bids_first
+-                is_null_bids = False
+-
+-            if (len(row["asks"]) == 0) & (is_null_asks == False):
+-                t_null_asks_first = row["QuoteTime"]
+-                is_null_asks = True
+-            elif (len(row["asks"]) != 0) & (is_null_asks == True):
+-                T_null_asks += row["QuoteTime"] - t_null_asks_first
+-                is_null_asks = False
++        from _abides_python_control import dropout_totals
++
++        T_null_bids, T_null_asks = dropout_totals(book)
+ 
+         self.metric_trackers[symbol] = self.MetricTracker(
+             total_time_no_liquidity_asks=T_null_asks / 1e9,

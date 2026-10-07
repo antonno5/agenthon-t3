@@ -1,0 +1,63 @@
+{
+  "source_repository": "https://github.com/Agenthon-2026/track3-simulation-public",
+  "source_commit": "1c6e78bf36543b2b54221a32680e86b23c3481dd",
+  "measured_source_commit": "7d9f92d4f218d2f181b51f4f99f99ff240267ded",
+  "source_image": "ghcr.io/proooooogiba/track3-simulator@sha256:484ef5d44a7b71da3f2e67af21c2c8744510467648aaedf17aa083186e1dc886",
+  "original_zip_sha256": "33ebc545f43e9cb6e21d64f1c1b5d096dbb3769b0805cba7ede03d8324ab1c05",
+  "original_build_ingredients": {
+    ".dockerignore": "a42cf13cab2ceb3d170324395efa0afa92cc503dee088524ec19e73f825fd78d",
+    "Dockerfile": "72aa044c9136fc3b840705322846c7f4f077b4431e1bea61accc29aa6f21b6d2",
+    "_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
+    "abides_fork/__init__.py": "96d421f1362c88d0ef084bd028c82192c05be383dfc4e33d2cae36348471004f",
+    "abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+    "abides_fork/buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+    "abides_fork/components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+    "abides_fork/config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+    "abides_fork/scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+    "abides_fork/simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+    "abides_fork/simulate_batch.py": "c3d9702751045fa904c16425a1de564834c13d1f8c05ec47cd6cd830b98ac9b2",
+    "abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+    "install_matching.py": "9a121604ce1ca4979e2d9612d522b06189f7b4bc99e80079b5b76ed1464f8fd6",
+    "matching/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "matching/__init__.py": "8daee28af9e91675b7abc70df84cf482f7c9edad0b7729770ef5f42a11fee91c",
+    "matching/facade.py": "fa509927ce37278c8bab7cb32d1100c21112878377f7221cd548209e0c682a35",
+    "matching/matcher.py": "ec1dc581710ca0b21d124d517654ab1f80d2cade3a7bcc4da5288005dad3e279",
+    "matching/overlay_manifest.json": "726913e355f3a3540d9d71bef41110fc5ad83b05b6dfe9e16a521d6f101e1e6e",
+    "matching/price_level.py": "643927e00ef3c5bc658ef476a548bebefc03157b6268cc7ccf4a9f0328422809",
+    "matching/queries.py": "53692facde40a8bf5823b8dea304ace987c52576c92c77f4e466152cad117a1a",
+    "matching/state.py": "615bcd4357f744f77fe7844f3dc648ee4e110097005a65540baa6c806f5c3f90",
+    "matching_compat/order_book.py": "563e8e0244fb0efdcfd7fa6a94419b85f07b5bbeaa3b4772106d5e66b27176dc",
+    "matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
+    "patches/debug_logging.patch": "cb3d2cc3ab930e2934241794f193474c92f225b4923f88900c5296ec12e9f380",
+    "patches/dropout_python_control.patch": "b61fdce1b713e008b5959fde4ec69a887389b7da58ae7b05708e31f18cb66fea",
+    "patches/exchange_protocol_stp.patch": "e871267030cbba86884abb401b2a5ae8c51594c36b96b023a28665e682926a07",
+    "patches/kernel_message_ledger.patch": "65365bb54044833060b218c4d3ece0ddc23cf7fa5d6746faaaa2ab9405213e2c",
+    "patches/lazy_distance_import.patch": "53259a8278f694f6fb375f6559d0df9af31dcd290ad8493804f8678c64fb6940",
+    "patches/oracle_scheduled_jump.patch": "e3f50b265f6ecfee7a3068b122c4de99be8da139db5672dd4b516df5db1cc0b8",
+    "patches/order_size_model.pomegranate-free.patch": "ae9627813ce1f6a066f5eb2b66f49cea70475412626df5d48f8d10ab365ad0a1",
+    "simulate": "9aecf72dbc3c8c138fc2b03247c7bbcb05aaca430f07f93dbc6639252a5f6b1b",
+    "simulate-batch": "7a56826516e69c5e44e51b36d168f2cac2c466c87bad3a5b0ec6f3eafacd2ccf"
+  },
+  "validation": {
+    "passed_units": [
+      "t3-s001-price-time-priority",
+      "t3-mp01-stp-newest-baseline",
+      "t3-mp02-stp-oldest-baseline",
+      "t3-gbatch-homog-4",
+      "t3-mr-deep-book-state-size",
+      "t3-mp05-cancel-churn-newest"
+    ],
+    "passed": 6,
+    "total_public_units": 71,
+    "new_unit_runs": 0,
+    "full_sweep": "skipped_by_explicit_user_instruction",
+    "rankable": false,
+    "all_71_runtime_verified": false
+  },
+  "publication_build_changes": {
+    "base_image_pinned_to_measured_digest": "sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce",
+    "all_python_dependencies_pinned_to_measured_versions": true,
+    "runtime_sources_changed": false,
+    "scenario_runs_added": 0
+  }
+}

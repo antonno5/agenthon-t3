@@ -1,0 +1,926 @@
+--- a/abides-core/abides_core/agent.py
++++ b/abides-core/abides_core/agent.py
+@@ -90,7 +90,8 @@
+ 
+         self.kernel = kernel
+ 
+-        logger.debug("{} exists!".format(self.name))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("{} exists!".format(self.name))
+ 
+     def kernel_starting(self, start_time: NanosecondTime) -> None:
+         """
+@@ -108,11 +109,12 @@
+ 
+         assert self.kernel is not None
+ 
+-        logger.debug(
+-            "Agent {} ({}) requesting kernel wakeup at time {}".format(
+-                self.id, self.name, fmt_ts(start_time)
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Agent {} ({}) requesting kernel wakeup at time {}".format(
++                    self.id, self.name, fmt_ts(start_time)
++                )
+             )
+-        )
+ 
+         self.set_wakeup(start_time)
+ 
+--- a/abides-core/abides_core/kernel.py
++++ b/abides-core/abides_core/kernel.py
+@@ -105,7 +105,8 @@
+             len(self.gym_agents) <= 1
+         ), "ABIDES-gym currently only supports using one gym agent"
+ 
+-        logger.debug(f"Detected {len(self.gym_agents)} ABIDES-gym agents")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Detected {len(self.gym_agents)} ABIDES-gym agents")
+ 
+         # Simulation custom state in a freeform dictionary.  Allows config files
+         # that drive multiple simulations, or require the ability to generate
+@@ -197,7 +198,8 @@
+ 
+         self.show_trace_messages: bool = False
+ 
+-        logger.debug(f"Kernel initialized")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Kernel initialized")
+ 
+     def run(self) -> Dict[str, Any]:
+         """
+@@ -266,15 +268,17 @@
+         self.current_time = self.start_time
+ 
+         logger.debug("--- Kernel Clock started ---")
+-        logger.debug("Kernel.current_time is now {}".format(fmt_ts(self.current_time)))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("Kernel.current_time is now {}".format(fmt_ts(self.current_time)))
+ 
+         # Start processing the Event Queue.
+         logger.debug("--- Kernel Event Queue begins ---")
+-        logger.debug(
+-            "Kernel will start processing messages. Queue length: {}".format(
+-                len(self.messages.queue)
+-            )
+-        )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Kernel will start processing messages. Queue length: {}".format(
++                    len(self.messages.queue)
++                )
++            )
+ 
+         # Track starting wall clock time and total message count for stats at the end.
+         self.event_queue_wall_clock_start = datetime.now()
+@@ -330,11 +334,12 @@
+ 
+             if self.show_trace_messages:
+                 logger.debug("--- Kernel Event Queue pop ---")
+-                logger.debug(
+-                    "Kernel handling {} message for agent {} at time {}".format(
+-                        message.type(), recipient_id, self.current_time
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "Kernel handling {} message for agent {} at time {}".format(
++                            message.type(), recipient_id, self.current_time
++                        )
++                    )
+ 
+             self.ttl_messages += 1
+ 
+@@ -354,13 +359,14 @@
+                         )
+                     )
+                     if self.show_trace_messages:
+-                        logger.debug(
+-                            "After wakeup return, agent {} delayed from {} to {}".format(
+-                                recipient_id,
+-                                fmt_ts(self.current_time),
+-                                fmt_ts(self.agent_current_times[recipient_id]),
++                        if logger.isEnabledFor(logging.DEBUG):
++                            logger.debug(
++                                "After wakeup return, agent {} delayed from {} to {}".format(
++                                    recipient_id,
++                                    fmt_ts(self.current_time),
++                                    fmt_ts(self.agent_current_times[recipient_id]),
++                                )
+                             )
+-                        )
+                     continue
+ 
+                 # Set agent's current time to global current time for start
+@@ -389,13 +395,14 @@
+                 )
+ 
+                 if self.show_trace_messages:
+-                    logger.debug(
+-                        "After wakeup return, agent {} delayed from {} to {}".format(
+-                            recipient_id,
+-                            fmt_ts(self.current_time),
+-                            fmt_ts(self.agent_current_times[recipient_id]),
++                    if logger.isEnabledFor(logging.DEBUG):
++                        logger.debug(
++                            "After wakeup return, agent {} delayed from {} to {}".format(
++                                recipient_id,
++                                fmt_ts(self.current_time),
++                                fmt_ts(self.agent_current_times[recipient_id]),
++                            )
+                         )
+-                    )
+                 # catch kernel interruption signal and return wakeup_result which is the raw state from gym agent
+                 if wakeup_result != None:
+                     return {"done": False, "result": wakeup_result}
+@@ -411,11 +418,12 @@
+                         )
+                     )
+                     if self.show_trace_messages:
+-                        logger.debug(
+-                            "Agent in future: message requeued for {}".format(
+-                                fmt_ts(self.agent_current_times[recipient_id])
++                        if logger.isEnabledFor(logging.DEBUG):
++                            logger.debug(
++                                "Agent in future: message requeued for {}".format(
++                                    fmt_ts(self.agent_current_times[recipient_id])
++                                )
+                             )
+-                        )
+                     continue
+ 
+                 # Set agent's current time to global current time for start
+@@ -436,13 +444,14 @@
+                     )
+ 
+                     if self.show_trace_messages:
+-                        logger.debug(
+-                            "After receive_message return, agent {} delayed from {} to {}".format(
+-                                recipient_id,
+-                                fmt_ts(self.current_time),
+-                                fmt_ts(self.agent_current_times[recipient_id]),
++                        if logger.isEnabledFor(logging.DEBUG):
++                            logger.debug(
++                                "After receive_message return, agent {} delayed from {} to {}".format(
++                                    recipient_id,
++                                    fmt_ts(self.current_time),
++                                    fmt_ts(self.agent_current_times[recipient_id]),
++                                )
+                             )
+-                        )
+ 
+                     # --- Track-3 v2 instrumentation: delivery order + causal parent ---
+                     # This message becomes the causal parent of anything the agent sends
+@@ -613,16 +622,17 @@
+             )
+             deliver_at = sent_time + int(latency)
+             if self.show_trace_messages:
+-                logger.debug(
+-                    "Kernel applied latency {}, accumulated delay {}, one-time delay {} on send_message from: {} to {}, scheduled for {}".format(
+-                        latency,
+-                        self.current_agent_additional_delay,
+-                        delay,
+-                        self.agents[sender_id].name,
+-                        self.agents[recipient_id].name,
+-                        fmt_ts(deliver_at),
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "Kernel applied latency {}, accumulated delay {}, one-time delay {} on send_message from: {} to {}, scheduled for {}".format(
++                            latency,
++                            self.current_agent_additional_delay,
++                            delay,
++                            self.agents[sender_id].name,
++                            self.agents[recipient_id].name,
++                            fmt_ts(deliver_at),
++                        )
++                    )
+         else:
+             latency = self.agent_latency[sender_id][recipient_id]
+             noise = self.random_state.choice(
+@@ -630,17 +640,18 @@
+             )
+             deliver_at = sent_time + int(latency + noise)
+             if self.show_trace_messages:
+-                logger.debug(
+-                    "Kernel applied latency {}, noise {}, accumulated delay {}, one-time delay {} on send_message from: {} to {}, scheduled for {}".format(
+-                        latency,
+-                        noise,
+-                        self.current_agent_additional_delay,
+-                        delay,
+-                        self.agents[sender_id].name,
+-                        self.agents[recipient_id].name,
+-                        fmt_ts(deliver_at),
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "Kernel applied latency {}, noise {}, accumulated delay {}, one-time delay {} on send_message from: {} to {}, scheduled for {}".format(
++                            latency,
++                            noise,
++                            self.current_agent_additional_delay,
++                            delay,
++                            self.agents[sender_id].name,
++                            self.agents[recipient_id].name,
++                            fmt_ts(deliver_at),
++                        )
++                    )
+ 
+         # Finally drop the message in the queue with priority == delivery time.
+         self.messages.put((deliver_at, (sender_id, recipient_id, message)))
+@@ -661,14 +672,16 @@
+             )
+ 
+         if self.show_trace_messages:
+-            logger.debug(
+-                "Sent time: {}, current time {}, computation delay {}".format(
+-                    sent_time,
+-                    fmt_ts(self.current_time),
+-                    self.agent_computation_delays[sender_id],
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "Sent time: {}, current time {}, computation delay {}".format(
++                        sent_time,
++                        fmt_ts(self.current_time),
++                        self.agent_computation_delays[sender_id],
++                    )
+                 )
+-            )
+-            logger.debug("Message queued: {}".format(message))
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug("Message queued: {}".format(message))
+ 
+     def set_wakeup(
+         self, sender_id: int, requested_time: Optional[NanosecondTime] = None
+@@ -699,11 +712,12 @@
+             )
+ 
+         if self.show_trace_messages:
+-            logger.debug(
+-                "Kernel adding wakeup for agent {} at time {}".format(
+-                    sender_id, fmt_ts(requested_time)
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "Kernel adding wakeup for agent {} at time {}".format(
++                        sender_id, fmt_ts(requested_time)
++                    )
+                 )
+-            )
+ 
+         self.messages.put((requested_time, (sender_id, sender_id, WakeupMsg())))
+ 
+--- a/abides-markets/abides_markets/agents/exchange_agent.py
++++ b/abides-markets/abides_markets/agents/exchange_agent.py
+@@ -240,13 +240,15 @@
+                 self.order_books[symbol].last_trade = self.oracle.get_daily_open_price(
+                     symbol, self.mkt_open
+                 )
+-                logger.debug(
+-                    "Opening price for {} is {}".format(
+-                        symbol, self.order_books[symbol].last_trade
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "Opening price for {} is {}".format(
++                            symbol, self.order_books[symbol].last_trade
++                        )
++                    )
+             except AttributeError as e:
+-                logger.debug(str(e))
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(str(e))
+ 
+         # Set a wakeup for the market close so we can send market close price messages.
+         self.set_wakeup(self.mkt_close)
+@@ -335,20 +337,22 @@
+             # for final trade prices or such.
+             if isinstance(message, OrderMsg):
+                 if isinstance(message, ModifyOrderMsg):
+-                    logger.debug(
+-                        "{} received {}: OLD: {} NEW: {}".format(
+-                            self.name,
+-                            message.type(),
+-                            message.old_order,
+-                            message.new_order,
+-                        )
+-                    )
++                    if logger.isEnabledFor(logging.DEBUG):
++                        logger.debug(
++                            "{} received {}: OLD: {} NEW: {}".format(
++                                self.name,
++                                message.type(),
++                                message.old_order,
++                                message.new_order,
++                            )
++                        )
+                 else:
+-                    logger.debug(
+-                        "{} received {}: {}".format(
+-                            self.name, message.type(), message.order
+-                        )
+-                    )
++                    if logger.isEnabledFor(logging.DEBUG):
++                        logger.debug(
++                            "{} received {}: {}".format(
++                                self.name, message.type(), message.order
++                            )
++                        )
+ 
+                 self.send_message(sender_id, MarketClosedMsg())
+ 
+@@ -359,11 +363,12 @@
+                 # final trade of the day as their "daily close" price for a symbol.
+                 pass
+             else:
+-                logger.debug(
+-                    "{} received {}, discarded: market is closed.".format(
+-                        self.name, message.type()
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received {}, discarded: market is closed.".format(
++                            self.name, message.type()
++                        )
++                    )
+                 self.send_message(sender_id, MarketClosedMsg())
+ 
+                 # Don't do any further processing on these messages!
+@@ -391,11 +396,12 @@
+                 return
+ 
+             if message.cancel == True:
+-                logger.debug(
+-                    "{} received MarketDataSubscriptionCancellation request from agent {}".format(
+-                        self.name, sender_id
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received MarketDataSubscriptionCancellation request from agent {}".format(
++                            self.name, sender_id
++                        )
++                    )
+ 
+                 for data_sub in self.data_subscriptions[message.symbol]:
+                     if (
+@@ -407,11 +413,12 @@
+                         self.data_subscriptions[message.symbol].remove(data_sub)
+ 
+             else:
+-                logger.debug(
+-                    "{} received MarketDataSubscriptionRequest request from agent {}".format(
+-                        self.name, sender_id
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received MarketDataSubscriptionRequest request from agent {}".format(
++                            self.name, sender_id
++                        )
++                    )
+ 
+                 if isinstance(message, L1SubReqMsg):
+                     sub: self.BaseDataSubscription = self.L1DataSubscription(
+@@ -439,11 +446,12 @@
+                 self.data_subscriptions[message.symbol].append(sub)
+ 
+         if isinstance(message, MarketHoursRequestMsg):
+-            logger.debug(
+-                "{} received market hours request from agent {}".format(
+-                    self.name, sender_id
+-                )
+-            )
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "{} received market hours request from agent {}".format(
++                        self.name, sender_id
++                    )
++                )
+ 
+             # The exchange is permitted to respond to requests for simple
+             # immutable data (like "what are your hours?") instantly. This does
+@@ -462,11 +470,12 @@
+             if symbol not in self.order_books:
+                 warnings.warn(f"Last trade request discarded. Unknown symbol: {symbol}")
+             else:
+-                logger.debug(
+-                    "{} received QUERY_LAST_TRADE ({}) request from agent {}".format(
+-                        self.name, symbol, sender_id
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received QUERY_LAST_TRADE ({}) request from agent {}".format(
++                            self.name, symbol, sender_id
++                        )
++                    )
+ 
+                 # Return the single last executed trade price (currently not
+                 # volume) for the requested symbol. This will return the average
+@@ -489,11 +498,12 @@
+                     f"Bid-ask spread request discarded. Unknown symbol: {symbol}"
+                 )
+             else:
+-                logger.debug(
+-                    "{} received QUERY_SPREAD ({}:{}) request from agent {}".format(
+-                        self.name, symbol, depth, sender_id
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received QUERY_SPREAD ({}:{}) request from agent {}".format(
++                            self.name, symbol, depth, sender_id
++                        )
++                    )
+ 
+                 # Return the requested depth on both sides of the order book for
+                 # the requested symbol. Returns price levels and aggregated
+@@ -525,11 +535,12 @@
+                     f"Order stream request discarded. Unknown symbol: {symbol}"
+                 )
+             else:
+-                logger.debug(
+-                    "{} received QUERY_ORDER_STREAM ({}:{}) request from agent {}".format(
+-                        self.name, symbol, length, sender_id
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received QUERY_ORDER_STREAM ({}:{}) request from agent {}".format(
++                            self.name, symbol, length, sender_id
++                        )
++                    )
+ 
+             # We return indices [1:length] inclusive because the agent will want
+             # "orders leading up to the last L trades", and the items under
+@@ -553,11 +564,12 @@
+                     f"Order stream request discarded. Unknown symbol: {symbol}"
+                 )
+             else:
+-                logger.debug(
+-                    "{} received QUERY_TRANSACTED_VOLUME ({}:{}) request from agent {}".format(
+-                        self.name, symbol, lookback_period, sender_id
+-                    )
+-                )
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "{} received QUERY_TRANSACTED_VOLUME ({}:{}) request from agent {}".format(
++                            self.name, symbol, lookback_period, sender_id
++                        )
++                    )
+ 
+             bid_volume, ask_volume = self.order_books[symbol].get_transacted_volume(
+                 lookback_period
+@@ -574,7 +586,8 @@
+             )
+ 
+         elif isinstance(message, LimitOrderMsg):
+-            logger.debug("{} received LIMIT_ORDER: {}".format(self.name, message.order))
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug("{} received LIMIT_ORDER: {}".format(self.name, message.order))
+ 
+             if message.order.symbol not in self.order_books:
+                 warnings.warn(
+@@ -588,9 +601,10 @@
+                 self.publish_order_book_data()
+ 
+         elif isinstance(message, MarketOrderMsg):
+-            logger.debug(
+-                "{} received MARKET_ORDER: {}".format(self.name, message.order)
+-            )
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "{} received MARKET_ORDER: {}".format(self.name, message.order)
++                )
+ 
+             if message.order.symbol not in self.order_books:
+                 warnings.warn(
+@@ -607,9 +621,10 @@
+             tag = message.tag
+             metadata = message.metadata
+ 
+-            logger.debug(
+-                "{} received CANCEL_ORDER: {}".format(self.name, message.order)
+-            )
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "{} received CANCEL_ORDER: {}".format(self.name, message.order)
++                )
+ 
+             if message.order.symbol not in self.order_books:
+                 warnings.warn(
+@@ -626,11 +641,12 @@
+             tag = message.tag
+             metadata = message.metadata
+ 
+-            logger.debug(
+-                "{} received PARTIAL_CANCEL_ORDER: {}, new order: {}".format(
+-                    self.name, message.order, message.quantity
+-                )
+-            )
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "{} received PARTIAL_CANCEL_ORDER: {}, new order: {}".format(
++                        self.name, message.order, message.quantity
++                    )
++                )
+ 
+             if message.order.symbol not in self.order_books:
+                 warnings.warn(
+@@ -646,11 +662,12 @@
+             old_order = message.old_order
+             new_order = message.new_order
+ 
+-            logger.debug(
+-                "{} received MODIFY_ORDER: {}, new order: {}".format(
+-                    self.name, old_order, new_order
+-                )
+-            )
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "{} received MODIFY_ORDER: {}, new order: {}".format(
++                        self.name, old_order, new_order
++                    )
++                )
+ 
+             if old_order.symbol not in self.order_books:
+                 warnings.warn(
+@@ -667,11 +684,12 @@
+             order = message.old_order
+             new_order = message.new_order
+ 
+-            logger.debug(
+-                "{} received REPLACE_ORDER: {}, new order: {}".format(
+-                    self.name, order, new_order
+-                )
+-            )
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "{} received REPLACE_ORDER: {}, new order: {}".format(
++                        self.name, order, new_order
++                    )
++                )
+ 
+             if order.symbol not in self.order_books:
+                 warnings.warn(
+--- a/abides-markets/abides_markets/agents/trading_agent.py
++++ b/abides-markets/abides_markets/agents/trading_agent.py
+@@ -165,9 +165,10 @@
+         # to exist by now (if there is one).
+         self.exchange_id: int = self.kernel.find_agents_by_type(ExchangeAgent)[0]
+ 
+-        logger.debug(
+-            f"Agent {self.id} requested agent of type Agent.ExchangeAgent.  Given Agent ID: {self.exchange_id}"
+-        )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                f"Agent {self.id} requested agent of type Agent.ExchangeAgent.  Given Agent ID: {self.exchange_id}"
++            )
+ 
+         # Request a wake-up call as in the base Agent.
+         super().kernel_starting(start_time)
+@@ -188,11 +189,12 @@
+         cash = self.mark_to_market(self.holdings)
+ 
+         self.logEvent("ENDING_CASH", cash, True)
+-        logger.debug(
+-            "Final holdings for {}: {}. Marked to market: {}".format(
+-                self.name, self.fmt_holdings(self.holdings), cash
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Final holdings for {}: {}. Marked to market: {}".format(
++                    self.name, self.fmt_holdings(self.holdings), cash
++                )
+             )
+-        )
+ 
+         # Record final results for presentation/debugging.  This is an ugly way
+         # to do this, but it is useful for now.
+@@ -287,8 +289,10 @@
+             self.mkt_open = message.mkt_open
+             self.mkt_close = message.mkt_close
+ 
+-            logger.debug("Recorded market open: {}".format(fmt_ts(self.mkt_open)))
+-            logger.debug("Recorded market close: {}".format(fmt_ts(self.mkt_close)))
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug("Recorded market open: {}".format(fmt_ts(self.mkt_open)))
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug("Recorded market close: {}".format(fmt_ts(self.mkt_close)))
+ 
+         elif isinstance(message, MarketClosePriceMsg):
+             # Update our local last trade prices with the accurate last trade prices from
+@@ -494,11 +498,12 @@
+                 new_at_risk = self.mark_to_market(new_holdings) - new_holdings["CASH"]
+ 
+                 if (new_at_risk > at_risk) and (new_at_risk > self.starting_cash):
+-                    logger.debug(
+-                        "TradingAgent ignored limit order due to at-risk constraints: {}\n{}".format(
+-                            order, self.fmt_holdings(self.holdings)
++                    if logger.isEnabledFor(logging.DEBUG):
++                        logger.debug(
++                            "TradingAgent ignored limit order due to at-risk constraints: {}\n{}".format(
++                                order, self.fmt_holdings(self.holdings)
++                            )
+                         )
+-                    )
+                     return
+ 
+             return order
+@@ -602,11 +607,12 @@
+                 new_at_risk = self.mark_to_market(new_holdings) - new_holdings["CASH"]
+ 
+                 if (new_at_risk > at_risk) and (new_at_risk > self.starting_cash):
+-                    logger.debug(
+-                        "TradingAgent ignored market order due to at-risk constraints: {}\n{}".format(
+-                            order, self.fmt_holdings(self.holdings)
++                    if logger.isEnabledFor(logging.DEBUG):
++                        logger.debug(
++                            "TradingAgent ignored market order due to at-risk constraints: {}\n{}".format(
++                                order, self.fmt_holdings(self.holdings)
++                            )
+                         )
+-                    )
+                     return
+             self.orders[order.order_id] = deepcopy(order)
+             self.send_message(self.exchange_id, MarketOrderMsg(order))
+@@ -754,7 +760,8 @@
+             order: The order that has been executed by the exchange.
+         """
+ 
+-        logger.debug(f"Received notification of execution for: {order}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Received notification of execution for: {order}")
+ 
+         if self.log_orders:
+             self.logEvent("ORDER_EXECUTED", order.to_dict(), deepcopy_event=False)
+@@ -789,7 +796,8 @@
+         else:
+             warnings.warn(f"Execution received for order not in orders list: {order}")
+ 
+-        logger.debug(f"After order execution, agent open orders: {self.orders}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"After order execution, agent open orders: {self.orders}")
+ 
+         self.logEvent("HOLDINGS_UPDATED", self.holdings)
+ 
+@@ -803,7 +811,8 @@
+             order: The order that has been accepted from the exchange.
+         """
+ 
+-        logger.debug(f"Received notification of acceptance for: {order}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Received notification of acceptance for: {order}")
+ 
+         if self.log_orders:
+             self.logEvent("ORDER_ACCEPTED", order.to_dict(), deepcopy_event=False)
+@@ -821,7 +830,8 @@
+             order: The order that has been cancelled by the exchange.
+         """
+ 
+-        logger.debug(f"Received notification of cancellation for: {order}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Received notification of cancellation for: {order}")
+ 
+         if self.log_orders:
+             self.logEvent("ORDER_CANCELLED", order.to_dict(), deepcopy_event=False)
+@@ -846,7 +856,8 @@
+             order: The order that has been partially cancelled by the exchange.
+         """
+ 
+-        logger.debug(f"Received notification of partial cancellation for: {order}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Received notification of partial cancellation for: {order}")
+ 
+         if self.log_orders:
+             self.logEvent("PARTIAL_CANCELLED", order.to_dict())
+@@ -861,9 +872,10 @@
+                 f"partial cancellation received for order not in orders list: {order}"
+             )
+ 
+-        logger.debug(
+-            f"After order partial cancellation, agent open orders: {self.orders}"
+-        )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                f"After order partial cancellation, agent open orders: {self.orders}"
++            )
+ 
+         self.logEvent("HOLDINGS_UPDATED", self.holdings)
+ 
+@@ -877,7 +889,8 @@
+             order: The order that has been modified at the exchange.
+         """
+ 
+-        logger.debug(f"Received notification of modification for: {order}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Received notification of modification for: {order}")
+ 
+         if self.log_orders:
+             self.logEvent("ORDER_MODIFIED", order.to_dict())
+@@ -890,7 +903,8 @@
+         else:
+             warnings.warn("Execution received for order not in orders list: {order}")
+ 
+-        logger.debug(f"After order modification, agent open orders: {self.orders}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"After order modification, agent open orders: {self.orders}")
+ 
+         self.logEvent("HOLDINGS_UPDATED", self.holdings)
+ 
+@@ -904,7 +918,8 @@
+             order: The order that has been modified at the exchange.
+         """
+ 
+-        logger.debug(f"Received notification of replacement for: {old_order}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"Received notification of replacement for: {old_order}")
+ 
+         if self.log_orders:
+             self.logEvent("ORDER_REPLACED", old_order.to_dict())
+@@ -920,7 +935,8 @@
+ 
+         self.orders[new_order.order_id] = new_order
+ 
+-        logger.debug(f"After order replacement, agent open orders: {self.orders}")
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(f"After order replacement, agent open orders: {self.orders}")
+ 
+         # After execution, log holdings.
+         self.logEvent("HOLDINGS_UPDATED", self.holdings)
+@@ -951,21 +967,23 @@
+ 
+         self.last_trade[symbol] = price
+ 
+-        logger.debug(
+-            "Received last trade price of {} for {}.".format(
+-                self.last_trade[symbol], symbol
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Received last trade price of {} for {}.".format(
++                    self.last_trade[symbol], symbol
++                )
+             )
+-        )
+ 
+         if self.mkt_closed:
+             # Note this as the final price of the day.
+             self.daily_close_price[symbol] = self.last_trade[symbol]
+ 
+-            logger.debug(
+-                "Received daily close price of {} for {}.".format(
+-                    self.last_trade[symbol], symbol
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "Received daily close price of {} for {}.".format(
++                        self.last_trade[symbol], symbol
++                    )
+                 )
+-            )
+ 
+     def query_spread(
+         self,
+@@ -1002,11 +1020,12 @@
+         else:
+             best_ask, best_ask_qty = ("No asks", 0)
+ 
+-        logger.debug(
+-            "Received spread of {} @ {} / {} @ {} for {}".format(
+-                best_bid_qty, best_bid, best_ask_qty, best_ask, symbol
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Received spread of {} @ {} / {} @ {} for {}".format(
++                    best_bid_qty, best_bid, best_ask_qty, best_ask, symbol
++                )
+             )
+-        )
+ 
+         self.logEvent("BID_DEPTH", bids)
+         self.logEvent("ASK_DEPTH", asks)
+@@ -1106,9 +1125,12 @@
+         bid_liq = self.get_book_liquidity(self.known_bids[symbol], within)
+         ask_liq = self.get_book_liquidity(self.known_asks[symbol], within)
+ 
+-        logger.debug("Bid/ask liq: {}, {}".format(bid_liq, ask_liq))
+-        logger.debug("Known bids: {}".format(self.known_bids[self.symbol]))
+-        logger.debug("Known asks: {}".format(self.known_asks[self.symbol]))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("Bid/ask liq: {}, {}".format(bid_liq, ask_liq))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("Known bids: {}".format(self.known_bids[self.symbol]))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("Known asks: {}".format(self.known_asks[self.symbol]))
+ 
+         return bid_liq, ask_liq
+ 
+@@ -1127,11 +1149,12 @@
+ 
+             # Is this price within "within" proportion of the best price?
+             if abs(best - price) <= int(round(best * within)):
+-                logger.debug(
+-                    "Within {} of {}: {} with {} shares".format(
+-                        within, best, price, shares
++                if logger.isEnabledFor(logging.DEBUG):
++                    logger.debug(
++                        "Within {} of {}: {} with {} shares".format(
++                            within, best, price, shares
++                        )
+                     )
+-                )
+                 liq += shares
+ 
+         return liq
+--- a/abides-markets/abides_markets/oracles/sparse_mean_reverting_oracle.py
++++ b/abides-markets/abides_markets/oracles/sparse_mean_reverting_oracle.py
+@@ -69,11 +69,12 @@
+         # which the series was computed and the true fundamental value at that time.
+         for symbol in symbols:
+             s = symbols[symbol]
+-            logger.debug(
+-                "SparseMeanRevertingOracle computing initial fundamental value for {}".format(
+-                    symbol
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(
++                    "SparseMeanRevertingOracle computing initial fundamental value for {}".format(
++                        symbol
++                    )
+                 )
+-            )
+             self.r[symbol] = (mkt_open, s["r_bar"])
+             self.f_log[symbol] = [
+                 {"FundamentalTime": mkt_open, "FundamentalValue": s["r_bar"]}
+@@ -93,12 +94,14 @@
+ 
+         now = dt.datetime.now()
+ 
+-        logger.debug(
+-            "SparseMeanRevertingOracle initialized for symbols {}".format(symbols)
+-        )
+-        logger.debug(
+-            "SparseMeanRevertingOracle initialization took {}".format(now - then)
+-        )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "SparseMeanRevertingOracle initialized for symbols {}".format(symbols)
++            )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "SparseMeanRevertingOracle initialization took {}".format(now - then)
++            )
+ 
+     def compute_fundamental_at_timestamp(
+         self, ts: NanosecondTime, v_adj, symbol: str, pt: NanosecondTime, pv
+@@ -243,14 +246,16 @@
+         # advances on demand keeping only the most recent price, except for the opening
+         # price.  Thus we cannot honor a mkt_open that isn't what we already expected.
+ 
+-        logger.debug(
+-            "Oracle: client requested {} at market open: {}".format(
+-                symbol, self.mkt_open
+-            )
+-        )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Oracle: client requested {} at market open: {}".format(
++                    symbol, self.mkt_open
++                )
++            )
+ 
+         open_price = self.symbols[symbol]["r_bar"]
+-        logger.debug("Oracle: market open price was was {}".format(open_price))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("Oracle: market open price was was {}".format(open_price))
+ 
+         return open_price
+ 
+@@ -288,10 +293,12 @@
+         else:
+             obs = int(round(random_state.normal(loc=r_t, scale=sqrt(sigma_n))))
+ 
+-        logger.debug(
+-            "Oracle: current fundamental value is {} at {}".format(r_t, current_time)
+-        )
+-        logger.debug("Oracle: giving client value observation {}".format(obs))
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug(
++                "Oracle: current fundamental value is {} at {}".format(r_t, current_time)
++            )
++        if logger.isEnabledFor(logging.DEBUG):
++            logger.debug("Oracle: giving client value observation {}".format(obs))
+ 
+         # Reminder: all simulator prices are specified in integer cents.
+         return obs
+--- a/abides-markets/abides_markets/order_book.py
++++ b/abides-markets/abides_markets/order_book.py
+@@ -181,7 +181,8 @@
+                 trade_price += p * q
+ 
+             avg_price = int(round(trade_price / trade_qty))
+-            logger.debug(f"Avg: {trade_qty} @ ${avg_price:0.4f}")
++            if logger.isEnabledFor(logging.DEBUG):
++                logger.debug(f"Avg: {trade_qty} @ ${avg_price:0.4f}")
+             self.owner.logEvent("LAST_TRADE", f"{trade_qty},${avg_price:0.4f}")
+ 
+             self.last_trade = avg_price

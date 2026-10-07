@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "executive_summary": "Bisect price search uses ordered list storage with compatible public mutation fallbacks; approved digests complement unchanged upstream source and signature checks.",
+  "sha256": {
+    "matching/__init__.py": "8daee28af9e91675b7abc70df84cf482f7c9edad0b7729770ef5f42a11fee91c",
+    "matching/facade.py": "fa509927ce37278c8bab7cb32d1100c21112878377f7221cd548209e0c682a35",
+    "matching/matcher.py": "ec1dc581710ca0b21d124d517654ab1f80d2cade3a7bcc4da5288005dad3e279",
+    "matching/price_level.py": "643927e00ef3c5bc658ef476a548bebefc03157b6268cc7ccf4a9f0328422809",
+    "matching/queries.py": "53692facde40a8bf5823b8dea304ace987c52576c92c77f4e466152cad117a1a",
+    "matching/state.py": "615bcd4357f744f77fe7844f3dc648ee4e110097005a65540baa6c806f5c3f90",
+    "matching_compat/order_book.py": "563e8e0244fb0efdcfd7fa6a94419b85f07b5bbeaa3b4772106d5e66b27176dc",
+    "matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3"
+  }
+}

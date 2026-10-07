@@ -1,0 +1,62 @@
+--- a/abides-markets/abides_markets/utils/__init__.py
++++ b/abides-markets/abides_markets/utils/__init__.py
+@@ -7,9 +7,48 @@
+ 
+ import numpy as np
+ import pandas as pd
+-from scipy.spatial.distance import pdist, squareform
+ 
+ from abides_core import LatencyModel
++
++# Preserve the pinned module's wildcard export surface, including lazy functions.
++__all__ = [
++    'datetime',
++    'sys',
++    'traceback',
++    'warnings',
++    'contextmanager',
++    'List',
++    'Union',
++    'np',
++    'pd',
++    'pdist',
++    'squareform',
++    'LatencyModel',
++    'delist',
++    'numeric',
++    'get_value_from_timestamp',
++    'ignored',
++    'generate_uniform_random_pairwise_dist_on_line',
++    'meters_to_light_ns',
++    'validate_window_size',
++    'sigmoid',
++    'subdict',
++    'restrictdict',
++    'dollarize',
++    'generate_latency_model',
++    'config_add_agents',
++]
++
++
++def __getattr__(name):
++    # Preserve explicit module exports without loading SciPy for other utilities.
++    if name in {"pdist", "squareform"}:
++        from scipy.spatial import distance
++
++        value = getattr(distance, name)
++        globals()[name] = value
++        return value
++    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+ 
+ # Utility method to flatten nested lists.
+ def delist(list_of_lists):
+@@ -83,6 +122,9 @@
+         num_points: Number of points to use.
+         random_state: ``np.random.RandomState`` object.
+     """
++
++    # This optional line-distance latency model is the only SciPy caller here.
++    from scipy.spatial.distance import pdist, squareform
+ 
+     x_coords = random_state.uniform(low=left, high=right, size=num_points)
+     x_coords = x_coords.reshape((x_coords.size, 1))

@@ -12,3 +12,10 @@ submission*.json
 .venv*
 __pycache__
 run_outputs
+out
+provenance
+scripts
+README.md
+**/__pycache__
+**/*.py[cod]
+**/.DS_Store
