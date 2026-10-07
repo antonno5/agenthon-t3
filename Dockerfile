@@ -110,6 +110,8 @@ COPY simulate /usr/local/bin/simulate
 COPY simulate-batch /usr/local/bin/simulate-batch
 RUN chmod +x /usr/local/bin/simulate /usr/local/bin/simulate-batch
 
-WORKDIR /work
+# ABIDES writes its summary log under ./log even with per-agent logging disabled.
+# The platform makes the root filesystem read-only and provides a writable /tmp.
+WORKDIR /tmp
 # No ENTRYPOINT: the harness passes `simulate --config ... --out ...` as the command.
 CMD ["simulate", "--help"]

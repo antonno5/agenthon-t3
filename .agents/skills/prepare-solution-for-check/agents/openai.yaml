@@ -1,0 +1,4 @@
+interface:
+  display_name: "Подготовить решение к проверке"
+  short_description: "Опубликовать образ через Actions и собрать ZIP для CodaBench"
+  default_prompt: "Используй $prepare-solution-for-check, чтобы подготовить выбранное решение Track 3 через командный GitHub Actions и собрать новый ZIP для проверки."

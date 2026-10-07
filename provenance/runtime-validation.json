@@ -1,0 +1,73 @@
+{
+  "executive_summary": "The previous image fails the platform read-only runtime by writing /work/log. WORKDIR /tmp fixes both tested verbs while preserving exact trace and message-ledger bytes. This is partial local validation, not an official score.",
+  "previous_published_image": "ghcr.io/antonno5/agenthon-t3@sha256:ef4d12f378a848ea37270b9da2f6dac67fc446b37b52ad3371e8e57addfff2b3",
+  "validated_local_image_id": "sha256:0024f5136e6251fb4fc46c0df444d2b38ce6cc6a8dc732d25eec6fa48ae8784c",
+  "docker_runtime_config": {
+    "WorkingDir": "/tmp",
+    "Entrypoint": null,
+    "Cmd": [
+      "simulate",
+      "--help"
+    ],
+    "Env": [
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "LANG=C.UTF-8",
+      "GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D",
+      "PYTHON_VERSION=3.11.17",
+      "PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONUNBUFFERED=1",
+      "PIP_NO_CACHE_DIR=1",
+      "PYTHONPATH=/opt"
+    ],
+    "User": ""
+  },
+  "runtime_sources_and_packages": "57 installed Python files, CLI/control sources and every installed package version match provenance/expected-runtime.json",
+  "limits": {
+    "read_only": true,
+    "uid_gid": "65534:65534",
+    "network": "none",
+    "cpus": 4,
+    "memory_bytes": 17179869184,
+    "swap_disabled": true,
+    "tmpfs": "/tmp:rw,noexec,nosuid,nodev,size=64m",
+    "pids": 256,
+    "nproc": 256,
+    "nofile": 1024,
+    "fsize_bytes": 67108864,
+    "cap_drop": "ALL",
+    "no_new_privileges": true
+  },
+  "units": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "exit_code": 0,
+      "elapsed_sec": 7.426371125009609,
+      "gates_passed": true,
+      "accepted": true,
+      "reference_byte_equal": true,
+      "total_output_bytes": 38670,
+      "rankable": false
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "exit_code": 0,
+      "elapsed_sec": 4.002615500008687,
+      "gates_passed": true,
+      "accepted": true,
+      "reference_byte_equal": true,
+      "total_output_bytes": 1141583,
+      "rankable": false
+    }
+  ],
+  "strict_runtime_coverage": {
+    "passed": 2,
+    "total_public_units": 71
+  },
+  "historical_code_validation": {
+    "passed": 6,
+    "total_public_units": 71,
+    "scope": "provenance/source.json; earlier runtime settings did not establish platform compatibility"
+  },
+  "rankable": false
+}
