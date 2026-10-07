@@ -84,16 +84,11 @@ RUN python /tmp/cy_build.py /src \
     && rm -rf /src/build
 
 # ---------------------------------------------------------------------------------------------
-# Stage 2: runtime.
+# Stage 2: runtime file system (assembled here, flattened into one layer in stage 3).
 # ---------------------------------------------------------------------------------------------
-FROM --platform=linux/amd64 python:3.11-slim
+FROM --platform=linux/amd64 python:3.11-slim AS runtime
 
-LABEL qfbench2.interface_version="2.0"
-
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PYTHONPATH=/opt
+ENV PIP_NO_CACHE_DIR=1
 
 # Pin the exact stack that generated the reference traces.
 RUN pip install \
@@ -103,16 +98,46 @@ RUN pip install \
         pyarrow==15.0.2 \
         coloredlogs==15.0.1
 
+# Drop what no run path imports: package test suites, pip/setuptools, pyarrow headers and its
+# Flight/Substrait libraries. Verified that the ABIDES fallback path (pandas.to_parquet through
+# pyarrow.parquet, which DOES need pyarrow's dataset/acero libraries, kept) still writes
+# byte-identical outputs without them.
+RUN SP=/usr/local/lib/python3.11/site-packages \
+    && find "$SP" -depth -type d \( -name tests -o -name test \) -exec rm -rf {} + \
+    && rm -rf "$SP"/pip "$SP"/pip-* "$SP"/setuptools "$SP"/setuptools-* "$SP"/_distutils_hack \
+              "$SP"/distutils-precedence.pth "$SP"/pyarrow/include \
+              "$SP"/pyarrow/libarrow_flight.so* "$SP"/pyarrow/libarrow_substrait.so* \
+              "$SP"/pyarrow/_flight* "$SP"/pyarrow/_substrait* "$SP"/pyarrow/libarrow_python_flight.so \
+              /usr/local/bin/pip* /usr/local/bin/idle* /usr/local/bin/pydoc*
+
 # Compiled ABIDES (abides_core, abides_markets) + the `simulate`/`simulate-batch` adapter.
 COPY --from=build /src/ /opt/
-# Byte-compile everything Python imports at run time. The official python:*-slim image
-# strips every .pyc (stdlib included) and this image runs with PYTHONDONTWRITEBYTECODE=1, so
-# without this each container start re-compiles enum/typing/ast/datetime/inspect/... from
-# source -- measured ~0.15 s of every run's wall clock. Output is unaffected.
-RUN python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt || true
 COPY simulate /usr/local/bin/simulate
 COPY simulate-batch /usr/local/bin/simulate-batch
-RUN chmod +x /usr/local/bin/simulate /usr/local/bin/simulate-batch
+# Byte-compile everything Python imports at run time. The official python:*-slim image
+# strips every .pyc (stdlib included) and the image runs with PYTHONDONTWRITEBYTECODE=1, so
+# without this each container start re-compiles enum/typing/ast/datetime/inspect/... from
+# source -- measured ~0.15 s of every run's wall clock. Output is unaffected.
+RUN chmod +x /usr/local/bin/simulate /usr/local/bin/simulate-batch \
+    && python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt || true
+
+# ---------------------------------------------------------------------------------------------
+# Stage 3: the published image -- the runtime file system as ONE layer (a single overlay
+# lower dir to mount per container instead of ~10), with python:3.11-slim's env re-declared.
+# ---------------------------------------------------------------------------------------------
+FROM scratch
+COPY --from=runtime / /
+
+LABEL qfbench2.interface_version="2.0"
+
+ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    LANG=C.UTF-8 \
+    GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D \
+    PYTHON_VERSION=3.11.17 \
+    PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/opt
 
 # The platform runs the image with a read-only root filesystem (--read-only, uid 65534) and a
 # writable tmpfs at /tmp. The native path writes only to --out, but the ABIDES fallback path

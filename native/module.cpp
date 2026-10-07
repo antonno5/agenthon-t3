@@ -13,6 +13,7 @@
 #include "engine.hpp"
 #include "nplog.hpp"
 #include "pqwrite.hpp"
+#include "sha256.hpp"
 
 namespace {
 
@@ -265,6 +266,20 @@ PyObject* py_numpy_log_dispatch(PyObject*, PyObject*) {
   return PyUnicode_FromString(t3::numpy_log_dispatch());
 }
 
+// sha256_file(path) -> lowercase hex digest (hashlib.sha256 of the file's bytes).
+PyObject* py_sha256_file(PyObject*, PyObject* arg) {
+  const char* path = PyUnicode_AsUTF8(arg);
+  if (!path) return nullptr;
+  std::string hex;
+  try {
+    hex = t3::sha256_file(path);
+  } catch (const std::exception& e) {
+    PyErr_SetString(PyExc_OSError, e.what());
+    return nullptr;
+  }
+  return PyUnicode_FromString(hex.c_str());
+}
+
 PyObject* msg_type_names(PyObject*, PyObject*) {
   PyObject* t = PyTuple_New(t3::MT_COUNT);
   if (!t) return nullptr;
@@ -279,6 +294,7 @@ PyMethodDef methods[] = {
      "Run one scenario natively and write both parquet files."},
     {"msg_type_names", msg_type_names, METH_NOARGS, "Ledger msg_type names by code."},
     {"numpy_log", py_numpy_log, METH_O, "np.log(x) for a float64, or None."},
+    {"sha256_file", py_sha256_file, METH_O, "hex sha256 of a file's bytes."},
     {"numpy_log_dispatch", py_numpy_log_dispatch, METH_NOARGS, "svml | libm | unknown"},
     {nullptr, nullptr, 0, nullptr},
 };

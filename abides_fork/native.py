@@ -14,8 +14,10 @@ engine itself raises on any state the Python reference would have raised on, and
 
 from __future__ import annotations
 
+# Annotations stay unevaluated strings (`Any`, `Optional` from typing): this module is on the
+# native fast path, which avoids importing typing at all.
+
 import math
-from typing import Any, Optional
 
 from abides_fork.scenario_params import (
     _agent_kwargs,

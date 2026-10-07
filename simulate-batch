@@ -1,6 +1,9 @@
-#!/bin/sh
-# Track 3 batched-submission CLI shim (BatchMarketSim / family GB). The harness invokes the image as
+#!/usr/local/bin/python3 -S
+# Track 3 batched-submission CLI (BatchMarketSim / family GB). The harness invokes the image as
 #   simulate-batch --batch-dir /input/scenarios --out-dir /output
-# which resolves to this script on PATH; it forwards to the abides_fork batch adapter (importable via
-# PYTHONPATH=/opt). The adapter writes one output subdir per sub-scenario plus batch_events.json.
-exec python -m abides_fork.simulate_batch "$@"
+# which resolves to this script on PATH. Lean native entry point (abides_fork/fastpath.py)
+# with fallback to the full abides_fork.simulate_batch CLI. Writes one output subdir per
+# sub-scenario plus batch_events.json.
+from abides_fork.fastpath import simulate_batch_main
+
+simulate_batch_main()

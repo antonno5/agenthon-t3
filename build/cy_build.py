@@ -47,8 +47,10 @@ def strip_function_annotations(tree: ast.Module) -> ast.Module:
 
 
 SKIP_DIRS = {"configs", "examples", "tests", "__pycache__"}
-# Entry points stay plain Python so `python -m abides_fork.simulate` keeps working.
-KEEP_PY = {"__init__.py", "simulate.py", "simulate_batch.py"}
+# Entry points stay plain Python so `python -m abides_fork.simulate` keeps working. The native
+# fast-path modules run once per process, so a small .pyc loads faster than an extension.
+KEEP_PY = {"__init__.py", "simulate.py", "simulate_batch.py", "fastpath.py", "native.py",
+           "scenario_params.py", "scenario_io.py"}
 DIRECTIVES = {
     "language_level": 3,
     "binding": True,

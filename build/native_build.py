@@ -31,14 +31,16 @@ subprocess.run(["gcc", "-c", str(src / "svml" / "svml_z0_log_d_la.s"), "-o", str
 ext = Extension(
     "_t3engine",
     sources=[str(src / "engine.cpp"), str(src / "module.cpp"), str(src / "pqwrite.cpp"),
-             str(src / "nplog.cpp")],
+             str(src / "nplog.cpp"), str(src / "sha256.cpp")],
     extra_objects=[str(svml_obj)],
     include_dirs=[str(src), pa_inc],
     language="c++",
-    extra_compile_args=["-std=c++17", "-O2", "-fno-fast-math", "-ffp-contract=off",
+    # -g0 / -s: no debug info in the shipped .so (python's default CFLAGS add -g); the file is
+    # read on every container start, so a smaller one matters with a cold page cache.
+    extra_compile_args=["-std=c++17", "-O2", "-g0", "-fno-fast-math", "-ffp-contract=off",
                         "-fno-strict-aliasing", "-Wall", "-Wno-unused-function"],
     extra_link_args=[f"-L{pa_lib}", "-l:libparquet.so.1500", "-l:libarrow.so.1500",
-                     f"-Wl,-rpath,{pa_lib}"],
+                     f"-Wl,-rpath,{pa_lib}", "-s"],
 )
 sys.argv[1:] = ["build_ext", "--build-lib", work, "--build-temp", os.path.join(work, "tmp")]
 setup(name="t3engine", ext_modules=[ext])

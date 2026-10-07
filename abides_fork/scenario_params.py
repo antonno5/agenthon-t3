@@ -5,7 +5,9 @@ exact same mapping without paying for those imports.
 
 from __future__ import annotations
 
-from typing import Any
+# Annotations stay unevaluated strings (`Any`, `Optional` from typing): this module is on the
+# native fast path, which avoids importing typing at all.
+
 
 
 def _oracle_kappa_per_ns(oracle_params: dict[str, Any]) -> float:

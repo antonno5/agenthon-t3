@@ -1,7 +1,10 @@
-#!/bin/sh
-# Track 3 submission CLI shim. The evaluation harness invokes the image as
+#!/usr/local/bin/python3 -S
+# Track 3 submission CLI. The evaluation harness invokes the image as
 #   simulate --config /input/scenario.json --out /output/trace.parquet
-# which resolves to this script on PATH; it forwards to the abides_fork adapter
-# (importable via PYTHONPATH=/opt). The adapter writes trace.parquet and the
-# events.json sidecar next to --out.
-exec python -m abides_fork.simulate "$@"
+# which resolves to this script on PATH. It runs the lean native entry point
+# (abides_fork/fastpath.py: python -S, minimal imports) and falls back to the full
+# abides_fork.simulate CLI for anything else. Writes trace.parquet, message_trace.parquet
+# and the events.json sidecar next to --out.
+from abides_fork.fastpath import simulate_main
+
+simulate_main()
