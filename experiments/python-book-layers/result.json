@@ -1,0 +1,494 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-06T20:21:21.063315+00:00",
+  "executive_summary": "The five Python book layers preserve tested behavior and legacy imports. No speedup is demonstrated; both timing schedules retain unfavorable STP medians.",
+  "scope": "state, price_level, matcher, queries and compatible facade; original list storage and all 24 OrderBook method bodies retained",
+  "base_commit": "5c41d0b9d80dd0b39dbaa8261d12bcaba8de1b6d",
+  "candidate_revision": "base commit plus uncommitted working-tree extraction; frozen contexts recorded in source-manifest.json",
+  "upstream_pin": "f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+  "upstream_url": "https://codeload.github.com/jpmorganchase/abides-jpmc-public/tar.gz/f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+  "upstream_archive_sha256": "7f1c3bfd7e80c3aa7756d575bbfa1b9066a130b9e321422923f1b6d7f5e9b95c",
+  "preexisting_batch_adapter_edit": "identical in control and candidate; excluded from this refactor",
+  "images": {
+    "baseline": {
+      "tag": "python-book-layers-control:20261006",
+      "digest": "sha256:ad2a0cec0cdea303078e1ed08292109c02559d8c4bee3e88f363ae4607413256",
+      "repo_digests": [
+        "python-book-layers-control@sha256:ad2a0cec0cdea303078e1ed08292109c02559d8c4bee3e88f363ae4607413256"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "5c41d0b"
+    },
+    "candidate": {
+      "tag": "python-book-layers:20261006",
+      "digest": "sha256:346217014cf5dca2ca0fa5ad88909322c73a1e915e5fc3712e77ecf02d5fee8c",
+      "repo_digests": [
+        "python-book-layers@sha256:346217014cf5dca2ca0fa5ad88909322c73a1e915e5fc3712e77ecf02d5fee8c"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "5c41d0b+python-book-layers-working-tree; frozen contexts in out/python-book-layers/source-manifest.json"
+    }
+  },
+  "installed_source_audit": {
+    "passed": true,
+    "changed_files": [
+      "markets/matching/__init__.py",
+      "markets/matching/facade.py",
+      "markets/matching/matcher.py",
+      "markets/matching/price_level.py",
+      "markets/matching/queries.py",
+      "markets/matching/state.py",
+      "markets/order_book.py",
+      "markets/price_level.py"
+    ],
+    "all_other_files_identical": true,
+    "identity": {
+      "order_book": "abides_markets.order_book",
+      "price_level": "abides_markets.price_level",
+      "facade_same_class": true,
+      "level_same_class": true,
+      "logger_same_object": true
+    }
+  },
+  "validation": {
+    "repository": {
+      "passed": 383,
+      "skipped": 1,
+      "integration_deselected": 38,
+      "subtests_passed": 2,
+      "python": "3.13"
+    },
+    "runtime": {
+      "passed": 56,
+      "upstream_tests": 43,
+      "custom_tests": 13,
+      "seeded_operation_comparisons": 2700,
+      "python": "3.11.17"
+    },
+    "public_corpus": {
+      "validated": 71,
+      "checks": "schema, track/split, canary, manifest and firewall"
+    },
+    "public_regression": {
+      "passed": 65,
+      "failed": 0,
+      "errors": 0,
+      "scope": "standard harness trace checks; message journals not checked by this harness"
+    },
+    "source_methods": "24 signatures and bodies AST-identical; complete PriceLevel class AST-identical",
+    "ruff_and_diff": "passed"
+  },
+  "timing": {
+    "rankable": false,
+    "environment": "Mac ARM64; linux/amd64 under Rosetta; colima-agenthon; serial Docker runs, 4 CPUs and 16 GiB; network disabled",
+    "metric": "full container elapsed seconds from Docker State timestamps; positive change means slower candidate",
+    "initial": {
+      "artifact": "out/python-book-layers/differential/summary.json",
+      "complete": true,
+      "developer_gates_passed": true,
+      "trace_and_message_trace_byte_schema_ordered_exact": true,
+      "container_runs": 40,
+      "compared_pairs": 52,
+      "timings": [
+        {
+          "unit": "t3-s001-price-time-priority",
+          "pairs": 3,
+          "container_seconds": {
+            "baseline": [
+              1.683449421,
+              1.233575823,
+              1.200183404
+            ],
+            "candidate": [
+              1.446625878,
+              1.214775042,
+              1.243554922
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 1.233575823,
+            "candidate": 1.243554922
+          },
+          "candidate_time_change_percent": 0.8089570834593163,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              0.07851073799974984,
+              0.057182030999683775,
+              0.05732430400530575
+            ],
+            "candidate": [
+              0.06178581900167046,
+              0.05486269199900562,
+              0.06556086499767844
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": 0.05732430400530575,
+            "candidate": 0.06178581900167046
+          }
+        },
+        {
+          "unit": "t3-mp01-stp-newest-baseline",
+          "pairs": 3,
+          "container_seconds": {
+            "baseline": [
+              3.948292432,
+              3.874464696,
+              4.364623974
+            ],
+            "candidate": [
+              4.450914048,
+              4.544195074,
+              3.970669552
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 3.948292432,
+            "candidate": 4.450914048
+          },
+          "candidate_time_change_percent": 12.730101041310093,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              2.4237397959950613,
+              2.3548530740008573,
+              2.5077323029981926
+            ],
+            "candidate": [
+              2.7161367400040035,
+              2.795466456002032,
+              2.398083111998858
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": 2.4237397959950613,
+            "candidate": 2.7161367400040035
+          }
+        },
+        {
+          "unit": "t3-mp02-stp-oldest-baseline",
+          "pairs": 3,
+          "container_seconds": {
+            "baseline": [
+              3.967548418,
+              3.871329845,
+              4.752495078
+            ],
+            "candidate": [
+              4.90548954,
+              4.094244391,
+              3.818752412
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 3.967548418,
+            "candidate": 4.094244391
+          },
+          "candidate_time_change_percent": 3.1933062851912553,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              2.389376118997461,
+              2.4351318850021926,
+              2.470869835000485
+            ],
+            "candidate": [
+              3.1107830420005484,
+              2.3452818389996537,
+              2.3836409200011985
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": 2.4351318850021926,
+            "candidate": 2.3836409200011985
+          }
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "pairs": 3,
+          "container_seconds": {
+            "baseline": [
+              2.558965979,
+              2.595389138,
+              2.463711123
+            ],
+            "candidate": [
+              3.103536214,
+              2.742580776,
+              2.583379177
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 2.558965979,
+            "candidate": 2.742580776
+          },
+          "candidate_time_change_percent": 7.175351235882932,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              null,
+              null,
+              null
+            ],
+            "candidate": [
+              null,
+              null,
+              null
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": null,
+            "candidate": null
+          }
+        }
+      ]
+    },
+    "confirmation": {
+      "artifact": "out/python-book-layers/timing-confirmation/summary.json",
+      "complete": true,
+      "developer_gates_passed": true,
+      "trace_and_message_trace_byte_schema_ordered_exact": true,
+      "container_runs": 48,
+      "compared_pairs": 64,
+      "timings": [
+        {
+          "unit": "t3-s001-price-time-priority",
+          "pairs": 5,
+          "container_seconds": {
+            "baseline": [
+              1.310061916,
+              1.213050453,
+              1.291045725,
+              1.360242302,
+              1.186896032
+            ],
+            "candidate": [
+              1.288516589,
+              1.352441111,
+              1.219419948,
+              1.398827098,
+              1.182769086
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 1.291045725,
+            "candidate": 1.288516589
+          },
+          "candidate_time_change_percent": -0.1958982513961649,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              0.05744873299408937,
+              0.055598200000531506,
+              0.05881908100127475,
+              0.0594169879987021,
+              0.05440831299347337
+            ],
+            "candidate": [
+              0.07170874400617322,
+              0.05776566800341243,
+              0.05856370499532204,
+              0.06049888599955011,
+              0.057292147997941356
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": 0.05744873299408937,
+            "candidate": 0.05856370499532204
+          }
+        },
+        {
+          "unit": "t3-mp01-stp-newest-baseline",
+          "pairs": 5,
+          "container_seconds": {
+            "baseline": [
+              4.079000444,
+              4.369672776,
+              4.487798161,
+              5.135882785,
+              4.912425594
+            ],
+            "candidate": [
+              6.327873465,
+              5.055261091,
+              4.335202536,
+              4.846051046,
+              5.469354969
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 4.487798161,
+            "candidate": 5.055261091
+          },
+          "candidate_time_change_percent": 12.644573344037259,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              2.4783374990001903,
+              2.611799061000056,
+              2.578578551998362,
+              2.9455639049992897,
+              3.1837409079962526
+            ],
+            "candidate": [
+              3.9112871420002193,
+              3.2995559599949047,
+              2.6801305889966898,
+              3.2064891540067038,
+              3.7741532110012486
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": 2.611799061000056,
+            "candidate": 3.2995559599949047
+          }
+        },
+        {
+          "unit": "t3-mp02-stp-oldest-baseline",
+          "pairs": 5,
+          "container_seconds": {
+            "baseline": [
+              5.646111884,
+              4.494175463,
+              3.905005629,
+              3.78139349,
+              3.764441632
+            ],
+            "candidate": [
+              5.538065185,
+              4.246662291,
+              3.75630989,
+              3.981215509,
+              4.582693064
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 3.905005629,
+            "candidate": 4.246662291
+          },
+          "candidate_time_change_percent": 8.749197682654607,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              3.897766150003008,
+              2.7281211849985993,
+              2.3480547629951616,
+              2.39137708900671,
+              2.2482290460029617
+            ],
+            "candidate": [
+              3.4848371449988917,
+              2.625139452997246,
+              2.2621761709960992,
+              2.4027384459986934,
+              3.0666376579974894
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": 2.39137708900671,
+            "candidate": 2.625139452997246
+          }
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "pairs": 5,
+          "container_seconds": {
+            "baseline": [
+              3.260291802,
+              2.487268704,
+              3.967830029,
+              3.670284819,
+              4.786701441
+            ],
+            "candidate": [
+              3.699250613,
+              2.991615854,
+              3.73555307,
+              2.985745321,
+              2.955914198
+            ]
+          },
+          "median_container_seconds": {
+            "baseline": 3.670284819,
+            "candidate": 2.991615854
+          },
+          "candidate_time_change_percent": -18.49090734012596,
+          "simulation_seconds_self_reported": {
+            "baseline": [
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "candidate": [
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "median_simulation_seconds_self_reported": {
+            "baseline": null,
+            "candidate": null
+          }
+        }
+      ]
+    },
+    "code_changed_between_schedules": false,
+    "conclusion": "No demonstrated speedup. STP candidate medians are slower in both schedules. Large between-schedule variation, particularly batch, limits causal and significance claims. Performance remains an unresolved risk."
+  },
+  "limitations": [
+    "Functional acceptance is not a performance acceptance claim.",
+    "Exact trace and message-journal checks cover four selected units including batch subunits, not every public unit.",
+    "All 71 public units passed corpus validation; only the standard 65-scenario set ran in the broad runtime regression.",
+    "Class implementation modules and MRO change; code inspecting or monkeypatching module internals may need adjustment.",
+    "No sealed data or official rankable evaluation used."
+  ],
+  "artifact_sha256": {
+    "out/python-book-layers/source-manifest.json": "10ec7ad6b420688e4e565a357bc1b7e77843ec50212321a053ff4538126ebaf2",
+    "out/python-book-layers/source-audit-result.json": "30ee25386872dfb485375e0a838d74581908811598403fdbf3fd4a8ad6f92dbe",
+    "out/python-book-layers/differential/summary.json": "2e8d89ef26e6c7ff8bf4d53d527c1e1c8a167e69b8fef0ccf43c5959cfbec858",
+    "out/python-book-layers/timing-confirmation/summary.json": "35013e8efa2e5e7343099e3f7828a1c94e10df75ec6baa90cb5f5f26c74c12f6",
+    "out/python-book-layers/timing-confirmation-policy.json": "16732cd899842879bbe7d0cdbbf4139faeb40136920bb34346a33e17a0a2343d",
+    "out/python-book-layers/regression65/report.json": "a5254fb670a45995e5ea2d68fb27100124b4f0ec3342b273a47a6a669288a578",
+    "out/python-book-layers/repository-tests.log": "4164cf601a6487192d7fb62ace182a0e592be55ec58e2a1d489e634e07b49810",
+    "out/python-book-layers/runtime-tests-valid-layout.log": "b7bf852f6ecdf92e111ea0392f8560720ca68b3f6ebc0b45e59d1c4753711c20",
+    "out/python-book-layers/corpus-checks.log": "ea053ba1fe74d53c4cc0703b4cf760e8f81b032cc80aa13558d9e3be0f279398"
+  },
+  "source_sha256": {
+    "baselines/matching/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/matching/__init__.py": "8daee28af9e91675b7abc70df84cf482f7c9edad0b7729770ef5f42a11fee91c",
+    "baselines/matching/facade.py": "18609e55dd8bc7fc702cff22457c9a7517c28ad8fae459ee782eff006c1c1eb1",
+    "baselines/matching/matcher.py": "287ca0d222caabdf7c32cfc2638011acebfe6e67cbd442519d1d6a50739a6a94",
+    "baselines/matching/price_level.py": "580874f3c4757f6bc1760687c761b0d2f274def26aaf15aab16edbb768891235",
+    "baselines/matching/queries.py": "53692facde40a8bf5823b8dea304ace987c52576c92c77f4e466152cad117a1a",
+    "baselines/matching/state.py": "0df72fd791ceef9b0d925d0492ad8a101371827fbbe18c4353e78f03b3d69154",
+    "baselines/matching_compat/order_book.py": "563e8e0244fb0efdcfd7fa6a94419b85f07b5bbeaa3b4772106d5e66b27176dc",
+    "baselines/matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
+    "baselines/install_matching.py": "122a0586995f1eca93afb7eb1d464d1c1a072270565af7fbb170d649f3c37b83"
+  }
+}

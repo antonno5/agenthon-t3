@@ -1,0 +1,44 @@
+#0 building with "colima-agenthon" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 661B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/hotpaths-base:20261006
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767
+#4 resolve docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767 0.0s done
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 120.06kB done
+#5 DONE 0.0s
+
+#6 [2/6] COPY overlay/ /tmp/order-copy-overlay/
+#6 DONE 0.0s
+
+#7 [3/6] COPY checks.py benchmark.py /opt/order-copy/
+#7 DONE 0.0s
+
+#8 [4/6] COPY overlay-sha256.json /opt/order-copy/
+#8 DONE 0.0s
+
+#9 [5/6] COPY evidence/source-hashes.json /opt/order-copy/evidence/
+#9 DONE 0.0s
+
+#10 [6/6] RUN python -c 'import abides_markets.orders as orders; import pathlib, shutil; root=pathlib.Path(orders.__file__).parent; saved=pathlib.Path("/opt/order-copy-baseline"); saved.mkdir(); [(shutil.copyfile(root/name,saved/name),shutil.copyfile(pathlib.Path("/tmp/order-copy-overlay")/name,root/name)) for name in ("orders.py","order_book.py")]'
+#10 DONE 1.6s
+
+#11 exporting to image
+#11 exporting layers 0.1s done
+#11 exporting manifest sha256:5f45a17619882000b43bb495234a2b6b530f9845424ba360558337674a38d520 done
+#11 exporting config sha256:e220f3b43df8c122845dc1649a20d65824e1419508896cb7ca780b37786aafcf done
+#11 exporting attestation manifest sha256:619a9b9581c323106b13f20f9ddd9109bf927b7956e1b04a4edca694b3726bed 0.0s done
+#11 exporting manifest list sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024 done
+#11 naming to docker.io/library/hotpaths-order-copy:20261006 done
+#11 DONE 0.2s

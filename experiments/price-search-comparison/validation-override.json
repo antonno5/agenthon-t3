@@ -1,0 +1,15 @@
+{
+  "executive_summary": "The user removed full public regressions from the comparison critical path before candidate timing. The timing schedule and source binding remain unchanged.",
+  "original_policy_sha256": "4d8e1ac25c5bb5a7ffeb5e9121de3a50b20f6ab5c3dc5061248572b2fe1b74b9",
+  "user_instruction": "Сначала завершается публичная регрессия общей базы; - зачем? Это не нужно",
+  "skipped": [
+    "per-variant regression65",
+    "repeated whole repository suite"
+  ],
+  "retained": [
+    "installed source audit",
+    "order-book runtime tests",
+    "exact dual journals in six timing units"
+  ],
+  "base_regression": "Already completed; retained as existing evidence, not a prerequisite for the continuation."
+}

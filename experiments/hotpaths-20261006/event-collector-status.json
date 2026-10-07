@@ -1,0 +1,11 @@
+{
+  "status": "stopped",
+  "pid": 60398,
+  "last_until": 1791314081,
+  "count": 3633,
+  "interval_sec": 5,
+  "retained_window_overlap_sec": 15,
+  "final_flush": true,
+  "journal_sha256": "9f4180b110b174e56641b4ccf4c7988151854131d866d93db2e9acbbd3c6ab94",
+  "docker_slot_idle": true
+}

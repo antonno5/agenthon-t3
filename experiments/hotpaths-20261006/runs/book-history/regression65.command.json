@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/regression_suite/run_regression.py",
+    "--candidate-image",
+    "sha256:766b3f49b285ec909f423e8078bc0c2e45c30ddc1de2e5905bad4c08fb5b65e0",
+    "--scenarios-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/regression_suite/scenarios",
+    "--reference-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/reference-cache",
+    "--output-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/regression65",
+    "--workers",
+    "1"
+  ],
+  "cwd": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history",
+  "env_overrides": {
+    "PYTHONPATH": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history",
+    "DOCKER_CONTEXT": "colima-agenthon",
+    "TMPDIR": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/tmp"
+  }
+}

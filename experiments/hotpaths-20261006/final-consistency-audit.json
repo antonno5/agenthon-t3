@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "complete": true,
+  "comparison_sha256": "ee82067d1c384656a303bbd802e3a350294f3d07a6962f5877c3e02aa54c87a2",
+  "hypotheses": 5,
+  "independently_rechecked_bindings": 545,
+  "selected_runs": 270,
+  "independent_trace_checks": 330,
+  "regressions_passed": 325,
+  "rankable": false
+}

@@ -1,0 +1,5 @@
+{
+  "reason": "Initial harness launch lacked repository PYTHONPATH; import failed before any regression simulation. Retry only regression65 with unchanged image, source and checker.",
+  "image_id": "sha256:537a7cf45af039c989ae2366916240174a2c69aa0fd68b9f70a0196736868f6c",
+  "no_timings_selected": true
+}

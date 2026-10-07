@@ -1,0 +1,166 @@
+{
+  "rankable": false,
+  "campaigns": [
+    {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/Агентон/out/differential-gates/actual-heap-singles-20261006-01",
+      "units": [
+        "t3-s001-price-time-priority",
+        "t3-mp01-stp-newest-baseline",
+        "t3-mp02-stp-oldest-baseline"
+      ],
+      "runs": 30,
+      "comparisons": 39,
+      "images": {
+        "baseline": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+        "candidate": "sha256:e25e89f200d76a864e99cc2ff2cf8288b2967f90a8759b852e7330cbff024769"
+      },
+      "worker_evidence": [],
+      "timing_correction_verified": true
+    },
+    {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/Агентон/out/differential-gates/actual-process-batch-20261006-02",
+      "units": [
+        "t3-gbatch-homog-4"
+      ],
+      "runs": 10,
+      "comparisons": 13,
+      "images": {
+        "baseline": "sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e",
+        "candidate": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389"
+      },
+      "worker_evidence": [
+        {
+          "kind": "warmup",
+          "index": 0,
+          "worker_pids": [
+            9,
+            12
+          ]
+        },
+        {
+          "kind": "timing",
+          "index": 0,
+          "worker_pids": [
+            9,
+            12
+          ]
+        },
+        {
+          "kind": "timing",
+          "index": 1,
+          "worker_pids": [
+            8,
+            11
+          ]
+        },
+        {
+          "kind": "timing",
+          "index": 2,
+          "worker_pids": [
+            9,
+            12
+          ]
+        },
+        {
+          "kind": "profile",
+          "index": 0,
+          "worker_pids": [
+            9,
+            12
+          ]
+        }
+      ],
+      "timing_correction_verified": false
+    }
+  ],
+  "negative_campaigns": [
+    {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/Агентон/out/differential-gates/actual-negatives-batch-20261006-01/negative-summary.json",
+      "positive": 1,
+      "rejected": 6,
+      "cases": [
+        "causality",
+        "event",
+        "message",
+        "missing_sub",
+        "roworder",
+        "sha"
+      ]
+    },
+    {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/Агентон/out/differential-gates/actual-negatives-s001-20261006-01/negative-summary.json",
+      "positive": 1,
+      "rejected": 3,
+      "cases": [
+        "event",
+        "message",
+        "roworder"
+      ]
+    },
+    {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/Агентон/out/differential-gates/actual-negatives-stp-20261006-01/negative-summary.json",
+      "positive": 2,
+      "rejected": 10,
+      "cases": [
+        "causality",
+        "event",
+        "message",
+        "roworder",
+        "sha"
+      ]
+    }
+  ],
+  "hash_checks": 934,
+  "invalid_diagnostics_attempt_preserved": {
+    "instrument_validation_status": "diagnostic-invalid",
+    "core_trace_and_gate_checks_passed": true,
+    "adopted_for_instrument_validation": false,
+    "reason": "Adapter unlinks /dev/stdout before writing diagnostics; requested/selected workers were not captured. Revalidation uses separate /diagnostics/batch.json mount.",
+    "raw_evidence_preserved": true,
+    "rankable": false
+  },
+  "prior_manager_controls": {
+    "source": "real baseline/heap container outputs",
+    "cases": [
+      {
+        "case": "positive",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "accepted": true,
+        "report": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/differential_manager_checks/positive/report/summary.json"
+      },
+      {
+        "case": "missing_ledger",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "accepted": false,
+        "report": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/differential_manager_checks/missing_ledger/report/summary.json"
+      },
+      {
+        "case": "bad_sha",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "accepted": false,
+        "report": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/differential_manager_checks/bad_sha/report/summary.json"
+      },
+      {
+        "case": "changed_causality",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "accepted": false,
+        "report": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/differential_manager_checks/changed_causality/report/summary.json"
+      }
+    ],
+    "all_expected": true
+  },
+  "status": "passed",
+  "final_head": "8e01ba53f53711beb49469f1a9aa1d913dfb444c",
+  "clean": true,
+  "regression65_reused_verified": true,
+  "regression_executed_in_experiment6": false,
+  "reused_source_evidence_hashes": 5,
+  "all71_runtime_admission_claimed": false,
+  "total_negative_controls": 22,
+  "code_review": "Verified unchanged scorer/C3/reference checks, full tuple/schema/ordered dual-trace comparisons, launch limits, bounded diagnostic retention and final Docker State clocks. Original failed diagnostics and raw elapsed evidence preserved.",
+  "remaining": []
+}

@@ -1,0 +1,29 @@
+{
+  "rankable": false,
+  "source_identity_mapping": [
+    {
+      "module": "abides_markets.order_copy_baseline",
+      "container_path": "/opt/order-copy-baseline/orders.py",
+      "host_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-image-source/abides_markets/orders.py",
+      "sha256": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74"
+    },
+    {
+      "module": "abides_markets.orders",
+      "container_path": "/usr/local/lib/python3.11/site-packages/abides_markets/orders.py",
+      "host_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/image-source/abides_markets/orders.py",
+      "sha256": "bdbffd92f01620e5a0369c4155230dbf20afc229404065c5d7e5862c222034a1"
+    },
+    {
+      "module": "abides_markets.order_copy_baseline_book",
+      "container_path": "/opt/order-copy-baseline/order_book.py",
+      "host_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-image-source/abides_markets/order_book.py",
+      "sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a"
+    },
+    {
+      "module": "abides_markets.order_book",
+      "container_path": "/usr/local/lib/python3.11/site-packages/abides_markets/order_book.py",
+      "host_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/image-source/abides_markets/order_book.py",
+      "sha256": "c7fb3254b5dc074d6b104058b2865468c43e5a5b7216bd60528bde23cfb93af3"
+    }
+  ]
+}

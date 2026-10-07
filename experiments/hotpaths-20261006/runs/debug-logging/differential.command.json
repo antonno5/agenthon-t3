@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/scripts/run_differential_experiment.py",
+    "run",
+    "--baseline-image",
+    "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "--candidate-image",
+    "sha256:85108ab5ca9df52e9ac5693c47b43335034aa8b77f1c453cdd8b49d12c3c5b19",
+    "--baseline-commit",
+    "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+    "--candidate-commit",
+    "a686ac924382c03571e6a9c7cd9612abab1679ef",
+    "--original-baseline-image",
+    "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "--control-description",
+    "Identical CLI wrapper deletes only forbidden root profile.json after successful serial batch",
+    "--control-source-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/batch-control",
+    "--units-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units",
+    "--units",
+    "t3-s001-price-time-priority",
+    "t3-momentum-mix-priority",
+    "t3-mr-deep-book-state-size",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline",
+    "--repeats",
+    "3",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential"
+  ],
+  "cwd": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging",
+  "env_overrides": {
+    "PYTHONPATH": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging"
+  }
+}

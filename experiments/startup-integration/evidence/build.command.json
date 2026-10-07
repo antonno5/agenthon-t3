@@ -1,0 +1,15 @@
+{
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "build",
+    "--platform=linux/amd64",
+    "--pull=false",
+    "-t",
+    "hotpaths-develop-debug-startup:20261006",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/integration-startup-develop/build"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

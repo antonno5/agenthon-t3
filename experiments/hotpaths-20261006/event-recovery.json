@@ -1,0 +1,6 @@
+{
+  "reason": "Original streaming Docker events command exited successfully before the measured runs; bounded Docker event history recovered every measured start.",
+  "recovered_file": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/docker-events-recovered.jsonl",
+  "replacement": "collect_events.py: five-second polling, overlapping bounded windows, atomic deduplicated journal",
+  "additional_audit": "Each run must have one matching Docker start/die pair and matching State timestamps; audit snapshots fresh last-minute events."
+}

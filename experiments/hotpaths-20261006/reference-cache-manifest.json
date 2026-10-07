@@ -1,0 +1,327 @@
+[
+  {
+    "unit": "t3-as01-base-mix",
+    "scenario_id": "abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad",
+    "trace_sha256": "625262143747a9dfc1cafe875022f7658fdb18f3ad2de933517b873bb0405edb"
+  },
+  {
+    "unit": "t3-as02-scale-up-noise",
+    "scenario_id": "fe284cc5-c965-5cf6-9ff8-b375758c1ee6",
+    "trace_sha256": "f8a39099fe5ece0eced910a51f6aadbc6890aac2c4828ba8c98f8caca959c13d"
+  },
+  {
+    "unit": "t3-as03-mm-liquidity-heavy",
+    "scenario_id": "df79ad78-3db2-5770-8c82-64df5edd62b5",
+    "trace_sha256": "cda4d421e99a0d3b459eb25e8d246a846e3aa6ac4e6beb27c5b95f52b6c11430"
+  },
+  {
+    "unit": "t3-as04-value-heavy",
+    "scenario_id": "8b1084a6-4f53-556a-9929-5afff3818858",
+    "trace_sha256": "0ae0461c1dcfd7d9ce69abefd9ea53bbd23c01b5ced921f3bfd8bb58399716e7"
+  },
+  {
+    "unit": "t3-as05-oracle-variant",
+    "scenario_id": "e2bb9fee-7150-5240-af64-ee1066e55564",
+    "trace_sha256": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426"
+  },
+  {
+    "unit": "t3-as06-throughput-fast",
+    "scenario_id": "a350b90c-0348-5a64-8369-4d4d8bb3dbcd",
+    "trace_sha256": "1e7761ee74ade7e23bb4f40410f8525705601f10cc9e6e855d5df798c3e94350"
+  },
+  {
+    "unit": "t3-ca-baseline-calm",
+    "scenario_id": "2bec943d-4f5f-5c8c-8ee3-b57550d936a6",
+    "trace_sha256": "efba75949d4b80d5568d99c2d41c9e6e42234931a4675160e9e30348f0bca6c6"
+  },
+  {
+    "unit": "t3-ca-fast-mean-reversion",
+    "scenario_id": "418157d5-26eb-5d5f-a000-217ec60a43a3",
+    "trace_sha256": "a477e7dd3e381b8297d5a2b7f06981aac343f2c34c34f33bebc96444a4ab7da4"
+  },
+  {
+    "unit": "t3-ca-fat-tail-jumps",
+    "scenario_id": "683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f",
+    "trace_sha256": "424a3b612f0e10b252ff4df68054aedc2a2e5643c55dac9f8142b62525c3868d"
+  },
+  {
+    "unit": "t3-ca-high-volatility",
+    "scenario_id": "16892744-6a80-5300-8552-ca18872438ea",
+    "trace_sha256": "b959dfc7640b3d4b3860970d5fc19292d2c9fec9a093417cd6cce1f628318690"
+  },
+  {
+    "unit": "t3-ca-thin-book-depth",
+    "scenario_id": "8a2f9219-014d-5d15-a7f2-efbad536db72",
+    "trace_sha256": "233a2c853786904f8fe65a8800ecdb963cb7bff41258e1442d4d02aa4cc9af18"
+  },
+  {
+    "unit": "t3-cancelmodify-lifecycle",
+    "scenario_id": "73ae330d-1e33-5418-8266-44e8deea6571",
+    "trace_sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733"
+  },
+  {
+    "unit": "t3-coarse-tick-ties",
+    "scenario_id": "e32eaeba-515c-5fde-af46-44d5246d0805",
+    "trace_sha256": "729dd4ec8f106796ef00b7ca4b40ccd832b8b18dad18cf0da3c2ed3a13d3fe55"
+  },
+  {
+    "unit": "t3-eq-deterministic-baseline",
+    "scenario_id": "14e79532-bbf4-5055-9b2f-7cb07791a6d7",
+    "trace_sha256": "f642bc11b4115962d1057d5cfe5222624ac309592f06d403f61ef1cc209442b9"
+  },
+  {
+    "unit": "t3-eq-lognormal-highmag",
+    "scenario_id": "f1f0ca35-8c17-5843-8c31-3fca8ab5a46b",
+    "trace_sha256": "136691ab3da24f620fca6494481664260221fcf60e582fc0088e4c7b9f8953df"
+  },
+  {
+    "unit": "t3-eq-lognormal-highsigma",
+    "scenario_id": "38e61d08-72ee-594b-b999-ebdd4b2ba8ab",
+    "trace_sha256": "24cc29c311179999cd5361cc61b6f83752c8621201d3e69b3d11ebcdb9871567"
+  },
+  {
+    "unit": "t3-eq-lognormal-lowsigma",
+    "scenario_id": "2c9e14c7-6c6c-5288-823f-7ff82d6050fa",
+    "trace_sha256": "5de1bdf83ac05cf9ca7ec294e4c761f324b50cf0991df63946dcb35ce67afd3e"
+  },
+  {
+    "unit": "t3-eq-pareto-heavytail",
+    "scenario_id": "d85a4b79-703d-54fb-8680-35d4c0059797",
+    "trace_sha256": "a84cce701b39b3dc8e0874887038a55b5972429a772596463c0f86f540ce3f8f"
+  },
+  {
+    "unit": "t3-eq-uniform-tight",
+    "scenario_id": "4ff8463e-c268-5a14-b191-dcb374933011",
+    "trace_sha256": "7fa9e44f9c2ea9e84f97c0b7914cfede404ad47f8df9541c1ed4e28b102e577c"
+  },
+  {
+    "unit": "t3-eq-uniform-wide",
+    "scenario_id": "50076583-ba35-52ab-b3f0-a82ad328f10d",
+    "trace_sha256": "feeab14a3ce52854f1e21fb135b53421cdf1ab10dd67b16a5166ec9d0db5ad9f"
+  },
+  {
+    "unit": "t3-eq001-pareto-latency-tail",
+    "scenario_id": "e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a",
+    "trace_sha256": "ca4b61563ed29516dee2a31be8fffc0326e31668c30078b0103a815c4bc76bcb"
+  },
+  {
+    "unit": "t3-fastlob-core",
+    "scenario_id": "e8650933-8e32-57db-8eb7-7b22231dce57",
+    "trace_sha256": "1a7a4f254ebfeb6321b4119a5a2f87791ea1fb793fe83ed4e7ad6b5e47272770"
+  },
+  {
+    "unit": "t3-fastlob-tight-book",
+    "scenario_id": "55f80db0-96b2-50d7-8d6f-448f11a626bc",
+    "trace_sha256": "641ea71e77a2f2b13624c3f196bb4cb037e155b88b3768d14722a8cffd9ca394"
+  },
+  {
+    "unit": "t3-gb-base-30agent-30s",
+    "scenario_id": "b73c8c0e-15cd-5ca6-9b91-abd2c18b417f",
+    "trace_sha256": "27aaee01b82d655372134a5e9c72e465ea2c2a90dabfc00722c7dddf78e3458a"
+  },
+  {
+    "unit": "t3-gb-highfreq-40hz-60s",
+    "scenario_id": "ed69678c-450f-5f69-83a0-b4cf31101f75",
+    "trace_sha256": "a93ccc3d90eb80937e1ba70dc6366dabef1e3d8c0ab2213d862faebbb56df89b"
+  },
+  {
+    "unit": "t3-gb-horizon-240s",
+    "scenario_id": "2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1",
+    "trace_sha256": "8423a8c5da94afce610421456ed56488c42cf4d398e1fa656c9d427880eb9df6"
+  },
+  {
+    "unit": "t3-gb-mega-throughput",
+    "scenario_id": "9b855004-0d35-5ed1-945f-5d5d299b64d8",
+    "trace_sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+  },
+  {
+    "unit": "t3-gb-pop-128-agents",
+    "scenario_id": "1c15fde8-5b8b-5fee-8274-a2ee8f5bedd5",
+    "trace_sha256": "c3b061b500884ef2cc93b503c6e824c95265987c39187cb56950f01519e8c576"
+  },
+  {
+    "unit": "t3-gb-pop-horizon-scale",
+    "scenario_id": "5f8fe817-da1a-56cd-b7ff-754f135c0029",
+    "trace_sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+  },
+  {
+    "unit": "t3-momentum-mix-priority",
+    "scenario_id": "a4251e7c-c760-58d9-8707-7c6d4c7d8789",
+    "trace_sha256": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e"
+  },
+  {
+    "unit": "t3-mp01-stp-newest-baseline",
+    "scenario_id": "a86b50cb-0785-56dd-bd58-9c3d317e49e5",
+    "trace_sha256": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed"
+  },
+  {
+    "unit": "t3-mp02-stp-oldest-baseline",
+    "scenario_id": "dfba64e0-cac2-5f16-b408-41de04ff2cae",
+    "trace_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c"
+  },
+  {
+    "unit": "t3-mp03-mm-heavy-newest",
+    "scenario_id": "644c3665-1e55-5672-9497-55c1368b9e18",
+    "trace_sha256": "e5d28c82e0423c45aecc78f3b20e25ddc0855ecc4b7d4c5311dd8c674135c6dd"
+  },
+  {
+    "unit": "t3-mp04-mm-heavy-oldest",
+    "scenario_id": "7fc88018-85be-50d4-9159-dbc1cc44f525",
+    "trace_sha256": "83341e5ac9ccf4872c1cf4eba65e269a13c5c7c3604553a6ea3ed48d184b88d6"
+  },
+  {
+    "unit": "t3-mp05-cancel-churn-newest",
+    "scenario_id": "077d6642-7e7c-529b-876d-f37aa5f70190",
+    "trace_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+  },
+  {
+    "unit": "t3-mp06-tight-spread-selfcross",
+    "scenario_id": "001d9e77-7666-5f5b-9e3e-723daed0cbe8",
+    "trace_sha256": "608a6ed05f12f1156cfc7ad65accba878f97aac152f235131cb424e8e72ad3e8"
+  },
+  {
+    "unit": "t3-mp07-heavy-flow-oldest",
+    "scenario_id": "647ddddf-b30b-5323-98ce-e1b9da65bb76",
+    "trace_sha256": "8bc596549dcfb8bb761d32c7cd72dc22b6356c30f6da9fa69e39789459f7f4cf"
+  },
+  {
+    "unit": "t3-mr-cancel-replace-churn",
+    "scenario_id": "60f3db6d-9305-543b-8388-b9a4a887f255",
+    "trace_sha256": "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd"
+  },
+  {
+    "unit": "t3-mr-checkpoint-cadence-fine",
+    "scenario_id": "c5c25713-e1b2-50e8-bb08-f0216b9d4a72",
+    "trace_sha256": "5838617f75fb95b149962f98705afaa2a1cd5e9b8f84bc9f96da169e95528c88"
+  },
+  {
+    "unit": "t3-mr-deep-book-state-size",
+    "scenario_id": "8a59be07-bb4b-5eec-b8ab-7cbc27fc6735",
+    "trace_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+  },
+  {
+    "unit": "t3-mr-long-horizon-replay",
+    "scenario_id": "73203dc3-1a14-5976-81e8-8fcec979ae7f",
+    "trace_sha256": "eabc522818ff5ae625390a97d0b0bb1fbffe60e2487ece1cb8201786d06fd226"
+  },
+  {
+    "unit": "t3-multilevel-crossing",
+    "scenario_id": "998e5c53-30cb-5ad4-b4b2-4c3791edd002",
+    "trace_sha256": "50ef3497408fe4c28b11a5ac64c4ba8421d4ad0d01f2b4849fa1bed656bd7bad"
+  },
+  {
+    "unit": "t3-partialfill-atomicity",
+    "scenario_id": "2b0ae926-c496-536c-a826-9738944667ed",
+    "trace_sha256": "9d2a091a70b22c08e37d4a07f22c8db7465da2eee2c94669cfcba5bebef89971"
+  },
+  {
+    "unit": "t3-ra01-fundamental-shock-mid",
+    "scenario_id": "66ea1f06-132d-58ac-8a27-cc8d45953215",
+    "trace_sha256": "3c6d69af6372ae6d6bfa0eba7c7271e8231840126d1e63eb7ae2865dfaeaff57"
+  },
+  {
+    "unit": "t3-ra02-shock-early",
+    "scenario_id": "4f876cd0-76bb-5369-bd07-a575b4249c12",
+    "trace_sha256": "daf1d2920f511e9a497550bac99d9cb66ff183fce854db27a931e9334dc631c3"
+  },
+  {
+    "unit": "t3-ra03-large-shock",
+    "scenario_id": "31546dd0-026f-5db8-989f-d85a6a2dace9",
+    "trace_sha256": "7f38815aa08f788e32ec8c09fd713f6a9e646797a8d6edef801c4101bd0dcfdd"
+  },
+  {
+    "unit": "t3-ra04-shock-late",
+    "scenario_id": "bcd382f5-0924-5d48-99f5-7d4075c0d674",
+    "trace_sha256": "27529b1b4a8527fe1f0b0e3b3d9b38d8541ed9b6bbb80893f899a477c6f318be"
+  },
+  {
+    "unit": "t3-ra05-shock-momentum-heavy",
+    "scenario_id": "ccb06368-afbd-5c1a-ac9a-2fd72ce9ebe0",
+    "trace_sha256": "c5b7305452963f582f3ef9453d3193a3bed92c31d9964c6202e6a4d0628dfcc5"
+  },
+  {
+    "unit": "t3-ra06-shock-value-heavy",
+    "scenario_id": "c85a5154-b948-5aff-89e7-d5c8ce61ea4d",
+    "trace_sha256": "ffcba30bef67c4fc54101f50c24782e60c28e6cdbfe5ecec5c5632fb1f8a5b08"
+  },
+  {
+    "unit": "t3-s001-price-time-priority",
+    "scenario_id": "a1b2c3d4-0001-0000-0000-000000000001",
+    "trace_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+  },
+  {
+    "unit": "t3-s012-partial-fill-cancel-race",
+    "scenario_id": "a1b2c3d4-0012-0000-0000-000000000012",
+    "trace_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+  },
+  {
+    "unit": "t3-s019-latency-jitter-kendall",
+    "scenario_id": "a1b2c3d4-0019-0000-0000-000000000019",
+    "trace_sha256": "0889c36492167a2c7e65cc65defea256ff28b31b7abd82813b1f32b7e1b569b9"
+  },
+  {
+    "unit": "t3-sf-01-baseline-regime",
+    "scenario_id": "7a903ca0-a2cb-5061-85be-2885929f64c1",
+    "trace_sha256": "86b3dc7ae2716a475dc50db453886cd2ed764a1ace8aacd3488ea6f62445283e"
+  },
+  {
+    "unit": "t3-sf-02-heavy-jump-tails",
+    "scenario_id": "f596295c-e1e4-534d-ad0a-8cfc098bc609",
+    "trace_sha256": "3b3caf4c5c1b0adef13ac2059a6b3ee6c83ed509bcea972d64e9277d3482a458"
+  },
+  {
+    "unit": "t3-sf-03-vol-clustering-momentum",
+    "scenario_id": "8c53af6a-f534-57fa-a048-e4e591f7dfb8",
+    "trace_sha256": "516f1d8740d8267b8f2992138cfebf362fc648a30fa122700c8a14d4678f0afe"
+  },
+  {
+    "unit": "t3-sf-04-thin-book-depth",
+    "scenario_id": "056e6f9a-1891-5197-8988-e410f7884ba6",
+    "trace_sha256": "ac39ecca3a5fe4dffd39a1b644171087b7d2197042af2aca7fbc56b3e9f241d2"
+  },
+  {
+    "unit": "t3-sf-05-deep-book-liquidity",
+    "scenario_id": "3118b1c8-f45b-56fc-9447-a49cfa38a8b9",
+    "trace_sha256": "95f278670382138d6a021e3317ed282be39df294e40c7df82084f38b9237f851"
+  },
+  {
+    "unit": "t3-sf-06-high-fundamental-vol",
+    "scenario_id": "0bfd6969-c241-57eb-8d6e-6de1388cb183",
+    "trace_sha256": "bc528096f102c8e6d12f6dbe4a814ab63e359e8ce32f4aad07c5754ecc059d7d"
+  },
+  {
+    "unit": "t3-sf-07-coarse-agent-batch",
+    "scenario_id": "acbaff26-109b-5856-af00-0603bde931ea",
+    "trace_sha256": "04212af9f6c2048847d9977c617c82f496fb2523c6af5196f8c9eaa665a6416d"
+  },
+  {
+    "unit": "t3-st01-liquidity-churn-baseline",
+    "scenario_id": "20d717b4-9f62-5c55-946d-317b281292e8",
+    "trace_sha256": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc"
+  },
+  {
+    "unit": "t3-st02-informed-entry-burst",
+    "scenario_id": "406cfe13-1d13-57a6-a6ba-707a55b2236f",
+    "trace_sha256": "6bc3d9b0dd91d3bcb57fba25f477497239a7de9f879e8b3c3e9d8f483b684a8a"
+  },
+  {
+    "unit": "t3-st03-volatility-burst",
+    "scenario_id": "dec8b800-21b1-5a05-84b0-8d1474130202",
+    "trace_sha256": "fa75d8173cc8f282f864febf9eebec810da8b5b250c0a99af440316954390205"
+  },
+  {
+    "unit": "t3-st04-thin-book-mm-strain",
+    "scenario_id": "493d1d62-88f8-507b-9c8e-84aff7737a49",
+    "trace_sha256": "a57eae69b3a2217f16b1788e10930c135e4f6bd510619ec07ce944ae0df87977"
+  },
+  {
+    "unit": "t3-st05-latency-spike-pareto",
+    "scenario_id": "af38a808-c9db-54cb-8604-75e1bf79759c",
+    "trace_sha256": "ce474214e531d7833dc70207ce91e103fa8cacc47278dc4df1e38ae3f545f460"
+  },
+  {
+    "unit": "t3-stp-cancel-newest",
+    "scenario_id": "94f530d4-8b56-5395-85a5-af0a9ef53356",
+    "trace_sha256": "7c5cb6651c1d02facd446c2cae21d4001b54e5f8ef3cb9c11c8e0132fb657c8b"
+  }
+]

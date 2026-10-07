@@ -1,0 +1,40 @@
+{
+  "executive_summary": "Build the independent order-copy overlay and validate snapshots before paired container measurements. Parent owns every Docker invocation.",
+  "base_image": "hotpaths-base:20261006",
+  "image_tag": "hotpaths-order-copy:20261006",
+  "dockerfile": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/order-copy/experiments/order-copy/Dockerfile",
+  "context": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/order-copy/experiments/order-copy",
+  "units": [
+    "t3-s001-price-time-priority",
+    "t3-cancelmodify-lifecycle",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-mr-cancel-replace-churn",
+    "t3-mp07-heavy-flow-oldest"
+  ],
+  "primary_units": [
+    "t3-mr-cancel-replace-churn",
+    "t3-mp07-heavy-flow-oldest"
+  ],
+  "runtime_checks": [
+    {
+      "name": "order-copy-correctness",
+      "argv": [
+        "python",
+        "/opt/order-copy/checks.py"
+      ]
+    },
+    {
+      "name": "order-copy-component-ablation",
+      "argv": [
+        "python",
+        "/opt/order-copy/benchmark.py",
+        "--count",
+        "50000",
+        "--repeats",
+        "7"
+      ]
+    }
+  ],
+  "rankable": false
+}

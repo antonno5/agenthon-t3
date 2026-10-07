@@ -1,0 +1,40 @@
+["/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/snapshot/experiments/kernel_message_ledger/microbenchmark.py", "--out", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/microbenchmark", "--repeats", "3", "--rows", "90000", "--before-adapter", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/applied/before/baselines/abides_fork/trace.py", "--after-adapter", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/applied/after/baselines/abides_fork/trace.py"]
+{
+  "delivered_rows": 90000,
+  "undelivered_before": 900,
+  "repeats": 3,
+  "warmups": 1,
+  "samples_sec": {
+    "before": [
+      0.14575462500215508,
+      0.152757208001276,
+      0.14449920899642166
+    ],
+    "after": [
+      0.061582791997352615,
+      0.06450054200104205,
+      0.0651755829967442
+    ]
+  },
+  "median_extract_sec": {
+    "before": 0.14575462500215508,
+    "after": 0.06450054200104205
+  },
+  "peak_python_heap_bytes": {
+    "before": 89487580,
+    "after": 52132289
+  },
+  "memory_scope": "state construction plus extraction; excludes Parquet; not RSS",
+  "time_scope": "extraction only; excludes state construction and Parquet; tracemalloc disabled",
+  "parquet_sha256": {
+    "before": "44c37ce3fbceb5f3acde7471c204473ea17d118d2a1dcfd5f85595f9abde558d",
+    "after": "44c37ce3fbceb5f3acde7471c204473ea17d118d2a1dcfd5f85595f9abde558d"
+  },
+  "parquet_bytes_equal": true,
+  "python": "3.13.3",
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "pyarrow": "25.0.1"
+  }
+}

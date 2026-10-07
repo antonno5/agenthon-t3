@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/run_probes.py",
+    "--baseline",
+    "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "--candidate",
+    "sha256:63d8b523e6e8d789c404a6c103937d3b7f6cbbbb42b605304f73ddd685c28b44",
+    "--scenario",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-s001-price-time-priority/scenario.json",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes"
+  ],
+  "cwd": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup",
+  "env_overrides": {}
+}

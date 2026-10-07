@@ -1,0 +1,6 @@
+/usr/local/lib/python3.11/site-packages/abides_markets/agents/trading_agent.py:790: UserWarning: Execution received for order not in orders list: (Agent 1 @ 2021-02-05 09:30:00) : BID 7 ABM @ $999.80 (filled @ $999.80)
+  warnings.warn(f"Execution received for order not in orders list: {order}")
+/usr/local/lib/python3.11/site-packages/abides_markets/agents/trading_agent.py:790: UserWarning: Execution received for order not in orders list: (Agent 1 @ 2021-02-05 09:30:01) : BID 5 ABM @ $999.70 (filled @ $999.70)
+  warnings.warn(f"Execution received for order not in orders list: {order}")
+/usr/local/lib/python3.11/site-packages/abides_markets/agents/trading_agent.py:790: UserWarning: Execution received for order not in orders list: (Agent 1 @ 2021-02-05 09:30:02) : BID 8 ABM @ $999.84 (filled @ $999.84)
+  warnings.warn(f"Execution received for order not in orders list: {order}")

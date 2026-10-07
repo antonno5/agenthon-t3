@@ -1,0 +1,1802 @@
+{
+  "hypothesis_id": 1,
+  "name": "debug-logging",
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "implementation_commit": "a686ac924382c03571e6a9c7cd9612abab1679ef",
+  "status": "complete",
+  "verdict": "local_gain_supported_requires_linux_confirmation",
+  "reason": "Both fixed targets exceed 5% median full-run reduction; no selected median slowdown exceeds 5%. All selected exact traces, actual developer gates, source audits and 65 public regressions pass.",
+  "rankable": false,
+  "performance_criterion": {
+    "min_full_run_reduction_pct": 5,
+    "targets": [
+      "t3-momentum-mix-priority",
+      "t3-mr-deep-book-state-size"
+    ],
+    "no_material_regression_required": true,
+    "max_selected_median_slowdown_pct": 5,
+    "target_failures": [],
+    "guardrail_failures": []
+  },
+  "scope": {
+    "guarded_calls": 65,
+    "changed_files": 6,
+    "change": "Only logger.isEnabledFor(logging.DEBUG) guards on eager DEBUG argument expressions; original log message text unchanged."
+  },
+  "correctness": {
+    "host_tests": {
+      "passed": 22,
+      "runtime_smoke_passed": true,
+      "git_patch_applies_and_hashes_match": true
+    },
+    "docker_runtime": {
+      "rankable": false,
+      "passed": true,
+      "checks": [
+        {
+          "method": "order_executed",
+          "debug_enabled": false,
+          "passed": true
+        },
+        {
+          "method": "order_accepted",
+          "debug_enabled": false,
+          "passed": true
+        },
+        {
+          "method": "order_cancelled",
+          "debug_enabled": false,
+          "passed": true
+        },
+        {
+          "method": "order_partial_cancelled",
+          "debug_enabled": false,
+          "passed": true
+        },
+        {
+          "method": "order_modified",
+          "debug_enabled": false,
+          "passed": true
+        },
+        {
+          "method": "order_replaced",
+          "debug_enabled": false,
+          "passed": true
+        },
+        {
+          "method": "order_executed",
+          "debug_enabled": true,
+          "passed": true
+        },
+        {
+          "method": "order_accepted",
+          "debug_enabled": true,
+          "passed": true
+        },
+        {
+          "method": "order_cancelled",
+          "debug_enabled": true,
+          "passed": true
+        },
+        {
+          "method": "order_partial_cancelled",
+          "debug_enabled": true,
+          "passed": true
+        },
+        {
+          "method": "order_modified",
+          "debug_enabled": true,
+          "passed": true
+        },
+        {
+          "method": "order_replaced",
+          "debug_enabled": true,
+          "passed": true
+        }
+      ],
+      "installed_source": {
+        "path": "/usr/local/lib/python3.11/site-packages/abides_markets/agents/trading_agent.py",
+        "sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf",
+        "matches_prepared_candidate": true
+      }
+    },
+    "exact_trace": "passed bytes/schema/ordered values on all selected pairs and available references",
+    "exact_message_trace": "passed bytes/schema/ordered values on all selected pairs and available references",
+    "developer_gates": {
+      "passed_runs": 50,
+      "gate_names": [
+        "g0_integrity",
+        "g1_schema",
+        "g2_cutoff_resource",
+        "g3_domain_semantics"
+      ],
+      "manager_recheck": "passed"
+    },
+    "regression65": {
+      "total_scenarios": 65,
+      "passed": 65,
+      "failed": 0,
+      "errored": 0
+    }
+  },
+  "full_run_measurements": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "full_run_medians": {
+        "baseline": 1.556418343,
+        "candidate": 1.601346249
+      },
+      "speedup": 0.9719436655076586,
+      "time_reduction": -0.028866214666553924,
+      "raw_pairs": [
+        {
+          "baseline": 1.634822457,
+          "candidate": 1.710960108
+        },
+        {
+          "baseline": 1.556418343,
+          "candidate": 1.601346249
+        },
+        {
+          "baseline": 1.477739402,
+          "candidate": 1.580271413
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          1.477739402,
+          1.634822457
+        ],
+        "candidate": [
+          1.580271413,
+          1.710960108
+        ]
+      },
+      "ranges_overlap": true,
+      "time_reduction_pct": -2.8866214666553924,
+      "acceptance_target": false,
+      "paired_reduction_pct": [
+        -4.657242789514737,
+        -2.8866214666553924,
+        -6.938436564744177
+      ],
+      "paired_speedups": [
+        0.9555000431371834,
+        0.9719436655076586,
+        0.9351174676979366
+      ],
+      "median_paired_speedup": 0.9555000431371834,
+      "all_pairs_faster": false,
+      "auxiliary_medians": {
+        "baseline": {
+          "host_launch_sec": 1.6476906669995515,
+          "adapter_sec_self_reported": 0.21221382699877722,
+          "cold_start_and_container_other_sec": 1.3382564890019737,
+          "adapter_peak_rss_bytes_self_reported": 175583232
+        },
+        "candidate": {
+          "host_launch_sec": 1.7014169999893056,
+          "adapter_sec_self_reported": 0.1949392840033397,
+          "cold_start_and_container_other_sec": 1.4065432619963594,
+          "adapter_peak_rss_bytes_self_reported": 175562752
+        }
+      },
+      "warmup_container_sec": {
+        "baseline": 1.686544166,
+        "candidate": 1.690603912
+      }
+    },
+    {
+      "unit": "t3-momentum-mix-priority",
+      "full_run_medians": {
+        "baseline": 5.150710212,
+        "candidate": 4.798422629
+      },
+      "speedup": 1.073417372798906,
+      "time_reduction": 0.06839592376586223,
+      "raw_pairs": [
+        {
+          "baseline": 5.433012696,
+          "candidate": 4.812975007
+        },
+        {
+          "baseline": 5.150710212,
+          "candidate": 4.798422629
+        },
+        {
+          "baseline": 5.040509936,
+          "candidate": 4.679816249
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          5.040509936,
+          5.433012696
+        ],
+        "candidate": [
+          4.679816249,
+          4.812975007
+        ]
+      },
+      "ranges_overlap": false,
+      "time_reduction_pct": 6.839592376586223,
+      "acceptance_target": true,
+      "paired_reduction_pct": [
+        11.412410087988489,
+        6.839592376586223,
+        7.155896756077739
+      ],
+      "paired_speedups": [
+        1.1288262848026875,
+        1.073417372798906,
+        1.0770743268129543
+      ],
+      "median_paired_speedup": 1.0770743268129543,
+      "all_pairs_faster": true,
+      "auxiliary_medians": {
+        "baseline": {
+          "host_launch_sec": 5.18265341699589,
+          "adapter_sec_self_reported": 3.715957530999731,
+          "cold_start_and_container_other_sec": 1.3461779349987717,
+          "adapter_peak_rss_bytes_self_reported": 272601088
+        },
+        "candidate": {
+          "host_launch_sec": 4.933233333998942,
+          "adapter_sec_self_reported": 3.3645251850030036,
+          "cold_start_and_container_other_sec": 1.3866304240060021,
+          "adapter_peak_rss_bytes_self_reported": 273477632
+        }
+      },
+      "warmup_container_sec": {
+        "baseline": 5.129681466,
+        "candidate": 5.476647624
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "full_run_medians": {
+        "baseline": 18.648023102,
+        "candidate": 17.037033833
+      },
+      "speedup": 1.0945580835720115,
+      "time_reduction": 0.08638927891649928,
+      "raw_pairs": [
+        {
+          "baseline": 17.782150319,
+          "candidate": 15.932969009
+        },
+        {
+          "baseline": 21.578190311,
+          "candidate": 17.037033833
+        },
+        {
+          "baseline": 18.648023102,
+          "candidate": 17.790071142
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          17.782150319,
+          21.578190311
+        ],
+        "candidate": [
+          15.932969009,
+          17.790071142
+        ]
+      },
+      "ranges_overlap": true,
+      "time_reduction_pct": 8.638927891649928,
+      "acceptance_target": true,
+      "paired_reduction_pct": [
+        10.399087156653785,
+        21.04512200768309,
+        4.6007662866311305
+      ],
+      "paired_speedups": [
+        1.1160600581696642,
+        1.266546191227488,
+        1.0482264490766702
+      ],
+      "median_paired_speedup": 1.1160600581696642,
+      "all_pairs_faster": true,
+      "auxiliary_medians": {
+        "baseline": {
+          "host_launch_sec": 18.694142499996815,
+          "adapter_sec_self_reported": 17.272614624002017,
+          "cold_start_and_container_other_sec": 1.3754084779979827,
+          "adapter_peak_rss_bytes_self_reported": 584839168
+        },
+        "candidate": {
+          "host_launch_sec": 16.542022959009046,
+          "adapter_sec_self_reported": 15.052357717999257,
+          "cold_start_and_container_other_sec": 1.9846761150007417,
+          "adapter_peak_rss_bytes_self_reported": 584380416
+        }
+      },
+      "warmup_container_sec": {
+        "baseline": 18.818259216,
+        "candidate": 17.001133741
+      }
+    },
+    {
+      "unit": "t3-mp01-stp-newest-baseline",
+      "full_run_medians": {
+        "baseline": 4.866266148,
+        "candidate": 4.47717107
+      },
+      "speedup": 1.0869064576529572,
+      "time_reduction": 0.07995762380565963,
+      "raw_pairs": [
+        {
+          "baseline": 7.251972965,
+          "candidate": 2.312439186
+        },
+        {
+          "baseline": 4.866266148,
+          "candidate": 4.47717107
+        },
+        {
+          "baseline": 4.49923566,
+          "candidate": 4.644249546
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          4.49923566,
+          7.251972965
+        ],
+        "candidate": [
+          2.312439186,
+          4.644249546
+        ]
+      },
+      "ranges_overlap": true,
+      "time_reduction_pct": 7.995762380565963,
+      "acceptance_target": false,
+      "paired_reduction_pct": [
+        68.11296460755628,
+        7.995762380565963,
+        -3.2230782505844546
+      ],
+      "paired_speedups": [
+        3.136070781409081,
+        1.0869064576529572,
+        0.9687756042039348
+      ],
+      "median_paired_speedup": 1.0869064576529572,
+      "all_pairs_faster": false,
+      "auxiliary_medians": {
+        "baseline": {
+          "host_launch_sec": 5.010270250000758,
+          "adapter_sec_self_reported": 3.438610573000915,
+          "cold_start_and_container_other_sec": 1.2842324110049281,
+          "adapter_peak_rss_bytes_self_reported": 266244096
+        },
+        "candidate": {
+          "host_launch_sec": 4.6125240409892285,
+          "adapter_sec_self_reported": 3.084546917998523,
+          "cold_start_and_container_other_sec": 1.5408363020026767,
+          "adapter_peak_rss_bytes_self_reported": 267132928
+        }
+      },
+      "warmup_container_sec": {
+        "baseline": 5.027461939,
+        "candidate": 4.341010326
+      }
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "full_run_medians": {
+        "baseline": 4.647710636,
+        "candidate": 4.053573643
+      },
+      "speedup": 1.1465711604934077,
+      "time_reduction": 0.12783433383265386,
+      "raw_pairs": [
+        {
+          "baseline": 4.868073384,
+          "candidate": 3.912483182
+        },
+        {
+          "baseline": 4.451541419,
+          "candidate": 4.053573643
+        },
+        {
+          "baseline": 4.647710636,
+          "candidate": 4.236679372
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          4.451541419,
+          4.868073384
+        ],
+        "candidate": [
+          3.912483182,
+          4.236679372
+        ]
+      },
+      "ranges_overlap": false,
+      "time_reduction_pct": 12.783433383265386,
+      "acceptance_target": false,
+      "paired_reduction_pct": [
+        19.629741103344056,
+        8.939999396644948,
+        8.843736114211909
+      ],
+      "paired_speedups": [
+        1.2442413570993338,
+        1.098177018860195,
+        1.097017316608022
+      ],
+      "median_paired_speedup": 1.098177018860195,
+      "all_pairs_faster": true,
+      "auxiliary_medians": {
+        "baseline": {
+          "host_launch_sec": 4.534046375003527,
+          "adapter_sec_self_reported": 3.0901459390006494,
+          "cold_start_and_container_other_sec": 1.3613954799993504,
+          "adapter_peak_rss_bytes_self_reported": 264966144
+        },
+        "candidate": {
+          "host_launch_sec": 4.13503912500164,
+          "adapter_sec_self_reported": 2.6751367680044496,
+          "cold_start_and_container_other_sec": 1.346857189998282,
+          "adapter_peak_rss_bytes_self_reported": 265019392
+        }
+      },
+      "warmup_container_sec": {
+        "baseline": 4.651942984,
+        "candidate": 3.768859334
+      }
+    }
+  ],
+  "diagnostic_profile": {
+    "excluded_from_speed_estimate": true,
+    "profiles": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "side": "baseline",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 0.227651232999051,
+            "phases": {
+              "input": 0.0034005420020548627,
+              "configuration": 0.017173152999021113,
+              "simulation": 0.09144774799642619,
+              "trace_finalize": 0.009775468999578152,
+              "message_finalize": 0.004677711003751028,
+              "parquet_write": 0.09721390099730343,
+              "hashing": 0.002662028004124295,
+              "metadata_write": 0.0010746759944595397
+            },
+            "components": {
+              "input": 0.0034005420020548627,
+              "configuration": 0.017173152999021113,
+              "trace_finalize": 0.009775468999578152,
+              "message_finalize": 0.004677711003751028,
+              "parquet_write": 0.09721390099730343,
+              "hashing": 0.002662028004124295,
+              "metadata_write": 0.0010746759944595397,
+              "event_queue": 0.003896095999999997,
+              "event_capture": 0.004640403999999998,
+              "exchange": 0.006445628000000001,
+              "latency": 0.007940487999999999,
+              "agent_logic": 0.023791295999999993,
+              "matching": 0.007997611999999998,
+              "kernel_other": 0.036736223996426204,
+              "adapter_other": 0.00022600500233241338
+            },
+            "simulation_components": {
+              "event_queue": 0.003896095999999997,
+              "event_capture": 0.004640403999999998,
+              "exchange": 0.006445628000000001,
+              "latency": 0.007940487999999999,
+              "agent_logic": 0.023791295999999993,
+              "matching": 0.007997611999999998,
+              "kernel_other": 0.036736223996426204
+            },
+            "component_calls": {
+              "event_queue": 2108,
+              "event_capture": 1198,
+              "exchange": 229,
+              "latency": 580,
+              "agent_logic": 435,
+              "matching": 145
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 175091712
+          }
+        }
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "side": "candidate",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 0.20501187699846923,
+            "phases": {
+              "input": 0.00497709999763174,
+              "configuration": 0.015393426001537591,
+              "simulation": 0.07369944800302619,
+              "trace_finalize": 0.007999444998858962,
+              "message_finalize": 0.003550264998921193,
+              "parquet_write": 0.09550746899913065,
+              "hashing": 0.0027113360047223978,
+              "metadata_write": 0.0010285440002917312
+            },
+            "components": {
+              "input": 0.00497709999763174,
+              "configuration": 0.015393426001537591,
+              "trace_finalize": 0.007999444998858962,
+              "message_finalize": 0.003550264998921193,
+              "parquet_write": 0.09550746899913065,
+              "hashing": 0.0027113360047223978,
+              "metadata_write": 0.0010285440002917312,
+              "event_queue": 0.003198476000000022,
+              "event_capture": 0.003674351000000014,
+              "exchange": 0.0035071139999999995,
+              "latency": 0.006116619999999997,
+              "agent_logic": 0.013180366000000015,
+              "matching": 0.006382173000000002,
+              "kernel_other": 0.03764034800302614,
+              "adapter_other": 0.0001448439943487756
+            },
+            "simulation_components": {
+              "event_queue": 0.003198476000000022,
+              "event_capture": 0.003674351000000014,
+              "exchange": 0.0035071139999999995,
+              "latency": 0.006116619999999997,
+              "agent_logic": 0.013180366000000015,
+              "matching": 0.006382173000000002,
+              "kernel_other": 0.03764034800302614
+            },
+            "component_calls": {
+              "event_queue": 2108,
+              "event_capture": 1198,
+              "exchange": 229,
+              "latency": 580,
+              "agent_logic": 435,
+              "matching": 145
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 175026176
+          }
+        }
+      },
+      {
+        "unit": "t3-momentum-mix-priority",
+        "side": "baseline",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 5.071727549002389,
+            "phases": {
+              "input": 0.0015656579998903908,
+              "configuration": 0.016004199998860713,
+              "simulation": 4.720500978997734,
+              "trace_finalize": 0.03480754500196781,
+              "message_finalize": 0.10566879100224469,
+              "parquet_write": 0.17962980100128334,
+              "hashing": 0.011858097001095302,
+              "metadata_write": 0.0014389540010597557
+            },
+            "components": {
+              "input": 0.0015656579998903908,
+              "configuration": 0.016004199998860713,
+              "trace_finalize": 0.03480754500196781,
+              "message_finalize": 0.10566879100224469,
+              "parquet_write": 0.17962980100128334,
+              "hashing": 0.011858097001095302,
+              "metadata_write": 0.0014389540010597557,
+              "event_queue": 0.7738129079996714,
+              "event_capture": 0.3026881940000003,
+              "exchange": 0.5967738810000002,
+              "latency": 0.474545920999987,
+              "agent_logic": 1.1840822039999948,
+              "matching": 0.8201035459999969,
+              "oracle": 0.00200645,
+              "kernel_other": 0.5664878749980833,
+              "adapter_other": 0.00025352399825351313
+            },
+            "simulation_components": {
+              "event_queue": 0.7738129079996714,
+              "event_capture": 0.3026881940000003,
+              "exchange": 0.5967738810000002,
+              "latency": 0.474545920999987,
+              "agent_logic": 1.1840822039999948,
+              "matching": 0.8201035459999969,
+              "oracle": 0.00200645,
+              "kernel_other": 0.5664878749980833
+            },
+            "component_calls": {
+              "event_queue": 578984,
+              "event_capture": 95118,
+              "exchange": 30198,
+              "latency": 61087,
+              "agent_logic": 32762,
+              "matching": 28325,
+              "oracle": 44
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 272093184
+          }
+        }
+      },
+      {
+        "unit": "t3-momentum-mix-priority",
+        "side": "candidate",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 4.373054834002687,
+            "phases": {
+              "input": 0.004325137000705581,
+              "configuration": 0.017100263001339044,
+              "simulation": 4.029550838997238,
+              "trace_finalize": 0.02925141500600148,
+              "message_finalize": 0.11488637900038157,
+              "parquet_write": 0.16757486999995308,
+              "hashing": 0.009196685001370497,
+              "metadata_write": 0.0009834619995672256
+            },
+            "components": {
+              "input": 0.004325137000705581,
+              "configuration": 0.017100263001339044,
+              "trace_finalize": 0.02925141500600148,
+              "message_finalize": 0.11488637900038157,
+              "parquet_write": 0.16757486999995308,
+              "hashing": 0.009196685001370497,
+              "metadata_write": 0.0009834619995672256,
+              "event_queue": 0.7515998789998208,
+              "event_capture": 0.2788385949999831,
+              "exchange": 0.2785715130000001,
+              "latency": 0.43291593500001996,
+              "agent_logic": 0.9551620559999892,
+              "matching": 0.7220669100000042,
+              "oracle": 0.0018637820000000005,
+              "kernel_other": 0.6085321689974208,
+              "adapter_other": 0.0001857839961303398
+            },
+            "simulation_components": {
+              "event_queue": 0.7515998789998208,
+              "event_capture": 0.2788385949999831,
+              "exchange": 0.2785715130000001,
+              "latency": 0.43291593500001996,
+              "agent_logic": 0.9551620559999892,
+              "matching": 0.7220669100000042,
+              "oracle": 0.0018637820000000005,
+              "kernel_other": 0.6085321689974208
+            },
+            "component_calls": {
+              "event_queue": 578984,
+              "event_capture": 95118,
+              "exchange": 30198,
+              "latency": 61087,
+              "agent_logic": 32762,
+              "matching": 28325,
+              "oracle": 44
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 271769600
+          }
+        }
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "side": "baseline",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 25.938462336001976,
+            "phases": {
+              "input": 0.007212980002805125,
+              "configuration": 0.01634641899727285,
+              "simulation": 24.885291594997398,
+              "trace_finalize": 0.07904462599981343,
+              "message_finalize": 0.48451766499783844,
+              "parquet_write": 0.42716574700170895,
+              "hashing": 0.03696159500395879,
+              "metadata_write": 0.0015837820028536953
+            },
+            "components": {
+              "input": 0.007212980002805125,
+              "configuration": 0.01634641899727285,
+              "trace_finalize": 0.07904462599981343,
+              "message_finalize": 0.48451766499783844,
+              "parquet_write": 0.42716574700170895,
+              "hashing": 0.03696159500395879,
+              "metadata_write": 0.0015837820028536953,
+              "event_queue": 4.421226106002503,
+              "event_capture": 1.501068902000098,
+              "exchange": 3.0392509260001024,
+              "latency": 2.432772506999958,
+              "agent_logic": 5.861559725999875,
+              "matching": 4.698873266000083,
+              "oracle": 0.0022492410000000003,
+              "kernel_other": 2.928290920994776,
+              "adapter_other": 0.00033792699832702056
+            },
+            "simulation_components": {
+              "event_queue": 4.421226106002503,
+              "event_capture": 1.501068902000098,
+              "exchange": 3.0392509260001024,
+              "latency": 2.432772506999958,
+              "agent_logic": 5.861559725999875,
+              "matching": 4.698873266000083,
+              "oracle": 0.0022492410000000003,
+              "kernel_other": 2.928290920994776
+            },
+            "component_calls": {
+              "event_queue": 2942882,
+              "event_capture": 403313,
+              "exchange": 132514,
+              "latency": 265339,
+              "agent_logic": 137130,
+              "matching": 128209,
+              "oracle": 18
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 597708800
+          }
+        }
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "side": "candidate",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 19.274431535995973,
+            "phases": {
+              "input": 0.0045303469960344955,
+              "configuration": 0.012277552996238228,
+              "simulation": 18.266136951999215,
+              "trace_finalize": 0.07588379100343445,
+              "message_finalize": 0.46349841600022046,
+              "parquet_write": 0.4080429660025402,
+              "hashing": 0.04238423199421959,
+              "metadata_write": 0.001482443003624212
+            },
+            "components": {
+              "input": 0.0045303469960344955,
+              "configuration": 0.012277552996238228,
+              "trace_finalize": 0.07588379100343445,
+              "message_finalize": 0.46349841600022046,
+              "parquet_write": 0.4080429660025402,
+              "hashing": 0.04238423199421959,
+              "metadata_write": 0.001482443003624212,
+              "event_queue": 3.867370287980219,
+              "event_capture": 1.2089225419997882,
+              "exchange": 1.1332852580000992,
+              "latency": 1.7963258060005056,
+              "agent_logic": 3.8946661770001048,
+              "matching": 3.848514743000057,
+              "oracle": 0.001057716,
+              "kernel_other": 2.5159944220184425,
+              "adapter_other": 0.00019483600044623017
+            },
+            "simulation_components": {
+              "event_queue": 3.867370287980219,
+              "event_capture": 1.2089225419997882,
+              "exchange": 1.1332852580000992,
+              "latency": 1.7963258060005056,
+              "agent_logic": 3.8946661770001048,
+              "matching": 3.848514743000057,
+              "oracle": 0.001057716,
+              "kernel_other": 2.5159944220184425
+            },
+            "component_calls": {
+              "event_queue": 2942882,
+              "event_capture": 403313,
+              "exchange": 132514,
+              "latency": 265339,
+              "agent_logic": 137130,
+              "matching": 128209,
+              "oracle": 18
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 583614464
+          }
+        }
+      },
+      {
+        "unit": "t3-mp01-stp-newest-baseline",
+        "side": "baseline",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 4.080377799997223,
+            "phases": {
+              "input": 0.0018386439987807535,
+              "configuration": 0.0156645339957322,
+              "simulation": 3.748112608998781,
+              "trace_finalize": 0.024777382001047954,
+              "message_finalize": 0.09850810500211082,
+              "parquet_write": 0.17607870399660897,
+              "hashing": 0.013831454001774546,
+              "metadata_write": 0.001362388997222297
+            },
+            "components": {
+              "input": 0.0018386439987807535,
+              "configuration": 0.0156645339957322,
+              "trace_finalize": 0.024777382001047954,
+              "message_finalize": 0.09850810500211082,
+              "parquet_write": 0.17607870399660897,
+              "hashing": 0.013831454001774546,
+              "metadata_write": 0.001362388997222297,
+              "event_queue": 0.26429084100001826,
+              "event_capture": 0.28296192400001136,
+              "exchange": 0.5506036880000038,
+              "latency": 0.4619637820000048,
+              "agent_logic": 1.1191854890000041,
+              "matching": 0.7474866750000035,
+              "oracle": 0.002586565999999999,
+              "kernel_other": 0.3190336439987349,
+              "adapter_other": 0.00020397900516400114
+            },
+            "simulation_components": {
+              "event_queue": 0.26429084100001826,
+              "event_capture": 0.28296192400001136,
+              "exchange": 0.5506036880000038,
+              "latency": 0.4619637820000048,
+              "agent_logic": 1.1191854890000041,
+              "matching": 0.7474866750000035,
+              "oracle": 0.002586565999999999,
+              "kernel_other": 0.3190336439987349
+            },
+            "component_calls": {
+              "event_queue": 191303,
+              "event_capture": 95506,
+              "exchange": 30515,
+              "latency": 61502,
+              "agent_logic": 33102,
+              "matching": 28400,
+              "oracle": 63
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 265912320
+          }
+        }
+      },
+      {
+        "unit": "t3-mp01-stp-newest-baseline",
+        "side": "candidate",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 3.882325694998144,
+            "phases": {
+              "input": 0.0021789219972561114,
+              "configuration": 0.013115845998981968,
+              "simulation": 3.5749013090025983,
+              "trace_finalize": 0.02358703800564399,
+              "message_finalize": 0.0957315500054392,
+              "parquet_write": 0.1602146509976592,
+              "hashing": 0.011195595005119685,
+              "metadata_write": 0.0012326579962973483
+            },
+            "components": {
+              "input": 0.0021789219972561114,
+              "configuration": 0.013115845998981968,
+              "trace_finalize": 0.02358703800564399,
+              "message_finalize": 0.0957315500054392,
+              "parquet_write": 0.1602146509976592,
+              "hashing": 0.011195595005119685,
+              "metadata_write": 0.0012326579962973483,
+              "event_queue": 0.2887617590000154,
+              "event_capture": 0.310818686000013,
+              "exchange": 0.29747449499999856,
+              "latency": 0.4795858630000134,
+              "agent_logic": 1.0186176539999936,
+              "matching": 0.8275231960000028,
+              "oracle": 0.002386438,
+              "kernel_other": 0.34973321800256185,
+              "adapter_other": 0.00016812598914839327
+            },
+            "simulation_components": {
+              "event_queue": 0.2887617590000154,
+              "event_capture": 0.310818686000013,
+              "exchange": 0.29747449499999856,
+              "latency": 0.4795858630000134,
+              "agent_logic": 1.0186176539999936,
+              "matching": 0.8275231960000028,
+              "oracle": 0.002386438,
+              "kernel_other": 0.34973321800256185
+            },
+            "component_calls": {
+              "event_queue": 191303,
+              "event_capture": 95506,
+              "exchange": 30515,
+              "latency": 61502,
+              "agent_logic": 33102,
+              "matching": 28400,
+              "oracle": 63
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 266612736
+          }
+        }
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "side": "baseline",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 3.9599830840015784,
+            "phases": {
+              "input": 0.0022246709995670244,
+              "configuration": 0.01248184699943522,
+              "simulation": 3.638111824002408,
+              "trace_finalize": 0.027258866997726727,
+              "message_finalize": 0.1115459180000471,
+              "parquet_write": 0.15637327500007814,
+              "hashing": 0.010771181994641665,
+              "metadata_write": 0.001026278994686436
+            },
+            "components": {
+              "input": 0.0022246709995670244,
+              "configuration": 0.01248184699943522,
+              "trace_finalize": 0.027258866997726727,
+              "message_finalize": 0.1115459180000471,
+              "parquet_write": 0.15637327500007814,
+              "hashing": 0.010771181994641665,
+              "metadata_write": 0.001026278994686436,
+              "event_queue": 0.25910449599996305,
+              "event_capture": 0.28514591100000575,
+              "exchange": 0.5315665259999987,
+              "latency": 0.41537069000000615,
+              "agent_logic": 1.1239352939999923,
+              "matching": 0.7042888139999983,
+              "oracle": 0.0023147920000000004,
+              "kernel_other": 0.3163853010024438,
+              "adapter_other": 0.00018922101298812777
+            },
+            "simulation_components": {
+              "event_queue": 0.25910449599996305,
+              "event_capture": 0.28514591100000575,
+              "exchange": 0.5315665259999987,
+              "latency": 0.41537069000000615,
+              "agent_logic": 1.1239352939999923,
+              "matching": 0.7042888139999983,
+              "oracle": 0.0023147920000000004,
+              "kernel_other": 0.3163853010024438
+            },
+            "component_calls": {
+              "event_queue": 191333,
+              "event_capture": 95564,
+              "exchange": 30494,
+              "latency": 61508,
+              "agent_logic": 33129,
+              "matching": 28382,
+              "oracle": 65
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 265797632
+          }
+        }
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "side": "candidate",
+        "profiles": {
+          "profile.json": {
+            "schema_version": 1,
+            "trace_mode": "buffered",
+            "detailed": true,
+            "timing_kind": "diagnostic",
+            "wall_clock_sec": 3.2630521840037545,
+            "phases": {
+              "input": 0.0042513350053923205,
+              "configuration": 0.011477048996312078,
+              "simulation": 2.9406350610006484,
+              "trace_finalize": 0.021945610002148896,
+              "message_finalize": 0.09372256200003903,
+              "parquet_write": 0.17547753699909663,
+              "hashing": 0.013638554999488406,
+              "metadata_write": 0.0015886379987932742
+            },
+            "components": {
+              "input": 0.0042513350053923205,
+              "configuration": 0.011477048996312078,
+              "trace_finalize": 0.021945610002148896,
+              "message_finalize": 0.09372256200003903,
+              "parquet_write": 0.17547753699909663,
+              "hashing": 0.013638554999488406,
+              "metadata_write": 0.0015886379987932742,
+              "event_queue": 0.24063105600005769,
+              "event_capture": 0.2574469920000334,
+              "exchange": 0.25563831299999495,
+              "latency": 0.3760070680000079,
+              "agent_logic": 0.8705168570000084,
+              "matching": 0.6390980460000045,
+              "oracle": 0.0020856619999999994,
+              "kernel_other": 0.2992110670005417,
+              "adapter_other": 0.0003158370018354617
+            },
+            "simulation_components": {
+              "event_queue": 0.24063105600005769,
+              "event_capture": 0.2574469920000334,
+              "exchange": 0.25563831299999495,
+              "latency": 0.3760070680000079,
+              "agent_logic": 0.8705168570000084,
+              "matching": 0.6390980460000045,
+              "oracle": 0.0020856619999999994,
+              "kernel_other": 0.2992110670005417
+            },
+            "component_calls": {
+              "event_queue": 191333,
+              "event_capture": 95564,
+              "exchange": 30494,
+              "latency": 61508,
+              "agent_logic": 33129,
+              "matching": 28382,
+              "oracle": 65
+            },
+            "gpu_utilization": 0.0,
+            "peak_memory_bytes": 265064448
+          }
+        }
+      }
+    ]
+  },
+  "host_component": {
+    "rankable": false,
+    "profiled": false,
+    "order": "AB/BA/AB",
+    "fresh_process_per_side": true,
+    "records": [
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "baseline",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 1.247570375,
+        "render_calls": 200000,
+        "source_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "candidate",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 0.032070792,
+        "render_calls": 0,
+        "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "candidate",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 0.024872583,
+        "render_calls": 0,
+        "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "baseline",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 1.300974625,
+        "render_calls": 200000,
+        "source_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "baseline",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 1.199904209,
+        "render_calls": 200000,
+        "source_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "candidate",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 0.02526925,
+        "render_calls": 0,
+        "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"
+      }
+    ],
+    "medians_sec": {
+      "baseline": 1.247570375,
+      "candidate": 0.02526925
+    },
+    "reduction_pct": 97.97452308051159
+  },
+  "provenance": {
+    "rankable": false,
+    "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-source",
+    "patch_sha256": "cb3d2cc3ab930e2934241794f193474c92f225b4923f88900c5296ec12e9f380",
+    "files": {
+      "abides_core/agent.py": {
+        "baseline_sha256": "13763aaf6f5207314689f98c4e7708dd1e910e2bd20644d0f17cf39df07b74ca",
+        "candidate_sha256": "7d0bd4aeed99908f4b26e2792136c30971e5dac7d14d4a3eb0c9969b01c10b6b",
+        "guarded_calls": 2
+      },
+      "abides_core/kernel.py": {
+        "baseline_sha256": "c2da17e2b62bac13337d9ae6a9b5182c1c6e13025789262107255aedbf2ed6b2",
+        "candidate_sha256": "a10161087a5d0fd71f622dac56b8ff160dd0734f5a08e6b5ec285c739eef97bf",
+        "guarded_calls": 14
+      },
+      "abides_markets/agents/exchange_agent.py": {
+        "baseline_sha256": "07b2c71633b40e3ada1582a8d5187998d1e92fde63995e7669a0261979bcaab3",
+        "candidate_sha256": "5ea1c9ed4d8687b3c5d843025fda5814ee038d6d847a7a7af54d717875aa1eac",
+        "guarded_calls": 18
+      },
+      "abides_markets/agents/trading_agent.py": {
+        "baseline_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b",
+        "candidate_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf",
+        "guarded_calls": 23
+      },
+      "abides_markets/oracles/sparse_mean_reverting_oracle.py": {
+        "baseline_sha256": "2f9551a0889e763429c9fd5fcd7c0e9a71eaf79b36143d33058163bde6e1a239",
+        "candidate_sha256": "dd35d415b82e92c2c634f900cb7357d5ef5e57eccda79d1fe37dd13461ab6bfa",
+        "guarded_calls": 7
+      },
+      "abides_markets/order_book.py": {
+        "baseline_sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+        "candidate_sha256": "2c02c494028b9fb6e31f48f1df1de2e0c478f24ca2987b2fbe5527a7c454b7b4",
+        "guarded_calls": 1
+      }
+    },
+    "guarded_calls": 65,
+    "baseline_dropout_python_control_present": true
+  },
+  "images": {
+    "base": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "candidate": "sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681",
+    "measured_baseline_control": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "measured_candidate_control": "sha256:85108ab5ca9df52e9ac5693c47b43335034aa8b77f1c453cdd8b49d12c3c5b19",
+    "runtime_identity": {
+      "baseline": {
+        "tag": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+        "digest": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+        "repo_digests": [
+          "hotpaths-control@sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40"
+        ],
+        "architecture": "amd64",
+        "labels": {
+          "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+          "orchestration.control": "batch-output-contract-only",
+          "org.opencontainers.image.revision": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+          "qfbench2.interface_version": "2.0"
+        },
+        "versions": {
+          "python": "3.11.17",
+          "packages": {
+            "numpy": "1.26.4",
+            "pandas": "1.5.3",
+            "pyarrow": "15.0.2",
+            "scipy": "1.17.1",
+            "abides-core": "0.0.0",
+            "abides-markets": "0.0.0"
+          }
+        },
+        "source_commit_declared": "0af6939d8815b9e39376e5c6f7fef3538cec06f1"
+      },
+      "candidate": {
+        "tag": "sha256:85108ab5ca9df52e9ac5693c47b43335034aa8b77f1c453cdd8b49d12c3c5b19",
+        "digest": "sha256:85108ab5ca9df52e9ac5693c47b43335034aa8b77f1c453cdd8b49d12c3c5b19",
+        "repo_digests": [
+          "hotpaths-debug-logging@sha256:85108ab5ca9df52e9ac5693c47b43335034aa8b77f1c453cdd8b49d12c3c5b19"
+        ],
+        "architecture": "amd64",
+        "labels": {
+          "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+          "org.opencontainers.image.revision": "a686ac924382c03571e6a9c7cd9612abab1679ef",
+          "qfbench2.interface_version": "2.0"
+        },
+        "versions": {
+          "python": "3.11.17",
+          "packages": {
+            "numpy": "1.26.4",
+            "pandas": "1.5.3",
+            "pyarrow": "15.0.2",
+            "scipy": "1.17.1",
+            "abides-core": "0.0.0",
+            "abides-markets": "0.0.0"
+          }
+        },
+        "source_commit_declared": "a686ac924382c03571e6a9c7cd9612abab1679ef"
+      }
+    }
+  },
+  "evidence_paths": {
+    "application": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/application.json",
+    "host_component": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/component/summary.json",
+    "host_tests": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/host-tests.txt",
+    "runtime_checks": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/host-runtime-checks.json",
+    "patch_application": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/git-apply-check.json",
+    "manager_runs": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging",
+    "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit.json",
+    "source_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/independent-source-audit.json",
+    "regression65": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/regression65/report.json"
+  },
+  "independent_review": {
+    "status": "passed",
+    "run_count": 50,
+    "pair_count": 25,
+    "trace_checks": 50,
+    "docker_event_overlap_check": "passed",
+    "docker_event_coverage": "all measured/warmup/profile starts and deaths present",
+    "manager_gate_recheck_accepted": true
+  },
+  "harness_repair": {
+    "reason": "/checks mount has fewer than three path parents; DEBUG_PREPARED now bypasses repository root resolution",
+    "failed_runtime_evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging-failed-runtime-mount/runtime-00.log",
+    "runtime_retry": "passed",
+    "simulator_code_unchanged": true
+  },
+  "complete": true,
+  "verdict_scope": "preliminary local developer evidence; no integration, merge or official ranking",
+  "performance_criterion_met": true,
+  "measurement_protocol": {
+    "metric": "Docker State lifetime recomputed by independent manager audit",
+    "repeats": 3,
+    "order": "AB/BA/AB",
+    "warmup_pairs_per_unit": 1,
+    "profile_pairs_per_unit": 1,
+    "warmup_profile_excluded": true,
+    "fresh_container_per_run": true,
+    "execution": "manager-only sequential Docker slot",
+    "platform": "Mac ARM64 / Colima linux-amd64 via Rosetta",
+    "resources": {
+      "cpus": 4,
+      "memory": "16g",
+      "memory_swap": "16g",
+      "network": "none",
+      "disk_cap_enforced": false
+    },
+    "rankable": false
+  },
+  "docker_component": {
+    "records": [
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "baseline",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 1.09183895,
+        "render_calls": 200000,
+        "source_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "candidate",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 0.025064979,
+        "render_calls": 0,
+        "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "baseline",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 1.051946016,
+        "render_calls": 200000,
+        "source_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "candidate",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 0.025691554,
+        "render_calls": 0,
+        "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "baseline",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 1.146279552,
+        "render_calls": 200000,
+        "source_sha256": "8fb9977e8a26c642f79271ad259151d58a6b00118a3e487754f04131bd2f5b5b"
+      },
+      {
+        "rankable": false,
+        "profiled": false,
+        "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator",
+        "variant": "candidate",
+        "iterations": 200000,
+        "warmup_iterations": 1000,
+        "elapsed_sec": 0.02499057,
+        "render_calls": 0,
+        "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"
+      }
+    ],
+    "medians_sec": {
+      "baseline": 1.09183895,
+      "candidate": 0.025064979
+    },
+    "reduction_pct": 97.70433368401082,
+    "scope": "isolated actual order_accepted + actual LimitOrder rendering; diagnostic only",
+    "rankable": false
+  },
+  "control_overlay": {
+    "description": "Identical CLI wrapper deletes only forbidden root profile.json after successful serial batch",
+    "hashes": {
+      "Dockerfile": "44ec02df499a5f733489d53074cd5f19f176b18f79cbeaef5f03f70bf3485c1b",
+      "simulate-batch": "77f4177c597741a2dcce98ea245d5a18cf51d0fc2e7f514117a4e411c58bb5df"
+    },
+    "effect_on_selected_single_scenarios": "none; wrapper only changes simulate-batch",
+    "on_both_sides": true
+  },
+  "clock_retry": {
+    "reason": "State timestamps overlap 52.197569 ms despite serial foreground CLI, successful inspect/cleanup, and earlier destroy event; impossible Docker wall-clock chronology.",
+    "rejected_unit": "t3-mp02-stp-oldest-baseline",
+    "rejected_schedule": "all ten original warmup/timing/profile runs for this unit",
+    "replacement_schedule": "one full fresh unit warmup + AB/BA/AB + profiles on identical immutable images",
+    "selection_basis": "clock validity only; no speed threshold or favourable repeat selection",
+    "original_summary": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/summary.json",
+    "failure_log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit-failed-clock.log"
+  },
+  "source_provenance": {
+    "implementation_commit": "a686ac924382c03571e6a9c7cd9612abab1679ef",
+    "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+    "independent_source_audit": {
+      "status": "passed",
+      "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+      "implementation_commit": "a686ac924382c03571e6a9c7cd9612abab1679ef",
+      "immutable_image_id": "sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681",
+      "method": "reconstructed committed patch/overlay applied to exact baseline image sources",
+      "compared_python_files": 52,
+      "all_installed_bytes_match": true,
+      "git_source_sha256": {
+        "baselines/patches/debug_logging.patch": "cb3d2cc3ab930e2934241794f193474c92f225b4923f88900c5296ec12e9f380"
+      },
+      "installed_sha256": {
+        "_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
+        "abides_core/abides.py": "826954c620de43cb134a0f3ee3cf552b133ed53c3001d7265e7fe2ebc72069a1",
+        "abides_core/kernel.py": "a10161087a5d0fd71f622dac56b8ff160dd0734f5a08e6b5ec285c739eef97bf",
+        "abides_core/latency_model.py": "bdc67c0f5d53829d442d8a53980a5e4242cb302bc4c84c98605a944b0d6a2a61",
+        "abides_core/__init__.py": "9206dbc76e3da5b445a141b93cfccac6a038026a79de7965695f15add8fbc4ab",
+        "abides_core/message.py": "c1ddc0f0962d68e8d6750fb00210a2676d7bbdd2dd7f3b021e9fa94287901e48",
+        "abides_core/generators.py": "01230cbdb95ff596e11a6d2284ae7df41f86d007b4e4972bb9ced96a742803c1",
+        "abides_core/utils.py": "47e0a84fcb5dab484d01437009b29bdb3d4c4e302cdf18432370784579ff4d23",
+        "abides_core/agent.py": "7d0bd4aeed99908f4b26e2792136c30971e5dac7d14d4a3eb0c9969b01c10b6b",
+        "abides_fork/simulate_batch.py": "98122d38bb27449c8947f6b68ebd31b16c79ff9f7297620bc84dfd1a1f7a6d01",
+        "abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+        "abides_fork/config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+        "abides_fork/buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+        "abides_fork/simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+        "abides_fork/__init__.py": "96d421f1362c88d0ef084bd028c82192c05be383dfc4e33d2cae36348471004f",
+        "abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+        "abides_fork/scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+        "abides_fork/components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+        "abides_markets/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "abides_markets/orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+        "abides_markets/generators.py": "6d6c3515ef8da970435583b92cc619ca2c1b47e3dfb058fd451eb1977aec202b",
+        "abides_markets/order_book.py": "2c02c494028b9fb6e31f48f1df1de2e0c478f24ca2987b2fbe5527a7c454b7b4",
+        "abides_markets/price_level.py": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+        "abides_markets/messages/query.py": "08748ab8a15933aad64f8ec0069125a8bec2fc7e0e8d5540c05a0e85903591ba",
+        "abides_markets/messages/market.py": "80ab336bf859d14cd402e54139d431b6fd6eb417ddc88c0cf59e522859aac8b9",
+        "abides_markets/messages/order.py": "72a688d5fe824ca8a4853d675336e0d31d1258e0f380970442b6111b2ce2af71",
+        "abides_markets/messages/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "abides_markets/messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c",
+        "abides_markets/messages/marketdata.py": "35db32bc4c8507fdd59ecdd46494cb217b1d8f19cef9e227eae71e24ea5ae0ce",
+        "abides_markets/oracles/__init__.py": "eb093c38b67d8ce9bb68cf58e8deeea80630cb5441eb40f2b16f36a926d611ed",
+        "abides_markets/oracles/mean_reverting_oracle.py": "b0d44de5646932166512351ec2dc9b4c9c19e5c6cfda555553193ee61a3fbf63",
+        "abides_markets/oracles/oracle.py": "5c68ecd5a600a43d0304e4f3c083d0b2ec1b81a00ba837c312b1f1e2758df256",
+        "abides_markets/oracles/sparse_mean_reverting_oracle.py": "dd35d415b82e92c2c634f900cb7357d5ef5e57eccda79d1fe37dd13461ab6bfa",
+        "abides_markets/agents/financial_agent.py": "4333c43a78ceaae40cc33c076b04de7a6ecc927826b49526ae8426f4ebc6ebe6",
+        "abides_markets/agents/value_agent.py": "95afcbf63643e1376a58f2bfbc51bab69932b0720032af7fa5090531b945db5c",
+        "abides_markets/agents/__init__.py": "078f77239c5aa4758258b7bde426661c8b5eed875c38c53a062b45d04923f109",
+        "abides_markets/agents/trading_agent.py": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf",
+        "abides_markets/agents/noise_agent.py": "f6645136a07b72c94f2fe354facf896abb75088c40836c42ea03af832c47e9d2",
+        "abides_markets/agents/utils.py": "2cf56551df8ae393ddbc628409ea5e0e01a398d55abe01163d3838e3c1802b29",
+        "abides_markets/agents/exchange_agent.py": "5ea1c9ed4d8687b3c5d843025fda5814ee038d6d847a7a7af54d717875aa1eac",
+        "abides_markets/utils/__init__.py": "349cbaa5d0db0268dd62982090bd8f11ef59835520df10eae7d0fd6818d635d6",
+        "abides_markets/models/order_size_model.py": "a6320b0737d6632f56c28ba98afa23bf7906bfdfc74089dfeb24cad26c3bfa71",
+        "abides_markets/models/__init__.py": "fa77ac1dddda0d29c3ef71fdbbb48ff13d9003c67fbefe112ac821167792b4c7",
+        "abides_markets/configs/rmsc03.py": "d7ee646154588f07398ca0f3a3d8e6991df094e800a31925215993407deb89fa",
+        "abides_markets/configs/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "abides_markets/configs/rmsc04.py": "06b49e3466a536447435ef3b2613442042cf814690e30172908496c8c18962c4",
+        "abides_markets/agents/background_v2/__init__.py": "1e4da1a53fa5c3c8ad72d07bcbd4d64439ffe74eb73219ccfdc23f2df23a0434",
+        "abides_markets/agents/background_v2/core_background_agent.py": "f45104b75a47213241ddc43d511905fa1e7bf65e08a5f6cc0a40c043356bdb7a",
+        "abides_markets/agents/examples/momentum_agent.py": "ff2a32749d601b50721aeae92b7a38ab3a10b4f9cab53a40c1a743e21cf82008",
+        "abides_markets/agents/examples/__init__.py": "7f0ce2a47f9305b2d359844616009deb29c3d581bddab2bc720b9f0911821e2a",
+        "abides_markets/agents/market_makers/__init__.py": "a53968350d5e240f538d34f92a61aaaca3cd3440e74fe48c4e49ecd98bb73249",
+        "abides_markets/agents/market_makers/adaptive_market_maker_agent.py": "69f0ac598279440b7a48d6451b4543a75ba7101a1422a69df2f079a8c537d5bd"
+      },
+      "git_changed_paths": [
+        "baselines/patches/debug_logging.patch",
+        "experiments/debug-logging/Dockerfile",
+        "experiments/debug-logging/README.md",
+        "experiments/debug-logging/build-plan.json",
+        "experiments/debug-logging/callbacks.py",
+        "experiments/debug-logging/component_benchmark.py",
+        "experiments/debug-logging/prepare.py",
+        "experiments/debug-logging/result.json",
+        "experiments/debug-logging/run_component.py",
+        "experiments/debug-logging/runtime_checks.py",
+        "experiments/debug-logging/source-lock.json",
+        "experiments/debug-logging/test_debug_logging.py"
+      ],
+      "scorer_cards_references_changed": false
+    },
+    "input_reference_hashes_and_seeds": {
+      "t3-s001-price-time-priority": {
+        "sha256": {
+          "scenario.json": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b"
+        },
+        "seeds": {
+          "scenario.json": 1001
+        },
+        "unit_hashes": {
+          "card.toml": "ff49e94fcbfe7f50a7a16f09053ea855d6106b1a64bb5195c81a810536e379de",
+          "events.json": "7b499474abe397066357164c88a77168b21cd1ca16deb0ce8d770b493ddae4b7",
+          "manifest.json": "a7ad6c8629f02528ba3d1eaeb17b5090aae2c66b1c7d54591cace80098638a1f",
+          "message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+          "scenario.json": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b",
+          "trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        }
+      },
+      "t3-momentum-mix-priority": {
+        "sha256": {
+          "scenario.json": "96009c5814c6fe6016fed5bc52530e9f4113f16ca58c29e2c72f1ae7121daf12"
+        },
+        "seeds": {
+          "scenario.json": 767052790
+        },
+        "unit_hashes": {
+          "card.toml": "b9faee9a4abea2625af1b9b9f0124e86c3e836ca8672b5252ed61d20f2f66d7f",
+          "events.json": "edc8d94c3908d7e33cd9d955a2fddcc254f02fc5a0e1477fa558da08d3db70d9",
+          "manifest.json": "d1332532346dc4406b94e4ed25f5739e120d06ad498e10b9c1d139c9929f8da5",
+          "message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+          "scenario.json": "96009c5814c6fe6016fed5bc52530e9f4113f16ca58c29e2c72f1ae7121daf12",
+          "trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e"
+        }
+      },
+      "t3-mr-deep-book-state-size": {
+        "sha256": {
+          "scenario.json": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7"
+        },
+        "seeds": {
+          "scenario.json": 756038426
+        },
+        "unit_hashes": {
+          "card.toml": "87520c87a50ca33dc8ef037f3e13546cb05577f014a3aef167e84f6e6a603eba",
+          "events.json": "887c1ae38cbf87d7a076b08e0028ed5477c042b3db8497ebaac59c92c22bea87",
+          "manifest.json": "a121514e3304acc3828917619b48b564a0620104912b9af8d4de96a8aedf7d71",
+          "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "scenario.json": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7",
+          "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        }
+      },
+      "t3-mp01-stp-newest-baseline": {
+        "sha256": {
+          "scenario.json": "dcc90448a4237376dfcb0feed9732450c4754b4d36e4d0934480cbe079df637b"
+        },
+        "seeds": {
+          "scenario.json": 915951258
+        },
+        "unit_hashes": {
+          "card.toml": "7bd20b4944de308b4b2086285983f1b20647538afe2e5dfb9e5d110759061161",
+          "events.json": "2f38fd1c13393b3f062fd712c64a6c4172fb8062fb8d0d4f72a296fe68670cfc",
+          "manifest.json": "78fa6325ddb000c306b7a358d7bac8f29542c12bf97099b7cc145712b445c9c3",
+          "message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+          "scenario.json": "dcc90448a4237376dfcb0feed9732450c4754b4d36e4d0934480cbe079df637b",
+          "trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed"
+        }
+      },
+      "t3-mp02-stp-oldest-baseline": {
+        "sha256": {
+          "scenario.json": "a99cbdd359bb37854687a96d2d23446b5a9e603d435f7b18c42860ad704c6837"
+        },
+        "seeds": {
+          "scenario.json": 2045111676
+        },
+        "unit_hashes": {
+          "card.toml": "671a1074ebdc2eed53c7857ecfba90bab9e30b67541c97d2091aec408a82d2c5",
+          "events.json": "35ec77744b8c45d1dc7b44a3496c5f7651f8d62762801b9515fbde6e3b626666",
+          "manifest.json": "68530ad578b13f7499d2646a7bf1ad00707a137b28031432e4230a900f38d271",
+          "message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "scenario.json": "a99cbdd359bb37854687a96d2d23446b5a9e603d435f7b18c42860ad704c6837",
+          "trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c"
+        }
+      }
+    },
+    "checker": {
+      "commit": "4fd35694daf770135e03dcb1904ec1ceeaf91255",
+      "git_status": "",
+      "checker_python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "checker_packages": {
+        "qfbench2-common": "2.4.4",
+        "numpy": "2.5.3",
+        "pandas": "3.0.6",
+        "pyarrow": "25.0.1",
+        "scipy": "1.18.1"
+      },
+      "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+      "platform": "linux/amd64",
+      "trace_mode": "buffered"
+    }
+  },
+  "uncertainty": {
+    "preliminary_only": true,
+    "overlapping_range_units": [
+      "t3-s001-price-time-priority",
+      "t3-mr-deep-book-state-size",
+      "t3-mp01-stp-newest-baseline"
+    ],
+    "inconsistent_pair_units": [
+      "t3-s001-price-time-priority",
+      "t3-mp01-stp-newest-baseline"
+    ],
+    "notes": "Only three pairs; deep-book ranges slightly overlap, mp01 timings are especially noisy and one mp01 pair is slower. No statistical significance or official/general speedup claim; no favourable-repeat selection."
+  },
+  "evidence_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-selected-summary.json": "03300d14e44d80504806ad089d5ca4f20fa3670a33ae1c1a13adff1a11ffe024",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit.events.jsonl": "0a777dce9f1dc492e63d56e32c4608488311ab42863a34cc8fd27b5acb0357ac",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/warmup-00/baseline/record.json": "152788713b25ab70fbc2c5e6075a2eb6413f1e4db4874689f13c1520318f74fe",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/warmup-00/candidate/record.json": "cbb22b6e12635486747c6b603237569da975d6bfdc34437b92dd5afa4fd89f56",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/baseline/record.json": "fa59b78bc097a9a9bce1acd0c2dce5a9c9fdc238082be97634234a0b85d28e89",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/candidate/record.json": "880305ad65643d37e5910294f90cee066625d3319b41a5d63e2bc3113915cbc6",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-01/candidate/record.json": "1167affcbcc50ae284da7894eaa2a295beba4e77659aab4b82413a6e7a239c93",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-01/baseline/record.json": "6dbd66d3b5170997cc23760416d1b4cf5add922dbffc9f904cff0a2758780e8d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-02/baseline/record.json": "d0a68cb209e69b0266b3ad474b5faa2f6f9a7a2f827e864a38ddb008d06f56a5",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-02/candidate/record.json": "e8e64ed679d7d38351752ea1491007ed362188fb1b940c1222bdc1bc6e57d4f8",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/profile-00/baseline/record.json": "c15e04d2dc2001e8b7a9cf3e9eb4a82d5920bf9aaffea2c7b07746804848abf7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/profile-00/candidate/record.json": "a003dc9b6b49c4b72ba0d8a9d8ee48cbc0f77704d0ae01f64ca1afa2a14098ad",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/warmup-00/baseline/record.json": "f7040c286836f286fd57e3902db25b21594514ac8beaa882984bd2c16da40a6d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/warmup-00/candidate/record.json": "226d49cdc5c484ca83121bfaafeae7bbc48bf188c7d5563777978a1ce5284c18",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-00/baseline/record.json": "6201a3bc1ec54c3d7f7625f62e3540a50fb86b448a8a62cb9fdcc9b763d8f8f6",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-00/candidate/record.json": "7684d6209a1a0b4534a9eb0e85328287a21511b2a4049718a50b97c59739007a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-01/candidate/record.json": "f96a2a9c3d7d890f6faa8b66b0254d624295dcd6d60fbf1e318196ea8020c26d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-01/baseline/record.json": "6d89cb590cc046079f053b0931b17d6a6e43bd690bb033b76862937233f32dd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-02/baseline/record.json": "8704f0a9a612050851ea26bde31d1702b9aa59fb006663bf0e54cc1809a7c6c0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-02/candidate/record.json": "9ed66aa8087c4b5568df342578a9987f2ef29c51b50b6ee72cdce5fc422982c6",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/profile-00/baseline/record.json": "45237399fcda9c575450f409224040009cde2b69dd63c90dbfc6b2e8a0ec4440",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/profile-00/candidate/record.json": "f243ab7fa390e6572e60f0cfbc3338fd934f73b91134cbba6f8c16269751303b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/warmup-00/baseline/record.json": "c224bd360dbc9d09f1109c47622b8e2866e31df587bbb4d94c862a96317ef4b2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/warmup-00/candidate/record.json": "a8060310268a65875f5eec8792d711fcaa531a874d298f0172ed52b887a70bfe",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/record.json": "373c52b811437c8cd41d16007f141c30f1aeafcdb3b88ccfc4301566bae08648",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/record.json": "f682211f3401b99cb7904b076c045f1c5b01d2ea21ceb4bc9a024d43dba9cdbb",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-01/candidate/record.json": "7cec33ea5808cd7469555ee48a293163037cfd1eb35c17516fc6b6eeb940581f",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-01/baseline/record.json": "45d4b61ec2b2f21d33718aa7b93d6647bbf80c561a195793625444317f856b2f",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-02/baseline/record.json": "d2589e9a5b36b6f75d3759d1dfec6a4849309cdca6db66af2ea08f5d03c4e19a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-02/candidate/record.json": "3b793fab1a422e872340da5750bfa0fabbcde01adc03f66f5ba095b671db559a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/profile-00/baseline/record.json": "bf4a975f7ada065dd5a0f8ab2a8b0c34764c98636db34e7cdc2555c9f4650f3f",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/profile-00/candidate/record.json": "bbf8b87cd6e86c7df26c42a22d8da6356e2d45d961433607f8d5ee21f87e0e2d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/warmup-00/baseline/record.json": "fbce0205406d0db1957443a74ea77b3a5fba650790f921def1e16e1f93136d62",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/warmup-00/candidate/record.json": "7dbee2be50f86b1172551dc5a3b4152ef5ab74c5c69c4d7739360284eade6554",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-00/baseline/record.json": "9966f17f53eae4f6721fd7a1ef8ac96ba310f05814620a0e03bcc3a7307824b8",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-00/candidate/record.json": "7de442f85ec8d19218b6917949cc6ddafc4fcaaef05b69e40a30494e881c0452",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-01/candidate/record.json": "09487b02f529e5afd02e9c2bbecb7345c744a6b8c6bafb7766d1069f6c1f52b2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-01/baseline/record.json": "df0abdaac58a4b9fa42c94234a5619bf358a4a160af7732df4cd789538842103",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-02/baseline/record.json": "341748046fde724d8e6ed327f04b8170748d572f67e2bced662c580b86a71743",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-02/candidate/record.json": "780f7528ebd261e457b18eb796cb3edfd9b058ddff9f5738939272813bd84d04",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/profile-00/baseline/record.json": "53dca0f9b15b2ad2a800588ecb1395225651be0d3e222fedb2ebc9025377c4f1",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/profile-00/candidate/record.json": "e3e841b08598ec7cc2aa6ef483c0a7f79faaf683edb01ac4e3289baeb46402cc",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/warmup-00/baseline/record.json": "cce670c4edcd13478e0d1b8467a749425af36899a38ca4b69737cb17c3b70e64",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/warmup-00/candidate/record.json": "95bcfeb2d8867b14e368020d36cb7c6eaa1b4ee0a498fcc5276310cac0e1ed02",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-00/baseline/record.json": "844a29253c72f0de955c54612aa87e57b26b23845ff620b0556fc385f1a3535b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-00/candidate/record.json": "c18d28144462c91bc97265263321c46cc7059fa617a87798da19121459b0608c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-01/candidate/record.json": "67a1568c358b1f8a76f86779f6ca5b894092898f50c37a046098ab7b3e8cbe50",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-01/baseline/record.json": "bff35670e198357873dde09ddd9a7c67f5ba13ad294daad08f4bedcee6948000",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-02/baseline/record.json": "27e6c7810163bdd85813aaaec2414a54bbc2a91f28594bd9bda1eaba26aaa2ca",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-02/candidate/record.json": "e1c4efc7b8c75cbd095090a3d6f28ba0546a158562259a7a745a3d6acc13c53f",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/profile-00/baseline/record.json": "826689727e3464a61224da12d9ee2adbcca3d67a91d8c699183d9c7ddb98667e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/profile-00/candidate/record.json": "c4e4cc8758e8dbb122aef8c00338eb26b3901147ca1b214a1b584b1db73f33c2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/warmup-00/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/warmup-00/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/warmup-00/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/warmup-00/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-01/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-01/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-01/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-01/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-02/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-02/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-02/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-02/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/profile-00/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/profile-00/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/profile-00/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/profile-00/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/warmup-00/baseline/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/warmup-00/candidate/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/warmup-00/baseline/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/warmup-00/candidate/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-00/baseline/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-00/candidate/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-00/baseline/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-00/candidate/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-01/baseline/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-01/candidate/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-01/baseline/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-01/candidate/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-02/baseline/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-02/candidate/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-02/baseline/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/timing-02/candidate/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/profile-00/baseline/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/profile-00/candidate/retained/message_trace.parquet": "45cd04aa3f3a874d5972f219534d2895442efe1853a1186991ad7d533ed959d7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/profile-00/baseline/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-momentum-mix-priority/profile-00/candidate/retained/trace.parquet": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/warmup-00/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/warmup-00/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/warmup-00/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/warmup-00/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-01/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-01/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-01/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-01/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-02/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-02/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-02/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/timing-02/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/profile-00/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/profile-00/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/profile-00/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mr-deep-book-state-size/profile-00/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/warmup-00/baseline/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/warmup-00/candidate/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/warmup-00/baseline/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/warmup-00/candidate/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-00/baseline/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-00/candidate/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-00/baseline/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-00/candidate/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-01/baseline/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-01/candidate/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-01/baseline/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-01/candidate/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-02/baseline/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-02/candidate/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-02/baseline/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/timing-02/candidate/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/profile-00/baseline/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/profile-00/candidate/retained/message_trace.parquet": "58eb6ed86882fb53dcb280fe40529f9079f61de6a6aba3ce798dd1d6836cdaba",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/profile-00/baseline/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp01-stp-newest-baseline/profile-00/candidate/retained/trace.parquet": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/warmup-00/baseline/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/warmup-00/candidate/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/warmup-00/baseline/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/warmup-00/candidate/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-00/baseline/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-00/candidate/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-00/baseline/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-00/candidate/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-01/baseline/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-01/candidate/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-01/baseline/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-01/candidate/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-02/baseline/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-02/candidate/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-02/baseline/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/timing-02/candidate/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/profile-00/baseline/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/profile-00/candidate/retained/message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/profile-00/baseline/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/runs/t3-mp02-stp-oldest-baseline/profile-00/candidate/retained/trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/pipeline.json": "3ba16d14055baaa8f575810037c1950fb788dc6dd14a71df623390fdc9305ab8",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit.json": "bf83d36e91a25555e81b6dbc90a3bde2bf48e5668ac76593729c78347a611015",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/source-audit.json": "867cc659af66c189e8c1c63a37bad793adfe2132dd1a15aa2e24c7ceaededd25",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/independent-source-audit.json": "f6892badb54612d5d892efd76fc478659262cf9a3fbc2f00ed9251049398157b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/clock-retry-policy.json": "aeda422060f2312f81777e8ca6315a0dc33ec40f6b2c5ae2c7e4acc9bb319855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit-failed-clock.log": "5105332bd4f68fd714138aabfa6f1062466f6f5af7f81b2a99f2518a1ba0803c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/runtime-00.log": "7236c7729a48ba4f3d8ead1587fc6864b60a0096ae3989ad790aeadb530a5d73",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/summary.json": "3da44a99bd1885f8292643c7b664187853734ddbff6d53208e7d20f0b0fe7523",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry/summary.json": "1b5fe210f32001ec7a2a2a5e96ae0e8d414d86fe8b390f9722f902c97571d45b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-gate-recheck/summary.json": "94782fae1be9b2391d9c17ee7ff835f7d93f7cc030afc2e6363106346b546c8a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/regression65/report.json": "100f902c1173ac153a993804b9f08fcc26b78fda51ea939fdb6c3be727277dd0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/build-control.command.json": "72279c1e642b01d663154244e78701ade65319ff7555dd3eebf676d05399cb96",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/build.command.json": "0f660fadcb76940ffc34b7fac5efd5b3278daea0e9b316a1762e57d59612ede7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/regression65.command.json": "0e399bc7e32f7bbad9b6bd437ae588abf45cd765219dd8d382a99a21dca986e3",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential.command.json": "60cf340eeb235b0ac1a8f889470b4221f42658936d87d64e49d0a7db5d1254da",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-gate-recheck.command.json": "f949f1be1982ceb94d16415fb923c1bb88c5070fe7784b35382add7554137655",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/component-00.command.json": "0c0a38fe5f06292069623306ba742977b47a9ae84076c9c1ead28f53683ad942",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/component-01.command.json": "c5414591d31e59cea155f12a14464863b627bb1c24eb2606f7c2756b43f45019",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/component-03.command.json": "2071ae495f07cc172820844bf9f3dd14e80527e1d033aa3a08b2de94f47b048a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/component-04.command.json": "47358644fae859c77b013b5052ccfc2b08e562e560e5456daba86be855a5f9f3",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/component-05.command.json": "7a4b482abdb77e8334fd3794191b369a82d93712f255e3fbc96c338404376a5d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/component-02.command.json": "9c6b90a81f4659d36a6d7a07540f47da92ef3600ecf36a54bda9612ccf5476ff",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit.command.json": "29405aab3820698f167ce5fa288c94f74b641756d7cebe041b5862a2b664bbcf",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/clock-retry.command.json": "63ce6bf31858addd972c5d64d6c86131d55e1d72477b30cecb1842838c7f0323",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/runtime-00.command.json": "5df36f806f9bf9cc547a0c72c70b9abf13fec84a2b6090f9f05cff4f4e9a71df",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/components/1-candidate.json": "78cde90727270e24f9d8c07a95d78127b6b05415eff0f7b4b980824b406241fa",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/components/1-baseline.json": "cb501ea35aafdc1a63437c4859e1097d18513ebae0b89b4685f66b3d2910305a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/components/2-baseline.json": "71281bf8c755f55c0411f152bb45f5cac9f6cb702921433c7a9ea54e0320a44d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/components/0-candidate.json": "0b460b7b1ce2907f90b6526371b2934511549bb3586229b8d20f3083ab5d7f27",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/components/2-candidate.json": "73f02e090cf19cdd2f01a2e17827a8685a3f810559058bb832acb5daaaa72ae2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/components/0-baseline.json": "8657228faf037b220afd96c65c57dc328bcfe5e40fc0640107fe7fae06d1765a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging-failed-runtime-mount/runtime-00.log": "7f03721f0d1fab49653adfc319c192cb06b963763d4f15efe32214ed7e69855c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/build-plan.json": "4824659c965e0321132503c89fdd1fdf42c0cc521f2a64a87ac887f14697fcbb",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/source-lock.json": "5ba90cd0382772434ffc2e219a1fecef06285819253bd3bdba7885a2d5e8bd8a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/callbacks.py": "de213f13e6fb00a667ad90ccaf7592c716b5b71f99446c3433450508f7956d1e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/runtime_checks.py": "db39c617d01d79863c5016f03df15041a00adfe4249bd4b3fa4646287af36853",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/component_benchmark.py": "da5f0a6ef6ce4474e7aa81cd779759f6a13856db936a4c7a6d158002e718bea7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/Dockerfile": "57f049a2beedf0536e761c3480e25cb11cc671df08acfad61bbca827d7e0fe65",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/baselines/patches/debug_logging.patch": "cb3d2cc3ab930e2934241794f193474c92f225b4923f88900c5296ec12e9f380",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/criteria.json": "cd770d93755554736c44018e95d5f8d72585dc4cb385657b8e8f00387c9f1a9c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-build-result.json": "24d08de5891a1e860d8190b9d9c16c0b37994cdaa1657853e840037e466afeb7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-corpus-audit.json": "f65f948e793e73d59e2835ab4d40f65495d891e6c63d2b77aa4c3da962ecda36",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-tests.json": "97aa22c0983e567e3a2528e7b092dd5af36913a04dbf49d242a9f1b40ede0365",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-patch-audit.json": "9e46647e0eeac9f1cf73e432c85ae1d54420b608bff75e761ea089e51b21b4bf",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/application.json": "0ff0faf2856ae4e54492d399b9cefbed4d70424ef22ce55403f11ef9d13fb766",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/component/summary.json": "e3db847da467789ad9f63c5748a33962fbc6e51eba0201a91c2ae7ab5d3cd2eb",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/host-tests.txt": "13303b8d2d8981e3ad978823c2b7a495e2ad5e67d5c3e5dfdc3deaf2a60dd7af",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/host-runtime-checks.json": "971afbdb3d80b06a1e9a59583b9579e48fbd5acbdef4e46d2994c6c9c788cd5d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/git-apply-check.json": "fc6e901e422edfe551aef16ebd07e9d577ca8f582e36e50901ecbdbc0a7496f9"
+  },
+  "regression_scope": "65 public single scenarios through unchanged standard regression checks; selected five units separately get full developer verifier and exact dual traces; not all71 exact admission",
+  "manager_verification": {
+    "verdict": "local_gain_supported_requires_linux_confirmation",
+    "criterion_met": true,
+    "primary_requirement": ">=5% median full-container reduction on every declared primary",
+    "slowdown_guardrail": "<=5% median slowdown on every selected unit",
+    "primary_failures": [],
+    "guardrail_failures": [],
+    "rankable": false,
+    "metrics_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit.json"
+  }
+}

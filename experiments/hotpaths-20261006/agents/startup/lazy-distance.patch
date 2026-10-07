@@ -1,0 +1,49 @@
+--- a/abides_markets/utils/__init__.py
++++ b/abides_markets/utils/__init__.py
+@@ -10 +9,0 @@
+-from scipy.spatial.distance import pdist, squareform
+@@ -12,0 +12,40 @@
++
++# Preserve the pinned module's wildcard export surface, including lazy functions.
++__all__ = [
++    'datetime',
++    'sys',
++    'traceback',
++    'warnings',
++    'contextmanager',
++    'List',
++    'Union',
++    'np',
++    'pd',
++    'pdist',
++    'squareform',
++    'LatencyModel',
++    'delist',
++    'numeric',
++    'get_value_from_timestamp',
++    'ignored',
++    'generate_uniform_random_pairwise_dist_on_line',
++    'meters_to_light_ns',
++    'validate_window_size',
++    'sigmoid',
++    'subdict',
++    'restrictdict',
++    'dollarize',
++    'generate_latency_model',
++    'config_add_agents',
++]
++
++
++def __getattr__(name):
++    # Preserve explicit module exports without loading SciPy for other utilities.
++    if name in {"pdist", "squareform"}:
++        from scipy.spatial import distance
++
++        value = getattr(distance, name)
++        globals()[name] = value
++        return value
++    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+@@ -85,0 +125,3 @@
++
++    # This optional line-distance latency model is the only SciPy caller here.
++    from scipy.spatial.distance import pdist, squareform

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "source_report": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/experiments/level-quantity/result.json",
+  "source_report_sha256": "4d59dd7afba3b8c71f48459c5b68598f8558f53374086676f72b532ac133eacb",
+  "independently_verified_file_bindings": 16,
+  "evidence_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-audit.json": "fcaeb43cfb6d45d225d9525c2d4dee30b584062428f8e49f382939564b694757",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential/summary.json": "22749dac94a3045a3c6760a17fcf7d68218eaf4723ce7d25ebcd170a7f59a645",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/summary.json": "f5e879572228e7f745910b8cf3e4288cb53892ba249ab4731619b25f4133cf98",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/regression65/report.json": "a1b58f9231bf8cb85823c21cee105cbabb70cd558000784f97d239060340d302",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/experiments/level-quantity/evidence/host-microbench.json": "d6798071b36c8dbeafdbf4b87db1e110301ffa64446823fe24989fdfea3902a9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/independent-source-audit.json": "d2f9bc63a149ccfb2d44c0b012587977fdbc81a6c9bad170b4175041556fb288",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/experiments/level-quantity/evidence/runtime-microbench.json": "1959e8d3a9a010628797a658f34c2a59c59876ce01954bf66eb69578095b07b6",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/pipeline.json": "020deceb18faffc26cf3468025359c28104c193327d8199ee0c5ab58abd059af",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/source-audit.json": "5d730b480f1507ef50a9fd049572fc88aefc0458dbb3348d5211c6494052cdec",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-audit.events.jsonl": "89ece44c9ca7a79078ed676c8ed32a630d818452724f0bf06fe92da0a2914997",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/regression65.command.json": "250bcb3c944d3cbe7edc415b171b55d850cdcd6af323c180ca47c78c9134c719",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential.command.json": "5e994063974776877b842647496c0576e4e68c9882c106310b5c9b48b9cdc8a4",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/bytecode-cache-inventory.json": "d84b9de2510e7f3b76e2673caa692cbe866c078b9eb3e1f3b4bc9bfe1dcae767",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/runtime-00.command.json": "c5e2365ee2599e32e40876387a18cfa35b7ae6d9b34ccb39f6af76e0911373c3",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/level-quantity/runtime-01.command.json": "21e354c7b5e98bdb47ef0b33f781d1b3675f1ccfdac921d6429b0d960de6b8bd",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/experiments/level-quantity/evidence/runtime-tests.json": "0edc723421ccc2699fc8de550f5fbf805c37afa2b2ff2ffb91c1273f75fe4bdb"
+  }
+}

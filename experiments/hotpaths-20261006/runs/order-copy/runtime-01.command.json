@@ -1,0 +1,23 @@
+{
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024",
+    "python",
+    "/opt/order-copy/benchmark.py",
+    "--count",
+    "50000",
+    "--repeats",
+    "7"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

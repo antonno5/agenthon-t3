@@ -1,0 +1,14 @@
+{
+  "hypothesis": 2,
+  "audited_head": "65846ad23909603a1414a3bd0fbf1762063b2b07",
+  "candidate_image_id": "sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67",
+  "regression_uuid_coverage": 65,
+  "financial_hashes_vs_published_refs": 65,
+  "report_passed": 65,
+  "diagnostic_trace_hashes": 8,
+  "paired_and_gate_trace_hashes": 140,
+  "performance_criterion_met": false,
+  "rankable": false,
+  "final_commit": "5fe8e12c82d8eeb25022cc0f6254138a93ebe8ee",
+  "clean": true
+}

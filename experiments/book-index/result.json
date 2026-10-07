@@ -1,0 +1,1673 @@
+{
+  "executive_summary": "Correctness passed in the tested scope; do not adopt: required full-run reductions were 4.16% (churn) and 2.46% (deep book), below 5%. Local developer evidence only.",
+  "hypothesis": "Direct price-level and order-id lookup plus O(1) ordinary FIFO head/removal will improve full cancellation/deep-book simulations by at least 5%, with exact event/message traces and unchanged gates.",
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "initial_head": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "initial_merge_base": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "branch": "codex/exp-20261005-02-book-index",
+  "commit": "65846ad23909603a1414a3bd0fbf1762063b2b07",
+  "commit_scope": "Tested implementation/tooling revision. A following report-only commit records README/result; final HEAD is reported separately to avoid a self-referential digest.",
+  "worktree": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон",
+  "upstream_commit": "f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+  "baseline_image": "orchestration-baseline:20261005-a5dbe46",
+  "candidate_image": "book-index:20261005",
+  "rankable": false,
+  "change_summary": [
+    "Add build-time patch after all four official patches; unchanged adapter/dependency versions.",
+    "Use side/price dictionaries and bisected sorted price keys in the actual OrderBook.",
+    "Use indexed visible/hidden FIFO queues with direct order-id removal and update; preserve duplicate first-match and insert-by-id behavior.",
+    "Provide baseline-source-verified overlay, differential and upstream tests, memory assessment, manager-only gates/paired commands."
+  ],
+  "changed_files": [
+    "baselines/Dockerfile",
+    "baselines/patches/book_index.patch",
+    "experiments/book-index/Dockerfile",
+    "experiments/book-index/memory.py",
+    "experiments/book-index/prepare.py",
+    "experiments/book-index/test_operations.py",
+    "experiments/book-index/upstream_checks.py",
+    "experiments/book-index/validate.py",
+    "experiments/book-index/README.md",
+    "experiments/book-index/result.json",
+    "experiments/book-index/regression.py",
+    "experiments/book-index/summary.py",
+    "experiments/book-index/test_validation.py",
+    "experiments/book-index/runtime_tests.py"
+  ],
+  "correctness_tests": [
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest experiments/book-index/test_operations.py -q -o addopts= --junitxml=out/book-index/tests.xml",
+      "status": "passed",
+      "output": "...............................................                          [100%]\n47 passed in 23.22s",
+      "evidence": "out/book-index/tests.xml"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/upstream_checks.py",
+      "status": "passed",
+      "output": "43 pinned upstream OrderBook tests passed on baseline; 43 passed on candidate. Same upstream latency_model SyntaxWarning. Checker Python 3.13, all four official patches applied.",
+      "evidence": "out/book-index/upstream-checks/result.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" checker Python: for each public unit call qfbench2_common.manifest.verify_manifest(unit) + assert_public_safe(unit), exit nonzero on any errors",
+      "status": "passed",
+      "output": "Checked 71 public unit manifests and firewall: {}",
+      "evidence": "out/book-index/manifests-firewall.log"
+    },
+    {
+      "command": "checker .venv/bin/ruff check experiments/book-index/*.py; git diff --check",
+      "status": "passed",
+      "output": "All checks passed; no whitespace errors."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" DOCKER_CONTEXT=colima-agenthon \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/regression.py --candidate book-index:20261005 --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --dry-run --out out/book-index/public-regression-external-plan",
+      "status": "dry_run_passed",
+      "output": "All 65 configs equal unchanged unit configs; external and local public trace SHA values agree with mapping.json; workers=1 plan discovers 65 scenarios. No Docker calls.",
+      "evidence": "out/book-index/public-regression-external-plan/execution.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest experiments/book-index/test_validation.py -q -o addopts= --junitxml=out/book-index/validation-tests.xml",
+      "status": "passed",
+      "output": ".....                                                                    [100%]\n5 passed in 0.05s",
+      "evidence": "out/book-index/validation-tests.xml",
+      "scope": "Synthetic hermetic fixtures only; no Docker calls, runtime probe or measured speedup."
+    },
+    {
+      "command": "Local checkpoint wrapper smoke: saved published reference replay with live launcher forbidden, atomic JSON round-trip, artifact SHA drift check",
+      "status": "passed",
+      "output": "PASS: saved-output recheck invokes unchanged standard checks without Docker; checkpoint atomically round-trips; artifact drift detected.\nScope: replay of an unchanged published reference fixture, not candidate validation or a throughput measurement.",
+      "scope": "Evidence management fixture only; no candidate Docker run or measured speedup.",
+      "evidence": "out/book-index/checkpoint-smoke.log"
+    },
+    {
+      "command": "docker --context colima-agenthon build --platform=linux/amd64 --build-arg BASE_IMAGE=orchestration-baseline:20261005-a5dbe46 -f experiments/book-index/Dockerfile -t book-index:20261005 out/book-index/candidate/abides-markets/abides_markets",
+      "status": "passed",
+      "output": "Overlay built against the verified immutable baseline tag/ID; candidate ID sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67",
+      "evidence": "out/book-index/build.log"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" checker Python experiments/book-index/runtime_tests.py",
+      "status": "passed",
+      "output": "Docker Python 3.11.17: 43 upstream tests passed on baseline, 43 on candidate, 47 differential tests passed. Test tooling mounted read-only; no image/dependency modifications.",
+      "evidence": "out/book-index/runtime-tests/records.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/validate.py --mode gates --out out/book-index/actual-gates",
+      "status": "passed",
+      "output": "14/14 runs: full developer verifier; exact Parquet rows and bytes for trace.parquet and message_trace.parquet on all seven selected units, baseline and candidate.",
+      "evidence": "out/book-index/actual-gates/summary.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" DOCKER_CONTEXT=colima-agenthon \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/regression.py --candidate book-index:20261005 --workers 3 --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --out out/book-index/actual-public-regression",
+      "status": "passed",
+      "output": "65 passed; 0 failed; 0 errors; complete=true. Three correctness-only workers after all sequential measurements/profiles.",
+      "evidence": "out/book-index/actual-public-regression/report.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/validate.py --mode paired --repeats 3 --out out/book-index/actual-paired",
+      "status": "passed",
+      "output": "60 records:14 warmups+42 timings+4 diagnostic profiles; all full developer gates and both exact row/byte comparisons passed. Performance criterion false.",
+      "evidence": "out/book-index/actual-paired/records.json"
+    }
+  ],
+  "build_command": "docker --context colima-agenthon build --platform=linux/amd64 --build-arg BASE_IMAGE=orchestration-baseline:20261005-a5dbe46 -f experiments/book-index/Dockerfile -t book-index:20261005 out/book-index/candidate/abides-markets/abides_markets",
+  "gate_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/validate.py --mode gates --out out/book-index/actual-gates",
+  "benchmark_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/validate.py --mode paired --repeats 3 --out out/book-index/actual-paired",
+  "evidence_paths": [
+    "out/book-index/application.json",
+    "out/book-index/tests.log",
+    "out/book-index/tests.xml",
+    "out/book-index/upstream-checks/result.json",
+    "out/book-index/upstream-checks/baseline/tests.log",
+    "out/book-index/upstream-checks/candidate/tests.log",
+    "out/book-index/audit/queue-consumers.txt",
+    "out/book-index/memory.json",
+    "out/book-index/manifests-firewall.log",
+    "out/book-index/public-regression-external-plan/preflight.json",
+    "out/book-index/public-regression-external-plan/execution.json",
+    "out/book-index/public-regression-external-plan/regression.log",
+    "out/book-index/validation-tests.log",
+    "out/book-index/validation-tests.xml",
+    "out/book-index/checkpoint-smoke.log",
+    "out/book-index/public-regression-checkpoint-plan/execution.json",
+    "out/book-index/public-regression-checkpoint-plan/regression.log",
+    "out/book-index/slot-preflight.json",
+    "out/book-index/build.log",
+    "out/book-index/build-image-id-attempt.log",
+    "out/book-index/runtime-tests/records.json",
+    "out/book-index/runtime-tests.log",
+    "out/book-index/actual-gates/identity.json",
+    "out/book-index/actual-gates/summary.json",
+    "out/book-index/actual-gates/records.json",
+    "out/book-index/actual-paired/identity.json",
+    "out/book-index/actual-paired/records.json",
+    "out/book-index/actual-paired/summary.json",
+    "out/book-index/measurement-analysis.json",
+    "out/book-index/actual-public-regression/checkpoint.json",
+    "out/book-index/actual-public-regression/report.json",
+    "out/book-index/manager-audit.json",
+    "out/book-index/worker-checkpoint-smoke.json"
+  ],
+  "measured_speedup": {
+    "t3-s001-price-time-priority": {
+      "median_full_run_speedup": 1.1073394298840682,
+      "full_run_reduction": 0.09693453243627925,
+      "simulation_speedup": 1.05060646806773,
+      "simulation_reduction": 0.048168814495122336,
+      "median_paired_speedup": 1.103250910161418,
+      "complete_pairs": 3
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "median_full_run_speedup": 1.2222938756429498,
+      "full_run_reduction": 0.18186614534579004,
+      "simulation_speedup": 1.1697428348269012,
+      "simulation_reduction": 0.1451112413541903,
+      "median_paired_speedup": 1.1885407554548435,
+      "complete_pairs": 3
+    },
+    "t3-cancelmodify-lifecycle": {
+      "median_full_run_speedup": 0.8856525528438045,
+      "full_run_reduction": -0.12911095529395733,
+      "simulation_speedup": 0.9019121300222027,
+      "simulation_reduction": -0.1087554615496551,
+      "median_paired_speedup": 0.8856525528438045,
+      "complete_pairs": 3
+    },
+    "t3-mp01-stp-newest-baseline": {
+      "median_full_run_speedup": 1.1341362361658476,
+      "full_run_reduction": 0.11827171365172084,
+      "simulation_speedup": 1.15773464514298,
+      "simulation_reduction": 0.13624421261359054,
+      "median_paired_speedup": 0.9614820602633449,
+      "complete_pairs": 3
+    },
+    "t3-mp02-stp-oldest-baseline": {
+      "median_full_run_speedup": 0.9903227743384411,
+      "full_run_reduction": -0.009771789473410397,
+      "simulation_speedup": 0.9570534534792158,
+      "simulation_reduction": -0.04487371772669424,
+      "median_paired_speedup": 0.9864332427614866,
+      "complete_pairs": 3
+    },
+    "t3-mr-cancel-replace-churn": {
+      "median_full_run_speedup": 1.043457016562734,
+      "full_run_reduction": 0.04164715543902919,
+      "simulation_speedup": 1.0642499415161324,
+      "simulation_reduction": 0.06037110175886107,
+      "median_paired_speedup": 1.0072488415914622,
+      "complete_pairs": 3
+    },
+    "t3-mr-deep-book-state-size": {
+      "median_full_run_speedup": 1.0251928593532662,
+      "full_run_reduction": 0.02457377567881114,
+      "simulation_speedup": 1.0202383909169335,
+      "simulation_reduction": 0.01983692350446087,
+      "median_paired_speedup": 1.0422566303189393,
+      "complete_pairs": 3
+    }
+  },
+  "simulation_rss_bytes": {
+    "t3-s001-price-time-priority": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 175456256,
+        "max_simulator_peak_rss_bytes": 175468544,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 175640576,
+        "max_simulator_peak_rss_bytes": 175648768,
+        "median_container_peak_memory_bytes": null
+      }
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 449486848,
+        "max_simulator_peak_rss_bytes": 450846720,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 452177920,
+        "max_simulator_peak_rss_bytes": 455208960,
+        "median_container_peak_memory_bytes": null
+      }
+    },
+    "t3-cancelmodify-lifecycle": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 396967936,
+        "max_simulator_peak_rss_bytes": 400474112,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 399392768,
+        "max_simulator_peak_rss_bytes": 399814656,
+        "median_container_peak_memory_bytes": null
+      }
+    },
+    "t3-mp01-stp-newest-baseline": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 266129408,
+        "max_simulator_peak_rss_bytes": 266166272,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 271765504,
+        "max_simulator_peak_rss_bytes": 273719296,
+        "median_container_peak_memory_bytes": null
+      }
+    },
+    "t3-mp02-stp-oldest-baseline": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 265355264,
+        "max_simulator_peak_rss_bytes": 270536704,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 265740288,
+        "max_simulator_peak_rss_bytes": 271613952,
+        "median_container_peak_memory_bytes": null
+      }
+    },
+    "t3-mr-cancel-replace-churn": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 587137024,
+        "max_simulator_peak_rss_bytes": 589320192,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 588124160,
+        "max_simulator_peak_rss_bytes": 588177408,
+        "median_container_peak_memory_bytes": null
+      }
+    },
+    "t3-mr-deep-book-state-size": {
+      "baseline": {
+        "median_simulator_peak_rss_bytes": 584638464,
+        "max_simulator_peak_rss_bytes": 584790016,
+        "median_container_peak_memory_bytes": null
+      },
+      "candidate": {
+        "median_simulator_peak_rss_bytes": 585707520,
+        "max_simulator_peak_rss_bytes": 586047488,
+        "median_container_peak_memory_bytes": null
+      }
+    }
+  },
+  "memory_assessment": {
+    "scope": "checker source-level allocation; not Docker/runtime measurement",
+    "records": [
+      {
+        "variant": "baseline",
+        "orders": 10000,
+        "levels": 1000,
+        "book_python_heap_bytes": 3976672,
+        "peak_book_python_heap_bytes": 3976832,
+        "index_and_queue_container_bytes": 248912,
+        "checker_process_peak_rss_bytes": 106102784,
+        "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+        "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+        "rankable": false
+      },
+      {
+        "variant": "candidate",
+        "orders": 10000,
+        "levels": 1000,
+        "book_python_heap_bytes": 6297632,
+        "peak_book_python_heap_bytes": 6297672,
+        "index_and_queue_container_bytes": 2938840,
+        "checker_process_peak_rss_bytes": 118587392,
+        "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+        "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+        "rankable": false
+      }
+    ],
+    "added_book_heap_bytes": 2320960,
+    "added_container_bytes": 2689928
+  },
+  "application": {
+    "upstream_commit": "f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+    "source_sha256": {
+      "order_book.py": "ba87affe538e74c79e7b25d6f16e10383660521abdee2d059c3eb40718538c10",
+      "price_level.py": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+      "orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+      "messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c"
+    },
+    "variants": {
+      "baseline": {
+        "orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+        "order_book.py": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+        "price_level.py": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+        "messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c"
+      },
+      "candidate": {
+        "orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+        "order_book.py": "40349cd286029eea578b59a94e93945b3ac954abc14a849169fc59f31cc98009",
+        "price_level.py": "123334c857c93a9343bc1fcfef629c09ae96b787664318418b01a3419345134f",
+        "indexed_order_queue.py": "94d14d26cdff3ebda4e305c205b116d37a77697d9e0a03d3a996f1963a100865",
+        "messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c"
+      }
+    },
+    "candidate_patch_sha256": "a3db0378f3d6a4ace641254fc587049e70d3d892bebbc6e1eca05d3ab35a60d1"
+  },
+  "implementation_cost": {
+    "upstream_modules_changed": 3,
+    "added_runtime_dependencies": 0,
+    "algorithm": "Ordinary price lookup and unique-ID FIFO update/removal O(1); new-price position O(log depth) with O(depth) list shift. insert_by_id linear; duplicate buckets linear in duplicates.",
+    "maintenance": "Private queue replaces upstream lists; all level-deletion paths must maintain price index. Overlay source hash binds the immutable baseline."
+  },
+  "risks": [
+    "Three timing pairs per workload; target ranges overlap. No statistical-significance or official speed claim.",
+    "Mac ARM64 / Rosetta linux/amd64 local timings are not official Linux Final evidence; rankable=false.",
+    "Extra retained checker book heap 2320960 bytes at 10000 orders/1000 levels (58.4% component growth); full runtime per-load RSS reported separately.",
+    "All container/cgroup memory peak fields are null; reported RSS is immutable-adapter self-reported process high-water, not cgroup or signed official evidence.",
+    "Arbitrary external list mutation can bypass experimental queue interfaces; pinned runtime audit finds no such production use.",
+    "Price-list insertion/removal still shifts entries; duplicate-ID buckets and insert_by_id retain linear special cases.",
+    "Known baseline batch root profile.json sanitizer failure remains unchanged; single-scenario checks do not resolve batch gates."
+  ],
+  "relevant_units": [
+    "t3-s001-price-time-priority",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-cancelmodify-lifecycle",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-mr-cancel-replace-churn",
+    "t3-mr-deep-book-state-size"
+  ],
+  "unit_substitutions": {},
+  "verdict": "do_not_adopt",
+  "remaining_validation": [],
+  "regression_command": "PYTHONPATH=\"$PWD\" DOCKER_CONTEXT=colima-agenthon \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/regression.py --candidate book-index:20261005 --workers 3 --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --out out/book-index/actual-public-regression",
+  "acceptance_loads": [
+    "t3-mr-cancel-replace-churn",
+    "t3-mr-deep-book-state-size"
+  ],
+  "reporting_requirements": [
+    "Report all seven loads separately, including full run, simulator phase, warmup, median paired AB/BA speedup, simulator peak RSS and container/cgroup peak memory when available.",
+    "Target >=5% full-run improvement on cancellation/deep-book acceptance loads; other load deltas do not substitute for those results."
+  ],
+  "docker_validation_outputs": {
+    "status": "completed",
+    "image_identity": {
+      "baseline": {
+        "requested_reference": "orchestration-baseline:20261005-a5dbe46",
+        "image_id": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+        "repo_digests": [
+          "orchestration-baseline@sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2"
+        ],
+        "os": "linux",
+        "architecture": "amd64",
+        "labels": {
+          "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+          "qfbench2.interface_version": "2.0"
+        },
+        "runtime": {
+          "python": "3.11.17",
+          "python_major_minor": [
+            3,
+            11
+          ],
+          "packages": {
+            "numpy": "1.26.4",
+            "pandas": "1.5.3",
+            "pyarrow": "15.0.2",
+            "scipy": "1.17.1",
+            "coloredlogs": "15.0.1"
+          },
+          "source_sha256": {
+            "market/order_book.py": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+            "market/price_level.py": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+            "market/orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+            "market/messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c",
+            "market/indexed_order_queue.py": null,
+            "kernel": "c2da17e2b62bac13337d9ae6a9b5182c1c6e13025789262107255aedbf2ed6b2",
+            "adapter": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7"
+          }
+        },
+        "probe_command": [
+          "/opt/homebrew/bin/docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+          "python",
+          "-c",
+          "import hashlib, importlib.metadata, json, pathlib, platform, sys, sysconfig\npackage = pathlib.Path(sysconfig.get_paths()['purelib']) / 'abides_markets'\nfiles = ['order_book.py', 'price_level.py', 'orders.py', 'messages/orderbook.py', 'indexed_order_queue.py']\npaths = {'market/' + name: package / name for name in files}\npaths['kernel'] = package.parent / 'abides_core/kernel.py'\npaths['adapter'] = pathlib.Path('/opt/abides_fork/simulate.py')\nprint(json.dumps({'python': platform.python_version(), 'python_major_minor': list(sys.version_info[:2]), 'packages': {name: importlib.metadata.version(name) for name in ['numpy', 'pandas', 'pyarrow', 'scipy', 'coloredlogs']}, 'source_sha256': {name: hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None for name, path in paths.items()}}))\n"
+        ],
+        "rankable": false
+      },
+      "candidate": {
+        "requested_reference": "book-index:20261005",
+        "image_id": "sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67",
+        "repo_digests": [
+          "book-index@sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67"
+        ],
+        "os": "linux",
+        "architecture": "amd64",
+        "labels": {
+          "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+          "qfbench2.interface_version": "2.0"
+        },
+        "runtime": {
+          "python": "3.11.17",
+          "python_major_minor": [
+            3,
+            11
+          ],
+          "packages": {
+            "numpy": "1.26.4",
+            "pandas": "1.5.3",
+            "pyarrow": "15.0.2",
+            "scipy": "1.17.1",
+            "coloredlogs": "15.0.1"
+          },
+          "source_sha256": {
+            "market/order_book.py": "40349cd286029eea578b59a94e93945b3ac954abc14a849169fc59f31cc98009",
+            "market/price_level.py": "123334c857c93a9343bc1fcfef629c09ae96b787664318418b01a3419345134f",
+            "market/orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+            "market/messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c",
+            "market/indexed_order_queue.py": "94d14d26cdff3ebda4e305c205b116d37a77697d9e0a03d3a996f1963a100865",
+            "kernel": "c2da17e2b62bac13337d9ae6a9b5182c1c6e13025789262107255aedbf2ed6b2",
+            "adapter": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7"
+          }
+        },
+        "probe_command": [
+          "/opt/homebrew/bin/docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67",
+          "python",
+          "-c",
+          "import hashlib, importlib.metadata, json, pathlib, platform, sys, sysconfig\npackage = pathlib.Path(sysconfig.get_paths()['purelib']) / 'abides_markets'\nfiles = ['order_book.py', 'price_level.py', 'orders.py', 'messages/orderbook.py', 'indexed_order_queue.py']\npaths = {'market/' + name: package / name for name in files}\npaths['kernel'] = package.parent / 'abides_core/kernel.py'\npaths['adapter'] = pathlib.Path('/opt/abides_fork/simulate.py')\nprint(json.dumps({'python': platform.python_version(), 'python_major_minor': list(sys.version_info[:2]), 'packages': {name: importlib.metadata.version(name) for name in ['numpy', 'pandas', 'pyarrow', 'scipy', 'coloredlogs']}, 'source_sha256': {name: hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None for name, path in paths.items()}}))\n"
+        ],
+        "rankable": false
+      }
+    },
+    "per_workload_summary": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "acceptance_load": false,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 1.7669627499999478,
+            "median_adapter_seconds": 0.2179100239991385,
+            "median_simulation_seconds": 0.07480989600298926,
+            "median_launch_and_other_seconds": 1.5586317030029022,
+            "median_simulator_peak_rss_bytes": 175456256,
+            "max_simulator_peak_rss_bytes": 175468544,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              1.7156451250048121
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              1.7669627499999478,
+              1.8972357500024373,
+              1.6733232089973171
+            ],
+            "full_run_range_seconds": [
+              1.6733232089973171,
+              1.8972357500024373
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 1.5956830419963808,
+            "median_adapter_seconds": 0.18008439199911663,
+            "median_simulation_seconds": 0.07120639200002188,
+            "median_launch_and_other_seconds": 1.4155986499972641,
+            "median_simulator_peak_rss_bytes": 175640576,
+            "max_simulator_peak_rss_bytes": 175648768,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              1.737767790997168
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              1.601596458000131,
+              1.5956830419963808,
+              1.534767416997056
+            ],
+            "full_run_range_seconds": [
+              1.534767416997056,
+              1.601596458000131
+            ]
+          }
+        },
+        "median_full_run_speedup": 1.1073394298840682,
+        "full_run_reduction": 0.09693453243627925,
+        "simulation_speedup": 1.05060646806773,
+        "simulation_reduction": 0.048168814495122336,
+        "complete_pairs": 3,
+        "median_paired_speedup": 1.103250910161418,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          0.09358787671093904,
+          0.1589431930141887,
+          0.0828027671254773
+        ]
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "acceptance_load": false,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 16.51758858300309,
+            "median_adapter_seconds": 13.891647661999741,
+            "median_simulation_seconds": 13.206055754999397,
+            "median_launch_and_other_seconds": 1.7643036100016616,
+            "median_simulator_peak_rss_bytes": 449486848,
+            "max_simulator_peak_rss_bytes": 450846720,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              11.488310834000004
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              11.564830250004889,
+              16.66410983300011,
+              16.51758858300309
+            ],
+            "full_run_range_seconds": [
+              11.564830250004889,
+              16.66410983300011
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 13.513598417004687,
+            "median_adapter_seconds": 11.970042142002058,
+            "median_simulation_seconds": 11.289708610998787,
+            "median_launch_and_other_seconds": 1.5435562750026293,
+            "median_simulator_peak_rss_bytes": 452177920,
+            "max_simulator_peak_rss_bytes": 455208960,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              11.859914749999007
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              12.01617966699996,
+              14.020646542005125,
+              13.513598417004687
+            ],
+            "full_run_range_seconds": [
+              12.01617966699996,
+              14.020646542005125
+            ]
+          }
+        },
+        "median_full_run_speedup": 1.2222938756429498,
+        "full_run_reduction": 0.18186614534579004,
+        "simulation_speedup": 1.1697428348269012,
+        "simulation_reduction": 0.1451112413541903,
+        "complete_pairs": 3,
+        "median_paired_speedup": 1.1885407554548435,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          -0.03902775978876827,
+          0.15863213321842784,
+          0.18186614534579004
+        ]
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "acceptance_load": false,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 10.586381209002866,
+            "median_adapter_seconds": 9.045493929999793,
+            "median_simulation_seconds": 8.490430501999072,
+            "median_launch_and_other_seconds": 1.5415509429985832,
+            "median_simulator_peak_rss_bytes": 396967936,
+            "max_simulator_peak_rss_bytes": 400474112,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              10.167344834000687
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              10.586381209002866,
+              10.628162708999298,
+              10.470888875002856
+            ],
+            "full_run_range_seconds": [
+              10.470888875002856,
+              10.628162708999298
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 11.953199000003224,
+            "median_adapter_seconds": 10.337307345998852,
+            "median_simulation_seconds": 9.413811189999251,
+            "median_launch_and_other_seconds": 1.5816456579996157,
+            "median_simulator_peak_rss_bytes": 399392768,
+            "max_simulator_peak_rss_bytes": 399814656,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              11.050011084000289
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              11.953199000003224,
+              11.051461625000229,
+              16.602713833999587
+            ],
+            "full_run_range_seconds": [
+              11.051461625000229,
+              16.602713833999587
+            ]
+          }
+        },
+        "median_full_run_speedup": 0.8856525528438045,
+        "full_run_reduction": -0.12911095529395733,
+        "simulation_speedup": 0.9019121300222027,
+        "simulation_reduction": -0.1087554615496551,
+        "complete_pairs": 3,
+        "median_paired_speedup": 0.8856525528438045,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          -0.12911095529395733,
+          -0.039828042493412985,
+          -0.585606917635735
+        ]
+      },
+      {
+        "unit": "t3-mp01-stp-newest-baseline",
+        "acceptance_load": false,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 6.930453957997088,
+            "median_adapter_seconds": 5.081428614001197,
+            "median_simulation_seconds": 4.741750197001238,
+            "median_launch_and_other_seconds": 1.703316952996829,
+            "median_simulator_peak_rss_bytes": 266129408,
+            "max_simulator_peak_rss_bytes": 266166272,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              6.024160582994227
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              5.478883292002138,
+              7.55076566599746,
+              6.930453957997088
+            ],
+            "full_run_range_seconds": [
+              5.478883292002138,
+              7.55076566599746
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 6.110777292000421,
+            "median_adapter_seconds": 4.446826431001682,
+            "median_simulation_seconds": 4.095714175000467,
+            "median_launch_and_other_seconds": 1.6639508609987388,
+            "median_simulator_peak_rss_bytes": 271765504,
+            "max_simulator_peak_rss_bytes": 273719296,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              7.450910291998298
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              5.698372874998313,
+              6.110777292000421,
+              8.333662625002034
+            ],
+            "full_run_range_seconds": [
+              5.698372874998313,
+              8.333662625002034
+            ]
+          }
+        },
+        "median_full_run_speedup": 1.1341362361658476,
+        "full_run_reduction": 0.11827171365172084,
+        "simulation_speedup": 1.15773464514298,
+        "simulation_reduction": 0.13624421261359054,
+        "complete_pairs": 3,
+        "median_paired_speedup": 0.9614820602633449,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          -0.04006100719768524,
+          0.19070759677810978,
+          -0.20246995009407387
+        ]
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "acceptance_load": false,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 5.174402000004193,
+            "median_adapter_seconds": 3.7074865989998216,
+            "median_simulation_seconds": 3.4214279489970068,
+            "median_launch_and_other_seconds": 1.4783086579955125,
+            "median_simulator_peak_rss_bytes": 265355264,
+            "max_simulator_peak_rss_bytes": 270536704,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              5.134324749997177
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              5.174402000004193,
+              5.205286999997043,
+              5.154079332998663
+            ],
+            "full_run_range_seconds": [
+              5.154079332998663,
+              5.205286999997043
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 5.224965166999027,
+            "median_adapter_seconds": 3.8677746360008314,
+            "median_simulation_seconds": 3.5749601410025207,
+            "median_launch_and_other_seconds": 1.4036097309981415,
+            "median_simulator_peak_rss_bytes": 265740288,
+            "max_simulator_peak_rss_bytes": 271613952,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              6.161380875004397
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              5.22245912499784,
+              7.89765683299629,
+              5.224965166999027
+            ],
+            "full_run_range_seconds": [
+              5.22245912499784,
+              7.89765683299629
+            ]
+          }
+        },
+        "median_full_run_speedup": 0.9903227743384411,
+        "full_run_reduction": -0.009771789473410397,
+        "simulation_speedup": 0.9570534534792158,
+        "simulation_reduction": -0.04487371772669424,
+        "complete_pairs": 3,
+        "median_paired_speedup": 0.9864332427614866,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          -0.009287474184187516,
+          -0.5172375381032357,
+          -0.013753345538653594
+        ]
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "acceptance_load": true,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 21.24339462500211,
+            "median_adapter_seconds": 19.361969244000647,
+            "median_simulation_seconds": 18.444345879997854,
+            "median_launch_and_other_seconds": 1.8814253810014634,
+            "median_simulator_peak_rss_bytes": 587137024,
+            "max_simulator_peak_rss_bytes": 589320192,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              18.161500750000414
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              19.03123250000499,
+              22.37255683299736,
+              21.24339462500211
+            ],
+            "full_run_range_seconds": [
+              19.03123250000499,
+              22.37255683299736
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 20.35866766700201,
+            "median_adapter_seconds": 18.455919210999127,
+            "median_simulation_seconds": 17.330840398000873,
+            "median_launch_and_other_seconds": 1.9027484560028824,
+            "median_simulator_peak_rss_bytes": 588124160,
+            "max_simulator_peak_rss_bytes": 588177408,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              22.682281083005364
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              20.35866766700201,
+              22.211548833998677,
+              18.37740974999906
+            ],
+            "full_run_range_seconds": [
+              18.37740974999906,
+              22.211548833998677
+            ]
+          }
+        },
+        "median_full_run_speedup": 1.043457016562734,
+        "full_run_reduction": 0.04164715543902919,
+        "simulation_speedup": 1.0642499415161324,
+        "simulation_reduction": 0.06037110175886107,
+        "complete_pairs": 3,
+        "median_paired_speedup": 1.0072488415914622,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          -0.06975035205926217,
+          0.007196674041351048,
+          0.13491181261727214
+        ]
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "acceptance_load": true,
+        "variants": {
+          "baseline": {
+            "repeats": 3,
+            "median_full_run_seconds": 24.047669708001195,
+            "median_adapter_seconds": 22.12648475199967,
+            "median_simulation_seconds": 21.153075016998628,
+            "median_launch_and_other_seconds": 1.5789792020041205,
+            "median_simulator_peak_rss_bytes": 584638464,
+            "max_simulator_peak_rss_bytes": 584790016,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              20.754125958999794
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              24.047669708001195,
+              22.380347917001927,
+              27.44768679200206
+            ],
+            "full_run_range_seconds": [
+              22.380347917001927,
+              27.44768679200206
+            ]
+          },
+          "candidate": {
+            "repeats": 3,
+            "median_full_run_seconds": 23.45672766699863,
+            "median_adapter_seconds": 21.66986481799904,
+            "median_simulation_seconds": 20.733463086002303,
+            "median_launch_and_other_seconds": 1.6918320520017005,
+            "median_simulator_peak_rss_bytes": 585707520,
+            "max_simulator_peak_rss_bytes": 586047488,
+            "median_container_peak_memory_bytes": null,
+            "rss_source": "simulator profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported process high-water mark",
+            "container_memory_source": "local harness container cgroup memory peak; null when unavailable; this is not process RSS",
+            "warmup_full_run_seconds": [
+              21.514345707997563
+            ],
+            "all_gates_and_exact_traces_pass": true,
+            "full_run_samples_seconds": [
+              23.45672766699863,
+              21.47297245799564,
+              25.165794125001412
+            ],
+            "full_run_range_seconds": [
+              21.47297245799564,
+              25.165794125001412
+            ]
+          }
+        },
+        "median_full_run_speedup": 1.0251928593532662,
+        "full_run_reduction": 0.02457377567881114,
+        "simulation_speedup": 1.0202383909169335,
+        "simulation_reduction": 0.01983692350446087,
+        "complete_pairs": 3,
+        "median_paired_speedup": 1.0422566303189393,
+        "sufficient_timing_evidence": true,
+        "paired_reductions": [
+          0.02457377567881114,
+          0.04054340273758539,
+          0.0831360647726993
+        ]
+      }
+    ],
+    "diagnostic_profiles": [
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "variant": "baseline",
+        "kind": "diagnostic",
+        "warmup": false,
+        "command": [
+          "/opt/homebrew/bin/docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--cidfile",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/baseline/container.cid",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/baseline/input:/input:ro",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/baseline/raw-output:/output",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/baseline/profiles:/diagnostics",
+          "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+          "python",
+          "-m",
+          "cProfile",
+          "-o",
+          "/diagnostics/simulation.prof",
+          "-m",
+          "abides_fork.simulate",
+          "--config",
+          "/input/scenario.json",
+          "--out",
+          "/output/trace.parquet",
+          "--trace-mode",
+          "buffered",
+          "--profile-components"
+        ],
+        "rankable": false,
+        "excluded_from_medians": true,
+        "output": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/baseline/t3-mr-cancel-replace-churn",
+        "cprofile": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/baseline/profiles/simulation.prof",
+        "phase_profile": {
+          "schema_version": 1,
+          "trace_mode": "buffered",
+          "detailed": true,
+          "timing_kind": "diagnostic",
+          "wall_clock_sec": 52.42643089200283,
+          "phases": {
+            "input": 0.002221745002316311,
+            "configuration": 0.013143460000719642,
+            "simulation": 51.37061309500132,
+            "trace_finalize": 0.0756351009986247,
+            "message_finalize": 0.5476495930015517,
+            "parquet_write": 0.3786286629983806,
+            "hashing": 0.03722619200198096,
+            "metadata_write": 0.0011071560002164915
+          },
+          "components": {
+            "input": 0.002221745002316311,
+            "configuration": 0.013143460000719642,
+            "trace_finalize": 0.0756351009986247,
+            "message_finalize": 0.5476495930015517,
+            "parquet_write": 0.3786286629983806,
+            "hashing": 0.03722619200198096,
+            "metadata_write": 0.0011071560002164915,
+            "event_queue": 5.583547466998323,
+            "event_capture": 4.122602936000189,
+            "exchange": 5.481532750000125,
+            "latency": 3.63699416499974,
+            "agent_logic": 9.682444299999991,
+            "matching": 8.172755809000106,
+            "oracle": 0.001639473,
+            "kernel_other": 14.68909619500284,
+            "adapter_other": 0.0002058869977190625
+          },
+          "simulation_components": {
+            "event_queue": 5.583547466998323,
+            "event_capture": 4.122602936000189,
+            "exchange": 5.481532750000125,
+            "latency": 3.63699416499974,
+            "agent_logic": 9.682444299999991,
+            "matching": 8.172755809000106,
+            "oracle": 0.001639473,
+            "kernel_other": 14.68909619500284
+          },
+          "component_calls": {
+            "event_queue": 1251380,
+            "event_capture": 422346,
+            "exchange": 136971,
+            "latency": 274652,
+            "agent_logic": 146223,
+            "matching": 128429,
+            "oracle": 18
+          },
+          "gpu_utilization": 0.0,
+          "peak_memory_bytes": 594792448
+        },
+        "checks": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          },
+          "comparisons": [
+            {
+              "file": "trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd",
+                "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd"
+              ],
+              "bytes_equal": true
+            },
+            {
+              "file": "message_trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "d63b019ad5092da3f236317ac4c6bdc92bf1792efc71c8cc948634840f707ffd",
+                "d63b019ad5092da3f236317ac4c6bdc92bf1792efc71c8cc948634840f707ffd"
+              ],
+              "bytes_equal": true
+            }
+          ],
+          "rankable": false
+        }
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "variant": "candidate",
+        "kind": "diagnostic",
+        "warmup": false,
+        "command": [
+          "/opt/homebrew/bin/docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--cidfile",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/candidate/container.cid",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/candidate/input:/input:ro",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/candidate/raw-output:/output",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/candidate/profiles:/diagnostics",
+          "sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67",
+          "python",
+          "-m",
+          "cProfile",
+          "-o",
+          "/diagnostics/simulation.prof",
+          "-m",
+          "abides_fork.simulate",
+          "--config",
+          "/input/scenario.json",
+          "--out",
+          "/output/trace.parquet",
+          "--trace-mode",
+          "buffered",
+          "--profile-components"
+        ],
+        "rankable": false,
+        "excluded_from_medians": true,
+        "output": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/candidate/t3-mr-cancel-replace-churn",
+        "cprofile": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-cancel-replace-churn/candidate/profiles/simulation.prof",
+        "phase_profile": {
+          "schema_version": 1,
+          "trace_mode": "buffered",
+          "detailed": true,
+          "timing_kind": "diagnostic",
+          "wall_clock_sec": 54.53687780299879,
+          "phases": {
+            "input": 0.002000756998313591,
+            "configuration": 0.013750236001214944,
+            "simulation": 53.398972505998245,
+            "trace_finalize": 0.07730426600028295,
+            "message_finalize": 0.5928301019994251,
+            "parquet_write": 0.4159765750009683,
+            "hashing": 0.03490847499779193,
+            "metadata_write": 0.0009443130002182443
+          },
+          "components": {
+            "input": 0.002000756998313591,
+            "configuration": 0.013750236001214944,
+            "trace_finalize": 0.07730426600028295,
+            "message_finalize": 0.5928301019994251,
+            "parquet_write": 0.4159765750009683,
+            "hashing": 0.03490847499779193,
+            "metadata_write": 0.0009443130002182443,
+            "event_queue": 5.701971266996152,
+            "event_capture": 4.160251446000111,
+            "exchange": 5.81427905799997,
+            "latency": 3.7961696210001312,
+            "agent_logic": 9.951921216000224,
+            "matching": 9.919899300000122,
+            "oracle": 0.001171236,
+            "kernel_other": 14.053309362001535,
+            "adapter_other": 0.00019057300232816488
+          },
+          "simulation_components": {
+            "event_queue": 5.701971266996152,
+            "event_capture": 4.160251446000111,
+            "exchange": 5.81427905799997,
+            "latency": 3.7961696210001312,
+            "agent_logic": 9.951921216000224,
+            "matching": 9.919899300000122,
+            "oracle": 0.001171236,
+            "kernel_other": 14.053309362001535
+          },
+          "component_calls": {
+            "event_queue": 1251380,
+            "event_capture": 422346,
+            "exchange": 136971,
+            "latency": 274652,
+            "agent_logic": 146223,
+            "matching": 128429,
+            "oracle": 18
+          },
+          "gpu_utilization": 0.0,
+          "peak_memory_bytes": 595423232
+        },
+        "checks": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          },
+          "comparisons": [
+            {
+              "file": "trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd",
+                "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd"
+              ],
+              "bytes_equal": true
+            },
+            {
+              "file": "message_trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "d63b019ad5092da3f236317ac4c6bdc92bf1792efc71c8cc948634840f707ffd",
+                "d63b019ad5092da3f236317ac4c6bdc92bf1792efc71c8cc948634840f707ffd"
+              ],
+              "bytes_equal": true
+            }
+          ],
+          "rankable": false
+        }
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "variant": "baseline",
+        "kind": "diagnostic",
+        "warmup": false,
+        "command": [
+          "/opt/homebrew/bin/docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--cidfile",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/baseline/container.cid",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/baseline/input:/input:ro",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/baseline/raw-output:/output",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/baseline/profiles:/diagnostics",
+          "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+          "python",
+          "-m",
+          "cProfile",
+          "-o",
+          "/diagnostics/simulation.prof",
+          "-m",
+          "abides_fork.simulate",
+          "--config",
+          "/input/scenario.json",
+          "--out",
+          "/output/trace.parquet",
+          "--trace-mode",
+          "buffered",
+          "--profile-components"
+        ],
+        "rankable": false,
+        "excluded_from_medians": true,
+        "output": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/baseline/t3-mr-deep-book-state-size",
+        "cprofile": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/baseline/profiles/simulation.prof",
+        "phase_profile": {
+          "schema_version": 1,
+          "trace_mode": "buffered",
+          "detailed": true,
+          "timing_kind": "diagnostic",
+          "wall_clock_sec": 61.599549308997666,
+          "phases": {
+            "input": 0.003729945998202311,
+            "configuration": 0.012298601999646053,
+            "simulation": 60.59467931299878,
+            "trace_finalize": 0.07405404500241275,
+            "message_finalize": 0.5484087850018113,
+            "parquet_write": 0.32906498800002737,
+            "hashing": 0.03602163600226049,
+            "metadata_write": 0.0010873540013562888
+          },
+          "components": {
+            "input": 0.003729945998202311,
+            "configuration": 0.012298601999646053,
+            "trace_finalize": 0.07405404500241275,
+            "message_finalize": 0.5484087850018113,
+            "parquet_write": 0.32906498800002737,
+            "hashing": 0.03602163600226049,
+            "metadata_write": 0.0010873540013562888,
+            "event_queue": 13.65312419109287,
+            "event_capture": 3.8020320709995907,
+            "exchange": 4.904324392999885,
+            "latency": 3.197990028000069,
+            "agent_logic": 8.702055046000073,
+            "matching": 9.797055619999908,
+            "oracle": 0.0011421810000000004,
+            "kernel_other": 16.536955782906382,
+            "adapter_other": 0.00020463999317144044
+          },
+          "simulation_components": {
+            "event_queue": 13.65312419109287,
+            "event_capture": 3.8020320709995907,
+            "exchange": 4.904324392999885,
+            "latency": 3.197990028000069,
+            "agent_logic": 8.702055046000073,
+            "matching": 9.797055619999908,
+            "oracle": 0.0011421810000000004,
+            "kernel_other": 16.536955782906382
+          },
+          "component_calls": {
+            "event_queue": 2942882,
+            "event_capture": 403313,
+            "exchange": 132514,
+            "latency": 265339,
+            "agent_logic": 137130,
+            "matching": 128209,
+            "oracle": 18
+          },
+          "gpu_utilization": 0.0,
+          "peak_memory_bytes": 589778944
+        },
+        "checks": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          },
+          "comparisons": [
+            {
+              "file": "trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+                "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+              ],
+              "bytes_equal": true
+            },
+            {
+              "file": "message_trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+                "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+              ],
+              "bytes_equal": true
+            }
+          ],
+          "rankable": false
+        }
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "variant": "candidate",
+        "kind": "diagnostic",
+        "warmup": false,
+        "command": [
+          "/opt/homebrew/bin/docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--cidfile",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/candidate/container.cid",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/candidate/input:/input:ro",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/candidate/raw-output:/output",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/candidate/profiles:/diagnostics",
+          "sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67",
+          "python",
+          "-m",
+          "cProfile",
+          "-o",
+          "/diagnostics/simulation.prof",
+          "-m",
+          "abides_fork.simulate",
+          "--config",
+          "/input/scenario.json",
+          "--out",
+          "/output/trace.parquet",
+          "--trace-mode",
+          "buffered",
+          "--profile-components"
+        ],
+        "rankable": false,
+        "excluded_from_medians": true,
+        "output": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/candidate/t3-mr-deep-book-state-size",
+        "cprofile": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/out/book-index/actual-paired/diagnostic/t3-mr-deep-book-state-size/candidate/profiles/simulation.prof",
+        "phase_profile": {
+          "schema_version": 1,
+          "trace_mode": "buffered",
+          "detailed": true,
+          "timing_kind": "diagnostic",
+          "wall_clock_sec": 66.50430962099927,
+          "phases": {
+            "input": 0.002365920998272486,
+            "configuration": 0.013638825999805704,
+            "simulation": 65.36127313600082,
+            "trace_finalize": 0.0788960620011494,
+            "message_finalize": 0.5731825809998554,
+            "parquet_write": 0.43296763099715463,
+            "hashing": 0.04064937600196572,
+            "metadata_write": 0.0011415469998610206
+          },
+          "components": {
+            "input": 0.002365920998272486,
+            "configuration": 0.013638825999805704,
+            "trace_finalize": 0.0788960620011494,
+            "message_finalize": 0.5731825809998554,
+            "parquet_write": 0.43296763099715463,
+            "hashing": 0.04064937600196572,
+            "metadata_write": 0.0011415469998610206,
+            "event_queue": 14.226383899048834,
+            "event_capture": 4.022767804999999,
+            "exchange": 5.282147244999992,
+            "latency": 3.4588216879998774,
+            "agent_logic": 9.321100942999978,
+            "matching": 12.017564093999885,
+            "oracle": 0.0011914439999999998,
+            "kernel_other": 17.03129601795225,
+            "adapter_other": 0.0001945410003827419
+          },
+          "simulation_components": {
+            "event_queue": 14.226383899048834,
+            "event_capture": 4.022767804999999,
+            "exchange": 5.282147244999992,
+            "latency": 3.4588216879998774,
+            "agent_logic": 9.321100942999978,
+            "matching": 12.017564093999885,
+            "oracle": 0.0011914439999999998,
+            "kernel_other": 17.03129601795225
+          },
+          "component_calls": {
+            "event_queue": 2942882,
+            "event_capture": 403313,
+            "exchange": 132514,
+            "latency": 265339,
+            "agent_logic": 137130,
+            "matching": 128209,
+            "oracle": 18
+          },
+          "gpu_utilization": 0.0,
+          "peak_memory_bytes": 592322560
+        },
+        "checks": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          },
+          "comparisons": [
+            {
+              "file": "trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+                "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+              ],
+              "bytes_equal": true
+            },
+            {
+              "file": "message_trace.parquet",
+              "exact_rows_equal": true,
+              "sha256": [
+                "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+                "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+              ],
+              "bytes_equal": true
+            }
+          ],
+          "rankable": false
+        }
+      }
+    ],
+    "expected_artifacts": [
+      "identity.json",
+      "records.json",
+      "summary.json",
+      "SUMMARY.md",
+      "diagnostic/<unit>/<variant>/profiles/simulation.prof",
+      "diagnostic/<unit>/<variant>/profiles/cumulative.txt"
+    ],
+    "runtime_checks": [
+      "linux/amd64",
+      "Python 3.11 with identical patch versions",
+      "numpy 1.26.4",
+      "pandas 1.5.3",
+      "pyarrow 15.0.2",
+      "scipy 1.17.1",
+      "coloredlogs 15.0.1",
+      "applied market module hashes",
+      "same Kernel/adapter hashes across images"
+    ],
+    "image_launch_identity": "immutable local sha256 image ID; registry RepoDigests recorded when available",
+    "rss_sources": {
+      "process": "immutable adapter profile.json: Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024; self-reported high-water mark",
+      "container": "local harness cgroup memory peak, distinct from process RSS; null when unavailable"
+    },
+    "selected_gate_status": "14/14 passed; all seven units, both variants; full verifier and both exact rows/bytes",
+    "timing_evidence_complete": true,
+    "performance_criterion_met": false,
+    "paired_records": 60,
+    "unprofiled_records": 56,
+    "warmup_records": 14,
+    "timing_records": 42,
+    "diagnostic_records": 4,
+    "summary_path": "out/book-index/actual-paired/summary.json"
+  },
+  "regression_resume_command": "PYTHONPATH=\"$PWD\" DOCKER_CONTEXT=colima-agenthon \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/book-index/regression.py --candidate book-index:20261005 --workers 3 --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --out out/book-index/actual-public-regression --resume",
+  "regression_checkpoint": {
+    "status": "passed_complete",
+    "worker_count": 3,
+    "unchanged_standard_functions": [
+      "regression_suite.run_regression.run_scenario",
+      "regression_suite.run_regression.build_report"
+    ],
+    "checkpoint_artifacts": [
+      "checkpoint.json",
+      "report.json",
+      "scenario-logs/<scenario_id>.json",
+      "scenario-logs/<scenario_id>.launch.json",
+      "scenario-logs/<scenario_id>.stdout.log",
+      "scenario-logs/<scenario_id>.stderr.log"
+    ],
+    "saved_output_revalidation": "SHA/no-follow artifact verification plus unchanged standard checks with saved-output replay; no new simulator launch or timing evidence",
+    "resume_policy": "Freeze image/runner/semantics/checker/config/reference contract; preserve completed failures; run only scenarios without completed checkpoint entries.",
+    "scenario_count": 65,
+    "passed": 65,
+    "failed": 0,
+    "errored": 0,
+    "complete": true,
+    "rankable": false,
+    "purpose": "correctness_only_not_performance",
+    "max_simulator_process_peak_rss_bytes": 1692024832,
+    "resources": [
+      {
+        "workers_requested": 3,
+        "purpose": "correctness_only_not_performance",
+        "per_container_cpus": 4,
+        "per_container_memory": "16g",
+        "planning_memory_bytes_per_task": 3221225472
+      }
+    ],
+    "checkpoint": "out/book-index/actual-public-regression/checkpoint.json",
+    "report": "out/book-index/actual-public-regression/report.json",
+    "execution": "out/book-index/actual-public-regression/execution.json"
+  },
+  "implementation_commit": "2590891ba3b1121f1ea4b07ba180e3ecb498c3b6",
+  "verdict_reason": "Both acceptance loads fail the >=5% full-run reduction threshold; lifecycle also regresses. No extra repeats or target substitution.",
+  "performance_criterion_met": false,
+  "correctness_status": "passed_in_reported_scope",
+  "source_provenance": {
+    "candidate_patch_sha256": "a3db0378f3d6a4ace641254fc587049e70d3d892bebbc6e1eca05d3ab35a60d1",
+    "tested_code_commit": "65846ad23909603a1414a3bd0fbf1762063b2b07",
+    "source_hashes": {
+      "baseline": {
+        "orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+        "order_book.py": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+        "price_level.py": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+        "messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c"
+      },
+      "candidate": {
+        "orders.py": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74",
+        "order_book.py": "40349cd286029eea578b59a94e93945b3ac954abc14a849169fc59f31cc98009",
+        "price_level.py": "123334c857c93a9343bc1fcfef629c09ae96b787664318418b01a3419345134f",
+        "indexed_order_queue.py": "94d14d26cdff3ebda4e305c205b116d37a77697d9e0a03d3a996f1963a100865",
+        "messages/orderbook.py": "136238cf9b1c4de5df060b2c4bd672f32adcdb5f79f94e87130ee0b74d6c8a9c"
+      }
+    },
+    "immutable_images": {
+      "baseline": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+      "candidate": "sha256:e9f782eade2707fcd537dadbb9e7bd9c9d3c9d0953015db165f035375d827a67"
+    },
+    "no_runtime_code_changes_after_measurement": true
+  },
+  "docker_slot": {
+    "status": "released",
+    "context": "colima-agenthon",
+    "containers_at_final_check": [],
+    "manager_reassigned_to_experiment": 5,
+    "release_date": "2026-10-06",
+    "no_launches_after_release": true
+  }
+}

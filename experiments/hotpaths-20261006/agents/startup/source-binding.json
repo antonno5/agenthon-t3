@@ -1,0 +1,33 @@
+{
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "baseline_utils_sha256": "349cbaa5d0db0268dd62982090bd8f11ef59835520df10eae7d0fd6818d635d6",
+  "candidate_utils_sha256": "bf7d576a11baa5360d264dc810b6708570cc4ece84d671b8025a313d28ad378b",
+  "baseline_source": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-source/abides_markets/utils/__init__.py",
+  "baseline_public_exports": [
+    "datetime",
+    "sys",
+    "traceback",
+    "warnings",
+    "contextmanager",
+    "List",
+    "Union",
+    "np",
+    "pd",
+    "pdist",
+    "squareform",
+    "LatencyModel",
+    "delist",
+    "numeric",
+    "get_value_from_timestamp",
+    "ignored",
+    "generate_uniform_random_pairwise_dist_on_line",
+    "meters_to_light_ns",
+    "validate_window_size",
+    "sigmoid",
+    "subdict",
+    "restrictdict",
+    "dollarize",
+    "generate_latency_model",
+    "config_add_agents"
+  ]
+}

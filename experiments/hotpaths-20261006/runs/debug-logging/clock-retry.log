@@ -1,0 +1,11 @@
+RUN t3-mp02-stp-oldest-baseline warmup 0 baseline
+RUN t3-mp02-stp-oldest-baseline warmup 0 candidate
+RUN t3-mp02-stp-oldest-baseline timing 0 baseline
+RUN t3-mp02-stp-oldest-baseline timing 0 candidate
+RUN t3-mp02-stp-oldest-baseline timing 1 candidate
+RUN t3-mp02-stp-oldest-baseline timing 1 baseline
+RUN t3-mp02-stp-oldest-baseline timing 2 baseline
+RUN t3-mp02-stp-oldest-baseline timing 2 candidate
+RUN t3-mp02-stp-oldest-baseline profile 0 baseline
+RUN t3-mp02-stp-oldest-baseline profile 0 candidate
+{"output": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential-clock-retry", "complete": true, "accepted": true, "error": null, "rankable": false}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "executive_summary": "Compare two price-search implementations from the same tested stage-3 mutation base. Freeze the schedule before either candidate is measured and keep all results, including slowdowns.",
+  "created_utc": "2026-10-06T20:53:18.776300+00:00",
+  "base_commit": "ac1baaba2c89ce3ac9e5df58be57dab2daf96082",
+  "variants": [
+    "bisect",
+    "dict-bisect"
+  ],
+  "units": [
+    "t3-s001-price-time-priority",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-gbatch-homog-4",
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest"
+  ],
+  "repeats": 5,
+  "warmup_pairs_per_unit": 1,
+  "pair_order": "AB/BA alternating, unchanged differential runner",
+  "profiles_during_timing": false,
+  "resources": {
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "network": "none",
+    "serial_docker_slot": true
+  },
+  "primary_metric": "Docker State full-container elapsed seconds",
+  "secondary_metric": "simulation phase self-reported seconds; aggregate batch sub-simulations separately",
+  "correctness": "Independent original-engine tests, exact dual-journal comparisons and unchanged developer gates for all selected units; 65-scenario public trace regression per implementation",
+  "reporting": "Both per-unit medians, every timing sample, paired ratios and ranges; no selected best repeat, no official speedup/significance claim. No additional confirmation schedule unless a new failure or unresolved evidence needs it.",
+  "rankable": false,
+  "synthetic_diagnostics": {
+    "added_before_candidate_measurement_utc": "2026-10-06T20:55:36.796807+00:00",
+    "levels": [
+      1,
+      4,
+      16,
+      64,
+      256,
+      1024
+    ],
+    "phases": [
+      "lookup",
+      "add_existing",
+      "cancel_existing",
+      "modify_existing",
+      "new_level_churn"
+    ],
+    "measured_operations_per_case": 2000,
+    "warmup_operations_per_case": 200,
+    "pairs": 7,
+    "order": "AB/BA alternating; each container runs every case; one Docker slot",
+    "metric": "inside-process perf_counter_ns; initialization excluded and initial lookup metadata warmed; mutation/index maintenance included",
+    "correctness": "domain output SHA-256 equal for every case and pair",
+    "script_sha256": "23936eebdb3a7508a8df72ae61a57f1a0535081986796055154e44eb53aca944"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-s001-price-time-priority:/input:ro",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/integration-startup-develop/single-output:/output",
+    "sha256:537a7cf45af039c989ae2366916240174a2c69aa0fd68b9f70a0196736868f6c",
+    "simulate",
+    "--config",
+    "/input/scenario.json",
+    "--out",
+    "/output/trace.parquet"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

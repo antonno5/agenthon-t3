@@ -1,0 +1,163 @@
+{
+  "rankable": false,
+  "diagnostic_only": true,
+  "python": "3.11.17",
+  "machine": "x86_64",
+  "count": 50000,
+  "repeats": 7,
+  "source_identity": {
+    "abides_markets.order_copy_baseline": {
+      "path": "/opt/order-copy-baseline/orders.py",
+      "sha256": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74"
+    },
+    "abides_markets.orders": {
+      "path": "/usr/local/lib/python3.11/site-packages/abides_markets/orders.py",
+      "sha256": "bdbffd92f01620e5a0369c4155230dbf20afc229404065c5d7e5862c222034a1"
+    },
+    "abides_markets.order_copy_baseline_book": {
+      "path": "/opt/order-copy-baseline/order_book.py",
+      "sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a"
+    },
+    "abides_markets.order_book": {
+      "path": "/usr/local/lib/python3.11/site-packages/abides_markets/order_book.py",
+      "sha256": "c7fb3254b5dc074d6b104058b2865468c43e5a5b7216bd60528bde23cfb93af3"
+    }
+  },
+  "cases": {
+    "limit": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          1340.7224,
+          1306.82666,
+          1325.6135,
+          1316.08902,
+          1304.22978,
+          1320.64966,
+          1298.04244
+        ],
+        "median_ns_per_op": 1316.08902
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          1185.64716,
+          1163.71162,
+          1183.83354,
+          1196.6817,
+          1214.35152,
+          1228.39236,
+          1202.51406
+        ],
+        "median_ns_per_op": 1196.6817
+      },
+      "ratio_before_over_after": 1.0997820222369907
+    },
+    "market": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          1224.68914,
+          1229.7069,
+          1191.00794,
+          1225.20576,
+          1215.19614,
+          1240.48084,
+          1224.51158
+        ],
+        "median_ns_per_op": 1224.68914
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          1239.11558,
+          1295.8216,
+          1205.61486,
+          1259.06128,
+          1188.3905,
+          1313.99814,
+          1246.8657
+        ],
+        "median_ns_per_op": 1246.8657
+      },
+      "ratio_before_over_after": 0.982214155060966
+    },
+    "string_tag": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          1660.80438,
+          1675.24314,
+          1596.6919,
+          1606.33058,
+          1537.12646,
+          1556.44406,
+          1509.94944
+        ],
+        "median_ns_per_op": 1596.6919
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          1234.96368,
+          1255.598,
+          1182.33108,
+          1229.75272,
+          1221.71394,
+          1188.8362,
+          1245.64338
+        ],
+        "median_ns_per_op": 1229.75272
+      },
+      "ratio_before_over_after": 1.298384524004143
+    },
+    "mutable_tag": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          3364.9563,
+          3326.4858,
+          3375.20758,
+          3339.52394,
+          3365.25898,
+          3336.66886,
+          3288.6569
+        ],
+        "median_ns_per_op": 3339.52394
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          3814.4268,
+          3915.67278,
+          3868.58122,
+          3904.71672,
+          3972.88646,
+          4238.0128,
+          4350.55936
+        ],
+        "median_ns_per_op": 3915.67278
+      },
+      "ratio_before_over_after": 0.8528608307254929
+    },
+    "ptc_redundant_copy_ablation": {
+      "copyfields_with_three_snapshots": {
+        "raw_ns_per_op": [
+          11125.7422,
+          10474.3758,
+          11037.5342,
+          10475.6354,
+          10513.8282,
+          10421.8482,
+          10476.2508
+        ],
+        "median_ns_per_op": 10476.2508
+      },
+      "copyfields_with_two_snapshots": {
+        "raw_ns_per_op": [
+          9699.982,
+          9673.615,
+          9645.0038,
+          9368.811,
+          9264.7686,
+          9187.4604,
+          9174.1894
+        ],
+        "median_ns_per_op": 9368.811
+      },
+      "ratio_before_over_after": 1.1182049461772685
+    }
+  }
+}

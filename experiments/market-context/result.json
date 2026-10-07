@@ -1,0 +1,735 @@
+{
+  "hypothesis": "A market-owned legacy RandomState, ID allocators, queue, agents and explicit lifecycle can preserve baseline event priority and both traces while independent live contexts interleave.",
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "upstream_commit": "f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+  "branch": "codex/exp-20261005-04-market-context",
+  "commit": "88eac27d76bf6b45b6db5de59eed2aee31379e0e",
+  "commit_role": "Implementation and transport-fix commit; completed runtime report is saved in a following report-only commit.",
+  "worktree": "/Users/iopogiba/.codex/worktrees/617b/\u0410\u0433\u0435\u043d\u0442\u043e\u043d",
+  "initial_head": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "initial_merge_base": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "change_summary": [
+    "SimulationContext owns SimulationState, legacy master RNG, order/message counters, Kernel/agents/queue, collector and lifecycle; ContextVar selects ownership without global state swaps.",
+    "Separate build-time upstream patch routes implicit RNG constructors, wake-time utility, latency seeds and oracle megashocks/dense shocks through the owned legacy stream.",
+    "Bounded Kernel.runner(max_events) permits live-context interleaving including requeues and retains previous-time stop semantics.",
+    "Preserve baseline unused random_state_kernel draw and actual Kernel RandomState(0), including oracle master exponential draw in configuration order.",
+    "Capture Agent.logEvent on market-specific instances, preserve third-party overrides and exception restoration; use the Context API for simulate and serial batch.",
+    "Candidate batch contract repair drops disallowed root profile.json and keeps sub profiles; original baseline failure remains visible and requires separately recorded contract-only control.",
+    "Supply input-only runtime isolation diagnostic and sequential AB/BA runner with full developer gates, unchanged sanitation and exact both-trace comparisons.",
+    "Kernel.write_summary_log ignores skip_log; every Context now receives a unique absolute owned log directory without changing cwd. Default scratch is removed after termination/lifecycle failure; retained diagnostics keep per-context summary and agent files under log_root.",
+    "Add a separate resumable regression65 host wrapper with at most three spawned correctness workers, each capped at 3g. Serially revalidate all cached outputs before launches using original run_scenario; parent alone atomically persists each result and progress. Immutable image/input/ref/checker binding and owned-container recovery retained; standard regression/scorer/refs unchanged. Timing and profiling remain strictly sequential."
+  ],
+  "changed_files": [
+    "README.md",
+    "baselines/Dockerfile",
+    "baselines/README.md",
+    "baselines/abides_fork/buffered_trace.py",
+    "baselines/abides_fork/config.py",
+    "baselines/abides_fork/simulate.py",
+    "baselines/abides_fork/simulate_batch.py",
+    "baselines/abides_fork/simulation_context.py",
+    "baselines/patches/simulation_context.patch",
+    "experiments/market-context/Dockerfile.overlay",
+    "experiments/market-context/Dockerfile.overlay.dockerignore",
+    "experiments/market-context/README.md",
+    "experiments/market-context/isolation.py",
+    "experiments/market-context/paired.py",
+    "experiments/market-context/stage_inputs.py",
+    "experiments/market-context/upstream_sources.json",
+    "tests/integration/test_market_context.py",
+    "tests/test_buffered_trace.py",
+    "tests/test_market_context_batch.py",
+    "tests/test_market_context_runner.py",
+    "experiments/market-context/result.json",
+    "experiments/market-context/regression_checkpoint.py",
+    "tests/test_market_context_checkpoint.py",
+    "experiments/market-context/checkpoint_parallel_smoke.py",
+    "experiments/market-context/isolation_campaign.py",
+    "experiments/market-context/heterogeneous.py"
+  ],
+  "correctness_tests": [
+    {
+      "command": "QFB2_ABIDES_SOURCE=\"$PWD/out/upstream/abides-jpmc-public-f9cbe51342b7dedd9587e4e069040d68a5c6477f\" PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/integration/test_market_context.py -m integration -q --tb=short --disable-warnings",
+      "status": "passed",
+      "output": "34 passed, 34 upstream SyntaxWarnings in 16.99s",
+      "evidence_path": "out/context-cpu-tests.log",
+      "scope": "Patched pinned RNG/ID/kernel/trace code with synthetic agents/configuration on checker Python 3.13. Includes owned retained summary/agent files for two interleaved contexts in legacy/buffered/verify, unchanged cwd/shared log tree, cleanup on success/error. No real-runtime admissibility claim."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/ --ignore=tests/integration -q --tb=short",
+      "status": "passed",
+      "output": "347 passed, 1 skipped, 2 subtests passed in 10.95s",
+      "evidence_path": "out/hermetic-tests.log",
+      "scope": "Full suite before bounded parallel correctness follow-up; not rerun for this follow-up. Current wrapper checked by existing recovery tests and one spawned-process smoke."
+    },
+    {
+      "command": "For every units/* directory: PYTHONPATH=\"$PWD\" /Users/iopogiba/Documents/HSE/Year\\ 1/Module\\ 3/infra/track3-simulation-public/.venv/bin/qfbench2 manifest verify UNIT; manifest assert-public-safe UNIT",
+      "status": "passed",
+      "output": "142 checks passed (71 manifests, 71 public firewall checks)",
+      "evidence_path": "out/manifest-checks.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m ruff check baselines/abides_fork/simulation_context.py baselines/abides_fork/config.py baselines/abides_fork/simulate.py baselines/abides_fork/simulate_batch.py baselines/abides_fork/buffered_trace.py tests/integration/test_market_context.py tests/test_market_context_batch.py tests/test_market_context_runner.py tests/test_buffered_trace.py experiments/market-context/*.py",
+      "status": "passed",
+      "output": "All checks passed!",
+      "evidence_path": "out/context-lint.log"
+    },
+    {
+      "command": "Apply simulation_context.patch after the four control patches with git apply and with patch --batch --fuzz=0 -p1; compare all Python files to candidate scratch",
+      "status": "passed",
+      "output": "Both patch engines exit 0; resulting source trees byte-identical",
+      "evidence_paths": [
+        "out/context-patch-check-git",
+        "out/context-patch-check-patch"
+      ]
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/stage_inputs.py --out out/context-isolation-input",
+      "status": "passed",
+      "output": "Staged 7 public solver configs, no reference files",
+      "evidence_path": "out/context-isolation-input"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/paired.py --help",
+      "status": "passed",
+      "output": "CLI/import smoke; no Docker calls",
+      "evidence_path": "out/paired-help.txt"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "output": "No whitespace errors; patch empty context lines normalized and validated by both patch engines"
+    },
+    {
+      "command": "DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/regression_checkpoint.py --candidate-image market-context:20261005 --scenarios-dir regression_suite/scenarios/ --reference-dir \"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/public-regression-reference-map\" --output-dir \"$PWD/out/context-public-regression-checkpoint\" --workers 3",
+      "status": "passed",
+      "output": "65 passed, 0 failed, 0 errored; corrected shared-temp transport, actual resume reused 27 validated outputs and launched remaining 38 only",
+      "evidence_path": "out/context-public-regression-checkpoint/report.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/paired.py --baseline-image orchestration-baseline:20261005-a5dbe46 --candidate-image market-context:20261005 --batch-control-image orchestration-control:20261005-a5dbe46 --repeats 3 --gates-only --out out/context-gates",
+      "status": "passed",
+      "output": "4 selected units passed complete developer gates/C3/exact both traces; original batch sanitation failure preserved, explicit contract-only control passed with original trace bytes",
+      "evidence_path": "out/context-gates/summary.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/test_market_context_checkpoint.py -q --tb=short",
+      "status": "passed",
+      "output": "10 passed in 1.23s",
+      "evidence_path": "out/checkpoint-parallel-recovery-tests.log",
+      "scope": "No Docker; interruption/recovery, standard gate replay, copy guards, remaining-only launch, bindings, incomplete-output retry and owned-container cleanup mocks. Repeated unchanged recovery cases on current bounded wrapper."
+    },
+    {
+      "command": "DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/regression_checkpoint.py --candidate-image market-context:20261005 --scenarios-dir regression_suite/scenarios/ --reference-dir \"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/public-regression-reference-map\" --output-dir \"$PWD/out/context-public-regression-checkpoint\" --workers 3 --dry-run",
+      "status": "passed",
+      "output": "65 configs/reference traces hashed; plan_only_no_docker; colima-agenthon; no Docker inspection or launch; workers=3, container_memory=3g",
+      "evidence_path": "out/checkpoint-parallel-plan.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m ruff check experiments/market-context/regression_checkpoint.py experiments/market-context/checkpoint_parallel_smoke.py tests/test_market_context_checkpoint.py",
+      "status": "passed",
+      "output": "All checks passed!",
+      "evidence_path": "out/checkpoint-parallel-lint.log"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/checkpoint_parallel_smoke.py --out out/checkpoint-parallel-smoke",
+      "status": "passed",
+      "output": "5 standard synthetic scenarios PASS; 1 cached parent recheck, 4 launches across 3 spawned PIDs; 21 parent-only metadata writes; explicit context/3g caps verified; zero Docker calls",
+      "evidence_paths": [
+        "out/checkpoint-parallel-smoke/smoke.json",
+        "out/checkpoint-parallel-smoke.log"
+      ],
+      "scope": "One actual ProcessPoolExecutor spawn smoke with local synthetic solver; correctness/recovery orchestration only, no runtime scenario or performance claim."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/isolation_campaign.py --image market-context:20261005 --inputs out/context-isolation-input --out out/context-isolation-campaign",
+      "status": "passed",
+      "output": "42/42 cases, 504 context runs, all three trace modes and both log policies; A-B-A, same/different seeds and both interleaving orders; caller RNG/counters/class/cwd/shared log tree preserved",
+      "evidence_path": "out/context-isolation-campaign/summary.json"
+    },
+    {
+      "command": "Candidate Docker Python experiments/market-context/heterogeneous.py: buffered/default and verify/retained; host reference comparison",
+      "status": "passed",
+      "output": "2 heterogeneous cases, 8 context runs, exact isolated both traces; 8/8 published reference file hashes match; caller and filesystem ownership checks passed",
+      "evidence_path": "out/context-heterogeneous/host-reference-comparison.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/paired.py --baseline-image orchestration-baseline:20261005-a5dbe46 --candidate-image market-context:20261005 --batch-control-image orchestration-control:20261005-a5dbe46 --repeats 3 --out out/context-paired",
+      "status": "passed",
+      "output": "One warmup + three unprofiled AB/BA repeats + separate profile for each selected unit; 20/20 comparisons pass, 45 records, all strictly serial",
+      "evidence_path": "out/context-paired/summary.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/test_market_context_runner.py -q --tb=short",
+      "status": "passed",
+      "output": "4 passed in 0.05s",
+      "evidence_path": "out/context-runtime-runner-tests.log"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/test_market_context_checkpoint.py -q --tb=short",
+      "status": "passed",
+      "output": "10 passed in 1.18s after shared scratch transport fix",
+      "evidence_path": "out/context-regression-scratch-tests.log"
+    },
+    {
+      "command": "Actual one-case Docker standard regression with corrected shared scratch; same immutable candidate/reference/checker as final regression",
+      "status": "passed",
+      "output": "1/1 PASS; subsequently imported into final checkpoint with matched identity and serial gate recheck, not relaunched",
+      "evidence_path": "out/context-regression-resume-import.json"
+    }
+  ],
+  "build_command": "docker --context colima-agenthon tag sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2 market-context-base:0bd010981f4f; docker --context colima-agenthon build --platform linux/amd64 --build-arg BASE_IMAGE=market-context-base:0bd010981f4f -f experiments/market-context/Dockerfile.overlay -t market-context:20261005 .",
+  "gate_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/paired.py --baseline-image orchestration-baseline:20261005-a5dbe46 --candidate-image market-context:20261005 --batch-control-image orchestration-control:20261005-a5dbe46 --repeats 3 --gates-only --out out/context-gates",
+  "benchmark_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/paired.py --baseline-image orchestration-baseline:20261005-a5dbe46 --candidate-image market-context:20261005 --batch-control-image orchestration-control:20261005-a5dbe46 --repeats 3 --out out/context-paired",
+  "public_regression_command": "DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/market-context/regression_checkpoint.py --candidate-image market-context:20261005 --scenarios-dir regression_suite/scenarios/ --reference-dir \"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/public-regression-reference-map\" --output-dir \"$PWD/out/context-public-regression-checkpoint\" --workers 3",
+  "isolation_command": "docker --context colima-agenthon run --rm --platform linux/amd64 --network none --cpus 4 --memory 16g --memory-swap 16g -v \"$PWD/out/context-isolation-input:/input:ro\" -v \"$PWD/out/context-runtime:/diagnostic\" market-context:20261005 python /opt/market_context_isolation.py --scenarios-dir /input --trace-mode verify --out /diagnostic/isolation-verify.json",
+  "relevant_units": [
+    "t3-s001-price-time-priority",
+    "t3-as05-oracle-variant",
+    "t3-momentum-mix-priority",
+    "t3-gbatch-homog-4"
+  ],
+  "unit_substitutions": [],
+  "evidence_paths": [
+    "experiments/market-context/README.md",
+    "experiments/market-context/upstream_sources.json",
+    "out/context-cpu-tests.log",
+    "out/hermetic-tests.log",
+    "out/manifest-checks.json",
+    "out/context-lint.log",
+    "out/runner-tests.log",
+    "out/global-state-audit.txt",
+    "out/context-isolation-input",
+    "out/checkpoint-tests.log",
+    "out/checkpoint-plan.json",
+    "out/checkpoint-lint.log",
+    "out/checkpoint-parallel-smoke/smoke.json",
+    "out/checkpoint-parallel-smoke.log",
+    "out/checkpoint-parallel-recovery-tests.log",
+    "out/checkpoint-parallel-plan.json",
+    "out/checkpoint-parallel-lint.log",
+    "out/context-overlay-build-final.log",
+    "out/context-candidate-image-inspect.json",
+    "out/context-runtime-identity.json",
+    "out/context-docker-info.json",
+    "out/context-docker-version.json",
+    "out/context-isolation-campaign/summary.json",
+    "out/context-heterogeneous/host-reference-comparison.json",
+    "out/context-gates/summary.json",
+    "out/context-paired/summary.json",
+    "out/context-runtime-summary.json",
+    "out/context-public-regression-checkpoint/report.json",
+    "out/context-public-regression-checkpoint/progress.json",
+    "out/context-public-regression-checkpoint.log",
+    "out/context-public-regression-unshared-temp-failure/report.json",
+    "out/context-public-regression-unshared-temp-failure.log",
+    "out/context-regression-resume-import.json",
+    "out/context-regression-scratch-tests.log",
+    "out/context-regression-scratch-lint.log",
+    "out/context-campaign-lint.log",
+    "out/context-runtime-runner-tests.log",
+    "out/context-final-active-containers.txt",
+    "out/context-runtime-stage.json"
+  ],
+  "measured_speedup": {
+    "t3-s001-price-time-priority": 0.9396874579912566,
+    "t3-as05-oracle-variant": 0.9953564454480671,
+    "t3-momentum-mix-priority": 1.0464316655490955,
+    "t3-gbatch-homog-4": 1.058997108000162
+  },
+  "rankable": false,
+  "admissible": true,
+  "implementation_cost": {
+    "existing_upstream_files_patched": 8,
+    "new_upstream_modules": 1,
+    "notes": "Moderate adapter/core integration, no rewritten matching engine or scoring code. Fast unbounded run avoids per-pop activation; interleaved stepping is diagnostic. Overlay successfully built from immutable baseline with unchanged Python packages, using copied source staging for GNU patch 2.8. Serial orchestration and shared-scratch transport recovery validated in actual runtime."
+  },
+  "risks": [
+    "Validated only pinned standard public scenarios and specified mixed-agent pair. Arbitrary third-party agents/config drivers/background callbacks remain outside the guarantee.",
+    "Upstream rmsc03/rmsc04 config drivers and legacy standalone build_config still use global np.random; SimulationContext uses neither path.",
+    "Arbitrary third-party direct np.random calls, class counters, module caches and background callbacks require explicit RNG/owner integration. No general thread-safety claim.",
+    "ComponentProfiler.instrument and legacy TraceCollector.capture retain class monkeypatches; live Context API uses instance capture and no profiler for interleaving.",
+    "Logger registry/handlers remain global. Kernel summary logging ignores skip_log, so the Context now always owns an absolute unique log directory. Third-party filesystem writes outside Kernel logging require separate integration; cwd is never changed.",
+    "Constructors outside state.activate use legacy global counters. Sharing one live context across concurrent threads/tasks is unsupported.",
+    "Batch sidecar repair is separate from context isolation: original baseline root profile failure was recorded, and the explicit contract-only control passed all gates with exact original traces in gates/warmup/three repeats/profile.",
+    "Local Mac ARM64 linux/amd64 measurements cannot be extrapolated to official Linux timing; no JIT is introduced."
+  ],
+  "verdict": "validated_isolation_and_public_compatibility",
+  "remaining_validation": [],
+  "retained_logs_isolation_command": "docker --context colima-agenthon run --rm --platform linux/amd64 --network none --cpus 4 --memory 16g --memory-swap 16g -v \"$PWD/out/context-isolation-input:/input:ro\" -v \"$PWD/out/context-runtime:/diagnostic\" market-context:20261005 python /opt/market_context_isolation.py --scenarios-dir /input --trace-mode verify --retain-logs --log-root /diagnostic/context-logs --out /diagnostic/isolation-retained-verify.json",
+  "filesystem_followup": {
+    "source": "Manager FYI on neighbouring process-batch shared unix-second log race",
+    "confirmed_defect": "Pinned Kernel.write_summary_log unconditionally writes ./log/<log_dir> even with skip_log=True",
+    "fix": "Context-owned unique absolute directory, explicit retained/default lifecycle, no global chdir",
+    "cpu_status": "passed",
+    "runtime_status": "passed_all_42_cases_and_heterogeneous_pair",
+    "prior_report_correction": "The earlier claim that skip_log=True prevents shared timestamp log writes was incorrect and is corrected in README and risks."
+  },
+  "standard_public_regression_command": "DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" regression_suite/run_regression.py --candidate-image market-context:20261005 --scenarios-dir regression_suite/scenarios/ --reference-dir \"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/public-regression-reference-map\" --output-dir \"$PWD/out/context-public-regression\" --workers 1",
+  "recovery_followup": {
+    "date": "2026-10-06",
+    "status": "completed_regression65_with_actual_resume",
+    "standard_regression_modified": false,
+    "scorer_modified": false,
+    "reference_modified": false,
+    "workers": 3,
+    "checkpoint": "per-scenario atomic JSON plus progress; final report not required for resume",
+    "resume": "Re-evaluate saved trace/events using original run_scenario via scoped local replay; fresh separate attempt only for missing/corrupt/changed output. Valid saved FAIL is preserved.",
+    "identity_binding": "Immutable candidate image ID, config/ref/card hashes and checker/function source identity",
+    "container_cleanup": "Only unfinished owned CID with matching binding/scenario labels; explicit colima-agenthon",
+    "not_a_substitute_for": "Full developer gates and exact order/message traces on selected units remain separate mandatory validation.",
+    "container_memory": "3g",
+    "container_memory_swap": "3g",
+    "cpus": 4,
+    "cache_revalidation": "All cached outputs serially rechecked in parent before first new launch",
+    "checkpoint_owner": "Parent only; worker returns unchanged run_scenario result and command",
+    "execution": "Bounded ProcessPoolExecutor spawn; at most workers tasks submitted; report preserves plan order",
+    "timing_profile_policy": "Strictly sequential and completed before correctness regression; paired runner unchanged",
+    "transport_scratch": "Original run_scenario temporary input/output directories use a scoped absolute worktree scratch root in every spawned worker; tempfile cache and TMPDIR are restored after each attempt.",
+    "actual_recovery": {
+      "reused": 27,
+      "remaining_launched": 38,
+      "all_saved_outputs_rechecked_serially": true,
+      "mount_smoke_import_identity_matched": true
+    }
+  },
+  "parallel_correctness_followup": {
+    "date": "2026-10-06",
+    "source": "Manager authorization: at most three 3 GB correctness containers after strictly serial timings/profiles",
+    "status": "completed_65_pass",
+    "scope": "correctness_only_not_performance_benchmark",
+    "smoke": {
+      "status": "passed",
+      "rankable": false,
+      "docker_calls": 0,
+      "workers": 3,
+      "parent_pid": 42974,
+      "worker_pids": [
+        43014,
+        43015,
+        43016
+      ],
+      "serial_rechecks": [
+        "smoke-0"
+      ],
+      "parent_only_checkpoint_writes": 21,
+      "scenarios": 5,
+      "reused": 1,
+      "launched": 4,
+      "memory_cap": "3g"
+    },
+    "runtime_status": "passed",
+    "timing_profile_runner_modified": true,
+    "standard_regression_modified": false,
+    "scorer_modified": false,
+    "references_modified": false,
+    "resource_cards_modified": false,
+    "timing_profile_runner_change": "Only immutable ID pinning and completed-run recovery added; warmup/repeats/profile schedule remains strictly serial.",
+    "pre_runtime_smoke_docker_calls": 0
+  },
+  "admissibility_scope": "Full developer gates/C3/exact both traces for four selected units; public standard regression65. Not Final or general third-party thread safety.",
+  "batch_control_measured_speedup": {
+    "t3-gbatch-homog-4": 1.052991149671109
+  },
+  "speed_conclusion": "Mixed local container ratios (0.940\u20131.059x versus original baseline; batch 1.053x versus contract control). No general speedup claim; isolation/compatibility criterion passed.",
+  "runtime_image_ids": {
+    "baseline": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+    "candidate": "sha256:89451763457dd7a58d53972bf4c9bf94ccb88f6eeb2f9131b65cb90eec9b48fb",
+    "contract_control": "sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e"
+  },
+  "runtime_identity": {
+    "python": "3.11.17 (main, Oct  1 2026, 21:51:14) [GCC 14.2.0]",
+    "platform": "Linux-6.8.0-117-generic-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "pyarrow": "15.0.2",
+    "abides_core_path": "/usr/local/lib/python3.11/site-packages/abides_core/__init__.py",
+    "abides_markets_path": "/usr/local/lib/python3.11/site-packages/abides_markets/__init__.py"
+  },
+  "runtime_validation": {
+    "rankable": false,
+    "scope": "Local Mac ARM64 linux/amd64 emulation; developer admissibility and public compatibility only",
+    "isolation_cases": 42,
+    "same_configuration_context_runs": 504,
+    "heterogeneous_cases": 2,
+    "heterogeneous_context_runs": 8,
+    "exact_heterogeneous_reference_files": 8,
+    "selected_unit_gates": 4,
+    "paired_comparisons": 20,
+    "public_regression": {
+      "planned": 65,
+      "passed": 65,
+      "failed": 0,
+      "errored": 0,
+      "workers": 3,
+      "memory": "3g",
+      "reused_after_resume": 27,
+      "launched_after_resume": 38
+    },
+    "timings": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "speedup_vs_original_baseline": 0.9396874579912566,
+        "baseline": {
+          "container_median_sec": 1.544849,
+          "adapter_median_sec": 0.21165853600177797,
+          "startup_exit_estimate_median_sec": 1.3075807610022145,
+          "container_samples_sec": [
+            1.47969,
+            1.544849,
+            1.647919
+          ]
+        },
+        "candidate": {
+          "container_median_sec": 1.644003,
+          "adapter_median_sec": 0.21786989300017012,
+          "startup_exit_estimate_median_sec": 1.42613310699983,
+          "container_samples_sec": [
+            1.681821,
+            1.598527,
+            1.644003
+          ]
+        }
+      },
+      {
+        "unit": "t3-as05-oracle-variant",
+        "speedup_vs_original_baseline": 0.9953564454480671,
+        "baseline": {
+          "container_median_sec": 3.011435,
+          "adapter_median_sec": 1.6333587159970193,
+          "startup_exit_estimate_median_sec": 1.3780762840029808,
+          "container_samples_sec": [
+            2.864371,
+            3.011435,
+            3.057789
+          ]
+        },
+        "candidate": {
+          "container_median_sec": 3.025484,
+          "adapter_median_sec": 1.656665211001382,
+          "startup_exit_estimate_median_sec": 1.3063389889997024,
+          "container_samples_sec": [
+            3.025484,
+            3.096656,
+            2.878264
+          ]
+        }
+      },
+      {
+        "unit": "t3-momentum-mix-priority",
+        "speedup_vs_original_baseline": 1.0464316655490955,
+        "baseline": {
+          "container_median_sec": 5.728867,
+          "adapter_median_sec": 4.280985244000476,
+          "startup_exit_estimate_median_sec": 1.3600471230030324,
+          "container_samples_sec": [
+            5.633422,
+            5.75408,
+            5.728867
+          ]
+        },
+        "candidate": {
+          "container_median_sec": 5.474669,
+          "adapter_median_sec": 4.051596606997919,
+          "startup_exit_estimate_median_sec": 1.3377708890008808,
+          "container_samples_sec": [
+            5.474669,
+            5.487511,
+            5.348966
+          ]
+        }
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "speedup_vs_original_baseline": 1.058997108000162,
+        "baseline": {
+          "container_median_sec": 3.401827,
+          "adapter_median_sec": 2.0399948980011686,
+          "startup_exit_estimate_median_sec": 1.3618321019988313,
+          "container_samples_sec": [
+            3.276274,
+            3.518675,
+            3.401827
+          ]
+        },
+        "candidate": {
+          "container_median_sec": 3.21231,
+          "adapter_median_sec": 1.915114994997566,
+          "startup_exit_estimate_median_sec": 1.2825090050024337,
+          "container_samples_sec": [
+            3.197624,
+            3.473051,
+            3.21231
+          ]
+        },
+        "batch-control": {
+          "container_median_sec": 3.382534,
+          "adapter_median_sec": 2.066528160998132,
+          "startup_exit_estimate_median_sec": 1.3422238390018677,
+          "container_samples_sec": [
+            3.408752,
+            3.246966,
+            3.382534
+          ]
+        }
+      }
+    ],
+    "batch_contract_control_speedup": {
+      "t3-gbatch-homog-4": 1.052991149671109
+    },
+    "profiles": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "variant": "baseline",
+        "components": {
+          "trace_finalize": 0.007352496999374125,
+          "event_queue": 0.0029180310000000197,
+          "message_finalize": 0.0031103479996090755,
+          "adapter_other": 0.00020995800150558352,
+          "configuration": 0.010942395998426946,
+          "hashing": 0.0030677560025651474,
+          "exchange": 0.0038696590000000006,
+          "metadata_write": 0.001310751998971682,
+          "latency": 0.005621917999999997,
+          "matching": 0.005289345999999999,
+          "parquet_write": 0.09465328499936732,
+          "kernel_other": 0.040078774001798725,
+          "agent_logic": 0.016060668999999996,
+          "input": 0.004543123999610543,
+          "event_capture": 0.003228922000000007
+        },
+        "container_sec": 1.552181,
+        "adapter_sec": 0.20225743500122917
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "variant": "candidate",
+        "components": {
+          "trace_finalize": 0.008209436000470305,
+          "event_queue": 0.003237665000000012,
+          "message_finalize": 0.00435197499973583,
+          "adapter_other": 0.00021437700343085453,
+          "configuration": 0.022012590001395438,
+          "hashing": 0.0033630729994911235,
+          "exchange": 0.003897496000000002,
+          "metadata_write": 0.0011407639976823702,
+          "latency": 0.005795340000000001,
+          "matching": 0.005418132999999999,
+          "parquet_write": 0.10838287099977606,
+          "kernel_other": 0.04045655599795485,
+          "agent_logic": 0.01742136,
+          "input": 0.005000684002880007
+        },
+        "container_sec": 1.534371,
+        "adapter_sec": 0.22890232000281685
+      },
+      {
+        "unit": "t3-as05-oracle-variant",
+        "variant": "baseline",
+        "components": {
+          "trace_finalize": 0.013285789002111414,
+          "event_queue": 0.13031208499999414,
+          "message_finalize": 0.03817757700016955,
+          "oracle": 0.005917316999999999,
+          "configuration": 0.018285753998497967,
+          "hashing": 0.007204644000012195,
+          "exchange": 0.14971062599999968,
+          "metadata_write": 0.0015417180002259556,
+          "latency": 0.1606927739999985,
+          "matching": 0.25336104299999945,
+          "parquet_write": 0.14499496599819395,
+          "kernel_other": 0.32716401599773026,
+          "adapter_other": 0.00017912500334205106,
+          "agent_logic": 0.5659486129999973,
+          "input": 0.004771346997586079,
+          "event_capture": 0.12619384699999828
+        },
+        "container_sec": 3.288807,
+        "adapter_sec": 1.947741240997857
+      },
+      {
+        "unit": "t3-as05-oracle-variant",
+        "variant": "candidate",
+        "components": {
+          "trace_finalize": 0.019641484999738168,
+          "event_queue": 0.1309788649999922,
+          "message_finalize": 0.042806719000509474,
+          "oracle": 0.005912535999999999,
+          "configuration": 0.02927988000010373,
+          "hashing": 0.0070974699992802925,
+          "exchange": 0.16198697699999995,
+          "metadata_write": 0.001723887002299307,
+          "latency": 0.15874798999999912,
+          "matching": 0.24036215599999897,
+          "parquet_write": 0.1484110019991931,
+          "kernel_other": 0.3272327119989835,
+          "adapter_other": 0.000276434002443926,
+          "agent_logic": 0.5798030720000005,
+          "input": 0.0061870089994044974
+        },
+        "container_sec": 3.126683,
+        "adapter_sec": 1.8604481940019468
+      },
+      {
+        "unit": "t3-momentum-mix-priority",
+        "variant": "baseline",
+        "components": {
+          "trace_finalize": 0.022345434997987468,
+          "event_queue": 0.7073219150002922,
+          "message_finalize": 0.09247601600145572,
+          "oracle": 0.0018457719999999992,
+          "configuration": 0.011924370999622624,
+          "hashing": 0.011642225999821676,
+          "exchange": 0.49081952899999504,
+          "metadata_write": 0.0008325320013682358,
+          "latency": 0.36640815300000545,
+          "matching": 0.6959900649999972,
+          "parquet_write": 0.1573485629996867,
+          "kernel_other": 1.1143193989989806,
+          "adapter_other": 0.00014761700367671438,
+          "agent_logic": 1.0262611369999977,
+          "input": 0.004471185999136651,
+          "event_capture": 0.2542175950000183
+        },
+        "container_sec": 6.346577,
+        "adapter_sec": 4.958371511002042
+      },
+      {
+        "unit": "t3-momentum-mix-priority",
+        "variant": "candidate",
+        "components": {
+          "trace_finalize": 0.023383818999718642,
+          "event_queue": 0.669976569999652,
+          "message_finalize": 0.12262733399984427,
+          "oracle": 0.001771418,
+          "configuration": 0.019499595000525005,
+          "hashing": 0.011183372000232339,
+          "exchange": 0.44887195299999977,
+          "metadata_write": 0.0010622529989632312,
+          "latency": 0.3554416540000024,
+          "matching": 0.7129734389999944,
+          "parquet_write": 0.19285722999848076,
+          "kernel_other": 1.083870076999395,
+          "adapter_other": 0.0001649570040171966,
+          "agent_logic": 1.0094688409999903,
+          "input": 0.0033099950014729984
+        },
+        "container_sec": 5.97748,
+        "adapter_sec": 4.6564625070022885
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "variant": "baseline",
+        "components": {
+          "trace_finalize": 0.01790625599460327,
+          "event_queue": 0.15510432599999674,
+          "message_finalize": 0.03368550599407172,
+          "oracle": 0.000666354,
+          "configuration": 0.02238932299951557,
+          "hashing": 0.008765914000832709,
+          "exchange": 0.2365728600000004,
+          "metadata_write": 0.002571774999523768,
+          "latency": 0.17272514399999989,
+          "matching": 0.3108446390000001,
+          "parquet_write": 0.19128304399782792,
+          "kernel_other": 0.4665075800031258,
+          "adapter_other": 0.0003460320076554835,
+          "agent_logic": 0.462074408000001,
+          "input": 0.0054654730010952335,
+          "event_capture": 0.11695274299999785
+        },
+        "container_sec": 3.603554,
+        "adapter_sec": 2.212025499000447
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "variant": "candidate",
+        "components": {
+          "trace_finalize": 0.017390831002558116,
+          "event_queue": 0.15283930499999676,
+          "message_finalize": 0.03469439500258886,
+          "oracle": 0.000691115,
+          "configuration": 0.029466003004927188,
+          "hashing": 0.009950404997653095,
+          "exchange": 0.22335647999999975,
+          "metadata_write": 0.003919014001439791,
+          "latency": 0.17642551400000045,
+          "matching": 0.32673356200000003,
+          "parquet_write": 0.24095032200057176,
+          "kernel_other": 0.4599929690006425,
+          "adapter_other": 0.0004125749874220319,
+          "agent_logic": 0.4648754080000008,
+          "input": 0.003521931001159828
+        },
+        "container_sec": 3.521715,
+        "adapter_sec": 2.1522104300020146
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "variant": "batch-control",
+        "components": {
+          "trace_finalize": 0.017107770992879523,
+          "event_queue": 0.1504034569999967,
+          "message_finalize": 0.034186973000032594,
+          "oracle": 0.000638716,
+          "configuration": 0.0307775129986112,
+          "hashing": 0.013553565000620438,
+          "exchange": 0.21634706700000017,
+          "metadata_write": 0.003669199999421835,
+          "latency": 0.1599085219999998,
+          "matching": 0.29644871300000003,
+          "parquet_write": 0.28735628600406926,
+          "kernel_other": 0.4588045130024434,
+          "adapter_other": 0.0003561650009941131,
+          "agent_logic": 0.44906663200000074,
+          "input": 0.0029112359952705447,
+          "event_capture": 0.10917767199999912
+        },
+        "container_sec": 3.681887,
+        "adapter_sec": 2.2393379250024736
+      }
+    ],
+    "first_subsequent_same_process_diagnostics": {
+      "evidence_path": "out/context-runtime-summary.json",
+      "cases": 42,
+      "isolated_timing_rows": 168,
+      "fields": [
+        "first_in_process",
+        "configuration_sec",
+        "simulation_sec",
+        "filesystem_validation_sec",
+        "trace_finalize_sec"
+      ],
+      "scope": "In-process diagnostics only; separate from paired fresh-container benchmark"
+    },
+    "runtime_image_ids": {
+      "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+      "sha256:89451763457dd7a58d53972bf4c9bf94ccb88f6eeb2f9131b65cb90eec9b48fb": "sha256:89451763457dd7a58d53972bf4c9bf94ccb88f6eeb2f9131b65cb90eec9b48fb",
+      "sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e": "sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e"
+    }
+  },
+  "transport_failure": {
+    "classification": "Host Docker bind-mount environment, not simulator/gate failure",
+    "first_attempt": "macOS default /var/folders temp inputs not shared to Colima, leading to empty /input and ScenarioNotFoundError",
+    "preserved_attempt": "out/context-public-regression-unshared-temp-failure",
+    "preserved_log": "out/context-public-regression-unshared-temp-failure.log",
+    "fix": "Scoped per-worker tempfile.tempdir/TMPDIR inside absolute worktree attempt scratch",
+    "mount_smoke": "out/context-regression-mount-smoke/report.json",
+    "corrected_campaign": "out/context-public-regression-checkpoint",
+    "isolation_gates_timings_repeated": false
+  },
+  "build_followup": {
+    "initial_failures": [
+      "BuildKit treated raw sha256 ID in FROM as remote repository name",
+      "GNU patch 2.8 did not traverse symlink staging directories"
+    ],
+    "fix": "Tag verified local immutable baseline ID; copy installed source trees into build scratch, apply fuzz=0, copy back; no Python package version changes",
+    "evidence": "out/context-overlay-build-final.log"
+  },
+  "docker_slot": {
+    "state": "released",
+    "active_containers": 0,
+    "context": "colima-agenthon"
+  }
+}

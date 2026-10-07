@@ -1,0 +1,32 @@
+#0 building with "colima-agenthon" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 158B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/hotpaths-order-copy:20261006
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 302B done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/hotpaths-order-copy:20261006@sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024
+#5 resolve docker.io/library/hotpaths-order-copy:20261006@sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] COPY simulate-batch /usr/local/bin/simulate-batch
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:ea5327bbabb690fb7339077b2ad3c54abfceefa2b6865bf5b7a3934cbce6ccd9 done
+#7 exporting config sha256:3086cf979a6302545c047982b499e3d372fc8dfd97dedf54a6659923cbacc15e done
+#7 exporting attestation manifest sha256:7cc43e0cfcd6c93ab551868dabbbc3a05d3e05362d69dbb033b76f2830d14a05 done
+#7 exporting manifest list sha256:d9247b2cca1f1213e2c94a9c6ed403e35e4c217024c8fd28df25ec27a77b80db done
+#7 naming to docker.io/library/hotpaths-order-copy:20261006-control done
+#7 DONE 0.1s

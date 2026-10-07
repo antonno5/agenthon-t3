@@ -1,0 +1,8 @@
+{
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "status": "passed",
+  "image_id": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+  "control_id": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+  "changed_adapter_files_vs_historical_native_control": [],
+  "frozen_common_commit_archive": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-build/baselines"
+}

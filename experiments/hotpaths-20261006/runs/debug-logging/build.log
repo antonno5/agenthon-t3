@@ -1,0 +1,48 @@
+#0 building with "colima-agenthon" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 894B done
+#1 DONE -0.1s
+
+#2 [internal] load metadata for docker.io/library/hotpaths-base:20261006
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 844B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767
+#5 resolve docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767 0.0s done
+#5 DONE 0.0s
+
+#6 [2/7] COPY abides_core/agent.py /usr/local/lib/python3.11/site-packages/abides_core/agent.py
+#6 CACHED
+
+#7 [4/7] COPY abides_markets/agents/exchange_agent.py /usr/local/lib/python3.11/site-packages/abides_markets/agents/exchange_agent.py
+#7 CACHED
+
+#8 [5/7] COPY abides_markets/agents/trading_agent.py /usr/local/lib/python3.11/site-packages/abides_markets/agents/trading_agent.py
+#8 CACHED
+
+#9 [6/7] COPY abides_markets/oracles/sparse_mean_reverting_oracle.py /usr/local/lib/python3.11/site-packages/abides_markets/oracles/sparse_mean_reverting_oracle.py
+#9 CACHED
+
+#10 [3/7] COPY abides_core/kernel.py /usr/local/lib/python3.11/site-packages/abides_core/kernel.py
+#10 CACHED
+
+#11 [7/7] COPY abides_markets/order_book.py /usr/local/lib/python3.11/site-packages/abides_markets/order_book.py
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers done
+#12 exporting manifest sha256:2a885832de9d0b50a81f1b048feaaae1fd06edbe20be559cfe777d0c8e6a5958 done
+#12 exporting config sha256:856fe9dfd5d802a89acdaf93b577f37ccd20ab651818afbc31d0231ccaf3806e done
+#12 exporting attestation manifest sha256:fbbeaed9d4b2ce5d52ebd8449d99649d34c1ef0b413063dbe6cc23951519dd06 0.0s done
+#12 exporting manifest list sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681
+#12 exporting manifest list sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681 done
+#12 naming to docker.io/library/hotpaths-debug-logging:20261006 done
+#12 DONE 0.1s

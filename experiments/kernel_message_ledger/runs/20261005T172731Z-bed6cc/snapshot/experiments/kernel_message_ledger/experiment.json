@@ -1,0 +1,13 @@
+{
+  "objective": "message ledger extraction time and Python heap",
+  "rows": 90000,
+  "repeats": 3,
+  "warmups": 1,
+  "acceptance": {
+    "extract_time_reduction_min": 0.1,
+    "python_heap_reduction_min": 0.1,
+    "exact_parquet": true,
+    "targeted_tests_no_skips": true
+  },
+  "container_acceptance": "separate optional compatibility check; full-simulation speed is not inferred"
+}

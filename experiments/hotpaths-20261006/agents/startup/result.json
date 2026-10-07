@@ -1,0 +1,994 @@
+{
+  "schema_version": 1,
+  "hypothesis": 5,
+  "direction": "Reduce process startup",
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "status": "complete",
+  "verdict": "local_gain_supported_requires_linux_confirmation",
+  "accepted": true,
+  "rankable": false,
+  "implementation": "Defer scipy.spatial.distance until optional line-distance latency utilities actually need it; preserve explicit pdist/squareform exports lazily and preserve the exact baseline wildcard export names with __all__. No mandatory imports shifted into adapter clock.",
+  "primary_units": [
+    "t3-s001-price-time-priority",
+    "t3-s012-partial-fill-cancel-race"
+  ],
+  "threshold_median_full_run_reduction": 0.05,
+  "measurements": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "full_run_medians": {
+        "baseline": 1.496511109,
+        "candidate": 1.193772618
+      },
+      "speedup": 1.2535981194703532,
+      "time_reduction": 0.20229618689720008,
+      "raw_pairs": [
+        {
+          "baseline": 1.496511109,
+          "candidate": 1.193772618
+        },
+        {
+          "baseline": 1.493026801,
+          "candidate": 1.26872793
+        },
+        {
+          "baseline": 1.583657058,
+          "candidate": 1.166253686
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          1.493026801,
+          1.583657058
+        ],
+        "candidate": [
+          1.166253686,
+          1.26872793
+        ]
+      },
+      "ranges_overlap": false,
+      "paired_reductions": [
+        0.20229618689720008,
+        0.15023097431993115,
+        0.26356929354840164
+      ],
+      "all_pairs_faster": true
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "full_run_medians": {
+        "baseline": 10.826947722,
+        "candidate": 9.669050386
+      },
+      "speedup": 1.1197529529556016,
+      "time_reduction": 0.1069458693004669,
+      "raw_pairs": [
+        {
+          "baseline": 10.349196947,
+          "candidate": 9.669050386
+        },
+        {
+          "baseline": 14.088473286,
+          "candidate": 9.566425721
+        },
+        {
+          "baseline": 10.826947722,
+          "candidate": 11.381482662
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          10.349196947,
+          14.088473286
+        ],
+        "candidate": [
+          9.566425721,
+          11.381482662
+        ]
+      },
+      "ranges_overlap": true,
+      "paired_reductions": [
+        0.06571974274749481,
+        0.32097498949681436,
+        -0.05121803062493813
+      ],
+      "all_pairs_faster": false
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "full_run_medians": {
+        "baseline": 3.201063774,
+        "candidate": 2.837091008
+      },
+      "speedup": 1.1282908320436933,
+      "time_reduction": 0.11370369092808963,
+      "raw_pairs": [
+        {
+          "baseline": 3.529229262,
+          "candidate": 2.837091008
+        },
+        {
+          "baseline": 3.201063774,
+          "candidate": 3.010304226
+        },
+        {
+          "baseline": 2.738104339,
+          "candidate": 2.59005628
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          2.738104339,
+          3.529229262
+        ],
+        "candidate": [
+          2.59005628,
+          3.010304226
+        ]
+      },
+      "ranges_overlap": true,
+      "paired_reductions": [
+        0.19611597961413485,
+        0.05959254843636863,
+        0.05406954617882431
+      ],
+      "all_pairs_faster": true
+    },
+    {
+      "unit": "t3-momentum-mix-priority",
+      "full_run_medians": {
+        "baseline": 5.237972106,
+        "candidate": 5.074034771
+      },
+      "speedup": 1.032309068108276,
+      "time_reduction": 0.03129786331091999,
+      "raw_pairs": [
+        {
+          "baseline": 5.237972106,
+          "candidate": 4.996960199
+        },
+        {
+          "baseline": 5.592074004,
+          "candidate": 5.074034771
+        },
+        {
+          "baseline": 5.168406608,
+          "candidate": 5.894250603
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          5.168406608,
+          5.592074004
+        ],
+        "candidate": [
+          4.996960199,
+          5.894250603
+        ]
+      },
+      "ranges_overlap": true,
+      "paired_reductions": [
+        0.04601244567987006,
+        0.0926381218541541,
+        -0.14043864000105777
+      ],
+      "all_pairs_faster": false
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "full_run_medians": {
+        "baseline": 3.720179792,
+        "candidate": 3.742308211
+      },
+      "speedup": 0.9940869597712565,
+      "time_reduction": -0.005948212247049334,
+      "raw_pairs": [
+        {
+          "baseline": 3.720179792,
+          "candidate": 3.742308211
+        },
+        {
+          "baseline": 3.147367262,
+          "candidate": 4.274753702
+        },
+        {
+          "baseline": 4.636228807,
+          "candidate": 3.504583704
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          3.147367262,
+          4.636228807
+        ],
+        "candidate": [
+          3.504583704,
+          4.274753702
+        ]
+      },
+      "ranges_overlap": true,
+      "paired_reductions": [
+        -0.005948212247049334,
+        -0.35819983692770574,
+        0.24408741460114913
+      ],
+      "all_pairs_faster": false
+    }
+  ],
+  "checks": {
+    "host_tests_passed": 4,
+    "runtime_checks": {
+      "accepted": true,
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1"
+      },
+      "python": "3.11.17",
+      "utils_source_sha256": "bf7d576a11baa5360d264dc810b6708570cc4ece84d671b8025a313d28ad378b"
+    },
+    "differential_exact_traces_and_gates": true,
+    "regression65": {
+      "passed": 65,
+      "failed": 0,
+      "errored": 0
+    },
+    "source52_audit": true,
+    "independent_manager_audit": true,
+    "actual_run_count": 50,
+    "comparison_count": 65,
+    "independent_output_file_comparisons": 80,
+    "actual_gate_recheck": true
+  },
+  "evidence": [
+    "evidence/host-tests.stdout.txt",
+    "evidence/host-tests.stderr.txt",
+    "evidence/source-inventory.json",
+    "source-binding.json",
+    "lazy-distance.patch",
+    "build-plan.json",
+    "evidence/validated-campaign.json"
+  ],
+  "limits": [
+    "Host checker Python3.13 dependencies differ from pinned runtime3.11; host tests are diagnostic only.",
+    "Docker container_sec minus adapter time is a mixed residual, not isolated startup.",
+    "Fresh-process import/init probes are diagnostic; only actual full-run differential medians determine practical gain.",
+    "Local Mac/Rosetta measurements remain non-rankable.",
+    "As-built bytecode inventory records cache presence/validity only. No isolated or steady-state causal attribution follows from cold-process timing."
+  ],
+  "complete": true,
+  "correctness_accepted": true,
+  "implementation_commit": "a4c207b9bb4fe9e59055ca4075a8220862e792e1",
+  "admission_policy": {
+    "every_primary_median_full_run_reduction_at_least": 0.05,
+    "maximum_other_selected_unit_median_slowdown": 0.05,
+    "units_are_selected_only_not_all71": true,
+    "primary_failures": [],
+    "guardrail_failures": []
+  },
+  "image_ids": {
+    "original_base": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "raw_candidate": "sha256:63d8b523e6e8d789c404a6c103937d3b7f6cbbbb42b605304f73ddd685c28b44",
+    "baseline_control": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "candidate_control": "sha256:bf8bb95b8f74edd7c82d9ab33408252d38069d733d64d1dea4dd99d9d98f0ac9"
+  },
+  "runtime_versions": {
+    "python": "3.11.17",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "1.5.3",
+      "pyarrow": "15.0.2",
+      "scipy": "1.17.1",
+      "abides-core": "0.0.0",
+      "abides-markets": "0.0.0"
+    }
+  },
+  "clock_breakdown": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "baseline": {
+        "host_launch_sec": {
+          "raw": [
+            1.6069200839992845,
+            1.626329042002908,
+            1.6601078339881497
+          ],
+          "median": 1.626329042002908
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            0.1761092659944552,
+            0.19639008499507327,
+            0.23467016799986595
+          ],
+          "median": 0.19639008499507327
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.3204018430055449,
+            1.2966367160049268,
+            1.348986890000134
+          ],
+          "median": 1.3204018430055449
+        }
+      },
+      "candidate": {
+        "host_launch_sec": {
+          "raw": [
+            1.2776484999922104,
+            1.3817654169979505,
+            1.291461833010544
+          ],
+          "median": 1.291461833010544
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            0.17058823999832384,
+            0.17605087699485011,
+            0.17197218900400912
+          ],
+          "median": 0.17197218900400912
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.023184378001676,
+            1.09267705300515,
+            0.9942814969959908
+          ],
+          "median": 1.023184378001676
+        }
+      }
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "baseline": {
+        "host_launch_sec": {
+          "raw": [
+            10.419337333005387,
+            14.429063667004812,
+            10.975327082996955
+          ],
+          "median": 10.975327082996955
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            8.81832794300135,
+            11.627467555001203,
+            8.982526460997178
+          ],
+          "median": 8.982526460997178
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.5308690039986494,
+            2.461005730998796,
+            1.8444212610028217
+          ],
+          "median": 1.8444212610028217
+        }
+      },
+      "candidate": {
+        "host_launch_sec": {
+          "raw": [
+            9.807404999999562,
+            9.671607249998488,
+            11.541931332991226
+          ],
+          "median": 9.807404999999562
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            8.510295085005055,
+            8.440235547997872,
+            10.078015484999924
+          ],
+          "median": 8.510295085005055
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.1587553009949456,
+            1.1261901730021275,
+            1.3034671770000763
+          ],
+          "median": 1.1587553009949456
+        }
+      }
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "baseline": {
+        "host_launch_sec": {
+          "raw": [
+            3.6256385000015143,
+            3.288764499986428,
+            2.849121249993914
+          ],
+          "median": 3.288764499986428
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            2.008818987997074,
+            1.5276587970001856,
+            1.4549179950045072
+          ],
+          "median": 1.5276587970001856
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.5204102740029257,
+            1.6734049769998145,
+            1.2831863439954927
+          ],
+          "median": 1.5204102740029257
+        }
+      },
+      "candidate": {
+        "host_launch_sec": {
+          "raw": [
+            2.967202999992878,
+            3.1229304159933235,
+            2.689483415990253
+          ],
+          "median": 2.967202999992878
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            1.6226060429980862,
+            1.6701081069986685,
+            1.4545602470025187
+          ],
+          "median": 1.6226060429980862
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.2144849650019136,
+            1.3401961190013316,
+            1.1354960329974815
+          ],
+          "median": 1.2144849650019136
+        }
+      }
+    },
+    {
+      "unit": "t3-momentum-mix-priority",
+      "baseline": {
+        "host_launch_sec": {
+          "raw": [
+            5.3185367090045474,
+            5.725905499988585,
+            5.280945500009693
+          ],
+          "median": 5.3185367090045474
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            3.8317129319984815,
+            4.08255086299323,
+            3.7881742649988155
+          ],
+          "median": 3.8317129319984815
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.4062591740015185,
+            1.5095231410067695,
+            1.3802323430011842
+          ],
+          "median": 1.4062591740015185
+        }
+      },
+      "candidate": {
+        "host_launch_sec": {
+          "raw": [
+            5.218553708997206,
+            5.16407016699668,
+            5.993807791994186
+          ],
+          "median": 5.218553708997206
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            3.8779749370005447,
+            3.9698007100014365,
+            4.565047986005084
+          ],
+          "median": 3.9698007100014365
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.1189852619994554,
+            1.1042340609985635,
+            1.329202616994916
+          ],
+          "median": 1.1189852619994554
+        }
+      }
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "baseline": {
+        "host_launch_sec": {
+          "raw": [
+            3.8304569159954553,
+            3.3101240410032915,
+            4.788507375007612
+          ],
+          "median": 3.8304569159954553
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            2.0525213360015186,
+            1.6715966690026107,
+            3.089730623003561
+          ],
+          "median": 2.0525213360015186
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.6676584559984815,
+            1.4757705929973892,
+            1.5464981839964391
+          ],
+          "median": 1.5464981839964391
+        }
+      },
+      "candidate": {
+        "host_launch_sec": {
+          "raw": [
+            3.8743485840095673,
+            4.476405749999685,
+            3.6452003339945804
+          ],
+          "median": 3.8743485840095673
+        },
+        "adapter_sec_self_reported": {
+          "raw": [
+            2.0717166510003153,
+            2.730166793000535,
+            2.0766084010028862
+          ],
+          "median": 2.0766084010028862
+        },
+        "cold_start_and_container_other_sec": {
+          "raw": [
+            1.6705915599996848,
+            1.5445869089994648,
+            1.4279753029971136
+          ],
+          "median": 1.5445869089994648
+        }
+      }
+    }
+  ],
+  "file_bindings": [
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/pipeline.json",
+      "sha256": "72c350c6a15d146a8f8b30b96bb96577d5fb9874e492fe3fcfcf27926a8d0e06"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/source-audit.json",
+      "sha256": "894a9e97bedd00ebb19ae0b4275037501970d7ef8a13c94c75f689040ad1bed8"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/independent-source-audit.json",
+      "sha256": "1e569b25761c085d65c89389f9d5ad50c81371cdf1814919f2e6f41c3078eb67"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/bytecode-cache-inventory.json",
+      "sha256": "5855f5edf2a687dbe4d0168364a2c2e4294f74e2dc96bacb0e44450ffd641578"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/manager-audit.json",
+      "sha256": "4655e25a6b8cb57b9e29e9a6a094670169e41fb3883814a348a9a43336e27453"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/manager-audit.events.jsonl",
+      "sha256": "a202328ee00dcd3276781950da8222159d301a9bf7c5447b8fe3da58c1179f9c"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/differential/summary.json",
+      "sha256": "edebf3b5ec8ff382afb0a6621513514d81c8cc243fff67228545f093eae26e4b"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/manager-gate-recheck/summary.json",
+      "sha256": "fec3df48a84390ea2186ab335a6fa1b7ab55b4da200a2a51a41b51c211ed9eba"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/regression65/report.json",
+      "sha256": "c10fa0c34d27610e733f0ae940c03fe0a7316bb8e25829684f6442eacb3f4451"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/runtime-00.log",
+      "sha256": "a36cce5c47a9b98bd5db747ea2b9f4c7f8c89c0a671dc5e2fff1be2a12ddf314"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/runtime-00.command.json",
+      "sha256": "b483266a973ea0631e2b019f9fd9ce368b4eb7b3ad6f18281ae37091b4f689e0"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes-audit.json",
+      "sha256": "76540361a26f4e9712bda78d5d7a58bf365588796fafd8643d455d446c90aef9"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes-events.jsonl",
+      "sha256": "72903cbb1ad3a98a6235ecfe74010e827e1699cd61fc813b5ad7c0087d87787f"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/images.json",
+      "sha256": "3eb93d9f34ac20d9c5aebaafef2e16d7fcdc7a148361c8c0808ce3b993010982"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-importtime-0-baseline.stderr.txt",
+      "sha256": "484caa97e261db7ab1d66bc6b81e3634cbcd2a3ac93b6943000af1de18c5d088"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-importtime-0-baseline.stdout.txt",
+      "sha256": "43de3dead442520bd9b0a0310540d620af6428476faac8b3cc1b90756daced23"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-importtime-0-candidate.stderr.txt",
+      "sha256": "57b433b9973e1a32f338c4067a5c2b3a646cd3bb0429f67f7746505b56e6ca71"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-importtime-0-candidate.stdout.txt",
+      "sha256": "c7511944ca63c1ec5297ba8a3e4df916d8fa93fc6a34b1be4fa5cc4ca8366a9d"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-1-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-1-baseline.stdout.txt",
+      "sha256": "945c37933173a36dc1211e3fd3a70afc051dc8e60c3dee72087b58f890018580"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-1-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-1-candidate.stdout.txt",
+      "sha256": "57d50047ae15939f88c9f635d8b8c61901f0ec6fde15aaa105379f073c33d39e"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-2-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-2-baseline.stdout.txt",
+      "sha256": "5acf4c73354da6337a0e3ca63df617c3e552e7d5782da2e5b05d6934d638f7ef"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-2-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-2-candidate.stdout.txt",
+      "sha256": "30cd7cbca0e7192fcf35c562ce995a72514e67a9ed5054c590a676430ea83177"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-3-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-3-baseline.stdout.txt",
+      "sha256": "37a58b6f70612c85fb78993fb64aa08ac229769906bb41c959fb8d9b58af07f2"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-3-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-timing-3-candidate.stdout.txt",
+      "sha256": "d6bf2a94af16500dfc98cbb3b102460afa0236c8c82d79fd54106167db309a2a"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-warmup-0-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-warmup-0-baseline.stdout.txt",
+      "sha256": "246f75b8e310e477bf893469d01929d1c6ae0b3163949d87e83a4bffc3230764"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-warmup-0-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/import-warmup-0-candidate.stdout.txt",
+      "sha256": "f1eb6ffbf1f7f96dd92affd0d8cbf30cf716766a3bd9aae3370d9e34ff1c86e8"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-importtime-0-baseline.stderr.txt",
+      "sha256": "ce4b32690b9eeff0cc614146226236b86533e7bf9e8845d1196852fc369615da"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-importtime-0-baseline.stdout.txt",
+      "sha256": "d9897ebc76e03f6b67245717cb9b964566c6e45325029ef685baefbb8d3738e7"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-importtime-0-candidate.stderr.txt",
+      "sha256": "fd616e4effca284551549ac1dbe273e2377740fc0bb639baee869f99be3a142a"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-importtime-0-candidate.stdout.txt",
+      "sha256": "7e2358370638bbd5c2c56d443e06c7f408b8b63a48a3a19995e17ebf169cab79"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-1-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-1-baseline.stdout.txt",
+      "sha256": "3e6e5aab5c2bf35134c5b3a1fd29f81a7f58959befc481b07e80ac46d6183653"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-1-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-1-candidate.stdout.txt",
+      "sha256": "faef55bb89281fa4f2ba46207e644122a01a1e303275d8c3175e7d926dd0996d"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-2-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-2-baseline.stdout.txt",
+      "sha256": "2d10a0246febd8116b10bfe4e670b0b0f94ccc054296faf21eb64aa3b2bb4c3a"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-2-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-2-candidate.stdout.txt",
+      "sha256": "19b1e2cbfc9d2d753722cbe1978994a1c222b7758519c18bdc58e44d0ce8d35f"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-3-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-3-baseline.stdout.txt",
+      "sha256": "7a315eb54789f11c01aeefce4df4ac83d7766baf31fe3d52b27baeab1829c3ce"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-3-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-timing-3-candidate.stdout.txt",
+      "sha256": "1385ccbbe5d82b54ff7b5f155adacee9c1bf601adb0071ae8496dfd48f3d3987"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-warmup-0-baseline.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-warmup-0-baseline.stdout.txt",
+      "sha256": "54251f4ac92f09b1e8d5bab1cac214e6353500d2b50086a977a544a8060a6079"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-warmup-0-candidate.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/initialize-warmup-0-candidate.stdout.txt",
+      "sha256": "2731d79780e060078ca8eaa9f85a4108042ea25951236776e29949c9c8551ab4"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/records.json",
+      "sha256": "3353263e02369ba4d956bd7f0198c6bfbf05fa7b4d9f698eee4ec760ec4a2de3"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/source-binding.json",
+      "sha256": "699bd02f905842c219958ba04c21e980b33deea6cc2037278087bcf7c00b16af"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/lazy-distance.patch",
+      "sha256": "b9c564f43a0606081174fb63a03577f5ed5050ee5d8dbcb089ca31e999a19add"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/utils.py",
+      "sha256": "bf7d576a11baa5360d264dc810b6708570cc4ece84d671b8025a313d28ad378b"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/runtime_check.py",
+      "sha256": "1c079e049cfc2fc3e62098a7d32741f4c6eb674dffaf9ae0fa88eb015097f1d1"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/evidence/source-inventory.json",
+      "sha256": "d070b72e6258936aa5d5d683bc5918b2deca168946a43fb71b094b2c5e679459"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/evidence/host-tests.stderr.txt",
+      "sha256": "fefa6e93b3043bfe40cc13f853d62ff4730da93fcaeb7ff1bd7cb950f40c2a22"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/evidence/validated-campaign.json",
+      "sha256": "a2c570a7d670d82910d5f3c2768eedfec5c7905d2116bad723ebfb485e53be4e"
+    }
+  ],
+  "import_init_diagnostics": {
+    "records": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes/records.json",
+    "samples": 20,
+    "clock_kind": "diagnostic_fresh_process; full-run admission independent",
+    "timing_summary": [
+      {
+        "mode": "import",
+        "side": "baseline",
+        "import_sec_raw": [
+          1.1763577059973613,
+          1.2003181790059898,
+          1.1491058559986413
+        ],
+        "initialize_sec_raw": [
+          null,
+          null,
+          null
+        ],
+        "scipy_after_import": [
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "mode": "import",
+        "side": "candidate",
+        "import_sec_raw": [
+          0.9403554949967656,
+          0.8496964350051712,
+          0.9660502530023223
+        ],
+        "initialize_sec_raw": [
+          null,
+          null,
+          null
+        ],
+        "scipy_after_import": [
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "mode": "initialize",
+        "side": "baseline",
+        "import_sec_raw": [
+          1.4027448580018245,
+          1.215941542002838,
+          1.1709631140038255
+        ],
+        "initialize_sec_raw": [
+          0.014110702999460045,
+          0.011115617002360523,
+          0.011377924995031208
+        ],
+        "scipy_after_import": [
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "mode": "initialize",
+        "side": "candidate",
+        "import_sec_raw": [
+          0.8641020209979615,
+          0.9770505019987468,
+          0.8605710140036535
+        ],
+        "initialize_sec_raw": [
+          0.010764893995656166,
+          0.011754810002457816,
+          0.010517998998693656
+        ],
+        "scipy_after_import": [
+          false,
+          false,
+          false
+        ]
+      }
+    ],
+    "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/startup-probes-audit.json",
+    "manager_metrics": [
+      {
+        "mode": "import",
+        "field": "import_sec",
+        "raw": {
+          "baseline": [
+            1.1763577059973613,
+            1.2003181790059898,
+            1.1491058559986413
+          ],
+          "candidate": [
+            0.9403554949967656,
+            0.8496964350051712,
+            0.9660502530023223
+          ]
+        },
+        "medians": {
+          "baseline": 1.1763577059973613,
+          "candidate": 0.9403554949967656
+        },
+        "time_reduction": 0.20062112892821482
+      },
+      {
+        "mode": "initialize",
+        "field": "import_sec",
+        "raw": {
+          "baseline": [
+            1.4027448580018245,
+            1.215941542002838,
+            1.1709631140038255
+          ],
+          "candidate": [
+            0.8641020209979615,
+            0.9770505019987468,
+            0.8605710140036535
+          ]
+        },
+        "medians": {
+          "baseline": 1.215941542002838,
+          "candidate": 0.8641020209979615
+        },
+        "time_reduction": 0.2893556218379908
+      },
+      {
+        "mode": "initialize",
+        "field": "initialize_sec",
+        "raw": {
+          "baseline": [
+            0.014110702999460045,
+            0.011115617002360523,
+            0.011377924995031208
+          ],
+          "candidate": [
+            0.010764893995656166,
+            0.011754810002457816,
+            0.010517998998693656
+          ]
+        },
+        "medians": {
+          "baseline": 0.011377924995031208,
+          "candidate": 0.010764893995656166
+        },
+        "time_reduction": 0.05387898053843343
+      }
+    ]
+  },
+  "bytecode_inventory": {
+    "scope": "As-built caches; disposable containers include source recompilation in measured cold start. No steady-state performance attribution.",
+    "files": [
+      {
+        "source": "abides_markets/utils/__init__.py",
+        "baseline": {
+          "cached_pyc_present": true,
+          "flags": 0,
+          "source_size": 5583,
+          "pyc_source_size": 5583,
+          "source_mtime": 1791224206,
+          "pyc_source_mtime": 1791224206,
+          "inherited_cache_valid": true,
+          "pyc_sha256": "2fc8573d29f10d111956943d509e0c28cba35bf0512824522eb54d7f88e1f3c6"
+        },
+        "candidate": {
+          "cached_pyc_present": false
+        }
+      }
+    ]
+  },
+  "manager_verification": {
+    "verdict": "local_gain_supported_requires_linux_confirmation",
+    "criterion_met": true,
+    "primary_requirement": ">=5% median full-container reduction on every declared primary",
+    "slowdown_guardrail": "<=5% median slowdown on every selected unit",
+    "primary_failures": [],
+    "guardrail_failures": [],
+    "rankable": false,
+    "metrics_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/startup/manager-audit.json"
+  }
+}

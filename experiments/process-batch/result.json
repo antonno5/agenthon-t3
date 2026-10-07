@@ -1,0 +1,1787 @@
+{
+  "hypothesis": "Bounded spawn parallelism across independent markets reduces complete batch time by at least 15% for batches with >=4 markets under 4 CPU/16 GiB, without changing either trace.",
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "branch": "codex/exp-20261005-03-process-batch",
+  "commit": "066bf374d653cf097a3b73be20dd9efc61d9446e",
+  "commit_scope": "Tested final runtime source; following report-only commit records this result and README without modifying the measured adapter or image. Final report commit is reported in the chat.",
+  "worktree": "/Users/iopogiba/.codex/worktrees/d533/Агентон",
+  "rankable": false,
+  "status": "complete",
+  "completed_on": "2026-10-06",
+  "timezone": "Europe/Moscow",
+  "change_summary": [
+    "Default workers=1; explicit --workers 2 opt-in. Resource-only auto remains available to direct callers passing None, with no optimality claim.",
+    "Bounded spawn ProcessPoolExecutor; at most the selected worker count of outstanding futures; caps at four, affinity/hierarchical cgroup quota, remaining memory and market count; nested invocation stays serial.",
+    "Each unchanged simulate resets order/message counters and seeded RNGs; private per-market cwd/scratch prevents internal ABIDES summary-log races; paths resolve before cwd changes; scratch names use no RNG.",
+    "Thread limits inherited before imports; no upstream simulation, dependency, cards, scorer, tolerance, references or public unit/config edits.",
+    "Stable sorted aggregate schema and exact coverage; stale aggregate removed, success atomically published; failures stop scheduling, terminate/join workers, report child/cgroup evidence and fail CLI with no internal retry.",
+    "Outside-output diagnostic sidecars distinguish pool readiness from overlapping worker elapsed sums; separate memory.peak profile wrapper; RSS metadata explicitly an estimate.",
+    "Sequential evidence tooling preserves original baseline refusal, old unexplained failure and concrete log-race evidence; final timing uses only source066/image9db with matched serial control and candidate workers1."
+  ],
+  "changed_files": [
+    "baselines/abides_fork/simulate_batch.py",
+    "experiments/process-batch/Dockerfile",
+    "experiments/process-batch/README.md",
+    "experiments/process-batch/run.py",
+    "experiments/process-batch/verify.py",
+    "tests/test_process_batch.py",
+    "tests/test_process_batch_evidence.py",
+    "experiments/process-batch/result.json",
+    "tests/test_process_batch_timing_plan.py"
+  ],
+  "correctness_tests": [
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/test_process_batch.py tests/test_process_batch_evidence.py tests/test_batch_isolation.py tests/test_contract_boundary.py tests/test_malicious_output.py -q",
+      "status": "passed",
+      "output": "47 passed, 1 skipped in 9.89s",
+      "evidence": "out/process-batch/targeted-tests.log",
+      "scope": "Real spawn with hermetic deterministic stateful fake, workers 1/2/4, repeated seeds/output reuse, creation/completion order, failure cleanup, nested fallback, resource limits, thread limits; existing ledger/C3 checks. Not runtime ABIDES evidence.",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" /Users/iopogiba/Documents/HSE/Year\\ 1/Module\\ 3/infra/track3-simulation-public/.venv/bin/mypy --cache-dir=/dev/null --strict --ignore-missing-imports --follow-imports=silent baselines/abides_fork/simulate_batch.py experiments/process-batch/run.py experiments/process-batch/verify.py",
+      "status": "passed",
+      "output": "Success: no issues found in 3 source files",
+      "evidence": "out/process-batch/mypy.log",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "\"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/ruff\" check baselines/abides_fork/simulate_batch.py experiments/process-batch tests/test_process_batch.py tests/test_process_batch_evidence.py tests/test_process_batch_timing_plan.py",
+      "status": "passed",
+      "output": "All checks passed!",
+      "evidence": "out/process-batch/ruff.log",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "\"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/ruff\" format --check baselines/abides_fork/simulate_batch.py experiments/process-batch tests/test_process_batch.py tests/test_process_batch_evidence.py tests/test_process_batch_timing_plan.py",
+      "status": "passed",
+      "output": "6 files already formatted",
+      "evidence": "out/process-batch/format.log",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "fail=0; for u in units/*/; do PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/qfbench2\" manifest verify \"$u\" || fail=1; PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/qfbench2\" manifest assert-public-safe \"$u\" || fail=1; done; exit $fail",
+      "status": "passed",
+      "output": "Checked 71 units: manifest verify and assert-public-safe; 0 failures",
+      "evidence": "out/process-batch/manifests.log",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" tests/test_verb_dispatch.py",
+      "status": "passed",
+      "output": "OK: 7 verb-dispatch tests passed",
+      "evidence": "out/process-batch/verb-dispatch.log",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/test_process_batch.py tests/test_process_batch_timing_plan.py tests/test_run_unit.py -k 'cli_keeps_runner or timing_pairs or is_batch_unit or stage_input or reported_n_events or host_n_events_counts' -q",
+      "status": "passed",
+      "output": "7 passed, 35 deselected in 1.86s",
+      "evidence": "out/process-batch/cli-runner-tests.log",
+      "scope": "Both CLI verb forms, trace/profile argument forwarding, JSON stdout/file agreement, unit routing/staging/counting, adjacent AB/BA pairs and same candidate workers=1 control. No Docker launched.",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "python3 - <<'PY'\nfrom pathlib import Path\nimport hashlib\nimport json\nroot=Path('/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map')\nmapping=json.loads((root/'mapping.json').read_text())\nassert mapping['count']==len(mapping['records'])==65\nids=set()\nfor record in mapping['records']:\n    scenario=Path('regression_suite/scenarios')/Path(record['scenario']).name\n    data=json.loads(scenario.read_text())\n    assert data==json.loads((Path(record['unit'])/'scenario.json').read_text())\n    scenario_id=data['scenario_id']\n    assert scenario_id not in ids\n    ids.add(scenario_id)\n    ref=root/scenario_id/'trace.parquet'\n    assert ref.is_symlink() and ref.resolve()==Path(record['reference']).resolve()\n    assert hashlib.sha256(ref.read_bytes()).hexdigest()==record['sha256']\nprint('65/65 records verified')\nPY",
+      "status": "passed",
+      "output": "65/65 public reference-map records: scenario JSON equal, unique IDs, reference symlinks and SHA256 verified; no files modified.",
+      "evidence": "out/process-batch/regression-map-check.log",
+      "scope_note": "Earlier prerequisite/source checks; final adapter checks are listed separately below."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/test_process_batch.py tests/test_process_batch_evidence.py tests/test_process_batch_timing_plan.py -q",
+      "status": "passed",
+      "output": "32 passed in 7.87s",
+      "evidence": "out/process-batch/batch-tests.log",
+      "scope": "Final source: real spawn with hermetic stateful fake, workers1/2/4, RNG/counter resets, repeats/order, relative paths and private scratch cleanup, failure joining, hierarchical quota/resource/nested/thread policy, CLI, exact aggregate and missing ledger checks; separate from runtime ABIDES evidence."
+    },
+    {
+      "command": "ruff check baselines/abides_fork/simulate_batch.py experiments/process-batch tests/test_process_batch.py tests/test_process_batch_evidence.py tests/test_process_batch_timing_plan.py",
+      "status": "passed",
+      "output": "All checks passed!",
+      "evidence": "out/process-batch/final-ruff.log"
+    },
+    {
+      "command": "ruff format --check baselines/abides_fork/simulate_batch.py experiments/process-batch tests/test_process_batch.py tests/test_process_batch_evidence.py tests/test_process_batch_timing_plan.py",
+      "status": "passed",
+      "output": "6 files already formatted",
+      "evidence": "out/process-batch/final-format.log"
+    },
+    {
+      "command": "mypy --cache-dir=/dev/null --strict --ignore-missing-imports --follow-imports=silent baselines/abides_fork/simulate_batch.py experiments/process-batch/run.py experiments/process-batch/verify.py",
+      "status": "passed",
+      "output": "Success: no issues found in 3 source files",
+      "evidence": "out/process-batch/final-mypy.log"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --correctness-workers 1 2 --phase correctness",
+      "status": "passed",
+      "output": "70 launch records; complete; zero nonzero exits",
+      "evidence": "out/process-batch/validated/correctness.json",
+      "scope": "All six full batch developer gates and mandatory s001; workers1/2 twice; every sub exact both traces vs isolated serial control and published references; original root-profile sanitizer refusal separately recorded."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase stress",
+      "status": "passed",
+      "output": "4 launch records; complete; zero nonzero exits",
+      "evidence": "out/process-batch/validated/stress.json",
+      "scope": "Eight unchanged real ABIDES configs with repeated seeds and reversed creation/content order; workers1/2 twice, both traces equal to isolated."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase timing",
+      "status": "passed",
+      "output": "72 launch records; complete; zero nonzero exits",
+      "evidence": "out/process-batch/validated/timing.json",
+      "scope": "Six units, warm-up each control/candidate1/candidate2, three adjacent AB/BA pairs plus separate candidate1 observations; every output rechecked; no method profiling."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase startup",
+      "status": "passed",
+      "output": "8 launch records; complete; zero nonzero exits",
+      "evidence": "out/process-batch/validated/startup.json",
+      "scope": "Four unchanged short s001 copies only; serial/two-worker pool warm once plus three pairs; exact both files."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase profile",
+      "status": "passed",
+      "output": "12 launch records; complete; zero nonzero exits",
+      "evidence": "out/process-batch/validated/profile.json",
+      "scope": "12 separate diagnostic launches, cgroup memory.peak wrapper; subsequent read-only full gates/both files/aggregate verification in profile-summary.json."
+    },
+    {
+      "command": "PATH=\"$PWD/out/process-batch/docker-bin:$PATH\" DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" TMPDIR=\"$PWD/out/tmp\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" regression_suite/run_regression.py --candidate-image orchestration-process-batch-final:20261005 --scenarios-dir regression_suite/scenarios --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --output-dir \"$PWD/out/process-batch/validated/regression65\" --workers 1",
+      "status": "passed",
+      "output": "65 scenarios: 65 passed, 0 failed, 0 errored",
+      "evidence": "out/process-batch/validated/regression65/report.json",
+      "scope": "Public single-scenario compatibility suite against read-only published reference map; additional to full selected developer ledger gates."
+    }
+  ],
+  "build_command": "tar -cf - baselines/abides_fork/simulate_batch.py experiments/process-batch/Dockerfile | docker --context colima-agenthon build --platform linux/amd64 --build-arg BASE_IMAGE=orchestration-baseline:20261005-a5dbe46 -f experiments/process-batch/Dockerfile -t orchestration-process-batch-final:20261005 -",
+  "gate_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --correctness-workers 1 2 --phase correctness",
+  "stress_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase stress",
+  "benchmark_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase timing",
+  "startup_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase startup",
+  "profile_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/process-batch/run.py --units-dir \"$PWD/units\" --out \"$PWD/out/process-batch/validated\" --candidate orchestration-process-batch-final:20261005 --pool-workers 2 --repeats 3 --phase profile",
+  "regression_command": "PATH=\"$PWD/out/process-batch/docker-bin:$PATH\" DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" TMPDIR=\"$PWD/out/tmp\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" regression_suite/run_regression.py --candidate-image orchestration-process-batch-final:20261005 --scenarios-dir regression_suite/scenarios --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --output-dir \"$PWD/out/process-batch/validated/regression65\" --workers 1",
+  "regression_resume_command": "export TASK_DOCKER=\"$(command -v docker)\"; PATH=\"$PWD/out/process-batch/docker-bin:$PATH\" DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" TMPDIR=\"$PWD/out/tmp\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" out/process-batch/resume-regression65.py",
+  "regression_resume_provenance": {
+    "rankable": false,
+    "status": "complete",
+    "prior_log": "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/regression65-resume/interrupted-run.log",
+    "prior_completed_rechecked_without_participant_launch": 29,
+    "remaining_original_runner_launches": 36,
+    "runner_sha256": "54e4d14754b91274f29d66fb1ff1b21709d318f3363e067945929f7d06e2f3b9",
+    "final_report": "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/regression65/report.json",
+    "cached_check_method": "Unchanged run_scenario; bounded-container transport hydrates preserved cached regular files into checker temp directory; no Docker launch/timing for cached29. Original retained hashes stay unchanged. Remaining36 use unmodified actual Docker launch/check function sequentially.",
+    "source_and_image_unchanged": true
+  },
+  "regression_command_prerequisite": "Scoped docker wrapper in README supplies --context colima-agenthon on every invocation, without changing global context. Exclusive Docker slot required before reproducing.",
+  "baseline_contract": {
+    "original_image": "orchestration-baseline:20261005-a5dbe46",
+    "original_image_id": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+    "local_reproduction": "Original forbidden root profile.json yields path_not_allowed on each of six batches, separately retained in correctness.json; simulation itself exits zero.",
+    "comparison_image": "orchestration-control:20261005-a5dbe46",
+    "comparison_image_id": "sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e",
+    "control_change": "Only serial wrapper deletes forbidden root profile.json after successful main; algorithms/RNG/IDs/dependencies identical; unchanged retention sanitizer."
+  },
+  "images_and_failure_provenance": {
+    "rankable": false,
+    "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+    "initial": {
+      "image_id": "sha256:fd178ca955bacc096206a378597f825a0b305872b601aef7b83ee3913b7a9cdd",
+      "source_commit": "35ca21ec5123dd63df3c5023c79a91cbb195eae8",
+      "adapter_sha256": "9ced7b9b90d7a6f0d78606f292184d2be8eb8f969a2c94800cbd582e0234269f",
+      "evidence": "out/process-batch/first-failure",
+      "status": "first workers4 failure retained; all pre-workspace-fix timings invalid"
+    },
+    "debug": {
+      "image_id": "sha256:2c1bf3eca58b5326079f880a72e23ab73f507ebb0534ebbc91985140eb2f09bd",
+      "source_commit": "401618c1fd9ea2073a1f37ce27018d8081a4aad1",
+      "adapter_sha256": "e636450683e4f40a0fe6ffd0d9633cfa9464f4940311b2df3ca0ec245f16f747",
+      "evidence": "out/process-batch/reproducer",
+      "scope": "successful diagnostic reproduction; memory.peak 618819584 and oom_kill 0 do not establish the first failure cause"
+    },
+    "final": {
+      "image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+      "source_commit": "066bf374d653cf097a3b73be20dd9efc61d9446e",
+      "adapter_sha256": "6dab5a9297b3bdb33426aa3feb333f9921055e884c7c73ad36abe081a0056722",
+      "evidence": "out/process-batch/validated",
+      "default_workers": 1,
+      "confirmed_candidate_mode": 2
+    },
+    "first_failure_limits": [
+      "Container removed before additional diagnostics; child exit code/signal and Docker State.OOMKilled unavailable for first failure.",
+      "Old dmesg I/O/EXT4 errors have no timestamp correlation to many6; not proof of causation.",
+      "Unexplained transient is not attributed to Rosetta or OOM."
+    ],
+    "known_fixed_failure": {
+      "kind": "FileExistsError on shared ./log/<unix-second>",
+      "evidence": "out/process-batch/manager/stress/t3-gbatch-homog-4/seed-order-w2-r0/container.log",
+      "fix": "per-market private scratch/cwd; no RNG change; all older timings invalid"
+    },
+    "old_partial_campaigns": [
+      "out/process-batch/manager",
+      "out/process-batch/final"
+    ],
+    "final_campaign": "out/process-batch/validated"
+  },
+  "public_units": [
+    "t3-s001-price-time-priority",
+    "t3-gbatch-dense-3",
+    "t3-gbatch-hetero-mix",
+    "t3-gbatch-homog-4",
+    "t3-gbatch-homog-8",
+    "t3-gbatch-many-6",
+    "t3-gbatch-varsize"
+  ],
+  "unit_substitutions": [],
+  "public_regression_reference_map": {
+    "directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map",
+    "record_count": 65,
+    "read_only_map_check": "passed",
+    "docker_regression_status": "passed_65_of_65",
+    "scope": "Unchanged single adapter compatibility self-check; full ledger gates and both trace files on selected units are separately verified."
+  },
+  "runtime": {
+    "docker_context": "colima-agenthon",
+    "docker_vm_id": "9bc920a1-5585-4480-81c8-66fa900f6066",
+    "vm_cpus": 4,
+    "vm_memory_bytes": 18818052096,
+    "vm_arch": "aarch64",
+    "platform": "linux/amd64 (Rosetta on local Mac ARM64)",
+    "docker_server": "29.5.2",
+    "python": "3.11",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "pyarrow": "15",
+    "container_cpus": 4,
+    "container_memory": "16g",
+    "measured_batch_container_memory_swap": "16g",
+    "regression_memory_swap": "unchanged regression runner does not add explicit swap cap",
+    "network": "none",
+    "concurrent_measurement_containers": 1,
+    "same_instance_sequential": true,
+    "official_platform": false
+  },
+  "timing_comparisons": {
+    "primary": "Serial contract-only control versus final candidate workers2; three adjacent alternating AB/BA pairs on each of six public units.",
+    "same_implementation_control": "Final candidate workers1 observations outside pairs; one warm-up for each of three modes.",
+    "profile_components_in_timing": false,
+    "selection": "All final requested2 selected2; requested1 selected1. No final auto campaign or auto speedup claim.",
+    "wall_basis": "Container start-to-finish includes interpreter/pool startup/shutdown, simulation, traces/metadata and scratch/log cleanup. Host launch and adapter batch times recorded separately.",
+    "warmups": "Separate warm-up records excluded from all repeat medians.",
+    "repeat_count": 3,
+    "raw_records": "out/process-batch/validated/timing.json",
+    "memory_basis": "Unprofiled concurrent cgroup peak not sampled; RSS metadata is sum of per-process highwaters, not measured cgroup peak."
+  },
+  "measured_speedup": {
+    "rankable": false,
+    "rows": [
+      {
+        "unit": "t3-gbatch-dense-3",
+        "markets": 3,
+        "modes": {
+          "A-control": {
+            "repeats": 3,
+            "container_sec": [
+              4.177628,
+              3.66726,
+              3.305169
+            ],
+            "median": 3.66726,
+            "min": 3.305169,
+            "max": 4.177628,
+            "sample_cv": 0.11793423455991876,
+            "host_launch_median": 3.950759833001939,
+            "adapter_wall_median": 1.8319977399996787,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "S-candidate-serial": {
+            "repeats": 3,
+            "container_sec": [
+              4.724091,
+              3.415705,
+              3.139248
+            ],
+            "median": 3.415705,
+            "min": 3.139248,
+            "max": 4.724091,
+            "sample_cv": 0.2251692430842047,
+            "host_launch_median": 3.6100756250016275,
+            "adapter_wall_median": 1.8676271080003062,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "B-candidate": {
+            "repeats": 3,
+            "container_sec": [
+              4.670074,
+              4.884162,
+              4.417864
+            ],
+            "median": 4.670074,
+            "min": 4.417864,
+            "max": 4.884162,
+            "sample_cv": 0.05011599749391421,
+            "host_launch_median": 4.865596834002645,
+            "adapter_wall_median": 3.236220709999543,
+            "selected_workers": [
+              2,
+              2,
+              2
+            ],
+            "gates_and_both_files_pass": true
+          }
+        },
+        "pairs": [
+          {
+            "repeat": 0,
+            "control": 4.177628,
+            "pool": 4.670074,
+            "elapsed_reduction": -0.11787693877961347
+          },
+          {
+            "repeat": 1,
+            "control": 3.66726,
+            "pool": 4.884162,
+            "elapsed_reduction": -0.3318286677246771
+          },
+          {
+            "repeat": 2,
+            "control": 3.305169,
+            "pool": 4.417864,
+            "elapsed_reduction": -0.33665298204116034
+          }
+        ],
+        "elapsed_reduction_vs_control": -0.2734504780135576,
+        "elapsed_reduction_vs_candidate1": -0.367235753673107,
+        "median_threshold_15pct": false,
+        "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "markets": 5,
+        "modes": {
+          "A-control": {
+            "repeats": 3,
+            "container_sec": [
+              5.832702,
+              6.958339,
+              9.505402
+            ],
+            "median": 6.958339,
+            "min": 5.832702,
+            "max": 9.505402,
+            "sample_cv": 0.2531752093925328,
+            "host_launch_median": 7.115097292000428,
+            "adapter_wall_median": 5.511098994999884,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "S-candidate-serial": {
+            "repeats": 3,
+            "container_sec": [
+              6.846417,
+              7.656944,
+              8.81568
+            ],
+            "median": 7.656944,
+            "min": 6.846417,
+            "max": 8.81568,
+            "sample_cv": 0.12733145217136127,
+            "host_launch_median": 7.897331332998874,
+            "adapter_wall_median": 5.708377068000118,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "B-candidate": {
+            "repeats": 3,
+            "container_sec": [
+              7.175658,
+              7.460113,
+              8.452398
+            ],
+            "median": 7.460113,
+            "min": 7.175658,
+            "max": 8.452398,
+            "sample_cv": 0.0870932709235403,
+            "host_launch_median": 7.607184917003906,
+            "adapter_wall_median": 5.790876693999962,
+            "selected_workers": [
+              2,
+              2,
+              2
+            ],
+            "gates_and_both_files_pass": true
+          }
+        },
+        "pairs": [
+          {
+            "repeat": 0,
+            "control": 5.832702,
+            "pool": 7.175658,
+            "elapsed_reduction": -0.23024594776143203
+          },
+          {
+            "repeat": 1,
+            "control": 6.958339,
+            "pool": 7.460113,
+            "elapsed_reduction": -0.07211117480766616
+          },
+          {
+            "repeat": 2,
+            "control": 9.505402,
+            "pool": 8.452398,
+            "elapsed_reduction": 0.11077953357469783
+          }
+        ],
+        "elapsed_reduction_vs_control": -0.07211117480766616,
+        "elapsed_reduction_vs_candidate1": 0.025706208638851313,
+        "median_threshold_15pct": false,
+        "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "markets": 4,
+        "modes": {
+          "A-control": {
+            "repeats": 3,
+            "container_sec": [
+              6.195415,
+              4.862869,
+              7.192886
+            ],
+            "median": 6.195415,
+            "min": 4.862869,
+            "max": 7.192886,
+            "sample_cv": 0.1921548823194429,
+            "host_launch_median": 6.509184458001982,
+            "adapter_wall_median": 4.5302084370005105,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "S-candidate-serial": {
+            "repeats": 3,
+            "container_sec": [
+              9.320242,
+              6.823082,
+              11.066231
+            ],
+            "median": 9.320242,
+            "min": 6.823082,
+            "max": 11.066231,
+            "sample_cv": 0.2351336637260353,
+            "host_launch_median": 9.636860915998113,
+            "adapter_wall_median": 5.747472289000143,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "B-candidate": {
+            "repeats": 3,
+            "container_sec": [
+              7.589206,
+              5.272032,
+              8.012556
+            ],
+            "median": 7.589206,
+            "min": 5.272032,
+            "max": 8.012556,
+            "sample_cv": 0.2120308577813223,
+            "host_launch_median": 7.841610458002833,
+            "adapter_wall_median": 4.7682433190002484,
+            "selected_workers": [
+              2,
+              2,
+              2
+            ],
+            "gates_and_both_files_pass": true
+          }
+        },
+        "pairs": [
+          {
+            "repeat": 0,
+            "control": 6.195415,
+            "pool": 7.589206,
+            "elapsed_reduction": -0.22497136995665357
+          },
+          {
+            "repeat": 1,
+            "control": 4.862869,
+            "pool": 5.272032,
+            "elapsed_reduction": -0.08414024724910352
+          },
+          {
+            "repeat": 2,
+            "control": 7.192886,
+            "pool": 8.012556,
+            "elapsed_reduction": -0.1139556500686929
+          }
+        ],
+        "elapsed_reduction_vs_control": -0.22497136995665357,
+        "elapsed_reduction_vs_candidate1": 0.18572865382679982,
+        "median_threshold_15pct": false,
+        "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+      },
+      {
+        "unit": "t3-gbatch-homog-8",
+        "markets": 8,
+        "modes": {
+          "A-control": {
+            "repeats": 3,
+            "container_sec": [
+              8.819992,
+              7.420364,
+              8.383214
+            ],
+            "median": 8.383214,
+            "min": 7.420364,
+            "max": 8.819992,
+            "sample_cv": 0.08724593677575418,
+            "host_launch_median": 8.719938374997582,
+            "adapter_wall_median": 6.577710993000437,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "S-candidate-serial": {
+            "repeats": 3,
+            "container_sec": [
+              11.311714,
+              9.418319,
+              11.096321
+            ],
+            "median": 11.096321,
+            "min": 9.418319,
+            "max": 11.311714,
+            "sample_cv": 0.09770989995073212,
+            "host_launch_median": 11.254844207993301,
+            "adapter_wall_median": 8.580245062000358,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "B-candidate": {
+            "repeats": 3,
+            "container_sec": [
+              6.378913,
+              9.222664,
+              7.070909
+            ],
+            "median": 7.070909,
+            "min": 6.378913,
+            "max": 9.222664,
+            "sample_cv": 0.19622973023380252,
+            "host_launch_median": 7.207497791998321,
+            "adapter_wall_median": 5.64297497500047,
+            "selected_workers": [
+              2,
+              2,
+              2
+            ],
+            "gates_and_both_files_pass": true
+          }
+        },
+        "pairs": [
+          {
+            "repeat": 0,
+            "control": 8.819992,
+            "pool": 6.378913,
+            "elapsed_reduction": 0.2767665775660567
+          },
+          {
+            "repeat": 1,
+            "control": 7.420364,
+            "pool": 9.222664,
+            "elapsed_reduction": -0.2428856589784545
+          },
+          {
+            "repeat": 2,
+            "control": 8.383214,
+            "pool": 7.070909,
+            "elapsed_reduction": 0.15653960402299172
+          }
+        ],
+        "elapsed_reduction_vs_control": 0.15653960402299172,
+        "elapsed_reduction_vs_candidate1": 0.3627699667304145,
+        "median_threshold_15pct": true,
+        "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+      },
+      {
+        "unit": "t3-gbatch-many-6",
+        "markets": 6,
+        "modes": {
+          "A-control": {
+            "repeats": 3,
+            "container_sec": [
+              5.681659,
+              5.15959,
+              5.818131
+            ],
+            "median": 5.681659,
+            "min": 5.15959,
+            "max": 5.818131,
+            "sample_cv": 0.06259115021925334,
+            "host_launch_median": 5.832668790993921,
+            "adapter_wall_median": 3.646704712999963,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "S-candidate-serial": {
+            "repeats": 3,
+            "container_sec": [
+              5.513457,
+              6.113378,
+              6.304978
+            ],
+            "median": 6.113378,
+            "min": 5.513457,
+            "max": 6.304978,
+            "sample_cv": 0.06908519421566053,
+            "host_launch_median": 6.341995624999981,
+            "adapter_wall_median": 4.197392015999867,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "B-candidate": {
+            "repeats": 3,
+            "container_sec": [
+              7.075321,
+              6.410022,
+              5.319381
+            ],
+            "median": 6.410022,
+            "min": 5.319381,
+            "max": 7.075321,
+            "sample_cv": 0.1414295130846178,
+            "host_launch_median": 6.609957250002481,
+            "adapter_wall_median": 4.717952478999905,
+            "selected_workers": [
+              2,
+              2,
+              2
+            ],
+            "gates_and_both_files_pass": true
+          }
+        },
+        "pairs": [
+          {
+            "repeat": 0,
+            "control": 5.681659,
+            "pool": 7.075321,
+            "elapsed_reduction": -0.24529138408341655
+          },
+          {
+            "repeat": 1,
+            "control": 5.15959,
+            "pool": 6.410022,
+            "elapsed_reduction": -0.24235103952058212
+          },
+          {
+            "repeat": 2,
+            "control": 5.818131,
+            "pool": 5.319381,
+            "elapsed_reduction": 0.08572340499036546
+          }
+        ],
+        "elapsed_reduction_vs_control": -0.12819547952455435,
+        "elapsed_reduction_vs_candidate1": -0.048523745791606565,
+        "median_threshold_15pct": false,
+        "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+      },
+      {
+        "unit": "t3-gbatch-varsize",
+        "markets": 4,
+        "modes": {
+          "A-control": {
+            "repeats": 3,
+            "container_sec": [
+              4.301351,
+              4.366299,
+              4.160179
+            ],
+            "median": 4.301351,
+            "min": 4.160179,
+            "max": 4.366299,
+            "sample_cv": 0.024645515284385442,
+            "host_launch_median": 4.453764500001853,
+            "adapter_wall_median": 2.5647028459998182,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "S-candidate-serial": {
+            "repeats": 3,
+            "container_sec": [
+              4.41523,
+              4.472463,
+              4.097877
+            ],
+            "median": 4.41523,
+            "min": 4.097877,
+            "max": 4.472463,
+            "sample_cv": 0.046617523921400714,
+            "host_launch_median": 4.591060500002641,
+            "adapter_wall_median": 3.0010534259999986,
+            "selected_workers": [
+              1,
+              1,
+              1
+            ],
+            "gates_and_both_files_pass": true
+          },
+          "B-candidate": {
+            "repeats": 3,
+            "container_sec": [
+              5.509719,
+              4.565482,
+              4.616193
+            ],
+            "median": 4.616193,
+            "min": 4.565482,
+            "max": 5.509719,
+            "sample_cv": 0.10845575090217181,
+            "host_launch_median": 4.823808583001664,
+            "adapter_wall_median": 3.4246229029995447,
+            "selected_workers": [
+              2,
+              2,
+              2
+            ],
+            "gates_and_both_files_pass": true
+          }
+        },
+        "pairs": [
+          {
+            "repeat": 0,
+            "control": 4.301351,
+            "pool": 5.509719,
+            "elapsed_reduction": -0.2809275504370601
+          },
+          {
+            "repeat": 1,
+            "control": 4.366299,
+            "pool": 4.565482,
+            "elapsed_reduction": -0.04561826846947503
+          },
+          {
+            "repeat": 2,
+            "control": 4.160179,
+            "pool": 4.616193,
+            "elapsed_reduction": -0.10961403343461895
+          }
+        ],
+        "elapsed_reduction_vs_control": -0.07319607258277672,
+        "elapsed_reduction_vs_candidate1": -0.045515862140817154,
+        "median_threshold_15pct": false,
+        "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+      }
+    ],
+    "preliminary_threshold_units": [
+      "t3-gbatch-homog-8"
+    ],
+    "overall_verdict": "not_accepted_as_general_acceleration",
+    "default_workers": 1,
+    "experimental_opt_in_workers": 2
+  },
+  "startup_measurement": {
+    "rankable": false,
+    "workload": "4 unchanged short s001 copies",
+    "rows": [
+      {
+        "mode": "S-candidate-serial",
+        "container_sec": [
+          2.04425,
+          1.840353,
+          2.624224
+        ],
+        "median": 2.04425,
+        "min": 1.840353,
+        "max": 2.624224,
+        "sample_cv": 0.18745013070568423,
+        "host_launch_median": 2.207793749999837,
+        "adapter_batch_median": 0.762616261000403,
+        "pool_ready_median": 0.0,
+        "workers_selected": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "mode": "B-candidate",
+        "container_sec": [
+          3.633389,
+          3.684857,
+          4.014568
+        ],
+        "median": 3.684857,
+        "min": 3.633389,
+        "max": 4.014568,
+        "sample_cv": 0.05474990244468894,
+        "host_launch_median": 3.824131417000899,
+        "adapter_batch_median": 2.5294338089997837,
+        "pool_ready_median": 1.4042349869996542,
+        "workers_selected": [
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "warmups": [
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--name",
+          "process-batch-c906e50717b5",
+          "--platform",
+          "linux/amd64",
+          "--network",
+          "none",
+          "--cpus",
+          "4",
+          "--memory",
+          "16g",
+          "--memory-swap",
+          "16g",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/inputs/startup-short-n4:/input:ro",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/startup/startup-short-n4/warmup-S-candidate-serial/output:/output",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "BLIS_NUM_THREADS=1",
+          "-e",
+          "VECLIB_MAXIMUM_THREADS=1",
+          "-e",
+          "NUMEXPR_NUM_THREADS=1",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/startup/startup-short-n4/warmup-S-candidate-serial/diagnostics:/diagnostics",
+          "orchestration-process-batch-final:20261005",
+          "simulate-batch",
+          "--batch-dir",
+          "/input/scenarios",
+          "--out-dir",
+          "/output",
+          "--trace-mode",
+          "buffered",
+          "--workers",
+          "1",
+          "--batch-diagnostics",
+          "/diagnostics/batch.json"
+        ],
+        "returncode": 0,
+        "docker_state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-10-05T19:55:32.878117829Z",
+          "FinishedAt": "2026-10-05T19:55:35.21713818Z"
+        },
+        "docker_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+        "host_launch_wall_sec": 2.453716500000155,
+        "container_wall_sec": 2.339021,
+        "output": "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/startup/startup-short-n4/warmup-S-candidate-serial/output",
+        "rankable": false,
+        "cgroup_peak": {
+          "peak_bytes": null,
+          "basis": "not independently sampled during unprofiled timing"
+        },
+        "unit": "startup-short-n4",
+        "label": "warmup-S-candidate-serial",
+        "image": "orchestration-process-batch-final:20261005",
+        "trace_mode": "buffered",
+        "profile_components": false,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 0.0,
+          "pool_readiness_basis": "serial; no pool",
+          "workers_requested": 1,
+          "workers_selected": 1,
+          "worker_pids": [
+            1
+          ],
+          "wall_clock_sec": 1.1783565650002856,
+          "worker_component_elapsed_sums": {
+            "input": 0.007237926999550837,
+            "configuration": 0.03235562699956063,
+            "simulation": 0.22640497199972742,
+            "trace_finalize": 0.018600845999571902,
+            "message_finalize": 0.010165569001401309,
+            "parquet_write": 0.46893109000120603,
+            "hashing": 0.016998436999529076,
+            "metadata_write": 0.012193789999400906,
+            "adapter_other": 0.0006235720002223388
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "workers_requested": 1,
+        "workers_selected": 1,
+        "worker_count_basis": "candidate measured resource-policy selection; auto requested=null",
+        "adapter_batch_wall_sec": 1.1783565650002856,
+        "synthetic_case": {
+          "source_public_unit": "t3-s001-price-time-priority",
+          "markets": 4,
+          "same_seed_copies": true,
+          "purpose": "short-job pool startup risk; not a scored public unit"
+        },
+        "both_trace_bytes_equal_to_isolated": true
+      },
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--name",
+          "process-batch-1ac6fae0dbf2",
+          "--platform",
+          "linux/amd64",
+          "--network",
+          "none",
+          "--cpus",
+          "4",
+          "--memory",
+          "16g",
+          "--memory-swap",
+          "16g",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/inputs/startup-short-n4:/input:ro",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/startup/startup-short-n4/warmup-B-candidate/output:/output",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "BLIS_NUM_THREADS=1",
+          "-e",
+          "VECLIB_MAXIMUM_THREADS=1",
+          "-e",
+          "NUMEXPR_NUM_THREADS=1",
+          "-v",
+          "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/startup/startup-short-n4/warmup-B-candidate/diagnostics:/diagnostics",
+          "orchestration-process-batch-final:20261005",
+          "simulate-batch",
+          "--batch-dir",
+          "/input/scenarios",
+          "--out-dir",
+          "/output",
+          "--trace-mode",
+          "buffered",
+          "--workers",
+          "2",
+          "--batch-diagnostics",
+          "/diagnostics/batch.json"
+        ],
+        "returncode": 0,
+        "docker_state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-10-05T19:55:35.56142734Z",
+          "FinishedAt": "2026-10-05T19:55:38.884969076Z"
+        },
+        "docker_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+        "host_launch_wall_sec": 3.5749911250022706,
+        "container_wall_sec": 3.323542,
+        "output": "/Users/iopogiba/.codex/worktrees/d533/Агентон/out/process-batch/validated/startup/startup-short-n4/warmup-B-candidate/output",
+        "rankable": false,
+        "cgroup_peak": {
+          "peak_bytes": null,
+          "basis": "not independently sampled during unprofiled timing"
+        },
+        "unit": "startup-short-n4",
+        "label": "warmup-B-candidate",
+        "image": "orchestration-process-batch-final:20261005",
+        "trace_mode": "buffered",
+        "profile_components": false,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.245724282000083,
+          "worker_adapter_import_sec": [
+            0.2591125379994992,
+            0.25641049100067903
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            9,
+            12
+          ],
+          "wall_clock_sec": 2.0621494360002544,
+          "worker_component_elapsed_sums": {
+            "input": 0.013536855999518593,
+            "configuration": 0.03040616499947646,
+            "simulation": 0.22825681700032874,
+            "trace_finalize": 0.017349124000247684,
+            "message_finalize": 0.009688465999715845,
+            "parquet_write": 0.3173937229994408,
+            "hashing": 0.019522978000168223,
+            "metadata_write": 0.01243709699883766,
+            "adapter_other": 0.0007096590015862603
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "workers_requested": 2,
+        "workers_selected": 2,
+        "worker_count_basis": "candidate measured resource-policy selection; auto requested=null",
+        "adapter_batch_wall_sec": 2.0621494360002544,
+        "synthetic_case": {
+          "source_public_unit": "t3-s001-price-time-priority",
+          "markets": 4,
+          "same_seed_copies": true,
+          "purpose": "short-job pool startup risk; not a scored public unit"
+        },
+        "both_trace_bytes_equal_to_isolated": true
+      }
+    ],
+    "policy_decision": "serial default, explicit --workers 2 opt-in; no universal crossover inferred"
+  },
+  "profile_measurement": {
+    "rows": [
+      {
+        "unit": "t3-gbatch-dense-3",
+        "label": "control",
+        "container_sec": 3.839158,
+        "adapter_batch_sec": 2.332433501000196,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 151498752,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 1,
+        "pool_diagnostic": null,
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.0218145340004412,
+          "message_finalize": 0.03589764599928458,
+          "parquet_write": 0.40692383099940344,
+          "simulation": 1.7905344669989063,
+          "hashing": 0.018150271000195062,
+          "metadata_write": 0.014553008998518635,
+          "trace_finalize": 0.017741250000653963,
+          "input": 0.0066039089988407795
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.6941454640000302,
+          "sub_01": 0.6117730629994185,
+          "sub_02": 0.4846159399994576
+        }
+      },
+      {
+        "unit": "t3-gbatch-dense-3",
+        "label": "candidate",
+        "container_sec": 4.545458,
+        "adapter_batch_sec": 3.2351537929998813,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 371208192,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 2,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.2628507899999022,
+          "worker_adapter_import_sec": [
+            0.2840809970002738,
+            0.27842046600017056
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            10,
+            13
+          ],
+          "wall_clock_sec": 3.2351537929998813,
+          "worker_component_elapsed_sums": {
+            "input": 0.006960134998735157,
+            "configuration": 0.02877384300063568,
+            "trace_finalize": 0.03732139199928497,
+            "message_finalize": 0.02977393499986647,
+            "parquet_write": 0.5292092109993973,
+            "hashing": 0.013664886000697152,
+            "metadata_write": 0.008561215999179694,
+            "event_queue": 0.12888355699999415,
+            "event_capture": 0.09557667499999942,
+            "exchange": 0.2331002970000002,
+            "latency": 0.14780306500000057,
+            "agent_logic": 0.41246170599999965,
+            "matching": 0.23944034199999994,
+            "oracle": 0.000842209,
+            "kernel_other": 0.4981316830010031,
+            "adapter_other": 0.0008259170008386718
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.02877384300063568,
+          "message_finalize": 0.02977393499986647,
+          "parquet_write": 0.5292092109993973,
+          "simulation": 1.756239534000997,
+          "hashing": 0.013664886000697152,
+          "metadata_write": 0.008561215999179694,
+          "trace_finalize": 0.03732139199928497,
+          "input": 0.006960134998735157
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.5899366970006668,
+          "sub_01": 0.5991696970004341,
+          "sub_02": 0.5671331399998962
+        }
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "label": "control",
+        "container_sec": 5.781391,
+        "adapter_batch_sec": 4.107268173999728,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 179322880,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 1,
+        "pool_diagnostic": null,
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.02765750299931824,
+          "message_finalize": 0.08633201500015275,
+          "parquet_write": 0.45446602900028665,
+          "simulation": 3.450405886998851,
+          "hashing": 0.02306727599898295,
+          "metadata_write": 0.009970537998924556,
+          "trace_finalize": 0.024542347000533482,
+          "input": 0.0062684790000275825
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00_noise": 0.5851869210000586,
+          "sub_01_value": 0.5137706799996522,
+          "sub_02_mm": 1.414155851999567,
+          "sub_03_momentum": 0.4734705600003508,
+          "sub_04_base": 0.4638218739992226
+        }
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "label": "candidate",
+        "container_sec": 5.71599,
+        "adapter_batch_sec": 4.153858094000498,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 395251712,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 2,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.2752347320001718,
+          "worker_adapter_import_sec": [
+            0.2548180700005105,
+            0.24994111600062752
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            10,
+            13
+          ],
+          "wall_clock_sec": 4.153858094000498,
+          "worker_component_elapsed_sums": {
+            "input": 0.006815134000135004,
+            "configuration": 0.03437997400033055,
+            "trace_finalize": 0.029699824000090302,
+            "message_finalize": 0.06557312499990076,
+            "parquet_write": 0.5608240740002657,
+            "hashing": 0.02524026700120885,
+            "metadata_write": 0.010514736000004632,
+            "event_queue": 0.2934712859999921,
+            "event_capture": 0.21946268699999796,
+            "exchange": 0.46386470800000107,
+            "latency": 0.3410404369999998,
+            "agent_logic": 0.9118531630000015,
+            "matching": 0.5963252690000003,
+            "oracle": 0.001168142,
+            "kernel_other": 0.8958023020023309,
+            "adapter_other": 0.0008570009968025261
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.03437997400033055,
+          "message_finalize": 0.06557312499990076,
+          "parquet_write": 0.5608240740002657,
+          "simulation": 3.722987994002324,
+          "hashing": 0.02524026700120885,
+          "metadata_write": 0.010514736000004632,
+          "trace_finalize": 0.029699824000090302,
+          "input": 0.006815134000135004
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00_noise": 0.4686922520004373,
+          "sub_01_value": 0.464252113000839,
+          "sub_02_mm": 1.637788948000889,
+          "sub_03_momentum": 0.5109127699997771,
+          "sub_04_base": 0.6413419110003815
+        }
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "label": "control",
+        "container_sec": 5.002775,
+        "adapter_batch_sec": 2.8758434139999736,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 158027776,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 1,
+        "pool_diagnostic": null,
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.03996630599976925,
+          "message_finalize": 0.03882625299956999,
+          "parquet_write": 0.5497021669998503,
+          "simulation": 2.1552472470002613,
+          "hashing": 0.028031747999193612,
+          "metadata_write": 0.010222100000646606,
+          "trace_finalize": 0.01929726600064896,
+          "input": 0.007165361000261328
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.5921248539998487,
+          "sub_01": 0.5811439079998308,
+          "sub_02": 0.532171875000131,
+          "sub_03": 0.44980661000045075
+        }
+      },
+      {
+        "unit": "t3-gbatch-homog-4",
+        "label": "candidate",
+        "container_sec": 5.295706,
+        "adapter_batch_sec": 3.9905020119995243,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 381562880,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 2,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.8671746219997658,
+          "worker_adapter_import_sec": [
+            0.408534463000251,
+            0.41086991500014847
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            10,
+            13
+          ],
+          "wall_clock_sec": 3.9905020119995243,
+          "worker_component_elapsed_sums": {
+            "input": 0.015445951000401692,
+            "configuration": 0.04656102799981454,
+            "trace_finalize": 0.03596028399988427,
+            "message_finalize": 0.0458270770004674,
+            "parquet_write": 0.49998062899976503,
+            "hashing": 0.01421055399987381,
+            "metadata_write": 0.005876547999832837,
+            "event_queue": 0.1973567589999945,
+            "event_capture": 0.15504563999999946,
+            "exchange": 0.3421689470000007,
+            "latency": 0.26626336400000034,
+            "agent_logic": 0.6710581030000002,
+            "matching": 0.43658665399999996,
+            "oracle": 0.000907007,
+            "kernel_other": 0.6764194719995686,
+            "adapter_other": 0.0005879470008949284
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.04656102799981454,
+          "message_finalize": 0.0458270770004674,
+          "parquet_write": 0.49998062899976503,
+          "simulation": 2.745805945999564,
+          "hashing": 0.01421055399987381,
+          "metadata_write": 0.005876547999832837,
+          "trace_finalize": 0.03596028399988427,
+          "input": 0.015445951000401692
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.810959362000176,
+          "sub_01": 0.7844857279997086,
+          "sub_02": 0.5842451380003695,
+          "sub_03": 0.5661157179993097
+        }
+      },
+      {
+        "unit": "t3-gbatch-homog-8",
+        "label": "control",
+        "container_sec": 6.930082,
+        "adapter_batch_sec": 5.2225705349992495,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 184741888,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 1,
+        "pool_diagnostic": null,
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.035178794000785274,
+          "message_finalize": 0.06739494099929288,
+          "parquet_write": 0.6427822219993686,
+          "simulation": 4.334099892000268,
+          "hashing": 0.028819719997954962,
+          "metadata_write": 0.021587561001069844,
+          "trace_finalize": 0.03115617399907933,
+          "input": 0.01754364600037661
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.7016569920006077,
+          "sub_01": 0.6417421800006196,
+          "sub_02": 0.4596530700000585,
+          "sub_03": 0.4852151420000155,
+          "sub_04": 0.5033417009999539,
+          "sub_05": 0.45352062999972986,
+          "sub_06": 0.4695203319997745,
+          "sub_07": 0.6194498449995081
+        }
+      },
+      {
+        "unit": "t3-gbatch-homog-8",
+        "label": "candidate",
+        "container_sec": 7.914508,
+        "adapter_batch_sec": 6.434660267999789,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 400535552,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 2,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.2887246340005731,
+          "worker_adapter_import_sec": [
+            0.2792931210005918,
+            0.2750535300001502
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            9,
+            12
+          ],
+          "wall_clock_sec": 6.434660267999789,
+          "worker_component_elapsed_sums": {
+            "input": 0.021765453999250894,
+            "configuration": 0.049195569999938016,
+            "trace_finalize": 0.05182787500143604,
+            "message_finalize": 0.11122813800193398,
+            "parquet_write": 0.8418007870004658,
+            "hashing": 0.03449385499970958,
+            "metadata_write": 0.022691249999297725,
+            "event_queue": 0.5445866439999936,
+            "event_capture": 0.41711173499999943,
+            "exchange": 1.0296554219999996,
+            "latency": 0.8617303089999991,
+            "agent_logic": 1.888261524000001,
+            "matching": 1.2120075450000005,
+            "oracle": 0.0027970590000000006,
+            "kernel_other": 1.8158448539990946,
+            "adapter_other": 0.0012363959976939842
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.049195569999938016,
+          "message_finalize": 0.11122813800193398,
+          "parquet_write": 0.8418007870004658,
+          "simulation": 7.771995091999088,
+          "hashing": 0.03449385499970958,
+          "metadata_write": 0.022691249999297725,
+          "trace_finalize": 0.05182787500143604,
+          "input": 0.021765453999250894
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.9113327819995902,
+          "sub_01": 0.895690354999715,
+          "sub_02": 1.3891991569998936,
+          "sub_03": 1.3413084869998784,
+          "sub_04": 0.8549612890001299,
+          "sub_05": 0.8406433869995453,
+          "sub_06": 0.7525581360005162,
+          "sub_07": 0.7863014989998192
+        }
+      },
+      {
+        "unit": "t3-gbatch-many-6",
+        "label": "control",
+        "container_sec": 6.524473,
+        "adapter_batch_sec": 4.332881616999657,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 170860544,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 1,
+        "pool_diagnostic": null,
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.03592823300004966,
+          "message_finalize": 0.07641679099924659,
+          "parquet_write": 0.48770817299919145,
+          "simulation": 3.6122004659991944,
+          "hashing": 0.02662937899822282,
+          "metadata_write": 0.013633622000270407,
+          "trace_finalize": 0.025605783999708365,
+          "input": 0.010199862001172733
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.598460270999567,
+          "sub_01": 0.8152465869998196,
+          "sub_02": 0.48206428100002086,
+          "sub_03": 0.622872718000508,
+          "sub_04": 0.5461738509993666,
+          "sub_05": 0.5473827579999124
+        }
+      },
+      {
+        "unit": "t3-gbatch-many-6",
+        "label": "candidate",
+        "container_sec": 5.457404,
+        "adapter_batch_sec": 4.1737850709996565,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 386793472,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 2,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.4541009430004124,
+          "worker_adapter_import_sec": [
+            0.2954946559993914,
+            0.3298088569999891
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            10,
+            13
+          ],
+          "wall_clock_sec": 4.1737850709996565,
+          "worker_component_elapsed_sums": {
+            "input": 0.024183634000110033,
+            "configuration": 0.061557579000691476,
+            "trace_finalize": 0.033627124999839,
+            "message_finalize": 0.07334790199911367,
+            "parquet_write": 0.7351744680017873,
+            "hashing": 0.02901530200142588,
+            "metadata_write": 0.014264659000218671,
+            "event_queue": 0.2760067289999853,
+            "event_capture": 0.20673323099999827,
+            "exchange": 0.45914647400000086,
+            "latency": 0.34888855300000143,
+            "agent_logic": 0.8731896860000001,
+            "matching": 0.561388193,
+            "oracle": 0.0011347269999999999,
+            "kernel_other": 0.8215381829991355,
+            "adapter_other": 0.0010442639986649738
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.061557579000691476,
+          "message_finalize": 0.07334790199911367,
+          "parquet_write": 0.7351744680017873,
+          "simulation": 3.548025775999122,
+          "hashing": 0.02901530200142588,
+          "metadata_write": 0.014264659000218671,
+          "trace_finalize": 0.033627124999839,
+          "input": 0.024183634000110033
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00": 0.6268474389999028,
+          "sub_01": 0.5804936949998591,
+          "sub_02": 0.5694768549992659,
+          "sub_03": 0.6058451660001083,
+          "sub_04": 0.5833462609998605,
+          "sub_05": 0.5820163600001251
+        }
+      },
+      {
+        "unit": "t3-gbatch-varsize",
+        "label": "control",
+        "container_sec": 4.531897,
+        "adapter_batch_sec": 2.7904182640004365,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 157458432,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 1,
+        "pool_diagnostic": null,
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.042642808999517,
+          "message_finalize": 0.044753087999197305,
+          "parquet_write": 0.3449707780000608,
+          "simulation": 2.279198801000348,
+          "hashing": 0.021697301001040614,
+          "metadata_write": 0.01349424700038071,
+          "trace_finalize": 0.01952027100014675,
+          "input": 0.004919258999507292
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00_short": 0.40784267200069735,
+          "sub_01_med": 0.5378638499996669,
+          "sub_02_long": 0.6971500299996478,
+          "sub_03_med": 0.6363422490003359
+        }
+      },
+      {
+        "unit": "t3-gbatch-varsize",
+        "label": "candidate",
+        "container_sec": 4.697103,
+        "adapter_batch_sec": 3.211207287000434,
+        "cgroup_peak": {
+          "basis": "container cgroup peak (includes diagnostic wrapper), not process RSS",
+          "peak_bytes": 385380352,
+          "source": "/sys/fs/cgroup/memory.peak"
+        },
+        "workers_selected": 2,
+        "pool_diagnostic": {
+          "schema_version": 1,
+          "rankable": false,
+          "pool_all_workers_ready_sec": 1.315157788999386,
+          "worker_adapter_import_sec": [
+            0.2757421300002534,
+            0.27820175899978494
+          ],
+          "pool_readiness_basis": "elapsed from pool creation until all workers imported adapter; may overlap early tasks",
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            10,
+            13
+          ],
+          "wall_clock_sec": 3.211207287000434,
+          "worker_component_elapsed_sums": {
+            "input": 0.008992721001050086,
+            "configuration": 0.031857839000622334,
+            "trace_finalize": 0.02600770000117336,
+            "message_finalize": 0.04621042700000544,
+            "parquet_write": 0.3736597859997346,
+            "hashing": 0.016783505000603327,
+            "metadata_write": 0.010396378000223194,
+            "event_queue": 0.17721673799999296,
+            "event_capture": 0.1334483729999994,
+            "exchange": 0.3007204060000002,
+            "latency": 0.21092178200000045,
+            "agent_logic": 0.5587932849999993,
+            "matching": 0.35989427800000007,
+            "oracle": 0.001074015,
+            "kernel_other": 0.591149376000276,
+            "adapter_other": 0.0010705149961722782
+          },
+          "component_time_basis": "summed worker elapsed time; overlapping, not exclusive batch wall time",
+          "memory_basis": "sum of per-process high-water RSS; not concurrent host peak"
+        },
+        "worker_phase_elapsed_sums": {
+          "configuration": 0.031857839000622334,
+          "message_finalize": 0.04621042700000544,
+          "parquet_write": 0.3736597859997346,
+          "simulation": 2.3332182530002683,
+          "hashing": 0.016783505000603327,
+          "metadata_write": 0.010396378000223194,
+          "trace_finalize": 0.02600770000117336,
+          "input": 0.008992721001050086
+        },
+        "summation_basis": "worker elapsed sums overlap and are not exclusive batch wall time",
+        "all_output_checks_pass": true,
+        "per_sub_simulation_sec": {
+          "sub_00_short": 0.3826967439999862,
+          "sub_01_med": 0.6074762110001757,
+          "sub_02_long": 0.7519795589996647,
+          "sub_03_med": 0.5910657390004417
+        }
+      }
+    ],
+    "rankable": false,
+    "evidence": "out/process-batch/validated/profile-summary.json",
+    "basis": "Separate instrumented diagnostic phase; includes wrapper and page cache in cgroup memory.peak. Cross-worker phase/component elapsed sums overlap; no subtraction from batch wall time. All 12 outputs subsequently fully verified.",
+    "oom_killed": false
+  },
+  "implementation_cost": {
+    "complexity": "medium",
+    "new_runtime_dependencies": [],
+    "upstream_patches_added": 0,
+    "pool_policy": "spawn, at most 4 selected processes and at most the selected worker count of outstanding futures; final verified opt-in2",
+    "memory_policy": "3072 MiB planning allowance per worker and 512 MiB parent reserve, not measured memory cap",
+    "maintenance": "Python3.11 failure shutdown uses private executor._processes; unchanged isolated simulate and pinned runtime"
+  },
+  "risks": [
+    "First initial many6 workers4 BrokenProcessPool remains unexplained; container removed before extra diagnostics, native child signal and first State.OOMKilled unavailable. Separate successful repro does not establish cause. Four-worker universal safety is not claimed.",
+    "Known shared ./log/<unix-second> FileExistsError was separately reproduced and fixed with private cwd; not proven cause of first failure. All pre-fix timings excluded.",
+    "Two-worker pool is slower on five of six median measurements. Homog8 preliminary15.7% reduction has one24.3% slower pair and overlapping ranges; three noisy repeats do not establish stable acceptance.",
+    "Short four-market jobs pay substantial spawn/import cost (80.3% longer median); default stays serial and pool remains explicit opt-in.",
+    "Memory planning allowance can be exceeded by larger workloads; current public profiles do not prove arbitrary workload safety. RSS estimate can double-count shared pages.",
+    "Python private executor._processes compatibility requires review on upgrades; direct callers must set BLAS limits before NumPy imports.",
+    "ARM64/Rosetta local measurements cannot be extrapolated to official Linux timing; rankable=false."
+  ],
+  "verdict": "not_accepted_as_general_acceleration",
+  "default_workers": 1,
+  "experimental_opt_in_workers": 2,
+  "acceptance_decision": "Correctness accepted for measured final workers1/2 modes; general >=15% stable end-to-end acceleration hypothesis not accepted. Only homog8 crosses median threshold preliminarily with unstable pairs. Retain opt-in2 and serial default; no automatic worker optimization claimed.",
+  "remaining_validation": [],
+  "evidence_paths": [
+    "experiments/process-batch/README.md",
+    "out/process-batch/provenance.json",
+    "out/process-batch/final-image-inspect.json",
+    "out/process-batch/final-build.log",
+    "out/process-batch/first-failure",
+    "out/process-batch/reproducer",
+    "out/process-batch/manager/stress/t3-gbatch-homog-4/seed-order-w2-r0/container.log",
+    "out/process-batch/docker-runtime.txt",
+    "out/process-batch/validated/correctness.json",
+    "out/process-batch/validated/stress.json",
+    "out/process-batch/validated/timing.json",
+    "out/process-batch/validated/startup.json",
+    "out/process-batch/validated/profile.json",
+    "out/process-batch/validated/statistics.json",
+    "out/process-batch/validated/startup-statistics.json",
+    "out/process-batch/validated/profile-summary.json",
+    "out/process-batch/validated/regression65/report.json",
+    "out/process-batch/validated-regression65.log",
+    "out/process-batch/validated-regression65-resume.log",
+    "out/process-batch/validated/regression65-resume/checkpoint.json",
+    "out/process-batch/validated/regression65-resume/resume-provenance.json",
+    "out/process-batch/resume-regression65.py",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/batch_manager_validation.json",
+    "out/process-batch/batch-tests.log",
+    "out/process-batch/manifests.log",
+    "out/process-batch/final-ruff.log",
+    "out/process-batch/final-format.log",
+    "out/process-batch/final-mypy.log",
+    "out/process-batch/slot-release.json"
+  ],
+  "evidence_retention": "Raw logs, outputs and failure evidence preserved in ignored out/process-batch; tracked result/README contain summaries. Old campaign performance is invalid, not erased.",
+  "source_sha256": {
+    "baselines/abides_fork/simulate_batch.py": "6dab5a9297b3bdb33426aa3feb333f9921055e884c7c73ad36abe081a0056722",
+    "experiments/process-batch/Dockerfile": "197a2187a69ce866d5769655bf569ac58e75256100741e92c4c0a65ae7a8d2bd",
+    "experiments/process-batch/run.py": "4bbdddedd5a3ef8ad7d100ce238ec26c64ea361bfc23bac050159b31d45496c9",
+    "experiments/process-batch/verify.py": "b08f1d58a9ad4aede2b87b5f772f9e076131482f92b0ee87e66b63b0255adb30"
+  },
+  "docker_slot": {
+    "docker_context": "colima-agenthon",
+    "running_containers": [],
+    "final_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+    "release_date": "2026-10-06",
+    "timezone": "Europe/Moscow",
+    "measurement_complete": true,
+    "slot_released": true
+  }
+}

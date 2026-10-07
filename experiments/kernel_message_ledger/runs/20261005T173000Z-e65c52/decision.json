@@ -1,0 +1,13 @@
+{
+  "verdict": "делаем",
+  "scope": "extraction component and Python heap",
+  "time_reduction": 0.5650176352132195,
+  "memory_reduction": 0.4174356414939291,
+  "policy": {
+    "extract_time_reduction_min": 0.1,
+    "python_heap_reduction_min": 0.1,
+    "exact_parquet": true,
+    "targeted_tests_no_skips": true
+  },
+  "reason": "Сборка таблицы: снижение времени 56.5%; пик Python heap: снижение 41.7%. Порог каждого — 10%; все целевые тесты пройдены, Parquet совпал. Решение относится к компоненту; ускорение всей симуляции не доказано."
+}

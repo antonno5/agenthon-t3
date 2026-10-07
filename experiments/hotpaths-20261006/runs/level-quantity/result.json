@@ -1,0 +1,529 @@
+{
+  "summary": "All completed local correctness checks passed. The two primary full-run medians are slower and violate the agreed 5% guardrail, so adoption is not supported; overlapping ranges prevent a causal slowdown claim.",
+  "hypothesis_id": "level-quantity",
+  "hypothesis_number": 3,
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "rankable": false,
+  "status": "complete",
+  "verdict": "not_supported_regression_guardrail",
+  "adopt": false,
+  "implementation": "Exact visible-quantity aggregate per price level; partial fills maintain both ordinary and PTC visible halves. No L2 cache or indexes.",
+  "implementation_patch_sha256": "ec3ab8a8f33927e4a8139d00cb86f66265dfceebbfec1e15bb1a5cbe73abf504",
+  "candidate_image": {
+    "tag": "sha256:b834d388cebfbc94ff95e3cf6370708751419b9f11e1788eb7aa3520f9944c1b",
+    "digest": "sha256:b834d388cebfbc94ff95e3cf6370708751419b9f11e1788eb7aa3520f9944c1b",
+    "repo_digests": [
+      "hotpaths-level-quantity@sha256:b834d388cebfbc94ff95e3cf6370708751419b9f11e1788eb7aa3520f9944c1b"
+    ],
+    "architecture": "amd64",
+    "labels": {
+      "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+      "org.opencontainers.image.revision": "972069d6532756a72dde726a422c054619956d12",
+      "qfbench2.interface_version": "2.0"
+    },
+    "versions": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      }
+    },
+    "source_commit_declared": "972069d6532756a72dde726a422c054619956d12"
+  },
+  "baseline_image": {
+    "tag": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "digest": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "repo_digests": [
+      "hotpaths-control@sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40"
+    ],
+    "architecture": "amd64",
+    "labels": {
+      "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+      "orchestration.control": "batch-output-contract-only",
+      "org.opencontainers.image.revision": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+      "qfbench2.interface_version": "2.0"
+    },
+    "versions": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      }
+    },
+    "source_commit_declared": "0af6939d8815b9e39376e5c6f7fef3538cec06f1"
+  },
+  "runtime_validation": {
+    "rankable": false,
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "source_hashes": {
+      "price_level.py": {
+        "before_sha256": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+        "after_sha256": "aa49d97ded1adf295443b1ea6417031c3d3153c8eff6e719234affe00b0508ef"
+      },
+      "order_book.py": {
+        "before_sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+        "after_sha256": "963c76210bcc6f5f892e20b8b1bb4addc1be43043b09736ce4a27b23a30300a0"
+      }
+    },
+    "python": "3.11.17 (main, Oct  1 2026, 21:51:14) [GCC 14.2.0]",
+    "seeded_operations": 2700,
+    "comparison": "actual pinned modules; full levels, L2/L3, history, book logs, messages, owner events and transactions after each mutation"
+  },
+  "full_run_metrics": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "full_run_medians": {
+        "baseline": 1.605856392,
+        "candidate": 1.607708321
+      },
+      "speedup": 0.998848093913672,
+      "time_reduction": -0.0011532345041722625,
+      "raw_pairs": [
+        {
+          "baseline": 1.605856392,
+          "candidate": 1.607708321
+        },
+        {
+          "baseline": 1.545095787,
+          "candidate": 1.764229402
+        },
+        {
+          "baseline": 1.666604202,
+          "candidate": 1.574121151
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          1.545095787,
+          1.666604202
+        ],
+        "candidate": [
+          1.574121151,
+          1.764229402
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "full_run_medians": {
+        "baseline": 9.9432026,
+        "candidate": 9.731652086
+      },
+      "speedup": 1.0217383967419402,
+      "time_reduction": 0.02127589294016785,
+      "raw_pairs": [
+        {
+          "baseline": 10.247053932,
+          "candidate": 11.488855528
+        },
+        {
+          "baseline": 9.9432026,
+          "candidate": 9.731652086
+        },
+        {
+          "baseline": 9.757240423,
+          "candidate": 9.141737165
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          9.757240423,
+          10.247053932
+        ],
+        "candidate": [
+          9.141737165,
+          11.488855528
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "full_run_medians": {
+        "baseline": 20.0942382,
+        "candidate": 22.152583954
+      },
+      "speedup": 0.9070832658495203,
+      "time_reduction": -0.10243462496627531,
+      "raw_pairs": [
+        {
+          "baseline": 21.687083987,
+          "candidate": 22.152583954
+        },
+        {
+          "baseline": 20.0942382,
+          "candidate": 23.09542955
+        },
+        {
+          "baseline": 18.444595682,
+          "candidate": 20.858898065
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          18.444595682,
+          21.687083987
+        ],
+        "candidate": [
+          20.858898065,
+          23.09542955
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mr-cancel-replace-churn",
+      "full_run_medians": {
+        "baseline": 16.705942599,
+        "candidate": 18.055290085
+      },
+      "speedup": 0.9252658096520414,
+      "time_reduction": -0.08077050893738669,
+      "raw_pairs": [
+        {
+          "baseline": 18.913973385,
+          "candidate": 18.494201214
+        },
+        {
+          "baseline": 16.705942599,
+          "candidate": 18.055290085
+        },
+        {
+          "baseline": 16.103830055,
+          "candidate": 17.213245897
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          16.103830055,
+          18.913973385
+        ],
+        "candidate": [
+          17.213245897,
+          18.494201214
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mp01-stp-newest-baseline",
+      "full_run_medians": {
+        "baseline": 4.768185581,
+        "candidate": 4.395996507
+      },
+      "speedup": 1.084665461723489,
+      "time_reduction": 0.07805675087041031,
+      "raw_pairs": [
+        {
+          "baseline": 4.521713817,
+          "candidate": 4.395996507
+        },
+        {
+          "baseline": 4.819516126,
+          "candidate": 4.262096127
+        },
+        {
+          "baseline": 4.768185581,
+          "candidate": 5.325766345
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          4.521713817,
+          4.819516126
+        ],
+        "candidate": [
+          4.262096127,
+          5.325766345
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "full_run_medians": {
+        "baseline": 5.083170311,
+        "candidate": 4.842750693
+      },
+      "speedup": 1.0496452601509132,
+      "time_reduction": 0.0472971793763689,
+      "raw_pairs": [
+        {
+          "baseline": 5.064972011,
+          "candidate": 4.842750693
+        },
+        {
+          "baseline": 5.106320737,
+          "candidate": 4.959998149
+        },
+        {
+          "baseline": 5.083170311,
+          "candidate": 4.728608529
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          5.064972011,
+          5.106320737
+        ],
+        "candidate": [
+          4.728608529,
+          4.959998149
+        ]
+      },
+      "ranges_overlap": false
+    }
+  ],
+  "exact_trace_checks": {
+    "passed": true,
+    "runs": 60,
+    "manager_pairs": 30,
+    "files": [
+      "trace.parquet",
+      "message_trace.parquet"
+    ],
+    "byte_equal": true,
+    "schema_equal": true,
+    "ordered_values_equal": true,
+    "manager_independent_checks": 60,
+    "evidence": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-audit.json",
+      "sha256": "fcaeb43cfb6d45d225d9525c2d4dee30b584062428f8e49f382939564b694757"
+    }
+  },
+  "developer_gates": {
+    "passed": true,
+    "full_g0_g3_runs": 60,
+    "fresh_manager_recheck_passed": true,
+    "evidence": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential/summary.json",
+      "sha256": "22749dac94a3045a3c6760a17fcf7d68218eaf4723ce7d25ebcd170a7f59a645"
+    },
+    "fresh_recheck_evidence": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/summary.json",
+      "sha256": "f5e879572228e7f745910b8cf3e4288cb53892ba249ab4731619b25f4133cf98"
+    }
+  },
+  "regression65": {
+    "complete": true,
+    "actual_runs": 65,
+    "passed": 65,
+    "failed": 0,
+    "errored": 0,
+    "candidate_image_id": "sha256:a763a898fce586ff4deaf8f9e4e3a2df2aa142f7eed6bb54c92aa8f51b4ffff4",
+    "performed_by": "parent in the sequential Docker slot",
+    "evidence": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/regression65/report.json",
+      "sha256": "a1b58f9231bf8cb85823c21cee105cbabb70cd558000784f97d239060340d302"
+    }
+  },
+  "preliminary_criterion": {
+    "primary_units": [
+      "t3-mr-deep-book-state-size",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "minimum_full_run_median_reduction_percent": 5,
+    "require_each_primary": true,
+    "material_regression_policy": "Parent evaluates other selected units from full-run paired measurements",
+    "maximum_full_run_median_increase_percent": 5
+  },
+  "host_tests": {
+    "rankable": false,
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "source_hashes": {
+      "price_level.py": {
+        "before_sha256": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+        "after_sha256": "aa49d97ded1adf295443b1ea6417031c3d3153c8eff6e719234affe00b0508ef"
+      },
+      "order_book.py": {
+        "before_sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+        "after_sha256": "963c76210bcc6f5f892e20b8b1bb4addc1be43043b09736ce4a27b23a30300a0"
+      }
+    },
+    "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "seeded_operations": 2700,
+    "comparison": "actual pinned modules; full levels, L2/L3, history, book logs, messages, owner events and transactions after each mutation"
+  },
+  "host_microbenchmark": {
+    "evidence": "evidence/host-microbench.json",
+    "sha256": "d6798071b36c8dbeafdbf4b87db1e110301ffa64446823fe24989fdfea3902a9",
+    "adoption_evidence": false
+  },
+  "selected_units": [
+    "t3-s001-price-time-priority",
+    "t3-cancelmodify-lifecycle",
+    "t3-mr-deep-book-state-size",
+    "t3-mr-cancel-replace-churn",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline"
+  ],
+  "evidence_files": {
+    "evidence/host-microbench.json": "d6798071b36c8dbeafdbf4b87db1e110301ffa64446823fe24989fdfea3902a9",
+    "evidence/host-microbench.log": "d6798071b36c8dbeafdbf4b87db1e110301ffa64446823fe24989fdfea3902a9",
+    "evidence/host-tests.json": "89b78af2d4fa927c2146c03f8c56e8f991b485121663d5b0529e603e0364f05b",
+    "evidence/host-tests.log": "603a61fe9c8310c83eb20626a58c36057dafc5996678fb4efaa945e5432f0bef",
+    "evidence/patch-validation.json": "a8cfda225d224080db6dfdfd5fe624cfe813f0b2929229171232debdd2194f35",
+    "evidence/runtime-microbench.json": "1959e8d3a9a010628797a658f34c2a59c59876ce01954bf66eb69578095b07b6",
+    "evidence/runtime-tests.json": "0edc723421ccc2699fc8de550f5fbf805c37afa2b2ff2ffb91c1273f75fe4bdb"
+  },
+  "limitations": [
+    "Only audited pinned simulator mutations maintain the cache. Arbitrary external raw quantity/list/visibility mutations can leave it stale.",
+    "Python integer exactness above 2^53 and 2^63 is tested; foreign/custom numeric quantity types are not covered.",
+    "Host microbenchmark isolates reads and excludes mutation costs and full simulation.",
+    "Host Python 3.13 tests do not replace pinned Docker Python 3.11 validation.",
+    "Three local Mac/Rosetta pairs per unit; ranges overlap on five units, including both primary units. The criterion failure does not prove the optimization caused a steady-state slowdown.",
+    "As-built disposable-process timings include startup and recompilation of patched modules with invalid inherited bytecode caches. No attribution of the observed differences to this or to cache-maintenance arithmetic is established.",
+    "L2 caching until mutation was deliberately not implemented or tested; this verdict concerns only the price-level aggregate.",
+    "Regression65 checks unchanged standard semantics/stylized facts; six-unit differential evidence separately checks exact dual traces and the full developer gates."
+  ],
+  "host_checks": {
+    "git_diff_check": true,
+    "patch_application_and_overlay_equality": true,
+    "ruff": true
+  },
+  "implementation_commit": "972069d6532756a72dde726a422c054619956d12",
+  "complete": true,
+  "semantic_source_images": {
+    "baseline": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "candidate": "sha256:a763a898fce586ff4deaf8f9e4e3a2df2aa142f7eed6bb54c92aa8f51b4ffff4"
+  },
+  "measured_immutable_images": {
+    "baseline": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "candidate": "sha256:b834d388cebfbc94ff95e3cf6370708751419b9f11e1788eb7aa3520f9944c1b"
+  },
+  "baseline_role": "contract_only_control",
+  "control_description": "Identical CLI wrapper deletes only forbidden root profile.json after successful serial batch",
+  "source_validation": {
+    "status": "passed",
+    "files": 52,
+    "all_installed_bytes_match": true,
+    "evidence": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/independent-source-audit.json",
+      "sha256": "d2f9bc63a149ccfb2d44c0b012587977fdbc81a6c9bad170b4175041556fb288"
+    }
+  },
+  "runtime_microbenchmark": {
+    "evidence": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/experiments/level-quantity/evidence/runtime-microbench.json",
+      "sha256": "1959e8d3a9a010628797a658f34c2a59c59876ce01954bf66eb69578095b07b6"
+    },
+    "scope": "isolated property reads, excludes mutations and full-run effects",
+    "adoption_evidence": false
+  },
+  "timing_contract": {
+    "warmup_pairs_per_unit": 1,
+    "unprofiled_pairs_per_unit": 3,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "separate_profile_pairs_per_unit": 1,
+    "clock": "Docker State FinishedAt - StartedAt",
+    "warmup_and_profile_excluded": true,
+    "rankable": false
+  },
+  "criterion_outcome": {
+    "minimum_primary_reduction_percent": 5,
+    "maximum_material_regression_percent": 5,
+    "failed_primary_units": [
+      "t3-mr-deep-book-state-size",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "regression_guardrail_violations": [
+      "t3-mr-deep-book-state-size",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "primary_criterion_met": false,
+    "guardrail_met": false
+  },
+  "manager_evidence": {
+    "pipeline.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/pipeline.json",
+      "sha256": "020deceb18faffc26cf3468025359c28104c193327d8199ee0c5ab58abd059af"
+    },
+    "source-audit.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/source-audit.json",
+      "sha256": "5d730b480f1507ef50a9fd049572fc88aefc0458dbb3348d5211c6494052cdec"
+    },
+    "independent-source-audit.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/independent-source-audit.json",
+      "sha256": "d2f9bc63a149ccfb2d44c0b012587977fdbc81a6c9bad170b4175041556fb288"
+    },
+    "manager-audit.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-audit.json",
+      "sha256": "fcaeb43cfb6d45d225d9525c2d4dee30b584062428f8e49f382939564b694757"
+    },
+    "manager-audit.events.jsonl": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-audit.events.jsonl",
+      "sha256": "89ece44c9ca7a79078ed676c8ed32a630d818452724f0bf06fe92da0a2914997"
+    },
+    "manager-gate-recheck/summary.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/summary.json",
+      "sha256": "f5e879572228e7f745910b8cf3e4288cb53892ba249ab4731619b25f4133cf98"
+    },
+    "differential/summary.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential/summary.json",
+      "sha256": "22749dac94a3045a3c6760a17fcf7d68218eaf4723ce7d25ebcd170a7f59a645"
+    },
+    "regression65/report.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/regression65/report.json",
+      "sha256": "a1b58f9231bf8cb85823c21cee105cbabb70cd558000784f97d239060340d302"
+    },
+    "regression65.command.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/regression65.command.json",
+      "sha256": "250bcb3c944d3cbe7edc415b171b55d850cdcd6af323c180ca47c78c9134c719"
+    },
+    "differential.command.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential.command.json",
+      "sha256": "5e994063974776877b842647496c0576e4e68c9882c106310b5c9b48b9cdc8a4"
+    },
+    "bytecode-cache-inventory.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/bytecode-cache-inventory.json",
+      "sha256": "d84b9de2510e7f3b76e2673caa692cbe866c078b9eb3e1f3b4bc9bfe1dcae767"
+    },
+    "runtime-00.command.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/runtime-00.command.json",
+      "sha256": "c5e2365ee2599e32e40876387a18cfa35b7ae6d9b34ccb39f6af76e0911373c3"
+    },
+    "runtime-01.command.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/runtime-01.command.json",
+      "sha256": "21e354c7b5e98bdb47ef0b33f781d1b3675f1ccfdac921d6429b0d960de6b8bd"
+    }
+  },
+  "runtime_validation_evidence": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/experiments/level-quantity/evidence/runtime-tests.json",
+    "sha256": "0edc723421ccc2699fc8de550f5fbf805c37afa2b2ff2ffb91c1273f75fe4bdb"
+  },
+  "manager_verification": {
+    "verdict": "not_supported_regression_guardrail",
+    "criterion_met": false,
+    "primary_requirement": ">=5% median full-container reduction on every declared primary",
+    "slowdown_guardrail": "<=5% median slowdown on every selected unit",
+    "primary_failures": [
+      "t3-mr-deep-book-state-size",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "guardrail_failures": [
+      "t3-mr-deep-book-state-size",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "rankable": false,
+    "metrics_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-audit.json"
+  }
+}

@@ -1,0 +1,1 @@
+{"status": "passed", "metric_cases": 10, "history_consumers": ["get_L1_snapshots", "get_L2_snapshots"], "incremental_prototype": "append-only-prefix-exact", "exchange_baseline_sha256": "07b2c71633b40e3ada1582a8d5187998d1e92fde63995e7669a0261979bcaab3"}

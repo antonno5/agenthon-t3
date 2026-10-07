@@ -1,0 +1,667 @@
+{
+  "hypothesis": "Compile the measured ExchangeAgent.get_time_dropout book-history scan as a narrow exact C reducer; remove iterrows overhead without changing simulation event processing.",
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "branch": "codex/exp-20261005-05-native-hotspot",
+  "commit": "59f0c397cb69068f7487f711e686ff1dec343cb2",
+  "commit_scope": "Final runtime-validation/evidence commit, including native parity scripts, timing/profile enrichment, complete regression65 and negative verdict. The following metadata-only commit links this hash; initial implementation is implementation_commit.",
+  "worktree": "/Users/iopogiba/.codex/worktrees/e01b/Агентон",
+  "change_summary": "Exact C reducer plus direct-Python control; actual pinned Linux runtime parity, serial paired trace/gate/timing/profiles, retained C3 checks and native public regression. Primary full-run >=5% criterion failed: do not promote native.",
+  "changed_files": [
+    "experiments/native-hotspot/.dockerignore",
+    "experiments/native-hotspot/.gitattributes",
+    "experiments/native-hotspot/Dockerfile",
+    "experiments/native-hotspot/Dockerfile.python-control",
+    "experiments/native-hotspot/README.md",
+    "experiments/native-hotspot/REPORT.md",
+    "experiments/native-hotspot/apply_patch.py",
+    "experiments/native-hotspot/build_local.py",
+    "experiments/native-hotspot/build_manager.py",
+    "experiments/native-hotspot/dropout-python-control.patch",
+    "experiments/native-hotspot/dropout.c",
+    "experiments/native-hotspot/dropout.patch",
+    "experiments/native-hotspot/evidence/baseline-cumulative.txt",
+    "experiments/native-hotspot/evidence/baseline-profile.json",
+    "experiments/native-hotspot/evidence/baseline.prof",
+    "experiments/native-hotspot/evidence/checker-component.json",
+    "experiments/native-hotspot/evidence/checkpoint-tests.txt",
+    "experiments/native-hotspot/evidence/compact-compiler.json",
+    "experiments/native-hotspot/evidence/compiler-image.json",
+    "experiments/native-hotspot/evidence/firewall.txt",
+    "experiments/native-hotspot/evidence/manifests.txt",
+    "experiments/native-hotspot/evidence/parallel-smoke.txt",
+    "experiments/native-hotspot/evidence/runtime-20261006/active-runtime-checks.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/build-cached/builds.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/build-cached/native-preflight.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/build-cached/python-control-preflight.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/build-cold/builds.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/build-cold/native-preflight.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/build-cold/python-control-preflight.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/cold-cached-image-parity.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/evidence-audit.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/incremental-pairs.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/metadata.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/paired-traces.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-as05-oracle-variant/baseline/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-as05-oracle-variant/candidate/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-as05-oracle-variant/python_control/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-mr-cancel-replace-churn/baseline/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-mr-cancel-replace-churn/candidate/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-mr-cancel-replace-churn/python_control/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-s001-price-time-priority/baseline/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-s001-price-time-priority/candidate/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/raw-profiles/t3-s001-price-time-priority/python_control/commands.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/records.jsonl",
+    "experiments/native-hotspot/evidence/runtime-20261006/paired/summary.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/profile-summary.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/public-regression/binding.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/public-regression/checkpoint.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/public-regression/report.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/runtime-checks.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/runtime-component.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/sanitized-gates/gates.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/sanitized-gates/paired-traces.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/sanitized-gates/summary.json",
+    "experiments/native-hotspot/evidence/targeted-tests.txt",
+    "experiments/native-hotspot/full_gates.py",
+    "experiments/native-hotspot/microbenchmark.py",
+    "experiments/native-hotspot/python_control.py",
+    "experiments/native-hotspot/regression_checkpoint.py",
+    "experiments/native-hotspot/result.json",
+    "experiments/native-hotspot/run_public_regression.py",
+    "experiments/native-hotspot/runtime_checks.py",
+    "experiments/native-hotspot/test_native_hotspot.py",
+    "experiments/native-hotspot/test_regression_checkpoint.py",
+    "experiments/native-hotspot/test_verdict.py",
+    "experiments/native-hotspot/validate.py"
+  ],
+  "units": [
+    "t3-s001-price-time-priority",
+    "t3-as05-oracle-variant",
+    "t3-mr-cancel-replace-churn"
+  ],
+  "unit_substitutions": [],
+  "correctness_tests": [
+    {
+      "command": "PYTHONPATH=\"$PWD\" QFB2_ABIDES_EXCHANGE_SOURCE=\"$PWD/out/native-hotspot/source/exchange_agent.py\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest experiments/native-hotspot/test_native_hotspot.py experiments/native-hotspot/test_regression_checkpoint.py experiments/native-hotspot/test_verdict.py -q",
+      "status": "passed",
+      "output": "43 passed in 1.88s, before multiprocessing follow-up; includes primary-oracle vs strict_each_unit decisions, correctness refusal, Python equivalence preference and mixed-pair refusal.",
+      "runtime": "checker Python 3.13.3 / pandas 3.0.6 / macOS ARM64; not simulator runtime"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m ruff check experiments/native-hotspot",
+      "status": "passed",
+      "output": "All checks passed!"
+    },
+    {
+      "command": "Official exchange-protocol patch followed by separate native/Python-control build-time patch, checked against pinned upstream source.",
+      "status": "passed",
+      "output": "Patch applies after the official upstream exchange-protocol patch."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" checker qfbench2 manifest assert-public-safe for every units/*/",
+      "status": "passed",
+      "output": "All 71 public units passed; evidence/firewall.txt"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" checker qfbench2 manifest verify for the three selected units",
+      "status": "passed",
+      "output": "3 selected unit manifests passed; evidence/manifests.txt"
+    },
+    {
+      "command": "Read-only Docker image history/inspect and context inspect with explicit --context colima-agenthon; official Debian Release/package-index SHA-256 verification",
+      "status": "passed",
+      "output": "Baseline Debian trixie identified; fixed snapshot index hash equals snapshot Release; no image pull/build/participant launch."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" -m pytest experiments/native-hotspot/test_regression_checkpoint.py -q",
+      "status": "passed",
+      "output": "6 passed in 1.60s; recover uncheckpointed outputs, execute only remaining scenario, detect changed fill despite saved PASS, reject identity changes/unsafe links, preserve prior checkpoint on interrupted rename. No real Docker transport."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" -m pytest experiments/native-hotspot/test_regression_checkpoint.py::test_parallel_wrapper_smoke_serial_cache_then_parent_only_checkpoint -q",
+      "status": "passed",
+      "output": "1 passed in 2.38s; single multiprocessing wrapper smoke with CPU-only workers verified serial cached audit before launches and parent-only checkpoint; no Docker or new large matrix."
+    },
+    {
+      "command": "Actual Linux/amd64 image: python /diagnostic/runtime_checks.py; repeated on active immutable image after cached build identity changed.",
+      "status": "passed",
+      "output": "109 installed-method histories, exact upstream/Python/native metric parity; matching cold/active module SHA-256."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/validate.py --baseline sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2 --python-control sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61 --candidate sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83 --repeats 3 --out out/native-hotspot/runtime-20261006/paired",
+      "status": "passed",
+      "output": "45 serial runs: 9 warmups, 27 unprofiled timing runs, 9 diagnostics; full developer checks and exact schema/ordered values/bytes of both traces for all variants."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/full_gates.py --out out/native-hotspot/runtime-20261006/sanitized-gates",
+      "status": "passed",
+      "output": "9 full developer gate checks through bounded shared C3 no-follow retention; all retained paired traces equal frozen published reference hashes."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/run_public_regression.py --candidate-image sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83 --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --workers 3 --out out/native-hotspot/runtime-20261006/public-regression",
+      "status": "passed",
+      "output": "65/65 public single scenarios PASS, complete=true, 0 failed, 0 errored; actual native immutable ID, unchanged runner/semantics/public refs; correctness-only workers=3."
+    },
+    {
+      "command": "Local artifact audit (no participant launches)",
+      "status": "passed",
+      "output": "45 serial records/27 measured medians, 9 raw cProfile hashes, 9 C3 checks, matching active/cold binary, all 130 regression trace/events hashes verified. Docker idle at release."
+    }
+  ],
+  "build_command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/build_manager.py --out out/native-hotspot/runtime-20261006/build-cold (repeated with build-cached output)",
+  "gate_command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/full_gates.py --out out/native-hotspot/runtime-20261006/sanitized-gates",
+  "benchmark_command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/validate.py --baseline sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2 --python-control sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61 --candidate sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83 --repeats 3 --out out/native-hotspot/runtime-20261006/paired",
+  "evidence_paths": [
+    "experiments/native-hotspot/evidence/baseline-cumulative.txt",
+    "experiments/native-hotspot/evidence/baseline-profile.json",
+    "experiments/native-hotspot/evidence/baseline.prof",
+    "experiments/native-hotspot/evidence/checker-component.json",
+    "experiments/native-hotspot/evidence/checkpoint-tests.txt",
+    "experiments/native-hotspot/evidence/compact-compiler.json",
+    "experiments/native-hotspot/evidence/compiler-image.json",
+    "experiments/native-hotspot/evidence/firewall.txt",
+    "experiments/native-hotspot/evidence/manifests.txt",
+    "experiments/native-hotspot/evidence/parallel-smoke.txt",
+    "experiments/native-hotspot/evidence/targeted-tests.txt",
+    "out/native-hotspot/",
+    "experiments/native-hotspot/evidence/runtime-20261006/",
+    "out/native-hotspot/runtime-20261006/",
+    "experiments/native-hotspot/evidence/runtime-20261006/public-regression/report.json",
+    "experiments/native-hotspot/evidence/runtime-20261006/evidence-audit.json"
+  ],
+  "baseline_profile": {
+    "total_cprofile_sec": 7.294585412,
+    "section_cumulative_sec": 0.707620414,
+    "section": "ExchangeAgent.get_time_dropout",
+    "iterrows_calls": 7541,
+    "fraction": 0.09700625519250544,
+    "amdahl_infinite_section_speedup": 1.1074273833571082,
+    "instrumentation": "cProfile plus --profile-components; diagnostic fraction only"
+  },
+  "measured_speedup": 0.9723811069785406,
+  "component_diagnostic": {
+    "rankable": false,
+    "scope": "synthetic component only; excludes imports, simulation, build and row creation",
+    "runtime": {
+      "python": "3.11.17 (main, Oct  1 2026, 21:51:14) [GCC 14.2.0]",
+      "platform": "Linux-6.8.0-117-generic-x86_64-with-glibc2.41",
+      "pandas": "1.5.3",
+      "native_module": "/opt/_abides_native_hotspot.so"
+    },
+    "rows": 7541,
+    "source_sha256": "e0c7941b8782f5ebe17e1b9f01c36f9e7ba5796caf9911d213d6e10e76b23615",
+    "metrics_equal": true,
+    "seconds": {
+      "upstream_iterrows": [
+        0.161930317,
+        0.161147951,
+        0.159708866
+      ],
+      "python_direct_rows_control": [
+        0.006176603,
+        0.006012964,
+        0.005765382
+      ],
+      "compiled_direct_rows": [
+        0.004669612,
+        0.00426739,
+        0.004193195
+      ]
+    },
+    "medians_sec": {
+      "upstream_iterrows": 0.161147951,
+      "python_direct_rows_control": 0.006012964,
+      "compiled_direct_rows": 0.00426739
+    },
+    "native_vs_upstream_speedup": 37.76264906652544,
+    "native_vs_python_control_speedup": 1.4090495595668546,
+    "peak_python_heap_bytes": {
+      "upstream_iterrows": 819840,
+      "python_direct_rows_control": 561808,
+      "compiled_direct_rows": 561768
+    },
+    "crossings_per_book": 1,
+    "jit_seconds": 0
+  },
+  "build_seconds": {
+    "cold": [
+      {
+        "variant": "native",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--progress",
+          "plain",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=orchestration-baseline:20261005-a5dbe46",
+          "-f",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot/Dockerfile",
+          "-t",
+          "orchestration-native-hotspot:20261005",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot"
+        ],
+        "elapsed_sec": 19.75473733299441,
+        "returncode": 0,
+        "rankable": false,
+        "image_id": "sha256:c8b54e517be75f0c1ee758a9a335f950afb9f01a915a159b54e233469fbe15ab",
+        "image_bytes": 179151005
+      },
+      {
+        "variant": "python-control",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--progress",
+          "plain",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=orchestration-baseline:20261005-a5dbe46",
+          "-f",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot/Dockerfile.python-control",
+          "-t",
+          "orchestration-native-python-control:20261005",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot"
+        ],
+        "elapsed_sec": 2.0759512079966953,
+        "returncode": 0,
+        "rankable": false,
+        "image_id": "sha256:9f8ff960d6bd08280436b5ab2747e43080f1c0393e928e33fbdcd5de8049d987",
+        "image_bytes": 179147633
+      }
+    ],
+    "cached": [
+      {
+        "variant": "native",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--progress",
+          "plain",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=orchestration-baseline:20261005-a5dbe46",
+          "-f",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot/Dockerfile",
+          "-t",
+          "orchestration-native-hotspot:20261005",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot"
+        ],
+        "elapsed_sec": 0.4405506249968312,
+        "returncode": 0,
+        "rankable": false,
+        "image_id": "sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83",
+        "image_bytes": 179151005
+      },
+      {
+        "variant": "python-control",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--progress",
+          "plain",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=orchestration-baseline:20261005-a5dbe46",
+          "-f",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot/Dockerfile.python-control",
+          "-t",
+          "orchestration-native-python-control:20261005",
+          "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot"
+        ],
+        "elapsed_sec": 0.3651964169985149,
+        "returncode": 0,
+        "rankable": false,
+        "image_id": "sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61",
+        "image_bytes": 179147633
+      }
+    ]
+  },
+  "jit_seconds": 0,
+  "implementation_cost": {
+    "scope": "one small C module and a narrow upstream patch plus reproducible build/tests/evidence",
+    "runtime_dependencies_added": [],
+    "compiler": "Debian gcc-14=14.2.0-19 and libc6-dev=2.41-12+deb13u4; signed trixie snapshot https://snapshot.debian.org/archive/debian/20261004T000000Z/; compiler stage inherits immutable baseline.",
+    "python_native_crossings": "one per nonempty symbol book; none per event",
+    "memory": "Constant native workspace; original DataFrame retained. Median peak process RSS recorded per image/unit in paired_summary; self-reported Linux ru_maxrss, not official cgroup memory.",
+    "native_extension_bytes": 16504,
+    "cold_build_extra_sec": 17.678786124997714,
+    "cached_build_extra_sec": 0.07535420799831627,
+    "image_bytes_native": 179151005,
+    "image_bytes_python_control": 179147633,
+    "primary_runtime_payback": "Unavailable: native did not save full-container time versus Python control."
+  },
+  "risks": [
+    "Combined cProfile/component diagnostic distorts the Amdahl fraction.",
+    "Only three measured sets; startup and an oracle native outlier materially affect container medians.",
+    "CPython ABI-specific binary and compiler maintenance add cost without demonstrated primary full-run benefit.",
+    "Local Docker linux/amd64 emulation on Mac ARM64 does not establish official Linux CPU/Final performance.",
+    "RSS is self-reported process peak; Python-heap diagnostic excludes input book and is not container memory."
+  ],
+  "rankable": false,
+  "verdict": "do_not_promote_native",
+  "remaining_validation": [],
+  "docker_invoked": true,
+  "python_control_build_command": "Built sequentially by build_manager.py after its own second disk/idle-slot preflight.",
+  "public_regression_command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/run_public_regression.py --candidate-image sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83 --reference-dir \"/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map\" --workers 3 --out out/native-hotspot/runtime-20261006/public-regression",
+  "build_preflight_command": "PYTHONPATH=\"$PWD\" \"$CHECKER_PYTHON\" experiments/native-hotspot/build_manager.py --check-only --out out/native-hotspot/build-preflight",
+  "docker_actions": {
+    "metadata_inspection": true,
+    "pull": false,
+    "build": true,
+    "participant_run": true,
+    "context": "colima-agenthon",
+    "apt_snapshot_network_during_build": true,
+    "runtime_network": "none"
+  },
+  "validation_scope": {
+    "regression65": [
+      "native_candidate"
+    ],
+    "selected_units_developer_gates_exact_traces_and_paired_timing": [
+      "baseline",
+      "python_control",
+      "native_candidate"
+    ],
+    "control_regression65": "not required without identified risk"
+  },
+  "regression_recovery": {
+    "checkpoint": "<out>/native/checkpoint.json",
+    "report": "<out>/native/report.json",
+    "binding": "<out>/native/binding.json",
+    "completion_policy": "serial cache audit before any launches, then ProcessPoolExecutor(max_workers<=3); parent-only atomic checkpoint after each completion; partial report complete=false",
+    "resume_command": "Repeat public_regression_command with the same --out; saved trace/events rechecked by unchanged run_scenario via file-only transport; no participant launch for replay",
+    "image_policy": "actual image ID in binding and launch arguments; reject changed image/config/reference/verification identity",
+    "cached_pass_trusted": false,
+    "scorer_and_standard_runner_modified": false,
+    "correctness_only_caps": {
+      "workers": 3,
+      "memory_each": "3g",
+      "memory_swap_each": "3g",
+      "benchmark_evidence": false
+    }
+  },
+  "verdict_policy": {
+    "primary_unit": "t3-as05-oracle-variant",
+    "required_full_run_reduction_fraction": 0.05,
+    "correctness_units": [
+      "t3-s001-price-time-priority",
+      "t3-as05-oracle-variant",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "strict_each_unit": "additional all-units >=5% flag; does not decide hot-workload threshold",
+    "incremental_native": "paired oracle native-vs-direct-Python benefit and compiler/maintenance cost review",
+    "equal_or_better_python_meeting_target": "prefer_python_control",
+    "positive_median_with_mixed_pairs": "additional_native_benefit_unproven",
+    "control_slowdowns_and_memory": "report as control_risks; review separately"
+  },
+  "status": "completed",
+  "verdict_reason": "Native does not meet the 5% full-run target on oracle-variant.",
+  "measured_speedup_definition": "Primary oracle median baseline full-container seconds / native seconds; local non-rankable evidence.",
+  "paired_summary": {
+    "rankable": false,
+    "profile": "developer",
+    "all_correct": true,
+    "primary_criterion": {
+      "unit": "t3-as05-oracle-variant",
+      "required_reduction_fraction": 0.05,
+      "reduction_fraction": -0.028403362450427405,
+      "timing_threshold_met": false,
+      "criterion_met": false
+    },
+    "strict_each_unit": false,
+    "threshold_met_each_unit": false,
+    "native_outperforms_python_each_unit": false,
+    "incremental_native_benefit": {
+      "unit": "t3-as05-oracle-variant",
+      "reduction_fraction": -0.05401947700478038,
+      "saved_median_sec": -0.21627200000000002,
+      "paired_saved_seconds": [
+        -0.16638600000000014,
+        -1.538455,
+        0.39775800000000006
+      ],
+      "all_paired_repeats_native_faster": false,
+      "cost_review": "compiler build time, binary size, maintenance and observed repeat variation; no automatic C recommendation"
+    },
+    "control_risks": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "labels": [],
+        "baseline_reduction_fraction": 0.0239645269949611,
+        "additional_native_reduction_fraction": 0.04995072627418773
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "labels": [],
+        "baseline_reduction_fraction": 0.22009712229704348,
+        "additional_native_reduction_fraction": 0.06619533518446452
+      }
+    ],
+    "verdict": "do_not_promote_native",
+    "verdict_reason": "Native does not meet the 5% full-run target on oracle-variant.",
+    "units": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "baseline": {
+          "container_sec": 1.896428,
+          "adapter_sec": 0.29528649100029725,
+          "simulation_sec": 0.10500290399795631,
+          "outside_adapter_sec": 1.6011415089997028,
+          "peak_rss_bytes": 175611904
+        },
+        "python_control": {
+          "container_sec": 1.9483,
+          "adapter_sec": 0.23083396599758998,
+          "simulation_sec": 0.0886724520023563,
+          "outside_adapter_sec": 1.6585034290012548,
+          "peak_rss_bytes": 175648768
+        },
+        "candidate": {
+          "container_sec": 1.850981,
+          "adapter_sec": 0.2751513109978987,
+          "simulation_sec": 0.1152920050008106,
+          "outside_adapter_sec": 1.5984048079994393,
+          "peak_rss_bytes": 175529984
+        },
+        "reduction_fraction": 0.0239645269949611,
+        "python_control_reduction_fraction": -0.027352475285114863,
+        "additional_native_reduction_fraction": 0.04995072627418773
+      },
+      {
+        "unit": "t3-as05-oracle-variant",
+        "baseline": {
+          "container_sec": 4.103317,
+          "adapter_sec": 2.3767747339989,
+          "simulation_sec": 2.093192223997903,
+          "outside_adapter_sec": 1.74785296100098,
+          "peak_rss_bytes": 209244160
+        },
+        "python_control": {
+          "container_sec": 4.003593,
+          "adapter_sec": 2.1040348120004637,
+          "simulation_sec": 1.8613395450011012,
+          "outside_adapter_sec": 1.7914863960011944,
+          "peak_rss_bytes": 209154048
+        },
+        "candidate": {
+          "container_sec": 4.219865,
+          "adapter_sec": 2.2578411279973807,
+          "simulation_sec": 1.9708500300002925,
+          "outside_adapter_sec": 1.9036948180007363,
+          "peak_rss_bytes": 209141760
+        },
+        "reduction_fraction": -0.028403362450427405,
+        "python_control_reduction_fraction": 0.02430326489520529,
+        "additional_native_reduction_fraction": -0.05401947700478038
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "baseline": {
+          "container_sec": 23.208059,
+          "adapter_sec": 21.175126492002164,
+          "simulation_sec": 20.020637723999243,
+          "outside_adapter_sec": 2.0329325079978346,
+          "peak_rss_bytes": 587857920
+        },
+        "python_control": {
+          "container_sec": 19.383103,
+          "adapter_sec": 17.73797805200229,
+          "simulation_sec": 16.478973291999864,
+          "outside_adapter_sec": 1.645124947997708,
+          "peak_rss_bytes": 586350592
+        },
+        "candidate": {
+          "container_sec": 18.100032,
+          "adapter_sec": 15.889642680998804,
+          "simulation_sec": 14.85537160900276,
+          "outside_adapter_sec": 2.2103893190011945,
+          "peak_rss_bytes": 583598080
+        },
+        "reduction_fraction": 0.22009712229704348,
+        "python_control_reduction_fraction": 0.16481154240430018,
+        "additional_native_reduction_fraction": 0.06619533518446452
+      }
+    ],
+    "jit_seconds": 0,
+    "build_seconds": "see separate build log",
+    "scope": "local ARM host linux/amd64 emulation; no official Linux CPU inference"
+  },
+  "actual_runtime": {
+    "rankable": false,
+    "python": "3.11.17 (main, Oct  1 2026, 21:51:14) [GCC 14.2.0]",
+    "machine": "x86_64",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "pyarrow": "15.0.2",
+    "native_module": "/opt/_abides_native_hotspot.so",
+    "native_bytes": 16504,
+    "native_sha256": "5d2bd2542ff76785a78250e1955eca77c4f6d5df52e164df87c9ec51aa27d9ec",
+    "histories_checked": 109,
+    "actual_installed_method": true,
+    "metric_parity": true,
+    "jit_seconds": 0
+  },
+  "full_developer_gates": {
+    "rankable": false,
+    "all_correct": true,
+    "runs": 9,
+    "shared_C3_retention": true
+  },
+  "image_build_identity": {
+    "status": "old_id_not_resolvable_after_tag_rebuild",
+    "old_native_id": "sha256:c8b54e517be75f0c1ee758a9a335f950afb9f01a915a159b54e233469fbe15ab",
+    "active_native_id": "sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83",
+    "cold_abi_check_passed": true,
+    "cached_build_steps": "CACHED",
+    "rootfs_equality_asserted": false,
+    "followup": "Active immutable image passed all 109 installed-method parity histories; module SHA-256 equals cold build. RootFS equality is not asserted.",
+    "active_abi_check_passed": true,
+    "active_module_matches_cold": true
+  },
+  "current_baseline_profile": {
+    "unit": "t3-as05-oracle-variant",
+    "total_cprofile_sec": 7.146321792999993,
+    "section_cumulative_sec": 0.75434959,
+    "fraction": 0.10555774170971491,
+    "amdahl_infinite_section_speedup": 1.1180151549542026,
+    "instrumentation": "cProfile plus component diagnostics; excluded from unprofiled medians",
+    "raw_sha256": "cb0fb4c507213d32be4b554402527df24f4d101fac5e76bba8eaccb0175a2842"
+  },
+  "incremental_native_pairs": [
+    {
+      "unit": "t3-as05-oracle-variant",
+      "seconds_by_repeat": {
+        "1": {
+          "candidate": 4.219865,
+          "python_control": 4.053479,
+          "baseline": 4.103317
+        },
+        "2": {
+          "baseline": 4.309102,
+          "python_control": 4.003593,
+          "candidate": 5.542048
+        },
+        "3": {
+          "candidate": 3.463566,
+          "python_control": 3.861324,
+          "baseline": 3.896763
+        }
+      },
+      "native_faster_than_python_pairs": 1,
+      "repeats": 3
+    },
+    {
+      "unit": "t3-mr-cancel-replace-churn",
+      "seconds_by_repeat": {
+        "1": {
+          "candidate": 24.07026,
+          "python_control": 19.733967,
+          "baseline": 24.97008
+        },
+        "2": {
+          "baseline": 23.208059,
+          "python_control": 19.383103,
+          "candidate": 18.100032
+        },
+        "3": {
+          "candidate": 16.859211,
+          "python_control": 16.706432,
+          "baseline": 19.094026
+        }
+      },
+      "native_faster_than_python_pairs": 1,
+      "repeats": 3
+    }
+  ],
+  "next_candidate": "Direct-row Python control is a cheaper workload-specific candidate for a future churn experiment; current oracle target failed for both. No adoption or extra repeats in this experiment.",
+  "public_regression": {
+    "candidate_image": "sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83",
+    "total_scenarios": 65,
+    "passed": 65,
+    "failed": 0,
+    "errored": 0,
+    "rankable": false,
+    "complete": true,
+    "expected_scenarios": 65,
+    "completed_scenarios": 65,
+    "worker_limit": 3,
+    "measurement_kind": "correctness_only_not_performance"
+  },
+  "docker_slot_released": true,
+  "completed_at_utc": "2026-10-06T12:45:18.979386+00:00",
+  "final_evidence_audit": {
+    "records": 45,
+    "warmups": 9,
+    "unprofiled_timing": 27,
+    "diagnostics": 9,
+    "raw_profile_hashes_verified": 9,
+    "installed_metric_histories": 109,
+    "retained_developer_gate_runs": 9,
+    "summary_medians_verified": true,
+    "cold_active_module_hash_equal": true,
+    "rankable": false,
+    "regression_complete": true,
+    "regression_passed": 65,
+    "regression_failed": 0,
+    "regression_errored": 0,
+    "regression_artifact_hashes_verified": 130,
+    "regression_sources_all_executed": true,
+    "regression_binding_scenarios": 65,
+    "docker_idle_at_release": true
+  },
+  "runtime_check_reproduction_command": "docker --context colima-agenthon run --rm --platform linux/amd64 --network none --cpus 4 --memory 16g --memory-swap 16g -v \"$PWD/experiments/native-hotspot:/experiment:ro\" -v \"$PWD/out/native-hotspot/source:/source:ro\" -v \"$PWD/out/native-hotspot/runtime-20261006:/diagnostic\" sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83 python /experiment/runtime_checks.py --source /source/exchange_agent.py --out /diagnostic/active-runtime-checks.json",
+  "implementation_commit": "067d8c797190d9f9a61f8ea5f0edd6dec8ee51ff"
+}

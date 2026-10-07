@@ -1,0 +1,499 @@
+{
+  "unit": "t3-gbatch-homog-4",
+  "side": "candidate",
+  "image_digest": "sha256:4c35b44a353573e875a286f12f51fb1011792b3e772229a4e2c8902addc1c685",
+  "kind": "timing",
+  "index": 0,
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--name",
+    "t3-diff-80b1a93226a5",
+    "--platform",
+    "linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/inputs/t3-gbatch-homog-4:/input:ro",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/raw:/output",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/diagnostics:/diagnostics",
+    "sha256:4c35b44a353573e875a286f12f51fb1011792b3e772229a4e2c8902addc1c685",
+    "simulate-batch",
+    "--batch-dir",
+    "/input/scenarios",
+    "--out-dir",
+    "/output",
+    "--trace-mode",
+    "buffered"
+  ],
+  "batch_cli_args": [],
+  "diagnostics_mount": {
+    "host": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/diagnostics",
+    "container": "/diagnostics",
+    "outside_solver_output": true
+  },
+  "rankable": false,
+  "accepted": true,
+  "exit_code": 0,
+  "host_launch_sec": 3.2458142499963287,
+  "host_launch_clock": "perf_counter around Docker CLI",
+  "host_peak_cgroup_memory_bytes": null,
+  "host_peak_rss_bytes": null,
+  "rss_source": "not_sampled; cgroup_memory_is_recorded_separately",
+  "memory_source": "unavailable_on_host",
+  "state": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-06T18:09:18.777064681Z",
+    "FinishedAt": "2026-10-06T18:09:21.946344871Z"
+  },
+  "container_sec": 3.16928019,
+  "container_clock": "Docker State FinishedAt - StartedAt",
+  "check": {
+    "accepted": true,
+    "rankable": false,
+    "hashes": {
+      "batch_events.json": "16604117b04225756577f784836eb5dd2d4d4d793b9d20ce7abded4f49c8f67e",
+      "sub_00/events.json": "82ece0fcd3a9a5cbe81cb6c2d28dedb29599f29597fd6d5dda2fe383711feaf0",
+      "sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+      "sub_00/profile.json": "1ce9fb9d89c0d681330ad4f6ed9f63cfe004c2afb0a963db98fc0f044ed35bbf",
+      "sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+      "sub_01/events.json": "75a59175b99a18c911db6498e6e0bb2e74204114f6942f061b5893b1ef371902",
+      "sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+      "sub_01/profile.json": "fa1d054527dd3bf8563a92be5aebc029f85a6001af4fc840ab632480b6a6cab5",
+      "sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+      "sub_02/events.json": "ee719f5d58b76806d8267709dda192e330d6d787ffe09a0aae4449d5f3dceef4",
+      "sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+      "sub_02/profile.json": "52c9a3f177f1bef01f931288cb82818d8893dd491566fadc2ea7fbcca73e0c27",
+      "sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+      "sub_03/events.json": "1955743eaf753e3c175bbd5f71e659a3e4bdb1c18309347084dfe2f3201d5adb",
+      "sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+      "sub_03/profile.json": "eb9c9e4ff9eaaa8fb9d6de37a0d825fe7a49e8390b045b8855ddd3afd01b7808",
+      "sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836"
+    },
+    "developer": {
+      "admissible": true,
+      "rankable": false,
+      "profile": "developer",
+      "detail": {
+        "score": 18160.476404234654,
+        "profile": "developer",
+        "rankable": false,
+        "score_source": "self_reported",
+        "stylized_facts": null
+      },
+      "labels": [],
+      "gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      }
+    },
+    "digest_declarations": [
+      {
+        "file": "sub_00/trace.parquet",
+        "source": "sub_00/events.json",
+        "declared_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+        "actual_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+        "matches": true
+      },
+      {
+        "file": "sub_00/message_trace.parquet",
+        "source": "sub_00/events.json",
+        "declared_sha256": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+        "actual_sha256": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+        "matches": true
+      },
+      {
+        "file": "sub_01/trace.parquet",
+        "source": "sub_01/events.json",
+        "declared_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+        "actual_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+        "matches": true
+      },
+      {
+        "file": "sub_01/message_trace.parquet",
+        "source": "sub_01/events.json",
+        "declared_sha256": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+        "actual_sha256": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+        "matches": true
+      },
+      {
+        "file": "sub_02/trace.parquet",
+        "source": "sub_02/events.json",
+        "declared_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+        "actual_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+        "matches": true
+      },
+      {
+        "file": "sub_02/message_trace.parquet",
+        "source": "sub_02/events.json",
+        "declared_sha256": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+        "actual_sha256": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+        "matches": true
+      },
+      {
+        "file": "sub_03/trace.parquet",
+        "source": "sub_03/events.json",
+        "declared_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+        "actual_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+        "matches": true
+      },
+      {
+        "file": "sub_03/message_trace.parquet",
+        "source": "sub_03/events.json",
+        "declared_sha256": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+        "actual_sha256": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+        "matches": true
+      },
+      {
+        "file": "sub_00/trace.parquet",
+        "source": "batch_events.json",
+        "declared_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+        "actual_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+        "matches": true
+      },
+      {
+        "file": "sub_01/trace.parquet",
+        "source": "batch_events.json",
+        "declared_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+        "actual_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+        "matches": true
+      },
+      {
+        "file": "sub_02/trace.parquet",
+        "source": "batch_events.json",
+        "declared_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+        "actual_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+        "matches": true
+      },
+      {
+        "file": "sub_03/trace.parquet",
+        "source": "batch_events.json",
+        "declared_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+        "actual_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+        "matches": true
+      }
+    ],
+    "reference_comparison": {
+      "files": [
+        {
+          "file": "sub_00/trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_00/trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_00/trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+          "right_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+          "left_rows": 8150,
+          "right_rows": 8150,
+          "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_00/message_trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_00/message_trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_00/message_trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+          "right_sha256": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+          "left_rows": 7278,
+          "right_rows": 7278,
+          "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_01/trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_01/trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_01/trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+          "right_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+          "left_rows": 8135,
+          "right_rows": 8135,
+          "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_01/message_trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_01/message_trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_01/message_trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+          "right_sha256": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+          "left_rows": 7276,
+          "right_rows": 7276,
+          "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_02/trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_02/trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_02/trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+          "right_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+          "left_rows": 8149,
+          "right_rows": 8149,
+          "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_02/message_trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_02/message_trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_02/message_trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+          "right_sha256": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+          "left_rows": 7279,
+          "right_rows": 7279,
+          "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_03/trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_03/trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_03/trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+          "right_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+          "left_rows": 8146,
+          "right_rows": 8146,
+          "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "field_schema_equal": true
+        },
+        {
+          "file": "sub_03/message_trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/checks/reference_data/sub_03/message_trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_03/message_trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+          "right_sha256": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+          "left_rows": 7276,
+          "right_rows": 7276,
+          "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "field_schema_equal": true
+        }
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true
+    }
+  },
+  "events": {
+    "n_scenarios": 4,
+    "total_events": 32580,
+    "wall_clock_sec": 1.7940058000021963,
+    "events_per_sec": 18160.476404234654,
+    "peak_memory_bytes": 203866112,
+    "gpu_seconds": 0.0,
+    "per_scenario": [
+      {
+        "sub": "sub_00",
+        "n_events": 8150,
+        "trace_sha256": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167"
+      },
+      {
+        "sub": "sub_01",
+        "n_events": 8135,
+        "trace_sha256": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f"
+      },
+      {
+        "sub": "sub_02",
+        "n_events": 8149,
+        "trace_sha256": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77"
+      },
+      {
+        "sub": "sub_03",
+        "n_events": 8146,
+        "trace_sha256": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836"
+      }
+    ]
+  },
+  "adapter_peak_rss_bytes_self_reported": 203866112,
+  "adapter_sec_self_reported": 1.7940058000021963,
+  "cold_start_and_container_other_sec": 1.3752743899978035,
+  "profiles": {
+    "sub_03/profile.json": {
+      "schema_version": 1,
+      "trace_mode": "buffered",
+      "detailed": false,
+      "timing_kind": "wall_clock_phases",
+      "wall_clock_sec": 0.4064797110040672,
+      "phases": {
+        "input": 0.0010740249999798834,
+        "configuration": 0.004815899003006052,
+        "simulation": 0.357991092998418,
+        "trace_finalize": 0.0025117710029007867,
+        "message_finalize": 0.0078083629996399395,
+        "parquet_write": 0.029294220999872778,
+        "hashing": 0.0020258579970686696,
+        "metadata_write": 0.00088995599799091
+      },
+      "components": {
+        "input": 0.0010740249999798834,
+        "configuration": 0.004815899003006052,
+        "simulation": 0.357991092998418,
+        "trace_finalize": 0.0025117710029007867,
+        "message_finalize": 0.0078083629996399395,
+        "parquet_write": 0.029294220999872778,
+        "hashing": 0.0020258579970686696,
+        "metadata_write": 0.00088995599799091,
+        "adapter_other": 6.852500519016758e-05
+      },
+      "simulation_components": {},
+      "component_calls": {},
+      "gpu_utilization": 0.0,
+      "peak_memory_bytes": 203866112
+    },
+    "sub_02/profile.json": {
+      "schema_version": 1,
+      "trace_mode": "buffered",
+      "detailed": false,
+      "timing_kind": "wall_clock_phases",
+      "wall_clock_sec": 0.42118936799670337,
+      "phases": {
+        "input": 0.0008600299988756888,
+        "configuration": 0.00299071500194259,
+        "simulation": 0.3548039000015706,
+        "trace_finalize": 0.0029021339942119084,
+        "message_finalize": 0.009035604001837783,
+        "parquet_write": 0.04683713000122225,
+        "hashing": 0.002244821997010149,
+        "metadata_write": 0.0013738910056417808
+      },
+      "components": {
+        "input": 0.0008600299988756888,
+        "configuration": 0.00299071500194259,
+        "simulation": 0.3548039000015706,
+        "trace_finalize": 0.0029021339942119084,
+        "message_finalize": 0.009035604001837783,
+        "parquet_write": 0.04683713000122225,
+        "hashing": 0.002244821997010149,
+        "metadata_write": 0.0013738910056417808,
+        "adapter_other": 0.00014114199439063668
+      },
+      "simulation_components": {},
+      "component_calls": {},
+      "gpu_utilization": 0.0,
+      "peak_memory_bytes": 197443584
+    },
+    "sub_00/profile.json": {
+      "schema_version": 1,
+      "trace_mode": "buffered",
+      "detailed": false,
+      "timing_kind": "wall_clock_phases",
+      "wall_clock_sec": 0.5029548759994213,
+      "phases": {
+        "input": 0.0009388920007040724,
+        "configuration": 0.012201684003230184,
+        "simulation": 0.3624414119985886,
+        "trace_finalize": 0.009915000999171752,
+        "message_finalize": 0.009897718999127392,
+        "parquet_write": 0.10355405700101983,
+        "hashing": 0.002730944994254969,
+        "metadata_write": 0.0011375039975973777
+      },
+      "components": {
+        "input": 0.0009388920007040724,
+        "configuration": 0.012201684003230184,
+        "simulation": 0.3624414119985886,
+        "trace_finalize": 0.009915000999171752,
+        "message_finalize": 0.009897718999127392,
+        "parquet_write": 0.10355405700101983,
+        "hashing": 0.002730944994254969,
+        "metadata_write": 0.0011375039975973777,
+        "adapter_other": 0.00013766200572717935
+      },
+      "simulation_components": {},
+      "component_calls": {},
+      "gpu_utilization": 0.0,
+      "peak_memory_bytes": 183803904
+    },
+    "sub_01/profile.json": {
+      "schema_version": 1,
+      "trace_mode": "buffered",
+      "detailed": false,
+      "timing_kind": "wall_clock_phases",
+      "wall_clock_sec": 0.45489752700086683,
+      "phases": {
+        "input": 0.0004263049995643087,
+        "configuration": 0.002741229000093881,
+        "simulation": 0.39160495499527315,
+        "trace_finalize": 0.002741144002357032,
+        "message_finalize": 0.00861454499681713,
+        "parquet_write": 0.04520185100409435,
+        "hashing": 0.0022557869961019605,
+        "metadata_write": 0.0012307819997658953
+      },
+      "components": {
+        "input": 0.0004263049995643087,
+        "configuration": 0.002741229000093881,
+        "simulation": 0.39160495499527315,
+        "trace_finalize": 0.002741144002357032,
+        "message_finalize": 0.00861454499681713,
+        "parquet_write": 0.04520185100409435,
+        "hashing": 0.0022557869961019605,
+        "metadata_write": 0.0012307819997658953,
+        "adapter_other": 8.092900679912418e-05
+      },
+      "simulation_components": {},
+      "component_calls": {},
+      "gpu_utilization": 0.0,
+      "peak_memory_bytes": 195346432
+    }
+  }
+}

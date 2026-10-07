@@ -1,0 +1,491 @@
+{
+  "runtime_dependency": "scipy.spatial.distance",
+  "only_runtime_callsite": "abides_markets.utils.generate_uniform_random_pairwise_dist_on_line",
+  "consumer": "generate_latency_model fallback when scenario latency_config absent",
+  "public_scenario_configs": [
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-as01-base-mix/scenario.json",
+      "sha256": "b81f521035e2d2937d94a06d03a4e03b8721d77d317549f00c0515e9b1aac1fb",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-as02-scale-up-noise/scenario.json",
+      "sha256": "939492491114a95c3adf517a1eeb6edee959b96c73c551b81dee46df9986ce1b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-as03-mm-liquidity-heavy/scenario.json",
+      "sha256": "24bd5ae8a6b122a8fdce91285ac0f62f369851ee916495d7a3e70157b16018f4",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-as04-value-heavy/scenario.json",
+      "sha256": "f3414d5a30d62320369c210dec6284b0ff6db23b20894cdb0719f0fb7e9fb598",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-as05-oracle-variant/scenario.json",
+      "sha256": "26e24a6331f248e3890b3ed05134fa4b75d455696b240f7f2e10a34def96d9dc",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-as06-throughput-fast/scenario.json",
+      "sha256": "15a2bc778742e778ef895cc5a905483bc967d3857f9c9219b1b87ad34e82ad5e",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ca-baseline-calm/scenario.json",
+      "sha256": "4bd9e1c6d1fe82f697984c8a8de22d7c9f71508bb2dc46241349637755df4904",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ca-fast-mean-reversion/scenario.json",
+      "sha256": "13f54ceb383c66b44ae8c479e6da31a9a8601f81f0d186be425c2cf0f338b783",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ca-fat-tail-jumps/scenario.json",
+      "sha256": "25df96f8a234fd841cee8afcaaa8bd5933f5cf55844a44f26e883804b66421f1",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ca-high-volatility/scenario.json",
+      "sha256": "406444e7776969a0121b90032d89cef6ca2c9f70059d30942bdac70cd7c22f40",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ca-thin-book-depth/scenario.json",
+      "sha256": "508e3c95883b14604778843726b0282b631ad4319535f7cc1328bfe2b8750e56",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-cancelmodify-lifecycle/scenario.json",
+      "sha256": "042347a03b5db470bf30bd43f2890170085faf73f1ab909a6b90b6b6310aceaa",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-coarse-tick-ties/scenario.json",
+      "sha256": "c0e1dbdc4c5da5c21d5d2cd444414db18252302990d376eb87fdd136fee51f02",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-deterministic-baseline/scenario.json",
+      "sha256": "a7443084be120140edbaed8db5fd1363c827292ff8b765e277c9b705fb955947",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-lognormal-highmag/scenario.json",
+      "sha256": "e2ccc376b4d9ab4022871124c029714a81ced476c76142fb7dd2690ad881caa7",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-lognormal-highsigma/scenario.json",
+      "sha256": "4c5767c24629a412b82cb4ecf26a4d8ee8cfc0e2787adb0bd66f5f8cc6bc6368",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-lognormal-lowsigma/scenario.json",
+      "sha256": "5bc3bff108774a5efcf9e5ee9d6a56caf884c063d4ef746aefa7b3ed5eadda41",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-pareto-heavytail/scenario.json",
+      "sha256": "1a380211f9167f06cd9bb87469ce15e6b34e893fee354a8641073f9efe8d0101",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-uniform-tight/scenario.json",
+      "sha256": "e26ffc4966f825a70edd174f048e58ff3970d5b0dfd17558a265249d78b5a6d4",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq-uniform-wide/scenario.json",
+      "sha256": "a48c69d18b49bbd72268119002cee25463cfb9dbb28945d3238aef700c9b0875",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-eq001-pareto-latency-tail/scenario.json",
+      "sha256": "0db4f8f6062a99647434b66ed3abc1f73e08eb680b8455f6a8c95b87db16bc42",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-fastlob-core/scenario.json",
+      "sha256": "748555dade2dddc7303b2c3f1ed693a9115c7872230151f8bd8022ef97d0716f",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-fastlob-tight-book/scenario.json",
+      "sha256": "5a1baeb2cf1f48be8ecb4c633c56d2d0fc75e08e0fb6d7d0a83fedbdf0d9763e",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gb-base-30agent-30s/scenario.json",
+      "sha256": "5e7783b77789c3075d6f72fa5ca65a0e661cb421aa33cf369a635455bd338ff0",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gb-highfreq-40hz-60s/scenario.json",
+      "sha256": "f9efd1a6693436f29ac2940f2ddfa9148ef3316b367c38cca135ab82e8997d6c",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gb-horizon-240s/scenario.json",
+      "sha256": "650e0d29b40f3709f224a6af278b9e0cc9899294bcdfa31deb4f95bb5e84dc8b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gb-mega-throughput/scenario.json",
+      "sha256": "af565789aeb35a1c70e39dee4f067563d1bdd0e605c2a470c7ab4079d2e34fab",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gb-pop-128-agents/scenario.json",
+      "sha256": "a9ae51bdd8a065f81555ecc989b8a9a83d20522310c63261cd64d3e3eadf6820",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gb-pop-horizon-scale/scenario.json",
+      "sha256": "a9f59935d0358a7b064251283e43d05f2dc8299e9748d4b5c67f7b98d0165c6a",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-dense-3/scenarios/sub_00.json",
+      "sha256": "9a9d4cd9dce7c7f2bfc12850ded33f41a10f81248cdfede641f5fa5f3b7ecfe1",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-dense-3/scenarios/sub_01.json",
+      "sha256": "1a24135722a2def77bcaa973e815fe6ecea4db4facc1893b29d8fd61eba48a11",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-dense-3/scenarios/sub_02.json",
+      "sha256": "978f69de92025fb71735127313df5d60d2abc8c399bbc8f3524edb4bb29c5cbf",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-hetero-mix/scenarios/sub_00_noise.json",
+      "sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-hetero-mix/scenarios/sub_01_value.json",
+      "sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-hetero-mix/scenarios/sub_02_mm.json",
+      "sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-hetero-mix/scenarios/sub_03_momentum.json",
+      "sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-hetero-mix/scenarios/sub_04_base.json",
+      "sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/scenarios/sub_00.json",
+      "sha256": "113e5a65f2761a7b1a4187bf6f06573e946ff96fea16c695d7ea4920ae516da9",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/scenarios/sub_01.json",
+      "sha256": "3b72d65e9ed671d4395de20395e9aa93ec2dd587d2f0b5fc4e15cd4a40802014",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/scenarios/sub_02.json",
+      "sha256": "b3d631060cbd68d95bb60215ccbbb51da75be1a377e77e6a38f5a5c6adb49ea2",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-4/scenarios/sub_03.json",
+      "sha256": "019a9c75626f554bea3668252870cf898bb4b0d84e99a239c75d8a3fd4705335",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_00.json",
+      "sha256": "d196bce83349d3f3820c68a58323d0d0ef5815e4e52bb1f9398b1d8e1320ff5b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_01.json",
+      "sha256": "ccb3f5edc0d836b19d041818f2fff116f169e0be8114aea3173700211e78d043",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_02.json",
+      "sha256": "27301c56cfe2628dbb529892fd89e44b18e5f47c89e8a34152f145859be33c97",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_03.json",
+      "sha256": "50fcf1bdbcb63a991fd380a3eb1b99b3140f32c371879f0ce99d83fb7ea278be",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_04.json",
+      "sha256": "216dcea8361c3898ce91621f51450b1a7bd551c74f32601cc8f6e409d3ef1e4b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_05.json",
+      "sha256": "b9d473f308298744f01cf383289857bbc909ae754c2c872bf14e70efb2324e37",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_06.json",
+      "sha256": "934b1c97c87bb301f5bc0b07cd9b0138a5e1194b9472b06bb9152b37b05fe539",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-homog-8/scenarios/sub_07.json",
+      "sha256": "cd4b88b4487b8bf07203b4cec4cc580a26a02d265daa0d369f1fca56e773542f",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-many-6/scenarios/sub_00.json",
+      "sha256": "663b742bb673cd83ec4ed060c3d1be623cf048af630d71f7d374241cd01c1f6d",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-many-6/scenarios/sub_01.json",
+      "sha256": "e76d4763bc0ad1a7a221605c1df877015bfeb3ce03fd4d0fbf4c3842ce7fe518",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-many-6/scenarios/sub_02.json",
+      "sha256": "fb64c3a78c70746562f1ac3029dfe8061ee7a0b2687e0096c1ecbf0c750c64ae",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-many-6/scenarios/sub_03.json",
+      "sha256": "3f098b7f013d1d743f1503b76e44d111b42bbefdb59d7d7b42b1e2d0f51bd9a9",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-many-6/scenarios/sub_04.json",
+      "sha256": "c3b33823062e24e7de45a9c86991aa3cfc00c9f76d546f1771c62d42501d1899",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-many-6/scenarios/sub_05.json",
+      "sha256": "b22c430a66d19becd529a5a65206a22a48cf2304df46781e9eaec3719a715223",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-varsize/scenarios/sub_00_short.json",
+      "sha256": "32f4e13e5f7cbf3fbd55595003b552f7e06cf3480109ca1576cdf8df1f0af8b5",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-varsize/scenarios/sub_01_med.json",
+      "sha256": "9a5e0d8ae7aeac7af0d4e3cd62674a681544a374792d245800d227fa9444d573",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-varsize/scenarios/sub_02_long.json",
+      "sha256": "a2b6f8d4d20feab96d1468aae97fb33c498ff97a82119a2b140785542a29a225",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-gbatch-varsize/scenarios/sub_03_med.json",
+      "sha256": "9059919f8b6de60cd014c00f5402d58204aab915b5a4498ac4a8103774da896e",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-momentum-mix-priority/scenario.json",
+      "sha256": "96009c5814c6fe6016fed5bc52530e9f4113f16ca58c29e2c72f1ae7121daf12",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp01-stp-newest-baseline/scenario.json",
+      "sha256": "dcc90448a4237376dfcb0feed9732450c4754b4d36e4d0934480cbe079df637b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp02-stp-oldest-baseline/scenario.json",
+      "sha256": "a99cbdd359bb37854687a96d2d23446b5a9e603d435f7b18c42860ad704c6837",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp03-mm-heavy-newest/scenario.json",
+      "sha256": "ef4e3a439281966a2dc659d444488dd2ab58df95c367c6c4b366636ee617e0e5",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp04-mm-heavy-oldest/scenario.json",
+      "sha256": "9cb95c58a839bba4180ae285ffb7fa83d7c547541882de204b810c785293af1a",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp05-cancel-churn-newest/scenario.json",
+      "sha256": "0af9f298f191c4a33982852cf344b5dbe81475846beb274ca56a92f8c95a9183",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp06-tight-spread-selfcross/scenario.json",
+      "sha256": "50c22f315c2e0e0fa2f43c41a8efc03308de84bb153e010445dcacb913758a5a",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mp07-heavy-flow-oldest/scenario.json",
+      "sha256": "5fb7dc981da38025752e66688901212c5020987eb713a7ff2fa44101a7761c0d",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mr-cancel-replace-churn/scenario.json",
+      "sha256": "ff135c280318e26389c6ca0cb40b310f291f644e50d23be5cbabe98f152b525b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mr-checkpoint-cadence-fine/scenario.json",
+      "sha256": "959fde96f8bd3356e502b249410e948dce7eb78d8a063a60253d216cb18b523a",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mr-deep-book-state-size/scenario.json",
+      "sha256": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-mr-long-horizon-replay/scenario.json",
+      "sha256": "907b7646a670f48edb52f1b0dc0ebffa45120d782e22c4510e5dfce84cdeac09",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-multilevel-crossing/scenario.json",
+      "sha256": "99a22e9dc9e8ffe21e6c207ff4a73fd0b2a76f6d419c3ee2141107405940f863",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-partialfill-atomicity/scenario.json",
+      "sha256": "551ece5f033cccbeba222215c7a82eeb526eeb06c582bfc71b4f3baba1839e3f",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ra01-fundamental-shock-mid/scenario.json",
+      "sha256": "e773520d16c6ec517dff04347029f6f34a95d6d01b45a8e35a60f9aeafffaff7",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ra02-shock-early/scenario.json",
+      "sha256": "f2207fb934b91ab8681e100014c7cde7ecc31b9021f055f4de0b21ef9ea6123c",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ra03-large-shock/scenario.json",
+      "sha256": "fc367eadfd32129a1be605ba61b36cb55d543159e116711c97c1a1f44931200c",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ra04-shock-late/scenario.json",
+      "sha256": "6ab0ca8a9be980582edf4494fe6162ff6554d62c4ee5f002eef3f400cb68e6d8",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ra05-shock-momentum-heavy/scenario.json",
+      "sha256": "9af39eb3876c4ad4e441d0723dd3a3875713f7d216a0300699902553490ab78d",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-ra06-shock-value-heavy/scenario.json",
+      "sha256": "1279f7827607621699d7d3429479272e654f024715e442ed53eb0a6554df2c34",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-s001-price-time-priority/scenario.json",
+      "sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-s012-partial-fill-cancel-race/scenario.json",
+      "sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-s019-latency-jitter-kendall/scenario.json",
+      "sha256": "60d1f00d8e21d5d00328395667b69d8a6d57da4122239692431562ba357ac9c0",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-01-baseline-regime/scenario.json",
+      "sha256": "c6bded086f54d986eb0c53e93ac0fb69cd3243e9376f9b32fe6758f801662001",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-02-heavy-jump-tails/scenario.json",
+      "sha256": "dc9afc102985c12f3fe6d9d5d4641e237abe0621a7f6de1d4eadfe292dcd6320",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-03-vol-clustering-momentum/scenario.json",
+      "sha256": "80e36a08894146b348107ffeae7f9512f006cc755fc621fe212f68a040d8dce7",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-04-thin-book-depth/scenario.json",
+      "sha256": "6de5385e88bf609350122fc67e9b12cb483750ada547e1144cc681c013d19290",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-05-deep-book-liquidity/scenario.json",
+      "sha256": "e7de45e6ee1ae4191af2c8b25ad1e6d422cf5d4497aae4221829f7400e62c6ec",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-06-high-fundamental-vol/scenario.json",
+      "sha256": "2506976f082ead35a99a99b16190da1bbbfffcae308ff7c7fdf75546d783dd50",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-sf-07-coarse-agent-batch/scenario.json",
+      "sha256": "bb2c25b4964a7eef49a19cd61d47a1ca749a0baba27cdc47d7edbbb63b51c050",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-st01-liquidity-churn-baseline/scenario.json",
+      "sha256": "fa3f7e85501068d1deb140242eed9407bb4f2df5a438badab4d3ce3f321bbd22",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-st02-informed-entry-burst/scenario.json",
+      "sha256": "261757029b11d88358552ed2b86da9def65d2847947e1a53824923434df2115f",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-st03-volatility-burst/scenario.json",
+      "sha256": "196baf566854bbfcc050066443114db1436273beac6102ae9440174316420c4b",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-st04-thin-book-mm-strain/scenario.json",
+      "sha256": "0045ad4f89aab4e858846b113811a7d0e044eed687ba0a62882753c0a7683c56",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-st05-latency-spike-pareto/scenario.json",
+      "sha256": "d46362a2eca8bfce1854c13d246b185d9116a241297c1df43cfb7fcbb27e0323",
+      "has_scenario_latency": true
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-stp-cancel-newest/scenario.json",
+      "sha256": "42d8f6f9e6413d4bc02949d5dfec2a2ef0f181a10eb9984108859a43a6d80c1b",
+      "has_scenario_latency": true
+    }
+  ],
+  "all_have_scenario_latency": true,
+  "checker_python": "3.13.3",
+  "checker_packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1"
+  },
+  "host_tests": "diagnostic only; packages differ from Docker3.11"
+}

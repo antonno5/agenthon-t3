@@ -1,0 +1,192 @@
+{
+  "executive_summary": "Existing saved runs allow an approximate before/after comparison on five byte-identical scenarios. The linear-search base has one sample per scenario and bisect has five samples from a separate schedule. Results are mixed and cannot establish a causal overall speedup.",
+  "rankable": false,
+  "comparison_kind": "unpaired historical estimate",
+  "scope": "Stage-3 shared mutation base with linear search versus adopted bisect; no native engine or other previous optimizations included.",
+  "metric": "Adapter-reported simulation_wall_clock_sec; excludes process startup, configuration and output writing.",
+  "sources": {
+    "out/python-book-stage3/regression65/report.json": "fb68d8d37aa6fbba426710bd361ac35625c6dc82bcc2448adb93b94ea60c3d2d",
+    "experiments/price-search-comparison/result.json": "01c0d0b531a79af67a7afa1418b546a8d00a5e6a4467160e5d66bd89052bc75b",
+    "out/price-search-comparison/differential-resumed/summary.json": "0982e13c039cae8ab571aea151054cc802f43c1aaf4594cdefe6d189f44a346f",
+    "out/python-book-stage3/installed-source.json": "2b2c56ffb48241b1698b7ca7347f0c5dbdd46417d014f9781dac67323b6be738",
+    "out/price-search-comparison/bisect/installed-source.json": "a561274b9b4a06d1ed05c49afb03ec9a1884c594d6b6a5304b20fdba616593a5"
+  },
+  "images": {
+    "linear": "sha256:a431cf514d40a72c64b5a99c547a573ebfc35d36b8a94096980499afa367c3d8",
+    "bisect": "sha256:484ef5d44a7b71da3f2e67af21c2c8744510467648aaedf17aa083186e1dc886"
+  },
+  "installed_source_changed_files": [
+    "markets/matching/price_level.py",
+    "markets/matching/state.py"
+  ],
+  "units": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "label": "Price-time priority",
+      "scenario_id": "a1b2c3d4-0001-0000-0000-000000000001",
+      "scenario_sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b",
+      "configuration_byte_equal": true,
+      "events_and_trace_declarations_equal": true,
+      "linear_sample_count": 1,
+      "linear_simulation_seconds": [
+        0.06280523000168614
+      ],
+      "bisect_sample_count": 5,
+      "bisect_simulation_seconds": [
+        0.05974855100066634,
+        0.06312064899975667,
+        0.06296474000555463,
+        0.058321730997704435,
+        0.05793026299943449
+      ],
+      "bisect_mean_seconds": 0.060417186800623315,
+      "bisect_median_seconds": 0.05974855100066634,
+      "bisect_range_seconds": [
+        0.05793026299943449,
+        0.06312064899975667
+      ],
+      "time_change_mean_percent": -3.8022999055949858,
+      "time_change_median_percent": -4.866917931735526,
+      "old_event_metadata": "out/python-book-stage3/regression65/a1b2c3d4-0001-0000-0000-000000000001/events.json",
+      "old_event_metadata_sha256": "856c5eb4eb485a91e51c1a1d108467dff55da335fcd31dd9ddf742af1cacc96d"
+    },
+    {
+      "unit": "t3-mp01-stp-newest-baseline",
+      "label": "STP newest",
+      "scenario_id": "a86b50cb-0785-56dd-bd58-9c3d317e49e5",
+      "scenario_sha256": "dcc90448a4237376dfcb0feed9732450c4754b4d36e4d0934480cbe079df637b",
+      "configuration_byte_equal": true,
+      "events_and_trace_declarations_equal": true,
+      "linear_sample_count": 1,
+      "linear_simulation_seconds": [
+        3.200421028996061
+      ],
+      "bisect_sample_count": 5,
+      "bisect_simulation_seconds": [
+        2.981390987006307,
+        2.8409532680016127,
+        4.231637229997432,
+        2.8859355739987222,
+        2.7405504700000165
+      ],
+      "bisect_mean_seconds": 3.136093505800818,
+      "bisect_median_seconds": 2.8859355739987222,
+      "bisect_range_seconds": [
+        2.7405504700000165,
+        4.231637229997432
+      ],
+      "time_change_mean_percent": -2.0099706448754917,
+      "time_change_median_percent": -9.826377596824809,
+      "old_event_metadata": "out/python-book-stage3/regression65/a86b50cb-0785-56dd-bd58-9c3d317e49e5/events.json",
+      "old_event_metadata_sha256": "080346cf46c5c8d0296dd60e3dc4d21956139141b1b948144b169627aa5b17c8"
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "label": "STP oldest",
+      "scenario_id": "dfba64e0-cac2-5f16-b408-41de04ff2cae",
+      "scenario_sha256": "a99cbdd359bb37854687a96d2d23446b5a9e603d435f7b18c42860ad704c6837",
+      "configuration_byte_equal": true,
+      "events_and_trace_declarations_equal": true,
+      "linear_sample_count": 1,
+      "linear_simulation_seconds": [
+        2.6328390820053755
+      ],
+      "bisect_sample_count": 5,
+      "bisect_simulation_seconds": [
+        2.830096454003069,
+        2.6377344030042877,
+        3.6899061190051725,
+        3.051173284999095,
+        2.5769926970024244
+      ],
+      "bisect_mean_seconds": 2.9571805916028095,
+      "bisect_median_seconds": 2.830096454003069,
+      "bisect_range_seconds": [
+        2.5769926970024244,
+        3.6899061190051725
+      ],
+      "time_change_mean_percent": 12.319078359714641,
+      "time_change_median_percent": 7.492192490831862,
+      "old_event_metadata": "out/python-book-stage3/regression65/dfba64e0-cac2-5f16-b408-41de04ff2cae/events.json",
+      "old_event_metadata_sha256": "789c46548f797946c67c301d4b5045244079f505c0250bc8057038d96f7aa60c"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "label": "Deep-book state size",
+      "scenario_id": "8a59be07-bb4b-5eec-b8ab-7cbc27fc6735",
+      "scenario_sha256": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7",
+      "configuration_byte_equal": true,
+      "events_and_trace_declarations_equal": true,
+      "linear_sample_count": 1,
+      "linear_simulation_seconds": [
+        19.992361753000296
+      ],
+      "bisect_sample_count": 5,
+      "bisect_simulation_seconds": [
+        20.313314759005152,
+        19.690974985001958,
+        24.35502269800054,
+        23.1530175089938,
+        14.395368587999997
+      ],
+      "bisect_mean_seconds": 20.38153970780029,
+      "bisect_median_seconds": 20.313314759005152,
+      "bisect_range_seconds": [
+        14.395368587999997,
+        24.35502269800054
+      ],
+      "time_change_mean_percent": 1.9466332172665357,
+      "time_change_median_percent": 1.6053781437637804,
+      "old_event_metadata": "out/python-book-stage3/regression65/8a59be07-bb4b-5eec-b8ab-7cbc27fc6735/events.json",
+      "old_event_metadata_sha256": "72cc7d8bab38fc791c17c74cbfcecc2b6c7e644074d9a24cafce5e667ae01d9d"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "label": "Cancel churn",
+      "scenario_id": "077d6642-7e7c-529b-876d-f37aa5f70190",
+      "scenario_sha256": "0af9f298f191c4a33982852cf344b5dbe81475846beb274ca56a92f8c95a9183",
+      "configuration_byte_equal": true,
+      "events_and_trace_declarations_equal": true,
+      "linear_sample_count": 1,
+      "linear_simulation_seconds": [
+        9.555973472000915
+      ],
+      "bisect_sample_count": 5,
+      "bisect_simulation_seconds": [
+        8.201069982999996,
+        9.137503622999986,
+        8.272434437000015,
+        8.371621275999985,
+        8.320277299999987
+      ],
+      "bisect_mean_seconds": 8.460581323799994,
+      "bisect_median_seconds": 8.320277299999987,
+      "bisect_range_seconds": [
+        8.201069982999996,
+        9.137503622999986
+      ],
+      "time_change_mean_percent": -11.462904866892199,
+      "time_change_median_percent": -12.931138576530465,
+      "old_event_metadata": "out/python-book-stage3/regression65/077d6642-7e7c-529b-876d-f37aa5f70190/events.json",
+      "old_event_metadata_sha256": "8c5677b4161444a370b1dc498bf59af3b1fc98a73899fece7bb88fae463f0312"
+    }
+  ],
+  "excluded": [
+    {
+      "unit": "t3-gbatch-homog-4",
+      "reason": "No matching saved stage-3 batch execution; separate single-scenario runs are not a comparable batch measurement."
+    }
+  ],
+  "limits": [
+    "One old sample is not a repeated-sample average.",
+    "Separate schedules on local macOS VM/emulation; host conditions are not paired.",
+    "No full-container historical comparison: the old regression did not retain Docker State timing.",
+    "No process-startup speedup measured.",
+    "No aggregate speedup or significance claim."
+  ],
+  "new_experiment": {
+    "status": "stopped_by_user_steering",
+    "path": "out/bisect-vs-linear-20261007/",
+    "partial_results_included": false
+  }
+}

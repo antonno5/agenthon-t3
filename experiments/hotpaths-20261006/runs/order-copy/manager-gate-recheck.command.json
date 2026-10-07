@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/order-copy/scripts/run_differential_experiment.py",
+    "check",
+    "--unit",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mr-cancel-replace-churn",
+    "--baseline-output",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/differential/runs/t3-mr-cancel-replace-churn/timing-00/baseline/raw",
+    "--candidate-output",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/differential/runs/t3-mr-cancel-replace-churn/timing-00/candidate/raw",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-gate-recheck"
+  ],
+  "cwd": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/order-copy",
+  "env_overrides": {
+    "PYTHONPATH": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/order-copy"
+  }
+}

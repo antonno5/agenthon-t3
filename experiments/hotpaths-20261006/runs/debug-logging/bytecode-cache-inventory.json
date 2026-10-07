@@ -1,0 +1,143 @@
+{
+  "scope": "As-built caches; disposable containers include source recompilation in measured cold start. No steady-state performance attribution.",
+  "files": [
+    {
+      "source": "abides_core/agent.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 13851,
+        "pyc_source_size": 13851,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "4668545cf0eeb7713e01dcda035b73e747651dfe91b87bb0969d090518433933"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 13969,
+        "pyc_source_size": 13851,
+        "source_mtime": 1791306993,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "4668545cf0eeb7713e01dcda035b73e747651dfe91b87bb0969d090518433933"
+      }
+    },
+    {
+      "source": "abides_core/kernel.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 39457,
+        "pyc_source_size": 39457,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "843221910d2fdcd52e7ab765535af9a340cd55601e8f1693cbca2857c964dd3f"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 40503,
+        "pyc_source_size": 39457,
+        "source_mtime": 1791306993,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "843221910d2fdcd52e7ab765535af9a340cd55601e8f1693cbca2857c964dd3f"
+      }
+    },
+    {
+      "source": "abides_markets/agents/exchange_agent.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 35554,
+        "pyc_source_size": 36299,
+        "source_mtime": 1791289569,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "e00a5ef03b1d356a28b54a06dc827e1faf76edeb15677e3e5b1c843067c66696"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 36848,
+        "pyc_source_size": 36299,
+        "source_mtime": 1791306993,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "e00a5ef03b1d356a28b54a06dc827e1faf76edeb15677e3e5b1c843067c66696"
+      }
+    },
+    {
+      "source": "abides_markets/agents/trading_agent.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 43676,
+        "pyc_source_size": 43676,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "74c21d908a1a9d46e72582ace14a02a6059796d6ad7ac95bfa074c5e241837bf"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 45021,
+        "pyc_source_size": 43676,
+        "source_mtime": 1791306993,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "74c21d908a1a9d46e72582ace14a02a6059796d6ad7ac95bfa074c5e241837bf"
+      }
+    },
+    {
+      "source": "abides_markets/oracles/sparse_mean_reverting_oracle.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 12867,
+        "pyc_source_size": 12867,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "424c44c84e1c039cfc6b55f5d428ecf1e164a36ed3ead99436b1835ffa13f85c"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 13284,
+        "pyc_source_size": 12867,
+        "source_mtime": 1791306993,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "424c44c84e1c039cfc6b55f5d428ecf1e164a36ed3ead99436b1835ffa13f85c"
+      }
+    },
+    {
+      "source": "abides_markets/order_book.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 40207,
+        "pyc_source_size": 40207,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "a157438440890351c96d09034a17d3cbc03c75b42f12f418285001df2ea97190"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 40262,
+        "pyc_source_size": 40207,
+        "source_mtime": 1791306993,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "a157438440890351c96d09034a17d3cbc03c75b42f12f418285001df2ea97190"
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "hypothesis": 5,
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "dockerfile": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/Dockerfile",
+  "context": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/startup",
+  "image_tag": "hotpaths-startup:20261006",
+  "build_args": {
+    "BASE_IMAGE": "hotpaths-base:20261006"
+  },
+  "units": [
+    "t3-s001-price-time-priority",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-as05-oracle-variant",
+    "t3-momentum-mix-priority",
+    "t3-gbatch-homog-4"
+  ],
+  "primary_units": [
+    "t3-s001-price-time-priority",
+    "t3-s012-partial-fill-cancel-race"
+  ],
+  "runtime_checks": [
+    [
+      "python",
+      "/opt/startup-experiment/runtime_check.py"
+    ]
+  ],
+  "runtime_checks_mounts": [],
+  "runtime_checks_env": {},
+  "probe_command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/startup/experiments/startup/run_probes.py",
+    "--scenario",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-s001-price-time-priority/scenario.json",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/startup/out/startup/import-init"
+  ],
+  "threshold_median_full_run_reduction": 0.05,
+  "rankable": false,
+  "candidate_utils_sha256": "bf7d576a11baa5360d264dc810b6708570cc4ece84d671b8025a313d28ad378b",
+  "compatibility_checks": [
+    "ordinary adapter import and no-latency leave SciPy unloaded",
+    "cold fallback preserves exact arithmetic and global/latency RNG",
+    "wildcard imports preserve exact baseline public export names and lazy pdist/squareform function identity"
+  ]
+}

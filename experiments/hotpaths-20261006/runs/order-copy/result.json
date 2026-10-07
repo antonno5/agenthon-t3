@@ -1,0 +1,554 @@
+{
+  "executive_summary": "Exact six-unit event/message comparisons, independent source audit, installed runtime14 tests and fresh regression65 65/65 passed. Do not adopt: the preregistered full-container timing criterion failed. All timings remain local and non-rankable.",
+  "hypothesis_id": 4,
+  "hypothesis": "Reduce order snapshot cost without changing events, delivery ledgers, RNG or identifiers.",
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "branch": "codex/exp-20261006-04-order-copy",
+  "implementation_commit": "266ae8734a5012abd650db8098b17009338097d7",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/order-copy",
+  "baseline_image": "hotpaths-base:20261006",
+  "candidate_image": "hotpaths-order-copy:20261006",
+  "rankable": false,
+  "verdict": "not_supported_regression_guardrail",
+  "complete": true,
+  "criterion": {
+    "primary_units": [
+      "t3-mr-cancel-replace-churn",
+      "t3-mp07-heavy-flow-oldest"
+    ],
+    "minimum_container_median_reduction": 0.05,
+    "exact_trace_message_and_all_developer_gates": true,
+    "regression65_required": true,
+    "material_regressions_allowed": false,
+    "maximum_any_unit_container_median_slowdown": 0.05
+  },
+  "change_summary": [
+    "Exact LimitOrder/MarketOrder core field dict copy with immutable tag; original constructor fallback retained verbatim for every unknown state.",
+    "Skip one outer PTC snapshot only where two later copies preserve upstream isolation."
+  ],
+  "semantics_limits": [
+    "No incidental fixes for upstream subtype/custom attr drops or memo handling of tags.",
+    "Cycles internal to tag still copy; tag cycles back to the order still raise upstream RecursionError.",
+    "Non-tag core values are assigned by upstream even if mutable; optimized core dict preserves those aliases."
+  ],
+  "local_validation": {
+    "host_tests": {
+      "passed": 14,
+      "failed": 0,
+      "path": "evidence/host-tests.log"
+    },
+    "host_component_diagnostic": "evidence/host-component-benchmark.json",
+    "rejected_atomic_scan_diagnostic": "evidence/rejected-atomic-scan-host-benchmark.json",
+    "source_hashes": "evidence/source-hashes.json",
+    "source_diff": "evidence/source-diff.json",
+    "container_component_diagnostic": "evidence/container-component-benchmark.json",
+    "container_runtime_tests": "evidence/container-runtime-tests.json"
+  },
+  "docker_validation": {
+    "runtime_tests": 14,
+    "source_audit_files": 52,
+    "status": "passed",
+    "container_source_mapping": "evidence/container-source-mappings.json",
+    "parent_evidence_manifest": "evidence/manager-validation.json"
+  },
+  "differential": {
+    "complete": true,
+    "accepted": true,
+    "units": [
+      "t3-s001-price-time-priority",
+      "t3-cancelmodify-lifecycle",
+      "t3-mp01-stp-newest-baseline",
+      "t3-mp02-stp-oldest-baseline",
+      "t3-mr-cancel-replace-churn",
+      "t3-mp07-heavy-flow-oldest"
+    ],
+    "runs": 60,
+    "pairs": 30,
+    "independent_exact_trace_files": 60,
+    "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/differential/summary.json",
+    "sha256": "9ab779a3720cfe1aea0146fc2683fdabb19c703001085e655196e3d4f4608acc"
+  },
+  "regression65": {
+    "executed_by": "parent_serial_controller",
+    "reused": false,
+    "total": 65,
+    "passed": 65,
+    "failed": 0,
+    "errored": 0,
+    "candidate_image": "sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024",
+    "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/regression65/report.json",
+    "sha256": "13ab14f110be0bd77e19ed32a6435d206eea3db7baa9f0c0c1856d5840cf6626"
+  },
+  "full_container_metrics": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "full_run_medians": {
+        "baseline": 1.51752354,
+        "candidate": 1.698293822
+      },
+      "speedup": 0.8935577108870859,
+      "time_reduction": -0.11912189645506244,
+      "raw_pairs": [
+        {
+          "baseline": 1.637069823,
+          "candidate": 1.812446644
+        },
+        {
+          "baseline": 1.516640122,
+          "candidate": 1.698293822
+        },
+        {
+          "baseline": 1.51752354,
+          "candidate": 1.649038301
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          1.516640122,
+          1.637069823
+        ],
+        "candidate": [
+          1.649038301,
+          1.812446644
+        ]
+      },
+      "ranges_overlap": false
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "full_run_medians": {
+        "baseline": 9.622411034,
+        "candidate": 9.873581902
+      },
+      "speedup": 0.9745613222746325,
+      "time_reduction": -0.02610269579136748,
+      "raw_pairs": [
+        {
+          "baseline": 9.622411034,
+          "candidate": 9.873581902
+        },
+        {
+          "baseline": 10.474212203,
+          "candidate": 10.42870472
+        },
+        {
+          "baseline": 9.323238978,
+          "candidate": 9.678060938
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          9.323238978,
+          10.474212203
+        ],
+        "candidate": [
+          9.678060938,
+          10.42870472
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mp01-stp-newest-baseline",
+      "full_run_medians": {
+        "baseline": 4.440639481,
+        "candidate": 4.621156781
+      },
+      "speedup": 0.9609367722077292,
+      "time_reduction": -0.04065119466968059,
+      "raw_pairs": [
+        {
+          "baseline": 4.800871173,
+          "candidate": 4.621156781
+        },
+        {
+          "baseline": 4.416415868,
+          "candidate": 4.725739172
+        },
+        {
+          "baseline": 4.440639481,
+          "candidate": 4.581199133
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          4.416415868,
+          4.800871173
+        ],
+        "candidate": [
+          4.581199133,
+          4.725739172
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "full_run_medians": {
+        "baseline": 4.426207005,
+        "candidate": 4.488563439
+      },
+      "speedup": 0.9861077079899996,
+      "time_reduction": -0.014088006713097734,
+      "raw_pairs": [
+        {
+          "baseline": 4.57850852,
+          "candidate": 4.488563439
+        },
+        {
+          "baseline": 4.380028374,
+          "candidate": 4.33978395
+        },
+        {
+          "baseline": 4.426207005,
+          "candidate": 4.639454744
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          4.380028374,
+          4.57850852
+        ],
+        "candidate": [
+          4.33978395,
+          4.639454744
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mr-cancel-replace-churn",
+      "full_run_medians": {
+        "baseline": 17.19334807,
+        "candidate": 16.919898141
+      },
+      "speedup": 1.0161614406139585,
+      "time_reduction": 0.015904402556540465,
+      "raw_pairs": [
+        {
+          "baseline": 16.011444723,
+          "candidate": 16.919898141
+        },
+        {
+          "baseline": 17.19334807,
+          "candidate": 16.877835906
+        },
+        {
+          "baseline": 17.229653662,
+          "candidate": 17.210926839
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          16.011444723,
+          17.229653662
+        ],
+        "candidate": [
+          16.877835906,
+          17.210926839
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "full_run_medians": {
+        "baseline": 6.302813377,
+        "candidate": 5.057675629
+      },
+      "speedup": 1.2461877430139163,
+      "time_reduction": 0.19755269171441936,
+      "raw_pairs": [
+        {
+          "baseline": 6.534499579,
+          "candidate": 5.057675629
+        },
+        {
+          "baseline": 5.357416228,
+          "candidate": 5.139464765
+        },
+        {
+          "baseline": 6.302813377,
+          "candidate": 4.961079761
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          5.357416228,
+          6.534499579
+        ],
+        "candidate": [
+          4.961079761,
+          5.139464765
+        ]
+      },
+      "ranges_overlap": false
+    }
+  ],
+  "measured_speedup": null,
+  "docker_plan": "build-plan.json",
+  "independent_review_fix": "Require non-None order_id in both copy guards and PTC eligibility; preserve legacy new-ID allocation for externally mutated None IDs.",
+  "immutable_images": {
+    "base_image_id": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "candidate_image_id": "sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024",
+    "candidate_control_image_id": "sha256:d9247b2cca1f1213e2c94a9c6ed403e35e4c217024c8fd28df25ec27a77b80db",
+    "baseline_control_image_id": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40"
+  },
+  "fresh_gate_recheck": {
+    "unit": "t3-mr-cancel-replace-churn",
+    "complete": true,
+    "accepted": true,
+    "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-gate-recheck/summary.json",
+    "sha256": "353999e55fb2f4f9808f1e7eeb3ef02876512879dfc2113b543f57001c753e34"
+  },
+  "measured_speedup_note": "No single simulator-wide ratio: retain every unit median, raw pair and range.",
+  "workload_specific_positive_evidence": {
+    "unit": "t3-mp07-heavy-flow-oldest",
+    "time_reduction": 0.19755269171441936,
+    "interpretation": "Positive heavy-flow result does not override churn primary threshold failure or s001 regression guardrail."
+  },
+  "performance_criterion_result": {
+    "primary_units": [
+      "t3-mr-cancel-replace-churn",
+      "t3-mp07-heavy-flow-oldest"
+    ],
+    "primary_minimum_reduction": 0.05,
+    "maximum_any_unit_slowdown": 0.05,
+    "primary_units_pass": false,
+    "material_slowdowns": [
+      "t3-s001-price-time-priority"
+    ],
+    "accepted": false,
+    "metrics": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "full_run_medians": {
+          "baseline": 1.51752354,
+          "candidate": 1.698293822
+        },
+        "speedup": 0.8935577108870859,
+        "time_reduction": -0.11912189645506244,
+        "raw_pairs": [
+          {
+            "baseline": 1.637069823,
+            "candidate": 1.812446644
+          },
+          {
+            "baseline": 1.516640122,
+            "candidate": 1.698293822
+          },
+          {
+            "baseline": 1.51752354,
+            "candidate": 1.649038301
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            1.516640122,
+            1.637069823
+          ],
+          "candidate": [
+            1.649038301,
+            1.812446644
+          ]
+        },
+        "ranges_overlap": false
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "full_run_medians": {
+          "baseline": 9.622411034,
+          "candidate": 9.873581902
+        },
+        "speedup": 0.9745613222746325,
+        "time_reduction": -0.02610269579136748,
+        "raw_pairs": [
+          {
+            "baseline": 9.622411034,
+            "candidate": 9.873581902
+          },
+          {
+            "baseline": 10.474212203,
+            "candidate": 10.42870472
+          },
+          {
+            "baseline": 9.323238978,
+            "candidate": 9.678060938
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            9.323238978,
+            10.474212203
+          ],
+          "candidate": [
+            9.678060938,
+            10.42870472
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mp01-stp-newest-baseline",
+        "full_run_medians": {
+          "baseline": 4.440639481,
+          "candidate": 4.621156781
+        },
+        "speedup": 0.9609367722077292,
+        "time_reduction": -0.04065119466968059,
+        "raw_pairs": [
+          {
+            "baseline": 4.800871173,
+            "candidate": 4.621156781
+          },
+          {
+            "baseline": 4.416415868,
+            "candidate": 4.725739172
+          },
+          {
+            "baseline": 4.440639481,
+            "candidate": 4.581199133
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            4.416415868,
+            4.800871173
+          ],
+          "candidate": [
+            4.581199133,
+            4.725739172
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "full_run_medians": {
+          "baseline": 4.426207005,
+          "candidate": 4.488563439
+        },
+        "speedup": 0.9861077079899996,
+        "time_reduction": -0.014088006713097734,
+        "raw_pairs": [
+          {
+            "baseline": 4.57850852,
+            "candidate": 4.488563439
+          },
+          {
+            "baseline": 4.380028374,
+            "candidate": 4.33978395
+          },
+          {
+            "baseline": 4.426207005,
+            "candidate": 4.639454744
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            4.380028374,
+            4.57850852
+          ],
+          "candidate": [
+            4.33978395,
+            4.639454744
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "full_run_medians": {
+          "baseline": 17.19334807,
+          "candidate": 16.919898141
+        },
+        "speedup": 1.0161614406139585,
+        "time_reduction": 0.015904402556540465,
+        "raw_pairs": [
+          {
+            "baseline": 16.011444723,
+            "candidate": 16.919898141
+          },
+          {
+            "baseline": 17.19334807,
+            "candidate": 16.877835906
+          },
+          {
+            "baseline": 17.229653662,
+            "candidate": 17.210926839
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            16.011444723,
+            17.229653662
+          ],
+          "candidate": [
+            16.877835906,
+            17.210926839
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "full_run_medians": {
+          "baseline": 6.302813377,
+          "candidate": 5.057675629
+        },
+        "speedup": 1.2461877430139163,
+        "time_reduction": 0.19755269171441936,
+        "raw_pairs": [
+          {
+            "baseline": 6.534499579,
+            "candidate": 5.057675629
+          },
+          {
+            "baseline": 5.357416228,
+            "candidate": 5.139464765
+          },
+          {
+            "baseline": 6.302813377,
+            "candidate": 4.961079761
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            5.357416228,
+            6.534499579
+          ],
+          "candidate": [
+            4.961079761,
+            5.139464765
+          ]
+        },
+        "ranges_overlap": false
+      }
+    ],
+    "raw_pair_order": [
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "excluded_from_medians": [
+      "warmup",
+      "profile"
+    ],
+    "note": "Ranges and raw pairs retained. Three pairs on Mac ARM64/Rosetta are local developer evidence, not official timing or a statistical significance claim.",
+    "metrics_source": "parent independent manager-audit recomputation"
+  },
+  "manager_verification": {
+    "verdict": "not_supported_regression_guardrail",
+    "criterion_met": false,
+    "primary_requirement": ">=5% median full-container reduction on every declared primary",
+    "slowdown_guardrail": "<=5% median slowdown on every selected unit",
+    "primary_failures": [
+      "t3-mr-cancel-replace-churn"
+    ],
+    "guardrail_failures": [
+      "t3-s001-price-time-priority"
+    ],
+    "rankable": false,
+    "metrics_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-audit.json"
+  }
+}

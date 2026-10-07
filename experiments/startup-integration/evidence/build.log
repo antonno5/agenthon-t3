@@ -1,0 +1,35 @@
+#0 building with "colima-agenthon" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 548B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/hotpaths-debug-logging:20261006
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/hotpaths-debug-logging:20261006@sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681
+#4 resolve docker.io/library/hotpaths-debug-logging:20261006@sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681 0.0s done
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 6.68kB done
+#5 DONE 0.0s
+
+#6 [2/3] COPY utils.py /tmp/integrated-utils.py
+#6 DONE 0.0s
+
+#7 [3/3] RUN python -c 'import hashlib,pathlib,abides_markets.utils; p=pathlib.Path(abides_markets.utils.__file__); assert hashlib.sha256(p.read_bytes()).hexdigest()=="349cbaa5d0db0268dd62982090bd8f11ef59835520df10eae7d0fd6818d635d6"; p.write_bytes(pathlib.Path("/tmp/integrated-utils.py").read_bytes()); [c.unlink() for c in (p.parent/"__pycache__").glob("__init__.*.pyc")]'
+#7 DONE 1.6s
+
+#8 exporting to image
+#8 exporting layers 0.1s done
+#8 exporting manifest sha256:223616c8bc2678875d9258459e9b0578b4a6b2fcccf6f810a68cf35db3da608a done
+#8 exporting config sha256:26532a0fc7ce7a4fa5dce8a80378e457c393ee8cb2a790baf8c62de42fc81fb0 done
+#8 exporting attestation manifest sha256:0b0ec0d0b0ed748e7f64f6ef42e398546a471ef5fc70eb71505213d8a31db290 0.0s done
+#8 exporting manifest list sha256:537a7cf45af039c989ae2366916240174a2c69aa0fd68b9f70a0196736868f6c done
+#8 naming to docker.io/library/hotpaths-develop-debug-startup:20261006 done
+#8 DONE 0.1s

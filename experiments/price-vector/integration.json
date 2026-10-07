@@ -1,0 +1,26 @@
+{
+  "executive_summary": "The user selected the exact measured best-price/numeric-vector implementation for codex/develop despite mixed historical timings. Existing correctness results are reused; this integration does not claim a new full-corpus run.",
+  "date": "2026-10-07",
+  "branch": "codex/develop",
+  "base_commit": "682c79cb3ee505be8ec0c4e83dce8f901c5cfb9b",
+  "authorization": "User: Примени эти изменения к коду в девелопе.",
+  "source_sha256": "e71ea04f678024485a3e73d68e8d89b03ceeda14b6db9537d590b19b2a4ed4fd",
+  "measured_image": "sha256:3f924d0fd1f170ce616ee28082225bdd35e00e8cefc396b28f23b3017bbffb58",
+  "reused_validation": {
+    "order_book_tests_passed": 133,
+    "simulator_runs": 18,
+    "selected_public_units": 3,
+    "exact_comparisons": 33,
+    "synthetic_domain_comparisons": 210,
+    "baseline_timing_containers_launched": 0,
+    "full_public_regression": "not_run_by_user_instruction",
+    "first_attempt": "One deepcopy key-duplication failure was fixed before any candidate timings; logs retained under out/price-vector-20261007/attempt-1."
+  },
+  "full_regression": "not repeated by explicit user scope",
+  "submission_zip": "Existing submission ZIP still points at the prior bisect image; no registry publication or repack is requested in this step.",
+  "installation_validation": {
+    "passed": true,
+    "installer_tests_passed": 21,
+    "report": "out/price-vector-integration-20261007/result.json"
+  }
+}

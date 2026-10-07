@@ -1,0 +1,3 @@
+variant,extract_sec,peak_python_heap_bytes
+before,0.14423458300007042,89487433
+after,0.0627394999974058,52132189

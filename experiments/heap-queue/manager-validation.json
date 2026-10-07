@@ -1,0 +1,11 @@
+{
+  "hypothesis": 1,
+  "source_commit": "59781f61f8e8716f515a234871bfb03a7feb3115",
+  "regression_uuid_coverage": 65,
+  "financial_hashes_vs_published_refs": 65,
+  "regression_all_passed": true,
+  "clean": true,
+  "both_trace_selected_gates": "60 independent hashes verified in heap_manager_validation.json",
+  "source_report": "/Users/iopogiba/.codex/worktrees/38bb/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/experiments/heap-queue/result.json",
+  "verdict": "preliminary_workload_specific_threshold_pass; not global adoption"
+}

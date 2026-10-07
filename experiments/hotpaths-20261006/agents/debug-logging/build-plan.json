@@ -1,0 +1,108 @@
+{
+  "dockerfile": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/Dockerfile",
+  "context": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging/candidate",
+  "image_tag": "hotpaths-debug-logging:20261006",
+  "base_image_tag": "hotpaths-base:20261006",
+  "base_image_id": null,
+  "implementation_commit": "a686ac924382c03571e6a9c7cd9612abab1679ef",
+  "units": [
+    "t3-s001-price-time-priority",
+    "t3-momentum-mix-priority",
+    "t3-mr-deep-book-state-size",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline"
+  ],
+  "acceptance_targets": [
+    "t3-momentum-mix-priority",
+    "t3-mr-deep-book-state-size"
+  ],
+  "runtime_checks": [
+    [
+      "python",
+      "/checks/runtime_checks.py",
+      "--verify-installed"
+    ]
+  ],
+  "runtime_check_mounts": [
+    {
+      "host": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging",
+      "container": "/checks",
+      "readonly": true
+    },
+    {
+      "host": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/out/debug-logging",
+      "container": "/prepared",
+      "readonly": true
+    }
+  ],
+  "runtime_check_env": {
+    "DEBUG_PREPARED": "/prepared"
+  },
+  "component_commands": [
+    [
+      "python",
+      "/checks/component_benchmark.py",
+      "--variant",
+      "baseline",
+      "--iterations",
+      "200000",
+      "--out",
+      "/evidence/0-baseline.json"
+    ],
+    [
+      "python",
+      "/checks/component_benchmark.py",
+      "--variant",
+      "candidate",
+      "--iterations",
+      "200000",
+      "--out",
+      "/evidence/0-candidate.json"
+    ],
+    [
+      "python",
+      "/checks/component_benchmark.py",
+      "--variant",
+      "candidate",
+      "--iterations",
+      "200000",
+      "--out",
+      "/evidence/1-candidate.json"
+    ],
+    [
+      "python",
+      "/checks/component_benchmark.py",
+      "--variant",
+      "baseline",
+      "--iterations",
+      "200000",
+      "--out",
+      "/evidence/1-baseline.json"
+    ],
+    [
+      "python",
+      "/checks/component_benchmark.py",
+      "--variant",
+      "baseline",
+      "--iterations",
+      "200000",
+      "--out",
+      "/evidence/2-baseline.json"
+    ],
+    [
+      "python",
+      "/checks/component_benchmark.py",
+      "--variant",
+      "candidate",
+      "--iterations",
+      "200000",
+      "--out",
+      "/evidence/2-candidate.json"
+    ]
+  ],
+  "component_note": "Run six commands sequentially with checks/prepared read-only mounts and /evidence writable; each includes 1000 warmup calls. Host preliminary samples are separate.",
+  "units_dir": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units",
+  "repeats": 3,
+  "profile": true,
+  "rankable": false
+}

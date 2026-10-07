@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/scripts/run_differential_experiment.py",
+    "run",
+    "--baseline-image",
+    "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "--candidate-image",
+    "sha256:4c35b44a353573e875a286f12f51fb1011792b3e772229a4e2c8902addc1c685",
+    "--baseline-commit",
+    "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+    "--candidate-commit",
+    "8df2c59b031b9fee6c7b468ee326a2c3acb37017",
+    "--original-baseline-image",
+    "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "--control-description",
+    "Identical CLI wrapper deletes only forbidden root profile.json after successful serial batch",
+    "--control-source-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/batch-control",
+    "--units-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units",
+    "--units",
+    "t3-s001-price-time-priority",
+    "t3-as05-oracle-variant",
+    "t3-st01-liquidity-churn-baseline",
+    "t3-mr-deep-book-state-size",
+    "t3-gbatch-homog-4",
+    "--repeats",
+    "3",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential"
+  ],
+  "cwd": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history",
+  "env_overrides": {
+    "PYTHONPATH": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history"
+  }
+}

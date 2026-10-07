@@ -1,0 +1,157 @@
+{
+  "metadata": {
+    "status": "complete",
+    "mode": "local",
+    "rankable": false,
+    "arguments": {
+      "kernel_source": null,
+      "repeats": 3,
+      "context": "colima-agenthon"
+    },
+    "created_at": "2026-10-05T17:30:00.255940+00:00",
+    "description": "Компактные записи окончательных доставок вместо списка отправлений, таблицы seq и сортировки; фиксированная причинность и отдельные получатели рассылки.",
+    "policy": {
+      "objective": "message ledger extraction time and Python heap",
+      "rows": 90000,
+      "repeats": 3,
+      "warmups": 1,
+      "acceptance": {
+        "extract_time_reduction_min": 0.1,
+        "python_heap_reduction_min": 0.1,
+        "exact_parquet": true,
+        "targeted_tests_no_skips": true
+      },
+      "container_acceptance": "separate optional compatibility check; full-simulation speed is not inferred"
+    },
+    "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "phase_seconds": {
+      "preparation": 0.006556832995556761,
+      "apply_patches": 0.10212199999659788,
+      "targeted_tests": 1.071180209000886,
+      "microbenchmark": 4.117243459004385
+    },
+    "source_sha256": {
+      "experiments/kernel_message_ledger/run.py": "df611304437a4ea28475eee574913b1760a59d0be99978598078f45b61394356",
+      "experiments/kernel_message_ledger/local.py": "ea578cb949968f24abfa2fefe213b262ac8002f4483459063c522ee16a715a7e",
+      "experiments/kernel_message_ledger/microbenchmark.py": "66ff745beebbabd038ed544408fef6e3ef4fc0c6df9b2813ba137d399c971206",
+      "experiments/kernel_message_ledger/README.md": "1a09a96213bf885d02041e5452a7f539553a24c7caff9880ba265c61adfc752a",
+      "experiments/kernel_message_ledger/legacy_kernel_message_ledger.patch": "1ea7c8bcfd33c22b20b48580f6eb55d855f8d0d4bdebb0514ed3f24409e2f455",
+      "experiments/kernel_message_ledger/.gitignore": "ac0765321538dbb803dddb414cc3714e3af333fbd80763e4451efeddbdff7ff8",
+      "experiments/kernel_message_ledger/experiment.json": "0bb52c01d73e3df5df91abb8a7e655b03479418ec697f4049cdb2e085316fe5b",
+      "experiments/kernel_message_ledger/kernel_message_ledger.patch": "65365bb54044833060b218c4d3ece0ddc23cf7fa5d6746faaaa2ab9405213e2c",
+      "experiments/kernel_message_ledger/adapter.patch": "0c5018fe84192696c92ee087c411de23d71193dead9b5636e77bb2e965ca8c9e",
+      "baselines/abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+      "baselines/patches/kernel_message_ledger.patch": "65365bb54044833060b218c4d3ece0ddc23cf7fa5d6746faaaa2ab9405213e2c",
+      "tests/test_delivery_ledger.py": "e2d859f9ea07b5ebbddda0fa7b1605dc53a762e38ec62d9315b64a946c0cb244",
+      "tests/integration/test_delivery_ledger_kernel.py": "462ac2da555d5b657849c333b0f9fa1dd70c280abea4bbb04a8e3ce94ac7325c"
+    },
+    "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "packages": {
+      "pytest": "9.1.1",
+      "pandas": "3.0.6",
+      "numpy": "2.5.3",
+      "pyarrow": "25.0.1"
+    },
+    "commit": "f910de231209ebbca060efee47fe2c41aabe4bce",
+    "upstream": {
+      "pin": "f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+      "sha256": "cd0fdd3800ba7b49da0c82d7343f09942c617b6b4b01df37e1babb964f55239e",
+      "origin": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/.cache/kernel.py"
+    },
+    "previous": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/summary.json",
+    "application": {
+      "upstream_sha256": "cd0fdd3800ba7b49da0c82d7343f09942c617b6b4b01df37e1babb964f55239e",
+      "variants": {
+        "before": {
+          "kernel": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/applied/before/abides-core/abides_core/kernel.py",
+          "kernel_sha256": "eccaf701dd118e484fda08879be808a63ab4ea2eed46e280a812bdb73ca16177",
+          "adapter": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/applied/before/baselines/abides_fork/trace.py",
+          "adapter_sha256": "c2f3dde1508b9207ee1d7d53aa64b3aff561cd8938adfa16bacc78f878f2fbb1",
+          "kernel_patch_sha256": "1ea7c8bcfd33c22b20b48580f6eb55d855f8d0d4bdebb0514ed3f24409e2f455",
+          "adapter_patch_sha256": "0c5018fe84192696c92ee087c411de23d71193dead9b5636e77bb2e965ca8c9e"
+        },
+        "after": {
+          "kernel": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/applied/after/abides-core/abides_core/kernel.py",
+          "kernel_sha256": "c2da17e2b62bac13337d9ae6a9b5182c1c6e13025789262107255aedbf2ed6b2",
+          "adapter": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/applied/after/baselines/abides_fork/trace.py",
+          "adapter_sha256": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+          "kernel_patch_sha256": "65365bb54044833060b218c4d3ece0ddc23cf7fa5d6746faaaa2ab9405213e2c",
+          "adapter_patch_sha256": "0c5018fe84192696c92ee087c411de23d71193dead9b5636e77bb2e965ca8c9e"
+        }
+      },
+      "baseline_kernel_patch_matches": true,
+      "baseline_adapter_matches": true
+    },
+    "tests": {
+      "tests": 61,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "passed": 61,
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_delivery_ledger.py",
+        "tests/integration/test_delivery_ledger_kernel.py",
+        "-o",
+        "addopts=",
+        "--junitxml",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/tests.xml",
+        "-q"
+      ]
+    },
+    "microbenchmark": {
+      "delivered_rows": 90000,
+      "undelivered_before": 900,
+      "repeats": 3,
+      "warmups": 1,
+      "samples_sec": {
+        "before": [
+          0.14423458300007042,
+          0.14677595799730625,
+          0.1416713329963386
+        ],
+        "after": [
+          0.06204004099708982,
+          0.07359208300476894,
+          0.0627394999974058
+        ]
+      },
+      "median_extract_sec": {
+        "before": 0.14423458300007042,
+        "after": 0.0627394999974058
+      },
+      "peak_python_heap_bytes": {
+        "before": 89487433,
+        "after": 52132189
+      },
+      "memory_scope": "state construction plus extraction; excludes Parquet; not RSS",
+      "time_scope": "extraction only; excludes state construction and Parquet; tracemalloc disabled",
+      "parquet_sha256": {
+        "before": "44c37ce3fbceb5f3acde7471c204473ea17d118d2a1dcfd5f85595f9abde558d",
+        "after": "44c37ce3fbceb5f3acde7471c204473ea17d118d2a1dcfd5f85595f9abde558d"
+      },
+      "parquet_bytes_equal": true,
+      "python": "3.13.3",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.6",
+        "pyarrow": "25.0.1"
+      }
+    }
+  },
+  "decision": {
+    "verdict": "делаем",
+    "scope": "extraction component and Python heap",
+    "time_reduction": 0.5650176352132195,
+    "memory_reduction": 0.4174356414939291,
+    "policy": {
+      "extract_time_reduction_min": 0.1,
+      "python_heap_reduction_min": 0.1,
+      "exact_parquet": true,
+      "targeted_tests_no_skips": true
+    },
+    "reason": "Сборка таблицы: снижение времени 56.5%; пик Python heap: снижение 41.7%. Порог каждого — 10%; все целевые тесты пройдены, Parquet совпал. Решение относится к компоненту; ускорение всей симуляции не доказано."
+  }
+}

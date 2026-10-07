@@ -1,0 +1,78 @@
+{
+  "status": "complete",
+  "development_branch": "codex/develop",
+  "integrated_implementations": [
+    6
+  ],
+  "reports_preserved": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "rankable": false,
+  "runtime_source_identity": {
+    "matches_original_base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+    "baselines_scorer_throughput_units_diff_from_base": "empty",
+    "checker_source_matches_experiment6": true
+  },
+  "fresh_differential": {
+    "command": [
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/scripts/run_differential_experiment.py",
+      "run",
+      "--baseline-image",
+      "orchestration-baseline:20261005-a5dbe46",
+      "--candidate-image",
+      "book-index:20261005",
+      "--candidate-commit",
+      "604084c",
+      "--units",
+      "t3-s001-price-time-priority",
+      "--out",
+      "out/develop-integration-20261006/differential",
+      "--no-profile"
+    ],
+    "source_commit": "b18c96a02a862bf241c4756cac917d861d8dcae4",
+    "accepted": true,
+    "units": [
+      "t3-s001-price-time-priority"
+    ],
+    "actual_runs": 8,
+    "full_developer_gate_runs": 8,
+    "exact_pair_and_stability_comparisons": 10,
+    "independent_reference_output_sha_checks": 32,
+    "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/develop-integration-20261006/differential/summary.json",
+    "report_sha256": "d3b11b002d9714ca9df142f67aa77d71c204762c5fa484b8251421b55773d82c",
+    "new_speedup_claim": false
+  },
+  "regression": {
+    "mode": "passed_saved_output_revalidation",
+    "original_simulations_attributed_to_experiment": 2,
+    "fresh_saved_output_standard_checks": 65,
+    "passed": 65,
+    "new_simulator_launches": 0,
+    "source_checkpoint_sha256": "0ea1b40314a51ee063cf831ec39b8b3a02b3047d64691edbcf2eab159e53978e",
+    "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/develop-integration-20261006/regression-revalidation/summary.json",
+    "report_sha256": "8a341bd5ae2e8d3eb2281d019385772079cef6d675cf9c79c4727658adc56ff1"
+  },
+  "book_tests": "52 passed before withdrawal; implementation subsequently left in experiment branch.",
+  "public_manifests_and_firewall": "71 passed",
+  "ruff": "passed",
+  "resolved_integration_issue": "README non-Docker install missed book_index.patch; fixed ordered recipe, targeted tests 5 passed. Original failing full-suite log retained.",
+  "raw_evidence_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/develop-integration-20261006",
+  "all71_runtime_admission_claimed": false,
+  "push_performed": false,
+  "withdrawn_implementations": [
+    2
+  ],
+  "active_runtime": "Exactly original a5dbe46 baselines; indexed patch and experimental runtime tools removed from development. Experiment branch and reports preserved.",
+  "full_tests": "364 passed, 1 existing APFS skip, 38 integration deselected, 2 subtests passed before withdrawal; unchanged checker/test source; documentation recipe tests 5 passed after withdrawal.",
+  "fresh_differential_scope": "Historical successful integration of #2+#6 before withdrawing #2; validates unchanged #6 runner, not indexed active development runtime.",
+  "current_runtime_acceptance_basis": "Original baseline nine selected dual-trace full gates already independently verified; unchanged runtime. New checker has 40 actual launch records and 22 negative controls plus fresh eight book/baseline records before withdrawal.",
+  "previous_combination_commit": "b18c96a",
+  "withdrawal_commit": "fc1c05d",
+  "raw_final_test_log_sha256": "1163387080e8245660406203f9ee2037d21feb8a7cc9adc5bc9a60630bbed708"
+}

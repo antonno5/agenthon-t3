@@ -1,0 +1,145 @@
+{
+  "rankable": false,
+  "diagnostic_only": true,
+  "python": "3.13.3",
+  "machine": "arm64",
+  "count": 20000,
+  "repeats": 7,
+  "cases": {
+    "limit": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          959.4167,
+          924.9229,
+          956.1729,
+          950.69585,
+          932.7104,
+          931.29165,
+          1373.1771
+        ],
+        "median_ns_per_op": 950.69585
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          1770.3708,
+          1670.33335,
+          1672.0708,
+          1795.8979,
+          1726.45,
+          1838.41045,
+          2008.42295
+        ],
+        "median_ns_per_op": 1770.3708
+      },
+      "ratio_before_over_after": 0.5370038016894539
+    },
+    "market": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          850.20625,
+          863.5521,
+          798.05625,
+          848.60415,
+          802.6229,
+          829.4792,
+          828.0771
+        ],
+        "median_ns_per_op": 829.4792
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          1349.8771,
+          1360.83335,
+          1346.6583,
+          1361.9,
+          1377.2021,
+          1385.16455,
+          1353.4396
+        ],
+        "median_ns_per_op": 1360.83335
+      },
+      "ratio_before_over_after": 0.6095376777766358
+    },
+    "string_tag": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          1042.06665,
+          1080.01665,
+          1073.45835,
+          1079.70625,
+          1307.76665,
+          1115.69165,
+          1072.0729
+        ],
+        "median_ns_per_op": 1079.70625
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          1604.8542,
+          1628.91665,
+          1678.41875,
+          1600.1396,
+          1621.2646,
+          1731.79165,
+          1577.46665
+        ],
+        "median_ns_per_op": 1621.2646
+      },
+      "ratio_before_over_after": 0.6659654753456037
+    },
+    "mutable_tag": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          2481.39165,
+          2555.13335,
+          2547.5,
+          2568.15625,
+          2578.29585,
+          2551.8521,
+          2541.26455
+        ],
+        "median_ns_per_op": 2551.8521
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          3490.4542,
+          3229.0104,
+          3187.4729,
+          3228.35205,
+          3163.89165,
+          3231.55415,
+          3238.4896
+        ],
+        "median_ns_per_op": 3229.0104
+      },
+      "ratio_before_over_after": 0.7902892167829499
+    },
+    "ptc_redundant_copy_ablation": {
+      "copyfields_with_three_snapshots": {
+        "raw_ns_per_op": [
+          8866.5835,
+          9531.146,
+          9340.0205,
+          8814.8125,
+          9415.521,
+          8846.375,
+          9621.396
+        ],
+        "median_ns_per_op": 9340.0205
+      },
+      "copyfields_with_two_snapshots": {
+        "raw_ns_per_op": [
+          8305.354,
+          8613.8335,
+          8552.729,
+          8191.6045,
+          8878.8125,
+          8740.9375,
+          8753.25
+        ],
+        "median_ns_per_op": 8613.8335
+      },
+      "ratio_before_over_after": 1.0843047407405773
+    }
+  }
+}

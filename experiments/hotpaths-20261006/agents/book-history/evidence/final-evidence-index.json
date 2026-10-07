@@ -1,0 +1,71 @@
+{
+  "rankable": false,
+  "artifacts": [
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/pipeline.json",
+      "sha256": "8fc5d33b6d59e0f973b7918e1fc354e75130c97e047215085a59f5c5d9ee1881"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/manager-audit.json",
+      "sha256": "be26d81fcd2ae9910254e9f158a47df19fd6541e5f7d849701c17aff0e3d5604"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/manager-audit.events.jsonl",
+      "sha256": "21e41fa5a69085e0703468683f252b65f88ae38185d441c2fcb3210f6b96e041"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/independent-source-audit.json",
+      "sha256": "e321d265c78e9b6b5ca1ca480e3b21446317b5269f487ebcb2d6af41f80e0326"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/source-audit.json",
+      "sha256": "9e5312be7d169f05054f42ab82818cb13e28cf9ead87f62bf46529f526bf88d0"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/bytecode-cache-inventory.json",
+      "sha256": "27c2db24f2a9c97455a361e75a6a6ca2a6eae152a23cea12952458b277f2d758"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/components/microbenchmark-runtime.json",
+      "sha256": "e59833700d198f0a28c80c635b6e3cbe2cf04f9042659aaa3b4690f234c9b672"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential/summary.json",
+      "sha256": "9d1ac4d61dacf84fdd8f245ff7b6cd6f8ffdd93b2ba27dd0c7723ec98c0f3357"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/manager-gate-recheck/summary.json",
+      "sha256": "7e8dc9bea834da3dc8cf9aa33b81911cc43ca97b35a3cb46ad00fdc2537bbe1b"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/regression65/report.json",
+      "sha256": "5cf1525ecdd21e0e4125630811e3ac9abca732faefb37fa48843615663025aa3"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/regression65.command.json",
+      "sha256": "1cc3357ee2fc8e5835b3053017e2a9b9121453552643ad3143f2f2c9b5c43a1e"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/differential.command.json",
+      "sha256": "f83b5b40b78d8644305387afd01af5d056f62dff2486fc7eb87afd9f039274cd"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/build.command.json",
+      "sha256": "c4942c61991907d999842b49fda18febc26b375b5826f875a2566c4fefc6c498"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/build-control.command.json",
+      "sha256": "d94619a8079496e83360f9be13a6f912413ad3751f3833a62a75c325d6dcf54a"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/runtime-00.command.json",
+      "sha256": "08c304e99f2d8509785fcf1478542fc6c679d23a2c7aeacb0013d46d0aed3558"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/component-00.command.json",
+      "sha256": "2a55132e5313171317fa17adae28920d38383d0e26bff757f6b92ca43b7c374b"
+    }
+  ],
+  "record_and_trace_sha256_bindings": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/manager-audit.json",
+  "raw_pair_paths_and_hashes": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/experiments/book-history/result.json"
+}

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/independent_source_audit.py",
+    "level-quantity"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

@@ -1,0 +1,10 @@
+{
+  "tags": {
+    "baseline": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "candidate": "sha256:63d8b523e6e8d789c404a6c103937d3b7f6cbbbb42b605304f73ddd685c28b44"
+  },
+  "ids": {
+    "baseline": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "candidate": "sha256:63d8b523e6e8d789c404a6c103937d3b7f6cbbbb42b605304f73ddd685c28b44"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "rankable": false,
+  "scope": "isolated total_quantity reads; excludes mutation overhead and full-run effects",
+  "python": "3.11.17 (main, Oct  1 2026, 21:51:14) [GCC 14.2.0]",
+  "rows": [
+    {
+      "orders_per_level": 1,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.005595517002802808,
+          0.005565838000620715,
+          0.0074179969960823655
+        ],
+        "candidate": [
+          0.0014590810023946688,
+          0.0014393509991350584,
+          0.001476534001994878
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.005595517002802808,
+        "candidate": 0.0014590810023946688
+      }
+    },
+    {
+      "orders_per_level": 10,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.013098504998197313,
+          0.012028185999952257,
+          0.011252176002017222
+        ],
+        "candidate": [
+          0.0015322839972213842,
+          0.001513711002189666,
+          0.0015640619967598468
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.012028185999952257,
+        "candidate": 0.0015322839972213842
+      }
+    },
+    {
+      "orders_per_level": 100,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.0751685040013399,
+          0.07287116199586308,
+          0.07616001900169067
+        ],
+        "candidate": [
+          0.0015331190006691031,
+          0.0015241520013660192,
+          0.0016071710051619448
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.0751685040013399,
+        "candidate": 0.0015331190006691031
+      }
+    },
+    {
+      "orders_per_level": 1000,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.7243754180017277,
+          0.6286436369991861,
+          0.6347415290001663
+        ],
+        "candidate": [
+          0.001593938999576494,
+          0.001658608001889661,
+          0.0016643089984427206
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.6347415290001663,
+        "candidate": 0.001658608001889661
+      }
+    }
+  ],
+  "source_hashes": {
+    "price_level.py": {
+      "before_sha256": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+      "after_sha256": "aa49d97ded1adf295443b1ea6417031c3d3153c8eff6e719234affe00b0508ef"
+    },
+    "order_book.py": {
+      "before_sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+      "after_sha256": "963c76210bcc6f5f892e20b8b1bb4addc1be43043b09736ce4a27b23a30300a0"
+    }
+  }
+}

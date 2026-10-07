@@ -1,0 +1,2337 @@
+{
+  "executive_summary": "Compact native event capture and revision-validated cached observations preserve exact focused journals. Final timing comparisons reuse retained baselines and are unpaired, local and non-rankable. The candidate was rejected; only the report is retained and the active engine is restored to the pre-experiment version.",
+  "complete": true,
+  "adopted": false,
+  "rankable": false,
+  "baseline_image": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+  "first_candidate_image": "sha256:881f6725ab1a5207051d7e9a0ba598eb6deaea11da2fca8d7daa4b9f687e96c3",
+  "candidate_image": "sha256:fba6999e8e924a239aed866ad6271083d46a594810ae6c9211b778300cd06200",
+  "policy": {
+    "executive_summary": "Measure a revised candidate with O(1) L2 cache validation on seven public workloads, reusing already retained baseline samples and exact journals. This final comparison is unpaired.",
+    "base_commit": "6ac9e99",
+    "baseline_id": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+    "candidate_tag": "python-book-event-observation-v4:20261007",
+    "historical_units": [
+      "t3-mp02-stp-oldest-baseline",
+      "t3-mr-deep-book-state-size",
+      "t3-mp05-cancel-churn-newest"
+    ],
+    "paired_units": [
+      "t3-s001-price-time-priority",
+      "t3-s012-partial-fill-cancel-race",
+      "t3-cancelmodify-lifecycle",
+      "t3-mp07-heavy-flow-oldest"
+    ],
+    "historical_evidence": "out/price-offset-20261007/simulations/summary.json",
+    "warmups_per_unit_per_image": 1,
+    "measured_repeats": 5,
+    "trace_mode": "buffered",
+    "untimed_verify_unit": "t3-s001-price-time-priority",
+    "untimed_batch_unit": "t3-gbatch-homog-4",
+    "resources": {
+      "context": "colima-agenthon",
+      "platform": "linux/amd64",
+      "cpus": 4,
+      "memory": "16g",
+      "network": "none",
+      "containers": "strictly sequential"
+    },
+    "validation": "Pinned-runtime book tests, guarded installation, developer gates, digests and exact ordered trace plus message ledger on every run.",
+    "rankable": false,
+    "limitations": [
+      "Historical comparisons are unpaired and cannot isolate causal speedup.",
+      "Local Mac/Rosetta measurements are not official Linux/B200 timing.",
+      "Full public regression is outside the requested focused scope."
+    ],
+    "reused_baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+    "candidate_cache_revision": "O(1) global revision check; on invalidation, compare the side fingerprint before rebuilding. Volume-cache metadata uses native list updates. Empty and single-native-order totals avoid general summation. Iterator/sort callbacks and slice replacement invalidate after completion; custom indices are resolved before queue invalidation.",
+    "candidate_source_sha256": {
+      "baselines/matching/observation.py": "455f80e93fbaa9a0e607d34a79a8f2f96f1a4851d1dc724d5bb85575889e399f",
+      "baselines/matching/price_level.py": "6e59aba660e8be99900afb40b67cc958f5d8b047946de01c4ee9af76e536d039",
+      "baselines/matching/queries.py": "a7c4feead75bc016c691d39fc57a1a6cf1c8aa28934c99d0a138f147094828ef",
+      "baselines/matching/state.py": "e018678cbdd18a73c894dc61883d99d4dab76ca66f66d6730758f465b18d899a",
+      "baselines/abides_fork/buffered_trace.py": "207551888d4216dc41a655446cd033e4966b20c565baade5f088dc55064f053e",
+      "baselines/abides_fork/event_capture.py": "e984633b1ae4113a22e13f57b6e0074dc28a32b1bc0db951005050eb8b3af319",
+      "baselines/install_event_capture.py": "227966dba41f3f453546f02038b7d4c2dcb6743c24331d60e46360d06376992c",
+      "baselines/install_matching.py": "c04124b3a54ec934b0b10e988bcb0187cdfe9185c86eb8e8e79c1eaa0dd64732"
+    }
+  },
+  "source_audit": {
+    "executive_summary": "At measurement time, installed sources matched the candidate archived in commit d7eb90a; fresh-source installation checks passed. This audit describes the measured candidate, not the restored active engine. Unrelated engine sources and import identities were unchanged.",
+    "accepted": true,
+    "changed_files": [
+      "adapter/buffered_trace.py",
+      "adapter/event_capture.py",
+      "markets/agents/exchange_agent.py",
+      "markets/agents/trading_agent.py",
+      "markets/matching/observation.py",
+      "markets/matching/price_level.py",
+      "markets/matching/queries.py",
+      "markets/matching/state.py"
+    ],
+    "identity": {
+      "order_book": "abides_markets.order_book",
+      "price_level": "abides_markets.price_level",
+      "facade_same_class": true,
+      "level_same_class": true,
+      "logger_same_object": true
+    },
+    "fresh_source_installation_passed": true
+  },
+  "validation": {
+    "runtime_tests_passed": 194,
+    "host_tests_passed": 41,
+    "first_candidate_simulator_runs": 69,
+    "final_candidate_simulator_runs": 44,
+    "final_exact_comparisons": 86,
+    "focused_single_units": 7,
+    "verify_runs": 1,
+    "batch_units": 1,
+    "full_public_regression": "omitted at user request",
+    "first_runtime_attempt": "2 failed, 174 passed: stale id-based L2 cache and incorrect test timestamp literal; both repaired and retained"
+  },
+  "workloads": [
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "paired": false,
+      "baseline_evidence": "out/price-offset-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            2.507898430998466,
+            2.6246907679997094,
+            2.4461726310000813,
+            2.457379570998455,
+            2.5465035979977984
+          ],
+          "candidate_samples": [
+            2.4901124890020583,
+            2.4947803739996743,
+            2.5356954669987317,
+            3.368937443003233,
+            2.6813099610008067
+          ],
+          "baseline_median": 2.507898430998466,
+          "candidate_median": 2.5356954669987317,
+          "baseline_mean": 2.516528999798902,
+          "candidate_mean": 2.714167146800901,
+          "time_change_percent": 1.1083796559176795,
+          "baseline_range": [
+            2.4461726310000813,
+            2.6246907679997094
+          ],
+          "candidate_range": [
+            2.4901124890020583,
+            3.368937443003233
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            2.8213855590001913,
+            2.9739713839990145,
+            2.7775241939998523,
+            2.7641362979993573,
+            2.8436600729983184
+          ],
+          "candidate_samples": [
+            2.7829529709997587,
+            2.777343577996362,
+            2.82380461700086,
+            3.8165513779968023,
+            3.0288740309988498
+          ],
+          "baseline_median": 2.8213855590001913,
+          "candidate_median": 2.82380461700086,
+          "baseline_mean": 2.8361355015993466,
+          "candidate_mean": 3.0459053149985267,
+          "time_change_percent": 0.08574007168045128,
+          "baseline_range": [
+            2.7641362979993573,
+            2.9739713839990145
+          ],
+          "candidate_range": [
+            2.777343577996362,
+            3.8165513779968023
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            3.844417828,
+            4.15752267,
+            3.928168244,
+            3.900085264,
+            3.764567501
+          ],
+          "candidate_samples": [
+            3.841004996,
+            3.816362784,
+            4.041239531,
+            4.963552369,
+            4.114582019
+          ],
+          "baseline_median": 3.900085264,
+          "candidate_median": 4.041239531,
+          "baseline_mean": 3.9189523014,
+          "candidate_mean": 4.1553483398,
+          "time_change_percent": 3.6192610531604164,
+          "baseline_range": [
+            3.764567501,
+            4.15752267
+          ],
+          "candidate_range": [
+            3.816362784,
+            4.963552369
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            2.507898430998466,
+            2.6246907679997094,
+            2.4461726310000813,
+            2.457379570998455,
+            2.5465035979977984
+          ],
+          "candidate_samples": [
+            2.360180265000963,
+            2.4349603059999936,
+            2.4603994589997455,
+            2.409344993000559,
+            2.3810476229991764
+          ],
+          "baseline_median": 2.507898430998466,
+          "candidate_median": 2.409344993000559,
+          "baseline_mean": 2.516528999798902,
+          "candidate_mean": 2.4091865292000874,
+          "time_change_percent": -3.9297220644884834,
+          "baseline_range": [
+            2.4461726310000813,
+            2.6246907679997094
+          ],
+          "candidate_range": [
+            2.360180265000963,
+            2.4603994589997455
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            2.8213855590001913,
+            2.9739713839990145,
+            2.7775241939998523,
+            2.7641362979993573,
+            2.8436600729983184
+          ],
+          "candidate_samples": [
+            2.647190578001755,
+            2.7505180910011404,
+            2.7653040180011885,
+            2.6977653990034014,
+            2.761200713001017
+          ],
+          "baseline_median": 2.8213855590001913,
+          "candidate_median": 2.7505180910011404,
+          "baseline_mean": 2.8361355015993466,
+          "candidate_mean": 2.7243957598017006,
+          "time_change_percent": -2.511796651577247,
+          "baseline_range": [
+            2.7641362979993573,
+            2.9739713839990145
+          ],
+          "candidate_range": [
+            2.647190578001755,
+            2.7653040180011885
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            3.844417828,
+            4.15752267,
+            3.928168244,
+            3.900085264,
+            3.764567501
+          ],
+          "candidate_samples": [
+            3.559242554,
+            3.787429221,
+            3.857117105,
+            3.720369843,
+            3.790593468
+          ],
+          "baseline_median": 3.900085264,
+          "candidate_median": 3.787429221,
+          "baseline_mean": 3.9189523014,
+          "candidate_mean": 3.7429504382,
+          "time_change_percent": -2.888553335997013,
+          "baseline_range": [
+            3.764567501,
+            4.15752267
+          ],
+          "candidate_range": [
+            3.559242554,
+            3.857117105
+          ]
+        }
+      },
+      "events": 72049,
+      "messages": 63623
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "paired": false,
+      "baseline_evidence": "out/price-offset-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            14.645861724002316,
+            14.144793769999524,
+            13.956737945998611,
+            14.038577792001888,
+            13.535761859999184
+          ],
+          "candidate_samples": [
+            17.32954898799653,
+            17.448982171001262,
+            17.06393853600457,
+            15.096094565997191,
+            15.873567433001881
+          ],
+          "baseline_median": 14.038577792001888,
+          "candidate_median": 17.06393853600457,
+          "baseline_mean": 14.064346618400304,
+          "candidate_mean": 16.562426338800286,
+          "time_change_percent": 21.55033642885322,
+          "baseline_range": [
+            13.535761859999184,
+            14.645861724002316
+          ],
+          "candidate_range": [
+            15.096094565997191,
+            17.448982171001262
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            15.540647575002367,
+            15.024391463997745,
+            14.848180431999936,
+            14.935198849001608,
+            14.4464594150013
+          ],
+          "candidate_samples": [
+            18.41735646599409,
+            18.453811714003677,
+            18.13115632699919,
+            16.087007017995347,
+            16.92059892600082
+          ],
+          "baseline_median": 14.935198849001608,
+          "candidate_median": 18.13115632699919,
+          "baseline_mean": 14.958975547000591,
+          "candidate_mean": 17.601986090198626,
+          "time_change_percent": 21.398827764594675,
+          "baseline_range": [
+            14.4464594150013,
+            15.540647575002367
+          ],
+          "candidate_range": [
+            16.087007017995347,
+            18.453811714003677
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            16.551971088,
+            16.152406686,
+            16.015721975,
+            16.076752154,
+            15.568353571
+          ],
+          "candidate_samples": [
+            19.562330196,
+            19.971105885,
+            19.881445786,
+            17.196167516,
+            18.395572209
+          ],
+          "baseline_median": 16.076752154,
+          "candidate_median": 19.562330196,
+          "baseline_mean": 16.0730410948,
+          "candidate_mean": 19.001324318400002,
+          "time_change_percent": 21.68085947093963,
+          "baseline_range": [
+            15.568353571,
+            16.551971088
+          ],
+          "candidate_range": [
+            17.196167516,
+            19.971105885
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            14.645861724002316,
+            14.144793769999524,
+            13.956737945998611,
+            14.038577792001888,
+            13.535761859999184
+          ],
+          "candidate_samples": [
+            13.52369874100259,
+            13.668402544997662,
+            13.603171938000742,
+            13.819724772998597,
+            13.678761809002026
+          ],
+          "baseline_median": 14.038577792001888,
+          "candidate_median": 13.668402544997662,
+          "baseline_mean": 14.064346618400304,
+          "candidate_mean": 13.658751961200323,
+          "time_change_percent": -2.636842937289019,
+          "baseline_range": [
+            13.535761859999184,
+            14.645861724002316
+          ],
+          "candidate_range": [
+            13.52369874100259,
+            13.819724772998597
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            15.540647575002367,
+            15.024391463997745,
+            14.848180431999936,
+            14.935198849001608,
+            14.4464594150013
+          ],
+          "candidate_samples": [
+            14.49885099200037,
+            14.587677095001709,
+            14.564018774999568,
+            14.781262043001334,
+            14.654608147000545
+          ],
+          "baseline_median": 14.935198849001608,
+          "candidate_median": 14.587677095001709,
+          "baseline_mean": 14.958975547000591,
+          "candidate_mean": 14.617283410400706,
+          "time_change_percent": -2.326863924032252,
+          "baseline_range": [
+            14.4464594150013,
+            15.540647575002367
+          ],
+          "candidate_range": [
+            14.49885099200037,
+            14.781262043001334
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            16.551971088,
+            16.152406686,
+            16.015721975,
+            16.076752154,
+            15.568353571
+          ],
+          "candidate_samples": [
+            15.39989117,
+            15.72116612,
+            15.661735189,
+            15.731738387,
+            15.566624242
+          ],
+          "baseline_median": 16.076752154,
+          "candidate_median": 15.661735189,
+          "baseline_mean": 16.0730410948,
+          "candidate_mean": 15.616231021599999,
+          "time_change_percent": -2.581472681948027,
+          "baseline_range": [
+            15.568353571,
+            16.551971088
+          ],
+          "candidate_range": [
+            15.39989117,
+            15.731738387
+          ]
+        }
+      },
+      "events": 319488,
+      "messages": 269644
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "paired": false,
+      "baseline_evidence": "out/price-offset-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            9.289383364000969,
+            8.056023512999673,
+            8.1963130059994,
+            9.505618522998702,
+            8.172633113001211
+          ],
+          "candidate_samples": [
+            11.174759147994337,
+            10.175387324998155,
+            9.468925016000867,
+            10.13816151300125,
+            9.165906572001404
+          ],
+          "baseline_median": 8.1963130059994,
+          "candidate_median": 10.13816151300125,
+          "baseline_mean": 8.64399430379999,
+          "candidate_mean": 10.024627914799202,
+          "time_change_percent": 23.691731948017214,
+          "baseline_range": [
+            8.056023512999673,
+            9.505618522998702
+          ],
+          "candidate_range": [
+            9.165906572001404,
+            11.174759147994337
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            10.18603644399991,
+            8.798903773000347,
+            8.927771989001485,
+            10.262455547999707,
+            8.895122254001762
+          ],
+          "candidate_samples": [
+            12.069537588002277,
+            11.011043629994674,
+            10.24306517399964,
+            10.994595944001048,
+            9.974713907999103
+          ],
+          "baseline_median": 8.927771989001485,
+          "candidate_median": 10.994595944001048,
+          "baseline_mean": 9.414058001600642,
+          "candidate_mean": 10.858591248799348,
+          "time_change_percent": 23.150501127781652,
+          "baseline_range": [
+            8.798903773000347,
+            10.262455547999707
+          ],
+          "candidate_range": [
+            9.974713907999103,
+            12.069537588002277
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            11.75142361,
+            9.917517386,
+            10.043089977,
+            11.261785725,
+            10.105986109
+          ],
+          "candidate_samples": [
+            13.581762865,
+            13.171443454,
+            11.729932392,
+            12.986293053,
+            11.254980751
+          ],
+          "baseline_median": 10.105986109,
+          "candidate_median": 12.986293053,
+          "baseline_mean": 10.6159605614,
+          "candidate_mean": 12.544882503,
+          "time_change_percent": 28.500998447196668,
+          "baseline_range": [
+            9.917517386,
+            11.75142361
+          ],
+          "candidate_range": [
+            11.254980751,
+            13.581762865
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            9.289383364000969,
+            8.056023512999673,
+            8.1963130059994,
+            9.505618522998702,
+            8.172633113001211
+          ],
+          "candidate_samples": [
+            8.037465403001988,
+            8.09294064599817,
+            8.034599298000103,
+            8.132778553997923,
+            7.9853462430000945
+          ],
+          "baseline_median": 8.1963130059994,
+          "candidate_median": 8.037465403001988,
+          "baseline_mean": 8.64399430379999,
+          "candidate_mean": 8.056626028799656,
+          "time_change_percent": -1.9380372965398074,
+          "baseline_range": [
+            8.056023512999673,
+            9.505618522998702
+          ],
+          "candidate_range": [
+            7.9853462430000945,
+            8.132778553997923
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            10.18603644399991,
+            8.798903773000347,
+            8.927771989001485,
+            10.262455547999707,
+            8.895122254001762
+          ],
+          "candidate_samples": [
+            8.77883878799912,
+            8.793682511997758,
+            8.762136081997596,
+            8.870302742001513,
+            8.829470101001789
+          ],
+          "baseline_median": 8.927771989001485,
+          "candidate_median": 8.793682511997758,
+          "baseline_mean": 9.414058001600642,
+          "candidate_mean": 8.806886044999555,
+          "time_change_percent": -1.5019366216892371,
+          "baseline_range": [
+            8.798903773000347,
+            10.262455547999707
+          ],
+          "candidate_range": [
+            8.762136081997596,
+            8.870302742001513
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            11.75142361,
+            9.917517386,
+            10.043089977,
+            11.261785725,
+            10.105986109
+          ],
+          "candidate_samples": [
+            9.739986755,
+            9.771325304,
+            9.749152914,
+            9.893522149,
+            9.814064082
+          ],
+          "baseline_median": 10.105986109,
+          "candidate_median": 9.771325304,
+          "baseline_mean": 10.6159605614,
+          "candidate_mean": 9.7936102408,
+          "time_change_percent": -3.3115106372644254,
+          "baseline_range": [
+            9.917517386,
+            11.75142361
+          ],
+          "candidate_range": [
+            9.739986755,
+            9.893522149
+          ]
+        }
+      },
+      "events": 240829,
+      "messages": 205166
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "paired": false,
+      "baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            0.06435941800009459,
+            0.05651803200089489,
+            0.05675232000066899,
+            0.057877480998286046,
+            0.05872899600217352
+          ],
+          "candidate_samples": [
+            0.09200251099537127,
+            0.08168003000173485,
+            0.08314860700193094,
+            0.05930752800486516,
+            0.05854380000528181
+          ],
+          "baseline_median": 0.057877480998286046,
+          "candidate_median": 0.08168003000173485,
+          "baseline_mean": 0.05884724940042361,
+          "candidate_mean": 0.0749364952018368,
+          "time_change_percent": 41.12575148900084,
+          "baseline_range": [
+            0.05651803200089489,
+            0.06435941800009459
+          ],
+          "candidate_range": [
+            0.05854380000528181,
+            0.09200251099537127
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            0.20141592800064245,
+            0.16650282200134825,
+            0.1637157080003817,
+            0.1680276449988014,
+            0.18029126900000847
+          ],
+          "candidate_samples": [
+            0.2963290390034672,
+            0.24656018600217067,
+            0.2576281440051389,
+            0.18538432000059402,
+            0.1771437639981741
+          ],
+          "baseline_median": 0.1680276449988014,
+          "candidate_median": 0.24656018600217067,
+          "baseline_mean": 0.17599067440023647,
+          "candidate_mean": 0.23260909060190899,
+          "time_change_percent": 46.737869238082496,
+          "baseline_range": [
+            0.1637157080003817,
+            0.20141592800064245
+          ],
+          "candidate_range": [
+            0.1771437639981741,
+            0.2963290390034672
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            1.281257927,
+            1.151484272,
+            1.079096135,
+            1.182553241,
+            1.190029338
+          ],
+          "candidate_samples": [
+            1.91157849,
+            1.523114999,
+            1.936930225,
+            1.267606767,
+            1.257593718
+          ],
+          "baseline_median": 1.182553241,
+          "candidate_median": 1.523114999,
+          "baseline_mean": 1.1768841826,
+          "candidate_mean": 1.5793648398,
+          "time_change_percent": 28.79885202564001,
+          "baseline_range": [
+            1.079096135,
+            1.281257927
+          ],
+          "candidate_range": [
+            1.257593718,
+            1.936930225
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            0.06435941800009459,
+            0.05651803200089489,
+            0.05675232000066899,
+            0.057877480998286046,
+            0.05872899600217352
+          ],
+          "candidate_samples": [
+            0.05644903400025214,
+            0.05972204200224951,
+            0.05749435400139191,
+            0.05758410099952016,
+            0.058441332999791484
+          ],
+          "baseline_median": 0.057877480998286046,
+          "candidate_median": 0.05758410099952016,
+          "baseline_mean": 0.05884724940042361,
+          "candidate_mean": 0.05793817280064104,
+          "time_change_percent": -0.5068983544300631,
+          "baseline_range": [
+            0.05651803200089489,
+            0.06435941800009459
+          ],
+          "candidate_range": [
+            0.05644903400025214,
+            0.05972204200224951
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            0.20141592800064245,
+            0.16650282200134825,
+            0.1637157080003817,
+            0.1680276449988014,
+            0.18029126900000847
+          ],
+          "candidate_samples": [
+            0.1647246130014537,
+            0.1679181340005016,
+            0.16697068299981765,
+            0.16573733199766139,
+            0.1643618379966938
+          ],
+          "baseline_median": 0.1680276449988014,
+          "candidate_median": 0.16573733199766139,
+          "baseline_mean": 0.17599067440023647,
+          "candidate_mean": 0.16594251999922563,
+          "time_change_percent": -1.363057252368416,
+          "baseline_range": [
+            0.1637157080003817,
+            0.20141592800064245
+          ],
+          "candidate_range": [
+            0.1643618379966938,
+            0.1679181340005016
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            1.281257927,
+            1.151484272,
+            1.079096135,
+            1.182553241,
+            1.190029338
+          ],
+          "candidate_samples": [
+            1.166887185,
+            1.210355755,
+            1.164084131,
+            1.194177115,
+            1.161821229
+          ],
+          "baseline_median": 1.182553241,
+          "candidate_median": 1.166887185,
+          "baseline_mean": 1.1768841826,
+          "candidate_mean": 1.179465083,
+          "time_change_percent": -1.32476538534132,
+          "baseline_range": [
+            1.079096135,
+            1.281257927
+          ],
+          "candidate_range": [
+            1.161821229,
+            1.210355755
+          ]
+        }
+      },
+      "events": 604,
+      "messages": 664
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "paired": false,
+      "baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            7.030146701999911,
+            6.976425028999074,
+            6.964644861000124,
+            6.966729144995043,
+            7.089721726995776
+          ],
+          "candidate_samples": [
+            7.543266546999803,
+            8.223689346996252,
+            9.061753338995914,
+            9.194759017998877,
+            8.787576795002678
+          ],
+          "baseline_median": 6.976425028999074,
+          "candidate_median": 8.787576795002678,
+          "baseline_mean": 7.005533492797985,
+          "candidate_mean": 8.562209009198705,
+          "time_change_percent": 25.961029588580775,
+          "baseline_range": [
+            6.964644861000124,
+            7.089721726995776
+          ],
+          "candidate_range": [
+            7.543266546999803,
+            9.194759017998877
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            7.703838579996955,
+            7.610156612998253,
+            7.612438849999307,
+            7.65719120400172,
+            7.721891305001918
+          ],
+          "candidate_samples": [
+            8.222717002994614,
+            8.883448541004327,
+            10.121679317999224,
+            10.07928168700164,
+            9.534668269006943
+          ],
+          "baseline_median": 7.65719120400172,
+          "candidate_median": 9.534668269006943,
+          "baseline_mean": 7.66110331039963,
+          "candidate_mean": 9.368358963601349,
+          "time_change_percent": 24.519135215325917,
+          "baseline_range": [
+            7.610156612998253,
+            7.721891305001918
+          ],
+          "candidate_range": [
+            8.222717002994614,
+            10.121679317999224
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            8.716875388,
+            8.647731376,
+            8.592536919,
+            8.72315067,
+            8.643963445
+          ],
+          "candidate_samples": [
+            9.475957559,
+            10.3943841,
+            11.834747237,
+            11.489000164,
+            10.74930735
+          ],
+          "baseline_median": 8.647731376,
+          "candidate_median": 10.74930735,
+          "baseline_mean": 8.6648515596,
+          "candidate_mean": 10.788679282,
+          "time_change_percent": 24.30204966625691,
+          "baseline_range": [
+            8.592536919,
+            8.72315067
+          ],
+          "candidate_range": [
+            9.475957559,
+            11.834747237
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            7.030146701999911,
+            6.976425028999074,
+            6.964644861000124,
+            6.966729144995043,
+            7.089721726995776
+          ],
+          "candidate_samples": [
+            6.817160178001359,
+            6.77978580999843,
+            6.7869490339980985,
+            6.752530548998038,
+            6.70917647999886
+          ],
+          "baseline_median": 6.976425028999074,
+          "candidate_median": 6.77978580999843,
+          "baseline_mean": 7.005533492797985,
+          "candidate_mean": 6.769120410198957,
+          "time_change_percent": -2.8186244126937487,
+          "baseline_range": [
+            6.964644861000124,
+            7.089721726995776
+          ],
+          "candidate_range": [
+            6.70917647999886,
+            6.817160178001359
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            7.703838579996955,
+            7.610156612998253,
+            7.612438849999307,
+            7.65719120400172,
+            7.721891305001918
+          ],
+          "candidate_samples": [
+            7.482688194999355,
+            7.404777764000755,
+            7.410516182997526,
+            7.395474723998632,
+            7.351378311002918
+          ],
+          "baseline_median": 7.65719120400172,
+          "candidate_median": 7.404777764000755,
+          "baseline_mean": 7.66110331039963,
+          "candidate_mean": 7.408967035399837,
+          "time_change_percent": -3.2964233656468056,
+          "baseline_range": [
+            7.610156612998253,
+            7.721891305001918
+          ],
+          "candidate_range": [
+            7.351378311002918,
+            7.482688194999355
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            8.716875388,
+            8.647731376,
+            8.592536919,
+            8.72315067,
+            8.643963445
+          ],
+          "candidate_samples": [
+            8.408350481,
+            8.342679407,
+            8.388627155,
+            8.281484513,
+            8.345629527
+          ],
+          "baseline_median": 8.647731376,
+          "candidate_median": 8.345629527,
+          "baseline_mean": 8.6648515596,
+          "candidate_mean": 8.3533542166,
+          "time_change_percent": -3.4934231402980576,
+          "baseline_range": [
+            8.592536919,
+            8.72315067
+          ],
+          "candidate_range": [
+            8.281484513,
+            8.408350481
+          ]
+        }
+      },
+      "events": 202291,
+      "messages": 178236
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "paired": false,
+      "baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            5.995230061002076,
+            6.215470774004643,
+            6.03187684599834,
+            5.901685772994824,
+            6.088948036005604
+          ],
+          "candidate_samples": [
+            8.005464237001434,
+            7.435375796005246,
+            6.083475085004466,
+            6.056884019002609,
+            6.7820128349994775
+          ],
+          "baseline_median": 6.03187684599834,
+          "candidate_median": 6.7820128349994775,
+          "baseline_mean": 6.046642298001098,
+          "candidate_mean": 6.8726423944026465,
+          "time_change_percent": 12.436195369253799,
+          "baseline_range": [
+            5.901685772994824,
+            6.215470774004643
+          ],
+          "candidate_range": [
+            6.056884019002609,
+            8.005464237001434
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            6.572400860997732,
+            6.7389239559997804,
+            6.549008173002221,
+            6.460592900002666,
+            6.631122206999862
+          ],
+          "candidate_samples": [
+            8.628562789002899,
+            7.995383567002136,
+            6.699954497002182,
+            6.628887133003445,
+            7.3870614179977565
+          ],
+          "baseline_median": 6.572400860997732,
+          "candidate_median": 7.3870614179977565,
+          "baseline_mean": 6.590409619400452,
+          "candidate_mean": 7.467969880801684,
+          "time_change_percent": 12.39517452190757,
+          "baseline_range": [
+            6.460592900002666,
+            6.7389239559997804
+          ],
+          "candidate_range": [
+            6.628887133003445,
+            8.628562789002899
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            7.661903264,
+            7.739581273,
+            7.602236082,
+            7.508833116,
+            7.552068756
+          ],
+          "candidate_samples": [
+            10.073928258,
+            9.358086119,
+            7.855251782,
+            7.844903503,
+            8.485089302
+          ],
+          "baseline_median": 7.602236082,
+          "candidate_median": 8.485089302,
+          "baseline_mean": 7.6129244982,
+          "candidate_mean": 8.7234517928,
+          "time_change_percent": 11.613072923246271,
+          "baseline_range": [
+            7.508833116,
+            7.739581273
+          ],
+          "candidate_range": [
+            7.844903503,
+            10.073928258
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            5.995230061002076,
+            6.215470774004643,
+            6.03187684599834,
+            5.901685772994824,
+            6.088948036005604
+          ],
+          "candidate_samples": [
+            5.886754234001273,
+            5.8716626099994755,
+            5.919140582998807,
+            5.864071205003711,
+            5.855953727994347
+          ],
+          "baseline_median": 6.03187684599834,
+          "candidate_median": 5.8716626099994755,
+          "baseline_mean": 6.046642298001098,
+          "candidate_mean": 5.879516471999523,
+          "time_change_percent": -2.6561257812343086,
+          "baseline_range": [
+            5.901685772994824,
+            6.215470774004643
+          ],
+          "candidate_range": [
+            5.855953727994347,
+            5.919140582998807
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            6.572400860997732,
+            6.7389239559997804,
+            6.549008173002221,
+            6.460592900002666,
+            6.631122206999862
+          ],
+          "candidate_samples": [
+            6.413244139999733,
+            6.386526194000908,
+            6.525946813999326,
+            6.443527647003066,
+            6.3883945049965405
+          ],
+          "baseline_median": 6.572400860997732,
+          "candidate_median": 6.413244139999733,
+          "baseline_mean": 6.590409619400452,
+          "candidate_mean": 6.431527859999915,
+          "time_change_percent": -2.421591810421575,
+          "baseline_range": [
+            6.460592900002666,
+            6.7389239559997804
+          ],
+          "candidate_range": [
+            6.386526194000908,
+            6.525946813999326
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            7.661903264,
+            7.739581273,
+            7.602236082,
+            7.508833116,
+            7.552068756
+          ],
+          "candidate_samples": [
+            7.458353166,
+            7.320299057,
+            7.590907477,
+            7.506739641,
+            7.312997143
+          ],
+          "baseline_median": 7.602236082,
+          "candidate_median": 7.458353166,
+          "baseline_mean": 7.6129244982,
+          "candidate_mean": 7.4378592968,
+          "time_change_percent": -1.8926394083008669,
+          "baseline_range": [
+            7.508833116,
+            7.739581273
+          ],
+          "candidate_range": [
+            7.312997143,
+            7.590907477
+          ]
+        }
+      },
+      "events": 161529,
+      "messages": 142462
+    },
+    {
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "paired": false,
+      "baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+      "metrics": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            2.581598758006294,
+            2.5764006419994985,
+            2.5915842310059816,
+            2.595103380997898,
+            2.6264355829989654
+          ],
+          "candidate_samples": [
+            2.9407868519992917,
+            3.047784408001462,
+            5.055883333996462,
+            5.0330537330009975,
+            3.6217112340018502
+          ],
+          "baseline_median": 2.5915842310059816,
+          "candidate_median": 3.6217112340018502,
+          "baseline_mean": 2.5942245190017275,
+          "candidate_mean": 3.9398439122000126,
+          "time_change_percent": 39.74893004330413,
+          "baseline_range": [
+            2.5764006419994985,
+            2.6264355829989654
+          ],
+          "candidate_range": [
+            2.9407868519992917,
+            5.055883333996462
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            2.8743898659959086,
+            2.8831676059999154,
+            2.9038835169994854,
+            2.880241622995527,
+            2.9932623260028777
+          ],
+          "candidate_samples": [
+            3.295021544006886,
+            3.5212659140015603,
+            5.508335425998666,
+            5.44434937099868,
+            4.093105772000854
+          ],
+          "baseline_median": 2.8831676059999154,
+          "candidate_median": 4.093105772000854,
+          "baseline_mean": 2.906988987598743,
+          "candidate_mean": 4.372415605401329,
+          "time_change_percent": 41.96558547213971,
+          "baseline_range": [
+            2.8743898659959086,
+            2.9932623260028777
+          ],
+          "candidate_range": [
+            3.295021544006886,
+            5.508335425998666
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            3.962988505,
+            3.950637364,
+            3.940961072,
+            3.764475353,
+            4.106860133
+          ],
+          "candidate_samples": [
+            4.494266602,
+            4.742209901,
+            7.322314469,
+            7.216874612,
+            5.774684385
+          ],
+          "baseline_median": 3.950637364,
+          "candidate_median": 5.774684385,
+          "baseline_mean": 3.9451844854,
+          "candidate_mean": 5.9100699938,
+          "time_change_percent": 46.170955543061076,
+          "baseline_range": [
+            3.764475353,
+            4.106860133
+          ],
+          "candidate_range": [
+            4.494266602,
+            7.322314469
+          ]
+        }
+      },
+      "first_candidate": {
+        "simulation_seconds": {
+          "baseline_samples": [
+            2.581598758006294,
+            2.5764006419994985,
+            2.5915842310059816,
+            2.595103380997898,
+            2.6264355829989654
+          ],
+          "candidate_samples": [
+            2.5766603860029136,
+            2.598318812000798,
+            2.5447601420019055,
+            2.5735394270013785,
+            2.5173299059970304
+          ],
+          "baseline_median": 2.5915842310059816,
+          "candidate_median": 2.5735394270013785,
+          "baseline_mean": 2.5942245190017275,
+          "candidate_mean": 2.5621217346008054,
+          "time_change_percent": -0.6962846813432955,
+          "baseline_range": [
+            2.5764006419994985,
+            2.6264355829989654
+          ],
+          "candidate_range": [
+            2.5173299059970304,
+            2.598318812000798
+          ]
+        },
+        "adapter_seconds": {
+          "baseline_samples": [
+            2.8743898659959086,
+            2.8831676059999154,
+            2.9038835169994854,
+            2.880241622995527,
+            2.9932623260028777
+          ],
+          "candidate_samples": [
+            2.9047902970050927,
+            2.8984984969938523,
+            2.8325544399995124,
+            2.901105491000635,
+            2.808814779004024
+          ],
+          "baseline_median": 2.8831676059999154,
+          "candidate_median": 2.8984984969938523,
+          "baseline_mean": 2.906988987598743,
+          "candidate_mean": 2.8691527008006235,
+          "time_change_percent": 0.531737765159157,
+          "baseline_range": [
+            2.8743898659959086,
+            2.9932623260028777
+          ],
+          "candidate_range": [
+            2.808814779004024,
+            2.9047902970050927
+          ]
+        },
+        "container_seconds": {
+          "baseline_samples": [
+            3.962988505,
+            3.950637364,
+            3.940961072,
+            3.764475353,
+            4.106860133
+          ],
+          "candidate_samples": [
+            3.946450155,
+            3.947284802,
+            3.724968366,
+            3.973628024,
+            3.704649838
+          ],
+          "baseline_median": 3.950637364,
+          "candidate_median": 3.946450155,
+          "baseline_mean": 3.9451844854,
+          "candidate_mean": 3.859396237,
+          "time_change_percent": -0.10598818909970387,
+          "baseline_range": [
+            3.764475353,
+            4.106860133
+          ],
+          "candidate_range": [
+            3.704649838,
+            3.973628024
+          ]
+        }
+      },
+      "events": 72036,
+      "messages": 64131
+    }
+  ],
+  "performance_assessment": "No demonstrated overall speedup. The final historical medians are slower on all seven workloads. The correctness-checked candidate was rejected and removed from the active engine; only the report is retained. Comparisons are unpaired and the interrupted schedule had large variance.",
+  "pre_final_revision": {
+    "image": "sha256:bace18a8b152f907addf365b4e98997e7b8f2d91838b5c9fb0d3360e165d1343",
+    "policy": {
+      "executive_summary": "Measure a revised candidate with O(1) L2 cache validation on seven public workloads, reusing already retained baseline samples and exact journals. This final comparison is unpaired.",
+      "base_commit": "6ac9e99",
+      "baseline_id": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+      "candidate_tag": "python-book-event-observation-v3:20261007",
+      "historical_units": [
+        "t3-mp02-stp-oldest-baseline",
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest"
+      ],
+      "paired_units": [
+        "t3-s001-price-time-priority",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-cancelmodify-lifecycle",
+        "t3-mp07-heavy-flow-oldest"
+      ],
+      "historical_evidence": "out/price-offset-20261007/simulations/summary.json",
+      "warmups_per_unit_per_image": 1,
+      "measured_repeats": 5,
+      "trace_mode": "buffered",
+      "untimed_verify_unit": "t3-s001-price-time-priority",
+      "untimed_batch_unit": "t3-gbatch-homog-4",
+      "resources": {
+        "context": "colima-agenthon",
+        "platform": "linux/amd64",
+        "cpus": 4,
+        "memory": "16g",
+        "network": "none",
+        "containers": "strictly sequential"
+      },
+      "validation": "Pinned-runtime book tests, guarded installation, developer gates, digests and exact ordered trace plus message ledger on every run.",
+      "rankable": false,
+      "limitations": [
+        "Historical comparisons are unpaired and cannot isolate causal speedup.",
+        "Local Mac/Rosetta measurements are not official Linux/B200 timing.",
+        "Full public regression is outside the requested focused scope."
+      ],
+      "reused_baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+      "candidate_cache_revision": "O(1) global revision check; on invalidation, compare the side fingerprint before rebuilding. Volume-cache metadata uses native list updates. Empty and single-native-order totals avoid general summation.",
+      "candidate_source_sha256": {
+        "baselines/matching/observation.py": "b4318ca00c5c5a9fd9c3c206c06261ae97798be83d6f7728b5c01929c1cbafba",
+        "baselines/matching/price_level.py": "6e59aba660e8be99900afb40b67cc958f5d8b047946de01c4ee9af76e536d039",
+        "baselines/matching/queries.py": "a7c4feead75bc016c691d39fc57a1a6cf1c8aa28934c99d0a138f147094828ef",
+        "baselines/matching/state.py": "915a8abdc0c208cedf34ec0a38ad93cfa946241f0c0cbf269229139c278ea90a",
+        "baselines/abides_fork/buffered_trace.py": "207551888d4216dc41a655446cd033e4966b20c565baade5f088dc55064f053e",
+        "baselines/abides_fork/event_capture.py": "e984633b1ae4113a22e13f57b6e0074dc28a32b1bc0db951005050eb8b3af319",
+        "baselines/install_event_capture.py": "227966dba41f3f453546f02038b7d4c2dcb6743c24331d60e46360d06376992c",
+        "baselines/install_matching.py": "c04124b3a54ec934b0b10e988bcb0187cdfe9185c86eb8e8e79c1eaa0dd64732"
+      }
+    },
+    "complete": true,
+    "timing_samples": [
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 0,
+        "simulation_seconds": 2.927655508996395,
+        "adapter_seconds": 3.2936926140027936,
+        "container_seconds": 4.300430263
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 1,
+        "simulation_seconds": 2.5603825049984152,
+        "adapter_seconds": 2.84531117399456,
+        "container_seconds": 4.033698169
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 2,
+        "simulation_seconds": 2.5630616409980576,
+        "adapter_seconds": 2.8534833769954275,
+        "container_seconds": 3.717418487
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 3,
+        "simulation_seconds": 2.4744910700028413,
+        "adapter_seconds": 2.7722627359980834,
+        "container_seconds": 3.811860516
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 4,
+        "simulation_seconds": 2.537249224995321,
+        "adapter_seconds": 2.831818963997648,
+        "container_seconds": 3.797444616
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 0,
+        "simulation_seconds": 13.835979174000386,
+        "adapter_seconds": 14.805838093998318,
+        "container_seconds": 15.818031244
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 1,
+        "simulation_seconds": 13.92751860399585,
+        "adapter_seconds": 14.858831642995938,
+        "container_seconds": 16.04990434
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 2,
+        "simulation_seconds": 13.844317174996831,
+        "adapter_seconds": 14.865492051001638,
+        "container_seconds": 15.820765756
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 3,
+        "simulation_seconds": 14.259634629001084,
+        "adapter_seconds": 15.173080968997965,
+        "container_seconds": 16.257492146
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 4,
+        "simulation_seconds": 18.08500528299919,
+        "adapter_seconds": 19.35728149100032,
+        "container_seconds": 20.594136593
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 0,
+        "simulation_seconds": 8.49540532699757,
+        "adapter_seconds": 9.270784385000297,
+        "container_seconds": 10.368129993
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 1,
+        "simulation_seconds": 8.292555054998957,
+        "adapter_seconds": 9.068835334997857,
+        "container_seconds": 10.310013528
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 2,
+        "simulation_seconds": 8.270518097000604,
+        "adapter_seconds": 9.078707548003877,
+        "container_seconds": 10.125388519
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 3,
+        "simulation_seconds": 8.401980135997292,
+        "adapter_seconds": 9.15734868200525,
+        "container_seconds": 10.28931787
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 4,
+        "simulation_seconds": 8.269025730995054,
+        "adapter_seconds": 9.114637195998512,
+        "container_seconds": 10.271911103
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 0,
+        "simulation_seconds": 0.0641358630018658,
+        "adapter_seconds": 0.19963018300040858,
+        "container_seconds": 1.211570688
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 1,
+        "simulation_seconds": 0.05995563400210813,
+        "adapter_seconds": 0.18729564100067364,
+        "container_seconds": 1.27635733
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 2,
+        "simulation_seconds": 0.057367075998627115,
+        "adapter_seconds": 0.1663361699975212,
+        "container_seconds": 1.150340662
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 3,
+        "simulation_seconds": 0.056653709994861856,
+        "adapter_seconds": 0.17283120299543953,
+        "container_seconds": 1.180764832
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 4,
+        "simulation_seconds": 0.05892789000063203,
+        "adapter_seconds": 0.23903873899689643,
+        "container_seconds": 1.329162641
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "index": 0,
+        "simulation_seconds": 7.248467622004682,
+        "adapter_seconds": 7.904912985002738,
+        "container_seconds": 8.939933753
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "index": 1,
+        "simulation_seconds": 7.029644872003701,
+        "adapter_seconds": 7.640473810999538,
+        "container_seconds": 8.676833746
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "index": 2,
+        "simulation_seconds": 8.837466816003143,
+        "adapter_seconds": 9.864794993001851,
+        "container_seconds": 11.069641489
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "index": 3,
+        "simulation_seconds": 8.470263276001788,
+        "adapter_seconds": 9.14167389299837,
+        "container_seconds": 10.226692961
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "index": 4,
+        "simulation_seconds": 7.723795555000834,
+        "adapter_seconds": 8.423650919001375,
+        "container_seconds": 9.593334099
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "index": 0,
+        "simulation_seconds": 6.589315588003956,
+        "adapter_seconds": 7.138944723003078,
+        "container_seconds": 8.309892686
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "index": 1,
+        "simulation_seconds": 6.934394494004664,
+        "adapter_seconds": 7.488180590997217,
+        "container_seconds": 8.708321227
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "index": 2,
+        "simulation_seconds": 6.2617209070012905,
+        "adapter_seconds": 6.833376898001006,
+        "container_seconds": 8.140459793
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "index": 3,
+        "simulation_seconds": 6.146242216003884,
+        "adapter_seconds": 6.762510218002717,
+        "container_seconds": 7.841358119
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "index": 4,
+        "simulation_seconds": 6.278214750993357,
+        "adapter_seconds": 6.873021095001604,
+        "container_seconds": 7.860550534
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "index": 0,
+        "simulation_seconds": 2.749477735000255,
+        "adapter_seconds": 3.1177320829956443,
+        "container_seconds": 4.1366644
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "index": 1,
+        "simulation_seconds": 2.736283281999931,
+        "adapter_seconds": 3.0348999300040305,
+        "container_seconds": 4.067061924
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "index": 2,
+        "simulation_seconds": 2.864473129004182,
+        "adapter_seconds": 3.181906190002337,
+        "container_seconds": 4.234855835
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "index": 3,
+        "simulation_seconds": 2.787780038001074,
+        "adapter_seconds": 3.0923966390037094,
+        "container_seconds": 4.179664669
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "index": 4,
+        "simulation_seconds": 3.7392867040034616,
+        "adapter_seconds": 4.174396557995351,
+        "container_seconds": 5.200065734
+      }
+    ]
+  },
+  "diagnostics": {
+    "executive_summary": "Untimed full adapter counts with cProfile overhead; not benchmark samples.",
+    "rankable": false,
+    "counts": {
+      "quantity_recalculations": 25230,
+      "visible_records_summed": 34889
+    },
+    "functions": [
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 184,
+        "name": "l2_data",
+        "calls": 61214,
+        "self_seconds": 0.267426616,
+        "cumulative_seconds": 0.819219793
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 65,
+        "name": "_recalculate",
+        "calls": 25230,
+        "self_seconds": 0.040989866,
+        "cumulative_seconds": 0.086902058
+      },
+      {
+        "file": "/opt/abides_fork/buffered_trace.py",
+        "line": 142,
+        "name": "record_order",
+        "calls": 57282,
+        "self_seconds": 0.08887724400000001,
+        "cumulative_seconds": 0.354543584
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/price_level.py",
+        "line": 307,
+        "name": "total_quantity",
+        "calls": 137669,
+        "self_seconds": 0.06370953800000001,
+        "cumulative_seconds": 0.23976729400000002
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 232,
+        "name": "<lambda>",
+        "calls": 108915,
+        "self_seconds": 0.016513621000000003,
+        "cumulative_seconds": 0.016513621000000003
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 215,
+        "name": "<genexpr>",
+        "calls": 272947,
+        "self_seconds": 0.06602564500000001,
+        "cumulative_seconds": 0.06602564500000001
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 77,
+        "name": "<genexpr>",
+        "calls": 26863,
+        "self_seconds": 0.006862822,
+        "cumulative_seconds": 0.006862822
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 233,
+        "name": "<listcomp>",
+        "calls": 32583,
+        "self_seconds": 0.039134316,
+        "cumulative_seconds": 0.254073618
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 87,
+        "name": "visible_total",
+        "calls": 137669,
+        "self_seconds": 0.054652674000000005,
+        "cumulative_seconds": 0.176057756
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 205,
+        "name": "<genexpr>",
+        "calls": 272947,
+        "self_seconds": 0.09657333900000001,
+        "cumulative_seconds": 0.09657333900000001
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 101,
+        "name": "append",
+        "calls": 14145,
+        "self_seconds": 0.010409273,
+        "cumulative_seconds": 0.04300244
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 45,
+        "name": "__init__",
+        "calls": 6636,
+        "self_seconds": 0.010202032000000002,
+        "cumulative_seconds": 0.019526944
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 118,
+        "name": "pop",
+        "calls": 14136,
+        "self_seconds": 0.012425807,
+        "cumulative_seconds": 0.048769243000000004
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 236,
+        "name": "<genexpr>",
+        "calls": 141498,
+        "self_seconds": 0.028214086000000003,
+        "cumulative_seconds": 0.028214086000000003
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 17,
+        "name": "_quantity_setattr",
+        "calls": 995024,
+        "self_seconds": 0.258181245,
+        "cumulative_seconds": 0.258181245
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 60,
+        "name": "__setattr__",
+        "calls": 48189,
+        "self_seconds": 0.026151014,
+        "cumulative_seconds": 0.026151014
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 53,
+        "name": "_changed",
+        "calls": 28281,
+        "self_seconds": 0.031695150000000005,
+        "cumulative_seconds": 0.06313273
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 78,
+        "name": "<genexpr>",
+        "calls": 26863,
+        "self_seconds": 0.010225596,
+        "cumulative_seconds": 0.010225596
+      },
+      {
+        "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+        "line": 37,
+        "name": "invalidate_observation",
+        "calls": 34917,
+        "self_seconds": 0.009172428,
+        "cumulative_seconds": 0.009172428
+      }
+    ]
+  },
+  "iteration_diagnostics": {
+    "v1": {
+      "executive_summary": "Untimed full adapter counts with cProfile overhead; not benchmark samples.",
+      "rankable": false,
+      "counts": {
+        "quantity_recalculations": 25230,
+        "visible_records_summed": 34889
+      },
+      "functions": [
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 132,
+          "name": "l2_data",
+          "calls": 61214,
+          "self_seconds": 0.311347121,
+          "cumulative_seconds": 0.942903904
+        },
+        {
+          "file": "/opt/abides_fork/buffered_trace.py",
+          "line": 142,
+          "name": "record_order",
+          "calls": 57282,
+          "self_seconds": 0.10201233600000001,
+          "cumulative_seconds": 0.40335374500000004
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/price_level.py",
+          "line": 302,
+          "name": "total_quantity",
+          "calls": 136933,
+          "self_seconds": 0.076408168,
+          "cumulative_seconds": 0.285945883
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 167,
+          "name": "<lambda>",
+          "calls": 108179,
+          "self_seconds": 0.018614663,
+          "cumulative_seconds": 0.018614663
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 15,
+          "name": "_quantity_setattr",
+          "calls": 995024,
+          "self_seconds": 0.289057059,
+          "cumulative_seconds": 0.289057059
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 45,
+          "name": "_changed",
+          "calls": 28281,
+          "self_seconds": 0.017412609000000003,
+          "cumulative_seconds": 0.022103978
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 149,
+          "name": "<genexpr>",
+          "calls": 274029,
+          "self_seconds": 0.080777769,
+          "cumulative_seconds": 0.080777769
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 168,
+          "name": "<listcomp>",
+          "calls": 31847,
+          "self_seconds": 0.046004153000000006,
+          "cumulative_seconds": 0.30168915100000004
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 171,
+          "name": "<genexpr>",
+          "calls": 140026,
+          "self_seconds": 0.026450203000000002,
+          "cumulative_seconds": 0.026450203000000002
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 139,
+          "name": "<genexpr>",
+          "calls": 274029,
+          "self_seconds": 0.110456626,
+          "cumulative_seconds": 0.110456626
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 95,
+          "name": "pop",
+          "calls": 14136,
+          "self_seconds": 0.013996139000000001,
+          "cumulative_seconds": 0.031792390000000004
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 50,
+          "name": "_recalculate",
+          "calls": 25230,
+          "self_seconds": 0.034942071000000005,
+          "cumulative_seconds": 0.107505191
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 36,
+          "name": "__init__",
+          "calls": 6636,
+          "self_seconds": 0.010631941,
+          "cumulative_seconds": 0.010631941
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 83,
+          "name": "append",
+          "calls": 14145,
+          "self_seconds": 0.013454201,
+          "cumulative_seconds": 0.025980339
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 63,
+          "name": "visible_total",
+          "calls": 136933,
+          "self_seconds": 0.058797447,
+          "cumulative_seconds": 0.209537715
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 51,
+          "name": "<genexpr>",
+          "calls": 60119,
+          "self_seconds": 0.017929862,
+          "cumulative_seconds": 0.017929862
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 52,
+          "name": "<genexpr>",
+          "calls": 60119,
+          "self_seconds": 0.02280544,
+          "cumulative_seconds": 0.02280544
+        }
+      ]
+    },
+    "v2": {
+      "executive_summary": "Untimed full adapter counts with cProfile overhead; not benchmark samples.",
+      "rankable": false,
+      "counts": {
+        "quantity_recalculations": 25230,
+        "visible_records_summed": 34889
+      },
+      "functions": [
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 63,
+          "name": "_recalculate",
+          "calls": 25230,
+          "self_seconds": 0.060486861,
+          "cumulative_seconds": 0.132542971
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 156,
+          "name": "l2_data",
+          "calls": 61214,
+          "self_seconds": 0.21460848500000002,
+          "cumulative_seconds": 0.835330737
+        },
+        {
+          "file": "/opt/abides_fork/buffered_trace.py",
+          "line": 142,
+          "name": "record_order",
+          "calls": 57282,
+          "self_seconds": 0.089311553,
+          "cumulative_seconds": 0.346763949
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/price_level.py",
+          "line": 307,
+          "name": "total_quantity",
+          "calls": 241035,
+          "self_seconds": 0.116460587,
+          "cumulative_seconds": 0.371352495
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 119,
+          "name": "pop",
+          "calls": 14136,
+          "self_seconds": 0.010551782000000001,
+          "cumulative_seconds": 0.056365176
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 180,
+          "name": "<lambda>",
+          "calls": 212281,
+          "self_seconds": 0.032273307,
+          "cumulative_seconds": 0.032273307
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 75,
+          "name": "<genexpr>",
+          "calls": 26863,
+          "self_seconds": 0.006913425000000001,
+          "cumulative_seconds": 0.006913425000000001
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 181,
+          "name": "<listcomp>",
+          "calls": 60666,
+          "self_seconds": 0.07295119700000001,
+          "cumulative_seconds": 0.41839625300000005
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 107,
+          "name": "append",
+          "calls": 14145,
+          "self_seconds": 0.010297434000000001,
+          "cumulative_seconds": 0.051438807
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 58,
+          "name": "__setattr__",
+          "calls": 218943,
+          "self_seconds": 0.08570198700000001,
+          "cumulative_seconds": 0.08570198700000001
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 44,
+          "name": "__init__",
+          "calls": 6636,
+          "self_seconds": 0.010991038,
+          "cumulative_seconds": 0.023784305000000002
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 16,
+          "name": "_quantity_setattr",
+          "calls": 995024,
+          "self_seconds": 0.263224877,
+          "cumulative_seconds": 0.263224877
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 52,
+          "name": "_changed",
+          "calls": 28281,
+          "self_seconds": 0.035001871000000004,
+          "cumulative_seconds": 0.080730459
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 88,
+          "name": "visible_total",
+          "calls": 241035,
+          "self_seconds": 0.088482931,
+          "cumulative_seconds": 0.254891908
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 76,
+          "name": "<genexpr>",
+          "calls": 26863,
+          "self_seconds": 0.010221474000000001,
+          "cumulative_seconds": 0.010221474000000001
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 184,
+          "name": "<genexpr>",
+          "calls": 272947,
+          "self_seconds": 0.104937921,
+          "cumulative_seconds": 0.104937921
+        },
+        {
+          "file": "/usr/local/lib/python3.11/site-packages/abides_markets/matching/observation.py",
+          "line": 36,
+          "name": "invalidate_observation",
+          "calls": 34917,
+          "self_seconds": 0.008897125,
+          "cumulative_seconds": 0.008897125
+        }
+      ]
+    }
+  },
+  "interrupted_revision": {
+    "policy": {
+      "executive_summary": "Measure a revised candidate with O(1) L2 cache validation on seven public workloads, reusing already retained baseline samples and exact journals. This final comparison is unpaired.",
+      "base_commit": "6ac9e99",
+      "baseline_id": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+      "candidate_tag": "python-book-event-observation-v2:20261007",
+      "historical_units": [
+        "t3-mp02-stp-oldest-baseline",
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest"
+      ],
+      "paired_units": [
+        "t3-s001-price-time-priority",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-cancelmodify-lifecycle",
+        "t3-mp07-heavy-flow-oldest"
+      ],
+      "historical_evidence": "out/price-offset-20261007/simulations/summary.json",
+      "warmups_per_unit_per_image": 1,
+      "measured_repeats": 5,
+      "trace_mode": "buffered",
+      "untimed_verify_unit": "t3-s001-price-time-priority",
+      "untimed_batch_unit": "t3-gbatch-homog-4",
+      "resources": {
+        "context": "colima-agenthon",
+        "platform": "linux/amd64",
+        "cpus": 4,
+        "memory": "16g",
+        "network": "none",
+        "containers": "strictly sequential"
+      },
+      "validation": "Pinned-runtime book tests, guarded installation, developer gates, digests and exact ordered trace plus message ledger on every run.",
+      "rankable": false,
+      "limitations": [
+        "Historical comparisons are unpaired and cannot isolate causal speedup.",
+        "Local Mac/Rosetta measurements are not official Linux/B200 timing.",
+        "Full public regression is outside the requested focused scope."
+      ],
+      "reused_baseline_evidence": "out/event-observation-20261007/simulations/summary.json",
+      "candidate_cache_revision": "Observation epoch plus per-side structural revision; cached reads do not scan levels. Empty and single-native-order levels avoid general summation.",
+      "candidate_source_sha256": {
+        "baselines/matching/observation.py": "29cdf2bf873d0a7e7fd1c27e94afc8e8fc11cbf094058a0429f5481636eadb58",
+        "baselines/matching/price_level.py": "6e59aba660e8be99900afb40b67cc958f5d8b047946de01c4ee9af76e536d039",
+        "baselines/matching/queries.py": "a7c4feead75bc016c691d39fc57a1a6cf1c8aa28934c99d0a138f147094828ef",
+        "baselines/matching/state.py": "915a8abdc0c208cedf34ec0a38ad93cfa946241f0c0cbf269229139c278ea90a",
+        "baselines/abides_fork/buffered_trace.py": "207551888d4216dc41a655446cd033e4966b20c565baade5f088dc55064f053e",
+        "baselines/abides_fork/event_capture.py": "e984633b1ae4113a22e13f57b6e0074dc28a32b1bc0db951005050eb8b3af319",
+        "baselines/install_event_capture.py": "227966dba41f3f453546f02038b7d4c2dcb6743c24331d60e46360d06376992c",
+        "baselines/install_matching.py": "c04124b3a54ec934b0b10e988bcb0187cdfe9185c86eb8e8e79c1eaa0dd64732"
+      }
+    },
+    "image": "sha256:4f97325d6beff010c72f2bb7697632a5fb86dc35b693faaea3c726d51d0f11e6",
+    "complete": false,
+    "completed_timing_samples": [
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 0,
+        "simulation_seconds": 2.445429815001262
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 1,
+        "simulation_seconds": 3.012367475996143
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 2,
+        "simulation_seconds": 2.890811949997442
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 3,
+        "simulation_seconds": 2.5094229060050566
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "index": 4,
+        "simulation_seconds": 3.2801431479965686
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 0,
+        "simulation_seconds": 15.602597008000885
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 1,
+        "simulation_seconds": 17.582060552995245
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 2,
+        "simulation_seconds": 30.7009294350064
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 3,
+        "simulation_seconds": 14.458560690000013
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "index": 4,
+        "simulation_seconds": 42.87406170699978
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 0,
+        "simulation_seconds": 13.521175319001486
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 1,
+        "simulation_seconds": 11.097991488000844
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 2,
+        "simulation_seconds": 10.065937346997089
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 3,
+        "simulation_seconds": 8.476126050998573
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "index": 4,
+        "simulation_seconds": 8.309124760999111
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 0,
+        "simulation_seconds": 0.0605666370029212
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 1,
+        "simulation_seconds": 0.05806940799811855
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 2,
+        "simulation_seconds": 0.057234185995184816
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 3,
+        "simulation_seconds": 0.05980352999904426
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "index": 4,
+        "simulation_seconds": 0.06507789500028593
+      }
+    ],
+    "assessment": "Interrupted schedule; broad global invalidation increased volume reads, and observed timing had large variance. Not adopted or pooled with final samples."
+  },
+  "evidence_sha256": {
+    "out/event-observation-20261007/simulations/summary.json": "658b9c17ed56c9f4185d8cb666e3864f7520dd944ac5ab3e21b380ee627a9155",
+    "out/event-observation-20261007/completed-simulations/summary.json": "24fdc9e642780e3b01afe647947b415e2e0f06ab7adc90e92af7f77ed92937c0",
+    "out/event-observation-20261007/completed-installed-source.json": "42c39bc32aeae229f5e7fb93249b02432e3f1c26ca0b95ed91f644ce80213f31",
+    "out/event-observation-20261007/completed-source-audit.json": "a4a6ad3a8ab44386f69384291832084902de0e162a2b3bd1d0dce8859d18ff5c",
+    "out/event-observation-20261007/completed-runtime-tests.log": "ed66c2403db79d74164b40a16bedcac1d342725beb03dde987d076f35fa6460d",
+    "out/event-observation-20261007/host-tests.log": "f0fb44bd83952df891e0fe1b238cbb391ed8fa98b1e7fb6ea55f8438b5422467",
+    "out/event-observation-20261007/runtime-tests-attempt1.log": "ffec4fd06306ebd2af72e0b05257535c382057f4cc6a5002cff05c910284c525",
+    "out/event-observation-20261007/runtime-tests-attempt2.log": "43b87cb56e94a672c016ca0c65d74c5beaab367801b75077c36f4d4fc3ca80ae",
+    "out/event-observation-20261007/final-simulations/summary.json": "068d0b9350701aaf4a8fbec497641f013b89fe73d6c31bbd866a154f34c697ff",
+    "out/event-observation-20261007/revision-v2-runtime-tests.log": "a00bf95e972de795e681391e5b8a776c9f26a99ceae243ca1430b7036db96380",
+    "out/event-observation-20261007/diagnostics/counts.json": "1ba6141b535ddbd091d851be5752e99e7804e42f478fe5b0219865e9babad728",
+    "out/event-observation-20261007/diagnostics/validation.json": "1ba625baa2336e28ba7e0e2c98a14024e89bca583c9df749f1dd547ba6fcc274"
+  },
+  "limitations": [
+    "Historical comparisons are unpaired and cannot isolate causal speedup.",
+    "Local Mac/Rosetta measurements are not official Linux/B200 timing.",
+    "Full public regression is outside the requested focused scope.",
+    "No separate ablation of events versus observations.",
+    "Supported mutation hooks are required; explicit __dict__/base-list bypasses are not tracked."
+  ],
+  "disposition": {
+    "status": "report_only",
+    "candidate_commit": "d7eb90a",
+    "active_engine_restored_to": "6ac9e99",
+    "reason": "User requested retaining only the report. Final historical medians were slower on all seven focused workloads.",
+    "retained_files": [
+      "experiments/event-observation/README.md",
+      "experiments/event-observation/result.json"
+    ],
+    "new_timing_runs": 0
+  }
+}

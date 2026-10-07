@@ -1,0 +1,33 @@
+{
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/experiments/book-history:/checks:ro",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-source:/baseline:ro",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history:/repo:ro",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/book-history/components:/evidence",
+    "-e",
+    "PYTHONPATH=/repo:/opt",
+    "sha256:766b3f49b285ec909f423e8078bc0c2e45c30ddc1de2e5905bad4c08fb5b65e0",
+    "python",
+    "/checks/microbenchmark.py",
+    "--base-source",
+    "/baseline",
+    "--out",
+    "/evidence/microbenchmark-runtime.json"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

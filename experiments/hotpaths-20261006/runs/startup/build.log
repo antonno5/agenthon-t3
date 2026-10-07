@@ -1,0 +1,39 @@
+#0 building with "colima-agenthon" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 242B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/hotpaths-base:20261006
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/4] FROM docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767
+#4 resolve docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767 0.0s done
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 65.72kB done
+#5 DONE 0.0s
+
+#6 [2/4] COPY experiments/startup /opt/startup-experiment
+#6 DONE 0.0s
+
+#7 [3/4] RUN python /opt/startup-experiment/install.py
+#7 0.312 {"base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1", "baseline_public_exports": ["datetime", "sys", "traceback", "warnings", "contextmanager", "List", "Union", "np", "pd", "pdist", "squareform", "LatencyModel", "delist", "numeric", "get_value_from_timestamp", "ignored", "generate_uniform_random_pairwise_dist_on_line", "meters_to_light_ns", "validate_window_size", "sigmoid", "subdict", "restrictdict", "dollarize", "generate_latency_model", "config_add_agents"], "baseline_source": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-source/abides_markets/utils/__init__.py", "baseline_utils_sha256": "349cbaa5d0db0268dd62982090bd8f11ef59835520df10eae7d0fd6818d635d6", "candidate_utils_sha256": "bf7d576a11baa5360d264dc810b6708570cc4ece84d671b8025a313d28ad378b", "patched": "/usr/local/lib/python3.11/site-packages/abides_markets/utils/__init__.py"}
+#7 DONE 0.3s
+
+#8 [4/4] WORKDIR /work
+#8 DONE 0.0s
+
+#9 exporting to image
+#9 exporting layers 0.1s done
+#9 exporting manifest sha256:f85b854fb33888c93efd8fb32093f63d7f008abc828966f5f4add32976702b86 done
+#9 exporting config sha256:d7ffbca1ae9497038b3ee4eefe915cc437600869750a3f53c31a92f88fdc6e20 done
+#9 exporting attestation manifest sha256:a7e697f998a551b16612e60e1a72ce3fb56d9f51a0aac3db6146c2bd2f599972 0.0s done
+#9 exporting manifest list sha256:63d8b523e6e8d789c404a6c103937d3b7f6cbbbb42b605304f73ddd685c28b44 done
+#9 naming to docker.io/library/hotpaths-startup:20261006 done
+#9 DONE 0.1s

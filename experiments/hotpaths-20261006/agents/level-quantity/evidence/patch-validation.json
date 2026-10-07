@@ -1,0 +1,9 @@
+{
+  "summary": "Tracked unified patch applies cleanly and equals the hash-locked overlay transformations.",
+  "rankable": false,
+  "successful": true,
+  "patched_module_sha256": {
+    "price_level.py": "aa49d97ded1adf295443b1ea6417031c3d3153c8eff6e719234affe00b0508ef",
+    "order_book.py": "963c76210bcc6f5f892e20b8b1bb4addc1be43043b09736ce4a27b23a30300a0"
+  }
+}

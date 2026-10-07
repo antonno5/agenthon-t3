@@ -1,0 +1,13 @@
+{
+  "hypothesis": 3,
+  "final_commit": "7762f6473c2a2f37c4b6010abb34debb022749ae",
+  "image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+  "regression_uuid_coverage": 65,
+  "financial_hashes_vs_published_refs": 65,
+  "report_passed": 65,
+  "both_trace_selected_gates": "1026 independent saved-file hash checks in batch_manager_validation.json",
+  "cached29_rechecked": 29,
+  "actual_remaining36": 36,
+  "verdict": "not_accepted_as_general_acceleration",
+  "rankable": false
+}

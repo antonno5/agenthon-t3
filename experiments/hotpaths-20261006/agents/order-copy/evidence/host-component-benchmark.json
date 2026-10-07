@@ -1,0 +1,163 @@
+{
+  "rankable": false,
+  "diagnostic_only": true,
+  "python": "3.13.3",
+  "machine": "arm64",
+  "count": 50000,
+  "repeats": 7,
+  "source_identity": {
+    "abides_markets.order_copy_baseline": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-source/abides_markets/orders.py",
+      "sha256": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74"
+    },
+    "abides_markets.orders": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/order-copy/experiments/order-copy/overlay/orders.py",
+      "sha256": "bdbffd92f01620e5a0369c4155230dbf20afc229404065c5d7e5862c222034a1"
+    },
+    "abides_markets.order_copy_baseline_book": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-source/abides_markets/order_book.py",
+      "sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a"
+    },
+    "abides_markets.order_book": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/order-copy/experiments/order-copy/overlay/order_book.py",
+      "sha256": "c7fb3254b5dc074d6b104058b2865468c43e5a5b7216bd60528bde23cfb93af3"
+    }
+  },
+  "cases": {
+    "limit": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          984.38,
+          1000.66668,
+          939.52416,
+          1004.6575,
+          1014.01834,
+          1075.0075,
+          1157.1625
+        ],
+        "median_ns_per_op": 1004.6575
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          872.80918,
+          894.1425,
+          877.08332,
+          814.97668,
+          818.33332,
+          813.13666,
+          821.13168
+        ],
+        "median_ns_per_op": 821.13168
+      },
+      "ratio_before_over_after": 1.223503518948386
+    },
+    "market": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          1038.21668,
+          1075.41334,
+          964.91416,
+          910.8475,
+          882.68,
+          843.80334,
+          852.36918
+        ],
+        "median_ns_per_op": 910.8475
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          796.955,
+          774.86084,
+          780.2275,
+          759.73084,
+          782.42584,
+          772.05166,
+          782.39
+        ],
+        "median_ns_per_op": 780.2275
+      },
+      "ratio_before_over_after": 1.1674127097545268
+    },
+    "string_tag": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          1098.95168,
+          1100.80166,
+          1137.07334,
+          1106.62918,
+          1103.555,
+          1150.24166,
+          1136.68834
+        ],
+        "median_ns_per_op": 1106.62918
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          808.54584,
+          792.5925,
+          808.98332,
+          805.67416,
+          781.23084,
+          787.13584,
+          786.27166
+        ],
+        "median_ns_per_op": 792.5925
+      },
+      "ratio_before_over_after": 1.3962145490904847
+    },
+    "mutable_tag": {
+      "baseline_constructor": {
+        "raw_ns_per_op": [
+          2451.085,
+          2531.14916,
+          2522.32334,
+          2402.9875,
+          2472.84666,
+          2570.5425,
+          2543.60084
+        ],
+        "median_ns_per_op": 2522.32334
+      },
+      "copyfields_only": {
+        "raw_ns_per_op": [
+          2656.39668,
+          2778.78168,
+          2550.63834,
+          2592.42416,
+          2594.77166,
+          2710.54416,
+          2690.725
+        ],
+        "median_ns_per_op": 2656.39668
+      },
+      "ratio_before_over_after": 0.9495281179164853
+    },
+    "ptc_redundant_copy_ablation": {
+      "copyfields_with_three_snapshots": {
+        "raw_ns_per_op": [
+          8424.4666,
+          8219.4832,
+          8734.9,
+          8117.8668,
+          10445.65,
+          7499.15,
+          9567.5832
+        ],
+        "median_ns_per_op": 8424.4666
+      },
+      "copyfields_with_two_snapshots": {
+        "raw_ns_per_op": [
+          6415.05,
+          7879.9666,
+          6587.4,
+          10667.95,
+          8004.5916,
+          7205.8582,
+          8658.05
+        ],
+        "median_ns_per_op": 7879.9666
+      },
+      "ratio_before_over_after": 1.0690992776542987
+    }
+  }
+}

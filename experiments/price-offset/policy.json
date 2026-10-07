@@ -1,0 +1,61 @@
+{
+  "executive_summary": "Measure only a new numeric-key offset candidate on STP oldest, deep-book and cancel churn. Reuse current numeric-vector timings; this is an unpaired historical comparison, not an official score.",
+  "baseline_image": "python-book-price-vector:20261007",
+  "baseline_id": "sha256:3f924d0fd1f170ce616ee28082225bdd35e00e8cefc396b28f23b3017bbffb58",
+  "baseline_source_sha256": "e71ea04f678024485a3e73d68e8d89b03ceeda14b6db9537d590b19b2a4ed4fd",
+  "candidate_state_sha256": "a2b877e6bf3d3efbe5d086f5b89ce0bdacea03c58489d28cf504a19ee7914df0",
+  "candidate_tag": "python-book-price-offset:20261007",
+  "base_commit": "0b5760f9c008dbce0995caa8461bc3f2929e4567",
+  "units": [
+    "t3-mp02-stp-oldest-baseline",
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest"
+  ],
+  "warmups_per_unit": 1,
+  "repeats": 5,
+  "micro_repeats": 7,
+  "micro_levels": [
+    1,
+    4,
+    16,
+    64,
+    256,
+    1024
+  ],
+  "micro_phases": [
+    "lookup",
+    "add_existing",
+    "cancel_existing",
+    "modify_existing",
+    "new_level_churn"
+  ],
+  "micro_operations": 2000,
+  "micro_warmup_operations": 200,
+  "compaction": {
+    "minimum_discarded_keys": 64,
+    "condition": "discarded prefix >= 64 and >= live keys",
+    "bound": "len(keys) <= 2 * live_levels + 63 for certified storage; empty books reset immediately"
+  },
+  "baseline_simulator_evidence": "out/price-vector-20261007/simulations/summary.json",
+  "baseline_micro_evidence": "out/price-vector-20261007/micro/vector-00.json through vector-06.json",
+  "diagnostic_units": [
+    "t3-mp05-cancel-churn-newest"
+  ],
+  "diagnostics": "One untimed instrumented candidate run records head/middle/tail removals, prefix reuse, compactions and rebuild reasons. Exact journals and gates must pass.",
+  "resources": {
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "network": "none",
+    "containers": "strictly sequential"
+  },
+  "rankable": false,
+  "adopted": false,
+  "limitations": [
+    "Actual level list still shifts; middle key changes still shift.",
+    "Slice mutations rebuild on the next ordered search.",
+    "Historical timings are reused; no old image timing launches.",
+    "Only the three specified public units are run; no full regression."
+  ]
+}

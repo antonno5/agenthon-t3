@@ -1,0 +1,152 @@
+2026-10-06 21:31:31,554 INFO __main__: Discovered 65 scenario(s) under /Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/regression_suite/scenarios
+2026-10-06 21:31:35,673 INFO __main__: [PASS] abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad
+2026-10-06 21:31:40,258 INFO __main__: [PASS] fe284cc5-c965-5cf6-9ff8-b375758c1ee6
+2026-10-06 21:31:44,975 INFO __main__: [PASS] df79ad78-3db2-5770-8c82-64df5edd62b5
+2026-10-06 21:31:48,121 INFO __main__: [PASS] 8b1084a6-4f53-556a-9929-5afff3818858
+2026-10-06 21:31:51,251 INFO __main__: [PASS] e2bb9fee-7150-5240-af64-ee1066e55564
+2026-10-06 21:31:56,984 INFO __main__: [PASS] a350b90c-0348-5a64-8369-4d4d8bb3dbcd
+2026-10-06 21:32:00,886 INFO __main__: [PASS] 2bec943d-4f5f-5c8c-8ee3-b57550d936a6
+2026-10-06 21:32:05,490 INFO __main__: [PASS] 418157d5-26eb-5d5f-a000-217ec60a43a3
+2026-10-06 21:32:10,130 INFO __main__: [PASS] 683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f
+2026-10-06 21:32:14,474 INFO __main__: [PASS] 16892744-6a80-5300-8552-ca18872438ea
+2026-10-06 21:32:18,002 INFO __main__: [PASS] 8a2f9219-014d-5d15-a7f2-efbad536db72
+2026-10-06 21:32:28,580 INFO __main__: [PASS] 73ae330d-1e33-5418-8266-44e8deea6571
+2026-10-06 21:32:34,507 INFO __main__: [PASS] e32eaeba-515c-5fde-af46-44d5246d0805
+2026-10-06 21:32:37,474 INFO __main__: [PASS] e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a
+2026-10-06 21:32:40,119 INFO __main__: [PASS] 14e79532-bbf4-5055-9b2f-7cb07791a6d7
+2026-10-06 21:32:42,673 INFO __main__: [PASS] f1f0ca35-8c17-5843-8c31-3fca8ab5a46b
+2026-10-06 21:32:45,494 INFO __main__: [PASS] 38e61d08-72ee-594b-b999-ebdd4b2ba8ab
+2026-10-06 21:32:48,145 INFO __main__: [PASS] 2c9e14c7-6c6c-5288-823f-7ff82d6050fa
+2026-10-06 21:32:51,517 INFO __main__: [PASS] d85a4b79-703d-54fb-8680-35d4c0059797
+2026-10-06 21:32:54,856 INFO __main__: [PASS] 4ff8463e-c268-5a14-b191-dcb374933011
+2026-10-06 21:32:57,968 INFO __main__: [PASS] 50076583-ba35-52ab-b3f0-a82ad328f10d
+2026-10-06 21:33:05,163 INFO __main__: [PASS] e8650933-8e32-57db-8eb7-7b22231dce57
+2026-10-06 21:33:12,149 INFO __main__: [PASS] 55f80db0-96b2-50d7-8d6f-448f11a626bc
+2026-10-06 21:33:19,062 INFO __main__: [PASS] b73c8c0e-15cd-5ca6-9b91-abd2c18b417f
+2026-10-06 21:34:02,328 INFO __main__: [PASS] ed69678c-450f-5f69-83a0-b4cf31101f75
+2026-10-06 21:34:45,915 INFO __main__: [PASS] 2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1
+2026-10-06 21:36:05,577 INFO __main__: [PASS] 9b855004-0d35-5ed1-945f-5d5d299b64d8
+2026-10-06 21:36:30,813 INFO __main__: [PASS] 1c15fde8-5b8b-5fee-8274-a2ee8f5bedd5
+2026-10-06 21:37:24,332 INFO __main__: [PASS] 5f8fe817-da1a-56cd-b7ff-754f135c0029
+2026-10-06 21:37:31,083 INFO __main__: [PASS] a4251e7c-c760-58d9-8707-7c6d4c7d8789
+2026-10-06 21:37:37,393 INFO __main__: [PASS] a86b50cb-0785-56dd-bd58-9c3d317e49e5
+2026-10-06 21:37:42,796 INFO __main__: [PASS] dfba64e0-cac2-5f16-b408-41de04ff2cae
+/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/qfbench2_common/scoring/stylized_facts.py:89: RuntimeWarning: divide by zero encountered in log
+  xi = np.mean(np.log(top[:-1]) - np.log(top[-1]))
+/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/qfbench2_common/scoring/stylized_facts.py:89: RuntimeWarning: invalid value encountered in subtract
+  xi = np.mean(np.log(top[:-1]) - np.log(top[-1]))
+2026-10-06 21:37:50,636 INFO __main__: [PASS] 644c3665-1e55-5672-9497-55c1368b9e18
+/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/qfbench2_common/scoring/stylized_facts.py:89: RuntimeWarning: divide by zero encountered in log
+  xi = np.mean(np.log(top[:-1]) - np.log(top[-1]))
+/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/qfbench2_common/scoring/stylized_facts.py:89: RuntimeWarning: invalid value encountered in subtract
+  xi = np.mean(np.log(top[:-1]) - np.log(top[-1]))
+2026-10-06 21:37:58,929 INFO __main__: [PASS] 7fc88018-85be-50d4-9159-dbc1cc44f525
+2026-10-06 21:38:12,720 INFO __main__: [PASS] 077d6642-7e7c-529b-876d-f37aa5f70190
+2026-10-06 21:38:19,020 INFO __main__: [PASS] 001d9e77-7666-5f5b-9e3e-723daed0cbe8
+2026-10-06 21:38:24,147 INFO __main__: [PASS] 647ddddf-b30b-5323-98ce-e1b9da65bb76
+2026-10-06 21:38:41,688 INFO __main__: [PASS] 60f3db6d-9305-543b-8388-b9a4a887f255
+2026-10-06 21:38:52,103 INFO __main__: [PASS] c5c25713-e1b2-50e8-bb08-f0216b9d4a72
+2026-10-06 21:39:12,909 INFO __main__: [PASS] 8a59be07-bb4b-5eec-b8ab-7cbc27fc6735
+2026-10-06 21:39:19,001 INFO __main__: [PASS] 73203dc3-1a14-5976-81e8-8fcec979ae7f
+2026-10-06 21:39:24,653 INFO __main__: [PASS] 998e5c53-30cb-5ad4-b4b2-4c3791edd002
+2026-10-06 21:39:29,918 INFO __main__: [PASS] 2b0ae926-c496-536c-a826-9738944667ed
+2026-10-06 21:39:33,222 INFO __main__: [PASS] 66ea1f06-132d-58ac-8a27-cc8d45953215
+2026-10-06 21:39:36,542 INFO __main__: [PASS] 4f876cd0-76bb-5369-bd07-a575b4249c12
+2026-10-06 21:39:40,042 INFO __main__: [PASS] 31546dd0-026f-5db8-989f-d85a6a2dace9
+2026-10-06 21:39:43,412 INFO __main__: [PASS] bcd382f5-0924-5d48-99f5-7d4075c0d674
+2026-10-06 21:39:47,574 INFO __main__: [PASS] ccb06368-afbd-5c1a-ac9a-2fd72ce9ebe0
+2026-10-06 21:39:51,058 INFO __main__: [PASS] c85a5154-b948-5aff-89e7-d5c8ce61ea4d
+/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/qfbench2_common/scoring/stylized_facts.py:89: RuntimeWarning: divide by zero encountered in log
+  xi = np.mean(np.log(top[:-1]) - np.log(top[-1]))
+/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/qfbench2_common/scoring/stylized_facts.py:89: RuntimeWarning: invalid value encountered in subtract
+  xi = np.mean(np.log(top[:-1]) - np.log(top[-1]))
+2026-10-06 21:39:52,667 INFO __main__: [PASS] a1b2c3d4-0001-0000-0000-000000000001
+2026-10-06 21:40:04,728 INFO __main__: [PASS] a1b2c3d4-0012-0000-0000-000000000012
+2026-10-06 21:40:07,598 INFO __main__: [PASS] a1b2c3d4-0019-0000-0000-000000000019
+2026-10-06 21:40:12,872 INFO __main__: [PASS] 7a903ca0-a2cb-5061-85be-2885929f64c1
+2026-10-06 21:40:18,287 INFO __main__: [PASS] f596295c-e1e4-534d-ad0a-8cfc098bc609
+2026-10-06 21:40:23,920 INFO __main__: [PASS] 8c53af6a-f534-57fa-a048-e4e591f7dfb8
+2026-10-06 21:40:29,418 INFO __main__: [PASS] 056e6f9a-1891-5197-8988-e410f7884ba6
+2026-10-06 21:40:35,280 INFO __main__: [PASS] 3118b1c8-f45b-56fc-9447-a49cfa38a8b9
+2026-10-06 21:40:40,202 INFO __main__: [PASS] 0bfd6969-c241-57eb-8d6e-6de1388cb183
+2026-10-06 21:40:45,631 INFO __main__: [PASS] acbaff26-109b-5856-af00-0603bde931ea
+2026-10-06 21:40:50,898 INFO __main__: [PASS] 20d717b4-9f62-5c55-946d-317b281292e8
+2026-10-06 21:40:55,951 INFO __main__: [PASS] 406cfe13-1d13-57a6-a6ba-707a55b2236f
+2026-10-06 21:41:00,660 INFO __main__: [PASS] dec8b800-21b1-5a05-84b0-8d1474130202
+2026-10-06 21:41:04,236 INFO __main__: [PASS] 493d1d62-88f8-507b-9c8e-84aff7737a49
+2026-10-06 21:41:09,158 INFO __main__: [PASS] af38a808-c9db-54cb-8604-75e1bf79759c
+2026-10-06 21:41:14,699 INFO __main__: [PASS] 94f530d4-8b56-5395-85a5-af0a9ef53356
+2026-10-06 21:41:14,834 INFO __main__: Report written to /Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/regression65/report.json
+
+Regression Report — candidate: sha256:a763a898fce586ff4deaf8f9e4e3a2df2aa142f7eed6bb54c92aa8f51b4ffff4
+--------------------------------------------------------------------------------------------------------------
+scenario_id                                tier  semantic_pass  stylized_pass  events_per_sec   failure_labels
+--------------------------------------------------------------------------------------------------------------
+001d9e77-7666-5f5b-9e3e-723daed0cbe8       A     PASS           PASS           19,368           —
+056e6f9a-1891-5197-8988-e410f7884ba6       B     PASS           PASS           20,114           —
+077d6642-7e7c-529b-876d-f37aa5f70190       A     PASS           PASS           21,908           —
+0bfd6969-c241-57eb-8d6e-6de1388cb183       B     PASS           PASS           22,963           —
+14e79532-bbf4-5055-9b2f-7cb07791a6d7       A     PASS           PASS           11,759           —
+16892744-6a80-5300-8552-ca18872438ea       B     PASS           PASS           16,238           —
+1c15fde8-5b8b-5fee-8274-a2ee8f5bedd5       A     PASS           PASS           14,232           —
+20d717b4-9f62-5c55-946d-317b281292e8       B     PASS           PASS           20,679           —
+2b0ae926-c496-536c-a826-9738944667ed       A     PASS           PASS           20,350           —
+2bec943d-4f5f-5c8c-8ee3-b57550d936a6       B     PASS           PASS           17,307           —
+2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1       A     PASS           PASS           14,596           —
+2c9e14c7-6c6c-5288-823f-7ff82d6050fa       A     PASS           PASS           14,914           —
+3118b1c8-f45b-56fc-9447-a49cfa38a8b9       B     PASS           PASS           20,650           —
+31546dd0-026f-5db8-989f-d85a6a2dace9       A     PASS           PASS           19,410           —
+38e61d08-72ee-594b-b999-ebdd4b2ba8ab       A     PASS           PASS           12,561           —
+406cfe13-1d13-57a6-a6ba-707a55b2236f       B     PASS           PASS           22,718           —
+418157d5-26eb-5d5f-a000-217ec60a43a3       B     PASS           PASS           13,791           —
+493d1d62-88f8-507b-9c8e-84aff7737a49       B     PASS           PASS           18,337           —
+4f876cd0-76bb-5369-bd07-a575b4249c12       A     PASS           PASS           19,692           —
+4ff8463e-c268-5a14-b191-dcb374933011       A     PASS           PASS           11,911           —
+50076583-ba35-52ab-b3f0-a82ad328f10d       A     PASS           PASS           9,644            —
+55f80db0-96b2-50d7-8d6f-448f11a626bc       A     PASS           PASS           14,956           —
+5f8fe817-da1a-56cd-b7ff-754f135c0029       A     PASS           PASS           15,452           —
+60f3db6d-9305-543b-8388-b9a4a887f255       A     PASS           PASS           21,960           —
+644c3665-1e55-5672-9497-55c1368b9e18       A     PASS           PASS           20,979           —
+647ddddf-b30b-5323-98ce-e1b9da65bb76       A     PASS           PASS           22,026           —
+66ea1f06-132d-58ac-8a27-cc8d45953215       A     PASS           PASS           20,486           —
+683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f       B     PASS           PASS           14,609           —
+73203dc3-1a14-5976-81e8-8fcec979ae7f       A     PASS           PASS           20,392           —
+73ae330d-1e33-5418-8266-44e8deea6571       A     PASS           PASS           19,151           —
+7a903ca0-a2cb-5061-85be-2885929f64c1       B     PASS           PASS           20,552           —
+7fc88018-85be-50d4-9159-dbc1cc44f525       A     PASS           PASS           19,725           —
+8a2f9219-014d-5d15-a7f2-efbad536db72       B     PASS           PASS           14,907           —
+8a59be07-bb4b-5eec-b8ab-7cbc27fc6735       A     PASS           PASS           18,040           —
+8b1084a6-4f53-556a-9929-5afff3818858       B     PASS           PASS           17,299           —
+8c53af6a-f534-57fa-a048-e4e591f7dfb8       B     PASS           PASS           19,159           —
+94f530d4-8b56-5395-85a5-af0a9ef53356       A     PASS           PASS           18,752           —
+998e5c53-30cb-5ad4-b4b2-4c3791edd002       A     PASS           PASS           20,322           —
+9b855004-0d35-5ed1-945f-5d5d299b64d8       A     PASS           PASS           16,474           —
+a1b2c3d4-0001-0000-0000-000000000001       A     PASS           PASS           3,299            —
+a1b2c3d4-0012-0000-0000-000000000012       A     PASS           PASS           21,252           —
+a1b2c3d4-0019-0000-0000-000000000019       A     PASS           PASS           10,923           —
+a350b90c-0348-5a64-8369-4d4d8bb3dbcd       B     PASS           PASS           19,059           —
+a4251e7c-c760-58d9-8707-7c6d4c7d8789       A     PASS           PASS           16,224           —
+a86b50cb-0785-56dd-bd58-9c3d317e49e5       A     PASS           PASS           17,483           —
+abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad       B     PASS           PASS           17,251           —
+acbaff26-109b-5856-af00-0603bde931ea       B     PASS           PASS           19,905           —
+af38a808-c9db-54cb-8604-75e1bf79759c       B     PASS           PASS           22,879           —
+b73c8c0e-15cd-5ca6-9b91-abd2c18b417f       A     PASS           PASS           14,348           —
+bcd382f5-0924-5d48-99f5-7d4075c0d674       A     PASS           PASS           19,378           —
+c5c25713-e1b2-50e8-bb08-f0216b9d4a72       A     PASS           PASS           20,781           —
+c85a5154-b948-5aff-89e7-d5c8ce61ea4d       A     PASS           PASS           19,549           —
+ccb06368-afbd-5c1a-ac9a-2fd72ce9ebe0       A     PASS           PASS           15,363           —
+d85a4b79-703d-54fb-8680-35d4c0059797       A     PASS           PASS           9,424            —
+dec8b800-21b1-5a05-84b0-8d1474130202       B     PASS           PASS           23,809           —
+df79ad78-3db2-5770-8c82-64df5edd62b5       B     PASS           PASS           17,343           —
+dfba64e0-cac2-5f16-b408-41de04ff2cae       A     PASS           PASS           20,723           —
+e2bb9fee-7150-5240-af64-ee1066e55564       B     PASS           PASS           16,203           —
+e32eaeba-515c-5fde-af46-44d5246d0805       A     PASS           PASS           17,664           —
+e8650933-8e32-57db-8eb7-7b22231dce57       A     PASS           PASS           14,103           —
+e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a       A     PASS           PASS           12,314           —
+ed69678c-450f-5f69-83a0-b4cf31101f75       A     PASS           PASS           12,977           —
+f1f0ca35-8c17-5843-8c31-3fca8ab5a46b       A     PASS           PASS           13,880           —
+f596295c-e1e4-534d-ad0a-8cfc098bc609       B     PASS           PASS           20,975           —
+fe284cc5-c965-5cf6-9ff8-b375758c1ee6       B     PASS           PASS           16,268           —
+--------------------------------------------------------------------------------------------------------------
+Total: 65  Passed: 65  Failed: 0  Errored: 0
+

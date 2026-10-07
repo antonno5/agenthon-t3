@@ -1,0 +1,14 @@
+{
+  "status": "stopped_by_user",
+  "terminated_processes": [
+    92516,
+    92520,
+    92521,
+    92522,
+    92991
+  ],
+  "stopped_containers": [
+    "830205c0b14b2c7240504064ec29308ba17dcda706b5934b482bef672ef940e2"
+  ],
+  "no_further_checks": true
+}

@@ -1,0 +1,232 @@
+{
+  "unit": "t3-mp02-stp-oldest-baseline",
+  "side": "baseline",
+  "image_digest": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+  "kind": "profile",
+  "index": 0,
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--name",
+    "t3-diff-d3087de85da0",
+    "--platform",
+    "linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/inputs/t3-mp02-stp-oldest-baseline:/input:ro",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp02-stp-oldest-baseline/profile-00/baseline/raw:/output",
+    "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "simulate",
+    "--config",
+    "/input/scenario.json",
+    "--out",
+    "/output/trace.parquet",
+    "--trace-mode",
+    "buffered",
+    "--profile-components"
+  ],
+  "batch_cli_args": [],
+  "diagnostics_mount": null,
+  "rankable": false,
+  "accepted": true,
+  "exit_code": 0,
+  "host_launch_sec": 6.486785874993075,
+  "host_launch_clock": "perf_counter around Docker CLI",
+  "host_peak_cgroup_memory_bytes": null,
+  "host_peak_rss_bytes": null,
+  "rss_source": "not_sampled; cgroup_memory_is_recorded_separately",
+  "memory_source": "unavailable_on_host",
+  "state": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-06T17:51:09.242800529Z",
+    "FinishedAt": "2026-10-06T17:51:15.614295604Z"
+  },
+  "container_sec": 6.371495075,
+  "container_clock": "Docker State FinishedAt - StartedAt",
+  "check": {
+    "accepted": true,
+    "rankable": false,
+    "hashes": {
+      "events.json": "0cf3980e1d2efb5d7a61e37c5314e877cc62c97c1bbcac1f1b91964cf3d06346",
+      "message_trace.parquet": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+      "profile.json": "bd6ff81018fb652e012232b592ee92b10a02cfbf19d10e54ef24631f9fc9defb",
+      "trace.parquet": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c"
+    },
+    "developer": {
+      "admissible": true,
+      "rankable": false,
+      "profile": "developer",
+      "detail": {
+        "score": 15585.679858415291,
+        "profile": "developer",
+        "rankable": false,
+        "score_source": "self_reported",
+        "stylized_facts": null
+      },
+      "labels": [],
+      "gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      }
+    },
+    "digest_declarations": [
+      {
+        "file": "trace.parquet",
+        "source": "events.json",
+        "declared_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+        "actual_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+        "matches": true
+      },
+      {
+        "file": "message_trace.parquet",
+        "source": "events.json",
+        "declared_sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+        "actual_sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+        "matches": true
+      }
+    ],
+    "reference_comparison": {
+      "files": [
+        {
+          "file": "trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mp02-stp-oldest-baseline/trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp02-stp-oldest-baseline/profile-00/baseline/retained/trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "right_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "left_rows": 72049,
+          "right_rows": 72049,
+          "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "field_schema_equal": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mp02-stp-oldest-baseline/message_trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-mp02-stp-oldest-baseline/profile-00/baseline/retained/message_trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "right_sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "left_rows": 63623,
+          "right_rows": 63623,
+          "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "field_schema_equal": true
+        }
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true
+    }
+  },
+  "events": {
+    "scenario_id": "dfba64e0-cac2-5f16-b408-41de04ff2cae",
+    "seed": 2045111676,
+    "n_events": 72049,
+    "wall_clock_sec": 4.622769147994404,
+    "events_per_sec": 15585.679858415291,
+    "trace_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+    "n_messages": 63623,
+    "message_trace_sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+    "peak_memory_bytes": 265609216,
+    "gpu_seconds": 0.0,
+    "simulation_wall_clock_sec": 4.298437688994454
+  },
+  "adapter_peak_rss_bytes_self_reported": 265609216,
+  "adapter_sec_self_reported": 4.622769147994404,
+  "cold_start_and_container_other_sec": 1.7487259270055961,
+  "profiles": {
+    "profile.json": {
+      "schema_version": 1,
+      "trace_mode": "buffered",
+      "detailed": true,
+      "timing_kind": "diagnostic",
+      "wall_clock_sec": 4.622769147994404,
+      "phases": {
+        "input": 0.006953349999093916,
+        "configuration": 0.021170747000724077,
+        "simulation": 4.298437688994454,
+        "trace_finalize": 0.023472313994716387,
+        "message_finalize": 0.10305304299981799,
+        "parquet_write": 0.15641366800264223,
+        "hashing": 0.011526136004249565,
+        "metadata_write": 0.0015509830045630224
+      },
+      "components": {
+        "input": 0.006953349999093916,
+        "configuration": 0.021170747000724077,
+        "trace_finalize": 0.023472313994716387,
+        "message_finalize": 0.10305304299981799,
+        "parquet_write": 0.15641366800264223,
+        "hashing": 0.011526136004249565,
+        "metadata_write": 0.0015509830045630224,
+        "event_queue": 0.30256031800001226,
+        "event_capture": 0.32667107300001524,
+        "exchange": 0.6582655290000017,
+        "latency": 0.5175658810000138,
+        "agent_logic": 1.2944669769999921,
+        "matching": 0.8425269059999974,
+        "oracle": 0.002531639999999999,
+        "kernel_other": 0.35384936499442166,
+        "adapter_other": 0.0001912179941427894
+      },
+      "simulation_components": {
+        "event_queue": 0.30256031800001226,
+        "event_capture": 0.32667107300001524,
+        "exchange": 0.6582655290000017,
+        "latency": 0.5175658810000138,
+        "agent_logic": 1.2944669769999921,
+        "matching": 0.8425269059999974,
+        "oracle": 0.002531639999999999,
+        "kernel_other": 0.35384936499442166
+      },
+      "component_calls": {
+        "event_queue": 191333,
+        "event_capture": 95564,
+        "exchange": 30494,
+        "latency": 61508,
+        "agent_logic": 33129,
+        "matching": 28382,
+        "oracle": 65
+      },
+      "gpu_utilization": 0.0,
+      "peak_memory_bytes": 265609216
+    }
+  }
+}

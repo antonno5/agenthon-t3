@@ -1,0 +1,23 @@
+{
+  "upstream_sha256": "cd0fdd3800ba7b49da0c82d7343f09942c617b6b4b01df37e1babb964f55239e",
+  "variants": {
+    "before": {
+      "kernel": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/applied/before/abides-core/abides_core/kernel.py",
+      "kernel_sha256": "eccaf701dd118e484fda08879be808a63ab4ea2eed46e280a812bdb73ca16177",
+      "adapter": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/applied/before/baselines/abides_fork/trace.py",
+      "adapter_sha256": "c2f3dde1508b9207ee1d7d53aa64b3aff561cd8938adfa16bacc78f878f2fbb1",
+      "kernel_patch_sha256": "1ea7c8bcfd33c22b20b48580f6eb55d855f8d0d4bdebb0514ed3f24409e2f455",
+      "adapter_patch_sha256": "0c5018fe84192696c92ee087c411de23d71193dead9b5636e77bb2e965ca8c9e"
+    },
+    "after": {
+      "kernel": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/applied/after/abides-core/abides_core/kernel.py",
+      "kernel_sha256": "c2da17e2b62bac13337d9ae6a9b5182c1c6e13025789262107255aedbf2ed6b2",
+      "adapter": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T172731Z-bed6cc/applied/after/baselines/abides_fork/trace.py",
+      "adapter_sha256": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+      "kernel_patch_sha256": "65365bb54044833060b218c4d3ece0ddc23cf7fa5d6746faaaa2ab9405213e2c",
+      "adapter_patch_sha256": "0c5018fe84192696c92ee087c411de23d71193dead9b5636e77bb2e965ca8c9e"
+    }
+  },
+  "baseline_kernel_patch_matches": true,
+  "baseline_adapter_matches": true
+}

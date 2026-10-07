@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/regression_suite/run_regression.py", line 42, in <module>
+    from throughput.timer import bounded_container_run
+ModuleNotFoundError: No module named 'throughput'

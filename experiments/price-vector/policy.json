@@ -1,0 +1,51 @@
+{
+  "executive_summary": "Test a best-price fast path and maintained numeric price vector in an isolated overlay. Run only the new candidate; reuse exact-image baseline measurements. No full corpus regression or adoption is included.",
+  "baseline_image": "python-book-bisect:20261006",
+  "baseline_id": "sha256:484ef5d44a7b71da3f2e67af21c2c8744510467648aaedf17aa083186e1dc886",
+  "base_state_sha256": "615bcd4357f744f77fe7844f3dc648ee4e110097005a65540baa6c806f5c3f90",
+  "candidate_state_sha256": "e71ea04f678024485a3e73d68e8d89b03ceeda14b6db9537d590b19b2a4ed4fd",
+  "candidate_tag": "python-book-price-vector:20261007",
+  "baseline_source_commit": "7d9f92d4f218d2f181b51f4f99f99ff240267ded",
+  "current_develop_commit": "1c6e78bf36543b2b54221a32680e86b23c3481dd",
+  "units": [
+    "t3-mp02-stp-oldest-baseline",
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest"
+  ],
+  "warmups_per_unit": 1,
+  "repeats": 5,
+  "micro_repeats": 7,
+  "micro_script": "experiments/price-search-comparison/microbench.py",
+  "micro_levels": [
+    1,
+    4,
+    16,
+    64,
+    256,
+    1024
+  ],
+  "micro_phases": [
+    "lookup",
+    "add_existing",
+    "cancel_existing",
+    "modify_existing",
+    "new_level_churn"
+  ],
+  "micro_operations": 2000,
+  "micro_warmup_operations": 200,
+  "runtime_checks": "Existing 99 targeted order-book tests plus new key-vector/head-path checks in candidate container. No old timing containers.",
+  "baseline_simulator_evidence": "out/price-search-comparison/differential-resumed/summary.json",
+  "baseline_micro_evidence": "out/price-search-comparison/micro/bisect-00.json through bisect-06.json",
+  "timing_primary": "Docker State lifetime",
+  "timing_secondary": "simulation_wall_clock_sec",
+  "rankable": false,
+  "resources": {
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "network": "none",
+    "containers": "strictly sequential"
+  },
+  "limits": "Historical/unpaired timing comparison; no causal speedup or official score claim. Existing explicit base-list mutation / vars(level) bypass limitations persist."
+}

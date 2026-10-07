@@ -1,0 +1,18 @@
+--- a/baselines/abides_fork/trace.py
++++ b/baselines/abides_fork/trace.py
+@@ -254,6 +254,15 @@
+         A DataFrame with columns ``MESSAGE_TRACE_COLUMNS`` and canonical dtypes.
+     """
+     ledger = end_state.get("message_ledger") or []
++    if end_state.get("message_ledger_format") == "delivery_order_v1":
++        # Construct each column at its final dtype. In particular, nullable ns
++        # timestamps must never pass through float64 inference (loss above 2**53).
++        return pd.DataFrame(
++            {
++                column: pd.array([row[i] for row in ledger], dtype=_MSG_DTYPES[column])
++                for i, column in enumerate(MESSAGE_TRACE_COLUMNS)
++            }
++        )
+ 
+     seqmap = end_state.get("deliver_seq_by_key") or {}
+     empty = pd.DataFrame({c: [] for c in MESSAGE_TRACE_COLUMNS}).astype(_MSG_DTYPES)

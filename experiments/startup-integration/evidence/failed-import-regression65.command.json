@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/regression_suite/run_regression.py",
+    "--candidate-image",
+    "sha256:537a7cf45af039c989ae2366916240174a2c69aa0fd68b9f70a0196736868f6c",
+    "--scenarios-dir",
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/regression_suite/scenarios",
+    "--reference-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/reference-cache",
+    "--output-dir",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65",
+    "--workers",
+    "1"
+  ],
+  "cwd": null,
+  "env_overrides": {
+    "DOCKER_CONTEXT": "colima-agenthon",
+    "TMPDIR": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/integration-startup-develop"
+  }
+}

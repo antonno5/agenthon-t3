@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "trace_mode": "buffered",
+  "detailed": false,
+  "timing_kind": "wall_clock_phases",
+  "wall_clock_sec": 3.467499724996742,
+  "phases": {
+    "input": 0.004542908995063044,
+    "configuration": 0.014123375993221998,
+    "simulation": 3.1127162990014767,
+    "trace_finalize": 0.023593389996676706,
+    "message_finalize": 0.10468519799906062,
+    "parquet_write": 0.19224244200449903,
+    "hashing": 0.013395208996371366,
+    "metadata_write": 0.0019388650034670718
+  },
+  "components": {
+    "input": 0.004542908995063044,
+    "configuration": 0.014123375993221998,
+    "simulation": 3.1127162990014767,
+    "trace_finalize": 0.023593389996676706,
+    "message_finalize": 0.10468519799906062,
+    "parquet_write": 0.19224244200449903,
+    "hashing": 0.013395208996371366,
+    "metadata_write": 0.0019388650034670718,
+    "adapter_other": 0.0002620370069053024
+  },
+  "simulation_components": {},
+  "component_calls": {},
+  "gpu_utilization": 0.0,
+  "peak_memory_bytes": 266018816
+}

@@ -1,0 +1,51 @@
+{
+  "scope": "As-built caches; disposable containers include source recompilation in measured cold start. No steady-state performance attribution.",
+  "files": [
+    {
+      "source": "abides_markets/order_book.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 40207,
+        "pyc_source_size": 40207,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "a157438440890351c96d09034a17d3cbc03c75b42f12f418285001df2ea97190"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 40241,
+        "pyc_source_size": 40207,
+        "source_mtime": 1791310771,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "a157438440890351c96d09034a17d3cbc03c75b42f12f418285001df2ea97190"
+      }
+    },
+    {
+      "source": "abides_markets/price_level.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 9655,
+        "pyc_source_size": 9655,
+        "source_mtime": 1791224206,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": true,
+        "pyc_sha256": "0c895feae174d05bc6902b6b5475502f73681cdc55d328cc71447017142bd928"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 10487,
+        "pyc_source_size": 9655,
+        "source_mtime": 1791310771,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "0c895feae174d05bc6902b6b5475502f73681cdc55d328cc71447017142bd928"
+      }
+    }
+  ]
+}

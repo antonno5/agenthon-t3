@@ -1,0 +1,1202 @@
+{
+  "status": "passed",
+  "rankable": false,
+  "source_summary": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/summary.json",
+  "immutable_images": {
+    "baseline": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+    "candidate": "sha256:4c35b44a353573e875a286f12f51fb1011792b3e772229a4e2c8902addc1c685"
+  },
+  "run_count": 50,
+  "pair_count": 25,
+  "docker_event_overlap_check": "passed",
+  "docker_events": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/manager-audit.events.jsonl",
+  "docker_event_coverage": "all measured/warmup/profile starts and deaths present",
+  "independent_trace_checks": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "warmup",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 664,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "warmup",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 604,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 664,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 604,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 1,
+      "file": "message_trace.parquet",
+      "rows": 664,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 1,
+      "file": "trace.parquet",
+      "rows": 604,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 2,
+      "file": "message_trace.parquet",
+      "rows": 664,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 2,
+      "file": "trace.parquet",
+      "rows": 604,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "profile",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 664,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "profile",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 604,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "warmup",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 30036,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "warmup",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 25443,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "timing",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 30036,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "timing",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 25443,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "timing",
+      "index": 1,
+      "file": "message_trace.parquet",
+      "rows": 30036,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "timing",
+      "index": 1,
+      "file": "trace.parquet",
+      "rows": 25443,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "timing",
+      "index": 2,
+      "file": "message_trace.parquet",
+      "rows": 30036,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "timing",
+      "index": 2,
+      "file": "trace.parquet",
+      "rows": 25443,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "profile",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 30036,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "kind": "profile",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 25443,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "warmup",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 65662,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "warmup",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 72034,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "timing",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 65662,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "timing",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 72034,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "timing",
+      "index": 1,
+      "file": "message_trace.parquet",
+      "rows": 65662,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "timing",
+      "index": 1,
+      "file": "trace.parquet",
+      "rows": 72034,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "timing",
+      "index": 2,
+      "file": "message_trace.parquet",
+      "rows": 65662,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "timing",
+      "index": 2,
+      "file": "trace.parquet",
+      "rows": 72034,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "profile",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 65662,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "kind": "profile",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 72034,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "warmup",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 269644,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "warmup",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 319488,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 269644,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 319488,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "file": "message_trace.parquet",
+      "rows": 269644,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "file": "trace.parquet",
+      "rows": 319488,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "file": "message_trace.parquet",
+      "rows": 269644,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "file": "trace.parquet",
+      "rows": 319488,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "profile",
+      "index": 0,
+      "file": "message_trace.parquet",
+      "rows": 269644,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "profile",
+      "index": 0,
+      "file": "trace.parquet",
+      "rows": 319488,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_00/message_trace.parquet",
+      "rows": 7278,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_00/trace.parquet",
+      "rows": 8150,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_01/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_01/trace.parquet",
+      "rows": 8135,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_02/message_trace.parquet",
+      "rows": 7279,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_02/trace.parquet",
+      "rows": 8149,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_03/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "warmup",
+      "index": 0,
+      "file": "sub_03/trace.parquet",
+      "rows": 8146,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_00/message_trace.parquet",
+      "rows": 7278,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_00/trace.parquet",
+      "rows": 8150,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_01/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_01/trace.parquet",
+      "rows": 8135,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_02/message_trace.parquet",
+      "rows": 7279,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_02/trace.parquet",
+      "rows": 8149,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_03/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 0,
+      "file": "sub_03/trace.parquet",
+      "rows": 8146,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_00/message_trace.parquet",
+      "rows": 7278,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_00/trace.parquet",
+      "rows": 8150,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_01/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_01/trace.parquet",
+      "rows": 8135,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_02/message_trace.parquet",
+      "rows": 7279,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_02/trace.parquet",
+      "rows": 8149,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_03/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 1,
+      "file": "sub_03/trace.parquet",
+      "rows": 8146,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_00/message_trace.parquet",
+      "rows": 7278,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_00/trace.parquet",
+      "rows": 8150,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_01/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_01/trace.parquet",
+      "rows": 8135,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_02/message_trace.parquet",
+      "rows": 7279,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_02/trace.parquet",
+      "rows": 8149,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_03/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "timing",
+      "index": 2,
+      "file": "sub_03/trace.parquet",
+      "rows": 8146,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_00/message_trace.parquet",
+      "rows": 7278,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_00/trace.parquet",
+      "rows": 8150,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_01/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_01/trace.parquet",
+      "rows": 8135,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_02/message_trace.parquet",
+      "rows": 7279,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_02/trace.parquet",
+      "rows": 8149,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_03/message_trace.parquet",
+      "rows": 7276,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "kind": "profile",
+      "index": 0,
+      "file": "sub_03/trace.parquet",
+      "rows": 8146,
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    }
+  ],
+  "recomputed_timings": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "full_run_medians": {
+        "baseline": 1.582286563,
+        "candidate": 1.818454074
+      },
+      "speedup": 0.8701273161765867,
+      "time_reduction": -0.14925710457417307,
+      "raw_pairs": [
+        {
+          "baseline": 1.557495993,
+          "candidate": 2.293261531
+        },
+        {
+          "baseline": 1.582827411,
+          "candidate": 1.818454074
+        },
+        {
+          "baseline": 1.582286563,
+          "candidate": 1.720043813
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          1.557495993,
+          1.582827411
+        ],
+        "candidate": [
+          1.720043813,
+          2.293261531
+        ]
+      },
+      "ranges_overlap": false
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "full_run_medians": {
+        "baseline": 3.013023346,
+        "candidate": 3.028956772
+      },
+      "speedup": 0.9947396324215354,
+      "time_reduction": -0.005288185377372745,
+      "raw_pairs": [
+        {
+          "baseline": 2.878062646,
+          "candidate": 2.946509031
+        },
+        {
+          "baseline": 3.013023346,
+          "candidate": 3.028956772
+        },
+        {
+          "baseline": 3.087960947,
+          "candidate": 3.189407881
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          2.878062646,
+          3.087960947
+        ],
+        "candidate": [
+          2.946509031,
+          3.189407881
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "full_run_medians": {
+        "baseline": 4.69175723,
+        "candidate": 4.754189996
+      },
+      "speedup": 0.986867843722584,
+      "time_reduction": -0.013306904628566985,
+      "raw_pairs": [
+        {
+          "baseline": 4.69175723,
+          "candidate": 4.793134712
+        },
+        {
+          "baseline": 4.913676533,
+          "candidate": 4.754189996
+        },
+        {
+          "baseline": 4.572651034,
+          "candidate": 4.381378555
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          4.572651034,
+          4.913676533
+        ],
+        "candidate": [
+          4.381378555,
+          4.793134712
+        ]
+      },
+      "ranges_overlap": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "full_run_medians": {
+        "baseline": 19.966732604,
+        "candidate": 20.195463629
+      },
+      "speedup": 0.9886741384500057,
+      "time_reduction": -0.01145560615932606,
+      "raw_pairs": [
+        {
+          "baseline": 19.966732604,
+          "candidate": 20.129572305
+        },
+        {
+          "baseline": 18.974902093,
+          "candidate": 20.676985176
+        },
+        {
+          "baseline": 20.055432926,
+          "candidate": 20.195463629
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          18.974902093,
+          20.055432926
+        ],
+        "candidate": [
+          20.129572305,
+          20.676985176
+        ]
+      },
+      "ranges_overlap": false
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "full_run_medians": {
+        "baseline": 3.54876714,
+        "candidate": 3.091822712
+      },
+      "speedup": 1.147791277367394,
+      "time_reduction": 0.1287614571408593,
+      "raw_pairs": [
+        {
+          "baseline": 3.54876714,
+          "candidate": 3.16928019
+        },
+        {
+          "baseline": 3.776761273,
+          "candidate": 3.091822712
+        },
+        {
+          "baseline": 3.071551505,
+          "candidate": 2.936935656
+        }
+      ],
+      "ranges": {
+        "baseline": [
+          3.071551505,
+          3.776761273
+        ],
+        "candidate": [
+          2.936935656,
+          3.16928019
+        ]
+      },
+      "ranges_overlap": true
+    }
+  ],
+  "evidence_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/summary.json": "9d1ac4d61dacf84fdd8f245ff7b6cd6f8ffdd93b2ba27dd0c7723ec98c0f3357",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/manager-audit.events.jsonl": "21e41fa5a69085e0703468683f252b65f88ae38185d441c2fcb3210f6b96e041",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/warmup-00/baseline/record.json": "f2bc06138b57346848daac3928d35da91e063b9caacf9bb5eeff80cf4c20d708",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/warmup-00/candidate/record.json": "d5d01995529de56a3f6dd879fb75a15ab495c64589a2e86237f18c62021cb556",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-00/baseline/record.json": "2b6b2a2f505b3c0d19ad89e2c2bf09a580e5da6d2f95191e85a2b733534473dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-00/candidate/record.json": "44b8318bb223fcd1cbc8c4e559c63fc6e9c3c6fa0a5816865ef8ef7c6457d73e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-01/candidate/record.json": "243dd073205124b1f32a3789d67665d97778d79fb5cd791e4d3daacd72f0ae96",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-01/baseline/record.json": "76002df28586e3a7f1814811555cf7fda891299ccef769703cdae598b82a7805",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-02/baseline/record.json": "788c52268a51e2108c66eca776d387ce206f5c61866ad3416fba1fae7c8c1886",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-02/candidate/record.json": "11afb883ac8fcedb84b2a6fc2547e92e3811e0092fec3a2e6564a4512506520e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/profile-00/baseline/record.json": "ec10f1570eb3f0bfbf1931c2716975fbb86f9e59f23d3a5d97cef932823a8347",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/profile-00/candidate/record.json": "34932b1d419e5640ee218f6028105e9aa29b983f6106b8cbec5ec3bcaee5d5a9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/warmup-00/baseline/record.json": "1119c803c937e5b22a07b764a497d7c20872b89687a9647dbb0545b7f34eb9a7",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/warmup-00/candidate/record.json": "39989bf67f422e00498f2eeba950bfcb580d6b833315d811195b5084017d42ff",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-00/baseline/record.json": "35c26c7859bb017f7a53db5927771f4de8111fbc2560b94945caa6ce7328aa72",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-00/candidate/record.json": "9bfb3d3da19f09c62161e9d509a87c5a5a2376ffe7dec79d949f126bf0ffed53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-01/candidate/record.json": "e6e4d59738c865db0c849431224f3f2fe0c14176eeeb289aafac3c93a8c2d79f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-01/baseline/record.json": "da9dc33e38da10ca153d1d89d640639e95a942d5dd5617898de610aac7df7a98",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-02/baseline/record.json": "1e0f89fc2bbadd59d6baa3a66761c661d722997639717cccdf6afba262dec025",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-02/candidate/record.json": "0e5e0f1d4e07f2066c9c41a0a18bfc83b8eb186bbcdbef04346386093c33f18d",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/profile-00/baseline/record.json": "8c09c0dc87f6064dac968ca09514c6bed263c4c8d5af3dbe03ea65d98207afe6",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/profile-00/candidate/record.json": "ee439668cd29826eba49636b42811e40150008d050e1df201cd14c9fd785fe51",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/warmup-00/baseline/record.json": "1908f5406108819098d4e9a3db78c8d7ac7478c6ecc8642d6f2ac98ad5b34c4e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/warmup-00/candidate/record.json": "07465bd2412c9521d25583783cd24af5a81ebad9cd74c66c2e8ffc40d6888f44",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-00/baseline/record.json": "6d1eec848af935be139d280ed992e6bf2d9067132293099ea39d3e3db6c13d8d",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-00/candidate/record.json": "5c4e861477f5f2c2321bd9173adc043e3f1c8bc30cf6fe645f1d7166928d464c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-01/candidate/record.json": "8443196efd6adfe1daf45b7e4c0627ea0ce3e4654d7f76b13d0e3d305b11f1d2",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-01/baseline/record.json": "e30e26ee735b7a0655f7b3c001d48f060a993dec9c11014e976cf4ea22dc8d89",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-02/baseline/record.json": "1cc0656d6d5f0f61f27328d2f16a8b1f392fa1801d53ec9245263e30dd45c51a",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-02/candidate/record.json": "306bf4678069ff7ecb82e5dde12f68cdfce5f30cd2c164d61db0a758a1255808",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/profile-00/baseline/record.json": "416ca6e9176dcf6ec074c0556baa9337a7256ae9b17fdd2dd0de3afcf99ce006",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/profile-00/candidate/record.json": "98de7edda90e6dd4ff0d7264a3958f8f40149fb5dd9de64f537e71171d45f590",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/warmup-00/baseline/record.json": "3c99ff8401d09d06b441926c3b87e3d0c1ffea597412322c0c3f4790e021926d",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/warmup-00/candidate/record.json": "f43112484808b9afc4ad5c6e54a6187418d80760d1516908ecd30871a1962034",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/record.json": "14fe64f49e713aab8c6897ddf3dde6f98a3f5feba8b69884faea52e3de8508b4",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/record.json": "018849bd7f0efbfc6f7f3f0d094d343914c37347195d7c838b6fe5a3c47e0325",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-01/candidate/record.json": "18b8d235c642f32de27258fc67f1aa2e9fffd3f3c260fc963e067b94b36b1883",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-01/baseline/record.json": "c7cb99f90f5c27f6277a7190c28a505650ac9c07e771a8cab1a531827284a2a3",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-02/baseline/record.json": "8a6e7dbcbef629b11d25671252623c0f82f34094a437cdd040b4bc749229decb",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-02/candidate/record.json": "6f43cc38629e30483bf8c479fbd3f9be98ee5179d0f3965b05058c522be399b4",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/profile-00/baseline/record.json": "8c3e3e1a2bc1f52e03937b18dd2145b9e70f07fa5eb5043457b93f2e5e4ab40e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/profile-00/candidate/record.json": "32e1345df0f9dbc0a56bef389416bf1b563234a3ca0f12bfc2a2588e4d4f5885",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/record.json": "dfe4307892fd4a25d1d067f096a03d56175c01455d2db96253f24bd6bddb6667",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/record.json": "a1e7d8fbaecfbee404bdaa9c2cb075878d11b4d92e147bb6757815743aade34f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/record.json": "aaa1fb336c9a8377bc16510a87db051cbbce3ffbbcf22bccf26f93d7a3905361",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/record.json": "346a82adc2e34830362ee538185f4231f6cddb3cd508fadcc2ae9a3acf9a56a4",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/record.json": "78f837c2979b273867b360656739fc917e425d883a03293eda35627772d89a24",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/record.json": "a7d078207403bb6c572881a97733826e3afa6e1da4d1eddf38bb22bbd303bdc8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/record.json": "9dfb255cb0d7c1fa1ca7aee01096451880550f8be3dd7328977b03e07407e85e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/record.json": "22d4b808c1a78472576f14d2e69cff7a3b59ccdcd11878cf13200777c3b0d1ab",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/record.json": "86b19e4b231b6d3d93f06291b82ab7b7b32c436d89fcf0735d5cf27400eb7d79",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/record.json": "55aed3422af10333ad2b8bef579ac65322dc79c546908e1f269600aaeb714044",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/warmup-00/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/warmup-00/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/warmup-00/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/warmup-00/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-00/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-00/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-00/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-00/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-01/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-01/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-01/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-01/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-02/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-02/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-02/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/timing-02/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/profile-00/baseline/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/profile-00/candidate/retained/message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/profile-00/baseline/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-s001-price-time-priority/profile-00/candidate/retained/trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/warmup-00/baseline/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/warmup-00/candidate/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/warmup-00/baseline/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/warmup-00/candidate/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-00/baseline/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-00/candidate/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-00/baseline/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-00/candidate/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-01/baseline/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-01/candidate/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-01/baseline/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-01/candidate/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-02/baseline/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-02/candidate/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-02/baseline/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/timing-02/candidate/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/profile-00/baseline/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/profile-00/candidate/retained/message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/profile-00/baseline/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-as05-oracle-variant/profile-00/candidate/retained/trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/warmup-00/baseline/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/warmup-00/candidate/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/warmup-00/baseline/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/warmup-00/candidate/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-00/baseline/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-00/candidate/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-00/baseline/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-00/candidate/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-01/baseline/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-01/candidate/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-01/baseline/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-01/candidate/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-02/baseline/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-02/candidate/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-02/baseline/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/timing-02/candidate/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/profile-00/baseline/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/profile-00/candidate/retained/message_trace.parquet": "eb3bbcdafdcea36523e4ccf57c4626c4dafe68afd47de76194d1380bc50d5971",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/profile-00/baseline/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-st01-liquidity-churn-baseline/profile-00/candidate/retained/trace.parquet": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/warmup-00/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/warmup-00/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/warmup-00/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/warmup-00/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-01/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-01/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-01/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-01/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-02/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-02/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-02/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/timing-02/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/profile-00/baseline/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/profile-00/candidate/retained/message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/profile-00/baseline/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-mr-deep-book-state-size/profile-00/candidate/retained/trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/baseline/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/warmup-00/candidate/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/baseline/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-00/candidate/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/baseline/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-01/candidate/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/baseline/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/timing-02/candidate/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_00/message_trace.parquet": "1c9e6b0c20c672d211c6fd9bd9d40942a5d0d507d8948ce8656ab8f2354b093e",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_00/trace.parquet": "f49ab9845633c755fbcc37c6dd44c197bd90e5aaf3446440863e7473c9ad7167",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_01/message_trace.parquet": "ee03dabcc278c63cc4a6129c9d52d34fdd0d1b6928cd911a0df98a48e30400f8",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_01/trace.parquet": "ec21b9f7e4cd8d7aca46de33e4edb5bcb19edfec642a346fd507cdc648a0983f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_02/message_trace.parquet": "1dc68b2602129da722c60333782ba45eba1f88d86ba269ee033733315ae53c7c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_02/trace.parquet": "3f727b8bedab3e3ee666f868302ffa0713198816b5d847f25761d42b3eecab77",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_03/message_trace.parquet": "4910595fb3c90547a8c812624dc14d965a30d5a333a8c5967d41835ca51db8f0",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/baseline/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/book-history/differential/runs/t3-gbatch-homog-4/profile-00/candidate/retained/sub_03/trace.parquet": "e7ac09671130edb82ebec821f533d3c140b86036252c898128ac59a12ac6a836"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "reason": "State timestamps overlap 52.197569 ms despite serial foreground CLI, successful inspect/cleanup, and earlier destroy event; impossible Docker wall-clock chronology.",
+  "rejected_unit": "t3-mp02-stp-oldest-baseline",
+  "rejected_schedule": "all ten original warmup/timing/profile runs for this unit",
+  "replacement_schedule": "one full fresh unit warmup + AB/BA/AB + profiles on identical immutable images",
+  "selection_basis": "clock validity only; no speed threshold or favourable repeat selection",
+  "original_summary": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/summary.json",
+  "failure_log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit-failed-clock.log"
+}

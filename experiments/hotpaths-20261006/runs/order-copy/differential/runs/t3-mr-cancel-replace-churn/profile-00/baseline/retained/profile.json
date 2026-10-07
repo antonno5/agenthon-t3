@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "trace_mode": "buffered",
+  "detailed": true,
+  "timing_kind": "diagnostic",
+  "wall_clock_sec": 16.916445606999332,
+  "phases": {
+    "input": 0.0027086589980171993,
+    "configuration": 0.014080699998885393,
+    "simulation": 15.85613425399788,
+    "trace_finalize": 0.08434446500177728,
+    "message_finalize": 0.5043842340019182,
+    "parquet_write": 0.4131358779995935,
+    "hashing": 0.04030965299898526,
+    "metadata_write": 0.0011074900030507706
+  },
+  "components": {
+    "input": 0.0027086589980171993,
+    "configuration": 0.014080699998885393,
+    "trace_finalize": 0.08434446500177728,
+    "message_finalize": 0.5043842340019182,
+    "parquet_write": 0.4131358779995935,
+    "hashing": 0.04030965299898526,
+    "metadata_write": 0.0011074900030507706,
+    "event_queue": 1.5325214589984357,
+    "event_capture": 1.1568730829999192,
+    "exchange": 2.266254504000053,
+    "latency": 1.7255098370003377,
+    "agent_logic": 4.51796709699996,
+    "matching": 3.163257742999992,
+    "oracle": 0.001237438,
+    "kernel_other": 1.4925130929991823,
+    "adapter_other": 0.00024027399922488257
+  },
+  "simulation_components": {
+    "event_queue": 1.5325214589984357,
+    "event_capture": 1.1568730829999192,
+    "exchange": 2.266254504000053,
+    "latency": 1.7255098370003377,
+    "agent_logic": 4.51796709699996,
+    "matching": 3.163257742999992,
+    "oracle": 0.001237438,
+    "kernel_other": 1.4925130929991823
+  },
+  "component_calls": {
+    "event_queue": 1251380,
+    "event_capture": 422346,
+    "exchange": 136971,
+    "latency": 274652,
+    "agent_logic": 146223,
+    "matching": 128429,
+    "oracle": 18
+  },
+  "gpu_utilization": 0.0,
+  "peak_memory_bytes": 586002432
+}

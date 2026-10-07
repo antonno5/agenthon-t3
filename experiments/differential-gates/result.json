@@ -1,0 +1,1020 @@
+{
+  "hypothesis": "An independent differential runner can reject altered ordered event/message traces, enforce actual developer gates and batch isolation, and retain complete paired-run evidence without changing the simulator, references or scorer.",
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "branch": "codex/exp-20261005-06-differential-gates",
+  "commit": "abea3c335d46c597b8d324992e9c5d3530140212",
+  "commit_scope": "Final implementation commit; completed result/README recorded in the following report commit.",
+  "worktree": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d",
+  "change_summary": [
+    "Separate immutable baseline/candidate image IDs, explicit unit selection or all-public=71, one warmup and >=3 unprofiled alternating AB/BA pairs with separate diagnostic profiles.",
+    "Both actual build_developer_verifier runs and unchanged no-follow sanitizer; every output and repeat checks both trace files, schemas, ordered values and SHA independently.",
+    "First changed row/column plus adjacent context; byte equality and semantic exact equality remain separate and both required in the pinned stack.",
+    "Input-only _stage_input mounts; bounded deadline/logs and explicit Docker context for all operations.",
+    "Record runtime/checker versions, source/input/reference hashes, seeds, resources, raw timings, optional cgroup memory, self-reported adapter RSS and gate reports in fresh output directories.",
+    "Explicit contract-only control provenance and original baseline batch refusal probes; incomplete checks cannot accept.",
+    "Separate batch sidecar/aggregate digest declaration audit; unchanged developer scorer verdict remains independently recorded.",
+    "Actual-output CLI negative helper validates captured output hash bindings, mutates fresh copies and records positive/negative coverage without Docker; --units/--cases avoids repeating already evidenced controls.",
+    "Development-cycle integration: make differential-check requires explicit baseline/candidate images, candidate source commit, units or all-public, fresh output and public v2.4.4 Python 3.13 checker; propagates runner failure and rankable=false. Build -> differential full checks -> report/commit documented in experiment overview/local development.",
+    "Explicit baseline/candidate batch argv as validated JSON arrays; batch-only role scope, original-baseline probe remains serial, full commands and role arguments recorded in provenance. No hidden image wrapper.",
+    "Separate Docker State container lifetime from host CLI elapsed; preserve corrected prior raw timings and immutable gate/trace evidence without resimulation.",
+    "Retain bounded no-follow batch diagnostics from dedicated mount outside solver output, validate explicit worker selection and keep raw JSON/SHA."
+  ],
+  "changed_files": [
+    "scripts/run_differential_experiment.py",
+    "tests/test_differential_experiment.py",
+    "experiments/differential-gates/replay_reference_controls.py",
+    "experiments/differential-gates/README.md",
+    "experiments/differential-gates/result.json",
+    "experiments/differential-gates/negative_actual_outputs.py",
+    "Makefile",
+    "docs/LOCAL-DEVELOPMENT.md",
+    "experiments/README.md",
+    "experiments/differential-gates/correct_saved_timing.py"
+  ],
+  "correctness_tests": [
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -m pytest -q -rs --basetemp out/differential-gates/final-pytest tests/test_differential_experiment.py tests/test_scoring_gate.py tests/test_batch_isolation.py tests/test_malicious_output.py tests/test_run_unit.py",
+      "status": "passed_with_existing_host_skip",
+      "output": "...............................................................s........ [ 77%]\n.....................                                                    [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_malicious_output.py:116: APFS folds case and normalises Unicode, so neither collision can be constructed on this host. These two cases must be exercised in Linux CI; a local green run does not close them.\n92 passed, 1 skipped in 18.68s",
+      "new_runner_cases_passed": 23,
+      "evidence_path": "out/differential-gates/final-tests.log"
+    },
+    {
+      "command": "'/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/ruff' check scripts/run_differential_experiment.py tests/test_differential_experiment.py experiments/differential-gates/replay_reference_controls.py",
+      "status": "passed",
+      "output": "All checks passed!"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' experiments/differential-gates/replay_reference_controls.py --out out/differential-gates/reference-replay-01",
+      "status": "passed_checker_control_only",
+      "output": [
+        {
+          "unit": "t3-s001-price-time-priority",
+          "exit_code": 0,
+          "basis": "reference_artifact_replay_only; no simulator invoked"
+        },
+        {
+          "unit": "t3-mp01-stp-newest-baseline",
+          "exit_code": 0,
+          "basis": "reference_artifact_replay_only; no simulator invoked"
+        },
+        {
+          "unit": "t3-mp02-stp-oldest-baseline",
+          "exit_code": 0,
+          "basis": "reference_artifact_replay_only; no simulator invoked"
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "exit_code": 0,
+          "basis": "reference_artifact_replay_only; no simulator invoked"
+        }
+      ],
+      "note": "Public reference artifacts replayed as outputs; no simulator image was invoked and no timing/admissibility claim is made."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -c 'from pathlib import Path; import json; from scripts.run_differential_experiment import corpus_check; r={u.name:corpus_check(u) for u in sorted(Path(\"units\").iterdir()) if u.is_dir()}; Path(\"out/differential-gates/corpus-checks.json\").write_text(json.dumps(r,indent=2)); bad={k:v for k,v in r.items() if any(v.values())}; print(f\"{len(r)} public units, {len(bad)} failures\"); raise SystemExit(bool(bad))'",
+      "status": "passed",
+      "output": "71 public units, 0 failures",
+      "evidence_path": "out/differential-gates/corpus-checks.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' scripts/run_differential_experiment.py run --help",
+      "status": "passed",
+      "output": "CLI help saved; check CLI exercised by real subprocess negative/positive controls."
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "output": "No whitespace errors before implementation commit."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -m pytest -q -rs --basetemp out/differential-gates/updated-tests tests/test_differential_experiment.py tests/test_scoring_gate.py tests/test_batch_isolation.py tests/test_malicious_output.py tests/test_run_unit.py",
+      "status": "passed_with_existing_host_skip",
+      "output": ".....................................................................s.. [ 72%]\n...........................                                              [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_malicious_output.py:116: APFS folds case and normalises Unicode, so neither collision can be constructed on this host. These two cases must be exercised in Linux CI; a local green run does not close them.\n98 passed, 1 skipped in 31.83s",
+      "evidence_path": "out/differential-gates/updated-tests.log"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -m pytest -q --basetemp out/differential-gates/subset-tests tests/test_differential_experiment.py",
+      "status": "passed",
+      "output": "...............................                                          [100%]\n31 passed in 17.93s",
+      "runner_cases_passed": 31,
+      "evidence_path": "out/differential-gates/subset-tests.log"
+    },
+    {
+      "command": "Manager-provided actual CLI invocations; exact commands in out/differential-gates/manager-s001-evidence.json",
+      "status": "independently_verified_existing_actual_output_evidence",
+      "output": "s001 real baseline/heap: positive exit 0 accepted; missing ledger, bad SHA, changed causality each exit 1 rejected. No repeated negative check or new Docker launch.",
+      "evidence_path": "out/differential-gates/manager-s001-evidence.json"
+    },
+    {
+      "command": "'/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/ruff' check scripts/run_differential_experiment.py tests/test_differential_experiment.py experiments/differential-gates/negative_actual_outputs.py experiments/differential-gates/replay_reference_controls.py",
+      "status": "passed",
+      "output": "All checks passed!"
+    },
+    {
+      "command": "make -n differential-check 'DIFF_CHECKER=/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' BASELINE_IMAGE=orchestration-control:20261005-a5dbe46 CANDIDATE_IMAGE=dryrun-candidate:local CANDIDATE_COMMIT=92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b 'DIFF_UNITS=t3-s001-price-time-priority t3-mp01-stp-newest-baseline t3-mp02-stp-oldest-baseline t3-gbatch-homog-4' DIFF_OUT=out/differential-gates/make-dry-run-01",
+      "status": "passed_dry_run_only",
+      "output": "PYTHONPATH='/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d' '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -c 'import importlib.metadata as m,json,sys; d=m.distribution(\"qfbench2-common\"); u=json.loads(d.read_text(\"direct_url.json\") or \"{}\"); assert sys.version_info[:2] == (3,13), \"Use the Python 3.13 checker, not the image runtime\"; assert d.version == \"2.4.4\" and u.get(\"url\") == \"https://github.com/Agenthon-2026/Agenthon2026-public.git\" and u.get(\"subdirectory\") == \"common\" and u.get(\"vcs_info\",{}).get(\"requested_revision\") == \"v2.4.4\", \"Run make setup: qfbench2-common[data] must come from the public v2.4.4 tag\"'\nPYTHONPATH='/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d' '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' scripts/run_differential_experiment.py run \\\n\t\t--baseline-image 'orchestration-control:20261005-a5dbe46' --candidate-image 'dryrun-candidate:local' \\\n\t\t--candidate-commit '92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b' \\\n\t\t--units 't3-s001-price-time-priority' 't3-mp01-stp-newest-baseline' 't3-mp02-stp-oldest-baseline' 't3-gbatch-homog-4' \\\n\t\t--out 'out/differential-gates/make-dry-run-01'",
+      "docker_invoked": false
+    },
+    {
+      "command": "make -n differential-check 'DIFF_CHECKER=/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' BASELINE_IMAGE=orchestration-control:20261005-a5dbe46 CANDIDATE_IMAGE=dryrun-candidate:local CANDIDATE_COMMIT=92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b DIFF_ALL_PUBLIC=1 DIFF_OUT=out/differential-gates/make-all-public-dry-run-01",
+      "status": "passed_dry_run_only",
+      "output": "PYTHONPATH='/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d' '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -c 'import importlib.metadata as m,json,sys; d=m.distribution(\"qfbench2-common\"); u=json.loads(d.read_text(\"direct_url.json\") or \"{}\"); assert sys.version_info[:2] == (3,13), \"Use the Python 3.13 checker, not the image runtime\"; assert d.version == \"2.4.4\" and u.get(\"url\") == \"https://github.com/Agenthon-2026/Agenthon2026-public.git\" and u.get(\"subdirectory\") == \"common\" and u.get(\"vcs_info\",{}).get(\"requested_revision\") == \"v2.4.4\", \"Run make setup: qfbench2-common[data] must come from the public v2.4.4 tag\"'\nPYTHONPATH='/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d' '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' scripts/run_differential_experiment.py run \\\n\t\t--baseline-image 'orchestration-control:20261005-a5dbe46' --candidate-image 'dryrun-candidate:local' \\\n\t\t--candidate-commit '92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b' \\\n\t\t--all-public \\\n\t\t--out 'out/differential-gates/make-all-public-dry-run-01'",
+      "docker_invoked": false
+    },
+    {
+      "command": "Pinned checker preflight from the printed Make recipe and 4 negative make -n invocations; exact commands in evidence JSON",
+      "status": "passed",
+      "output": {
+        "checker_toolkit_preflight": {
+          "command": [
+            "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+            "-c",
+            "import importlib.metadata as m,json,sys; d=m.distribution(\"qfbench2-common\"); u=json.loads(d.read_text(\"direct_url.json\") or \"{}\"); assert sys.version_info[:2] == (3,13), \"Use the Python 3.13 checker, not the image runtime\"; assert d.version == \"2.4.4\" and u.get(\"url\") == \"https://github.com/Agenthon-2026/Agenthon2026-public.git\" and u.get(\"subdirectory\") == \"common\" and u.get(\"vcs_info\",{}).get(\"requested_revision\") == \"v2.4.4\", \"Run make setup: qfbench2-common[data] must come from the public v2.4.4 tag\""
+          ],
+          "exit_code": 0,
+          "output": "",
+          "pythonpath": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d"
+        },
+        "negative_dry_runs": [
+          {
+            "case": "missing_images",
+            "command": [
+              "make",
+              "-n",
+              "differential-check"
+            ],
+            "exit_code": 2,
+            "output": "Makefile:41: *** BASELINE_IMAGE is required.  Stop."
+          },
+          {
+            "case": "missing_selection",
+            "command": [
+              "make",
+              "-n",
+              "differential-check",
+              "BASELINE_IMAGE=orchestration-control:20261005-a5dbe46",
+              "CANDIDATE_IMAGE=dryrun-candidate:local",
+              "CANDIDATE_COMMIT=92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b",
+              "DIFF_OUT=out/differential-gates/make-dry-run-errors-01"
+            ],
+            "exit_code": 2,
+            "output": "Makefile:41: *** Explicit DIFF_UNITS or DIFF_ALL_PUBLIC=1 is required.  Stop."
+          },
+          {
+            "case": "conflicting_selection",
+            "command": [
+              "make",
+              "-n",
+              "differential-check",
+              "BASELINE_IMAGE=orchestration-control:20261005-a5dbe46",
+              "CANDIDATE_IMAGE=dryrun-candidate:local",
+              "CANDIDATE_COMMIT=92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b",
+              "DIFF_OUT=out/differential-gates/make-dry-run-errors-01",
+              "DIFF_UNITS=t3-s001-price-time-priority",
+              "DIFF_ALL_PUBLIC=1"
+            ],
+            "exit_code": 2,
+            "output": "Makefile:41: *** Choose DIFF_UNITS or DIFF_ALL_PUBLIC=1, not both.  Stop."
+          },
+          {
+            "case": "invalid_boolean",
+            "command": [
+              "make",
+              "-n",
+              "differential-check",
+              "BASELINE_IMAGE=orchestration-control:20261005-a5dbe46",
+              "CANDIDATE_IMAGE=dryrun-candidate:local",
+              "CANDIDATE_COMMIT=92e0f7ef1d710bdcac4bc0179eabb40bd983dd6b",
+              "DIFF_OUT=out/differential-gates/make-dry-run-errors-01",
+              "DIFF_UNITS=t3-s001-price-time-priority",
+              "DIFF_ALL_PUBLIC=yes"
+            ],
+            "exit_code": 2,
+            "output": "Makefile:41: *** DIFF_ALL_PUBLIC must be 0 or 1.  Stop."
+          }
+        ],
+        "docker_invoked": false,
+        "new_mirror_tests_added": false
+      },
+      "evidence_path": "out/differential-gates/make-integration-checks.json"
+    },
+    {
+      "command": "Existing CLI suite reused; no new mirrored Makefile tests",
+      "status": "previously_passed_unchanged_cli",
+      "output": "31 runner/control cases passed; this integration changed Make/docs only."
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' -m pytest -q --basetemp out/differential-gates/batch-args-tests tests/test_differential_experiment.py",
+      "status": "passed",
+      "output": "................................                                         [100%]\n32 passed in 27.05s",
+      "runner_cases_passed": 32,
+      "meaningful_new_check": "One command-construction test covers baseline/candidate/original roles, immutable images, preserved batch input/output, empty single argv and malformed/reserved JSON rejection."
+    },
+    {
+      "command": "make -n differential-check with DIFF_ARGS forwarding --candidate-batch-args-json; exact command in evidence",
+      "status": "passed_dry_run_only",
+      "output": {
+        "command": [
+          "make",
+          "-n",
+          "differential-check",
+          "DIFF_CHECKER=/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "BASELINE_IMAGE=orchestration-control:20261005-a5dbe46",
+          "CANDIDATE_IMAGE=orchestration-process-batch-final:20261005",
+          "CANDIDATE_COMMIT=manager-source-commit-pending",
+          "DIFF_UNITS=t3-gbatch-homog-4",
+          "DIFF_OUT=out/differential-gates/make-batch-workers2-dry-run-01",
+          "DIFF_ARGS=--candidate-batch-args-json '[\"--workers\",\"2\"]'"
+        ],
+        "status": "dry_run_passed",
+        "shell_parsed_candidate_batch_args": [
+          "--workers",
+          "2"
+        ],
+        "docker_invoked": false,
+        "candidate_source_commit_status": "pending manager; template only"
+      },
+      "evidence_path": "out/differential-gates/make-batch-args-check.json"
+    },
+    {
+      "command": "'/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/ruff' check scripts/run_differential_experiment.py tests/test_differential_experiment.py",
+      "status": "passed",
+      "output": "All checks passed!"
+    },
+    {
+      "command": "git diff a5dbe466f038389e96f44d6f71f1258e2eddcbb5 -- regression_suite/run_regression.py regression_suite/scenarios; checker preflight compared source/map/working-tree configs and references to base Git blobs/LFS oids",
+      "status": "passed_preflight_only",
+      "output": "Regression runner unchanged in worktree/original source. All 65 configs and public reference payloads match baseline Git pins and external published-unit map. Final report and immutable image ID still pending.",
+      "evidence_path": "out/differential-gates/regression-reuse-preflight.json",
+      "regression_executed_here": false
+    },
+    {
+      "command": "Read-only verification of #3 report/checkpoint/recovery provenance and archived image inspect; compare runner/config/ref SHA to saved preflight and cached output hashes",
+      "status": "passed_reused_experiment3_evidence",
+      "output": "65 passed, 0 failed/errored; cached29 original hashes preserved and actual36 by #3; runner/config/public references unchanged; archived image ID verified. No regression or Docker command was executed in this chat.",
+      "source_experiment": "#3 process batch",
+      "evidence_path": "out/differential-gates/regression-reuse-verified.json",
+      "regression_executed_here": false,
+      "rankable": false
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" pinned Python3.13 checker -m pytest -q -rs --basetemp out/differential-gates/completed-pytest tests/test_differential_experiment.py tests/test_scoring_gate.py tests/test_batch_isolation.py tests/test_malicious_output.py tests/test_run_unit.py",
+      "status": "passed_with_existing_host_skip",
+      "output": "........................................................................ [ 69%]\n..s.............................                                         [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_malicious_output.py:116: APFS folds case and normalises Unicode, so neither collision can be constructed on this host. These two cases must be exercised in Linux CI; a local green run does not close them.\n103 passed, 1 skipped in 25.14s\n",
+      "runner_cases_passed": 34,
+      "evidence_path": "out/differential-gates/completed-tests.log"
+    },
+    {
+      "command": "pinned ruff check runner, tests and three experiment helpers",
+      "status": "passed",
+      "output": "All checks passed!\n",
+      "evidence_path": "out/differential-gates/completed-lint.log"
+    },
+    {
+      "command": "Pinned Python3.13 corpus_check on all public unit directories (shared manifest verification and firewall)",
+      "status": "passed",
+      "output": "71 public units, 0 failures\n",
+      "evidence_path": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/completed-corpus-checks.json"
+    }
+  ],
+  "build_command": null,
+  "build_note": "Host-side checker only; no simulator/image source changes, no image build required. Use manager-provided immutable baseline/control images. No Docker command was executed by this experiment before slot authorization.",
+  "gate_command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' scripts/run_differential_experiment.py run --baseline-image orchestration-control:20261005-a5dbe46 --candidate-image orchestration-control:20261005-a5dbe46 --candidate-commit a5dbe466f038389e96f44d6f71f1258e2eddcbb5 --original-baseline-image orchestration-baseline:20261005-a5dbe46 --control-description 'CLI wrapper removes only root profile.json after successful batch main' --control-source-dir '/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/control' --units t3-s001-price-time-priority t3-mp01-stp-newest-baseline t3-mp02-stp-oldest-baseline t3-gbatch-homog-4 --repeats 3 --trace-mode buffered --out out/differential-gates/control-control-01",
+  "benchmark_command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' scripts/run_differential_experiment.py run --baseline-image orchestration-control:20261005-a5dbe46 --candidate-image orchestration-control:20261005-a5dbe46 --candidate-commit a5dbe466f038389e96f44d6f71f1258e2eddcbb5 --original-baseline-image orchestration-baseline:20261005-a5dbe46 --control-description 'CLI wrapper removes only root profile.json after successful batch main' --control-source-dir '/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/control' --units t3-s001-price-time-priority t3-mp01-stp-newest-baseline t3-mp02-stp-oldest-baseline t3-gbatch-homog-4 --repeats 3 --trace-mode buffered --out out/differential-gates/control-control-01",
+  "full_public_command": "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' scripts/run_differential_experiment.py run --baseline-image orchestration-control:20261005-a5dbe46 --candidate-image orchestration-control:20261005-a5dbe46 --candidate-commit a5dbe466f038389e96f44d6f71f1258e2eddcbb5 --original-baseline-image orchestration-baseline:20261005-a5dbe46 --control-description 'CLI wrapper removes only root profile.json after successful batch main' --control-source-dir '/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/control' --all-public --repeats 3 --trace-mode buffered --out out/differential-gates/all-public-01",
+  "legacy_regression_command": "DOCKER_CONTEXT=colima-agenthon PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' regression_suite/run_regression.py --candidate-image orchestration-control:20261005-a5dbe46 --scenarios-dir regression_suite/scenarios/ --reference-dir '/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/public-regression-reference-map' --output-dir out/differential-gates/legacy-regression-01 --workers 1",
+  "evidence_paths": [
+    "out/differential-gates/final-tests.log",
+    "out/differential-gates/final-pytest/",
+    "out/differential-gates/lint.log",
+    "out/differential-gates/reference-replay-01/",
+    "out/differential-gates/reference-replay.log",
+    "out/differential-gates/corpus-checks.json",
+    "out/differential-gates/corpus-checks.log",
+    "out/differential-gates/runner-help.txt",
+    "out/differential-gates/updated-tests.log",
+    "out/differential-gates/subset-tests.log",
+    "out/differential-gates/updated-lint.log",
+    "out/differential-gates/manager-s001-evidence.json",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/manager_result.json",
+    "out/differential-gates/make-units-dry-run.log",
+    "out/differential-gates/make-all-public-dry-run.log",
+    "out/differential-gates/make-integration-checks.json",
+    "out/differential-gates/batch-args-tests.log",
+    "out/differential-gates/batch-args-lint.log",
+    "out/differential-gates/make-batch-args-dry-run.log",
+    "out/differential-gates/make-batch-args-check.json",
+    "out/differential-gates/regression-reuse-preflight.json",
+    "out/differential-gates/regression-reuse-verified.json",
+    "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/validated/regression65/report.json",
+    "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/validated/regression65-resume/checkpoint.json",
+    "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/validated/regression65-resume/resume-provenance.json",
+    "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/final-image-inspect.json",
+    "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/experiments/process-batch/result.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/instrument-validation.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/diagnostics-clock-tests.log",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/completed-tests.log",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/docker-slot-release.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01/summary.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/summary.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01/timing-correction.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01/timing-correction-original",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-negatives-s001-20261006-01/negative-summary.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-negatives-stp-20261006-01/negative-summary.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-negatives-batch-20261006-01/negative-summary.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-01/diagnostic-invalid.json",
+    "out/differential-gates/completed-lint.log",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/completed-corpus-checks.json",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/completed-corpus-checks.log"
+  ],
+  "measured_speedup": null,
+  "rankable": false,
+  "implementation_cost": {
+    "new_runtime_module": 1,
+    "new_reference_replay_module": 1,
+    "new_runner_test_cases": 32,
+    "implementation_and_documentation_lines": 2705,
+    "simulator_changes": 0,
+    "scorer_changes": 0,
+    "image_builds": 0,
+    "maintainer_surface": "Independent host-side CLI; shared toolkit and existing track verifier/sanitizer imported.",
+    "new_actual_negative_control_module": 1,
+    "development_cycle_entrypoints": 1,
+    "git_hooks": 0
+  },
+  "risks": [
+    "Four representative units passed; full 71-unit simulator runtime admission remains a separate future campaign.",
+    "Original baseline batch root profile.json must remain a failed contract case; positive self-comparison uses explicitly identified contract-only control.",
+    "APFS cannot construct existing case/Unicode collision test; Linux CI still required.",
+    "On Mac ARM64 with linux/amd64 Rosetta, local clocks are non-rankable and cannot be extrapolated to official Linux CPU timing.",
+    "Cgroup memory may be unavailable on macOS; host RSS is not sampled, adapter RSS is explicitly self-reported.",
+    "Disk quota and GPU timing are not enforced by this local CPU launcher and are not official resource/timing evidence.",
+    "Strict byte/schema equality intentionally rejects re-encoding even when semantic values match in this pinned-stack experiment."
+  ],
+  "verdict": "instrument_validation_passed",
+  "remaining_validation": [],
+  "public_units": [
+    "t3-s001-price-time-priority",
+    "t3-mp01-stp-newest-baseline",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-gbatch-homog-4"
+  ],
+  "unit_replacements": [],
+  "original_baseline_failure_status": "Actual original-image batch exit 0 followed by C3 TreeRefused path_not_allowedx1; preserved in both attempts, unchanged sanitizer.",
+  "manager_actual_evidence": {
+    "source": "manager-provided real baseline/heap Docker outputs; checker evidence only",
+    "unit": "t3-s001-price-time-priority",
+    "manager_result_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/manager_result.json",
+    "manager_result_sha256": "19e78349996a0dc355a4a65a3cc873b20aa86975b9c7e453b96148d7cc0ebd24",
+    "verified_cases": [
+      {
+        "case": "positive",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "accepted": true,
+        "report": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/positive/report/summary.json",
+        "report_sha256": "2236863c528464af5b120692b52372fbdfcac5572b60b9b36f2086148891d6c9",
+        "complete": true,
+        "baseline_accepted": true,
+        "candidate_developer_admissible": true,
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/units/t3-s001-price-time-priority",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/positive/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/positive/candidate",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/positive/report"
+        ]
+      },
+      {
+        "case": "missing_ledger",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "accepted": false,
+        "report": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/missing_ledger/report/summary.json",
+        "report_sha256": "fa9795900bd7bfc689f0bc93d36b57c0bf5e5cb4db94343c62b7701d69ebd599",
+        "complete": true,
+        "baseline_accepted": true,
+        "candidate_developer_admissible": false,
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/units/t3-s001-price-time-priority",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/missing_ledger/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/missing_ledger/candidate",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/missing_ledger/report"
+        ]
+      },
+      {
+        "case": "bad_sha",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "accepted": false,
+        "report": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/bad_sha/report/summary.json",
+        "report_sha256": "c023e217190ad5d2d345814eeb9b75a63fda0391499346c25a398e8f78533445",
+        "complete": true,
+        "baseline_accepted": true,
+        "candidate_developer_admissible": false,
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/units/t3-s001-price-time-priority",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/bad_sha/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/bad_sha/candidate",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/bad_sha/report"
+        ]
+      },
+      {
+        "case": "changed_causality",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "accepted": false,
+        "report": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/changed_causality/report/summary.json",
+        "report_sha256": "0620ea1742563482087d82652d7e46171e6e2f2b90c676c294f8992777aeec8b",
+        "complete": true,
+        "baseline_accepted": true,
+        "candidate_developer_admissible": false,
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/units/t3-s001-price-time-priority",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/changed_causality/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/changed_causality/candidate",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/differential_manager_checks/changed_causality/report"
+        ]
+      }
+    ],
+    "all_expected": true,
+    "rankable": false,
+    "repeated": false
+  },
+  "instrument_validation": {
+    "status": "instrument_validation_passed",
+    "completed": [
+      "Independent runner and CLI controls implemented; 31 runner/control tests passed.",
+      "--all-public selects exactly 71 and full corpus manifest/firewall preflight passed.",
+      "Actual s001 baseline/heap positive and missing ledger / bad SHA / causality negative reports independently verified from manager evidence.",
+      "Development-cycle make entrypoint and mandatory build/check/report/commit workflow added; units/all-public dry runs and pin/config rejection preflights passed without Docker.",
+      "Role-specific batch argv and provenance implemented; one meaningful command-construction case passed within 32 runner/control tests; Make JSON forwarding dry-run passed.",
+      "Prepared #3 regression65 reuse: source runner, 65 configs and refs fingerprinted against base Git/LFS pins and external map; all unchanged. This historical preflight was subsequently bound to completed #3 reports and the actual launch image.",
+      "Verified and adopted explicitly reused #3 regression65: 65 passed (cached29 read-only revalidation + actual36), unchanged source/config/refs and archived immutable final image binding; no regression rerun here.",
+      "Real Make launch path: 30 heap-single records and 10 valid pool-batch records; all gates, sanitizer, digest audit and 52 exact pair/stability comparisons passed.",
+      "Candidate batch diagnostics prove requested/selected=2 with two observed PIDs on all five candidate runs. First diagnostic-invalid batch attempt retained and excluded.",
+      "19 new actual-output negatives rejected with exit1; four unchanged positives exit0. Three previously verified s001 negatives reused, total coverage22.",
+      "Prior singles timing corrected from saved State timestamps only; original summary/records and CLI elapsed preserved, gate/trace evidence unchanged.",
+      "Regression65 reused image binding verified against actual final pool candidate image and implementation. Docker slot released with no active containers."
+    ],
+    "remaining": [],
+    "all71_runtime_campaign_required_for_instrument": false,
+    "all71_simulator_admission_claimed": false,
+    "evidence": {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/instrument-validation.json",
+      "sha256": "e479d747d7218592be79991ee539f991f543a7be861cb9e727a95ce84041993e"
+    }
+  },
+  "future_campaign_runs": [
+    "Full 71-unit baseline/optimized candidate paired simulation campaign; not required for instrument acceptance and not claimed complete.",
+    "Linux CI APFS-skipped case/Unicode collision fixture."
+  ],
+  "negative_controls_commands": [
+    "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' experiments/differential-gates/negative_actual_outputs.py --source-run out/differential-gates/control-optimized-01 --units t3-s001-price-time-priority --cases event roworder message --out out/differential-gates/actual-negatives-s001-01",
+    "PYTHONPATH=\"$PWD\" '/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python' experiments/differential-gates/negative_actual_outputs.py --source-run out/differential-gates/control-optimized-01 --units t3-mp01-stp-newest-baseline t3-mp02-stp-oldest-baseline t3-gbatch-homog-4 --out out/differential-gates/actual-negatives-stp-batch-01"
+  ],
+  "development_cycle_integration": {
+    "entrypoint": "make differential-check",
+    "mandatory_variables": [
+      "BASELINE_IMAGE",
+      "CANDIDATE_IMAGE",
+      "CANDIDATE_COMMIT",
+      "DIFF_OUT",
+      "DIFF_UNITS or DIFF_ALL_PUBLIC=1"
+    ],
+    "checker": "DIFF_CHECKER defaults to repository .venv/bin/python; Python 3.13 required, PYTHONPATH bound to the checkout",
+    "toolkit_pin": "qfbench2-common 2.4.4 installed from https://github.com/Agenthon-2026/Agenthon2026-public.git subdirectory=common requested_revision=v2.4.4; preflight refuses a different/unpinned/editable source",
+    "failure_behavior": "Make requires explicit inputs and propagates runner nonzero status; CLI refuses existing output, failed/incomplete runs cannot accept, rankable=false remains fixed.",
+    "cycle": [
+      "Build immutable candidate with recorded source commit and pinned same dependencies.",
+      "Run differential-check on explicit relevant units: both exact trace files, schemas/row order/SHA, full developer gates and batch isolation, separate warmup/repeats/profile.",
+      "Save evidence/report/verdict and commit after successful checks."
+    ],
+    "ci_changes": false,
+    "ci_reason": "Existing workflow has firewall/lint/validate-units jobs, no supported baseline/candidate simulator image job.",
+    "git_hooks_added": false,
+    "make_mirror_tests_added": false
+  },
+  "make_gate_command": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02.launch.log",
+  "role_specific_batch_args": {
+    "baseline_option": "--baseline-batch-args-json",
+    "candidate_option": "--candidate-batch-args-json",
+    "format": "JSON array of nonempty strings; NUL and overrides of harness batch input/output, trace mode and profiling refused",
+    "defaults": {
+      "baseline": [],
+      "candidate": [],
+      "original_baseline": []
+    },
+    "single_units": "all batch extras ignored",
+    "provenance_fields": [
+      "metadata.role_specific_batch_args",
+      "runs[].batch_cli_args",
+      "runs[].command"
+    ],
+    "parallel_batch_image_known": "orchestration-process-batch-final:20261005",
+    "parallel_batch_argv": [
+      "--workers",
+      "2",
+      "--batch-diagnostics",
+      "/diagnostics/batch.json"
+    ],
+    "parallel_batch_source_commit": "066bf374d653cf097a3b73be20dd9efc61d9446e",
+    "source_commit_status": "Verified source/image provenance and own actual launch ID binding.",
+    "image_default": "serial1, per manager; parallel mode must be explicitly selected",
+    "hidden_wrapper_added": false,
+    "parallel_batch_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389"
+  },
+  "regression_reuse": {
+    "permitted_by_manager": true,
+    "source_experiment": "#3 process batch",
+    "candidate_image_tag": "orchestration-process-batch-final:20261005",
+    "immutable_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+    "status": "verified_reused_regression_evidence",
+    "preflight": {
+      "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+      "runner_sha256": "54e4d14754b91274f29d66fb1ff1b21709d318f3363e067945929f7d06e2f3b9",
+      "runner_unchanged_in_worktree_and_original_source": true,
+      "mapping_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-05/public-regression-reference-map/mapping.json",
+      "mapping_sha256": "20b7264143fe0ff4c4ad95ba72cc0840c6aa1e80759493098589d6994429de00",
+      "count": 65,
+      "all_scenarios_and_public_refs_unchanged": true,
+      "reuse_status": "verified_and_live_image_bound",
+      "image_id_verified": true,
+      "regression_executed_here": false,
+      "docker_invoked": false
+    },
+    "evidence_path": "out/differential-gates/regression-reuse-verified.json",
+    "regression_executed_in_this_chat": false,
+    "requirements_before_accepting": [],
+    "attribution": "Reuse only after validation; report belongs to experiment #3 and must not be described as executed in this worktree.",
+    "own_launch_and_negative_checks_still_required": false,
+    "source_implementation_commit": "066bf374d653cf097a3b73be20dd9efc61d9446e",
+    "source_report_commit": "7762f647",
+    "archived_image_identity_verified": true,
+    "live_launch_image_binding": "Verified own accepted batch run matches immutable final #3 image ID and declared implementation commit.",
+    "summary": {
+      "status": "verified_reused_regression_evidence",
+      "source_experiment": "#3 process batch",
+      "source_implementation_commit": "066bf374d653cf097a3b73be20dd9efc61d9446e",
+      "source_report_commit": "7762f647",
+      "candidate_image_tag": "orchestration-process-batch-final:20261005",
+      "immutable_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+      "image_identity_source": "Archived #3 provenance plus own immutable launch/probe metadata.",
+      "live_launch_image_binding": "Verified own accepted batch run matches immutable final #3 image ID and declared implementation commit.",
+      "runner_sha256": "54e4d14754b91274f29d66fb1ff1b21709d318f3363e067945929f7d06e2f3b9",
+      "total": 65,
+      "passed": 65,
+      "failed": 0,
+      "errored": 0,
+      "recovery_modes": {
+        "cached_read_only_revalidation": 29,
+        "remaining_original_runner_launch": 36
+      },
+      "cached29_original_hashes_unchanged": true,
+      "remaining36_executed_by_experiment3": true,
+      "scenario_reference_source_hashes_unchanged": true,
+      "retained_trace_byte_matches": 65,
+      "rankable": false,
+      "regression_executed_in_this_chat": false,
+      "docker_invoked": false,
+      "source_evidence_sha256": {
+        "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/validated/regression65/report.json": "583c82d97a899c7b63e14b26835269fa846ccd01e8794851d818d83ada85732c",
+        "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/validated/regression65-resume/checkpoint.json": "a8e4abfd62f743434aef0fc62a2cdb84f63939a49e74dc850fb48f0712a97e53",
+        "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/validated/regression65-resume/resume-provenance.json": "6c4fd4b89a89acde9dca574d88285a07eb052083ae1319d2338aef9d268b2808",
+        "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/process-batch/final-image-inspect.json": "fd37046d774b32725460c81ec02141ec1ef8da45fe054746ededafcdf33869bb",
+        "/Users/iopogiba/.codex/worktrees/d533/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/experiments/process-batch/result.json": "a01b6479c34677a0decec1ea0b46abe79642e1c44f4bf330ba0f348baab926c5"
+      },
+      "scope": "Legacy regression65 trace/stylized checks reused; does not replace own four-unit full developer gates and both-trace launch/negative controls; no speedup adoption or all71 admission."
+    }
+  },
+  "representative_batch_command": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02.launch.log",
+  "representative_actual_runs": {
+    "executive_summary": "Four representative units passed real paired image launches and exact trace checks. Actual-output mutations were rejected. Evidence is local developer validation and does not establish official timing or all71 simulator admission.",
+    "status": "instrument_validation_passed",
+    "rankable": false,
+    "singles": {
+      "summary": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01/summary.json",
+      "summary_sha256": "0f07db70ca58ed54062dbadf5b600076e96a3f76a503b65e004a24750c28718e",
+      "launch_log": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01.launch.log",
+      "runner_commit": "580a8ba8a0d70194236fcc6f0ef56b15461d76c8",
+      "runner_git_status": "",
+      "runner_sha256": "334516b022c98b1a1ab970dab1d41a7f204493d5a894cb424eb57347145abbcd",
+      "images": {
+        "baseline": {
+          "tag": "orchestration-baseline:20261005-a5dbe46",
+          "digest": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+          "repo_digests": [
+            "market-context-base@sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+            "orchestration-baseline@sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2"
+          ],
+          "architecture": "amd64",
+          "labels": {
+            "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+            "qfbench2.interface_version": "2.0"
+          },
+          "versions": {
+            "python": "3.11.17",
+            "packages": {
+              "numpy": "1.26.4",
+              "pandas": "1.5.3",
+              "pyarrow": "15.0.2",
+              "scipy": "1.17.1",
+              "abides-core": "0.0.0",
+              "abides-markets": "0.0.0"
+            }
+          },
+          "source_commit_declared": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5"
+        },
+        "candidate": {
+          "tag": "orchestration-heap-queue:20261005-a5dbe46",
+          "digest": "sha256:e25e89f200d76a864e99cc2ff2cf8288b2967f90a8759b852e7330cbff024769",
+          "repo_digests": [
+            "orchestration-heap-queue@sha256:e25e89f200d76a864e99cc2ff2cf8288b2967f90a8759b852e7330cbff024769"
+          ],
+          "architecture": "amd64",
+          "labels": {
+            "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+            "qfbench2.interface_version": "2.0"
+          },
+          "versions": {
+            "python": "3.11.17",
+            "packages": {
+              "numpy": "1.26.4",
+              "pandas": "1.5.3",
+              "pyarrow": "15.0.2",
+              "scipy": "1.17.1",
+              "abides-core": "0.0.0",
+              "abides-markets": "0.0.0"
+            }
+          },
+          "source_commit_declared": "e90768b2c6dd2d2f6725a40e0652158fcfc47c69"
+        }
+      },
+      "runs": 30,
+      "pair_and_stability_comparisons": 39,
+      "all_g0_g3_c3_digest_and_exact_comparisons_passed": true,
+      "timings": [
+        {
+          "unit": "t3-s001-price-time-priority",
+          "median_container_sec": {
+            "baseline": 1.63734376,
+            "candidate": 1.678786449
+          },
+          "local_speedup": 0.9753139006901765,
+          "median_host_launch_sec": {
+            "baseline": 1.7554219580051722,
+            "candidate": 1.8375018329970771
+          },
+          "median_adapter_sec_self_reported": {
+            "baseline": 0.2292611780030711,
+            "candidate": 0.20244542100044782
+          },
+          "median_cold_start_and_container_other_sec": {
+            "baseline": 1.3939946230006866,
+            "candidate": 1.4242127189995522
+          }
+        },
+        {
+          "unit": "t3-mp01-stp-newest-baseline",
+          "median_container_sec": {
+            "baseline": 5.414233998,
+            "candidate": 5.045664207
+          },
+          "local_speedup": 1.073046833058901,
+          "median_host_launch_sec": {
+            "baseline": 5.511834999997518,
+            "candidate": 5.179034958011471
+          },
+          "median_adapter_sec_self_reported": {
+            "baseline": 4.041367628000444,
+            "candidate": 3.7112348759983433
+          },
+          "median_cold_start_and_container_other_sec": {
+            "baseline": 1.3683834699996993,
+            "candidate": 1.369902141000848
+          }
+        },
+        {
+          "unit": "t3-mp02-stp-oldest-baseline",
+          "median_container_sec": {
+            "baseline": 5.556525244,
+            "candidate": 5.004030427
+          },
+          "local_speedup": 1.1104099635403757,
+          "median_host_launch_sec": {
+            "baseline": 5.644228999997722,
+            "candidate": 5.106635832999018
+          },
+          "median_adapter_sec_self_reported": {
+            "baseline": 4.184460502001457,
+            "candidate": 3.624211083002592
+          },
+          "median_cold_start_and_container_other_sec": {
+            "baseline": 1.3720647419985434,
+            "candidate": 1.3800916979987923
+          }
+        }
+      ],
+      "timing_correction_manifest": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01/timing-correction.json",
+      "original_records": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01/timing-correction-original",
+      "rankable": false
+    },
+    "batch": {
+      "summary": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/summary.json",
+      "summary_sha256": "7b19599a0344f1225c2ff2b355c9e2fb8a3256fadc01686ea0fe8d228b2fff9d",
+      "launch_log": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02.launch.log",
+      "runner_commit": "abea3c335d46c597b8d324992e9c5d3530140212",
+      "runner_git_status": "",
+      "runner_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+      "images": {
+        "baseline": {
+          "tag": "orchestration-control:20261005-a5dbe46",
+          "digest": "sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e",
+          "repo_digests": [
+            "orchestration-control@sha256:66674764c6906050f57b83cd34b32b0942afd4900af44dd5c3ac7adae0c2f98e"
+          ],
+          "architecture": "amd64",
+          "labels": {
+            "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+            "orchestration.control": "batch-output-contract-only",
+            "qfbench2.interface_version": "2.0"
+          },
+          "versions": {
+            "python": "3.11.17",
+            "packages": {
+              "numpy": "1.26.4",
+              "pandas": "1.5.3",
+              "pyarrow": "15.0.2",
+              "scipy": "1.17.1",
+              "abides-core": "0.0.0",
+              "abides-markets": "0.0.0"
+            }
+          },
+          "source_commit_declared": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5"
+        },
+        "candidate": {
+          "tag": "orchestration-process-batch-final:20261005",
+          "digest": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+          "repo_digests": [
+            "orchestration-process-batch-final@sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389"
+          ],
+          "architecture": "amd64",
+          "labels": {
+            "orchestration.base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+            "qfbench2.interface_version": "2.0"
+          },
+          "versions": {
+            "python": "3.11.17",
+            "packages": {
+              "numpy": "1.26.4",
+              "pandas": "1.5.3",
+              "pyarrow": "15.0.2",
+              "scipy": "1.17.1",
+              "abides-core": "0.0.0",
+              "abides-markets": "0.0.0"
+            }
+          },
+          "source_commit_declared": "066bf374d653cf097a3b73be20dd9efc61d9446e"
+        }
+      },
+      "runs": 10,
+      "pair_and_stability_comparisons": 13,
+      "all_g0_g3_c3_digest_and_exact_comparisons_passed": true,
+      "timings": [
+        {
+          "unit": "t3-gbatch-homog-4",
+          "median_container_sec": {
+            "baseline": 4.869703692,
+            "candidate": 4.876108239
+          },
+          "local_speedup": 0.998686545358289,
+          "median_host_launch_sec": {
+            "baseline": 5.023814665997634,
+            "candidate": 4.99233079199621
+          },
+          "median_adapter_sec_self_reported": {
+            "baseline": 2.7050788089982234,
+            "candidate": 3.533212253001693
+          },
+          "median_cold_start_and_container_other_sec": {
+            "baseline": 1.8408574859982245,
+            "candidate": 1.342675639997326
+          }
+        }
+      ],
+      "timing_correction_manifest": null,
+      "original_records": null,
+      "rankable": false,
+      "workers": [
+        {
+          "kind": "warmup",
+          "index": 0,
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            9,
+            12
+          ],
+          "retained_json": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/runs/t3-gbatch-homog-4/warmup-00/candidate/diagnostics_retained/batch.json",
+          "sha256": "4f9b23be9b78497b706adffcf5cbe93614fc1ec8d3359a6ca6b372406c3f9301",
+          "source": "participant_diagnostics"
+        },
+        {
+          "kind": "timing",
+          "index": 0,
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            9,
+            12
+          ],
+          "retained_json": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/runs/t3-gbatch-homog-4/timing-00/candidate/diagnostics_retained/batch.json",
+          "sha256": "8c77df56a596659144f84c4d92656cb17922fbf5bcb4c59ea9cf71f8a37dd7db",
+          "source": "participant_diagnostics"
+        },
+        {
+          "kind": "timing",
+          "index": 1,
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            8,
+            11
+          ],
+          "retained_json": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/runs/t3-gbatch-homog-4/timing-01/candidate/diagnostics_retained/batch.json",
+          "sha256": "d1dce81e1495fc5362229792ad09ccb28fe7714e1a9a28441293930e546f1a6d",
+          "source": "participant_diagnostics"
+        },
+        {
+          "kind": "timing",
+          "index": 2,
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            9,
+            12
+          ],
+          "retained_json": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/runs/t3-gbatch-homog-4/timing-02/candidate/diagnostics_retained/batch.json",
+          "sha256": "46bacc44eefe0fcbc8400ce34e83b105032531dd47f1adcc4b285fa0eb44fe21",
+          "source": "participant_diagnostics"
+        },
+        {
+          "kind": "profile",
+          "index": 0,
+          "workers_requested": 2,
+          "workers_selected": 2,
+          "worker_pids": [
+            9,
+            12
+          ],
+          "retained_json": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/runs/t3-gbatch-homog-4/profile-00/candidate/diagnostics_retained/batch.json",
+          "sha256": "64675ca30d6fa1d5b57fb328f7a8335f4b17225c6d63222e54f9403ad7cce2ec",
+          "source": "participant_diagnostics"
+        }
+      ],
+      "original_baseline_refusal": {
+        "exit_code": 0,
+        "accepted": false,
+        "check": {
+          "accepted": false,
+          "rankable": false,
+          "error": "TreeRefused: output tree refused: path_not_allowedx1"
+        },
+        "record": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02/runs/t3-gbatch-homog-4/contract_probe-00/original_baseline/record.json"
+      }
+    },
+    "negative_checks": [
+      {
+        "summary": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-negatives-s001-20261006-01/negative-summary.json",
+        "sha256": "97d287b8bf4a903167b49085ae82b90aa5ca014931f3bebe14f202977293f99b",
+        "coverage": {
+          "units": [
+            "t3-s001-price-time-priority"
+          ],
+          "cases": [
+            "event",
+            "roworder",
+            "message"
+          ],
+          "missing_sub_for_batches": true
+        },
+        "source_summary_sha256": "0f07db70ca58ed54062dbadf5b600076e96a3f76a503b65e004a24750c28718e",
+        "positive_controls": 1,
+        "negative_controls": 3,
+        "complete": true,
+        "controls_passed": true
+      },
+      {
+        "summary": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-negatives-stp-20261006-01/negative-summary.json",
+        "sha256": "721352d7dfba5974994cb9132fb5694f6c8bb3fedc7145fa5cae5f0826277d4e",
+        "coverage": {
+          "units": [
+            "t3-mp01-stp-newest-baseline",
+            "t3-mp02-stp-oldest-baseline"
+          ],
+          "cases": [
+            "event",
+            "roworder",
+            "message",
+            "causality",
+            "sha"
+          ],
+          "missing_sub_for_batches": true
+        },
+        "source_summary_sha256": "0f07db70ca58ed54062dbadf5b600076e96a3f76a503b65e004a24750c28718e",
+        "positive_controls": 2,
+        "negative_controls": 10,
+        "complete": true,
+        "controls_passed": true
+      },
+      {
+        "summary": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-negatives-batch-20261006-01/negative-summary.json",
+        "sha256": "e16a15d027185d8aa15c49e42ec8b4e32a530f1813c11d8cfdedba14e1100ede",
+        "coverage": {
+          "units": [
+            "t3-gbatch-homog-4"
+          ],
+          "cases": [
+            "event",
+            "roworder",
+            "message",
+            "causality",
+            "sha"
+          ],
+          "missing_sub_for_batches": true
+        },
+        "source_summary_sha256": "7b19599a0344f1225c2ff2b355c9e2fb8a3256fadc01686ea0fe8d228b2fff9d",
+        "positive_controls": 1,
+        "negative_controls": 6,
+        "complete": true,
+        "controls_passed": true
+      }
+    ],
+    "new_positive_controls": 4,
+    "new_negative_controls": 19,
+    "reused_s001_negative_controls": 3,
+    "total_negative_coverage": 22,
+    "reused_s001_evidence": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/manager-s001-evidence.json",
+    "diagnostic_invalid_attempt": {
+      "summary": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-01/summary.json",
+      "marker": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-01/diagnostic-invalid.json",
+      "timing_correction": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-01/timing-correction.json",
+      "original_records": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-01/timing-correction-original",
+      "adopted": false
+    },
+    "regression65_reuse": {
+      "evidence": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/regression-reuse-verified.json",
+      "evidence_sha256": "d86a23bbd54a6d19cf53b80c84a63107d2d667163bcba139c2e4e39f41bf598b",
+      "source_experiment": "#3",
+      "executed_here": false,
+      "immutable_image_id": "sha256:9db279bc721ac531b5a51f8dd95f09180011ce9fbc9d5d6d64239705fb893389",
+      "implementation_commit": "066bf374d653cf097a3b73be20dd9efc61d9446e",
+      "passed": 65
+    },
+    "all71_preflight": {
+      "path": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/corpus-checks.json",
+      "sha256": "6fb449b2f78a18150f347065811649920faa0f3da603093a991e317618fdac8e",
+      "runtime_admission": false
+    },
+    "docker_slot_release": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/docker-slot-release.json",
+    "final_tests": {
+      "passed": 103,
+      "skipped": 1,
+      "skip": "existing APFS case/Unicode fixture requires Linux CI",
+      "path": "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/completed-tests.log"
+    }
+  },
+  "actual_make_launch_logs": [
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-heap-singles-20261006-01.launch.log",
+    "/Users/iopogiba/.codex/worktrees/1797/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/out/differential-gates/actual-process-batch-20261006-02.launch.log"
+  ]
+}

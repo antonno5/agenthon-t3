@@ -1,0 +1,363 @@
+{
+  "status": "adopted_locally_verified",
+  "branch": "codex/develop",
+  "implementation_commit": "3b2e53a4b5052af95c85593d905f5f4e2e7b015b",
+  "source_experiment_commit": "42f3b42f03a5996dec327078c330f4849f3c242b",
+  "component": "Python-only direct-row liquidity gap metrics",
+  "native_C_module_included": false,
+  "book_indices_included": false,
+  "rankable": false,
+  "user_decision": "Adopt Python control; no new Docker launches for this integration.",
+  "production_sources_sha256": {
+    "baselines/_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
+    "baselines/patches/dropout_python_control.patch": "b61fdce1b713e008b5959fde4ec69a887389b7da58ae7b05708e31f18cb66fea"
+  },
+  "identical_to_measured_python_control_sources": true,
+  "prior_runtime_image_id": "sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61",
+  "historical_median_full_time_changes": {
+    "s001": 0.027352475285114863,
+    "oracle": -0.02430326489520529,
+    "churn": -0.16481154240430018
+  },
+  "historical_timing_scope": "Three paired Mac ARM64 / linux amd64 Rosetta runs per unit, not a full-suite speed claim.",
+  "local_tests": {
+    "passed": 373,
+    "skipped": 1,
+    "skip": "Existing APFS case/Unicode collision limitation",
+    "integration_deselected": 38,
+    "subtests_passed": 2,
+    "new_cases": "8 boundary histories plus one comparison of 100 seeded histories; pandas parity, input and NumPy RNG unchanged.",
+    "log": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/pytest.log",
+    "sha256": "a9e695c364e8275219ab9900f2da0426f37f596d3669ac56d3a91eb3a265c520"
+  },
+  "public_manifest_firewall_checks": {
+    "passed": 71,
+    "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/public-checks.json",
+    "sha256": "542509477ed952f894919c1cffd437233f885585eb57e212107dc6b97d6a3c78"
+  },
+  "ruff": "passed",
+  "saved_output_revalidation": {
+    "units": [
+      "t3-s001-price-time-priority",
+      "t3-as05-oracle-variant",
+      "t3-mr-cancel-replace-churn"
+    ],
+    "baseline_and_python_full_developer_gate_checks": 6,
+    "both_traces_exact": true,
+    "independent_trace_sha_checks": 36,
+    "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/summary.json",
+    "sha256": "8d47f60a5d5c0a92a59a67743cc4256f86a0ee504368895ffcf7945af352a6aa",
+    "records": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "source": {
+          "baseline": {
+            "path": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/runs/t3-s001-price-time-priority/buffered/timing-01",
+            "run_record_sha256": "2719cdb4c4a1b69cd21cd79d1fc8e3f1ca69aefaac30662520ebc1f18df7356a",
+            "hashes": {
+              "trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+              "message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+              "events.json": "86058046966127ca392c938e2baa8b92f683a54617896fb8e18072cd1ae90cbf",
+              "profile.json": "c62f898a120e7780a5c4eb18fd92c708b6516bf8b555a3358586162f73b8125c"
+            },
+            "original_command": [
+              "docker",
+              "--context",
+              "colima-agenthon",
+              "run",
+              "--name",
+              "t3-exp-e698acffe32f",
+              "--platform",
+              "linux/amd64",
+              "--network",
+              "none",
+              "--cpus",
+              "4",
+              "--memory",
+              "16g",
+              "--memory-swap",
+              "16g",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/inputs/t3-s001-price-time-priority:/input:ro",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/runs/t3-s001-price-time-priority/buffered/timing-01:/output",
+              "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+              "simulate",
+              "--config",
+              "/input/scenario.json",
+              "--out",
+              "/output/trace.parquet",
+              "--trace-mode",
+              "buffered"
+            ]
+          },
+          "python_control": {
+            "path": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/runs/t3-s001-price-time-priority/buffered/timing-01",
+            "run_record_sha256": "8279d1edcb9fe85e6d52ed314ecda83195d93f99ed705a7c03bb24a2c2818235",
+            "hashes": {
+              "trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+              "message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+              "events.json": "955904b1668668825d389bf515b49a20736cc9c0d94663f5c95fb5ac3cbace5a",
+              "profile.json": "83912624142b51cef5944b28290538ab55f327e1c31abe785fdeece2e5b0080f"
+            },
+            "original_command": [
+              "docker",
+              "--context",
+              "colima-agenthon",
+              "run",
+              "--name",
+              "t3-exp-9fcca900410a",
+              "--platform",
+              "linux/amd64",
+              "--network",
+              "none",
+              "--cpus",
+              "4",
+              "--memory",
+              "16g",
+              "--memory-swap",
+              "16g",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/inputs/t3-s001-price-time-priority:/input:ro",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/runs/t3-s001-price-time-priority/buffered/timing-01:/output",
+              "sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61",
+              "simulate",
+              "--config",
+              "/input/scenario.json",
+              "--out",
+              "/output/trace.parquet",
+              "--trace-mode",
+              "buffered"
+            ]
+          }
+        },
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-s001-price-time-priority/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-s001-price-time-priority/python_control",
+          "--out",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-s001-price-time-priority/checked"
+        ],
+        "exit_code": 0,
+        "accepted": true,
+        "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-s001-price-time-priority/checked/summary.json"
+      },
+      {
+        "unit": "t3-as05-oracle-variant",
+        "source": {
+          "baseline": {
+            "path": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/runs/t3-as05-oracle-variant/buffered/timing-01",
+            "run_record_sha256": "f1dfe5a270c6355a0383146fbd650fd11ebec640b6d3c189bace9f97b9ce3354",
+            "hashes": {
+              "trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+              "message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+              "events.json": "f062011569b5c3e427281058cf86f1774f23b35e32b86064354a9e563b3f5112",
+              "profile.json": "9d5c97537f25962f99b9ed1afae18c616713f011079cecc32ae0d97fc00c6881"
+            },
+            "original_command": [
+              "docker",
+              "--context",
+              "colima-agenthon",
+              "run",
+              "--name",
+              "t3-exp-1a777cf4cfbf",
+              "--platform",
+              "linux/amd64",
+              "--network",
+              "none",
+              "--cpus",
+              "4",
+              "--memory",
+              "16g",
+              "--memory-swap",
+              "16g",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/inputs/t3-as05-oracle-variant:/input:ro",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/runs/t3-as05-oracle-variant/buffered/timing-01:/output",
+              "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+              "simulate",
+              "--config",
+              "/input/scenario.json",
+              "--out",
+              "/output/trace.parquet",
+              "--trace-mode",
+              "buffered"
+            ]
+          },
+          "python_control": {
+            "path": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/runs/t3-as05-oracle-variant/buffered/timing-01",
+            "run_record_sha256": "144e053974835de39679eace1c2bca4fd5404b9ed202e4d5f1719b31475e47f3",
+            "hashes": {
+              "trace.parquet": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+              "message_trace.parquet": "d235a540306098f100afa14afd5cc94230892d7f948f7a68b00c15d88ebf4e9b",
+              "events.json": "109f76f2325da2327d78bb99c4cae72ba4c552b8032fc3f36e818ae2a30fef83",
+              "profile.json": "9ac8bfcb2c380b691d693b57d898cf49e678276851082a754a5212a7446fac13"
+            },
+            "original_command": [
+              "docker",
+              "--context",
+              "colima-agenthon",
+              "run",
+              "--name",
+              "t3-exp-4dcf13d5533a",
+              "--platform",
+              "linux/amd64",
+              "--network",
+              "none",
+              "--cpus",
+              "4",
+              "--memory",
+              "16g",
+              "--memory-swap",
+              "16g",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/inputs/t3-as05-oracle-variant:/input:ro",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/runs/t3-as05-oracle-variant/buffered/timing-01:/output",
+              "sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61",
+              "simulate",
+              "--config",
+              "/input/scenario.json",
+              "--out",
+              "/output/trace.parquet",
+              "--trace-mode",
+              "buffered"
+            ]
+          }
+        },
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-as05-oracle-variant",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-as05-oracle-variant/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-as05-oracle-variant/python_control",
+          "--out",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-as05-oracle-variant/checked"
+        ],
+        "exit_code": 0,
+        "accepted": true,
+        "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-as05-oracle-variant/checked/summary.json"
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "source": {
+          "baseline": {
+            "path": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/runs/t3-mr-cancel-replace-churn/buffered/timing-01",
+            "run_record_sha256": "a893e31c9bc8531b622b3bd6787b36981ac0b6063333709a77d89ac73ba64444",
+            "hashes": {
+              "trace.parquet": "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd",
+              "message_trace.parquet": "d63b019ad5092da3f236317ac4c6bdc92bf1792efc71c8cc948634840f707ffd",
+              "events.json": "7c35bb13ff4a5fba9a520d9416ed71686d6e5501558abe0cc51c1369f12e740b",
+              "profile.json": "d379810dd056ab77c79b3d364d08a47cbbb0be0a81293eb4fc297d3588cf4797"
+            },
+            "original_command": [
+              "docker",
+              "--context",
+              "colima-agenthon",
+              "run",
+              "--name",
+              "t3-exp-091f372d8e84",
+              "--platform",
+              "linux/amd64",
+              "--network",
+              "none",
+              "--cpus",
+              "4",
+              "--memory",
+              "16g",
+              "--memory-swap",
+              "16g",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/inputs/t3-mr-cancel-replace-churn:/input:ro",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/baseline/runs/t3-mr-cancel-replace-churn/buffered/timing-01:/output",
+              "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+              "simulate",
+              "--config",
+              "/input/scenario.json",
+              "--out",
+              "/output/trace.parquet",
+              "--trace-mode",
+              "buffered"
+            ]
+          },
+          "python_control": {
+            "path": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/runs/t3-mr-cancel-replace-churn/buffered/timing-01",
+            "run_record_sha256": "d9a2de3b7adcbe5a7fbcccab70b1ae6120ca2ded4521576bae49a446684c2013",
+            "hashes": {
+              "trace.parquet": "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd",
+              "message_trace.parquet": "d63b019ad5092da3f236317ac4c6bdc92bf1792efc71c8cc948634840f707ffd",
+              "events.json": "44f41d2249e8f450def6f549d9c1efc399b0f654887e28f9e3861bbf8a313578",
+              "profile.json": "fe523b336f53d39fda94f95dddbe6892d7a7706d8c0261acca4361aae09e268a"
+            },
+            "original_command": [
+              "docker",
+              "--context",
+              "colima-agenthon",
+              "run",
+              "--name",
+              "t3-exp-07985a18d7a5",
+              "--platform",
+              "linux/amd64",
+              "--network",
+              "none",
+              "--cpus",
+              "4",
+              "--memory",
+              "16g",
+              "--memory-swap",
+              "16g",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/inputs/t3-mr-cancel-replace-churn:/input:ro",
+              "-v",
+              "/Users/iopogiba/.codex/worktrees/e01b/Агентон/out/native-hotspot/runtime-20261006/paired/python_control/runs/t3-mr-cancel-replace-churn/buffered/timing-01:/output",
+              "sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61",
+              "simulate",
+              "--config",
+              "/input/scenario.json",
+              "--out",
+              "/output/trace.parquet",
+              "--trace-mode",
+              "buffered"
+            ]
+          }
+        },
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/scripts/run_differential_experiment.py",
+          "check",
+          "--unit",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-mr-cancel-replace-churn",
+          "--baseline-output",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-mr-cancel-replace-churn/baseline",
+          "--candidate-output",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-mr-cancel-replace-churn/python_control",
+          "--out",
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-mr-cancel-replace-churn/checked"
+        ],
+        "exit_code": 0,
+        "accepted": true,
+        "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/python-control-integration-20261006/saved-output-checks/t3-mr-cancel-replace-churn/checked/summary.json"
+      }
+    ],
+    "new_simulator_launches": 0,
+    "new_timing_measurements": 0
+  },
+  "new_Docker_launches_for_integration": 0,
+  "new_image_build": "not_run_per_user_instruction",
+  "new_public_regression65_for_python_image": "not_run_per_user_instruction; historical native C regression65 not reused or claimed here",
+  "new_runtime_admission_all71": false,
+  "push_performed": false
+}

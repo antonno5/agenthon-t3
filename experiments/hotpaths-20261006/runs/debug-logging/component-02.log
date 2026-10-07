@@ -1,0 +1,1 @@
+{"rankable": false, "profiled": false, "scope": "actual order_accepted, LimitOrder.__str__, fmt_ts and dollarize bodies; supplied immutable order fields; not full simulator", "variant": "candidate", "iterations": 200000, "warmup_iterations": 1000, "elapsed_sec": 0.025691554, "render_calls": 0, "source_sha256": "9f2852e4a86d9b73d0fa5cc53465bec94ec0a279b43f075fc679ef389ea77caf"}

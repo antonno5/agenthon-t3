@@ -1,0 +1,97 @@
+{
+  "rankable": false,
+  "scope": "isolated total_quantity reads; excludes mutation overhead and full-run effects",
+  "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "rows": [
+    {
+      "orders_per_level": 1,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.004530666003120132,
+          0.004767083999468014,
+          0.004032833996461704
+        ],
+        "candidate": [
+          0.0016089590062620118,
+          0.0010723329905886203,
+          0.0008780409989412874
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.004530666003120132,
+        "candidate": 0.0010723329905886203
+      }
+    },
+    {
+      "orders_per_level": 10,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.010654375000740401,
+          0.010868874989682809,
+          0.011563125008251518
+        ],
+        "candidate": [
+          0.0009398749971296638,
+          0.0015099169977474958,
+          0.0009562080085743219
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.010868874989682809,
+        "candidate": 0.0009562080085743219
+      }
+    },
+    {
+      "orders_per_level": 100,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.07949629100039601,
+          0.0821191249997355,
+          0.0670250420080265
+        ],
+        "candidate": [
+          0.001395667000906542,
+          0.0010830000101123005,
+          0.0009071249951375648
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.07949629100039601,
+        "candidate": 0.0010830000101123005
+      }
+    },
+    {
+      "orders_per_level": 1000,
+      "reads": 20000,
+      "raw_sec": {
+        "baseline": [
+          0.7106785840005614,
+          0.6733455409994349,
+          0.6478249579959083
+        ],
+        "candidate": [
+          0.0009468750067753717,
+          0.0015071670059114695,
+          0.0013760830042883754
+        ]
+      },
+      "medians_sec": {
+        "baseline": 0.6733455409994349,
+        "candidate": 0.0013760830042883754
+      }
+    }
+  ],
+  "source_hashes": {
+    "price_level.py": {
+      "before_sha256": "d448ccf12f49c8078994c6d1d2ca150bfed169dbfa393fcfd4d8bc7e4eb9c1b1",
+      "after_sha256": "aa49d97ded1adf295443b1ea6417031c3d3153c8eff6e719234affe00b0508ef"
+    },
+    "order_book.py": {
+      "before_sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a",
+      "after_sha256": "963c76210bcc6f5f892e20b8b1bb4addc1be43043b09736ce4a27b23a30300a0"
+    }
+  }
+}

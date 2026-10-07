@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "rankable": false,
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/scripts/run_differential_experiment.py",
+    "check",
+    "--unit",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/public-units/t3-s001-price-time-priority",
+    "--baseline-output",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/debug-logging/differential/runs/t3-s001-price-time-priority/timing-00/candidate/raw",
+    "--candidate-output",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/independent-negative-control/candidate-mutated",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/independent-negative-control/check"
+  ],
+  "exit_code": 1,
+  "mutation": {
+    "file": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/independent-negative-control/candidate-mutated/message_trace.parquet",
+    "row": 5,
+    "field": "causal_parent",
+    "before": 3,
+    "after": 4611686018427387904,
+    "before_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+    "after_sha256": "224eec48122667cff9508d2cf23ed7e246def3da4d8c2a04d5675730e6a1f314",
+    "schema_preserved": true,
+    "sidecar_digest_updated": true
+  },
+  "original_accepted": true,
+  "mutated_accepted": false,
+  "actual_developer_admissible": false,
+  "candidate_gate_results": {
+    "g0_integrity": {
+      "passed": true,
+      "label": null,
+      "detail": {}
+    },
+    "g1_schema": {
+      "passed": true,
+      "label": null,
+      "detail": {}
+    },
+    "g2_cutoff_resource": {
+      "passed": true,
+      "label": null,
+      "detail": {}
+    },
+    "g3_domain_semantics": {
+      "passed": false,
+      "label": "t3.latency_causality_violation",
+      "detail": {
+        "message_semantics": [
+          "Dangling causal_parent (not delivered to the sender) at 1 message(s)."
+        ]
+      }
+    }
+  },
+  "checker_summary": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/independent-negative-control/check/summary.json"
+}

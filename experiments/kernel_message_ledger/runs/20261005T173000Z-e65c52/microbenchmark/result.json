@@ -1,0 +1,39 @@
+{
+  "delivered_rows": 90000,
+  "undelivered_before": 900,
+  "repeats": 3,
+  "warmups": 1,
+  "samples_sec": {
+    "before": [
+      0.14423458300007042,
+      0.14677595799730625,
+      0.1416713329963386
+    ],
+    "after": [
+      0.06204004099708982,
+      0.07359208300476894,
+      0.0627394999974058
+    ]
+  },
+  "median_extract_sec": {
+    "before": 0.14423458300007042,
+    "after": 0.0627394999974058
+  },
+  "peak_python_heap_bytes": {
+    "before": 89487433,
+    "after": 52132189
+  },
+  "memory_scope": "state construction plus extraction; excludes Parquet; not RSS",
+  "time_scope": "extraction only; excludes state construction and Parquet; tracemalloc disabled",
+  "parquet_sha256": {
+    "before": "44c37ce3fbceb5f3acde7471c204473ea17d118d2a1dcfd5f85595f9abde558d",
+    "after": "44c37ce3fbceb5f3acde7471c204473ea17d118d2a1dcfd5f85595f9abde558d"
+  },
+  "parquet_bytes_equal": true,
+  "python": "3.13.3",
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "pyarrow": "25.0.1"
+  }
+}

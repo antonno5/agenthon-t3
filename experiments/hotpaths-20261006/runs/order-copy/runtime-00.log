@@ -1,0 +1,20 @@
+test_core_limit_and_market_snapshots_without_new_ids (__main__.tests.<locals>.CopyTests.test_core_limit_and_market_snapshots_without_new_ids) ... ok
+test_cycle_inside_tag_and_known_upstream_order_cycle_limit (__main__.tests.<locals>.CopyTests.test_cycle_inside_tag_and_known_upstream_order_cycle_limit) ... ok
+test_execution_snapshot_does_not_follow_later_book_mutation (__main__.tests.<locals>.CopyTests.test_execution_snapshot_does_not_follow_later_book_mutation) ... ok
+test_memo_prefill_repeated_order_and_dictionary_alias (__main__.tests.<locals>.CopyTests.test_memo_prefill_repeated_order_and_dictionary_alias) ... ok
+test_mutable_tag_deepcopy_and_metadata_fallback (__main__.tests.<locals>.CopyTests.test_mutable_tag_deepcopy_and_metadata_fallback) ... ok
+test_mutated_none_id_retains_upstream_new_id_allocation (__main__.tests.<locals>.CopyTests.test_mutated_none_id_retains_upstream_new_id_allocation) ... ok
+test_non_tag_core_alias_matches_upstream_assignment (__main__.tests.<locals>.CopyTests.test_non_tag_core_alias_matches_upstream_assignment) ... ok
+test_ptc_independent_halves_and_acceptance_message (__main__.tests.<locals>.CopyTests.test_ptc_independent_halves_and_acceptance_message) ... ok
+test_ptc_mutable_tag_keeps_all_three_copies (__main__.tests.<locals>.CopyTests.test_ptc_mutable_tag_keeps_all_three_copies) ... ok
+test_ptc_mutated_none_id_keeps_upstream_outer_allocation (__main__.tests.<locals>.CopyTests.test_ptc_mutated_none_id_keeps_upstream_outer_allocation) ... ok
+test_ptc_skips_exactly_one_atomic_snapshot (__main__.tests.<locals>.CopyTests.test_ptc_skips_exactly_one_atomic_snapshot) ... ok
+test_reordered_core_keys_fall_back_to_upstream_key_order (__main__.tests.<locals>.CopyTests.test_reordered_core_keys_fall_back_to_upstream_key_order) ... ok
+test_shared_tag_alias_matches_upstream_scope (__main__.tests.<locals>.CopyTests.test_shared_tag_alias_matches_upstream_scope) ... ok
+test_subclass_and_atomic_subclass_use_upstream_fallback (__main__.tests.<locals>.CopyTests.test_subclass_and_atomic_subclass_use_upstream_fallback) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.019s
+
+OK
+{"rankable": false, "tests": 14, "failures": 0, "errors": 0, "source_identity": {"abides_markets.order_copy_baseline": {"path": "/opt/order-copy-baseline/orders.py", "sha256": "1508c12c6935f2b5ded9738167a1d8b8c6cdf4e6621148f3acf7c1c32d04ec74"}, "abides_markets.orders": {"path": "/usr/local/lib/python3.11/site-packages/abides_markets/orders.py", "sha256": "bdbffd92f01620e5a0369c4155230dbf20afc229404065c5d7e5862c222034a1"}, "abides_markets.order_copy_baseline_book": {"path": "/opt/order-copy-baseline/order_book.py", "sha256": "5f3fe1b0e4e6c9795f89fcab93b029e36ab4c2e3ea2f00987c0d7ced1413971a"}, "abides_markets.order_book": {"path": "/usr/local/lib/python3.11/site-packages/abides_markets/order_book.py", "sha256": "c7fb3254b5dc074d6b104058b2865468c43e5a5b7216bd60528bde23cfb93af3"}}}

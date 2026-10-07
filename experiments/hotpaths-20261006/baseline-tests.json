@@ -1,0 +1,11 @@
+{
+  "command": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python -m pytest tests/ -q -m \"not integration\"",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/worktrees/debug-logging",
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "passed": 373,
+  "skipped": 1,
+  "deselected": 38,
+  "subtests_passed": 2,
+  "log": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/baseline-tests.log",
+  "sha256": "9b06d9fb4db5a5b70e66cf6dddecd425085c79a4b2855ebcc8ce50100c73a8b9"
+}

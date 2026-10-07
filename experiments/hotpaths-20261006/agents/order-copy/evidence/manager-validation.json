@@ -1,0 +1,278 @@
+{
+  "executive_summary": "Parent executed the single Docker slot campaign; independent source and trace audit passed, exact developer checks passed, and actual fresh regression65 passed. Adoption follows preregistered full-container medians only.",
+  "rankable": false,
+  "source_run": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy",
+  "images": {
+    "base_image_id": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+    "candidate_image_id": "sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024",
+    "candidate_control_image_id": "sha256:d9247b2cca1f1213e2c94a9c6ed403e35e4c217024c8fd28df25ec27a77b80db"
+  },
+  "baseline_control_image_id": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40",
+  "evidence_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/pipeline.json": "4f52998bf6cb11f16868737a2aed4f024d0d6b14663bbe9409dbffd4a57e40a7",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/independent-source-audit.json": "8719815290b76b95cefc41e8e3d77d639c040d607935dbaef1f1218db645c96c",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/source-audit.json": "08bc4b428b7dcf817bea41e1e2b968678341f8744a0f50e80a1c5b30bd8e76bf",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/runtime-00.log": "d23b7f02e450d03eb04e1b8cf38f7f0dcf6491eb786bdecaf58e99a5f350a86a",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/runtime-00.command.json": "8f24fe9c87e59f636a53bbe864840b2a12ffd22d9af4029e7c3f330a2d683996",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/runtime-01.log": "f4f1c54954fe8b5b1e43218d361e3f2a2943d7dea5c51ef97aa921423c455898",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/runtime-01.command.json": "495a2d99184050de1cbcfa53f7fadca8cd08d05035b08c4c12a7fa79d0b08c12",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/differential/summary.json": "9ab779a3720cfe1aea0146fc2683fdabb19c703001085e655196e3d4f4608acc",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-audit.json": "593692b18cf8a9c4d96f8fdd946acdb716394e907e5890773d64b8da098dcaec",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-audit.events.jsonl": "b8e9c42f97ada6382636cb18474d9bd8112e8c3ae6cd2e4d59b062325a25bc8a",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/regression65/report.json": "13ab14f110be0bd77e19ed32a6435d206eea3db7baa9f0c0c1856d5840cf6626",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/differential.command.json": "4acfb4c7dea8dde93d0e921f7f12202bd851dc7f64de83e74eca994c24250004",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/regression65.command.json": "40d9f5d23d42cc5b3a75b8baee4fadcdea8658b8bf62b11a26223ff25a4497a5",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-gate-recheck/summary.json": "353999e55fb2f4f9808f1e7eeb3ef02876512879dfc2113b543f57001c753e34",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/manager-gate-recheck.command.json": "91a02dd8338dce30b72daa458cf527114cc10c5fcdea160b6ecea06a69f68cb3",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/build.command.json": "48164c898c22239d311847c221f18cefd9475b77ca47448a884ac0d65bfb0c67",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/runs/order-copy/build-control.command.json": "e9d77f96185e7edcf279d409bc6866c800e5c0cbff321e2f5b9044a84851a48a"
+  },
+  "independent_audit_source_sha256_verified": 182,
+  "correctness": {
+    "installed_runtime_tests": 14,
+    "runs": 60,
+    "paired_runs": 30,
+    "independent_trace_files": 60,
+    "exact_byte_schema_ordered_values": true,
+    "docker_overlap_check": "passed",
+    "fresh_gate_recheck_complete": true,
+    "fresh_gate_recheck_accepted": true,
+    "fresh_gate_recheck_unit": "t3-mr-cancel-replace-churn",
+    "regression65": {
+      "total": 65,
+      "passed": 65,
+      "failed": 0,
+      "errored": 0,
+      "candidate_image": "sha256:90b476d68556c698e6c93bfa1d2e801e84a8d2ad9cb5ca9e00111bf1d1d05024"
+    }
+  },
+  "performance": {
+    "primary_units": [
+      "t3-mr-cancel-replace-churn",
+      "t3-mp07-heavy-flow-oldest"
+    ],
+    "primary_minimum_reduction": 0.05,
+    "maximum_any_unit_slowdown": 0.05,
+    "primary_units_pass": false,
+    "material_slowdowns": [
+      "t3-s001-price-time-priority"
+    ],
+    "accepted": false,
+    "metrics": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "full_run_medians": {
+          "baseline": 1.51752354,
+          "candidate": 1.698293822
+        },
+        "speedup": 0.8935577108870859,
+        "time_reduction": -0.11912189645506244,
+        "raw_pairs": [
+          {
+            "baseline": 1.637069823,
+            "candidate": 1.812446644
+          },
+          {
+            "baseline": 1.516640122,
+            "candidate": 1.698293822
+          },
+          {
+            "baseline": 1.51752354,
+            "candidate": 1.649038301
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            1.516640122,
+            1.637069823
+          ],
+          "candidate": [
+            1.649038301,
+            1.812446644
+          ]
+        },
+        "ranges_overlap": false
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "full_run_medians": {
+          "baseline": 9.622411034,
+          "candidate": 9.873581902
+        },
+        "speedup": 0.9745613222746325,
+        "time_reduction": -0.02610269579136748,
+        "raw_pairs": [
+          {
+            "baseline": 9.622411034,
+            "candidate": 9.873581902
+          },
+          {
+            "baseline": 10.474212203,
+            "candidate": 10.42870472
+          },
+          {
+            "baseline": 9.323238978,
+            "candidate": 9.678060938
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            9.323238978,
+            10.474212203
+          ],
+          "candidate": [
+            9.678060938,
+            10.42870472
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mp01-stp-newest-baseline",
+        "full_run_medians": {
+          "baseline": 4.440639481,
+          "candidate": 4.621156781
+        },
+        "speedup": 0.9609367722077292,
+        "time_reduction": -0.04065119466968059,
+        "raw_pairs": [
+          {
+            "baseline": 4.800871173,
+            "candidate": 4.621156781
+          },
+          {
+            "baseline": 4.416415868,
+            "candidate": 4.725739172
+          },
+          {
+            "baseline": 4.440639481,
+            "candidate": 4.581199133
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            4.416415868,
+            4.800871173
+          ],
+          "candidate": [
+            4.581199133,
+            4.725739172
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mp02-stp-oldest-baseline",
+        "full_run_medians": {
+          "baseline": 4.426207005,
+          "candidate": 4.488563439
+        },
+        "speedup": 0.9861077079899996,
+        "time_reduction": -0.014088006713097734,
+        "raw_pairs": [
+          {
+            "baseline": 4.57850852,
+            "candidate": 4.488563439
+          },
+          {
+            "baseline": 4.380028374,
+            "candidate": 4.33978395
+          },
+          {
+            "baseline": 4.426207005,
+            "candidate": 4.639454744
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            4.380028374,
+            4.57850852
+          ],
+          "candidate": [
+            4.33978395,
+            4.639454744
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mr-cancel-replace-churn",
+        "full_run_medians": {
+          "baseline": 17.19334807,
+          "candidate": 16.919898141
+        },
+        "speedup": 1.0161614406139585,
+        "time_reduction": 0.015904402556540465,
+        "raw_pairs": [
+          {
+            "baseline": 16.011444723,
+            "candidate": 16.919898141
+          },
+          {
+            "baseline": 17.19334807,
+            "candidate": 16.877835906
+          },
+          {
+            "baseline": 17.229653662,
+            "candidate": 17.210926839
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            16.011444723,
+            17.229653662
+          ],
+          "candidate": [
+            16.877835906,
+            17.210926839
+          ]
+        },
+        "ranges_overlap": true
+      },
+      {
+        "unit": "t3-mp07-heavy-flow-oldest",
+        "full_run_medians": {
+          "baseline": 6.302813377,
+          "candidate": 5.057675629
+        },
+        "speedup": 1.2461877430139163,
+        "time_reduction": 0.19755269171441936,
+        "raw_pairs": [
+          {
+            "baseline": 6.534499579,
+            "candidate": 5.057675629
+          },
+          {
+            "baseline": 5.357416228,
+            "candidate": 5.139464765
+          },
+          {
+            "baseline": 6.302813377,
+            "candidate": 4.961079761
+          }
+        ],
+        "ranges": {
+          "baseline": [
+            5.357416228,
+            6.534499579
+          ],
+          "candidate": [
+            4.961079761,
+            5.139464765
+          ]
+        },
+        "ranges_overlap": false
+      }
+    ],
+    "raw_pair_order": [
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "excluded_from_medians": [
+      "warmup",
+      "profile"
+    ],
+    "note": "Ranges and raw pairs retained. Three pairs on Mac ARM64/Rosetta are local developer evidence, not official timing or a statistical significance claim."
+  }
+}

@@ -1,0 +1,1395 @@
+{
+  "executive_summary": "The heap preserves the same trades and agent communications and makes queue operations faster. Full-run timing improves on momentum and regresses on the other two workloads. The momentum finding is preliminary, workload-specific and local.",
+  "hypothesis": "Replace the single-thread Kernel event PriorityQueue with heapq, preserving comparison of complete events and delayed-event requeue, to lower median full-run time by at least 5% on a relevant workload.",
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "upstream_commit": "f9cbe51342b7dedd9587e4e069040d68a5c6477f",
+  "branch": "codex/exp-20261005-01-heap-queue",
+  "commit": "e90768b2c6dd2d2f6725a40e0652158fcfc47c69",
+  "commit_scope": "tested implementation and benchmark harness; result/report saved in a following reporting commit",
+  "worktree": "/Users/iopogiba/.codex/worktrees/38bb/Агентон",
+  "rankable": false,
+  "change_summary": "Experiment-only heap build-time overlay and active-queue profiler selection. Kernel event tuples, comparator, requeue, stop boundary, ledger, RNG, baseline Dockerfile, scenarios, cards, scorer, tolerances and published references retain their existing behavior.",
+  "changed_files": [
+    "baselines/abides_fork/components.py",
+    "experiments/heap-queue/Dockerfile",
+    "experiments/heap-queue/kernel_heap_queue.patch",
+    "experiments/heap-queue/validate.py",
+    "experiments/heap-queue/queue_microbenchmark.py",
+    "tests/integration/test_heap_queue_kernel.py",
+    "experiments/heap-queue/README.md",
+    "experiments/heap-queue/result.json",
+    "experiments/heap-queue/REPORT.md"
+  ],
+  "correctness_tests": [
+    {
+      "command": "PYTHONPATH=\"$PWD\" QFB2_ABIDES_SOURCE_DIR=\"$PWD/out/heap-queue/abides-jpmc-public-f9cbe51342b7dedd9587e4e069040d68a5c6477f\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" -m pytest tests/integration/test_heap_queue_kernel.py tests/test_buffered_trace.py tests/test_delivery_ledger.py -o addopts='' -q --basetemp=out/heap-queue/pytest --junitxml=out/heap-queue/final-tests.xml",
+      "status": "passed",
+      "output": "59 passed, zero skipped; two pinned-upstream SyntaxWarnings",
+      "evidence": "out/heap-queue/final-tests.log"
+    },
+    {
+      "command": "pinned checker ruff check and ruff format --check on all four changed Python files",
+      "status": "passed",
+      "output": "All checks passed; 4 files formatted"
+    },
+    {
+      "command": "qfbench2_common.manifest.verify_manifest for three selected units; assert_public_safe for all 71 units",
+      "status": "passed",
+      "output": "3 manifests and 71 firewall checks passed after Git LFS materialization",
+      "evidence": "out/heap-queue/input-integrity.json"
+    },
+    {
+      "command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/heap-queue/validate.py --context colima-agenthon --baseline orchestration-baseline:20261005-a5dbe46 --candidate orchestration-heap-queue:20261005-a5dbe46 --repeats 3 --output out/heap-queue/validation",
+      "status": "passed",
+      "output": "30/30 full developer verdicts admissible; every g0-g3 gate passed 30 times; 60/60 Parquet checks exact against public refs and across all runs",
+      "evidence": "out/heap-queue/validation/records.json"
+    },
+    {
+      "command": "queue_microbenchmark.py in both images, exact eight commands in component-records.json",
+      "status": "passed",
+      "output": "All eight 100,000-event ordered-output hashes identical",
+      "evidence": "out/heap-queue/component-summary.json"
+    },
+    {
+      "command": {
+        "initial": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "regression_suite/run_regression.py",
+          "--candidate-image",
+          "orchestration-heap-queue:20261005-a5dbe46",
+          "--scenarios-dir",
+          "regression_suite/scenarios/",
+          "--reference-dir",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map",
+          "--output-dir",
+          "out/heap-queue/regression",
+          "--workers",
+          "1"
+        ],
+        "retry": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "regression_suite/run_regression.py",
+          "--candidate-image",
+          "orchestration-heap-queue:20261005-a5dbe46",
+          "--scenarios-dir",
+          "out/heap-queue/regression-retry-inputs",
+          "--reference-dir",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/public-regression-reference-map",
+          "--output-dir",
+          "out/heap-queue/regression-retry",
+          "--workers",
+          "1"
+        ],
+        "environment": {
+          "DOCKER_CONTEXT": "colima-agenthon",
+          "TMPDIR": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/tmp",
+          "PYTHONPATH": "/Users/iopogiba/.codex/worktrees/38bb/Агентон"
+        }
+      },
+      "status": "passed_after_storage_recovery",
+      "output": "65/65 unique original scenarios covered: 28 first-attempt PASS + 37 retry PASS; 0 unresolved failures/errors. First attempt ENOSPC is retained as environment evidence.",
+      "evidence": "out/heap-queue/regression-combined-summary.json"
+    },
+    {
+      "command": "docker --context colima-agenthon run ... python runtime source/version audit",
+      "status": "passed",
+      "output": "Both measured image Kernel/Message sources match the real CPU-tested patched packages; candidate heap source matches too; runtime dependencies identical",
+      "evidence": "out/heap-queue/runtime-attestation.json"
+    }
+  ],
+  "build_command": "docker --context colima-agenthon build --platform linux/amd64 --build-arg BASE_IMAGE=orchestration-baseline:20261005-a5dbe46 -f experiments/heap-queue/Dockerfile -t orchestration-heap-queue:20261005-a5dbe46 .",
+  "gate_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/heap-queue/validate.py --context colima-agenthon --baseline orchestration-baseline:20261005-a5dbe46 --candidate orchestration-heap-queue:20261005-a5dbe46 --repeats 3 --output out/heap-queue/validation",
+  "benchmark_command": "PYTHONPATH=\"$PWD\" \"/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python\" experiments/heap-queue/validate.py --context colima-agenthon --baseline orchestration-baseline:20261005-a5dbe46 --candidate orchestration-heap-queue:20261005-a5dbe46 --repeats 3 --output out/heap-queue/validation",
+  "component_benchmark_commands": [
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-baseline:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-heap-queue:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-heap-queue:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-baseline:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-baseline:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-heap-queue:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-heap-queue:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ],
+    [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--cpus",
+      "4",
+      "--memory",
+      "16g",
+      "--memory-swap",
+      "16g",
+      "-v",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/queue_microbenchmark.py:/bench.py:ro",
+      "orchestration-baseline:20261005-a5dbe46",
+      "python",
+      "/bench.py",
+      "--repeats",
+      "1",
+      "--warmups",
+      "0"
+    ]
+  ],
+  "evidence_paths": [
+    "out/heap-queue/build.log",
+    "out/heap-queue/final-tests.log",
+    "out/heap-queue/final-tests.xml",
+    "out/heap-queue/input-integrity.json",
+    "out/heap-queue/environment-and-source.json",
+    "out/heap-queue/runtime-attestation.json",
+    "out/heap-queue/validation/records.json",
+    "out/heap-queue/validation/summary.json",
+    "out/heap-queue/component-records.json",
+    "out/heap-queue/component-summary.json",
+    "out/heap-queue/regression.failed-enospc.log",
+    "out/heap-queue/regression-run.failed-enospc.json",
+    "out/heap-queue/regression-checkpoint.json",
+    "out/heap-queue/regression-retry.log",
+    "out/heap-queue/regression-retry-run.json",
+    "out/heap-queue/regression-retry/report.json",
+    "out/heap-queue/regression-combined-summary.json",
+    "out/heap-queue/regression-reference-mapping.json",
+    "out/heap-queue/storage-recovery.json"
+  ],
+  "image_ids": {
+    "baseline": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2",
+    "candidate": "sha256:e25e89f200d76a864e99cc2ff2cf8288b2967f90a8759b852e7330cbff024769"
+  },
+  "runtime": {
+    "rankable": false,
+    "images": {
+      "baseline": {
+        "python": "3.11.17",
+        "dependencies": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1"
+        },
+        "source_hashes": {
+          "kernel.py": "c2da17e2b62bac13337d9ae6a9b5182c1c6e13025789262107255aedbf2ed6b2",
+          "message.py": "c1ddc0f0962d68e8d6750fb00210a2676d7bbdd2dd7f3b021e9fa94287901e48"
+        },
+        "queue_class": "PriorityQueue",
+        "image_id": "sha256:0bd010981f4f4a8aa8bdd074e5342a56bfe91daf25e5c5d7e04c075d082c99e2"
+      },
+      "candidate": {
+        "python": "3.11.17",
+        "dependencies": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1"
+        },
+        "source_hashes": {
+          "kernel.py": "f5539c08f9d6f92ed346c15f2f5c442d435ad7d1d563164adb242460cb2d9230",
+          "message.py": "c1ddc0f0962d68e8d6750fb00210a2676d7bbdd2dd7f3b021e9fa94287901e48",
+          "heap_event_queue.py": "52e87225bbccfa18f394e953cbdc581d34410c474f42f19855a4c56ac0b74fba"
+        },
+        "queue_class": "HeapEventQueue",
+        "image_id": "sha256:e25e89f200d76a864e99cc2ff2cf8288b2967f90a8759b852e7330cbff024769"
+      }
+    },
+    "commands": [
+      [
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--cpus",
+        "4",
+        "--memory",
+        "16g",
+        "orchestration-baseline:20261005-a5dbe46",
+        "python",
+        "-c",
+        "import hashlib, json, platform, importlib.metadata\nfrom pathlib import Path\nfrom abides_core import kernel, message\npaths={'kernel.py':Path(kernel.__file__),'message.py':Path(message.__file__)}\nif hasattr(kernel,'HeapEventQueue'):\n    paths['heap_event_queue.py']=Path(kernel.__file__).with_name('heap_event_queue.py')\nprint(json.dumps({'python':platform.python_version(),'dependencies':{n:importlib.metadata.version(n) for n in ['numpy','pandas','pyarrow','scipy']},'source_hashes':{n:hashlib.sha256(p.read_bytes()).hexdigest() for n,p in paths.items()},'queue_class':getattr(kernel,'HeapEventQueue',None).__name__ if hasattr(kernel,'HeapEventQueue') else 'PriorityQueue'}))"
+      ],
+      [
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--cpus",
+        "4",
+        "--memory",
+        "16g",
+        "orchestration-heap-queue:20261005-a5dbe46",
+        "python",
+        "-c",
+        "import hashlib, json, platform, importlib.metadata\nfrom pathlib import Path\nfrom abides_core import kernel, message\npaths={'kernel.py':Path(kernel.__file__),'message.py':Path(message.__file__)}\nif hasattr(kernel,'HeapEventQueue'):\n    paths['heap_event_queue.py']=Path(kernel.__file__).with_name('heap_event_queue.py')\nprint(json.dumps({'python':platform.python_version(),'dependencies':{n:importlib.metadata.version(n) for n in ['numpy','pandas','pyarrow','scipy']},'source_hashes':{n:hashlib.sha256(p.read_bytes()).hexdigest() for n,p in paths.items()},'queue_class':getattr(kernel,'HeapEventQueue',None).__name__ if hasattr(kernel,'HeapEventQueue') else 'PriorityQueue'}))"
+      ]
+    ],
+    "sources_match_cpu_test": true,
+    "runtime_dependencies_match": true
+  },
+  "measured_speedup": {
+    "component": 1.7275297237238714,
+    "component_medians_sec": {
+      "baseline": 0.413454842,
+      "candidate": 0.239332983
+    },
+    "full_run_by_unit": {
+      "t3-s001-price-time-priority": 0.9395197475518063,
+      "t3-s012-partial-fill-cancel-race": 0.9278273578176767,
+      "t3-momentum-mix-priority": 1.0881221463649882
+    },
+    "full_time_reduction_by_unit": {
+      "t3-s001-price-time-priority": -0.06437358299896578,
+      "t3-s012-partial-fill-cancel-race": -0.07778671492515499,
+      "t3-momentum-mix-priority": 0.0809855278282604
+    }
+  },
+  "full_run_results": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "medians": {
+        "baseline": {
+          "full_container_sec": 1.913813,
+          "adapter_sec": 0.31071377800003575,
+          "simulation_sec": 0.1315356029999748,
+          "cold_process_and_other_sec": 1.7105101470000694
+        },
+        "candidate": {
+          "full_container_sec": 2.037012,
+          "adapter_sec": 0.24333585099998345,
+          "simulation_sec": 0.08436719600001652,
+          "cold_process_and_other_sec": 1.7059486860000408
+        }
+      },
+      "all_developer_gates_pass": true,
+      "both_traces_exact_across_variants_and_repeats": true,
+      "full_time_reduction": -0.06437358299896578,
+      "verdict": "reject_speed",
+      "interpretation": "full-run speed threshold not met on this local workload"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "medians": {
+        "baseline": {
+          "full_container_sec": 15.815387,
+          "adapter_sec": 14.090978223999969,
+          "simulation_sec": 13.311366206999992,
+          "cold_process_and_other_sec": 1.7244087760000308
+        },
+        "candidate": {
+          "full_container_sec": 17.045614,
+          "adapter_sec": 15.426973635000081,
+          "simulation_sec": 13.990987915000005,
+          "cold_process_and_other_sec": 1.882914269000043
+        }
+      },
+      "all_developer_gates_pass": true,
+      "both_traces_exact_across_variants_and_repeats": true,
+      "full_time_reduction": -0.07778671492515499,
+      "verdict": "reject_speed",
+      "interpretation": "full-run speed threshold not met on this local workload"
+    },
+    {
+      "unit": "t3-momentum-mix-priority",
+      "medians": {
+        "baseline": {
+          "full_container_sec": 7.111925,
+          "adapter_sec": 5.532862781999938,
+          "simulation_sec": 5.07355918899998,
+          "cold_process_and_other_sec": 1.579062218000062
+        },
+        "candidate": {
+          "full_container_sec": 6.535962,
+          "adapter_sec": 5.053124945000036,
+          "simulation_sec": 4.754712531999985,
+          "cold_process_and_other_sec": 1.4828370549999637
+        }
+      },
+      "all_developer_gates_pass": true,
+      "both_traces_exact_across_variants_and_repeats": true,
+      "full_time_reduction": 0.0809855278282604,
+      "verdict": "accept_local",
+      "interpretation": "preliminary, workload-specific threshold pass with overlapping timing ranges"
+    }
+  ],
+  "raw_unprofiled_full_run_seconds": {
+    "t3-s001-price-time-priority": {
+      "baseline": [
+        1.902976,
+        1.913813,
+        2.152648
+      ],
+      "candidate": [
+        2.109715,
+        1.925156,
+        2.037012
+      ]
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "baseline": [
+        15.815387,
+        13.957501,
+        17.484697
+      ],
+      "candidate": [
+        16.927932,
+        17.045614,
+        19.102222
+      ]
+    },
+    "t3-momentum-mix-priority": {
+      "baseline": [
+        7.529271,
+        7.111925,
+        6.576393
+      ],
+      "candidate": [
+        5.881567,
+        6.535962,
+        6.775223
+      ]
+    }
+  },
+  "public_regression": {
+    "rankable": false,
+    "candidate_image": "orchestration-heap-queue:20261005-a5dbe46",
+    "total_scenarios": 65,
+    "passed": 65,
+    "failed": 0,
+    "errored": 0,
+    "coverage_exact": true,
+    "all_financial_trace_hashes_exact": true,
+    "first_attempt_pass_count": 28,
+    "retry_pass_count": 37,
+    "initial_environment_failure": "ENOSPC; 28 PASS, 36 ERROR, one missing final record; first attempt report/timer failed to persist",
+    "initial_log_elapsed_sec": 410.439,
+    "retry_wall_clock_sec": 351.0666596250012,
+    "initial_checkpoint": {
+      "rankable": false,
+      "source": "unmodified runner PASS logs and retained events/stylized reports; exact public trace hashes independently verified",
+      "passed": [
+        {
+          "scenario_id": "abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/as01_base_mix.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:31:27,605 INFO __main__: [PASS] abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad",
+          "trace_sha256": "625262143747a9dfc1cafe875022f7658fdb18f3ad2de933517b873bb0405edb",
+          "reference_sha256": "625262143747a9dfc1cafe875022f7658fdb18f3ad2de933517b873bb0405edb",
+          "events_per_sec": 11350.200079346514,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "fe284cc5-c965-5cf6-9ff8-b375758c1ee6",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/as02_scale_up_noise.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:31:33,859 INFO __main__: [PASS] fe284cc5-c965-5cf6-9ff8-b375758c1ee6",
+          "trace_sha256": "f8a39099fe5ece0eced910a51f6aadbc6890aac2c4828ba8c98f8caca959c13d",
+          "reference_sha256": "f8a39099fe5ece0eced910a51f6aadbc6890aac2c4828ba8c98f8caca959c13d",
+          "events_per_sec": 10693.38049670786,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "df79ad78-3db2-5770-8c82-64df5edd62b5",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/as03_mm_liquidity_heavy.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:31:39,563 INFO __main__: [PASS] df79ad78-3db2-5770-8c82-64df5edd62b5",
+          "trace_sha256": "cda4d421e99a0d3b459eb25e8d246a846e3aa6ac4e6beb27c5b95f52b6c11430",
+          "reference_sha256": "cda4d421e99a0d3b459eb25e8d246a846e3aa6ac4e6beb27c5b95f52b6c11430",
+          "events_per_sec": 13659.296075335931,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "8b1084a6-4f53-556a-9929-5afff3818858",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/as04_value_heavy.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:31:43,627 INFO __main__: [PASS] 8b1084a6-4f53-556a-9929-5afff3818858",
+          "trace_sha256": "0ae0461c1dcfd7d9ce69abefd9ea53bbd23c01b5ced921f3bfd8bb58399716e7",
+          "reference_sha256": "0ae0461c1dcfd7d9ce69abefd9ea53bbd23c01b5ced921f3bfd8bb58399716e7",
+          "events_per_sec": 12423.52030954802,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "e2bb9fee-7150-5240-af64-ee1066e55564",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/as05_oracle_variant.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:31:47,162 INFO __main__: [PASS] e2bb9fee-7150-5240-af64-ee1066e55564",
+          "trace_sha256": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+          "reference_sha256": "ba12a06af271770c81adfa6686a41a0310abcecfc4c0beb0f146ed42f4fe2426",
+          "events_per_sec": 13340.389259545385,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "a350b90c-0348-5a64-8369-4d4d8bb3dbcd",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/as06_throughput_fast.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:31:54,970 INFO __main__: [PASS] a350b90c-0348-5a64-8369-4d4d8bb3dbcd",
+          "trace_sha256": "1e7761ee74ade7e23bb4f40410f8525705601f10cc9e6e855d5df798c3e94350",
+          "reference_sha256": "1e7761ee74ade7e23bb4f40410f8525705601f10cc9e6e855d5df798c3e94350",
+          "events_per_sec": 13490.19651220775,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "2bec943d-4f5f-5c8c-8ee3-b57550d936a6",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/ca_baseline_calm.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:00,535 INFO __main__: [PASS] 2bec943d-4f5f-5c8c-8ee3-b57550d936a6",
+          "trace_sha256": "efba75949d4b80d5568d99c2d41c9e6e42234931a4675160e9e30348f0bca6c6",
+          "reference_sha256": "efba75949d4b80d5568d99c2d41c9e6e42234931a4675160e9e30348f0bca6c6",
+          "events_per_sec": 11668.28118806193,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "418157d5-26eb-5d5f-a000-217ec60a43a3",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/ca_fast_mean_reversion.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:05,874 INFO __main__: [PASS] 418157d5-26eb-5d5f-a000-217ec60a43a3",
+          "trace_sha256": "a477e7dd3e381b8297d5a2b7f06981aac343f2c34c34f33bebc96444a4ab7da4",
+          "reference_sha256": "a477e7dd3e381b8297d5a2b7f06981aac343f2c34c34f33bebc96444a4ab7da4",
+          "events_per_sec": 13769.470904843036,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/ca_fat_tail_jumps.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:10,377 INFO __main__: [PASS] 683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f",
+          "trace_sha256": "424a3b612f0e10b252ff4df68054aedc2a2e5643c55dac9f8142b62525c3868d",
+          "reference_sha256": "424a3b612f0e10b252ff4df68054aedc2a2e5643c55dac9f8142b62525c3868d",
+          "events_per_sec": 14206.957947499743,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "16892744-6a80-5300-8552-ca18872438ea",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/ca_high_volatility.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:14,814 INFO __main__: [PASS] 16892744-6a80-5300-8552-ca18872438ea",
+          "trace_sha256": "b959dfc7640b3d4b3860970d5fc19292d2c9fec9a093417cd6cce1f628318690",
+          "reference_sha256": "b959dfc7640b3d4b3860970d5fc19292d2c9fec9a093417cd6cce1f628318690",
+          "events_per_sec": 14433.128530191312,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "8a2f9219-014d-5d15-a7f2-efbad536db72",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/ca_thin_book_depth.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:19,286 INFO __main__: [PASS] 8a2f9219-014d-5d15-a7f2-efbad536db72",
+          "trace_sha256": "233a2c853786904f8fe65a8800ecdb963cb7bff41258e1442d4d02aa4cc9af18",
+          "reference_sha256": "233a2c853786904f8fe65a8800ecdb963cb7bff41258e1442d4d02aa4cc9af18",
+          "events_per_sec": 9542.478846616288,
+          "tier": "B"
+        },
+        {
+          "scenario_id": "73ae330d-1e33-5418-8266-44e8deea6571",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/cancelmodify_lifecycle.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:30,654 INFO __main__: [PASS] 73ae330d-1e33-5418-8266-44e8deea6571",
+          "trace_sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "reference_sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "events_per_sec": 17795.694735713598,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "e32eaeba-515c-5fde-af46-44d5246d0805",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/coarse_tick_ties.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:38,533 INFO __main__: [PASS] e32eaeba-515c-5fde-af46-44d5246d0805",
+          "trace_sha256": "729dd4ec8f106796ef00b7ca4b40ccd832b8b18dad18cf0da3c2ed3a13d3fe55",
+          "reference_sha256": "729dd4ec8f106796ef00b7ca4b40ccd832b8b18dad18cf0da3c2ed3a13d3fe55",
+          "events_per_sec": 12274.686811879044,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq001_pareto_latency_tail.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:41,399 INFO __main__: [PASS] e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a",
+          "trace_sha256": "ca4b61563ed29516dee2a31be8fffc0326e31668c30078b0103a815c4bc76bcb",
+          "reference_sha256": "ca4b61563ed29516dee2a31be8fffc0326e31668c30078b0103a815c4bc76bcb",
+          "events_per_sec": 13573.824774384917,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "14e79532-bbf4-5055-9b2f-7cb07791a6d7",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_deterministic_baseline.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:44,085 INFO __main__: [PASS] 14e79532-bbf4-5055-9b2f-7cb07791a6d7",
+          "trace_sha256": "f642bc11b4115962d1057d5cfe5222624ac309592f06d403f61ef1cc209442b9",
+          "reference_sha256": "f642bc11b4115962d1057d5cfe5222624ac309592f06d403f61ef1cc209442b9",
+          "events_per_sec": 8779.50294402722,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "f1f0ca35-8c17-5843-8c31-3fca8ab5a46b",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_lognormal_highmag.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:47,959 INFO __main__: [PASS] f1f0ca35-8c17-5843-8c31-3fca8ab5a46b",
+          "trace_sha256": "136691ab3da24f620fca6494481664260221fcf60e582fc0088e4c7b9f8953df",
+          "reference_sha256": "136691ab3da24f620fca6494481664260221fcf60e582fc0088e4c7b9f8953df",
+          "events_per_sec": 9669.919960261866,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "38e61d08-72ee-594b-b999-ebdd4b2ba8ab",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_lognormal_highsigma.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:50,822 INFO __main__: [PASS] 38e61d08-72ee-594b-b999-ebdd4b2ba8ab",
+          "trace_sha256": "24cc29c311179999cd5361cc61b6f83752c8621201d3e69b3d11ebcdb9871567",
+          "reference_sha256": "24cc29c311179999cd5361cc61b6f83752c8621201d3e69b3d11ebcdb9871567",
+          "events_per_sec": 11521.295651139042,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "2c9e14c7-6c6c-5288-823f-7ff82d6050fa",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_lognormal_lowsigma.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:53,584 INFO __main__: [PASS] 2c9e14c7-6c6c-5288-823f-7ff82d6050fa",
+          "trace_sha256": "5de1bdf83ac05cf9ca7ec294e4c761f324b50cf0991df63946dcb35ce67afd3e",
+          "reference_sha256": "5de1bdf83ac05cf9ca7ec294e4c761f324b50cf0991df63946dcb35ce67afd3e",
+          "events_per_sec": 12257.224230994876,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "d85a4b79-703d-54fb-8680-35d4c0059797",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_pareto_heavytail.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:32:57,248 INFO __main__: [PASS] d85a4b79-703d-54fb-8680-35d4c0059797",
+          "trace_sha256": "a84cce701b39b3dc8e0874887038a55b5972429a772596463c0f86f540ce3f8f",
+          "reference_sha256": "a84cce701b39b3dc8e0874887038a55b5972429a772596463c0f86f540ce3f8f",
+          "events_per_sec": 9862.13175895177,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "4ff8463e-c268-5a14-b191-dcb374933011",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_uniform_tight.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:33:00,787 INFO __main__: [PASS] 4ff8463e-c268-5a14-b191-dcb374933011",
+          "trace_sha256": "7fa9e44f9c2ea9e84f97c0b7914cfede404ad47f8df9541c1ed4e28b102e577c",
+          "reference_sha256": "7fa9e44f9c2ea9e84f97c0b7914cfede404ad47f8df9541c1ed4e28b102e577c",
+          "events_per_sec": 8462.642182626203,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "50076583-ba35-52ab-b3f0-a82ad328f10d",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/eq_uniform_wide.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:33:04,451 INFO __main__: [PASS] 50076583-ba35-52ab-b3f0-a82ad328f10d",
+          "trace_sha256": "feeab14a3ce52854f1e21fb135b53421cdf1ab10dd67b16a5166ec9d0db5ad9f",
+          "reference_sha256": "feeab14a3ce52854f1e21fb135b53421cdf1ab10dd67b16a5166ec9d0db5ad9f",
+          "events_per_sec": 9287.179699154745,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "e8650933-8e32-57db-8eb7-7b22231dce57",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/fastlob_core.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:33:11,295 INFO __main__: [PASS] e8650933-8e32-57db-8eb7-7b22231dce57",
+          "trace_sha256": "1a7a4f254ebfeb6321b4119a5a2f87791ea1fb793fe83ed4e7ad6b5e47272770",
+          "reference_sha256": "1a7a4f254ebfeb6321b4119a5a2f87791ea1fb793fe83ed4e7ad6b5e47272770",
+          "events_per_sec": 14463.20463868339,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "55f80db0-96b2-50d7-8d6f-448f11a626bc",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/fastlob_tight_book.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:33:19,587 INFO __main__: [PASS] 55f80db0-96b2-50d7-8d6f-448f11a626bc",
+          "trace_sha256": "641ea71e77a2f2b13624c3f196bb4cb037e155b88b3768d14722a8cffd9ca394",
+          "reference_sha256": "641ea71e77a2f2b13624c3f196bb4cb037e155b88b3768d14722a8cffd9ca394",
+          "events_per_sec": 11231.313521916798,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "b73c8c0e-15cd-5ca6-9b91-abd2c18b417f",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/gb_base_30agent_30s.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:33:26,768 INFO __main__: [PASS] b73c8c0e-15cd-5ca6-9b91-abd2c18b417f",
+          "trace_sha256": "27aaee01b82d655372134a5e9c72e465ea2c2a90dabfc00722c7dddf78e3458a",
+          "reference_sha256": "27aaee01b82d655372134a5e9c72e465ea2c2a90dabfc00722c7dddf78e3458a",
+          "events_per_sec": 12557.842784631443,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "ed69678c-450f-5f69-83a0-b4cf31101f75",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/gb_highfreq_40hz_60s.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:34:18,018 INFO __main__: [PASS] ed69678c-450f-5f69-83a0-b4cf31101f75",
+          "trace_sha256": "a93ccc3d90eb80937e1ba70dc6366dabef1e3d8c0ab2213d862faebbb56df89b",
+          "reference_sha256": "a93ccc3d90eb80937e1ba70dc6366dabef1e3d8c0ab2213d862faebbb56df89b",
+          "events_per_sec": 10672.320483507354,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/gb_horizon_240s.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:35:06,670 INFO __main__: [PASS] 2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1",
+          "trace_sha256": "8423a8c5da94afce610421456ed56488c42cf4d398e1fa656c9d427880eb9df6",
+          "reference_sha256": "8423a8c5da94afce610421456ed56488c42cf4d398e1fa656c9d427880eb9df6",
+          "events_per_sec": 12989.920188766424,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "9b855004-0d35-5ed1-945f-5d5d299b64d8",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/gb_mega_throughput.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:36:50,688 INFO __main__: [PASS] 9b855004-0d35-5ed1-945f-5d5d299b64d8",
+          "trace_sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc",
+          "reference_sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc",
+          "events_per_sec": 12529.499553250851,
+          "tier": "A"
+        },
+        {
+          "scenario_id": "1c15fde8-5b8b-5fee-8274-a2ee8f5bedd5",
+          "scenario_path": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/regression_suite/scenarios/gb_pop_128_agents.json",
+          "driver_status": "PASS",
+          "proof_log": "2026-10-05 21:37:18,793 INFO __main__: [PASS] 1c15fde8-5b8b-5fee-8274-a2ee8f5bedd5",
+          "trace_sha256": "c3b061b500884ef2cc93b503c6e824c95265987c39187cb56950f01519e8c576",
+          "reference_sha256": "c3b061b500884ef2cc93b503c6e824c95265987c39187cb56950f01519e8c576",
+          "events_per_sec": 12635.58232291931,
+          "tier": "A"
+        }
+      ]
+    },
+    "retry_report": {
+      "candidate_image": "orchestration-heap-queue:20261005-a5dbe46",
+      "total_scenarios": 37,
+      "passed": 37,
+      "failed": 0,
+      "errored": 0,
+      "results": [
+        {
+          "scenario_id": "5f8fe817-da1a-56cd-b7ff-754f135c0029",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/gb_pop_horizon_scale.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 14645.334647908838,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976",
+          "reference_sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        {
+          "scenario_id": "a4251e7c-c760-58d9-8707-7c6d4c7d8789",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/momentum_mix_priority.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 14310.102504974278,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e",
+          "reference_sha256": "49dd9d2bb95890ce4649b7107362406c0864065c58e0dd3b9525c71534ae054e"
+        },
+        {
+          "scenario_id": "a86b50cb-0785-56dd-bd58-9c3d317e49e5",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp01_stp_newest_baseline.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15817.269429522841,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed",
+          "reference_sha256": "297decc00dae822def086f90b654d1037211dcaedb8dd97b3875d151fc9ca3ed"
+        },
+        {
+          "scenario_id": "dfba64e0-cac2-5f16-b408-41de04ff2cae",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp02_stp_oldest_baseline.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 14891.464527355893,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "reference_sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c"
+        },
+        {
+          "scenario_id": "644c3665-1e55-5672-9497-55c1368b9e18",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp03_mm_heavy_newest.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15773.322487296606,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "e5d28c82e0423c45aecc78f3b20e25ddc0855ecc4b7d4c5311dd8c674135c6dd",
+          "reference_sha256": "e5d28c82e0423c45aecc78f3b20e25ddc0855ecc4b7d4c5311dd8c674135c6dd"
+        },
+        {
+          "scenario_id": "7fc88018-85be-50d4-9159-dbc1cc44f525",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp04_mm_heavy_oldest.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15803.856672437092,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "83341e5ac9ccf4872c1cf4eba65e269a13c5c7c3604553a6ea3ed48d184b88d6",
+          "reference_sha256": "83341e5ac9ccf4872c1cf4eba65e269a13c5c7c3604553a6ea3ed48d184b88d6"
+        },
+        {
+          "scenario_id": "077d6642-7e7c-529b-876d-f37aa5f70190",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp05_cancel_churn_newest.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 16226.930072567862,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "reference_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+        },
+        {
+          "scenario_id": "001d9e77-7666-5f5b-9e3e-723daed0cbe8",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp06_tight_spread_selfcross.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 17168.591059541835,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "608a6ed05f12f1156cfc7ad65accba878f97aac152f235131cb424e8e72ad3e8",
+          "reference_sha256": "608a6ed05f12f1156cfc7ad65accba878f97aac152f235131cb424e8e72ad3e8"
+        },
+        {
+          "scenario_id": "647ddddf-b30b-5323-98ce-e1b9da65bb76",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mp07_heavy_flow_oldest.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 18168.316656096387,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "8bc596549dcfb8bb761d32c7cd72dc22b6356c30f6da9fa69e39789459f7f4cf",
+          "reference_sha256": "8bc596549dcfb8bb761d32c7cd72dc22b6356c30f6da9fa69e39789459f7f4cf"
+        },
+        {
+          "scenario_id": "60f3db6d-9305-543b-8388-b9a4a887f255",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mr_cancel_replace_churn.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 19194.596328433672,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd",
+          "reference_sha256": "f7b25b798b917611e14886c103e2fd6c2697a15ee68c42cea87f71f83bd230bd"
+        },
+        {
+          "scenario_id": "c5c25713-e1b2-50e8-bb08-f0216b9d4a72",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mr_checkpoint_cadence_fine.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 18142.422232039138,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "5838617f75fb95b149962f98705afaa2a1cd5e9b8f84bc9f96da169e95528c88",
+          "reference_sha256": "5838617f75fb95b149962f98705afaa2a1cd5e9b8f84bc9f96da169e95528c88"
+        },
+        {
+          "scenario_id": "8a59be07-bb4b-5eec-b8ab-7cbc27fc6735",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mr_deep_book_state_size.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 16524.55521339463,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "reference_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        {
+          "scenario_id": "73203dc3-1a14-5976-81e8-8fcec979ae7f",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/mr_long_horizon_replay.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 19899.71657140029,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "eabc522818ff5ae625390a97d0b0bb1fbffe60e2487ece1cb8201786d06fd226",
+          "reference_sha256": "eabc522818ff5ae625390a97d0b0bb1fbffe60e2487ece1cb8201786d06fd226"
+        },
+        {
+          "scenario_id": "998e5c53-30cb-5ad4-b4b2-4c3791edd002",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/multilevel_crossing.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 16683.372452951775,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "50ef3497408fe4c28b11a5ac64c4ba8421d4ad0d01f2b4849fa1bed656bd7bad",
+          "reference_sha256": "50ef3497408fe4c28b11a5ac64c4ba8421d4ad0d01f2b4849fa1bed656bd7bad"
+        },
+        {
+          "scenario_id": "2b0ae926-c496-536c-a826-9738944667ed",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/partialfill_atomicity.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 17507.346434474577,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "9d2a091a70b22c08e37d4a07f22c8db7465da2eee2c94669cfcba5bebef89971",
+          "reference_sha256": "9d2a091a70b22c08e37d4a07f22c8db7465da2eee2c94669cfcba5bebef89971"
+        },
+        {
+          "scenario_id": "66ea1f06-132d-58ac-8a27-cc8d45953215",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/ra01_fundamental_shock_mid.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15453.288331866424,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "3c6d69af6372ae6d6bfa0eba7c7271e8231840126d1e63eb7ae2865dfaeaff57",
+          "reference_sha256": "3c6d69af6372ae6d6bfa0eba7c7271e8231840126d1e63eb7ae2865dfaeaff57"
+        },
+        {
+          "scenario_id": "4f876cd0-76bb-5369-bd07-a575b4249c12",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/ra02_shock_early.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15242.609263259415,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "daf1d2920f511e9a497550bac99d9cb66ff183fce854db27a931e9334dc631c3",
+          "reference_sha256": "daf1d2920f511e9a497550bac99d9cb66ff183fce854db27a931e9334dc631c3"
+        },
+        {
+          "scenario_id": "31546dd0-026f-5db8-989f-d85a6a2dace9",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/ra03_large_shock.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15220.889545987511,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "7f38815aa08f788e32ec8c09fd713f6a9e646797a8d6edef801c4101bd0dcfdd",
+          "reference_sha256": "7f38815aa08f788e32ec8c09fd713f6a9e646797a8d6edef801c4101bd0dcfdd"
+        },
+        {
+          "scenario_id": "bcd382f5-0924-5d48-99f5-7d4075c0d674",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/ra04_shock_late.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 14722.676570047892,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "27529b1b4a8527fe1f0b0e3b3d9b38d8541ed9b6bbb80893f899a477c6f318be",
+          "reference_sha256": "27529b1b4a8527fe1f0b0e3b3d9b38d8541ed9b6bbb80893f899a477c6f318be"
+        },
+        {
+          "scenario_id": "ccb06368-afbd-5c1a-ac9a-2fd72ce9ebe0",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/ra05_shock_momentum_heavy.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 14339.293619644,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "c5b7305452963f582f3ef9453d3193a3bed92c31d9964c6202e6a4d0628dfcc5",
+          "reference_sha256": "c5b7305452963f582f3ef9453d3193a3bed92c31d9964c6202e6a4d0628dfcc5"
+        },
+        {
+          "scenario_id": "c85a5154-b948-5aff-89e7-d5c8ce61ea4d",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/ra06_shock_value_heavy.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 16065.454329347756,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "ffcba30bef67c4fc54101f50c24782e60c28e6cdbfe5ecec5c5632fb1f8a5b08",
+          "reference_sha256": "ffcba30bef67c4fc54101f50c24782e60c28e6cdbfe5ecec5c5632fb1f8a5b08"
+        },
+        {
+          "scenario_id": "a1b2c3d4-0001-0000-0000-000000000001",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/s001_price_time_priority.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 2787.544580694895,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+          "reference_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        {
+          "scenario_id": "a1b2c3d4-0012-0000-0000-000000000012",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/s012_partial_fill_cancel_race.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 17560.45523464044,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "reference_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+        },
+        {
+          "scenario_id": "a1b2c3d4-0019-0000-0000-000000000019",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/s019_latency_jitter_kendall.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 11884.394303765554,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "0889c36492167a2c7e65cc65defea256ff28b31b7abd82813b1f32b7e1b569b9",
+          "reference_sha256": "0889c36492167a2c7e65cc65defea256ff28b31b7abd82813b1f32b7e1b569b9"
+        },
+        {
+          "scenario_id": "7a903ca0-a2cb-5061-85be-2885929f64c1",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_01_baseline_regime.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 12464.978953501886,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "86b3dc7ae2716a475dc50db453886cd2ed764a1ace8aacd3488ea6f62445283e",
+          "reference_sha256": "86b3dc7ae2716a475dc50db453886cd2ed764a1ace8aacd3488ea6f62445283e"
+        },
+        {
+          "scenario_id": "f596295c-e1e4-534d-ad0a-8cfc098bc609",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_02_heavy_jump_tails.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 13541.274310254028,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "3b3caf4c5c1b0adef13ac2059a6b3ee6c83ed509bcea972d64e9277d3482a458",
+          "reference_sha256": "3b3caf4c5c1b0adef13ac2059a6b3ee6c83ed509bcea972d64e9277d3482a458"
+        },
+        {
+          "scenario_id": "8c53af6a-f534-57fa-a048-e4e591f7dfb8",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_03_vol_clustering_momentum.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 13452.87045789814,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "516f1d8740d8267b8f2992138cfebf362fc648a30fa122700c8a14d4678f0afe",
+          "reference_sha256": "516f1d8740d8267b8f2992138cfebf362fc648a30fa122700c8a14d4678f0afe"
+        },
+        {
+          "scenario_id": "056e6f9a-1891-5197-8988-e410f7884ba6",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_04_thin_book_depth.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 15817.709238708847,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "ac39ecca3a5fe4dffd39a1b644171087b7d2197042af2aca7fbc56b3e9f241d2",
+          "reference_sha256": "ac39ecca3a5fe4dffd39a1b644171087b7d2197042af2aca7fbc56b3e9f241d2"
+        },
+        {
+          "scenario_id": "3118b1c8-f45b-56fc-9447-a49cfa38a8b9",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_05_deep_book_liquidity.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 17299.48855312876,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "95f278670382138d6a021e3317ed282be39df294e40c7df82084f38b9237f851",
+          "reference_sha256": "95f278670382138d6a021e3317ed282be39df294e40c7df82084f38b9237f851"
+        },
+        {
+          "scenario_id": "0bfd6969-c241-57eb-8d6e-6de1388cb183",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_06_high_fundamental_vol.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 16846.288315669837,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "bc528096f102c8e6d12f6dbe4a814ab63e359e8ce32f4aad07c5754ecc059d7d",
+          "reference_sha256": "bc528096f102c8e6d12f6dbe4a814ab63e359e8ce32f4aad07c5754ecc059d7d"
+        },
+        {
+          "scenario_id": "acbaff26-109b-5856-af00-0603bde931ea",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/sf_07_coarse_agent_batch.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 17970.836300800966,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "04212af9f6c2048847d9977c617c82f496fb2523c6af5196f8c9eaa665a6416d",
+          "reference_sha256": "04212af9f6c2048847d9977c617c82f496fb2523c6af5196f8c9eaa665a6416d"
+        },
+        {
+          "scenario_id": "20d717b4-9f62-5c55-946d-317b281292e8",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/st01_liquidity_churn_baseline.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 14952.289298572465,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc",
+          "reference_sha256": "fb40d7778f6d40c084fe9cf3bfb2e2a30a784edf0e40530a619b4510638af9dc"
+        },
+        {
+          "scenario_id": "406cfe13-1d13-57a6-a6ba-707a55b2236f",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/st02_informed_entry_burst.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 8928.068472087372,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "6bc3d9b0dd91d3bcb57fba25f477497239a7de9f879e8b3c3e9d8f483b684a8a",
+          "reference_sha256": "6bc3d9b0dd91d3bcb57fba25f477497239a7de9f879e8b3c3e9d8f483b684a8a"
+        },
+        {
+          "scenario_id": "dec8b800-21b1-5a05-84b0-8d1474130202",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/st03_volatility_burst.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 10770.066267134875,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "fa75d8173cc8f282f864febf9eebec810da8b5b250c0a99af440316954390205",
+          "reference_sha256": "fa75d8173cc8f282f864febf9eebec810da8b5b250c0a99af440316954390205"
+        },
+        {
+          "scenario_id": "493d1d62-88f8-507b-9c8e-84aff7737a49",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/st04_thin_book_mm_strain.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 11578.213988351625,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "a57eae69b3a2217f16b1788e10930c135e4f6bd510619ec07ce944ae0df87977",
+          "reference_sha256": "a57eae69b3a2217f16b1788e10930c135e4f6bd510619ec07ce944ae0df87977"
+        },
+        {
+          "scenario_id": "af38a808-c9db-54cb-8604-75e1bf79759c",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/st05_latency_spike_pareto.json",
+          "tier": "B",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 9847.712125793147,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "ce474214e531d7833dc70207ce91e103fa8cacc47278dc4df1e38ae3f545f460",
+          "reference_sha256": "ce474214e531d7833dc70207ce91e103fa8cacc47278dc4df1e38ae3f545f460"
+        },
+        {
+          "scenario_id": "94f530d4-8b56-5395-85a5-af0a9ef53356",
+          "scenario_path": "out/heap-queue/regression-retry-inputs/stp_cancel_newest.json",
+          "tier": "A",
+          "tier_a_pass": true,
+          "tier_b_pass": true,
+          "stylized_pass": true,
+          "events_per_sec": 11092.103772324637,
+          "failure_labels": [],
+          "error": null,
+          "trace_sha256": "7c5cb6651c1d02facd446c2cae21d4001b54e5f8ef3cb9c11c8e0132fb657c8b",
+          "reference_sha256": "7c5cb6651c1d02facd446c2cae21d4001b54e5f8ef3cb9c11c8e0132fb657c8b"
+        }
+      ]
+    },
+    "provenance_paths": [
+      "regression.failed-enospc.log",
+      "regression-run.failed-enospc.json",
+      "regression-checkpoint.json",
+      "regression-retry-run.json",
+      "regression-retry/report.json"
+    ]
+  },
+  "implementation_cost": {
+    "production_delta": "33-line queue class, two Kernel substitutions, small profiler selection change",
+    "runtime_dependencies_added": 0,
+    "baseline_rebuild_required": false,
+    "method": "overlay of immutable baseline; patch utility installed/removed at build time"
+  },
+  "risks": [
+    "Single-thread only; used Queue API supported, blocking/task accounting/producer concurrency not supported.",
+    "Synthetic component speedup is separate from full-simulator speed.",
+    "Momentum ranges overlap and its final candidate pair is slower; three repeats establish only a local preliminary threshold pass. Other two full-run medians regress.",
+    "Mac ARM64/Rosetta linux/amd64 does not predict official Linux CPU performance.",
+    "Six batch units and the baseline batch profile retention defect are outside this experiment; all evidence is developer-only, rankable=false."
+  ],
+  "verdict": "preliminary_workload_specific_threshold_pass",
+  "verdict_detail": "Momentum median clears the 5% practical threshold with 8.10% less full-run time; S001 and S012 are 6.44% and 7.78% slower. No global adoption recommendation follows from one median.",
+  "remaining_validation": [],
+  "coverage_limits": "Full developer gates and both exact traces on the three required units, plus 65-single public regression; not all-71 full-gate admissibility.",
+  "storage_recovery": {
+    "rankable": false,
+    "freed_bytes": 47716785,
+    "removed_scratch_dirs": [
+      "pytest",
+      "patched-baseline",
+      "abides-jpmc-public-f9cbe51342b7dedd9587e4e069040d68a5c6477f"
+    ],
+    "removed_duplicate_traces": [
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/fe284cc5-c965-5cf6-9ff8-b375758c1ee6/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/df79ad78-3db2-5770-8c82-64df5edd62b5/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/8b1084a6-4f53-556a-9929-5afff3818858/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/e2bb9fee-7150-5240-af64-ee1066e55564/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/a350b90c-0348-5a64-8369-4d4d8bb3dbcd/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/2bec943d-4f5f-5c8c-8ee3-b57550d936a6/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/418157d5-26eb-5d5f-a000-217ec60a43a3/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/16892744-6a80-5300-8552-ca18872438ea/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/8a2f9219-014d-5d15-a7f2-efbad536db72/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/73ae330d-1e33-5418-8266-44e8deea6571/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/e32eaeba-515c-5fde-af46-44d5246d0805/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/14e79532-bbf4-5055-9b2f-7cb07791a6d7/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/f1f0ca35-8c17-5843-8c31-3fca8ab5a46b/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/38e61d08-72ee-594b-b999-ebdd4b2ba8ab/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/2c9e14c7-6c6c-5288-823f-7ff82d6050fa/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/d85a4b79-703d-54fb-8680-35d4c0059797/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/4ff8463e-c268-5a14-b191-dcb374933011/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/50076583-ba35-52ab-b3f0-a82ad328f10d/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/e8650933-8e32-57db-8eb7-7b22231dce57/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/55f80db0-96b2-50d7-8d6f-448f11a626bc/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/b73c8c0e-15cd-5ca6-9b91-abd2c18b417f/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/ed69678c-450f-5f69-83a0-b4cf31101f75/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/9b855004-0d35-5ed1-945f-5d5d299b64d8/trace.parquet",
+      "/Users/iopogiba/.codex/worktrees/38bb/Агентон/out/heap-queue/regression/1c15fde8-5b8b-5fee-8274-a2ee8f5bedd5/trace.parquet"
+    ],
+    "retained": "all benchmark trace paths/raw measurements/logs; regression PASS checkpoint/trace hashes/events/stylized reports; immutable published refs untouched"
+  },
+  "docker_slot_released": true
+}

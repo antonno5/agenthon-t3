@@ -1,0 +1,436 @@
+{
+  "status": "integrated",
+  "branch": "codex/develop",
+  "validation_status": "stopped_by_user",
+  "validation_complete": false,
+  "parent_develop_commit": "49560aea3e2e645fcb70f714dbd655aada9e511f",
+  "startup_implementation_commit": "a4c207b9bb4fe9e59055ca4075a8220862e792e1",
+  "patch": "baselines/patches/lazy_distance_import.patch",
+  "patch_sha256": "53259a8278f694f6fb375f6559d0df9af31dcd290ad8493804f8678c64fb6940",
+  "debug_guards_preserved": true,
+  "immutable_validation_image": "sha256:537a7cf45af039c989ae2366916240174a2c69aa0fd68b9f70a0196736868f6c",
+  "validation_image_method": "Overlay the seventh-patch utility onto the immutable measured DEBUG candidate; source reconstruction proves the seven-patch production engine matches. This is not a fresh full production Dockerfile build.",
+  "completed_checks_before_user_stop": {
+    "ordered_git_apply_core_market_files": 42,
+    "installed_source_files": 52,
+    "startup_host_tests": 4,
+    "readme_command_tests": 5,
+    "debug_runtime_cases": 12,
+    "startup_pinned_runtime": "passed",
+    "exact_dual_trace_public_s001": "passed with actual developer gates"
+  },
+  "regression65": {
+    "status": "stopped_by_user",
+    "complete": false,
+    "planned_scenarios": 65,
+    "reported_passes_before_stop": 26,
+    "full_suite_pass_claimed": false
+  },
+  "rankable": false,
+  "combined_performance_rebenchmarked": false,
+  "original_five_experiment_results": "experiments/hotpaths-20261006/comparison.json",
+  "user_stop_honored": true,
+  "preexisting_uncommitted_batch_changes_included": false,
+  "evidence": [
+    {
+      "path": "experiments/startup-integration/evidence/startup-runtime.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/startup-runtime.log",
+      "sha256": "a36cce5c47a9b98bd5db747ea2b9f4c7f8c89c0a671dc5e2fff1be2a12ddf314"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/startup-runtime.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/startup-runtime.command.json",
+      "sha256": "634fd749d78f28c1a6f739d8cd2b060205366c59817e05f95751bcc86455c185"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65.log",
+      "sha256": "2e9837676fdfec9da5e32605eb93b9386fafc6c03bedcb3fcad8a157aabed5b0"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/debug-runtime.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/debug-runtime.command.json",
+      "sha256": "68b82297912418737e1670f76db20c6aaf5b67a56dad315860e6169251a49cd3"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/single-simulation.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/single-simulation.log",
+      "sha256": "7807510339ed946b04e8fbcd08745214bc0ccb8c1a4975cfb51d1dd23a54bd42"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/build.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/build.command.json",
+      "sha256": "1f23eea5ecee01c41c38a42449cde2bf1f143b261d7bc7b25ca1886e84ba9fb6"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/installed-source-audit.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/installed-source-audit.json",
+      "sha256": "d1ede1cfbbdd0c743362a077521ff642db370477cb2f1d3fe96ddbbe9d499aa1"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65.command.json",
+      "sha256": "8b04b775547b72dfb484f70d7d015fa4965f9581a7e70e9f6fa6e1cb46b427e2"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/exact-unit-check.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/exact-unit-check.log",
+      "sha256": "c6e37bd56cc45f96145dc89b67e1d357861779addfeaccfdfb664f5da11989fb"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/debug-runtime.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/debug-runtime.log",
+      "sha256": "7236c7729a48ba4f3d8ead1587fc6864b60a0096ae3989ad790aeadb530a5d73"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/failed-import-pipeline.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/failed-import-pipeline.json",
+      "sha256": "9b3731d17f7b88e23692fbc990e882e5ddd9d1e62cbae0bbecc3e29d656d3272"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/retry-note.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/retry-note.json",
+      "sha256": "9b752b30083b9b68ec81d345dd2b3f2d25df0e3ff6cd28761dc9e74db97dbc59"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/single-simulation.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/single-simulation.command.json",
+      "sha256": "f6381e7941d6d19bb95f99bec891c5a5d2e78002853588706418dc84f6da48d4"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/failed-import-regression65.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/failed-import-regression65.command.json",
+      "sha256": "50f7241a1019e9727bf2659b1185585b32a4b724d8a2c3056405e45bb7bdb8a0"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression-controller.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression-controller.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/exact-unit-check.command.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/exact-unit-check.command.json",
+      "sha256": "283e5418a8673f0d2fb950c0282e5b0b10c1b0a15063f3a374838f99e8c994be"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/stop-record.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/stop-record.json",
+      "sha256": "be1ccb58682742b92bfd6df278d2c30887f2f1f97ff3780e504a7caba1b997dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/controller.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/controller.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/failed-import-regression65.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/failed-import-regression65.log",
+      "sha256": "e37eac71472ffcedca5cd9716a1700fb0fe0d955890a5eb2da221053b2bca394"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/pipeline.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/pipeline.json",
+      "sha256": "f88ff76bf037bf491be20cdd9194f5d009a242aedf6fb82d14a9dc48e36bca25"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/build.log",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/build.log",
+      "sha256": "1c18fa7cc22ae7a570bed1c43b8f5dcb2f01334d193eed5e9efae66579565767"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/published-single-output/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/published-single-output/events.json",
+      "sha256": "7b499474abe397066357164c88a77168b21cd1ca16deb0ce8d770b493ddae4b7"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/single-output/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/single-output/events.json",
+      "sha256": "461c985a343360712202bc615c9eabce418835fc29205aee885c4fe70b0375db"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/single-output/profile.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/single-output/profile.json",
+      "sha256": "0cc5c4f30d65a503eaca64d44b8c38ef99e12211b03e96f6b713e93b37369696"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/exact-unit-check/summary.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/exact-unit-check/summary.json",
+      "sha256": "2abdc7626ff37b1fcea761dffe1a874cbbacb270c2bd039514a763469460ff2a"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/b73c8c0e-15cd-5ca6-9b91-abd2c18b417f/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/b73c8c0e-15cd-5ca6-9b91-abd2c18b417f/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/b73c8c0e-15cd-5ca6-9b91-abd2c18b417f/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/b73c8c0e-15cd-5ca6-9b91-abd2c18b417f/events.json",
+      "sha256": "615bef628ba57fa051a7910ccdbab75425982980b81bfc176e7d4d2db8eb4485"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/4ff8463e-c268-5a14-b191-dcb374933011/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/4ff8463e-c268-5a14-b191-dcb374933011/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/4ff8463e-c268-5a14-b191-dcb374933011/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/4ff8463e-c268-5a14-b191-dcb374933011/events.json",
+      "sha256": "ea74178b8dc03412ad3eb874f4ebbe05e2a58697e8c1c6a417abc68384333d9c"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e2bb9fee-7150-5240-af64-ee1066e55564/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e2bb9fee-7150-5240-af64-ee1066e55564/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e2bb9fee-7150-5240-af64-ee1066e55564/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e2bb9fee-7150-5240-af64-ee1066e55564/events.json",
+      "sha256": "0ee977d00f07415ff9bd786a1f0c02d7c225a01f6134677c894d14124029acd5"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/38e61d08-72ee-594b-b999-ebdd4b2ba8ab/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/38e61d08-72ee-594b-b999-ebdd4b2ba8ab/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/38e61d08-72ee-594b-b999-ebdd4b2ba8ab/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/38e61d08-72ee-594b-b999-ebdd4b2ba8ab/events.json",
+      "sha256": "80036bfc5b1e24fb1c67b0506a01ac4d778423b918d12fd33cb6d5d99376f00c"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e90a1b02-0001-4a3c-8b21-0f1e2d3c4b5a/events.json",
+      "sha256": "1ed53de0da1a34ba498a3a29980333b6edeaa406e29dde363611179a2430dcc5"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/2c9e14c7-6c6c-5288-823f-7ff82d6050fa/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/2c9e14c7-6c6c-5288-823f-7ff82d6050fa/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/2c9e14c7-6c6c-5288-823f-7ff82d6050fa/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/2c9e14c7-6c6c-5288-823f-7ff82d6050fa/events.json",
+      "sha256": "c95d315b6391fe694ec17f6e4203882deb6df5c0a3908723f349d3760fd2f1f3"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/fe284cc5-c965-5cf6-9ff8-b375758c1ee6/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/fe284cc5-c965-5cf6-9ff8-b375758c1ee6/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/fe284cc5-c965-5cf6-9ff8-b375758c1ee6/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/fe284cc5-c965-5cf6-9ff8-b375758c1ee6/events.json",
+      "sha256": "31218b470a8d3608360e5563a14b5cda867e331bc60a9e638810b03222557e7d"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/ed69678c-450f-5f69-83a0-b4cf31101f75/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/ed69678c-450f-5f69-83a0-b4cf31101f75/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/ed69678c-450f-5f69-83a0-b4cf31101f75/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/ed69678c-450f-5f69-83a0-b4cf31101f75/events.json",
+      "sha256": "31191e6fa975dd2fbe3eec2aaee08717944c690d60375dde4e6ea843e0a35d3d"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/55f80db0-96b2-50d7-8d6f-448f11a626bc/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/55f80db0-96b2-50d7-8d6f-448f11a626bc/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/55f80db0-96b2-50d7-8d6f-448f11a626bc/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/55f80db0-96b2-50d7-8d6f-448f11a626bc/events.json",
+      "sha256": "c9340dc8721eb7f6bc19d833dd21263e88f1e186ada5394579564261e22e2365"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f/events.json",
+      "sha256": "575da5b764f15361115bcfbf14ebfa67ef454b21c635b0dadb2d321a6a98758b"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/df79ad78-3db2-5770-8c82-64df5edd62b5/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/df79ad78-3db2-5770-8c82-64df5edd62b5/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/df79ad78-3db2-5770-8c82-64df5edd62b5/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/df79ad78-3db2-5770-8c82-64df5edd62b5/events.json",
+      "sha256": "b5be1dcccb020d4747fc04873cb974ca9f8eacbf8cbfe2f1f37b9364ff49d89e"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/d85a4b79-703d-54fb-8680-35d4c0059797/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/d85a4b79-703d-54fb-8680-35d4c0059797/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/d85a4b79-703d-54fb-8680-35d4c0059797/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/d85a4b79-703d-54fb-8680-35d4c0059797/events.json",
+      "sha256": "01f47c3c2c2096b2569b9adc02f1e1018642b63ace4a384caf4fdd965d6975fd"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/f1f0ca35-8c17-5843-8c31-3fca8ab5a46b/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/f1f0ca35-8c17-5843-8c31-3fca8ab5a46b/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/f1f0ca35-8c17-5843-8c31-3fca8ab5a46b/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/f1f0ca35-8c17-5843-8c31-3fca8ab5a46b/events.json",
+      "sha256": "ab326ab7e9eee58781e7cc23eae10cb882be363e684ce473c4fe199e3f102902"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e32eaeba-515c-5fde-af46-44d5246d0805/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e32eaeba-515c-5fde-af46-44d5246d0805/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e32eaeba-515c-5fde-af46-44d5246d0805/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e32eaeba-515c-5fde-af46-44d5246d0805/events.json",
+      "sha256": "16e6a3da6ceb0aa8bafa69603c232c0eef0073a5965c6e8bde6af42ec04b4f3c"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/2c78b9d2-b4c6-5342-88a2-c6d4cc70d2f1/events.json",
+      "sha256": "e39c2575ce804c4719a772602a4da55027ff2fb4b6ea442f64ff7ba244d01e29"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/50076583-ba35-52ab-b3f0-a82ad328f10d/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/50076583-ba35-52ab-b3f0-a82ad328f10d/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/50076583-ba35-52ab-b3f0-a82ad328f10d/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/50076583-ba35-52ab-b3f0-a82ad328f10d/events.json",
+      "sha256": "3454c40e683e4d6c403e384c13bce2d607d32577096ecfa3d1c0fc360844bbbf"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/8a2f9219-014d-5d15-a7f2-efbad536db72/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/8a2f9219-014d-5d15-a7f2-efbad536db72/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/8a2f9219-014d-5d15-a7f2-efbad536db72/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/8a2f9219-014d-5d15-a7f2-efbad536db72/events.json",
+      "sha256": "44efede3fbb31f664c597b04c0eb9d3f005aac4f8bd3fc30c57059ba88761915"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/a350b90c-0348-5a64-8369-4d4d8bb3dbcd/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/a350b90c-0348-5a64-8369-4d4d8bb3dbcd/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/a350b90c-0348-5a64-8369-4d4d8bb3dbcd/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/a350b90c-0348-5a64-8369-4d4d8bb3dbcd/events.json",
+      "sha256": "d1a4d57f374ea03e6fddfb7d6d5d159b31defde2fa84cd474e72541e09ff6c9c"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/16892744-6a80-5300-8552-ca18872438ea/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/16892744-6a80-5300-8552-ca18872438ea/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/16892744-6a80-5300-8552-ca18872438ea/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/16892744-6a80-5300-8552-ca18872438ea/events.json",
+      "sha256": "19903686d51716c093a90e0eacf2304e6d7f1c03f83db43b469c948ebea1ec78"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/8b1084a6-4f53-556a-9929-5afff3818858/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/8b1084a6-4f53-556a-9929-5afff3818858/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/8b1084a6-4f53-556a-9929-5afff3818858/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/8b1084a6-4f53-556a-9929-5afff3818858/events.json",
+      "sha256": "a754a1b7ec5476798835d22e6880999a4aaf63b4c8eb5b3213d0f8ce7126fbd2"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/14e79532-bbf4-5055-9b2f-7cb07791a6d7/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/14e79532-bbf4-5055-9b2f-7cb07791a6d7/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/14e79532-bbf4-5055-9b2f-7cb07791a6d7/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/14e79532-bbf4-5055-9b2f-7cb07791a6d7/events.json",
+      "sha256": "95f59b9676a8d4a715e2a7a96a92d8de698efe942414bb6b44ceb7fec8187789"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/2bec943d-4f5f-5c8c-8ee3-b57550d936a6/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/2bec943d-4f5f-5c8c-8ee3-b57550d936a6/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/2bec943d-4f5f-5c8c-8ee3-b57550d936a6/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/2bec943d-4f5f-5c8c-8ee3-b57550d936a6/events.json",
+      "sha256": "be02323aa923ee751194f3066d4e9270f88ad9bfb6150a3dd4c72f5ecf5f3509"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/73ae330d-1e33-5418-8266-44e8deea6571/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/73ae330d-1e33-5418-8266-44e8deea6571/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/73ae330d-1e33-5418-8266-44e8deea6571/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/73ae330d-1e33-5418-8266-44e8deea6571/events.json",
+      "sha256": "e4afdf37b27bb66000b3775c75bd11efb0ff48ae0268bc38604af38b669e09b2"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/418157d5-26eb-5d5f-a000-217ec60a43a3/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/418157d5-26eb-5d5f-a000-217ec60a43a3/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/418157d5-26eb-5d5f-a000-217ec60a43a3/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/418157d5-26eb-5d5f-a000-217ec60a43a3/events.json",
+      "sha256": "f54ad09f4cd0f036bf2020f49cad68ab6e0bce190002c35665a44e19ec3c7c3c"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e8650933-8e32-57db-8eb7-7b22231dce57/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e8650933-8e32-57db-8eb7-7b22231dce57/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/e8650933-8e32-57db-8eb7-7b22231dce57/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/e8650933-8e32-57db-8eb7-7b22231dce57/events.json",
+      "sha256": "d0719724e7f0135220b3b38e8cba29db3cf63aca70418fe25926980b09eaee3e"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad/stylized_fact_report.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad/stylized_fact_report.json",
+      "sha256": "220d82fa7af6121a8965b5fd7e256696cc689601942be39da105f68efdfe29dc"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/regression65/abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/regression65/abd7b2b8-ecba-5a6e-a7c3-dfac68beb0ad/events.json",
+      "sha256": "947567aaa095ea55f4b33476e39c1ced9e2c794dccba7cb688e927083cc7755a"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/exact-unit-check/candidate/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/exact-unit-check/candidate/events.json",
+      "sha256": "461c985a343360712202bc615c9eabce418835fc29205aee885c4fe70b0375db"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/exact-unit-check/candidate/profile.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/exact-unit-check/candidate/profile.json",
+      "sha256": "0cc5c4f30d65a503eaca64d44b8c38ef99e12211b03e96f6b713e93b37369696"
+    },
+    {
+      "path": "experiments/startup-integration/evidence/exact-unit-check/baseline/events.json",
+      "original": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-06-hotpaths/integration-startup-develop/exact-unit-check/baseline/events.json",
+      "sha256": "7b499474abe397066357164c88a77168b21cd1ca16deb0ce8d770b493ddae4b7"
+    }
+  ]
+}

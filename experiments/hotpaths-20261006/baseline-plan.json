@@ -1,0 +1,14 @@
+{
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "parent_image_id": "sha256:ed70986ba62d4feb87c9c26c7929e4b0e10a8c4af59e2e55ae2e0e8d9a839f61",
+  "source_archive_sha256": "7a8f1b6de5a6d2fc45ad3f7b772a9bfeeceb0343504a730a643b2efde6b7988d",
+  "baseline": "hotpaths-base:20261006",
+  "control": "hotpaths-control:20261006",
+  "batch_control": "CLI removes only forbidden root profile.json after successful batch exit; simulator unchanged",
+  "pending_build": true,
+  "build_parent_tag": "hotpaths-parent-pin:20261006",
+  "parent_id_checked": true,
+  "buildkit_local_id_issue": "Bare sha256 ID interpreted as docker.io/library/sha256 tag; source-bound local tag used instead",
+  "frozen_base_image_id": "sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767",
+  "frozen_control_image_id": "sha256:443d01e90bf00ff92f77d71bf672fc2a032b7df401647ac694267e8107da5d40"
+}

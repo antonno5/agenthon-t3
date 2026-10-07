@@ -1,0 +1,37 @@
+{
+  "executive_summary": "The user selected the exact measured price-key offset implementation for codex/develop. Best-key removal advances a start offset, new best keys reuse prefix slots, and periodic compaction bounds retained keys. Existing correctness results are reused; historical timing changes do not establish a causal speedup.",
+  "date": "2026-10-07",
+  "branch": "codex/develop",
+  "base_commit": "5ffc505e0f1d5441c811b487a0f1708271dcb0aa",
+  "authorization": "User: \u0414\u0430\u0432\u0430\u0439 \u0442\u043e\u0433\u0434\u0430 \u043f\u0440\u0438\u043c\u0435\u043d\u0438\u043c \u044d\u0442\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0432 develop",
+  "adopted": true,
+  "source_sha256": "a2b877e6bf3d3efbe5d086f5b89ce0bdacea03c58489d28cf504a19ee7914df0",
+  "measured_image": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+  "reused_validation": {
+    "order_book_tests_passed": 146,
+    "simulator_runs": 18,
+    "public_units": 3,
+    "exact_comparisons": 33,
+    "synthetic_domain_comparisons": 210,
+    "untimed_diagnostic_runs": 1,
+    "old_timing_containers_launched": 0,
+    "full_public_regression": "not run by user scope"
+  },
+  "new_simulator_runs": 0,
+  "full_regression": "not repeated by explicit user scope; selected-unit evidence reused",
+  "installation_validation": {
+    "passed": true,
+    "installer_tests_passed": 21,
+    "installed_overlay_modules_matched": 8,
+    "adapter_modules_matched": 9,
+    "report": "out/price-offset-integration-20261007/result.json",
+    "report_sha256": "60636632c41cb6dea467395c182a63765010fcff837cef6a01fe9e69cc58f3a3"
+  },
+  "retained_runtime_checks": [
+    "experiments/python-book-layers/test_price_vector.py",
+    "experiments/python-book-layers/test_price_offset.py"
+  ],
+  "timing_report": "experiments/price-offset/result.json",
+  "timing_limits": "Historical, unpaired local timings. Most comparable synthetic medians are slower; no repeatable net gain from the offset alone established.",
+  "submission": "No image registry publication or ZIP repack requested for this integration."
+}

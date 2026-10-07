@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/manager_audit.py", line 147, in <module>
+    audit(args.summary, args.output)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/manager_audit.py", line 80, in audit
+    raise AssertionError(('external Docker overlap', name, interval))
+AssertionError: ('external Docker overlap', 't3-diff-25e8543b9dd3', {'start': 1791309045751709200, 'finish': 1791309051722324200, 'name': 't3-diff-c944d4027887'})

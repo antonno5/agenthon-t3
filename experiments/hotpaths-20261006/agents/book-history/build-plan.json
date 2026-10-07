@@ -1,0 +1,55 @@
+{
+  "dockerfile": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/experiments/book-history/Dockerfile",
+  "context": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history",
+  "image_tag": "hotpaths-book-history:20261006",
+  "base_image": "hotpaths-base:20261006",
+  "units": [
+    "t3-s001-price-time-priority",
+    "t3-as05-oracle-variant",
+    "t3-st01-liquidity-churn-baseline",
+    "t3-mr-deep-book-state-size",
+    "t3-gbatch-homog-4"
+  ],
+  "primary_units": [
+    "t3-mr-deep-book-state-size"
+  ],
+  "runtime_checks": [
+    "python",
+    "/opt/book_history_experiment/runtime_check.py"
+  ],
+  "rankable": false,
+  "runtime_check_mounts": [
+    {
+      "host": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/experiments/book-history",
+      "container": "/checks",
+      "readonly": true
+    },
+    {
+      "host": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/baseline-source",
+      "container": "/baseline",
+      "readonly": true
+    },
+    {
+      "host": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history",
+      "container": "/repo",
+      "readonly": true
+    }
+  ],
+  "runtime_check_env": {
+    "PYTHONPATH": "/repo:/opt"
+  },
+  "component_commands": [
+    [
+      "python",
+      "/checks/microbenchmark.py",
+      "--base-source",
+      "/baseline",
+      "--out",
+      "/evidence/microbenchmark-runtime.json"
+    ]
+  ],
+  "component_note": "Parent runs in image runtime Python 3.11 with runtime_check_mounts/env and an additional writable /evidence mount. Host timing is separate.",
+  "exchange_baseline_sha256": "07b2c71633b40e3ada1582a8d5187998d1e92fde63995e7669a0261979bcaab3",
+  "implementation_commit": "8df2c59b031b9fee6c7b468ee326a2c3acb37017",
+  "exchange_candidate_sha256": "29a2a2304816d284fb8e6edf40db6b607cf8979f08ec80d1e6ef162ad56e9d16"
+}

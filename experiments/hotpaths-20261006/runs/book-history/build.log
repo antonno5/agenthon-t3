@@ -1,0 +1,38 @@
+#0 building with "colima-agenthon" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 477B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/hotpaths-base:20261006
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 7.08kB done
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767
+#5 resolve docker.io/library/hotpaths-base:20261006@sha256:7097baadcc6b889cdc539aa8e2afbafbb5a1da7724428c93b6d334b4528a3767 0.0s done
+#5 CACHED
+
+#6 [2/4] COPY experiments/book-history/apply_overlay.py /tmp/book_history_overlay.py
+#6 DONE 0.0s
+
+#7 [3/4] RUN python /tmp/book_history_overlay.py && rm /tmp/book_history_overlay.py
+#7 DONE 1.8s
+
+#8 [4/4] COPY experiments/book-history/harness.py experiments/book-history/prototype.py experiments/book-history/apply_overlay.py experiments/book-history/runtime_check.py /opt/book_history_experiment/
+#8 DONE 0.0s
+
+#9 exporting to image
+#9 exporting layers 0.1s done
+#9 exporting manifest sha256:f00b470b1c1dd4627e20ab57a0f48a5786b4c3a74f56ed60820330f29d590f6f done
+#9 exporting config sha256:43a19dad41f04e5095d3f74de4793724ddb291bab1a22b21beb16cd83f244225 done
+#9 exporting attestation manifest sha256:7f1292bd20bcb7d27e1ebae13de8f51f86faf5f6e76a6f658b4261b711688c8b 0.0s done
+#9 exporting manifest list sha256:766b3f49b285ec909f423e8078bc0c2e45c30ddc1de2e5905bad4c08fb5b65e0 done
+#9 naming to docker.io/library/hotpaths-book-history:20261006 done
+#9 DONE 0.2s

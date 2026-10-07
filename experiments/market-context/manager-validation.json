@@ -1,0 +1,18 @@
+{
+  "hypothesis": 4,
+  "audited_head": "1e5d256b0bb46910369f21a8f469e23165c605b9",
+  "image_id": "sha256:89451763457dd7a58d53972bf4c9bf94ccb88f6eeb2f9131b65cb90eec9b48fb",
+  "regression_uuid_coverage": 65,
+  "financial_hashes_vs_published_refs": 65,
+  "report_passed": 65,
+  "isolation_cases": 42,
+  "context_executions": 504,
+  "heterogeneous_pairs": 2,
+  "gate_and_paired_file_hashes": 168,
+  "heterogeneous_file_hashes": 8,
+  "verdict": "isolation_and_compatibility_validated; foundation with mixed overhead; no arbitrary-extension/thread-safety claim",
+  "initial_transport_failure": "unshared macOS temporary input path preserved; corrected under worktree without changing simulator/scorer/refs",
+  "rankable": false,
+  "final_commit": "1e5d256b0bb46910369f21a8f469e23165c605b9",
+  "clean": true
+}

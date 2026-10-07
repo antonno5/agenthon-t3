@@ -1,0 +1,42 @@
+{
+  "complete": true,
+  "status": "integrated",
+  "branch": "codex/develop",
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "experiment_implementation_commit": "a686ac924382c03571e6a9c7cd9612abab1679ef",
+  "patch_sha256": "cb3d2cc3ab930e2934241794f193474c92f225b4923f88900c5296ec12e9f380",
+  "scope": "Only DEBUG guards, their build/local install wiring and this integration record.",
+  "guarded_calls": 65,
+  "changed_upstream_files": 6,
+  "verification": {
+    "ordered_git_apply": "passed for six patches; 42 core/markets Python files byte-identical to measured image",
+    "source_check_sha256": "e00a0f8f8d15f5d4357079ce8610f2023f2993c5d182e4e615b4ec2dda1fb9b9",
+    "callback_tests": {
+      "passed": 22,
+      "command": "DEBUG_PREPARED=<debug experiment prepared directory> .venv/bin/python -m pytest -q <debug experiment>/test_debug_logging.py"
+    },
+    "existing_experiment_regression65": {
+      "passed": 65,
+      "total": 65,
+      "failed": 0,
+      "errored": 0
+    },
+    "new_docker_build_or_run": false,
+    "reason": "Reuse the exact measured patch and immutable runtime evidence while the main campaign owns the serial Docker slot."
+  },
+  "measured_candidate_image": "sha256:ca54db4e1d7e32f6fcf00a277fddcbb310ad8132a5539d4cb4006e7c94f0a681",
+  "local_full_run_median_reduction_percent": {
+    "momentum": 6.84,
+    "deep_book": 8.64
+  },
+  "rankable": false,
+  "timing_scope": "Three local AB/BA/AB pairs on Mac/Rosetta; no new timings or general Linux speedup claim.",
+  "preexisting_uncommitted_batch_changes_included": false,
+  "evidence_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-audit.json": "bf83d36e91a25555e81b6dbc90a3bde2bf48e5668ac76593729c78347a611015",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/independent-source-audit.json": "f6892badb54612d5d892efd76fc478659262cf9a3fbc2f00ed9251049398157b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/manager-gate-recheck/summary.json": "94782fae1be9b2391d9c17ee7ff835f7d93f7cc030afc2e6363106346b546c8a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/debug-logging/regression65/report.json": "100f902c1173ac153a993804b9f08fcc26b78fda51ea939fdb6c3be727277dd0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/debug-logging/experiments/debug-logging/result.json": "dd576df01fb02b8edcb71559f287341430cab636e6eaa1fbf22c6731df691ca0"
+  }
+}

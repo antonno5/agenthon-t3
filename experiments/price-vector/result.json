@@ -1,0 +1,1401 @@
+{
+  "executive_summary": "Results are mixed: historical median container-time changes are t3-mp02-stp-oldest-baseline: -14.5%, t3-mr-deep-book-state-size: -18.4%, t3-mp05-cancel-churn-newest: +11.8%. Negative means less time. Only the new candidate was run; separate measurement schedules prevent a causal speedup claim. The user selected the measured implementation for codex/develop.",
+  "complete": true,
+  "rankable": false,
+  "adopted": true,
+  "integration": {
+    "executive_summary": "The user selected the exact measured best-price/numeric-vector implementation for codex/develop despite mixed historical timings. Existing correctness results are reused; this integration does not claim a new full-corpus run.",
+    "date": "2026-10-07",
+    "branch": "codex/develop",
+    "base_commit": "682c79cb3ee505be8ec0c4e83dce8f901c5cfb9b",
+    "authorization": "User: \u041f\u0440\u0438\u043c\u0435\u043d\u0438 \u044d\u0442\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u043a \u043a\u043e\u0434\u0443 \u0432 \u0434\u0435\u0432\u0435\u043b\u043e\u043f\u0435.",
+    "source_sha256": "e71ea04f678024485a3e73d68e8d89b03ceeda14b6db9537d590b19b2a4ed4fd",
+    "measured_image": "sha256:3f924d0fd1f170ce616ee28082225bdd35e00e8cefc396b28f23b3017bbffb58",
+    "reused_validation": {
+      "order_book_tests_passed": 133,
+      "simulator_runs": 18,
+      "selected_public_units": 3,
+      "exact_comparisons": 33,
+      "synthetic_domain_comparisons": 210,
+      "baseline_timing_containers_launched": 0,
+      "full_public_regression": "not_run_by_user_instruction",
+      "first_attempt": "One deepcopy key-duplication failure was fixed before any candidate timings; logs retained under out/price-vector-20261007/attempt-1."
+    },
+    "full_regression": "not repeated by explicit user scope",
+    "submission_zip": "Existing submission ZIP still points at the prior bisect image; no registry publication or repack is requested in this step.",
+    "installation_validation": {
+      "passed": true,
+      "installer_tests_passed": 21,
+      "report": "out/price-vector-integration-20261007/result.json"
+    }
+  },
+  "baseline_image": "sha256:484ef5d44a7b71da3f2e67af21c2c8744510467648aaedf17aa083186e1dc886",
+  "candidate_image": "sha256:3f924d0fd1f170ce616ee28082225bdd35e00e8cefc396b28f23b3017bbffb58",
+  "candidate_source_sha256": "e71ea04f678024485a3e73d68e8d89b03ceeda14b6db9537d590b19b2a4ed4fd",
+  "installed_changed_files": [
+    "markets/matching/state.py"
+  ],
+  "validation": {
+    "order_book_tests_passed": 133,
+    "simulator_runs": 18,
+    "selected_public_units": 3,
+    "exact_comparisons": 33,
+    "synthetic_domain_comparisons": 210,
+    "baseline_timing_containers_launched": 0,
+    "full_public_regression": "not_run_by_user_instruction",
+    "first_attempt": "One deepcopy key-duplication failure was fixed before any candidate timings; logs retained under out/price-vector-20261007/attempt-1."
+  },
+  "policy_sha256": "61620880c85f313ad2cffcbda0a66f5cb55052b569cea5e747bba20b574eeec5",
+  "evidence_sha256": {
+    "out/price-vector-20261007/simulations/summary.json": "4b373b358fff45b48ffba30fab2e653b7e67205333a72ba741e7332f4e1c2e20",
+    "out/price-search-comparison/differential-resumed/summary.json": "0982e13c039cae8ab571aea151054cc802f43c1aaf4594cdefe6d189f44a346f",
+    "out/price-vector-20261007/installed-source.json": "b484c4825b092338b63df9d4c309d8758e77a1327cbfbf8d4397186c21e0da3f",
+    "out/price-vector-20261007/runtime-tests.log": "dafe1aa7f931dc466b40fe7fac3b1922a7c4287b6a0e0cbe3099f5b44431be3e"
+  },
+  "units": [
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "metrics": {
+        "container_seconds": {
+          "baseline_samples": [
+            4.615605912,
+            4.378521668,
+            6.342273731,
+            6.184866375,
+            4.149769934
+          ],
+          "candidate_samples": [
+            3.947020178,
+            3.75255071,
+            3.960846348,
+            3.900538525,
+            4.581510764
+          ],
+          "baseline_median": 4.615605912,
+          "candidate_median": 3.947020178,
+          "baseline_mean": 5.134207524,
+          "candidate_mean": 4.028493305,
+          "baseline_range": [
+            4.149769934,
+            6.342273731
+          ],
+          "candidate_range": [
+            3.75255071,
+            4.581510764
+          ],
+          "time_reduction_percent": 14.485329699872363,
+          "ratio_baseline_over_candidate": 1.1693899964653285
+        },
+        "simulation_seconds": {
+          "baseline_samples": [
+            2.830096454003069,
+            2.6377344030042877,
+            3.6899061190051725,
+            3.051173284999095,
+            2.5769926970024244
+          ],
+          "candidate_samples": [
+            2.52538741600074,
+            2.451296571001876,
+            2.5702619740004593,
+            2.528740514000674,
+            3.144801770999038
+          ],
+          "baseline_median": 2.830096454003069,
+          "candidate_median": 2.528740514000674,
+          "baseline_mean": 2.9571805916028095,
+          "candidate_mean": 2.6440976492005577,
+          "baseline_range": [
+            2.5769926970024244,
+            3.6899061190051725
+          ],
+          "candidate_range": [
+            2.451296571001876,
+            3.144801770999038
+          ],
+          "time_reduction_percent": 10.648256866868898,
+          "ratio_baseline_over_candidate": 1.1191723462070948
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "metrics": {
+        "container_seconds": {
+          "baseline_samples": [
+            23.522386618,
+            23.60802354,
+            27.98079024,
+            26.358774429,
+            16.667782315
+          ],
+          "candidate_samples": [
+            19.793806733,
+            19.269916986,
+            19.360364245,
+            17.155696082,
+            17.618563038
+          ],
+          "baseline_median": 23.60802354,
+          "candidate_median": 19.269916986,
+          "baseline_mean": 23.6275514284,
+          "candidate_mean": 18.6396694168,
+          "baseline_range": [
+            16.667782315,
+            27.98079024
+          ],
+          "candidate_range": [
+            17.155696082,
+            19.793806733
+          ],
+          "time_reduction_percent": 18.375560099937115,
+          "ratio_baseline_over_candidate": 1.2251232611511367
+        },
+        "simulation_seconds": {
+          "baseline_samples": [
+            20.313314759005152,
+            19.690974985001958,
+            24.35502269800054,
+            23.1530175089938,
+            14.395368587999997
+          ],
+          "candidate_samples": [
+            17.772543994000443,
+            17.17133047900279,
+            17.079913983998267,
+            14.871620805002749,
+            15.567849998999009
+          ],
+          "baseline_median": 20.313314759005152,
+          "candidate_median": 17.079913983998267,
+          "baseline_mean": 20.38153970780029,
+          "candidate_mean": 16.49265185220065,
+          "baseline_range": [
+            14.395368587999997,
+            24.35502269800054
+          ],
+          "candidate_range": [
+            14.871620805002749,
+            17.772543994000443
+          ],
+          "time_reduction_percent": 15.91764226256317,
+          "ratio_baseline_over_candidate": 1.1893101322428308
+        }
+      }
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "metrics": {
+        "container_seconds": {
+          "baseline_samples": [
+            10.175435918,
+            11.191432136,
+            10.25251627,
+            10.306177006,
+            10.235787749
+          ],
+          "candidate_samples": [
+            11.761620977,
+            10.896311888,
+            11.531130338,
+            11.327763506,
+            11.465922725
+          ],
+          "baseline_median": 10.25251627,
+          "candidate_median": 11.465922725,
+          "baseline_mean": 10.4322698158,
+          "candidate_mean": 11.3965498868,
+          "baseline_range": [
+            10.175435918,
+            11.191432136
+          ],
+          "candidate_range": [
+            10.896311888,
+            11.761620977
+          ],
+          "time_reduction_percent": -11.835206334181226,
+          "ratio_baseline_over_candidate": 0.8941728036981863
+        },
+        "simulation_seconds": {
+          "baseline_samples": [
+            8.201069982999996,
+            9.137503622999986,
+            8.272434437000015,
+            8.371621275999985,
+            8.320277299999987
+          ],
+          "candidate_samples": [
+            9.314997982000932,
+            9.391860171999724,
+            9.557692833001056,
+            9.330866755000898,
+            9.527540156002942
+          ],
+          "baseline_median": 8.320277299999987,
+          "candidate_median": 9.391860171999724,
+          "baseline_mean": 8.460581323799994,
+          "candidate_mean": 9.42459157960111,
+          "baseline_range": [
+            8.201069982999996,
+            9.137503622999986
+          ],
+          "candidate_range": [
+            9.314997982000932,
+            9.557692833001056
+          ],
+          "time_reduction_percent": -12.879172572766763,
+          "ratio_baseline_over_candidate": 0.8859030210868679
+        }
+      }
+    }
+  ],
+  "microbench": [
+    {
+      "levels": 1,
+      "phase": "lookup",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          1437.7835,
+          1443.7385,
+          1412.633,
+          1430.0055,
+          1406.608,
+          1414.4185,
+          1461.46
+        ],
+        "candidate_samples": [
+          1284.349,
+          1218.7415,
+          1214.8265,
+          1289.728,
+          1250.997,
+          1214.8775,
+          2423.166
+        ],
+        "baseline_median": 1430.0055,
+        "candidate_median": 1250.997,
+        "baseline_mean": 1429.521,
+        "candidate_mean": 1413.8122142857144,
+        "baseline_range": [
+          1406.608,
+          1461.46
+        ],
+        "candidate_range": [
+          1214.8265,
+          2423.166
+        ],
+        "time_reduction_percent": 12.518028776812395,
+        "ratio_baseline_over_candidate": 1.1430926692869767
+      }
+    },
+    {
+      "levels": 1,
+      "phase": "add_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          1956.879,
+          1969.1869999999997,
+          1971.4565,
+          2134.0395,
+          1986.285,
+          1972.6775,
+          1988.4055000000003
+        ],
+        "candidate_samples": [
+          1840.7425,
+          1834.179,
+          1767.089,
+          1827.934,
+          1801.935,
+          1774.3805,
+          2460.667
+        ],
+        "baseline_median": 1972.6775,
+        "candidate_median": 1827.934,
+        "baseline_mean": 1996.99,
+        "candidate_mean": 1900.9895714285715,
+        "baseline_range": [
+          1956.879,
+          2134.0395
+        ],
+        "candidate_range": [
+          1767.089,
+          2460.667
+        ],
+        "time_reduction_percent": 7.337413236578206,
+        "ratio_baseline_over_candidate": 1.0791842046813507
+      }
+    },
+    {
+      "levels": 1,
+      "phase": "cancel_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          2980.007,
+          2913.6445,
+          2897.017,
+          3106.6405,
+          2878.3635,
+          3218.093,
+          2961.296
+        ],
+        "candidate_samples": [
+          2860.6025,
+          3015.934,
+          2698.165,
+          2800.9415,
+          2799.8995,
+          2764.1125,
+          3552.452
+        ],
+        "baseline_median": 2961.296,
+        "candidate_median": 2800.9415,
+        "baseline_mean": 2993.580214285714,
+        "candidate_mean": 2927.4438571428573,
+        "baseline_range": [
+          2878.3635,
+          3218.093
+        ],
+        "candidate_range": [
+          2698.165,
+          3552.452
+        ],
+        "time_reduction_percent": 5.415010860109892,
+        "ratio_baseline_over_candidate": 1.05725021390129
+      }
+    },
+    {
+      "levels": 1,
+      "phase": "modify_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          4294.641,
+          4288.4025,
+          4306.0455,
+          4458.436,
+          4463.9335,
+          4868.807,
+          4453.694
+        ],
+        "candidate_samples": [
+          4348.672,
+          4657.0595,
+          4215.7385,
+          4314.392,
+          4177.075,
+          4189.9525,
+          5489.2565
+        ],
+        "baseline_median": 4453.694,
+        "candidate_median": 4314.392,
+        "baseline_mean": 4447.7085,
+        "candidate_mean": 4484.592285714286,
+        "baseline_range": [
+          4288.4025,
+          4868.807
+        ],
+        "candidate_range": [
+          4177.075,
+          5489.2565
+        ],
+        "time_reduction_percent": 3.127785608979883,
+        "ratio_baseline_over_candidate": 1.0322877476131054
+      }
+    },
+    {
+      "levels": 1,
+      "phase": "new_level_churn",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          7356.754,
+          7166.5255,
+          6993.663,
+          7171.09,
+          7082.084,
+          7240.595,
+          7141.277
+        ],
+        "candidate_samples": [
+          7222.732,
+          7954.868,
+          6716.7005,
+          6916.571,
+          8814.202,
+          6882.831,
+          9079.9665
+        ],
+        "baseline_median": 7166.5255,
+        "candidate_median": 7222.732,
+        "baseline_mean": 7164.569785714286,
+        "candidate_mean": 7655.410142857143,
+        "baseline_range": [
+          6993.663,
+          7356.754
+        ],
+        "candidate_range": [
+          6716.7005,
+          9079.9665
+        ],
+        "time_reduction_percent": -0.7842921929183122,
+        "ratio_baseline_over_candidate": 0.9922181108201162
+      }
+    },
+    {
+      "levels": 4,
+      "phase": "lookup",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          2194.6965,
+          2156.587,
+          2063.792,
+          2180.644,
+          2198.1225,
+          2069.804,
+          2134.179
+        ],
+        "candidate_samples": [
+          1706.586,
+          2093.1435,
+          1595.29,
+          1614.594,
+          1628.115,
+          1598.509,
+          2387.01
+        ],
+        "baseline_median": 2156.587,
+        "candidate_median": 1628.115,
+        "baseline_mean": 2142.5464285714284,
+        "candidate_mean": 1803.3210714285715,
+        "baseline_range": [
+          2063.792,
+          2198.1225
+        ],
+        "candidate_range": [
+          1595.29,
+          2387.01
+        ],
+        "time_reduction_percent": 24.505016491335617,
+        "ratio_baseline_over_candidate": 1.3245913218660843
+      }
+    },
+    {
+      "levels": 4,
+      "phase": "add_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          2190.322,
+          2188.192,
+          2230.42,
+          2205.5405,
+          2424.7305,
+          2207.931,
+          2209.326
+        ],
+        "candidate_samples": [
+          1696.8895,
+          1840.5695,
+          1686.4085,
+          1716.7045,
+          1978.3560000000002,
+          1703.421,
+          2113.044
+        ],
+        "baseline_median": 2207.931,
+        "candidate_median": 1716.7045,
+        "baseline_mean": 2236.6374285714287,
+        "candidate_mean": 1819.3418571428572,
+        "baseline_range": [
+          2188.192,
+          2424.7305
+        ],
+        "candidate_range": [
+          1686.4085,
+          2113.044
+        ],
+        "time_reduction_percent": 22.24827225126147,
+        "ratio_baseline_over_candidate": 1.2861450529197074
+      }
+    },
+    {
+      "levels": 4,
+      "phase": "cancel_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          3260.2005,
+          3220.6715,
+          3206.669,
+          3220.038,
+          3726.441,
+          3219.468,
+          3255.9875
+        ],
+        "candidate_samples": [
+          2955.724,
+          2993.1285,
+          2692.6335,
+          2756.86,
+          2900.639,
+          2749.1915,
+          3137.2045
+        ],
+        "baseline_median": 3220.6715,
+        "candidate_median": 2900.639,
+        "baseline_mean": 3301.353642857143,
+        "candidate_mean": 2883.625857142857,
+        "baseline_range": [
+          3206.669,
+          3726.441
+        ],
+        "candidate_range": [
+          2692.6335,
+          3137.2045
+        ],
+        "time_reduction_percent": 9.936825286279582,
+        "ratio_baseline_over_candidate": 1.1103317234581758
+      }
+    },
+    {
+      "levels": 4,
+      "phase": "modify_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          4993.387,
+          4977.0,
+          5091.666,
+          4969.841,
+          5527.098,
+          5006.7675,
+          5619.441
+        ],
+        "candidate_samples": [
+          4670.8775,
+          5107.783,
+          4527.5655,
+          4536.836,
+          5106.082,
+          4527.345,
+          5813.6725
+        ],
+        "baseline_median": 5006.7675,
+        "candidate_median": 4670.8775,
+        "baseline_mean": 5169.314357142857,
+        "candidate_mean": 4898.5945,
+        "baseline_range": [
+          4969.841,
+          5619.441
+        ],
+        "candidate_range": [
+          4527.345,
+          5813.6725
+        ],
+        "time_reduction_percent": 6.708719747821334,
+        "ratio_baseline_over_candidate": 1.0719115412468
+      }
+    },
+    {
+      "levels": 4,
+      "phase": "new_level_churn",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          9016.751,
+          8845.415,
+          8599.737,
+          9071.0415,
+          9495.5225,
+          8793.6615,
+          9888.1735
+        ],
+        "candidate_samples": [
+          7998.150000000001,
+          8139.944499999999,
+          7573.546,
+          7771.6395,
+          8071.449,
+          7667.501,
+          8627.428
+        ],
+        "baseline_median": 9016.751,
+        "candidate_median": 7998.150000000001,
+        "baseline_mean": 9101.471714285713,
+        "candidate_mean": 7978.522571428572,
+        "baseline_range": [
+          8599.737,
+          9888.1735
+        ],
+        "candidate_range": [
+          7573.546,
+          8627.428
+        ],
+        "time_reduction_percent": 11.296763102363583,
+        "ratio_baseline_over_candidate": 1.1273545757456411
+      }
+    },
+    {
+      "levels": 16,
+      "phase": "lookup",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          2605.748,
+          2499.657,
+          2495.6545,
+          2616.444,
+          2570.5245,
+          2498.519,
+          2606.103
+        ],
+        "candidate_samples": [
+          1693.1565,
+          1915.2095,
+          1709.746,
+          1826.761,
+          1769.9625,
+          1707.8885,
+          1842.673
+        ],
+        "baseline_median": 2570.5245,
+        "candidate_median": 1769.9625,
+        "baseline_mean": 2556.092857142857,
+        "candidate_mean": 1780.771,
+        "baseline_range": [
+          2495.6545,
+          2616.444
+        ],
+        "candidate_range": [
+          1693.1565,
+          1915.2095
+        ],
+        "time_reduction_percent": 31.14391634858955,
+        "ratio_baseline_over_candidate": 1.452304497976652
+      }
+    },
+    {
+      "levels": 16,
+      "phase": "add_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          2638.4985,
+          2578.9915,
+          2641.8865,
+          2772.0505,
+          2762.007,
+          2607.25,
+          2636.645
+        ],
+        "candidate_samples": [
+          1819.3955,
+          1826.222,
+          1771.744,
+          1863.122,
+          1791.4255,
+          1784.1175,
+          2068.48
+        ],
+        "baseline_median": 2638.4985,
+        "candidate_median": 1819.3955,
+        "baseline_mean": 2662.4755714285716,
+        "candidate_mean": 1846.3580714285715,
+        "baseline_range": [
+          2578.9915,
+          2772.0505
+        ],
+        "candidate_range": [
+          1771.744,
+          2068.48
+        ],
+        "time_reduction_percent": 31.044285225100566,
+        "ratio_baseline_over_candidate": 1.450206126155638
+      }
+    },
+    {
+      "levels": 16,
+      "phase": "cancel_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          3750.983,
+          3592.2835,
+          3554.093,
+          3633.233,
+          3932.0694999999996,
+          3588.0365,
+          3692.3695
+        ],
+        "candidate_samples": [
+          2755.143,
+          4277.1335,
+          2777.74,
+          2795.276,
+          2795.247,
+          2768.201,
+          2994.7035
+        ],
+        "baseline_median": 3633.233,
+        "candidate_median": 2795.247,
+        "baseline_mean": 3677.581142857143,
+        "candidate_mean": 3023.349142857143,
+        "baseline_range": [
+          3554.093,
+          3932.0694999999996
+        ],
+        "candidate_range": [
+          2755.143,
+          4277.1335
+        ],
+        "time_reduction_percent": 23.064471780367523,
+        "ratio_baseline_over_candidate": 1.299789607143841
+      }
+    },
+    {
+      "levels": 16,
+      "phase": "modify_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          5526.1495,
+          5453.2605,
+          5519.0075,
+          5539.831,
+          5744.3935,
+          5501.838,
+          6071.948
+        ],
+        "candidate_samples": [
+          5576.173,
+          5475.22,
+          4686.8395,
+          4803.608,
+          4764.574,
+          4873.8625,
+          5429.221
+        ],
+        "baseline_median": 5526.1495,
+        "candidate_median": 4873.8625,
+        "baseline_mean": 5622.3468571428575,
+        "candidate_mean": 5087.071142857143,
+        "baseline_range": [
+          5453.2605,
+          6071.948
+        ],
+        "candidate_range": [
+          4686.8395,
+          5576.173
+        ],
+        "time_reduction_percent": 11.803643748689751,
+        "ratio_baseline_over_candidate": 1.1338336893993215
+      }
+    },
+    {
+      "levels": 16,
+      "phase": "new_level_churn",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          10011.753,
+          10811.498,
+          9980.182,
+          10548.2945,
+          11266.6785,
+          10805.6315,
+          10868.522
+        ],
+        "candidate_samples": [
+          8899.545,
+          8648.6425,
+          8107.209000000001,
+          7984.061000000001,
+          8123.489500000001,
+          8059.9839999999995,
+          8980.706
+        ],
+        "baseline_median": 10805.6315,
+        "candidate_median": 8123.489500000001,
+        "baseline_mean": 10613.222785714286,
+        "candidate_mean": 8400.519571428571,
+        "baseline_range": [
+          9980.182,
+          11266.6785
+        ],
+        "candidate_range": [
+          7984.061000000001,
+          8980.706
+        ],
+        "time_reduction_percent": 24.821705237680913,
+        "ratio_baseline_over_candidate": 1.3301711659749174
+      }
+    },
+    {
+      "levels": 64,
+      "phase": "lookup",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          3108.4475,
+          3071.8145,
+          2978.019,
+          3016.346,
+          3026.9285,
+          3428.9715,
+          3075.7765
+        ],
+        "candidate_samples": [
+          1850.6255,
+          1798.133,
+          1829.985,
+          1791.481,
+          1796.0775,
+          1822.854,
+          1860.478
+        ],
+        "baseline_median": 3071.8145,
+        "candidate_median": 1822.854,
+        "baseline_mean": 3100.9005,
+        "candidate_mean": 1821.3762857142858,
+        "baseline_range": [
+          2978.019,
+          3428.9715
+        ],
+        "candidate_range": [
+          1791.481,
+          1860.478
+        ],
+        "time_reduction_percent": 40.65872141693452,
+        "ratio_baseline_over_candidate": 1.6851675998187456
+      }
+    },
+    {
+      "levels": 64,
+      "phase": "add_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          3040.258,
+          3068.856,
+          3125.626,
+          3635.857,
+          3319.7045,
+          4135.649,
+          3495.429
+        ],
+        "candidate_samples": [
+          1993.075,
+          1969.5300000000002,
+          1838.418,
+          1811.166,
+          1830.63,
+          1797.437,
+          1785.9375
+        ],
+        "baseline_median": 3319.7045,
+        "candidate_median": 1830.63,
+        "baseline_mean": 3403.0542142857144,
+        "candidate_mean": 1860.8847857142857,
+        "baseline_range": [
+          3040.258,
+          4135.649
+        ],
+        "candidate_range": [
+          1785.9375,
+          1993.075
+        ],
+        "time_reduction_percent": 44.85563398790464,
+        "ratio_baseline_over_candidate": 1.8134218820843095
+      }
+    },
+    {
+      "levels": 64,
+      "phase": "cancel_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          4189.951499999999,
+          4035.835,
+          4008.477,
+          4178.575000000001,
+          4139.5525,
+          4161.253,
+          4379.234
+        ],
+        "candidate_samples": [
+          3704.7615,
+          3261.888,
+          2918.686,
+          2837.1885,
+          2869.2375,
+          2831.005,
+          2876.1455
+        ],
+        "baseline_median": 4161.253,
+        "candidate_median": 2876.1455,
+        "baseline_mean": 4156.1254285714285,
+        "candidate_mean": 3042.7017142857144,
+        "baseline_range": [
+          4008.477,
+          4379.234
+        ],
+        "candidate_range": [
+          2831.005,
+          3704.7615
+        ],
+        "time_reduction_percent": 30.8827052813179,
+        "ratio_baseline_over_candidate": 1.4468158860530524
+      }
+    },
+    {
+      "levels": 64,
+      "phase": "modify_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          5983.7845,
+          5848.977,
+          5895.286,
+          6601.0775,
+          6009.398,
+          6562.374,
+          6402.0365
+        ],
+        "candidate_samples": [
+          5257.5375,
+          5358.331,
+          4682.289,
+          4748.3465,
+          4700.1,
+          4666.8835,
+          4688.864
+        ],
+        "baseline_median": 6009.398,
+        "candidate_median": 4700.1,
+        "baseline_mean": 6186.133357142857,
+        "candidate_mean": 4871.7645,
+        "baseline_range": [
+          5848.977,
+          6601.0775
+        ],
+        "candidate_range": [
+          4666.8835,
+          5358.331
+        ],
+        "time_reduction_percent": 21.787506835127246,
+        "ratio_baseline_over_candidate": 1.278568115572009
+      }
+    },
+    {
+      "levels": 64,
+      "phase": "new_level_churn",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          10880.44,
+          10986.189,
+          10893.617,
+          10739.444,
+          11429.9945,
+          13628.506,
+          12757.237
+        ],
+        "candidate_samples": [
+          9678.2415,
+          9715.409,
+          8238.469,
+          8064.7919999999995,
+          8207.079500000002,
+          8162.325,
+          8126.163000000001
+        ],
+        "baseline_median": 10986.189,
+        "candidate_median": 8207.079500000002,
+        "baseline_mean": 11616.489642857143,
+        "candidate_mean": 8598.925571428572,
+        "baseline_range": [
+          10739.444,
+          13628.506
+        ],
+        "candidate_range": [
+          8064.7919999999995,
+          9715.409
+        ],
+        "time_reduction_percent": 25.296392588913207,
+        "ratio_baseline_over_candidate": 1.3386234408963624
+      }
+    },
+    {
+      "levels": 256,
+      "phase": "lookup",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          3594.167,
+          4348.258,
+          3477.883,
+          3484.396,
+          3546.375,
+          3537.014,
+          3798.6825
+        ],
+        "candidate_samples": [
+          2056.33,
+          2216.1725,
+          1861.547,
+          1849.688,
+          1857.676,
+          1862.5805,
+          1868.1925
+        ],
+        "baseline_median": 3546.375,
+        "candidate_median": 1862.5805,
+        "baseline_mean": 3683.8250714285714,
+        "candidate_mean": 1938.8837857142858,
+        "baseline_range": [
+          3477.883,
+          4348.258
+        ],
+        "candidate_range": [
+          1849.688,
+          2216.1725
+        ],
+        "time_reduction_percent": 47.47931338338444,
+        "ratio_baseline_over_candidate": 1.9040116655360668
+      }
+    },
+    {
+      "levels": 256,
+      "phase": "add_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          3752.0455,
+          3853.185,
+          3892.412,
+          3779.1515,
+          4147.74,
+          3858.29,
+          3958.9355
+        ],
+        "candidate_samples": [
+          2184.8665,
+          2309.295,
+          2062.1955,
+          2113.599,
+          2058.4785,
+          2052.447,
+          2101.6085
+        ],
+        "baseline_median": 3858.29,
+        "candidate_median": 2101.6085,
+        "baseline_mean": 3891.6799285714287,
+        "candidate_mean": 2126.07,
+        "baseline_range": [
+          3752.0455,
+          4147.74
+        ],
+        "candidate_range": [
+          2052.447,
+          2309.295
+        ],
+        "time_reduction_percent": 45.530053469283025,
+        "ratio_baseline_over_candidate": 1.835874759737601
+      }
+    },
+    {
+      "levels": 256,
+      "phase": "cancel_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          4654.6915,
+          4677.4315,
+          4629.323,
+          4730.9605,
+          4766.918,
+          4733.5535,
+          5269.0175
+        ],
+        "candidate_samples": [
+          3164.796,
+          3447.0265,
+          2945.2805,
+          2975.321,
+          2890.489,
+          2937.245,
+          2926.953
+        ],
+        "baseline_median": 4730.9605,
+        "candidate_median": 2945.2805,
+        "baseline_mean": 4780.270785714286,
+        "candidate_mean": 3041.015857142857,
+        "baseline_range": [
+          4629.323,
+          5269.0175
+        ],
+        "candidate_range": [
+          2890.489,
+          3447.0265
+        ],
+        "time_reduction_percent": 37.74455525468877,
+        "ratio_baseline_over_candidate": 1.6062852078095788
+      }
+    },
+    {
+      "levels": 256,
+      "phase": "modify_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          6555.1525,
+          7935.2915,
+          6615.53,
+          7115.024,
+          7070.9795,
+          6787.19,
+          9253.224
+        ],
+        "candidate_samples": [
+          5094.261,
+          5368.5645,
+          4854.9025,
+          4944.0075,
+          4777.6635,
+          5019.3235,
+          4859.007
+        ],
+        "baseline_median": 7070.9795,
+        "candidate_median": 4944.0075,
+        "baseline_mean": 7333.198785714286,
+        "candidate_mean": 4988.247071428572,
+        "baseline_range": [
+          6555.1525,
+          9253.224
+        ],
+        "candidate_range": [
+          4777.6635,
+          5368.5645
+        ],
+        "time_reduction_percent": 30.080302170300456,
+        "ratio_baseline_over_candidate": 1.430212130543896
+      }
+    },
+    {
+      "levels": 256,
+      "phase": "new_level_churn",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          12138.74,
+          13075.212,
+          12196.289,
+          12370.369,
+          12928.871,
+          13596.2345,
+          13294.0975
+        ],
+        "candidate_samples": [
+          8869.902,
+          9897.272,
+          8409.371,
+          8441.7045,
+          8392.903,
+          8392.255,
+          8410.4925
+        ],
+        "baseline_median": 12928.871,
+        "candidate_median": 8410.4925,
+        "baseline_mean": 12799.973285714286,
+        "candidate_mean": 8687.7,
+        "baseline_range": [
+          12138.74,
+          13596.2345
+        ],
+        "candidate_range": [
+          8392.255,
+          9897.272
+        ],
+        "time_reduction_percent": 34.947974188929564,
+        "ratio_baseline_over_candidate": 1.5372311431227124
+      }
+    },
+    {
+      "levels": 1024,
+      "phase": "lookup",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          4309.246,
+          5586.8255,
+          4281.587,
+          4267.973,
+          4492.0575,
+          4573.905,
+          4949.2
+        ],
+        "candidate_samples": [
+          2088.6465000000003,
+          2264.5765,
+          2045.2654999999997,
+          2109.0435,
+          2021.4285000000002,
+          2039.4645000000003,
+          2071.9485
+        ],
+        "baseline_median": 4492.0575,
+        "candidate_median": 2071.9485,
+        "baseline_mean": 4637.256285714286,
+        "candidate_mean": 2091.481928571429,
+        "baseline_range": [
+          4267.973,
+          5586.8255
+        ],
+        "candidate_range": [
+          2021.4285000000002,
+          2264.5765
+        ],
+        "time_reduction_percent": 53.87528988664994,
+        "ratio_baseline_over_candidate": 2.1680353058968405
+      }
+    },
+    {
+      "levels": 1024,
+      "phase": "add_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          4428.3945,
+          4638.2845,
+          4715.429,
+          4505.0395,
+          5400.323,
+          5136.414,
+          4991.8465
+        ],
+        "candidate_samples": [
+          2244.988,
+          2530.723,
+          2210.991,
+          2244.464,
+          2215.772,
+          2210.7,
+          2298.68
+        ],
+        "baseline_median": 4715.429,
+        "candidate_median": 2244.464,
+        "baseline_mean": 4830.818714285714,
+        "candidate_mean": 2279.4739999999997,
+        "baseline_range": [
+          4428.3945,
+          5400.323
+        ],
+        "candidate_range": [
+          2210.7,
+          2530.723
+        ],
+        "time_reduction_percent": 52.40170088447944,
+        "ratio_baseline_over_candidate": 2.1009154078657533
+      }
+    },
+    {
+      "levels": 1024,
+      "phase": "cancel_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          5480.273,
+          5533.7415,
+          5329.2125,
+          5799.188,
+          5585.514,
+          7980.000500000001,
+          6194.115
+        ],
+        "candidate_samples": [
+          3272.296,
+          3618.9455,
+          3110.3165,
+          3133.392,
+          3107.3195,
+          3065.234,
+          3264.5705
+        ],
+        "baseline_median": 5585.514,
+        "candidate_median": 3133.392,
+        "baseline_mean": 5986.006357142857,
+        "candidate_mean": 3224.582,
+        "baseline_range": [
+          5329.2125,
+          7980.000500000001
+        ],
+        "candidate_range": [
+          3065.234,
+          3618.9455
+        ],
+        "time_reduction_percent": 43.90145651769918,
+        "ratio_baseline_over_candidate": 1.7825774751451464
+      }
+    },
+    {
+      "levels": 1024,
+      "phase": "modify_existing",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          7603.635,
+          8181.5255,
+          7352.337,
+          8042.249499999999,
+          7979.785,
+          8989.016,
+          8273.562999999998
+        ],
+        "candidate_samples": [
+          5320.2495,
+          6922.866,
+          5158.9015,
+          5290.302,
+          5274.0995,
+          5055.13,
+          5388.8815
+        ],
+        "baseline_median": 8042.249499999999,
+        "candidate_median": 5290.302,
+        "baseline_mean": 8060.301571428571,
+        "candidate_mean": 5487.204285714286,
+        "baseline_range": [
+          7352.337,
+          8989.016
+        ],
+        "candidate_range": [
+          5055.13,
+          6922.866
+        ],
+        "time_reduction_percent": 34.218628755549055,
+        "ratio_baseline_over_candidate": 1.5201872218258994
+      }
+    },
+    {
+      "levels": 1024,
+      "phase": "new_level_churn",
+      "nanoseconds_per_operation": {
+        "baseline_samples": [
+          14008.238,
+          17265.2375,
+          13676.1525,
+          15521.5505,
+          14128.4335,
+          15435.9925,
+          14984.894
+        ],
+        "candidate_samples": [
+          9406.4835,
+          10830.571,
+          9054.797,
+          9349.004,
+          9155.1405,
+          9173.279,
+          9174.4345
+        ],
+        "baseline_median": 14984.894,
+        "candidate_median": 9174.4345,
+        "baseline_mean": 15002.928357142857,
+        "candidate_mean": 9449.101357142858,
+        "baseline_range": [
+          13676.1525,
+          17265.2375
+        ],
+        "candidate_range": [
+          9054.797,
+          10830.571
+        ],
+        "time_reduction_percent": 38.775446125945244,
+        "ratio_baseline_over_candidate": 1.6333316238728395
+      }
+    }
+  ],
+  "limits": [
+    "Historical comparison, not paired: every baseline timing was reused.",
+    "Local macOS VM/emulation measurements; not official Final timing.",
+    "Only three selected public units were executed.",
+    "Price insertion/deletion still shifts lists; numeric keys add memory and another list shift.",
+    "Explicit same-length base-list mutations and vars(level) writes retain the existing bypass limitation."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-06T17:38:49.704675+00:00",
+  "base_commit": "0af6939d8815b9e39376e5c6f7fef3538cec06f1",
+  "correctness": {
+    "dual_trace": "exact ordered bytes/schema/values",
+    "developer_gates": "actual selected relevant units every repeated run, unchanged scorer/thresholds",
+    "regression65": "all65 single scenarios pass",
+    "source": "candidate image differs only in its designated hypothesis files",
+    "docker_slot": "no overlapping container per state/events"
+  },
+  "performance": {
+    "metric": "median full Docker State lifetime, warmup/profile excluded",
+    "repeats": 3,
+    "schedule": "AB/BA/AB",
+    "primary_requirement": "at least 5% time reduction on every declared primary unit",
+    "regression_guardrail": "no median slowdown over 5% on any selected unit",
+    "component": "diagnostic only, not an adoption basis",
+    "statistical_scope": "preliminary workload-specific local evidence; overlapping ranges and inconsistent pairs explicitly reported; no robust general or official performance claim"
+  },
+  "rankable": false
+}

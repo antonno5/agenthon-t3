@@ -1,0 +1,13 @@
+{
+  "scenario_id": "683a0b4e-a386-5a7d-a8b2-e252cc6d9f7f",
+  "seed": 546456587,
+  "n_events": 40283,
+  "wall_clock_sec": 2.391739316000894,
+  "events_per_sec": 16842.554592176526,
+  "trace_sha256": "424a3b612f0e10b252ff4df68054aedc2a2e5643c55dac9f8142b62525c3868d",
+  "n_messages": 39842,
+  "message_trace_sha256": "e14cf8d5d0a65ab3a7fd686c1a6ece8042e5a8ca7293602c29830b0d9acd62e2",
+  "peak_memory_bytes": 230166528,
+  "gpu_seconds": 0.0,
+  "simulation_wall_clock_sec": 2.1285069970035693
+}

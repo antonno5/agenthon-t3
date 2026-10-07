@@ -1,0 +1,20 @@
+{
+  "hypothesis": 5,
+  "audited_head": "42f3b42f03a5996dec327078c330f4849f3c242b",
+  "image_id": "sha256:ff5f54c5119fed7f38897239e5f2a1f373fb5731b4160c88926d7cf9f7840a83",
+  "regression_uuid_coverage": 65,
+  "financial_hashes_vs_published_refs": 65,
+  "report_passed": 65,
+  "both_trace_hash_checks": 108,
+  "primary_criterion": {
+    "unit": "t3-as05-oracle-variant",
+    "required_reduction_fraction": 0.05,
+    "reduction_fraction": -0.028403362450427405,
+    "timing_threshold_met": false,
+    "criterion_met": false
+  },
+  "verdict": "do_not_promote_native",
+  "rankable": false,
+  "final_commit": "42f3b42f03a5996dec327078c330f4849f3c242b",
+  "clean": true
+}

@@ -1,0 +1,21 @@
+{
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "build",
+    "--platform=linux/amd64",
+    "--pull=false",
+    "--build-arg",
+    "BASE_IMAGE=hotpaths-base:20261006",
+    "--label",
+    "org.opencontainers.image.revision=8df2c59b031b9fee6c7b468ee326a2c3acb37017",
+    "-f",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history/experiments/book-history/Dockerfile",
+    "-t",
+    "hotpaths-book-history:20261006",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/book-history"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

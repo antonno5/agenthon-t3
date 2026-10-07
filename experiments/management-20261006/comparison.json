@@ -1,0 +1,843 @@
+{
+  "base_commit": "a5dbe466f038389e96f44d6f71f1258e2eddcbb5",
+  "status": "complete",
+  "local_date": "2026-10-06",
+  "timezone": "Europe/Moscow",
+  "rankable": false,
+  "rows": [
+    {
+      "id": 1,
+      "hypothesis": "Эксперимент 1: heap-очередь событий",
+      "branch": "codex/exp-20261005-01-heap-queue",
+      "worktree": "/Users/iopogiba/.codex/worktrees/38bb/Агентон",
+      "report": "/Users/iopogiba/.codex/worktrees/38bb/Агентон/experiments/heap-queue/result.json",
+      "verdict": "preliminary_workload_specific_threshold_pass",
+      "measured_speedup": {
+        "component": 1.7275297237238714,
+        "component_medians_sec": {
+          "baseline": 0.413454842,
+          "candidate": 0.239332983
+        },
+        "full_run_by_unit": {
+          "t3-s001-price-time-priority": 0.9395197475518063,
+          "t3-s012-partial-fill-cancel-race": 0.9278273578176767,
+          "t3-momentum-mix-priority": 1.0881221463649882
+        },
+        "full_time_reduction_by_unit": {
+          "t3-s001-price-time-priority": -0.06437358299896578,
+          "t3-s012-partial-fill-cancel-race": -0.07778671492515499,
+          "t3-momentum-mix-priority": 0.0809855278282604
+        }
+      },
+      "implementation_cost": {
+        "level": "low",
+        "reason": "33-line single-thread queue; original event ordering retained"
+      },
+      "risks": [
+        "Single-thread only; used Queue API supported, blocking/task accounting/producer concurrency not supported.",
+        "Synthetic component speedup is separate from full-simulator speed.",
+        "Momentum ranges overlap and its final candidate pair is slower; three repeats establish only a local preliminary threshold pass. Other two full-run medians regress.",
+        "Mac ARM64/Rosetta linux/amd64 does not predict official Linux CPU performance.",
+        "Six batch units and the baseline batch profile retention defect are outside this experiment; all evidence is developer-only, rankable=false."
+      ],
+      "remaining_validation": [],
+      "head": "59781f61f8e8716f515a234871bfb03a7feb3115",
+      "summary": "Корректность подтверждена. Momentum: время −8,10%; два других сценария +6,44% и +7,78%. Общего ускорения нет.",
+      "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/heap_final_manager_validation.json",
+      "manager_audit_sha256": "a4a9fed29ee3630b1147c52d3a78d5059008753cb84060f225f24f404625c30d",
+      "report_sha256": "339bff4d01bd6d78e0676f60aaad1041ec1d435ce51ed64bb4428b268cb6c0bd"
+    },
+    {
+      "id": 2,
+      "hypothesis": "Эксперимент 2: индексы книги заявок",
+      "branch": "codex/exp-20261005-02-book-index",
+      "worktree": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон",
+      "report": "/Users/iopogiba/.codex/worktrees/c6c2/Агентон/experiments/book-index/result.json",
+      "verdict": "do_not_adopt",
+      "measured_speedup": {
+        "t3-s001-price-time-priority": {
+          "median_full_run_speedup": 1.1073394298840682,
+          "full_run_reduction": 0.09693453243627925,
+          "simulation_speedup": 1.05060646806773,
+          "simulation_reduction": 0.048168814495122336,
+          "median_paired_speedup": 1.103250910161418,
+          "complete_pairs": 3
+        },
+        "t3-s012-partial-fill-cancel-race": {
+          "median_full_run_speedup": 1.2222938756429498,
+          "full_run_reduction": 0.18186614534579004,
+          "simulation_speedup": 1.1697428348269012,
+          "simulation_reduction": 0.1451112413541903,
+          "median_paired_speedup": 1.1885407554548435,
+          "complete_pairs": 3
+        },
+        "t3-cancelmodify-lifecycle": {
+          "median_full_run_speedup": 0.8856525528438045,
+          "full_run_reduction": -0.12911095529395733,
+          "simulation_speedup": 0.9019121300222027,
+          "simulation_reduction": -0.1087554615496551,
+          "median_paired_speedup": 0.8856525528438045,
+          "complete_pairs": 3
+        },
+        "t3-mp01-stp-newest-baseline": {
+          "median_full_run_speedup": 1.1341362361658476,
+          "full_run_reduction": 0.11827171365172084,
+          "simulation_speedup": 1.15773464514298,
+          "simulation_reduction": 0.13624421261359054,
+          "median_paired_speedup": 0.9614820602633449,
+          "complete_pairs": 3
+        },
+        "t3-mp02-stp-oldest-baseline": {
+          "median_full_run_speedup": 0.9903227743384411,
+          "full_run_reduction": -0.009771789473410397,
+          "simulation_speedup": 0.9570534534792158,
+          "simulation_reduction": -0.04487371772669424,
+          "median_paired_speedup": 0.9864332427614866,
+          "complete_pairs": 3
+        },
+        "t3-mr-cancel-replace-churn": {
+          "median_full_run_speedup": 1.043457016562734,
+          "full_run_reduction": 0.04164715543902919,
+          "simulation_speedup": 1.0642499415161324,
+          "simulation_reduction": 0.06037110175886107,
+          "median_paired_speedup": 1.0072488415914622,
+          "complete_pairs": 3
+        },
+        "t3-mr-deep-book-state-size": {
+          "median_full_run_speedup": 1.0251928593532662,
+          "full_run_reduction": 0.02457377567881114,
+          "simulation_speedup": 1.0202383909169335,
+          "simulation_reduction": 0.01983692350446087,
+          "median_paired_speedup": 1.0422566303189393,
+          "complete_pairs": 3
+        }
+      },
+      "implementation_cost": {
+        "level": "medium",
+        "reason": "Price/FIFO indices; new-price list shifts remain linear"
+      },
+      "risks": [
+        "Three timing pairs per workload; target ranges overlap. No statistical-significance or official speed claim.",
+        "Mac ARM64 / Rosetta linux/amd64 local timings are not official Linux Final evidence; rankable=false.",
+        "Extra retained checker book heap 2320960 bytes at 10000 orders/1000 levels (58.4% component growth); full runtime per-load RSS reported separately.",
+        "All container/cgroup memory peak fields are null; reported RSS is immutable-adapter self-reported process high-water, not cgroup or signed official evidence.",
+        "Arbitrary external list mutation can bypass experimental queue interfaces; pinned runtime audit finds no such production use.",
+        "Price-list insertion/removal still shifts entries; duplicate-ID buckets and insert_by_id retain linear special cases.",
+        "Known baseline batch root profile.json sanitizer failure remains unchanged; single-scenario checks do not resolve batch gates."
+      ],
+      "remaining_validation": [],
+      "head": "5fe8e12c82d8eeb25022cc0f6254138a93ebe8ee",
+      "summary": "Отмены: −4,16%; глубокий стакан: −2,46%. Порог 5% не достигнут. Память структуры стакана +58,4%; lifecycle замедлен.",
+      "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/book_final_manager_validation.json",
+      "manager_audit_sha256": "729a390f68df6e9fd860e95697cca70f9f80087b09187e8fd1dccce44508527e",
+      "report_sha256": "ae75aedda295398eb8f57b0a325c7125824f50e94ffdce595260aa847c808d40"
+    },
+    {
+      "id": 3,
+      "hypothesis": "Эксперимент 3: параллельные независимые рынки",
+      "branch": "codex/exp-20261005-03-process-batch",
+      "worktree": "/Users/iopogiba/.codex/worktrees/d533/Агентон",
+      "report": "/Users/iopogiba/.codex/worktrees/d533/Агентон/experiments/process-batch/result.json",
+      "verdict": "not_accepted_as_general_acceleration",
+      "measured_speedup": {
+        "rankable": false,
+        "rows": [
+          {
+            "unit": "t3-gbatch-dense-3",
+            "markets": 3,
+            "modes": {
+              "A-control": {
+                "repeats": 3,
+                "container_sec": [
+                  4.177628,
+                  3.66726,
+                  3.305169
+                ],
+                "median": 3.66726,
+                "min": 3.305169,
+                "max": 4.177628,
+                "sample_cv": 0.11793423455991876,
+                "host_launch_median": 3.950759833001939,
+                "adapter_wall_median": 1.8319977399996787,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "S-candidate-serial": {
+                "repeats": 3,
+                "container_sec": [
+                  4.724091,
+                  3.415705,
+                  3.139248
+                ],
+                "median": 3.415705,
+                "min": 3.139248,
+                "max": 4.724091,
+                "sample_cv": 0.2251692430842047,
+                "host_launch_median": 3.6100756250016275,
+                "adapter_wall_median": 1.8676271080003062,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "B-candidate": {
+                "repeats": 3,
+                "container_sec": [
+                  4.670074,
+                  4.884162,
+                  4.417864
+                ],
+                "median": 4.670074,
+                "min": 4.417864,
+                "max": 4.884162,
+                "sample_cv": 0.05011599749391421,
+                "host_launch_median": 4.865596834002645,
+                "adapter_wall_median": 3.236220709999543,
+                "selected_workers": [
+                  2,
+                  2,
+                  2
+                ],
+                "gates_and_both_files_pass": true
+              }
+            },
+            "pairs": [
+              {
+                "repeat": 0,
+                "control": 4.177628,
+                "pool": 4.670074,
+                "elapsed_reduction": -0.11787693877961347
+              },
+              {
+                "repeat": 1,
+                "control": 3.66726,
+                "pool": 4.884162,
+                "elapsed_reduction": -0.3318286677246771
+              },
+              {
+                "repeat": 2,
+                "control": 3.305169,
+                "pool": 4.417864,
+                "elapsed_reduction": -0.33665298204116034
+              }
+            ],
+            "elapsed_reduction_vs_control": -0.2734504780135576,
+            "elapsed_reduction_vs_candidate1": -0.367235753673107,
+            "median_threshold_15pct": false,
+            "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+          },
+          {
+            "unit": "t3-gbatch-hetero-mix",
+            "markets": 5,
+            "modes": {
+              "A-control": {
+                "repeats": 3,
+                "container_sec": [
+                  5.832702,
+                  6.958339,
+                  9.505402
+                ],
+                "median": 6.958339,
+                "min": 5.832702,
+                "max": 9.505402,
+                "sample_cv": 0.2531752093925328,
+                "host_launch_median": 7.115097292000428,
+                "adapter_wall_median": 5.511098994999884,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "S-candidate-serial": {
+                "repeats": 3,
+                "container_sec": [
+                  6.846417,
+                  7.656944,
+                  8.81568
+                ],
+                "median": 7.656944,
+                "min": 6.846417,
+                "max": 8.81568,
+                "sample_cv": 0.12733145217136127,
+                "host_launch_median": 7.897331332998874,
+                "adapter_wall_median": 5.708377068000118,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "B-candidate": {
+                "repeats": 3,
+                "container_sec": [
+                  7.175658,
+                  7.460113,
+                  8.452398
+                ],
+                "median": 7.460113,
+                "min": 7.175658,
+                "max": 8.452398,
+                "sample_cv": 0.0870932709235403,
+                "host_launch_median": 7.607184917003906,
+                "adapter_wall_median": 5.790876693999962,
+                "selected_workers": [
+                  2,
+                  2,
+                  2
+                ],
+                "gates_and_both_files_pass": true
+              }
+            },
+            "pairs": [
+              {
+                "repeat": 0,
+                "control": 5.832702,
+                "pool": 7.175658,
+                "elapsed_reduction": -0.23024594776143203
+              },
+              {
+                "repeat": 1,
+                "control": 6.958339,
+                "pool": 7.460113,
+                "elapsed_reduction": -0.07211117480766616
+              },
+              {
+                "repeat": 2,
+                "control": 9.505402,
+                "pool": 8.452398,
+                "elapsed_reduction": 0.11077953357469783
+              }
+            ],
+            "elapsed_reduction_vs_control": -0.07211117480766616,
+            "elapsed_reduction_vs_candidate1": 0.025706208638851313,
+            "median_threshold_15pct": false,
+            "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+          },
+          {
+            "unit": "t3-gbatch-homog-4",
+            "markets": 4,
+            "modes": {
+              "A-control": {
+                "repeats": 3,
+                "container_sec": [
+                  6.195415,
+                  4.862869,
+                  7.192886
+                ],
+                "median": 6.195415,
+                "min": 4.862869,
+                "max": 7.192886,
+                "sample_cv": 0.1921548823194429,
+                "host_launch_median": 6.509184458001982,
+                "adapter_wall_median": 4.5302084370005105,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "S-candidate-serial": {
+                "repeats": 3,
+                "container_sec": [
+                  9.320242,
+                  6.823082,
+                  11.066231
+                ],
+                "median": 9.320242,
+                "min": 6.823082,
+                "max": 11.066231,
+                "sample_cv": 0.2351336637260353,
+                "host_launch_median": 9.636860915998113,
+                "adapter_wall_median": 5.747472289000143,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "B-candidate": {
+                "repeats": 3,
+                "container_sec": [
+                  7.589206,
+                  5.272032,
+                  8.012556
+                ],
+                "median": 7.589206,
+                "min": 5.272032,
+                "max": 8.012556,
+                "sample_cv": 0.2120308577813223,
+                "host_launch_median": 7.841610458002833,
+                "adapter_wall_median": 4.7682433190002484,
+                "selected_workers": [
+                  2,
+                  2,
+                  2
+                ],
+                "gates_and_both_files_pass": true
+              }
+            },
+            "pairs": [
+              {
+                "repeat": 0,
+                "control": 6.195415,
+                "pool": 7.589206,
+                "elapsed_reduction": -0.22497136995665357
+              },
+              {
+                "repeat": 1,
+                "control": 4.862869,
+                "pool": 5.272032,
+                "elapsed_reduction": -0.08414024724910352
+              },
+              {
+                "repeat": 2,
+                "control": 7.192886,
+                "pool": 8.012556,
+                "elapsed_reduction": -0.1139556500686929
+              }
+            ],
+            "elapsed_reduction_vs_control": -0.22497136995665357,
+            "elapsed_reduction_vs_candidate1": 0.18572865382679982,
+            "median_threshold_15pct": false,
+            "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+          },
+          {
+            "unit": "t3-gbatch-homog-8",
+            "markets": 8,
+            "modes": {
+              "A-control": {
+                "repeats": 3,
+                "container_sec": [
+                  8.819992,
+                  7.420364,
+                  8.383214
+                ],
+                "median": 8.383214,
+                "min": 7.420364,
+                "max": 8.819992,
+                "sample_cv": 0.08724593677575418,
+                "host_launch_median": 8.719938374997582,
+                "adapter_wall_median": 6.577710993000437,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "S-candidate-serial": {
+                "repeats": 3,
+                "container_sec": [
+                  11.311714,
+                  9.418319,
+                  11.096321
+                ],
+                "median": 11.096321,
+                "min": 9.418319,
+                "max": 11.311714,
+                "sample_cv": 0.09770989995073212,
+                "host_launch_median": 11.254844207993301,
+                "adapter_wall_median": 8.580245062000358,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "B-candidate": {
+                "repeats": 3,
+                "container_sec": [
+                  6.378913,
+                  9.222664,
+                  7.070909
+                ],
+                "median": 7.070909,
+                "min": 6.378913,
+                "max": 9.222664,
+                "sample_cv": 0.19622973023380252,
+                "host_launch_median": 7.207497791998321,
+                "adapter_wall_median": 5.64297497500047,
+                "selected_workers": [
+                  2,
+                  2,
+                  2
+                ],
+                "gates_and_both_files_pass": true
+              }
+            },
+            "pairs": [
+              {
+                "repeat": 0,
+                "control": 8.819992,
+                "pool": 6.378913,
+                "elapsed_reduction": 0.2767665775660567
+              },
+              {
+                "repeat": 1,
+                "control": 7.420364,
+                "pool": 9.222664,
+                "elapsed_reduction": -0.2428856589784545
+              },
+              {
+                "repeat": 2,
+                "control": 8.383214,
+                "pool": 7.070909,
+                "elapsed_reduction": 0.15653960402299172
+              }
+            ],
+            "elapsed_reduction_vs_control": 0.15653960402299172,
+            "elapsed_reduction_vs_candidate1": 0.3627699667304145,
+            "median_threshold_15pct": true,
+            "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+          },
+          {
+            "unit": "t3-gbatch-many-6",
+            "markets": 6,
+            "modes": {
+              "A-control": {
+                "repeats": 3,
+                "container_sec": [
+                  5.681659,
+                  5.15959,
+                  5.818131
+                ],
+                "median": 5.681659,
+                "min": 5.15959,
+                "max": 5.818131,
+                "sample_cv": 0.06259115021925334,
+                "host_launch_median": 5.832668790993921,
+                "adapter_wall_median": 3.646704712999963,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "S-candidate-serial": {
+                "repeats": 3,
+                "container_sec": [
+                  5.513457,
+                  6.113378,
+                  6.304978
+                ],
+                "median": 6.113378,
+                "min": 5.513457,
+                "max": 6.304978,
+                "sample_cv": 0.06908519421566053,
+                "host_launch_median": 6.341995624999981,
+                "adapter_wall_median": 4.197392015999867,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "B-candidate": {
+                "repeats": 3,
+                "container_sec": [
+                  7.075321,
+                  6.410022,
+                  5.319381
+                ],
+                "median": 6.410022,
+                "min": 5.319381,
+                "max": 7.075321,
+                "sample_cv": 0.1414295130846178,
+                "host_launch_median": 6.609957250002481,
+                "adapter_wall_median": 4.717952478999905,
+                "selected_workers": [
+                  2,
+                  2,
+                  2
+                ],
+                "gates_and_both_files_pass": true
+              }
+            },
+            "pairs": [
+              {
+                "repeat": 0,
+                "control": 5.681659,
+                "pool": 7.075321,
+                "elapsed_reduction": -0.24529138408341655
+              },
+              {
+                "repeat": 1,
+                "control": 5.15959,
+                "pool": 6.410022,
+                "elapsed_reduction": -0.24235103952058212
+              },
+              {
+                "repeat": 2,
+                "control": 5.818131,
+                "pool": 5.319381,
+                "elapsed_reduction": 0.08572340499036546
+              }
+            ],
+            "elapsed_reduction_vs_control": -0.12819547952455435,
+            "elapsed_reduction_vs_candidate1": -0.048523745791606565,
+            "median_threshold_15pct": false,
+            "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+          },
+          {
+            "unit": "t3-gbatch-varsize",
+            "markets": 4,
+            "modes": {
+              "A-control": {
+                "repeats": 3,
+                "container_sec": [
+                  4.301351,
+                  4.366299,
+                  4.160179
+                ],
+                "median": 4.301351,
+                "min": 4.160179,
+                "max": 4.366299,
+                "sample_cv": 0.024645515284385442,
+                "host_launch_median": 4.453764500001853,
+                "adapter_wall_median": 2.5647028459998182,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "S-candidate-serial": {
+                "repeats": 3,
+                "container_sec": [
+                  4.41523,
+                  4.472463,
+                  4.097877
+                ],
+                "median": 4.41523,
+                "min": 4.097877,
+                "max": 4.472463,
+                "sample_cv": 0.046617523921400714,
+                "host_launch_median": 4.591060500002641,
+                "adapter_wall_median": 3.0010534259999986,
+                "selected_workers": [
+                  1,
+                  1,
+                  1
+                ],
+                "gates_and_both_files_pass": true
+              },
+              "B-candidate": {
+                "repeats": 3,
+                "container_sec": [
+                  5.509719,
+                  4.565482,
+                  4.616193
+                ],
+                "median": 4.616193,
+                "min": 4.565482,
+                "max": 5.509719,
+                "sample_cv": 0.10845575090217181,
+                "host_launch_median": 4.823808583001664,
+                "adapter_wall_median": 3.4246229029995447,
+                "selected_workers": [
+                  2,
+                  2,
+                  2
+                ],
+                "gates_and_both_files_pass": true
+              }
+            },
+            "pairs": [
+              {
+                "repeat": 0,
+                "control": 4.301351,
+                "pool": 5.509719,
+                "elapsed_reduction": -0.2809275504370601
+              },
+              {
+                "repeat": 1,
+                "control": 4.366299,
+                "pool": 4.565482,
+                "elapsed_reduction": -0.04561826846947503
+              },
+              {
+                "repeat": 2,
+                "control": 4.160179,
+                "pool": 4.616193,
+                "elapsed_reduction": -0.10961403343461895
+              }
+            ],
+            "elapsed_reduction_vs_control": -0.07319607258277672,
+            "elapsed_reduction_vs_candidate1": -0.045515862140817154,
+            "median_threshold_15pct": false,
+            "acceptance": "not a stable general acceptance; only three pairs and noisy overlapping ranges"
+          }
+        ],
+        "preliminary_threshold_units": [
+          "t3-gbatch-homog-8"
+        ],
+        "overall_verdict": "not_accepted_as_general_acceleration",
+        "default_workers": 1,
+        "experimental_opt_in_workers": 2
+      },
+      "implementation_cost": {
+        "level": "medium",
+        "reason": "Spawn pool, resource policy, private Python3.11 failure-cleanup API"
+      },
+      "risks": [
+        "First initial many6 workers4 BrokenProcessPool remains unexplained; container removed before extra diagnostics, native child signal and first State.OOMKilled unavailable. Separate successful repro does not establish cause. Four-worker universal safety is not claimed.",
+        "Known shared ./log/<unix-second> FileExistsError was separately reproduced and fixed with private cwd; not proven cause of first failure. All pre-fix timings excluded.",
+        "Two-worker pool is slower on five of six median measurements. Homog8 preliminary15.7% reduction has one24.3% slower pair and overlapping ranges; three noisy repeats do not establish stable acceptance.",
+        "Short four-market jobs pay substantial spawn/import cost (80.3% longer median); default stays serial and pool remains explicit opt-in.",
+        "Memory planning allowance can be exceeded by larger workloads; current public profiles do not prove arbitrary workload safety. RSS estimate can double-count shared pages.",
+        "Python private executor._processes compatibility requires review on upgrades; direct callers must set BLAS limits before NumPy imports.",
+        "ARM64/Rosetta local measurements cannot be extrapolated to official Linux timing; rankable=false."
+      ],
+      "remaining_validation": [],
+      "head": "7762f6473c2a2f37c4b6010abb34debb022749ae",
+      "summary": "Однородный batch из восьми рынков: −15,65% по медиане, но диапазоны перекрываются. Остальные пять batch медленнее. Default serial, opt-in два процесса.",
+      "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/batch_final_manager_validation.json",
+      "manager_audit_sha256": "af5bb41f358a3a07b34a80db338f91b8486a089d9357bb3ab41e4cf4c7374376",
+      "report_sha256": "a01b6479c34677a0decec1ea0b46abe79642e1c44f4bf330ba0f348baab926c5"
+    },
+    {
+      "id": 4,
+      "hypothesis": "Эксперимент 4: SimulationContext рынка",
+      "branch": "codex/exp-20261005-04-market-context",
+      "worktree": "/Users/iopogiba/.codex/worktrees/617b/Агентон",
+      "report": "/Users/iopogiba/.codex/worktrees/617b/Агентон/experiments/market-context/result.json",
+      "verdict": "validated_isolation_and_public_compatibility",
+      "measured_speedup": {
+        "t3-s001-price-time-priority": 0.9396874579912566,
+        "t3-as05-oracle-variant": 0.9953564454480671,
+        "t3-momentum-mix-priority": 1.0464316655490955,
+        "t3-gbatch-homog-4": 1.058997108000162
+      },
+      "implementation_cost": {
+        "level": "high",
+        "reason": "Kernel lifecycle and RNG/ID fallback changes across upstream"
+      },
+      "risks": [
+        "Validated only pinned standard public scenarios and specified mixed-agent pair. Arbitrary third-party agents/config drivers/background callbacks remain outside the guarantee.",
+        "Upstream rmsc03/rmsc04 config drivers and legacy standalone build_config still use global np.random; SimulationContext uses neither path.",
+        "Arbitrary third-party direct np.random calls, class counters, module caches and background callbacks require explicit RNG/owner integration. No general thread-safety claim.",
+        "ComponentProfiler.instrument and legacy TraceCollector.capture retain class monkeypatches; live Context API uses instance capture and no profiler for interleaving.",
+        "Logger registry/handlers remain global. Kernel summary logging ignores skip_log, so the Context now always owns an absolute unique log directory. Third-party filesystem writes outside Kernel logging require separate integration; cwd is never changed.",
+        "Constructors outside state.activate use legacy global counters. Sharing one live context across concurrent threads/tasks is unsupported.",
+        "Batch sidecar repair is separate from context isolation: original baseline root profile failure was recorded, and the explicit contract-only control passed all gates with exact original traces in gates/warmup/three repeats/profile.",
+        "Local Mac ARM64 linux/amd64 measurements cannot be extrapolated to official Linux timing; no JIT is introduced."
+      ],
+      "remaining_validation": [],
+      "head": "1e5d256b0bb46910369f21a8f469e23165c605b9",
+      "summary": "504 запуска изолированных/чередующихся контекстов совместимы; дополнительная неоднородная пара проверена. Основа для дальнейшей работы; на коротком сценарии +6,42% времени.",
+      "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/context_final_manager_validation.json",
+      "manager_audit_sha256": "4d1b38d374630b4966fcc133520d5d0b5d983cb10ab0059ed64dc7befcc3f4bd",
+      "report_sha256": "a6d95f2ae7c26d3820657468dc163cadfcdeb9bbe1b25b571c1da7111883d04e"
+    },
+    {
+      "id": 5,
+      "hypothesis": "Эксперимент 5: компилируемый горячий участок",
+      "branch": "codex/exp-20261005-05-native-hotspot",
+      "worktree": "/Users/iopogiba/.codex/worktrees/e01b/Агентон",
+      "report": "/Users/iopogiba/.codex/worktrees/e01b/Агентон/experiments/native-hotspot/result.json",
+      "verdict": "do_not_promote_native",
+      "measured_speedup": 0.9723811069785406,
+      "implementation_cost": {
+        "level": "high",
+        "reason": "Native ABI, pinned compiler and integer/reference ownership"
+      },
+      "risks": [
+        "Combined cProfile/component diagnostic distorts the Amdahl fraction.",
+        "Only three measured sets; startup and an oracle native outlier materially affect container medians.",
+        "CPython ABI-specific binary and compiler maintenance add cost without demonstrated primary full-run benefit.",
+        "Local Docker linux/amd64 emulation on Mac ARM64 does not establish official Linux CPU/Final performance.",
+        "RSS is self-reported process peak; Python-heap diagnostic excludes input book and is not container memory."
+      ],
+      "remaining_validation": [],
+      "head": "42f3b42f03a5996dec327078c330f4849f3c242b",
+      "summary": "Основной oracle: C-модуль +2,84% времени. Churn: −22,01%, Python control −16,48%; дополнительный выигрыш C над Python не устойчив (быстрее в одной из трёх пар).",
+      "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/native_final_manager_validation.json",
+      "manager_audit_sha256": "09a61664b0423dbb81102a240a20b9e59f2817ea1070f11b501bfaddb58e1bb2",
+      "report_sha256": "cbdfc13a0c3585d8023acd6465cc5a42b6f27d5e1adbb9f59d82b61a8f02d580"
+    },
+    {
+      "id": 6,
+      "hypothesis": "Эксперимент 6: полный сравнительный контроль",
+      "branch": "codex/exp-20261005-06-differential-gates",
+      "worktree": "/Users/iopogiba/.codex/worktrees/1797/Агентон",
+      "report": "/Users/iopogiba/.codex/worktrees/1797/Агентон/experiments/differential-gates/result.json",
+      "verdict": "instrument_validation_passed",
+      "measured_speedup": null,
+      "implementation_cost": {
+        "level": "medium",
+        "reason": "Host verifier/retention/trace comparison runner and Make gate"
+      },
+      "risks": [
+        "Four representative units passed; full 71-unit simulator runtime admission remains a separate future campaign.",
+        "Original baseline batch root profile.json must remain a failed contract case; positive self-comparison uses explicitly identified contract-only control.",
+        "APFS cannot construct existing case/Unicode collision test; Linux CI still required.",
+        "On Mac ARM64 with linux/amd64 Rosetta, local clocks are non-rankable and cannot be extrapolated to official Linux CPU timing.",
+        "Cgroup memory may be unavailable on macOS; host RSS is not sampled, adapter RSS is explicitly self-reported.",
+        "Disk quota and GPU timing are not enforced by this local CPU launcher and are not official resource/timing evidence.",
+        "Strict byte/schema equality intentionally rejects re-encoding even when semantic values match in this pinned-stack experiment."
+      ],
+      "remaining_validation": [],
+      "head": "8e01ba53f53711beb49469f1a9aa1d913dfb444c",
+      "summary": "40 запусков на четырёх units: full developer gates и обе точные трассы. 22 отрицательных случая отклонены. Make target и обязательный цикл проверки внедрены.",
+      "manager_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-05/differential_final_manager_validation.json",
+      "manager_audit_sha256": "6021751f1065139d736cf82156d02e83bfb8b224ca04a64cc409fe7378bb111f",
+      "report_sha256": "436e6dc86151aeae20a71f7a93c1959e16737551145d45e34ccec89b1aea8d7f"
+    }
+  ],
+  "merge_performed": false,
+  "push_performed": false,
+  "updated_at": "2026-10-06T13:27:13.319432+00:00",
+  "recommendation": {
+    "experiment": 6,
+    "branch": "codex/exp-20261005-06-differential-gates",
+    "reason": "Exact dual-trace comparisons and actual full developer gates passed positive/negative launch checks and reduce ordering/causality regression risk. Speed optimizations did not show robust general improvement; context isolation is a broader foundation change.",
+    "merge_requires_user_decision": true
+  },
+  "validation_scope": {
+    "regression65": "Actual public regression65 passed for experiments 1–5; #6 explicitly reuses #3 evidence after source/image/scenario/reference hash binding. Regression trace checks are separate from message-ledger developer gates.",
+    "developer_gates": "Selected relevant units, both exact traces, unchanged C3/scorer/reference thresholds. Not an all71 runtime admission claim.",
+    "experiment6": "40 actual launch records, 52 baseline/candidate or stability comparisons, 934 manager hash checks, 19 new plus 3 prior negative controls, 4 new unchanged positive controls.",
+    "context": "504 context correctness runs plus 8 retained traces of heterogeneous pair.",
+    "hardware": "Mac ARM64 host with linux/amd64 Rosetta, colima-agenthon 4 CPU / 18 GiB VM. All results local and rankable=false; timing usually three paired unprofiled repeats, warmup/profile excluded.",
+    "batch_control": "Original batch refused for forbidden root profile.json. Explicit contract-only serial control removes that metadata file; simulator/RNG/traces unchanged. Failure evidence retained."
+  },
+  "development_integration": {
+    "branch": "codex/develop",
+    "approved_by_user": [
+      6,
+      "python_control_from_experiment5"
+    ],
+    "reports_saved": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "other_implementations_integrated": false,
+    "historical_verdicts_preserved": true,
+    "integration_validation": "Complete: runner and all reports preserved; indexed active runtime withdrawn. Source baseline/scorer/cards/refs unchanged; 364 tests plus 5 post-withdrawal recipe checks passed. Earlier 65 saved book outputs and eight fresh dual-trace gate runs retained with historical attribution.",
+    "withdrawn_after_user_review": [
+      2
+    ],
+    "python_control_integration_report": "experiments/python-control-integration/result.json",
+    "python_control_new_docker_launches": 0,
+    "python_control_new_image_and_regression65": "not run per user instruction"
+  }
+}

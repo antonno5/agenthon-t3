@@ -1,0 +1,5 @@
+["git", "apply", "--check", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/snapshot/experiments/kernel_message_ledger/kernel_message_ledger.patch"]
+["git", "apply", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/snapshot/experiments/kernel_message_ledger/kernel_message_ledger.patch"]
+["git", "apply", "--reverse", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/snapshot/experiments/kernel_message_ledger/adapter.patch"]
+["git", "apply", "--check", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/snapshot/experiments/kernel_message_ledger/adapter.patch"]
+["git", "apply", "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/kernel_message_ledger/runs/20261005T173000Z-e65c52/snapshot/experiments/kernel_message_ledger/adapter.patch"]

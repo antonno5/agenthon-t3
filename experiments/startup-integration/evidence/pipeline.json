@@ -1,0 +1,8 @@
+{
+  "complete": false,
+  "status": "stopped_by_user",
+  "rankable": false,
+  "source_develop_head": "49560aea3e2e645fcb70f714dbd655aada9e511f",
+  "image_id": "sha256:537a7cf45af039c989ae2366916240174a2c69aa0fd68b9f70a0196736868f6c",
+  "stop_reason": "User requested immediate stop and no further checks."
+}

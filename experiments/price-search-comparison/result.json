@@ -1,0 +1,1969 @@
+{
+  "executive_summary": "Source-bound comparison of bisect and dict plus bisect price search from the same mutation refactor; full regressions were removed from the critical path by user instruction. All retained timings and correctness evidence are public local diagnostics, not an official score.",
+  "rankable": false,
+  "complete": true,
+  "base_commit": "ac1baaba2c89ce3ac9e5df58be57dab2daf96082",
+  "variants": {
+    "bisect": {
+      "worktree": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-book-bisect",
+      "branch": "codex/book-bisect",
+      "commit": "7d9f92d4f218d2f181b51f4f99f99ff240267ded",
+      "runtime_test_sha256": "31ea18a94d0eedd06c24e8772434198fb1b75eba5f3ff016ea540fb720b1dc1c",
+      "image": "sha256:484ef5d44a7b71da3f2e67af21c2c8744510467648aaedf17aa083186e1dc886",
+      "installed_changed_files_from_base": [
+        "markets/matching/price_level.py",
+        "markets/matching/state.py"
+      ]
+    },
+    "dict-bisect": {
+      "worktree": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-book-dict-bisect",
+      "branch": "codex/book-dict-bisect",
+      "commit": "924b5c2b2bf7186d70d2efdc067cf472e806aff8",
+      "runtime_test_sha256": "07d32c5f11487926a7b17d93b21939275e15acf5e8452de792f5a4f7fe9a62a0",
+      "image": "sha256:92c149d21b210b41d56ae5bc5f5cf322145293433a7bd5d4b03379268c008bab",
+      "installed_changed_files_from_base": [
+        "markets/matching/_price_levels.py",
+        "markets/matching/price_level.py",
+        "markets/matching/state.py"
+      ]
+    }
+  },
+  "policy_sha256": "4d8e1ac25c5bb5a7ffeb5e9121de3a50b20f6ab5c3dc5061248572b2fe1b74b9",
+  "validation_override": {
+    "reason": "User explicitly declined full public regressions as a prerequisite.",
+    "retained": [
+      "installed source audit",
+      "order-book runtime tests",
+      "exact journals in six measured units"
+    ],
+    "skipped": [
+      "per-variant regression65",
+      "repeated whole repository suite"
+    ],
+    "original_policy_sha256": "4d8e1ac25c5bb5a7ffeb5e9121de3a50b20f6ab5c3dc5061248572b2fe1b74b9"
+  },
+  "correctness": {
+    "accepted": true,
+    "runs": 72,
+    "comparisons": 96,
+    "all_exact": true,
+    "bisect_runtime_tests": 99,
+    "dict_bisect_runtime_tests": 101
+  },
+  "metric_description": "Primary: Docker State lifetime, including cold startup, simulation and output. Secondary: self-reported simulation phases, batch = sum of four phases. Ratio > 1 favors dict plus bisect. Synthetic warm-book initialization excluded; queue operations and index maintenance included.",
+  "units": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "samples": {
+        "bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 1.295327276,
+            "simulation_seconds": 0.05974855100066634
+          },
+          {
+            "pair": 1,
+            "container_seconds": 1.399396419,
+            "simulation_seconds": 0.06312064899975667
+          },
+          {
+            "pair": 2,
+            "container_seconds": 1.462063407,
+            "simulation_seconds": 0.06296474000555463
+          },
+          {
+            "pair": 3,
+            "container_seconds": 1.239208675,
+            "simulation_seconds": 0.058321730997704435
+          },
+          {
+            "pair": 4,
+            "container_seconds": 1.202725826,
+            "simulation_seconds": 0.05793026299943449
+          }
+        ],
+        "dict-bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 1.269616919,
+            "simulation_seconds": 0.06048688900045818
+          },
+          {
+            "pair": 1,
+            "container_seconds": 1.867874528,
+            "simulation_seconds": 0.12226641999586718
+          },
+          {
+            "pair": 2,
+            "container_seconds": 1.480025574,
+            "simulation_seconds": 0.1308572960042511
+          },
+          {
+            "pair": 3,
+            "container_seconds": 1.218617239,
+            "simulation_seconds": 0.05965948700031731
+          },
+          {
+            "pair": 4,
+            "container_seconds": 1.466932149,
+            "simulation_seconds": 0.0674241449960391
+          }
+        ]
+      },
+      "metrics": {
+        "container_seconds": {
+          "medians": {
+            "bisect": 1.295327276,
+            "dict-bisect": 1.466932149
+          },
+          "ranges": {
+            "bisect": [
+              1.202725826,
+              1.462063407
+            ],
+            "dict-bisect": [
+              1.218617239,
+              1.867874528
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.8830178525182762,
+          "paired_bisect_over_dict": [
+            1.0202504839178188,
+            0.7491918745197429,
+            0.9878636103892081,
+            1.0168973778976713,
+            0.8198919267124195
+          ],
+          "median_paired_ratio": 0.9878636103892081,
+          "dict_faster_pairs": 2
+        },
+        "simulation_seconds": {
+          "medians": {
+            "bisect": 0.05974855100066634,
+            "dict-bisect": 0.0674241449960391
+          },
+          "ranges": {
+            "bisect": [
+              0.05793026299943449,
+              0.06312064899975667
+            ],
+            "dict-bisect": [
+              0.05965948700031731,
+              0.1308572960042511
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.8861595650071102,
+          "paired_bisect_over_dict": [
+            0.9877934208223828,
+            0.5162549864622703,
+            0.4811710307960904,
+            0.9775768101625519,
+            0.8591916590538546
+          ],
+          "median_paired_ratio": 0.8591916590538546,
+          "dict_faster_pairs": 0
+        }
+      }
+    },
+    {
+      "unit": "t3-mp01-stp-newest-baseline",
+      "samples": {
+        "bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 4.890660704,
+            "simulation_seconds": 2.981390987006307
+          },
+          {
+            "pair": 1,
+            "container_seconds": 4.453588034,
+            "simulation_seconds": 2.8409532680016127
+          },
+          {
+            "pair": 2,
+            "container_seconds": 5.874718652,
+            "simulation_seconds": 4.231637229997432
+          },
+          {
+            "pair": 3,
+            "container_seconds": 5.021646878,
+            "simulation_seconds": 2.8859355739987222
+          },
+          {
+            "pair": 4,
+            "container_seconds": 4.575105593,
+            "simulation_seconds": 2.7405504700000165
+          }
+        ],
+        "dict-bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 4.55158109,
+            "simulation_seconds": 2.733262167996145
+          },
+          {
+            "pair": 1,
+            "container_seconds": 4.667583531,
+            "simulation_seconds": 2.9292119270030526
+          },
+          {
+            "pair": 2,
+            "container_seconds": 4.439663738,
+            "simulation_seconds": 2.6248584989953088
+          },
+          {
+            "pair": 3,
+            "container_seconds": 5.773501124,
+            "simulation_seconds": 3.8197154790032073
+          },
+          {
+            "pair": 4,
+            "container_seconds": 5.359173649,
+            "simulation_seconds": 3.2900901440007146
+          }
+        ]
+      },
+      "metrics": {
+        "container_seconds": {
+          "medians": {
+            "bisect": 4.890660704,
+            "dict-bisect": 4.667583531
+          },
+          "ranges": {
+            "bisect": [
+              4.453588034,
+              5.874718652
+            ],
+            "dict-bisect": [
+              4.439663738,
+              5.773501124
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 1.0477928614492749,
+          "paired_bisect_over_dict": [
+            1.074497104917008,
+            0.9541528297075483,
+            1.3232350463205285,
+            0.8697749892392678,
+            0.8536960906004037
+          ],
+          "median_paired_ratio": 0.9541528297075483,
+          "dict_faster_pairs": 2
+        },
+        "simulation_seconds": {
+          "medians": {
+            "bisect": 2.8859355739987222,
+            "dict-bisect": 2.9292119270030526
+          },
+          "ranges": {
+            "bisect": [
+              2.7405504700000165,
+              4.231637229997432
+            ],
+            "dict-bisect": [
+              2.6248584989953088,
+              3.8197154790032073
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.9852259399173595,
+          "paired_bisect_over_dict": [
+            1.090781199811533,
+            0.969869486673933,
+            1.6121391806899816,
+            0.7555367905967268,
+            0.8329712409239755
+          ],
+          "median_paired_ratio": 0.969869486673933,
+          "dict_faster_pairs": 2
+        }
+      }
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "samples": {
+        "bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 4.615605912,
+            "simulation_seconds": 2.830096454003069
+          },
+          {
+            "pair": 1,
+            "container_seconds": 4.378521668,
+            "simulation_seconds": 2.6377344030042877
+          },
+          {
+            "pair": 2,
+            "container_seconds": 6.342273731,
+            "simulation_seconds": 3.6899061190051725
+          },
+          {
+            "pair": 3,
+            "container_seconds": 6.184866375,
+            "simulation_seconds": 3.051173284999095
+          },
+          {
+            "pair": 4,
+            "container_seconds": 4.149769934,
+            "simulation_seconds": 2.5769926970024244
+          }
+        ],
+        "dict-bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 4.315672575,
+            "simulation_seconds": 2.7020314050023444
+          },
+          {
+            "pair": 1,
+            "container_seconds": 5.249222863,
+            "simulation_seconds": 3.436015862003842
+          },
+          {
+            "pair": 2,
+            "container_seconds": 6.567800378,
+            "simulation_seconds": 4.442891146005422
+          },
+          {
+            "pair": 3,
+            "container_seconds": 5.516664372,
+            "simulation_seconds": 3.398802539006283
+          },
+          {
+            "pair": 4,
+            "container_seconds": 6.811082134,
+            "simulation_seconds": 5.033651800004009
+          }
+        ]
+      },
+      "metrics": {
+        "container_seconds": {
+          "medians": {
+            "bisect": 4.615605912,
+            "dict-bisect": 5.516664372
+          },
+          "ranges": {
+            "bisect": [
+              4.149769934,
+              6.342273731
+            ],
+            "dict-bisect": [
+              4.315672575,
+              6.811082134
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.8366660722422503,
+          "paired_bisect_over_dict": [
+            1.0694986312764936,
+            0.8341275998896373,
+            0.9656617689302127,
+            1.1211242805329031,
+            0.6092673458281923
+          ],
+          "median_paired_ratio": 0.9656617689302127,
+          "dict_faster_pairs": 2
+        },
+        "simulation_seconds": {
+          "medians": {
+            "bisect": 2.830096454003069,
+            "dict-bisect": 3.436015862003842
+          },
+          "ranges": {
+            "bisect": [
+              2.5769926970024244,
+              3.6899061190051725
+            ],
+            "dict-bisect": [
+              2.7020314050023444,
+              5.033651800004009
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.8236563996397246,
+          "paired_bisect_over_dict": [
+            1.047395840316154,
+            0.7676723591916115,
+            0.8305191366938498,
+            0.8977200793462907,
+            0.5119529119992711
+          ],
+          "median_paired_ratio": 0.8305191366938498,
+          "dict_faster_pairs": 1
+        }
+      }
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "samples": {
+        "bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 3.795668066,
+            "simulation_seconds": 2.2392473319996498
+          },
+          {
+            "pair": 1,
+            "container_seconds": 3.178658764,
+            "simulation_seconds": 1.4892058950063074
+          },
+          {
+            "pair": 2,
+            "container_seconds": 4.04562623,
+            "simulation_seconds": 1.8660647409997182
+          },
+          {
+            "pair": 3,
+            "container_seconds": 3.590899464,
+            "simulation_seconds": 1.6052078749999055
+          },
+          {
+            "pair": 4,
+            "container_seconds": 3.367319366,
+            "simulation_seconds": 1.456754708000517
+          }
+        ],
+        "dict-bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 3.437267165,
+            "simulation_seconds": 1.6177644830022473
+          },
+          {
+            "pair": 1,
+            "container_seconds": 2.577073062,
+            "simulation_seconds": 1.2282286629997543
+          },
+          {
+            "pair": 2,
+            "container_seconds": 2.8540121,
+            "simulation_seconds": 1.294407229994249
+          },
+          {
+            "pair": 3,
+            "container_seconds": 3.009504781,
+            "simulation_seconds": 1.3960913510018145
+          },
+          {
+            "pair": 4,
+            "container_seconds": 3.235031109,
+            "simulation_seconds": 1.5603194559880649
+          }
+        ]
+      },
+      "metrics": {
+        "container_seconds": {
+          "medians": {
+            "bisect": 3.590899464,
+            "dict-bisect": 3.009504781
+          },
+          "ranges": {
+            "bisect": [
+              3.178658764,
+              4.04562623
+            ],
+            "dict-bisect": [
+              2.577073062,
+              3.437267165
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 1.19318616360756,
+          "paired_bisect_over_dict": [
+            1.104269142838072,
+            1.233437581134438,
+            1.4175224519896044,
+            1.19318616360756,
+            1.040892421909628
+          ],
+          "median_paired_ratio": 1.19318616360756,
+          "dict_faster_pairs": 5
+        },
+        "simulation_seconds": {
+          "medians": {
+            "bisect": 1.6052078749999055,
+            "dict-bisect": 1.3960913510018145
+          },
+          "ranges": {
+            "bisect": [
+              1.456754708000517,
+              2.2392473319996498
+            ],
+            "dict-bisect": [
+              1.2282286629997543,
+              1.6177644830022473
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 1.1497871352387021,
+          "paired_bisect_over_dict": [
+            1.3841615114729522,
+            1.2124826100126644,
+            1.4416365250123093,
+            1.1497871352387021,
+            0.9336259330805011
+          ],
+          "median_paired_ratio": 1.2124826100126644,
+          "dict_faster_pairs": 4
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "samples": {
+        "bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 23.522386618,
+            "simulation_seconds": 20.313314759005152
+          },
+          {
+            "pair": 1,
+            "container_seconds": 23.60802354,
+            "simulation_seconds": 19.690974985001958
+          },
+          {
+            "pair": 2,
+            "container_seconds": 27.98079024,
+            "simulation_seconds": 24.35502269800054
+          },
+          {
+            "pair": 3,
+            "container_seconds": 26.358774429,
+            "simulation_seconds": 23.1530175089938
+          },
+          {
+            "pair": 4,
+            "container_seconds": 16.667782315,
+            "simulation_seconds": 14.395368587999997
+          }
+        ],
+        "dict-bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 24.421458725,
+            "simulation_seconds": 20.63668070100539
+          },
+          {
+            "pair": 1,
+            "container_seconds": 24.787303407,
+            "simulation_seconds": 21.670286173997738
+          },
+          {
+            "pair": 2,
+            "container_seconds": 20.683784425,
+            "simulation_seconds": 16.74493336600426
+          },
+          {
+            "pair": 3,
+            "container_seconds": 25.6235225,
+            "simulation_seconds": 22.14726420200168
+          },
+          {
+            "pair": 4,
+            "container_seconds": 16.330604198,
+            "simulation_seconds": 14.162230781999995
+          }
+        ]
+      },
+      "metrics": {
+        "container_seconds": {
+          "medians": {
+            "bisect": 23.60802354,
+            "dict-bisect": 24.421458725
+          },
+          "ranges": {
+            "bisect": [
+              16.667782315,
+              27.98079024
+            ],
+            "dict-bisect": [
+              16.330604198,
+              25.6235225
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.9666917855251909,
+          "paired_bisect_over_dict": [
+            0.9631851595302278,
+            0.9524240354976666,
+            1.3527887191756014,
+            1.0286944126827215,
+            1.0206470080905699
+          ],
+          "median_paired_ratio": 1.0206470080905699,
+          "dict_faster_pairs": 3
+        },
+        "simulation_seconds": {
+          "medians": {
+            "bisect": 20.313314759005152,
+            "dict-bisect": 20.63668070100539
+          },
+          "ranges": {
+            "bisect": [
+              14.395368587999997,
+              24.35502269800054
+            ],
+            "dict-bisect": [
+              14.162230781999995,
+              22.14726420200168
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.9843305255004269,
+          "paired_bisect_over_dict": [
+            0.9843305255004269,
+            0.9086624342150699,
+            1.4544711624500317,
+            1.0454120787930645,
+            1.0164619408897302
+          ],
+          "median_paired_ratio": 1.0164619408897302,
+          "dict_faster_pairs": 3
+        }
+      }
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "samples": {
+        "bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 10.175435918,
+            "simulation_seconds": 8.201069982999996
+          },
+          {
+            "pair": 1,
+            "container_seconds": 11.191432136,
+            "simulation_seconds": 9.137503622999986
+          },
+          {
+            "pair": 2,
+            "container_seconds": 10.25251627,
+            "simulation_seconds": 8.272434437000015
+          },
+          {
+            "pair": 3,
+            "container_seconds": 10.306177006,
+            "simulation_seconds": 8.371621275999985
+          },
+          {
+            "pair": 4,
+            "container_seconds": 10.235787749,
+            "simulation_seconds": 8.320277299999987
+          }
+        ],
+        "dict-bisect": [
+          {
+            "pair": 0,
+            "container_seconds": 10.229421271,
+            "simulation_seconds": 8.454583730000024
+          },
+          {
+            "pair": 1,
+            "container_seconds": 11.323201033,
+            "simulation_seconds": 9.282201812000011
+          },
+          {
+            "pair": 2,
+            "container_seconds": 11.603683367,
+            "simulation_seconds": 9.675734014
+          },
+          {
+            "pair": 3,
+            "container_seconds": 11.473613579,
+            "simulation_seconds": 9.33029237300002
+          },
+          {
+            "pair": 4,
+            "container_seconds": 10.304614757,
+            "simulation_seconds": 8.414665652999986
+          }
+        ]
+      },
+      "metrics": {
+        "container_seconds": {
+          "medians": {
+            "bisect": 10.25251627,
+            "dict-bisect": 11.323201033
+          },
+          "ranges": {
+            "bisect": [
+              10.175435918,
+              11.191432136
+            ],
+            "dict-bisect": [
+              10.229421271,
+              11.603683367
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.9054432788149192,
+          "paired_bisect_over_dict": [
+            0.9947225408388404,
+            0.9883629287675828,
+            0.8835570521647791,
+            0.8982503145184579,
+            0.9933207587451782
+          ],
+          "median_paired_ratio": 0.9883629287675828,
+          "dict_faster_pairs": 0
+        },
+        "simulation_seconds": {
+          "medians": {
+            "bisect": 8.320277299999987,
+            "dict-bisect": 9.282201812000011
+          },
+          "ranges": {
+            "bisect": [
+              8.201069982999996,
+              9.137503622999986
+            ],
+            "dict-bisect": [
+              8.414665652999986,
+              9.675734014
+            ]
+          },
+          "ratio_of_medians_bisect_over_dict": 0.8963689293248882,
+          "paired_bisect_over_dict": [
+            0.9700146387928638,
+            0.9844112213965269,
+            0.8549671192935312,
+            0.8972517624662829,
+            0.9887828754115324
+          ],
+          "median_paired_ratio": 0.9700146387928638,
+          "dict_faster_pairs": 0
+        }
+      }
+    }
+  ],
+  "microbench": [
+    {
+      "levels": 1,
+      "phase": "lookup",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 1430.0055,
+        "dict-bisect": 601.1585
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          1437.7835,
+          1443.7385,
+          1412.633,
+          1430.0055,
+          1406.608,
+          1414.4185,
+          1461.46
+        ],
+        "dict-bisect": [
+          645.306,
+          601.1585,
+          595.9495,
+          642.3875,
+          668.949,
+          599.5935,
+          591.7795
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 2.378749531113675,
+      "paired_bisect_over_dict": [
+        2.2280646700944975,
+        2.401593756056015,
+        2.370390444156762,
+        2.226079274581152,
+        2.1027133608092696,
+        2.358962363668052,
+        2.4696022758476763
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1,
+      "phase": "add_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 1972.6775,
+        "dict-bisect": 942.5165
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          1956.879,
+          1969.1869999999997,
+          1971.4565,
+          2134.0395,
+          1986.285,
+          1972.6775,
+          1988.4055000000003
+        ],
+        "dict-bisect": [
+          995.2724999999999,
+          948.4785,
+          935.3725,
+          994.8315,
+          942.5165,
+          940.4535,
+          932.8475
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 2.092989883996726,
+      "paired_bisect_over_dict": [
+        1.966174088001025,
+        2.0761535448615858,
+        2.107669938981529,
+        2.145126586763688,
+        2.1074272970287526,
+        2.0975811137924416,
+        2.1315440090690068
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1,
+      "phase": "cancel_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 2961.296,
+        "dict-bisect": 2101.9015
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          2980.007,
+          2913.6445,
+          2897.017,
+          3106.6405,
+          2878.3635,
+          3218.093,
+          2961.296
+        ],
+        "dict-bisect": [
+          2101.9015,
+          2054.3154999999997,
+          2083.4165,
+          2111.79,
+          2125.6195,
+          2313.809,
+          2026.28
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.4088652584338515,
+      "paired_bisect_over_dict": [
+        1.41776719793958,
+        1.4183042964919461,
+        1.3905126507349828,
+        1.4710934799388198,
+        1.354129231501687,
+        1.3908205041989203,
+        1.4614446177231182
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1,
+      "phase": "modify_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 4453.694,
+        "dict-bisect": 3549.059
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          4294.641,
+          4288.4025,
+          4306.0455,
+          4458.436,
+          4463.9335,
+          4868.807,
+          4453.694
+        ],
+        "dict-bisect": [
+          3549.059,
+          3695.2885,
+          3672.844,
+          3513.046,
+          3400.725,
+          3861.314,
+          3493.573
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.2548943255099452,
+      "paired_bisect_over_dict": [
+        1.2100787842636596,
+        1.1605054652701676,
+        1.1724008697347341,
+        1.2691083464321276,
+        1.3126417161046542,
+        1.2609197283618996,
+        1.2748249428307354
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1,
+      "phase": "new_level_churn",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 7166.5255,
+        "dict-bisect": 9450.596
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          7356.754,
+          7166.5255,
+          6993.663,
+          7171.09,
+          7082.084,
+          7240.595,
+          7141.277
+        ],
+        "dict-bisect": [
+          9392.169,
+          9130.0315,
+          9589.2745,
+          9450.596,
+          9283.534,
+          9730.8695,
+          11869.9065
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 0.7583146607896476,
+      "paired_bisect_over_dict": [
+        0.7832859481127309,
+        0.7849398438548651,
+        0.7293213892250139,
+        0.7587976462013614,
+        0.7628650899538905,
+        0.7440850994867416,
+        0.6016287491396837
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 4,
+      "phase": "lookup",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 2156.587,
+        "dict-bisect": 650.762
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          2194.6965,
+          2156.587,
+          2063.792,
+          2180.644,
+          2198.1225,
+          2069.804,
+          2134.179
+        ],
+        "dict-bisect": [
+          657.0355,
+          611.9925,
+          821.662,
+          650.762,
+          610.3855,
+          602.2185,
+          967.3895
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 3.313941195091293,
+      "paired_bisect_over_dict": [
+        3.3403012470406854,
+        3.5238781521015374,
+        2.511728667018798,
+        3.3509086271171333,
+        3.6012036655523434,
+        3.436965154673927,
+        2.2061217327663782
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 4,
+      "phase": "add_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 2207.931,
+        "dict-bisect": 810.2205
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          2190.322,
+          2188.192,
+          2230.42,
+          2205.5405,
+          2424.7305,
+          2207.931,
+          2209.326
+        ],
+        "dict-bisect": [
+          840.769,
+          798.8505,
+          1772.702,
+          840.308,
+          780.8675,
+          788.201,
+          810.2205
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 2.7250989082601587,
+      "paired_bisect_over_dict": [
+        2.605141245692931,
+        2.7391758533042165,
+        1.2582035784920422,
+        2.624681069322201,
+        3.1051753338434502,
+        2.8012283668759617,
+        2.726820661782811
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 4,
+      "phase": "cancel_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 3220.6715,
+        "dict-bisect": 2037.8929999999998
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          3260.2005,
+          3220.6715,
+          3206.669,
+          3220.038,
+          3726.441,
+          3219.468,
+          3255.9875
+        ],
+        "dict-bisect": [
+          2033.4625,
+          1992.439,
+          8036.785499999999,
+          2037.8929999999998,
+          1989.284,
+          2074.701,
+          2667.519
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.580392837111664,
+      "paired_bisect_over_dict": [
+        1.6032754476662343,
+        1.6164467268508595,
+        0.3989989530017941,
+        1.5800819768260652,
+        1.8732574132200328,
+        1.551774448462694,
+        1.2206051765704389
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 4,
+      "phase": "modify_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 5006.7675,
+        "dict-bisect": 3650.371
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          4993.387,
+          4977.0,
+          5091.666,
+          4969.841,
+          5527.098,
+          5006.7675,
+          5619.441
+        ],
+        "dict-bisect": [
+          3526.1625,
+          3650.371,
+          8589.356,
+          3509.2545,
+          3498.956,
+          3805.563,
+          4466.858
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.3715777108682925,
+      "paired_bisect_over_dict": [
+        1.4160966773369066,
+        1.363423060286201,
+        0.592787864421966,
+        1.4162099101105379,
+        1.5796420417976105,
+        1.3156443606373092,
+        1.2580299172259337
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 4,
+      "phase": "new_level_churn",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 9016.751,
+        "dict-bisect": 10821.9925
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          9016.751,
+          8845.415,
+          8599.737,
+          9071.0415,
+          9495.5225,
+          8793.6615,
+          9888.1735
+        ],
+        "dict-bisect": [
+          10821.9925,
+          10419.8095,
+          23546.358,
+          11420.342,
+          10426.97,
+          10646.6345,
+          13990.3335
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 0.8331876962583369,
+      "paired_bisect_over_dict": [
+        0.8331876962583369,
+        0.8489037155621705,
+        0.365225781413839,
+        0.7942880782379371,
+        0.9106693986843732,
+        0.8259569256369231,
+        0.7067861177147778
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 16,
+      "phase": "lookup",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 2570.5245,
+        "dict-bisect": 653.825
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          2605.748,
+          2499.657,
+          2495.6545,
+          2616.444,
+          2570.5245,
+          2498.519,
+          2606.103
+        ],
+        "dict-bisect": [
+          655.0775,
+          603.9295,
+          991.9359999999999,
+          653.825,
+          600.2395,
+          602.635,
+          675.531
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 3.931517607922609,
+      "paired_bisect_over_dict": [
+        3.9777705691311334,
+        4.1389880772507395,
+        2.5159430648751537,
+        4.001749703666883,
+        4.2824980695205825,
+        4.145990524944618,
+        3.8578584846587356
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 16,
+      "phase": "add_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 2638.4985,
+        "dict-bisect": 873.0165
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          2638.4985,
+          2578.9915,
+          2641.8865,
+          2772.0505,
+          2762.007,
+          2607.25,
+          2636.645
+        ],
+        "dict-bisect": [
+          865.6445,
+          821.6635,
+          957.6855,
+          873.0165,
+          887.6195,
+          816.097,
+          996.5149999999999
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 3.022277929454942,
+      "paired_bisect_over_dict": [
+        3.048016246854223,
+        3.1387441452614118,
+        2.758615954820241,
+        3.1752555650437304,
+        3.1117015793366414,
+        3.1947795421377605,
+        2.6458658424609767
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 16,
+      "phase": "cancel_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 3633.233,
+        "dict-bisect": 2024.5595000000003
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          3750.983,
+          3592.2835,
+          3554.093,
+          3633.233,
+          3932.0694999999996,
+          3588.0365,
+          3692.3695
+        ],
+        "dict-bisect": [
+          2024.6495,
+          1980.7515,
+          2186.9595,
+          2024.5595000000003,
+          1977.1584999999998,
+          1968.1784999999998,
+          2246.0125
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.7945795122346366,
+      "paired_bisect_over_dict": [
+        1.852657953882882,
+        1.8135962537451062,
+        1.6251297749226723,
+        1.7945795122346366,
+        1.988747740760288,
+        1.8230239279618188,
+        1.6439665852260394
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 16,
+      "phase": "modify_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 5526.1495,
+        "dict-bisect": 3663.8335
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          5526.1495,
+          5453.2605,
+          5519.0075,
+          5539.831,
+          5744.3935,
+          5501.838,
+          6071.948
+        ],
+        "dict-bisect": [
+          3601.8305,
+          3751.123,
+          4276.709,
+          3530.1505,
+          3663.8335,
+          3643.3725,
+          6176.5505
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.5082971155758034,
+      "paired_bisect_over_dict": [
+        1.5342613984750255,
+        1.4537674451091047,
+        1.2904800162929018,
+        1.5692903177924,
+        1.5678642329134225,
+        1.5100948365834128,
+        0.9830645762549824
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 16,
+      "phase": "new_level_churn",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 10805.6315,
+        "dict-bisect": 12464.113
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          10011.753,
+          10811.498,
+          9980.182,
+          10548.2945,
+          11266.6785,
+          10805.6315,
+          10868.522
+        ],
+        "dict-bisect": [
+          12464.113,
+          12027.303,
+          14729.789,
+          12365.964,
+          13170.5175,
+          12230.2025,
+          16315.223
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 0.8669394685365898,
+      "paired_bisect_over_dict": [
+        0.8032463280780591,
+        0.8989129150566839,
+        0.6775509140015515,
+        0.8530102869456841,
+        0.8554469101157187,
+        0.8835202442477955,
+        0.6661583479428997
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 64,
+      "phase": "lookup",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 3071.8145,
+        "dict-bisect": 621.3885
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          3108.4475,
+          3071.8145,
+          2978.019,
+          3016.346,
+          3026.9285,
+          3428.9715,
+          3075.7765
+        ],
+        "dict-bisect": [
+          664.098,
+          621.3885,
+          1261.6085,
+          674.096,
+          611.573,
+          606.6145,
+          610.1755
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 4.943468538603466,
+      "paired_bisect_over_dict": [
+        4.680706010257523,
+        4.943468538603466,
+        2.360493766489366,
+        4.474653461821462,
+        4.949414869524979,
+        5.652636888831375,
+        5.040806292615812
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 64,
+      "phase": "add_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 3319.7045,
+        "dict-bisect": 861.3945
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          3040.258,
+          3068.856,
+          3125.626,
+          3635.857,
+          3319.7045,
+          4135.649,
+          3495.429
+        ],
+        "dict-bisect": [
+          861.3945,
+          812.351,
+          1510.405,
+          918.4965,
+          816.8475,
+          804.055,
+          1366.4785
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 3.8538724126982467,
+      "paired_bisect_over_dict": [
+        3.5294606594307254,
+        3.777746319017272,
+        2.069395956713597,
+        3.9584875935836448,
+        4.064044390170748,
+        5.143490184129196,
+        2.5579831662188615
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 64,
+      "phase": "cancel_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 4161.253,
+        "dict-bisect": 2050.3095
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          4189.951499999999,
+          4035.835,
+          4008.477,
+          4178.575000000001,
+          4139.5525,
+          4161.253,
+          4379.234
+        ],
+        "dict-bisect": [
+          2032.2955,
+          1984.4805,
+          3080.8105,
+          2050.3095,
+          2089.2235,
+          1962.7404999999997,
+          2348.91
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 2.0295730961593845,
+      "paired_bisect_over_dict": [
+        2.0616841891348967,
+        2.0336984918723062,
+        1.3011111848651515,
+        2.038021576742439,
+        1.9813832746951199,
+        2.120123877812681,
+        1.8643685794687752
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 64,
+      "phase": "modify_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 6009.398,
+        "dict-bisect": 3554.1185
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          5983.7845,
+          5848.977,
+          5895.286,
+          6601.0775,
+          6009.398,
+          6562.374,
+          6402.0365
+        ],
+        "dict-bisect": [
+          3432.473,
+          3554.1185,
+          3934.1815,
+          3414.7315,
+          3429.7465,
+          3586.7055,
+          3797.3275
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.6908265720459237,
+      "paired_bisect_over_dict": [
+        1.7432866915486298,
+        1.6456899228317794,
+        1.4984784001449856,
+        1.9331175818655144,
+        1.7521405736546418,
+        1.8296383686923836,
+        1.6859321456998377
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 64,
+      "phase": "new_level_churn",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 10986.189,
+        "dict-bisect": 18427.024
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          10880.44,
+          10986.189,
+          10893.617,
+          10739.444,
+          11429.9945,
+          13628.506,
+          12757.237
+        ],
+        "dict-bisect": [
+          19580.8145,
+          17263.3955,
+          23271.977,
+          18195.8865,
+          18427.024,
+          17851.983,
+          22318.1665
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 0.5961998529985091,
+      "paired_bisect_over_dict": [
+        0.5556684069500786,
+        0.6363863354691724,
+        0.46810019621452875,
+        0.5902127384670156,
+        0.620284344341224,
+        0.7634169268478465,
+        0.5716077528142824
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 256,
+      "phase": "lookup",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 3546.375,
+        "dict-bisect": 685.784
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          3594.167,
+          4348.258,
+          3477.883,
+          3484.396,
+          3546.375,
+          3537.014,
+          3798.6825
+        ],
+        "dict-bisect": [
+          696.224,
+          641.3265,
+          724.764,
+          685.784,
+          633.9275,
+          624.552,
+          795.5955
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 5.171271129101875,
+      "paired_bisect_over_dict": [
+        5.162371593050512,
+        6.780100307721574,
+        4.798642040719462,
+        5.080894275748633,
+        5.594291145280809,
+        5.663281840423215,
+        4.774640505131062
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 256,
+      "phase": "add_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 3858.29,
+        "dict-bisect": 886.6625
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          3752.0455,
+          3853.185,
+          3892.412,
+          3779.1515,
+          4147.74,
+          3858.29,
+          3958.9355
+        ],
+        "dict-bisect": [
+          901.041,
+          857.185,
+          1119.293,
+          886.6625,
+          841.702,
+          820.9925,
+          1805.36
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 4.3514753358803375,
+      "paired_bisect_over_dict": [
+        4.164122942241252,
+        4.495161487893512,
+        3.4775630688300563,
+        4.262220969083502,
+        4.927801050728167,
+        4.699543540288127,
+        2.192878705632118
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 256,
+      "phase": "cancel_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 4730.9605,
+        "dict-bisect": 2099.6235
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          4654.6915,
+          4677.4315,
+          4629.323,
+          4730.9605,
+          4766.918,
+          4733.5535,
+          5269.0175
+        ],
+        "dict-bisect": [
+          2114.589,
+          2038.3774999999998,
+          2160.876,
+          2099.6235,
+          2092.8485,
+          2034.096,
+          3411.405
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 2.25324230748989,
+      "paired_bisect_over_dict": [
+        2.201227519863198,
+        2.294683639316074,
+        2.1423362562220136,
+        2.25324230748989,
+        2.2777176656599845,
+        2.327104276297677,
+        1.5445300396757347
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 256,
+      "phase": "modify_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 7070.9795,
+        "dict-bisect": 3698.957
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          6555.1525,
+          7935.2915,
+          6615.53,
+          7115.024,
+          7070.9795,
+          6787.19,
+          9253.224
+        ],
+        "dict-bisect": [
+          3568.601,
+          3715.2685,
+          4899.888,
+          3582.9015,
+          3443.434,
+          3698.957,
+          4987.512
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.9116144091429017,
+      "paired_bisect_over_dict": [
+        1.8368970080992524,
+        2.1358594944080083,
+        1.3501390235858453,
+        1.9858274083169745,
+        2.0534674107301027,
+        1.8348929171114992,
+        1.855278543690722
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 256,
+      "phase": "new_level_churn",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 12928.871,
+        "dict-bisect": 39787.7855
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          12138.74,
+          13075.212,
+          12196.289,
+          12370.369,
+          12928.871,
+          13596.2345,
+          13294.0975
+        ],
+        "dict-bisect": [
+          40726.1225,
+          38437.251,
+          100914.584,
+          39303.244,
+          39787.7855,
+          39143.377,
+          49136.317
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 0.32494572988989295,
+      "paired_bisect_over_dict": [
+        0.2980578374481882,
+        0.340170320713102,
+        0.120857546219484,
+        0.31474167882936077,
+        0.32494572988989295,
+        0.3473444434801831,
+        0.27055543255307474
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1024,
+      "phase": "lookup",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 4492.0575,
+        "dict-bisect": 748.2455
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          4309.246,
+          5586.8255,
+          4281.587,
+          4267.973,
+          4492.0575,
+          4573.905,
+          4949.2
+        ],
+        "dict-bisect": [
+          793.351,
+          748.2455,
+          913.268,
+          797.452,
+          707.616,
+          693.553,
+          737.0735
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 6.003454080245053,
+      "paired_bisect_over_dict": [
+        5.431701731011873,
+        7.46656745680395,
+        4.688204338704521,
+        5.352012409524335,
+        6.348157051282051,
+        6.594888927017834,
+        6.714662784647664
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1024,
+      "phase": "add_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 4715.429,
+        "dict-bisect": 1016.2105
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          4428.3945,
+          4638.2845,
+          4715.429,
+          4505.0395,
+          5400.323,
+          5136.414,
+          4991.8465
+        ],
+        "dict-bisect": [
+          1016.2105,
+          922.4785,
+          1064.8125,
+          1545.508,
+          1026.0804999999998,
+          855.2225,
+          934.764
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 4.640208893728219,
+      "paired_bisect_over_dict": [
+        4.3577531426805765,
+        5.028067862828239,
+        4.4284125139402475,
+        2.914924736720871,
+        5.263059769676942,
+        6.005938805398595,
+        5.340221168123718
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1024,
+      "phase": "cancel_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 5585.514,
+        "dict-bisect": 2222.208
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          5480.273,
+          5533.7415,
+          5329.2125,
+          5799.188,
+          5585.514,
+          7980.000500000001,
+          6194.115
+        ],
+        "dict-bisect": [
+          2262.488,
+          2177.422,
+          2241.5855,
+          2222.208,
+          2205.4545,
+          2063.3675000000003,
+          2444.869
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 2.513497386383273,
+      "paired_bisect_over_dict": [
+        2.4222329576996655,
+        2.5414189348688496,
+        2.377429948578807,
+        2.609651301768331,
+        2.5325909013312224,
+        3.8674644725188316,
+        2.5335161106791406
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1024,
+      "phase": "modify_existing",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 8042.249499999999,
+        "dict-bisect": 4065.4840000000004
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          7603.635,
+          8181.5255,
+          7352.337,
+          8042.249499999999,
+          7979.785,
+          8989.016,
+          8273.562999999998
+        ],
+        "dict-bisect": [
+          3968.7975,
+          4091.8179999999998,
+          4753.552,
+          3902.552,
+          3913.2545000000005,
+          4065.4840000000004,
+          4255.979
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 1.9781776290350666,
+      "paired_bisect_over_dict": [
+        1.9158536055316504,
+        1.999484214596055,
+        1.5467038122229442,
+        2.0607667751768584,
+        2.039168421067426,
+        2.211056789302331,
+        1.9439858608324896
+      ],
+      "domain_equal_all_pairs": true
+    },
+    {
+      "levels": 1024,
+      "phase": "new_level_churn",
+      "operations_per_sample": 2000,
+      "median_ns_per_operation": {
+        "bisect": 14984.894,
+        "dict-bisect": 146292.5255
+      },
+      "samples_ns_per_operation": {
+        "bisect": [
+          14008.238,
+          17265.2375,
+          13676.1525,
+          15521.5505,
+          14128.4335,
+          15435.9925,
+          14984.894
+        ],
+        "dict-bisect": [
+          144913.682,
+          140330.585,
+          197535.423,
+          152626.1375,
+          146292.5255,
+          140212.823,
+          148004.963
+        ]
+      },
+      "ratio_of_medians_bisect_over_dict": 0.10243102953335781,
+      "paired_bisect_over_dict": [
+        0.09666608291686357,
+        0.12303260547228533,
+        0.06923392418584083,
+        0.10169654263838,
+        0.0965765916728261,
+        0.11008973480264354,
+        0.10124588862604561
+      ],
+      "domain_equal_all_pairs": true
+    }
+  ],
+  "raw_artifacts": "out/price-search-comparison",
+  "environment_incident": {
+    "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/price-search-comparison/vm-incident/incident.json",
+    "completed_pairs_reused": 29,
+    "interrupted_pair_rerun": {
+      "unit": "t3-mr-deep-book-state-size",
+      "index": 4
+    },
+    "recovery_warmup": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/price-search-comparison/recovery-warmup/summary.json",
+    "original_evidence": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/price-search-comparison/differential",
+    "runner_source_unchanged": true,
+    "resumption_helper": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/price-search-comparison/resume_driver.py",
+    "cached_output_links": "Local evidence links to already sanitized original run directories; not participant output symlinks.",
+    "unpaired_completed_sample_retained": {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "bisect",
+      "pair": 4,
+      "container_seconds": 20.643791081,
+      "simulation_seconds": 17.334450798000034,
+      "included_in_primary_paired_statistics": false,
+      "reason": "Candidate counterpart interrupted by VM failure; entire pair rerun after recovery."
+    },
+    "recovery_warmup_completed_runs": 2
+  },
+  "runner_baseline_role": "Generic runner baseline means the bisect experiment here, not canonical ABIDES.",
+  "adoption": {
+    "date": "2026-10-07",
+    "target_branch": "codex/develop",
+    "selected_variant": "bisect",
+    "source_commit": "7d9f92d4f218d2f181b51f4f99f99ff240267ded",
+    "authorization": "Explicit user instruction to adopt bisect and commit the optimization reports.",
+    "timing_results": "Unchanged frozen historical comparison; no new timing measurement during integration."
+  }
+}

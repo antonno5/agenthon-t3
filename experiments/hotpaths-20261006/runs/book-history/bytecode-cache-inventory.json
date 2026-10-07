@@ -1,0 +1,28 @@
+{
+  "scope": "As-built caches; disposable containers include source recompilation in measured cold start. No steady-state performance attribution.",
+  "files": [
+    {
+      "source": "abides_markets/agents/exchange_agent.py",
+      "baseline": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 35554,
+        "pyc_source_size": 36299,
+        "source_mtime": 1791289569,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "e00a5ef03b1d356a28b54a06dc827e1faf76edeb15677e3e5b1c843067c66696"
+      },
+      "candidate": {
+        "cached_pyc_present": true,
+        "flags": 0,
+        "source_size": 35646,
+        "pyc_source_size": 36299,
+        "source_mtime": 1791309804,
+        "pyc_source_mtime": 1791224206,
+        "inherited_cache_valid": false,
+        "pyc_sha256": "e00a5ef03b1d356a28b54a06dc827e1faf76edeb15677e3e5b1c843067c66696"
+      }
+    }
+  ]
+}

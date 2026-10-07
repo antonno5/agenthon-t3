@@ -1,0 +1,19 @@
+{
+  "command": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "sha256:63d8b523e6e8d789c404a6c103937d3b7f6cbbbb42b605304f73ddd685c28b44",
+    "python",
+    "/opt/startup-experiment/runtime_check.py"
+  ],
+  "cwd": null,
+  "env_overrides": {}
+}

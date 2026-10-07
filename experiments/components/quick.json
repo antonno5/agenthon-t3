@@ -1,0 +1,6 @@
+{
+  "description": "Only the requested priority unit for the default check",
+  "units": [
+    "t3-s001-price-time-priority"
+  ]
+}

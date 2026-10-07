@@ -1,0 +1,257 @@
+{
+  "created_utc": "2026-10-06T18:31:26.296936+00:00",
+  "command": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/worktrees/level-quantity/scripts/run_differential_experiment.py",
+    "check",
+    "--unit",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mr-deep-book-state-size",
+    "--baseline-output",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential/runs/t3-mr-deep-book-state-size/timing-00/baseline/raw",
+    "--candidate-output",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/differential/runs/t3-mr-deep-book-state-size/timing-00/candidate/raw",
+    "--out",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck"
+  ],
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "profile": "developer",
+  "check": {
+    "baseline": {
+      "accepted": true,
+      "rankable": false,
+      "hashes": {
+        "events.json": "47f1e3cb76eddb4d3fdad1e3b15d587fc1819ba971851f3943a1b5d394f47851",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "0832d5b2fc854b3e3f82e309a1277bd39424eb2ce27cb072d0e1442a533660e6",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "developer": {
+        "admissible": true,
+        "rankable": false,
+        "profile": "developer",
+        "detail": {
+          "score": 15766.426136280816,
+          "profile": "developer",
+          "rankable": false,
+          "score_source": "self_reported",
+          "stylized_facts": null
+        },
+        "labels": [],
+        "gates": {
+          "g0_integrity": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g1_schema": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g2_cutoff_resource": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g3_domain_semantics": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          }
+        }
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "reference_comparison": {
+        "files": [
+          {
+            "file": "trace.parquet",
+            "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mr-deep-book-state-size/trace.parquet",
+            "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/baseline/trace.parquet",
+            "byte_equal": true,
+            "schema_equal": true,
+            "semantic_exact_equal": true,
+            "left_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+            "right_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+            "left_rows": 319488,
+            "right_rows": 319488,
+            "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+            "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+            "field_schema_equal": true
+          },
+          {
+            "file": "message_trace.parquet",
+            "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mr-deep-book-state-size/message_trace.parquet",
+            "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/baseline/message_trace.parquet",
+            "byte_equal": true,
+            "schema_equal": true,
+            "semantic_exact_equal": true,
+            "left_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+            "right_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+            "left_rows": 269644,
+            "right_rows": 269644,
+            "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+            "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+            "field_schema_equal": true
+          }
+        ],
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    "candidate": {
+      "accepted": true,
+      "rankable": false,
+      "hashes": {
+        "events.json": "1bbbd9f1a4367782e86c25e745310deb16f53c37a53f10758d5c9cb7f45c6d93",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "21b72aaad4208e5abd685afc6422af91b2bb5c1a99a3699d7de3e126ff5d4cbc",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "developer": {
+        "admissible": true,
+        "rankable": false,
+        "profile": "developer",
+        "detail": {
+          "score": 15324.724731539438,
+          "profile": "developer",
+          "rankable": false,
+          "score_source": "self_reported",
+          "stylized_facts": null
+        },
+        "labels": [],
+        "gates": {
+          "g0_integrity": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g1_schema": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g2_cutoff_resource": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g3_domain_semantics": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          }
+        }
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "reference_comparison": {
+        "files": [
+          {
+            "file": "trace.parquet",
+            "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mr-deep-book-state-size/trace.parquet",
+            "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/candidate/trace.parquet",
+            "byte_equal": true,
+            "schema_equal": true,
+            "semantic_exact_equal": true,
+            "left_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+            "right_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+            "left_rows": 319488,
+            "right_rows": 319488,
+            "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+            "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+            "field_schema_equal": true
+          },
+          {
+            "file": "message_trace.parquet",
+            "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/public-units/t3-mr-deep-book-state-size/message_trace.parquet",
+            "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/candidate/message_trace.parquet",
+            "byte_equal": true,
+            "schema_equal": true,
+            "semantic_exact_equal": true,
+            "left_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+            "right_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+            "left_rows": 269644,
+            "right_rows": 269644,
+            "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+            "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+            "field_schema_equal": true
+          }
+        ],
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    "differential": {
+      "files": [
+        {
+          "file": "trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/baseline/trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/candidate/trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "right_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "left_rows": 319488,
+          "right_rows": 319488,
+          "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+          "field_schema_equal": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "left": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/baseline/message_trace.parquet",
+          "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-06-hotpaths/runs/level-quantity/manager-gate-recheck/candidate/message_trace.parquet",
+          "byte_equal": true,
+          "schema_equal": true,
+          "semantic_exact_equal": true,
+          "left_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "right_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "left_rows": 269644,
+          "right_rows": 269644,
+          "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+          "field_schema_equal": true
+        }
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true
+    },
+    "accepted": true,
+    "rankable": false
+  }
+}
