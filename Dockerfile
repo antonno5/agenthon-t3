@@ -114,5 +114,8 @@ COPY simulate /usr/local/bin/simulate
 COPY simulate-batch /usr/local/bin/simulate-batch
 RUN chmod +x /usr/local/bin/simulate /usr/local/bin/simulate-batch
 
-WORKDIR /work
+# The platform runs the image with a read-only root filesystem (--read-only, uid 65534) and a
+# writable tmpfs at /tmp. The native path writes only to --out, but the ABIDES fallback path
+# writes kernel.write_summary_log under ./log, so the working directory must be writable.
+WORKDIR /tmp
 CMD ["simulate", "--help"]
