@@ -132,7 +132,11 @@ COPY build_executable.py /opt/build_executable.py
 COPY native/LICENSE.abides /opt/licenses/native-abides-LICENSE
 COPY native/svml/LICENSE /opt/licenses/native-numpy-LICENSE
 COPY native/vendor/LICENSE.json /opt/licenses/native-json-LICENSE
-RUN rm /usr/local/bin/simulate && ln -s /usr/local/bin/t3-native /usr/local/bin/simulate
+# Both verbs run the native executable; it hands anything it cannot run (and `simulate-batch`
+# batches containing such a sub) to the original Python adapters.
+RUN rm /usr/local/bin/simulate /usr/local/bin/simulate-batch \
+    && ln -s /usr/local/bin/t3-native /usr/local/bin/simulate \
+    && ln -s /usr/local/bin/t3-native /usr/local/bin/simulate-batch
 RUN python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt
 ENV T3_ENGINE=auto
 WORKDIR /tmp
