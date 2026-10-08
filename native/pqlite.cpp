@@ -7,6 +7,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <thread>
+#include <type_traits>
 #include <vector>
 
 #include "pqmeta.hpp"
@@ -121,6 +122,72 @@ void dict_indices(Bytes& o, const uint8_t* codes, size_t n, int width) {
   }
 }
 
+// DELTA_BINARY_PACKED (Parquet Encodings.md): header <block size 128> <4 miniblocks>
+// <value count> <first value zigzag>; per block <min delta zigzag> <4 bit widths> and the
+// (delta - min_delta) values bit-packed LSB-first, 32 per miniblock. Deltas wrap like the
+// reference implementation (two's-complement int64), so any int64 sequence round-trips.
+void put_zigzag(Bytes& o, int64_t v) {
+  put_uvarint(o, (static_cast<uint64_t>(v) << 1) ^ static_cast<uint64_t>(v >> 63));
+}
+void pack_bits(Bytes& o, const uint64_t* v, size_t count, int width) {
+  if (width == 0) return;
+  const size_t start = o.size();
+  o.resize(start + (count * static_cast<size_t>(width) + 7) / 8, 0);
+  uint8_t* dst = o.data() + start;
+  size_t bit = 0;
+  for (size_t i = 0; i < count; i++, bit += static_cast<size_t>(width)) {
+    uint64_t x = v[i];
+    size_t pos = bit;
+    int left = width;
+    while (left > 0) {
+      const int off = static_cast<int>(pos & 7);
+      const int take = std::min(left, 8 - off);
+      dst[pos >> 3] |= static_cast<uint8_t>((x & ((1u << take) - 1)) << off);
+      x >>= take;
+      pos += static_cast<size_t>(take);
+      left -= take;
+    }
+  }
+}
+template <class T>
+void delta_binary_packed(Bytes& o, const T* v, size_t n) {
+  constexpr size_t kBlock = 128, kMini = 4, kPer = kBlock / kMini;
+  put_uvarint(o, kBlock);
+  put_uvarint(o, kMini);
+  put_uvarint(o, n);
+  put_zigzag(o, n ? static_cast<int64_t>(v[0]) : 0);
+  uint64_t d[kBlock];
+  for (size_t i = 1; i < n; i += kBlock) {
+    const size_t cnt = std::min(kBlock, n - i);
+    int64_t min_delta = 0;
+    for (size_t k = 0; k < cnt; k++) {
+      // wrapping difference in the column's own width, widened like the reader does
+      const int64_t delta = static_cast<int64_t>(static_cast<T>(
+          static_cast<std::make_unsigned_t<T>>(v[i + k]) - static_cast<std::make_unsigned_t<T>>(v[i + k - 1])));
+      d[k] = static_cast<uint64_t>(delta);
+      if (k == 0 || delta < min_delta) min_delta = delta;
+    }
+    put_zigzag(o, min_delta);
+    int widths[kMini] = {0, 0, 0, 0};
+    for (size_t m = 0; m < kMini; m++) {
+      uint64_t mx = 0;
+      for (size_t k = m * kPer; k < std::min(cnt, (m + 1) * kPer); k++) {
+        d[k] = d[k] - static_cast<uint64_t>(min_delta);
+        mx |= d[k];
+      }
+      int w = 0;
+      while (w < 64 && (mx >> w) != 0) w++;
+      widths[m] = m * kPer < cnt ? w : 0;
+    }
+    for (size_t m = 0; m < kMini; m++) o.push_back(static_cast<uint8_t>(widths[m]));
+    for (size_t m = 0; m < kMini && m * kPer < cnt; m++) {
+      uint64_t tmp[kPer] = {0};
+      for (size_t k = 0; k < kPer && m * kPer + k < cnt; k++) tmp[k] = d[m * kPer + k];
+      pack_bits(o, tmp, kPer, widths[m]);  // a partial last miniblock is padded to 32 values
+    }
+  }
+}
+
 int bit_width(size_t max_value) {
   int w = 0;
   while ((size_t{1} << w) <= max_value) w++;
@@ -192,18 +259,16 @@ template <class T>
 void numeric_page(Column& c, const T* v, const uint8_t* nulls, size_t n) {
   Bytes body;
   def_levels(body, nulls, n);
-  const size_t start = body.size();
-  size_t valid = 0;
-  for (size_t i = 0; i < n; i++) valid += !(nulls && nulls[i]);
-  body.resize(start + valid * sizeof(T));
-  uint8_t* dst = body.data() + start;
   if (!nulls) {
-    std::memcpy(dst, v, n * sizeof(T));  // x86-64 is little-endian, as PLAIN requires
+    delta_binary_packed(body, v, n);
   } else {
+    std::vector<T> present;
+    present.reserve(n);
     for (size_t i = 0; i < n; i++)
-      if (!nulls[i]) { std::memcpy(dst, &v[i], sizeof(T)); dst += sizeof(T); }
+      if (!nulls[i]) present.push_back(v[i]);
+    delta_binary_packed(body, present.data(), present.size());
   }
-  c.uncompressed += add_page(c.pages, body, false, static_cast<int32_t>(n), 0);
+  c.uncompressed += add_page(c.pages, body, false, static_cast<int32_t>(n), 5);  // DELTA_BINARY_PACKED
   c.num_values += static_cast<int64_t>(n);
 }
 
@@ -299,7 +364,7 @@ std::string write_file(const std::string& path, std::vector<Column>& cols, int64
         t.elem_i32(0); t.elem_i32(3); t.elem_i32(8);  // PLAIN, RLE, RLE_DICTIONARY
       } else {
         t.list(2, T_I32, 2);
-        t.elem_i32(3); t.elem_i32(0);  // RLE, PLAIN
+        t.elem_i32(3); t.elem_i32(5);  // RLE, DELTA_BINARY_PACKED
       }
       t.list(3, T_BINARY, 1);
       t.raw_str(c.name);
