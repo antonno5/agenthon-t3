@@ -30,14 +30,14 @@
     "matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
     "native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
     "native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
-    "native/cli.cpp": "03616a8111fa7b966aacbc82ae9b922eafbcf22340c77135b06b1320b6ec63a4",
-    "native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "native/cli.cpp": "6b35a81a9ca1c33efcce69dc0a7c81bead6fc99ec15d560e2332e858ce8e7768",
+    "native/engine.cpp": "85cce4744e67ddd7c3add6d9cf85e2d65e0cd3f64185aebdf23be628207e5d4a",
     "native/engine.hpp": "e97d0782b5b8e7bbcf61180d4aae53ba967d585c6fcbe2f53ee8cb6a54b345b6",
     "native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
     "native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
     "native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
     "native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
-    "native/pqwrite.cpp": "83d91247689a8cacf761a47ffcae58ce0f49bb384e78e539c2bd175345e20b94",
+    "native/pqwrite.cpp": "b3ce8fb1fdc7c656bc1766759636f490b02fe04a1d874fee28056681dc54db1e",
     "native/pqwrite.hpp": "1cd37798d6ac5d2bd1daf1026b57f69f4d7d08674525f176df1d83494413c372",
     "native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
     "native/scenario.hpp": "87a57e627ec24a8ddbae620281255939464d4ae4526ce09f0668456bfa25149b",
@@ -51,7 +51,7 @@
     "native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
     "native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
     "native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
-    "native/trace_stream.hpp": "a47143de34a01fa403b81cc28e1ff4ce8567f6997fc5a9e86f22c3ccdb663ef0",
+    "native/trace_stream.hpp": "f7dd40aeaf4418a7e5023123c3b9e5f9af73b85acefc607877ec30fe49260518",
     "native/vendor/LICENSE.json": "62176251affdda17bece4ddd44271d68019e2448ca721d2c1af4c650f29c9898",
     "native/vendor/README.md": "5070a59dff2ee073b7cc6659f4ef7a369da3f0a7f77c11421e0443367fc7d372",
     "native/vendor/json.hpp": "9bea4c8066ef4a1c206b2be5a36302f8926f7fdc6087af5d20b417d0cf103ea6",
@@ -66,5 +66,6 @@
     "simulate-batch": "7a56826516e69c5e44e51b36d168f2cac2c466c87bad3a5b0ec6f3eafacd2ccf"
   },
   "runtime_validation": "skipped_by_user",
-  "rankable": false
+  "rankable": false,
+  "perf_combined_note": "Build inputs updated for branch perf-combined (C1-C3): native/cli.cpp, engine.cpp, pqwrite.cpp, trace_stream.hpp, Dockerfile. Validated locally: 71/71 public units byte-identical to the pqnative image, regression suite 65/65, official batch gates 6/6, platform flags."
 }
