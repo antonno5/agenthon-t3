@@ -64,13 +64,14 @@
     "patches/order_size_model.pomegranate-free.patch": "ae9627813ce1f6a066f5eb2b66f49cea70475412626df5d48f8d10ab365ad0a1",
     "simulate": "9aecf72dbc3c8c138fc2b03247c7bbcb05aaca430f07f93dbc6639252a5f6b1b",
     "simulate-batch": "7a56826516e69c5e44e51b36d168f2cac2c466c87bad3a5b0ec6f3eafacd2ccf",
-    "native/pqlite.cpp": "02be127fac7edcea51e7168f14b061aaca9c01ea451b719604cefa593ac0c4a2",
+    "native/pqlite.cpp": "fb46397c4363947e245266d0226634a6e84cffefc492c6339772465a8fbafca4",
     "native/pqlite.hpp": "d7d4a8262351f9012053edae63fc289e1a4d0652cf185cbf7e75006bc6677ca0",
     "native/pqmeta.hpp": "9df20e9f8ccc25df853136ab9ad917264ee0efd8d863ac0ca5a0f048d8f09bcf",
     "native/sha256_lite.hpp": "a13884849adea681ee377f2d93a137597d0daa80b3ec18ab088381d7a5e3b468",
     "native/snappy_lite.hpp": "694f6f691a30ec2a13692428fe2f60df26e918da3e69882368e30c2ff1f40339",
     "native/tests/sha256_dump.cpp": "7236b16a2c47ff43f4df45b816cce5c6d73a39896c719787eebb1b8d9d863654",
-    "native/tests/snappy_dump.cpp": "58d3ef000d5da72239cb3b721f3ad29a3826dcdb62500a961d0e350c647e3a9f"
+    "native/tests/snappy_dump.cpp": "58d3ef000d5da72239cb3b721f3ad29a3826dcdb62500a961d0e350c647e3a9f",
+    "native/tests/pqlite_roundtrip.cpp": "da7c97a00b554385ed5a8f6833588cee0ae76454c67ba10f2774ce381bb77404"
   },
   "runtime_validation": "skipped_by_user",
   "rankable": false,
