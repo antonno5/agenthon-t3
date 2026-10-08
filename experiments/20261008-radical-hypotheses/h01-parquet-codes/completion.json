@@ -1,0 +1,32 @@
+{
+  "executive_summary": "The one authorized timing series passed correctness and completed its fixed schedule. All samples remain retained; no production adoption occurred.",
+  "complete": true,
+  "accepted": true,
+  "slug": "h01-parquet-codes",
+  "measurement_implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+  "image_source_commit": "0ff61563bde3ab0fe8a1392334ec5c3051fa4852",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6",
+  "result_sha256": "08e95d6252910a634d52f1ba61a6ee67486542c5a314e116f16b767672f1b093",
+  "standard_result_exact_copy": true,
+  "timing_summary_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2b-timing/summary.json",
+  "timing_summary_sha256": "624d650776215aaff595bfc0ae24ad74fddaf2b54f47dcc71dd7e8741c753fe9",
+  "phase2a_readiness_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/phase2-readiness.json",
+  "phase2a_readiness_sha256": "d0ab716f4b5933b0bc7d40543959bbcfef1dc5db34d173c7b4191830e206eb33",
+  "timed_samples": 40,
+  "excluded_warmups": 8,
+  "fixed_order_verified": [
+    "AB",
+    "BA",
+    "AB",
+    "BA",
+    "AB"
+  ],
+  "all_samples_retained": true,
+  "source_unchanged_during_measurement": true,
+  "pinned_probe_file_pairs": 102,
+  "phase2a_control_runs": 10,
+  "rankable": false,
+  "adopted": false,
+  "interpretation": "Correctness is preserved. One full-run improvement and three regressions, with no consistent large-unit writer-phase benefit, do not establish a general writer speedup."
+}

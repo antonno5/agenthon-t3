@@ -1,0 +1,211 @@
+{
+  "executive_summary": "Eight isolated native optimizations are tested against one unchanged production image. Only assigned public units are timed; results stay experimental.",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "source_repository": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "baseline_source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "date": "2026-10-08",
+  "status": "complete",
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "experiments": [
+    {
+      "slug": "h01-trace-finalize",
+      "title": "Упростить финализацию трасс",
+      "branch": "codex/exp-20261008-h01-trace-finalize",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize",
+      "units": [
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest",
+        "t3-s012-partial-fill-cancel-race"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h01-trace-finalize",
+      "thread_id": "01a1187b-14cc-75b0-9d08-fb5df3b1d65a",
+      "host_id": "local",
+      "implementation_commit": "5ed05198f536c4c3f8e1577312491a1c36c275ad",
+      "allowed_changed_sources": [
+        "baselines/native/engine.cpp"
+      ],
+      "final_report_commit": "853881ffac5787e526310ae3b55a06d3ae940b49",
+      "candidate_image": "sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080"
+    },
+    {
+      "slug": "h02-time-groups",
+      "title": "Сортировка событий по группам времени",
+      "branch": "codex/exp-20261008-h02-time-groups",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups",
+      "units": [
+        "t3-mr-deep-book-state-size",
+        "t3-cancelmodify-lifecycle",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-s001-price-time-priority"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h02-time-groups",
+      "thread_id": "01a1187b-18d5-77c1-9e49-2b6345fbb6dc",
+      "host_id": "local",
+      "implementation_commit": "f828ef6b307b6e6f651e33b2a03beadf8fb77b5e",
+      "allowed_changed_sources": [
+        "baselines/native/engine.cpp"
+      ],
+      "final_report_commit": "409f86b15cb1703372915acbfc17342c1bb860b6",
+      "candidate_image": "sha256:27ac770384b308a0f61f2ae8c29dcf90d37457b6d372470c9597645f42cbf828"
+    },
+    {
+      "slug": "h03-level-pool",
+      "title": "Пул стабильных уровней стакана",
+      "branch": "codex/exp-20261008-h03-level-pool",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool",
+      "units": [
+        "t3-mp05-cancel-churn-newest",
+        "t3-mr-deep-book-state-size",
+        "t3-mp02-stp-oldest-baseline",
+        "t3-cancelmodify-lifecycle"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h03-level-pool",
+      "thread_id": "01a1187b-1c3d-7a80-8767-61cde976f3f3",
+      "host_id": "local",
+      "implementation_commit": "c0d97e59311b81c8b42959ac8b0999930e744bf0",
+      "allowed_changed_sources": [
+        "baselines/native/book.hpp"
+      ],
+      "final_report_commit": "28dd1f49cc55558346105c6559f019507ae91fba",
+      "candidate_image": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c"
+    },
+    {
+      "slug": "h04-agent-orders",
+      "title": "Компактный реестр заявок агента",
+      "branch": "codex/exp-20261008-h04-agent-orders",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders",
+      "units": [
+        "t3-mp05-cancel-churn-newest",
+        "t3-mr-deep-book-state-size",
+        "t3-cancelmodify-lifecycle"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h04-agent-orders",
+      "thread_id": "01a1187b-2067-78c0-86e7-3b82d6aebea9",
+      "host_id": "local",
+      "implementation_commit": "d1119e633be385478441c8f0e2e1623d258f21e7",
+      "allowed_changed_sources": [
+        "baselines/native/agent_orders.hpp",
+        "baselines/native/engine.cpp"
+      ],
+      "final_report_commit": "dad47b47e6f02385044ab7f77f3540a1808f605e",
+      "candidate_image": "sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca"
+    },
+    {
+      "slug": "h05-order-fifo",
+      "title": "Индексированная FIFO заявок уровня",
+      "branch": "codex/exp-20261008-h05-order-fifo",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo",
+      "units": [
+        "t3-mp05-cancel-churn-newest",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-mp02-stp-oldest-baseline",
+        "t3-partialfill-atomicity"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h05-order-fifo",
+      "thread_id": "01a1187b-3a95-7741-9422-bdc5e3b1db90",
+      "host_id": "local",
+      "implementation_commit": "923a4cd7a3a53f442296efbbfaddb1e6508d01e6",
+      "allowed_changed_sources": [
+        "baselines/native/book.hpp"
+      ],
+      "final_report_commit": "264ee3901a9c80b6209f3d968eb71d024d6a6226",
+      "candidate_image": "sha256:c9cb8f1411f4f0e4e15f7a94a681cd9b82dfb3d8a24e5859d26d37946c5e5a3d"
+    },
+    {
+      "slug": "h06-arrow-strings",
+      "title": "Однократное выделение строковых буферов Arrow",
+      "branch": "codex/exp-20261008-h06-arrow-strings",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings",
+      "units": [
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest",
+        "t3-s001-price-time-priority",
+        "t3-gbatch-hetero-mix"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h06-arrow-strings",
+      "thread_id": "01a1187b-3e35-7193-ba5b-107c083073e6",
+      "host_id": "local",
+      "implementation_commit": "34ddeca0d64108346c8b697d68ce6694b78deb6d",
+      "allowed_changed_sources": [
+        "baselines/native/pqwrite.cpp"
+      ],
+      "final_report_commit": "aab15b0181d486b511802eac4278f634a4829931",
+      "candidate_image": "sha256:3c88777a2b1fe3596cdf70947ee29ea4b5800619b51a89bba3f1c40f4834f104"
+    },
+    {
+      "slug": "h07-event-heap",
+      "title": "Четырёхарная очередь событий",
+      "branch": "codex/exp-20261008-h07-event-heap",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h07-event-heap",
+      "units": [
+        "t3-mp07-heavy-flow-oldest",
+        "t3-momentum-mix-priority",
+        "t3-s019-latency-jitter-kendall",
+        "t3-eq001-pareto-latency-tail"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h07-event-heap",
+      "thread_id": "01a1187b-4375-74c2-8918-977b887fde2f",
+      "host_id": "local",
+      "implementation_commit": "3c3964f5bf40cd8b3ea30deb9b786f48bd716e1d",
+      "allowed_changed_sources": [
+        "baselines/native/engine.cpp",
+        "baselines/native/event_heap.hpp"
+      ],
+      "final_report_commit": "7fa23e82a464cfa4cd5d125765ce7d28a3cda3ec",
+      "candidate_image": "sha256:8ba9103877a4abb6bf302446f8e16ff03b8064ef4e183e164b07f985baf9c8a7"
+    },
+    {
+      "slug": "h08-momentum-ring",
+      "title": "Кольцевая история MomentumTrader",
+      "branch": "codex/exp-20261008-h08-momentum-ring",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring",
+      "units": [
+        "t3-momentum-mix-priority",
+        "t3-ra05-shock-momentum-heavy",
+        "t3-sf-03-vol-clustering-momentum"
+      ],
+      "status": "complete",
+      "report_dir": "expirements/20261008-native-hypotheses/h08-momentum-ring",
+      "thread_id": "01a1187b-4778-7c40-8189-b46993e602b6",
+      "host_id": "local",
+      "implementation_commit": "59d33ec60a3194dce02b5e15d09ca36cade75053",
+      "allowed_changed_sources": [
+        "baselines/native/engine.cpp",
+        "baselines/native/momentum_history.hpp"
+      ],
+      "final_report_commit": "b905b2b3f34b14fd16e5198c1516e9c81e631362",
+      "candidate_image": "sha256:5adf25c85ca3be219ecba1202a2520658cdf1158bd5674637374ac669d1726bf"
+    }
+  ],
+  "shared_tool_hashes": {
+    "Dockerfile": "c78d805ba40c28171520299943495a78f41528949ac1d36e0c992e9dd940b1b8",
+    "Dockerfile.dockerignore": "a55c7da320bb8a4f04c8d2bbad148ef28e510296d8843edc3b1fe3c00544d21f",
+    "run_focused.py": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+    "docker_slot.py": "76b9218e0e31637945616009f6d89aafe207061438d195473c05eab479336d37"
+  }
+}

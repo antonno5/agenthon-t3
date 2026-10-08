@@ -1,0 +1,1623 @@
+{
+  "executive_summary": "Host baseline/candidate correctness, ASan/UBSan and cleanup checks passed. Pinned Arrow15 verification and all timing remain pending.",
+  "scope": "host preliminary only",
+  "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "arrow": "25.0.1",
+  "sanitizer_library_scope": "Instrumented own native/test sources; bundled Arrow/Parquet libraries are not instrumented.",
+  "comparisons": [
+    {
+      "mode": "regular",
+      "fixture": "1-messages-stream.parquet",
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1-messages-table.parquet",
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1-trace.parquet",
+      "sha256": "3da8cb8b078c7cea121fea1473b683b0092ddc82fdc0663913be2328ffae5488",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1023-messages-stream.parquet",
+      "sha256": "87be7dec12a00e4694296d04fcff3c25338e86ec3d1da50f1e345f28aef3bffd",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1023-messages-table.parquet",
+      "sha256": "87be7dec12a00e4694296d04fcff3c25338e86ec3d1da50f1e345f28aef3bffd",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1023-trace.parquet",
+      "sha256": "940a8be06902855269983a00eb0697e423631ed31d126519c7c2578138bb75a8",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1024-messages-stream.parquet",
+      "sha256": "8b90d175370bce4bac85f0e5300e2570f1eaabcdfa445e1b3cd39860c7d9230a",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1024-messages-table.parquet",
+      "sha256": "8b90d175370bce4bac85f0e5300e2570f1eaabcdfa445e1b3cd39860c7d9230a",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1024-trace.parquet",
+      "sha256": "443bff7a9498db11503b33e34fa39d22df452b467dcc733ab10ce95ed5e18372",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1025-messages-stream.parquet",
+      "sha256": "19137ad0bb9a873ff6b34e5dbc243ca0028a5d7d22e3a534651b79c15126b1f9",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1025-messages-table.parquet",
+      "sha256": "19137ad0bb9a873ff6b34e5dbc243ca0028a5d7d22e3a534651b79c15126b1f9",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1025-trace.parquet",
+      "sha256": "58daadf6e760986cd6b888c891231432cfc153bc7d2d46a638323e50d87407fa",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048575-messages-stream.parquet",
+      "sha256": "973a402c68060f07df7790195d71d1fd5b1a37a30997a612ce2995fafb920af9",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048575-messages-table.parquet",
+      "sha256": "e7d1b6fcf4b8740966098fdedbb915757a2ad80f79a4046b4464dcc65e9f181a",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048575-trace.parquet",
+      "sha256": "70cda0ff03dc2eb16410d2e102c53b61ff2f528af0ad4d901d001599cc4a6e6b",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048576-messages-stream.parquet",
+      "sha256": "e545c9150a43655ecf8bd0ba523753ab72a2970a86eee2b4e851968ae554f9ef",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048576-messages-table.parquet",
+      "sha256": "59a01b8cdd659f299b7772cee8f2fdd218d3940b0070512fb1f6e249d95beca9",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048576-trace.parquet",
+      "sha256": "bc27d4c1d4f2665fa3d2eaa0b4e39de3d41c71315896418b6d73af40f15fe85e",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048577-messages-stream.parquet",
+      "sha256": "c31dd6670306d09664bfe537f8acaa828076d7bb16119816565ab0528792e88c",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048577-messages-table.parquet",
+      "sha256": "7f66b91517251a2bdd8020d7a7511e541024b9ec9b69228ae0cef4c882d965b6",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048577-trace.parquet",
+      "sha256": "d3ce1d80868ad8f7623c08fd668c1eddd6f4c399aae20790d61861c828d75a7c",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "2098689-messages-stream.parquet",
+      "sha256": "b99d8ec4019cbe827e5e46d23c5333fcb415d794e719e26d17d834e16e78c97c",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "2098689-messages-table.parquet",
+      "sha256": "ccc4e26afe9de45b34f3f2016d0c578b1ceb59db65c72966f1956489ea12a7c9",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "2098689-trace.parquet",
+      "sha256": "ff8b9e74c01a2d438aacaf21b8f0df2d9b3711203cb999789748280f85253e93",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65535-messages-stream.parquet",
+      "sha256": "ddf6431fa1d4baca4dffc66172d4dc8666ae346a230dc9954e3b2b2d86409427",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65535-messages-table.parquet",
+      "sha256": "ddf6431fa1d4baca4dffc66172d4dc8666ae346a230dc9954e3b2b2d86409427",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65535-trace.parquet",
+      "sha256": "3e18d6a58d73aa8a75a08f169f8e057e5c5a0165acbec08dedd281cc2e2717b5",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65536-messages-stream.parquet",
+      "sha256": "c6c0eddf706058691bd9be2721e2ca6fc1d1ac3a95e2aea50295eae56c999c60",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65536-messages-table.parquet",
+      "sha256": "c6c0eddf706058691bd9be2721e2ca6fc1d1ac3a95e2aea50295eae56c999c60",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65536-trace.parquet",
+      "sha256": "d818087bd0b88ec0c9d6ef46516a9398b47c720b4578c2a47fa9d897d09be06f",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65537-messages-stream.parquet",
+      "sha256": "3c3442eb5eb484c1799f99dd908a9b0bef239727986ee1a97a74693b545a17c6",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65537-messages-table.parquet",
+      "sha256": "3c3442eb5eb484c1799f99dd908a9b0bef239727986ee1a97a74693b545a17c6",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65537-trace.parquet",
+      "sha256": "fbe97dff8e28e25feda7334f2330c6554ffc37c4748d8d606fdfc2f7bfd6b414",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "errors.parquet",
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-1-stream.parquet",
+      "sha256": "4c77a644e07c4e8ce37a5cad23b7172d5b5f1745fd7856424cb66f850f4606cc",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-1-table.parquet",
+      "sha256": "4c77a644e07c4e8ce37a5cad23b7172d5b5f1745fd7856424cb66f850f4606cc",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-2-stream.parquet",
+      "sha256": "bd263c5383d964ae5926caaf2734a01e5b64136186c2406a4e4a6de4ed64e72f",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-2-table.parquet",
+      "sha256": "bd263c5383d964ae5926caaf2734a01e5b64136186c2406a4e4a6de4ed64e72f",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "vocabulary-0.parquet",
+      "sha256": "6de6b76cff2356d0e9459d5bda36c09190b1944b1caffd0f3d13468febaa5750",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "vocabulary-1.parquet",
+      "sha256": "dc0404f31eb131ad7eaa1ecb43a8e136c4e5658e1c7316acbd325e2c1b3dc49a",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1-messages-stream.parquet",
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1-messages-table.parquet",
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1-trace.parquet",
+      "sha256": "3da8cb8b078c7cea121fea1473b683b0092ddc82fdc0663913be2328ffae5488",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1023-messages-stream.parquet",
+      "sha256": "87be7dec12a00e4694296d04fcff3c25338e86ec3d1da50f1e345f28aef3bffd",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1023-messages-table.parquet",
+      "sha256": "87be7dec12a00e4694296d04fcff3c25338e86ec3d1da50f1e345f28aef3bffd",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1023-trace.parquet",
+      "sha256": "940a8be06902855269983a00eb0697e423631ed31d126519c7c2578138bb75a8",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1024-messages-stream.parquet",
+      "sha256": "8b90d175370bce4bac85f0e5300e2570f1eaabcdfa445e1b3cd39860c7d9230a",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1024-messages-table.parquet",
+      "sha256": "8b90d175370bce4bac85f0e5300e2570f1eaabcdfa445e1b3cd39860c7d9230a",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1024-trace.parquet",
+      "sha256": "443bff7a9498db11503b33e34fa39d22df452b467dcc733ab10ce95ed5e18372",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1025-messages-stream.parquet",
+      "sha256": "19137ad0bb9a873ff6b34e5dbc243ca0028a5d7d22e3a534651b79c15126b1f9",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1025-messages-table.parquet",
+      "sha256": "19137ad0bb9a873ff6b34e5dbc243ca0028a5d7d22e3a534651b79c15126b1f9",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1025-trace.parquet",
+      "sha256": "58daadf6e760986cd6b888c891231432cfc153bc7d2d46a638323e50d87407fa",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048575-messages-stream.parquet",
+      "sha256": "973a402c68060f07df7790195d71d1fd5b1a37a30997a612ce2995fafb920af9",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048575-messages-table.parquet",
+      "sha256": "e7d1b6fcf4b8740966098fdedbb915757a2ad80f79a4046b4464dcc65e9f181a",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048575-trace.parquet",
+      "sha256": "70cda0ff03dc2eb16410d2e102c53b61ff2f528af0ad4d901d001599cc4a6e6b",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048576-messages-stream.parquet",
+      "sha256": "e545c9150a43655ecf8bd0ba523753ab72a2970a86eee2b4e851968ae554f9ef",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048576-messages-table.parquet",
+      "sha256": "59a01b8cdd659f299b7772cee8f2fdd218d3940b0070512fb1f6e249d95beca9",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048576-trace.parquet",
+      "sha256": "bc27d4c1d4f2665fa3d2eaa0b4e39de3d41c71315896418b6d73af40f15fe85e",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048577-messages-stream.parquet",
+      "sha256": "c31dd6670306d09664bfe537f8acaa828076d7bb16119816565ab0528792e88c",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048577-messages-table.parquet",
+      "sha256": "7f66b91517251a2bdd8020d7a7511e541024b9ec9b69228ae0cef4c882d965b6",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048577-trace.parquet",
+      "sha256": "d3ce1d80868ad8f7623c08fd668c1eddd6f4c399aae20790d61861c828d75a7c",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "2098689-messages-stream.parquet",
+      "sha256": "b99d8ec4019cbe827e5e46d23c5333fcb415d794e719e26d17d834e16e78c97c",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "2098689-messages-table.parquet",
+      "sha256": "ccc4e26afe9de45b34f3f2016d0c578b1ceb59db65c72966f1956489ea12a7c9",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "2098689-trace.parquet",
+      "sha256": "ff8b9e74c01a2d438aacaf21b8f0df2d9b3711203cb999789748280f85253e93",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65535-messages-stream.parquet",
+      "sha256": "ddf6431fa1d4baca4dffc66172d4dc8666ae346a230dc9954e3b2b2d86409427",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65535-messages-table.parquet",
+      "sha256": "ddf6431fa1d4baca4dffc66172d4dc8666ae346a230dc9954e3b2b2d86409427",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65535-trace.parquet",
+      "sha256": "3e18d6a58d73aa8a75a08f169f8e057e5c5a0165acbec08dedd281cc2e2717b5",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65536-messages-stream.parquet",
+      "sha256": "c6c0eddf706058691bd9be2721e2ca6fc1d1ac3a95e2aea50295eae56c999c60",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65536-messages-table.parquet",
+      "sha256": "c6c0eddf706058691bd9be2721e2ca6fc1d1ac3a95e2aea50295eae56c999c60",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65536-trace.parquet",
+      "sha256": "d818087bd0b88ec0c9d6ef46516a9398b47c720b4578c2a47fa9d897d09be06f",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65537-messages-stream.parquet",
+      "sha256": "3c3442eb5eb484c1799f99dd908a9b0bef239727986ee1a97a74693b545a17c6",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65537-messages-table.parquet",
+      "sha256": "3c3442eb5eb484c1799f99dd908a9b0bef239727986ee1a97a74693b545a17c6",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65537-trace.parquet",
+      "sha256": "fbe97dff8e28e25feda7334f2330c6554ffc37c4748d8d606fdfc2f7bfd6b414",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "errors.parquet",
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-1-stream.parquet",
+      "sha256": "4c77a644e07c4e8ce37a5cad23b7172d5b5f1745fd7856424cb66f850f4606cc",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-1-table.parquet",
+      "sha256": "4c77a644e07c4e8ce37a5cad23b7172d5b5f1745fd7856424cb66f850f4606cc",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-2-stream.parquet",
+      "sha256": "bd263c5383d964ae5926caaf2734a01e5b64136186c2406a4e4a6de4ed64e72f",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-2-table.parquet",
+      "sha256": "bd263c5383d964ae5926caaf2734a01e5b64136186c2406a4e4a6de4ed64e72f",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "vocabulary-0.parquet",
+      "sha256": "6de6b76cff2356d0e9459d5bda36c09190b1944b1caffd0f3d13468febaa5750",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "vocabulary-1.parquet",
+      "sha256": "dc0404f31eb131ad7eaa1ecb43a8e136c4e5658e1c7316acbd325e2c1b3dc49a",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    }
+  ],
+  "stream_table_checks": [
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": false
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    }
+  ],
+  "bindings": {
+    "baseline": {
+      "t3-s001-price-time-priority": {
+        "buffer_sha256": "eb252999b1b8515a4d386b18cb7583e801fbf89b4bed58238ce436dd1e086a88",
+        "n_events": 604,
+        "n_messages": 664
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "buffer_sha256": "5c22995ad0872376107995283f916a9757c2b7065397f7a33fd3ee4fcbee634c",
+        "n_events": 202291,
+        "n_messages": 178236
+      },
+      "t3-gbatch-hetero-mix/sub_00_noise": {
+        "buffer_sha256": "29f60cfeb3dc1a6bf5400bec0921f933261ba0637179afd46481bfb01a6eb403",
+        "n_events": 8225,
+        "n_messages": 7411
+      },
+      "t3-gbatch-hetero-mix/sub_01_value": {
+        "buffer_sha256": "9e82fabf51d6a005282461d134e203ab6d198da23ecc07d0ee6e908e76643eca",
+        "n_events": 8137,
+        "n_messages": 7305
+      },
+      "t3-gbatch-hetero-mix/sub_02_mm": {
+        "buffer_sha256": "74f488e1ed658d07d5d83d90c43b0a35b5d8b651058d2c1ecd56836b617fe78f",
+        "n_events": 24065,
+        "n_messages": 21262
+      },
+      "t3-gbatch-hetero-mix/sub_03_momentum": {
+        "buffer_sha256": "685642b61c30c3a92709e93bd197bb340e7b1a99c96e150794be726fe0c2166c",
+        "n_events": 8147,
+        "n_messages": 7331
+      },
+      "t3-gbatch-hetero-mix/sub_04_base": {
+        "buffer_sha256": "a7cb14275e7a6e7876413d905324d58057a3936617ac177d2c4819d50582d59d",
+        "n_events": 8138,
+        "n_messages": 7278
+      },
+      "empty-controls": "passed",
+      "exception-controls": "passed"
+    },
+    "candidate": {
+      "t3-s001-price-time-priority": {
+        "buffer_sha256": "eb252999b1b8515a4d386b18cb7583e801fbf89b4bed58238ce436dd1e086a88",
+        "n_events": 604,
+        "n_messages": 664
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "buffer_sha256": "5c22995ad0872376107995283f916a9757c2b7065397f7a33fd3ee4fcbee634c",
+        "n_events": 202291,
+        "n_messages": 178236
+      },
+      "t3-gbatch-hetero-mix/sub_00_noise": {
+        "buffer_sha256": "29f60cfeb3dc1a6bf5400bec0921f933261ba0637179afd46481bfb01a6eb403",
+        "n_events": 8225,
+        "n_messages": 7411
+      },
+      "t3-gbatch-hetero-mix/sub_01_value": {
+        "buffer_sha256": "9e82fabf51d6a005282461d134e203ab6d198da23ecc07d0ee6e908e76643eca",
+        "n_events": 8137,
+        "n_messages": 7305
+      },
+      "t3-gbatch-hetero-mix/sub_02_mm": {
+        "buffer_sha256": "74f488e1ed658d07d5d83d90c43b0a35b5d8b651058d2c1ecd56836b617fe78f",
+        "n_events": 24065,
+        "n_messages": 21262
+      },
+      "t3-gbatch-hetero-mix/sub_03_momentum": {
+        "buffer_sha256": "685642b61c30c3a92709e93bd197bb340e7b1a99c96e150794be726fe0c2166c",
+        "n_events": 8147,
+        "n_messages": 7331
+      },
+      "t3-gbatch-hetero-mix/sub_04_base": {
+        "buffer_sha256": "a7cb14275e7a6e7876413d905324d58057a3936617ac177d2c4819d50582d59d",
+        "n_events": 8138,
+        "n_messages": 7278
+      },
+      "empty-controls": "passed",
+      "exception-controls": "passed"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "fde55c5cce3c98411b5b99b4e4d449b6ba8844f4faf96d1aa3deb093f9138719",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "commands": [
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native",
+      "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/pqwrite.cpp\"",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/engine.cpp",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libparquet.2500.dylib",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libarrow.2500.dylib",
+      "-Wl,-rpath,/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/baseline/writer-probe"
+    ],
+    [
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/baseline/writer-probe",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/baseline/journals"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native",
+      "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/pqwrite.cpp\"",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/engine.cpp",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libparquet.2500.dylib",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libarrow.2500.dylib",
+      "-Wl,-rpath,/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/candidate/writer-probe"
+    ],
+    [
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/candidate/writer-probe",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/candidate/journals"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/tests/pipeline_test.cpp",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/pipeline-test"
+    ],
+    [
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/regular/pipeline-test"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native",
+      "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/pqwrite.cpp\"",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/engine.cpp",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libparquet.2500.dylib",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libarrow.2500.dylib",
+      "-Wl,-rpath,/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/baseline/writer-probe"
+    ],
+    [
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/baseline/writer-probe",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/baseline/journals"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native",
+      "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/pqwrite.cpp\"",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/engine.cpp",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libparquet.2500.dylib",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libarrow.2500.dylib",
+      "-Wl,-rpath,/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/candidate/writer-probe"
+    ],
+    [
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/candidate/writer-probe",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/candidate/journals"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/tests/pipeline_test.cpp",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/pipeline-test"
+    ],
+    [
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/asan-ubsan/pipeline-test"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-bundle",
+      "-undefined",
+      "dynamic_lookup",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native",
+      "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/include",
+      "-I/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/include/python3.13",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/engine.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/pqwrite.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/reference-native/module.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/bindings/baseline/host-nplog.cpp",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libparquet.2500.dylib",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libarrow.2500.dylib",
+      "-Wl,-rpath,/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/bindings/baseline/_t3engine.cpython-313-darwin.so"
+    ],
+    [
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/tests/binding_worker.py",
+      "--module-dir",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/bindings/baseline",
+      "--corpus",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units",
+      "--out",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/binding-results/baseline",
+      "--adapter-dir",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines"
+    ],
+    [
+      "clang++",
+      "-std=c++20",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-bundle",
+      "-undefined",
+      "dynamic_lookup",
+      "-I/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native",
+      "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/include",
+      "-I/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/include/python3.13",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/engine.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/pqwrite.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines/native/module.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/bindings/candidate/host-nplog.cpp",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libparquet.2500.dylib",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow/libarrow.2500.dylib",
+      "-Wl,-rpath,/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/lib/python3.13/site-packages/pyarrow",
+      "-o",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/bindings/candidate/_t3engine.cpython-313-darwin.so"
+    ],
+    [
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/tests/binding_worker.py",
+      "--module-dir",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/bindings/candidate",
+      "--corpus",
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units",
+      "--out",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/host/binding-results/candidate",
+      "--adapter-dir",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/baselines"
+    ]
+  ],
+  "host_adaptations": [
+    "Host Arrow25 requires C++20; production remains C++17.",
+    "Both host binding variants replace x86-only nplog with the existing Python numpy fallback; this is not used in pinned builds."
+  ],
+  "stream_table_library_difference": "Arrow25 baseline full-table and baseline streamed writers differ at some large boundaries; candidate matches each corresponding baseline byte-for-byte. Pinned checks require stream/full equivalence."
+}

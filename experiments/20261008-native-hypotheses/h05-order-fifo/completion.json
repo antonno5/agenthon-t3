@@ -1,0 +1,356 @@
+{
+  "executive_summary": "The indexed FIFO campaign is complete and all 48 actual-native outputs pass correctness gates and exact journals. Median complete-container times are 2.25% and 6.34% slower on two units, 3.06% and 5.64% faster on two others. Mixed five-pair results do not establish a consistent win. Reports are committed; the Docker slot is released and the clean experimental worktree was not adopted or pushed.",
+  "slug": "h05-order-fifo",
+  "status": "done",
+  "branch": "codex/exp-20261008-h05-order-fifo",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo",
+  "implementation_commit": "923a4cd7a3a53f442296efbbfaddb1e6508d01e6",
+  "final_report_commit": "264ee3901a9c80b6209f3d968eb71d024d6a6226",
+  "immutable_images": {
+    "baseline": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "candidate": "sha256:c9cb8f1411f4f0e4e15f7a94a681cd9b82dfb3d8a24e5859d26d37946c5e5a3d",
+    "builder_checks": "sha256:130e522a3a0b4c8aeb4bfa5a8d7530e639e1d8f4033e143706fd8f556261bf93"
+  },
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:c9cb8f1411f4f0e4e15f7a94a681cd9b82dfb3d8a24e5859d26d37946c5e5a3d",
+      "digest": "sha256:c9cb8f1411f4f0e4e15f7a94a681cd9b82dfb3d8a24e5859d26d37946c5e5a3d",
+      "repo_digests": [
+        "track3-h05-order-fifo@sha256:c9cb8f1411f4f0e4e15f7a94a681cd9b82dfb3d8a24e5859d26d37946c5e5a3d"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "923a4cd7a3a53f442296efbbfaddb1e6508d01e6"
+    }
+  },
+  "baseline_build_tag": "track3-native:20261008",
+  "baseline_identity_checks": {
+    "baseline_id_before_build": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "baseline_id_after_checks_build": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "baseline_id_after_build": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+  },
+  "allowed_changed_sources": [
+    "baselines/native/book.hpp"
+  ],
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "f9fa57fe32f4500be64f417b4c2ea23cf4bc45e1f06548ce095beb32f81e8f32",
+    "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "f9fa57fe32f4500be64f417b4c2ea23cf4bc45e1f06548ce095beb32f81e8f32",
+    "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "units": [
+    "t3-mp05-cancel-churn-newest",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-partialfill-atomicity"
+  ],
+  "assigned_units": [
+    "t3-mp05-cancel-churn-newest",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-partialfill-atomicity"
+  ],
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/expirements/20261008-native-hypotheses/h05-order-fifo/result.json",
+  "result_sha256": "d8f3abf7a62231c50c31e990ceeb47b964cbac2ed51f92ac9ebb21aafa02377b",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/expirements/20261008-native-hypotheses/h05-order-fifo/README.md",
+  "readme_sha256": "08b0ea431e116059d4a05652ea60f15f6510d885993f873cac733e498a237355",
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "correctness_audit": {
+    "actual_native_outputs": 48,
+    "developer_gate_outputs_passed": 48,
+    "gate_results_passed": 192,
+    "digest_declarations_matched": 96,
+    "exact_journal_comparisons": 64,
+    "comparison_files": 128,
+    "per_output_reference_exact": true,
+    "repeat_stability_exact": true,
+    "baseline_candidate_exact": true,
+    "all_bytes_schema_ordered_values_exact": true
+  },
+  "results": [
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "median_container_seconds": {
+        "baseline": 0.547049363,
+        "candidate": 0.559365662
+      },
+      "time_change_pct": 2.2514054184174404,
+      "candidate_faster_pairs": 2,
+      "performance_outcome": "correct-but-slower"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "median_container_seconds": {
+        "baseline": 0.458291811,
+        "candidate": 0.487354082
+      },
+      "time_change_pct": 6.341433624263471,
+      "candidate_faster_pairs": 2,
+      "performance_outcome": "correct-but-slower"
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "median_container_seconds": {
+        "baseline": 0.340825041,
+        "candidate": 0.330397936
+      },
+      "time_change_pct": -3.059371743756345,
+      "candidate_faster_pairs": 2,
+      "performance_outcome": "correct-with-lower-median-time"
+    },
+    {
+      "unit": "t3-partialfill-atomicity",
+      "median_container_seconds": {
+        "baseline": 0.388270332,
+        "candidate": 0.366358153
+      },
+      "time_change_pct": -5.6435367819965165,
+      "candidate_faster_pairs": 3,
+      "performance_outcome": "correct-with-lower-median-time"
+    }
+  ],
+  "classification": "correctness-passed-mixed-performance",
+  "memory_model": {
+    "bounded_by_current_live_order_count": false,
+    "slots": "Lifetime live-order high-water; vector capacity can exceed slot count",
+    "free_slots": "Reused without shrinking or compaction",
+    "index_entries": "Equals live orders when indexed",
+    "index_buckets": "Retained after deletion and duplicate-ID index disabling until level reset",
+    "release": "PriceSide retires empty levels and releases slot/index containers",
+    "host_container_implementation": "Apple clang 17 / libc++; counters are not heap-byte measurements",
+    "actual_host_storage_counters": {
+      "peak": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4096,
+        "index_entries": 4095,
+        "index_buckets": 4096
+      },
+      "before_drain_after_copy_and_move": {
+        "live_orders": 4092,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4092,
+        "index_buckets": 4096
+      },
+      "one_live_after_shrink": {
+        "live_orders": 1,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 1,
+        "index_buckets": 4096
+      },
+      "empty_before_level_retirement": {
+        "live_orders": 0,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 0,
+        "index_buckets": 4096
+      },
+      "refilled": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4095,
+        "index_buckets": 4096
+      },
+      "retired_reset": {
+        "live_orders": 0,
+        "slot_count": 0,
+        "slot_vector_capacity": 0,
+        "index_entries": 0,
+        "index_buckets": 0
+      }
+    },
+    "pending_linux_counters": false,
+    "actual_linux_storage_counters": {
+      "peak": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4096,
+        "index_entries": 4095,
+        "index_buckets": 7517
+      },
+      "before_drain_after_copy_and_move": {
+        "live_orders": 4092,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4092,
+        "index_buckets": 7517
+      },
+      "one_live_after_shrink": {
+        "live_orders": 1,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 1,
+        "index_buckets": 7517
+      },
+      "empty_before_level_retirement": {
+        "live_orders": 0,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 0,
+        "index_buckets": 7517
+      },
+      "refilled": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4095,
+        "index_buckets": 7517
+      },
+      "retired_reset": {
+        "live_orders": 0,
+        "slot_count": 0,
+        "slot_vector_capacity": 0,
+        "index_entries": 0,
+        "index_buckets": 1
+      }
+    },
+    "linux_container_implementation": "g++ / libstdc++ in the pinned native_builder image; counters are not heap-byte measurements"
+  },
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2",
+  "campaign_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/campaign",
+  "campaign_summary_sha256": "e8637af47e4e6be4c5c0ef0c0c7e1dcc1def0431cf77742021ad12abe1ac1fb7",
+  "original_runner_result": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/campaign/result.json",
+  "original_runner_result_sha256": "68f706dc819b784d1a34dddfcb94bb1d601304be2f3131a8405ec0e34cd747eb",
+  "phase_log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/phase2.json",
+  "phase_log_sha256": "97db825d8c2af8cb93527c49688b27ce6215381bb2a8a28c7423907e123362c4",
+  "logs": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/baseline-after-build.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/baseline-after-build.stdout.txt": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/baseline-after-checks-build.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/baseline-after-checks-build.stdout.txt": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/baseline-before-build.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/baseline-before-build.stdout.txt": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/build-candidate.stderr.txt": "c8752d8ad223f57457531b7a0bf32a2aba6c92d55c3388146e955c696baa17f0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/build-candidate.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/build-checks.stderr.txt": "2a2b3cfe42a1c22f22c37a2a2af4b625da242e458f2bf9a59430885758653aa5",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/build-checks.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/builder-image-id.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/builder-image-id.stdout.txt": "d5847864a592e639009fbb3369fafd11d6d54894b686aeb50cd40a5d770eb612",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/candidate-image-id.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/candidate-image-id.stdout.txt": "4d5b1481077c6b018de460f336239d532321560b7e7111d3746daebe6d7f3bb9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/paired-campaign.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/paired-campaign.stdout.txt": "1e706879f46d69ff6934c963a2e7027dcec1c60b682a0068b8388c12842ccea0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/pinned-book.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/pinned-book.stdout.txt": "c9e250df7680c9ea645715bd6e3a4425b2730f5c3dbb857c02413f212321201e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/pinned-fifo.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/pinned-fifo.stdout.txt": "955bd3abd278ef1ab3c19cc073bc9355eaa73637f3f57ef3ede3b2288a537789",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/runtime-baseline.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/runtime-baseline.stdout.txt": "bf0afa2e873fd7709ef63cf7822a65f2eedd6a3a47f02b3cc4c5a11af7667b25",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/runtime-candidate.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/runtime-candidate.stdout.txt": "bf0afa2e873fd7709ef63cf7822a65f2eedd6a3a47f02b3cc4c5a11af7667b25"
+  },
+  "host_evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/host/host_checks.json",
+  "host_evidence_sha256": "56c812c9df7e548ffbd2d27eeda8db90632689578faa2a24a769164065f69b47",
+  "runner_sha256": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "dockerfile_sha256": "c78d805ba40c28171520299943495a78f41528949ac1d36e0c992e9dd940b1b8",
+  "docker_slot_sha256": "76b9218e0e31637945616009f6d89aafe207061438d195473c05eab479336d37",
+  "failed_attempts": [],
+  "extra_repeats": 0,
+  "tuning_after_timing": false,
+  "docker_slot_released": true,
+  "docker_operations_after_release": 0,
+  "worktree_clean": true,
+  "merged": false,
+  "pushed": false
+}

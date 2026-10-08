@@ -1,0 +1,125 @@
+{
+  "executive_summary": "Four isolated optimization experiments compare fresh baseline and candidate runs on relevant public scenarios. Production simulation sources remain unchanged.",
+  "campaign_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses",
+  "report_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/expirements/20261008-radical-hypotheses",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_tag": "track3-radical-base:a7fb6c3",
+  "corpus": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units",
+  "checker_python": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+  "experiments": [
+    {
+      "slug": "h01-parquet-codes",
+      "branch": "codex/exp-20261008-radical-h01-parquet-codes",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes",
+      "title": "Специализированный Parquet writer",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-pop-horizon-scale",
+        "t3-mr-deep-book-state-size",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11aaa-cc14-76a3-9333-fb20d03af66d",
+      "host_id": "local",
+      "phase1_implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+      "prepared_implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+      "candidate_image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6"
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "branch": "codex/exp-20261008-radical-h02-ledger-pipeline",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline",
+      "title": "Потоковая запись message ledger",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-pop-horizon-scale",
+        "t3-gb-horizon-240s",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11aaa-d11d-78e0-85fb-ba8e001dc771",
+      "host_id": "local",
+      "phase1_implementation_commit": "eb682a39dd079e2f6a4773484483ad84cc7d9d87",
+      "prepared_implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+      "candidate_image": "sha256:c579f0db37f6e22491b5a191b335b3d87633d49e550c228dbe2e47fe90078bef"
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "branch": "codex/exp-20261008-radical-h03-recipient-scheduler",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler",
+      "title": "Очереди получателей без повторных requeue",
+      "units": [
+        "t3-coarse-tick-ties",
+        "t3-eq-deterministic-baseline",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-gb-pop-horizon-scale",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-s019-latency-jitter-kendall",
+        "t3-eq001-pareto-latency-tail",
+        "t3-mp07-heavy-flow-oldest",
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11aaa-d552-7850-936e-d3371fd36441",
+      "host_id": "local",
+      "phase1_implementation_commit": "05aa9996d9e64f80b24e54feb2554334e30f8073",
+      "prepared_implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+      "candidate_image": "sha256:1e7fcc47642b134db12feba0cc04a91475785f7ffdf0d38af48a93ccd196f1e7"
+    },
+    {
+      "slug": "h04-book-arena",
+      "branch": "codex/exp-20261008-radical-h04-book-arena",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena",
+      "title": "Арена заявок и разреженный индекс цен",
+      "units": [
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest",
+        "t3-multilevel-crossing",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-mp02-stp-oldest-baseline",
+        "t3-partialfill-atomicity",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11aaa-d8a6-7313-8a8b-e2af7dc6ec4b",
+      "host_id": "local",
+      "phase1_implementation_commit": "f4765a89110aec3b5ec792b1fbd378ec85417a47",
+      "prepared_implementation_commit": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33",
+      "candidate_image": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070"
+    }
+  ],
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "correctness": "Exact bytes, schema, ordered values for BOTH journals plus unchanged shared developer gates; assert actual native engine every market.",
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "phase1": "Implementation, host checks, fixed scenario plan, immutable commit; no Docker until coordinator phase2 dispatch."
+  },
+  "baseline_source_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6"
+}

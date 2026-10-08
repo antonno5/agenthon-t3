@@ -1,0 +1,98 @@
+{
+  "executive_summary": "Three isolated native component experiments compare the same current develop baseline on only their assigned public scenarios. All results are local and non-rankable.",
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "baseline_source_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "baseline_image_source_commit": "286ae974641e4ad23e81288b5beee2d7d9da20c5",
+  "baseline_image": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+  "baseline_tag": "track3-ledger-arena:286ae97",
+  "corpus": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units",
+  "report_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical",
+  "campaign_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical",
+  "experiments": [
+    {
+      "slug": "h01-trace-stream",
+      "title": "Chronological compact lifecycle trace",
+      "branch": "codex/exp-20261008-component-h01-trace-stream",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h01-trace-stream",
+      "units": [
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest",
+        "t3-gb-horizon-240s",
+        "t3-gb-mega-throughput"
+      ],
+      "correctness_only_units": [
+        "t3-coarse-tick-ties",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-partialfill-atomicity",
+        "t3-s001-price-time-priority",
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11b9c-a0af-7130-bb63-7e68b61a2609",
+      "host_id": "local"
+    },
+    {
+      "slug": "h02-parquet-parallel",
+      "title": "Parallel Parquet column encoding",
+      "branch": "codex/exp-20261008-component-h02-parquet-parallel",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-pop-horizon-scale",
+        "t3-gb-horizon-240s",
+        "t3-mr-deep-book-state-size"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-s001-price-time-priority",
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11b9c-a4b4-7bb3-b3c5-53e5cde2d489",
+      "host_id": "local"
+    },
+    {
+      "slug": "h03-protocol-fusion",
+      "title": "Specialized protocol execution",
+      "branch": "codex/exp-20261008-component-h03-protocol-fusion",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion",
+      "units": [
+        "t3-gb-highfreq-40hz-60s",
+        "t3-gb-pop-horizon-scale",
+        "t3-mp07-heavy-flow-oldest",
+        "t3-coarse-tick-ties"
+      ],
+      "correctness_only_units": [
+        "t3-eq-deterministic-baseline",
+        "t3-s019-latency-jitter-kendall",
+        "t3-eq001-pareto-latency-tail",
+        "t3-s012-partial-fill-cancel-race",
+        "t3-s001-price-time-priority",
+        "t3-gbatch-hetero-mix"
+      ],
+      "thread_id": "01a11b9c-a7d8-7270-8279-b9a0af98c57f",
+      "host_id": "local"
+    }
+  ],
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Exact bytes, schema and ordered values of BOTH journals, shared developer gates, actual native execution per market. Correctness-only scenarios excluded from speed conclusions."
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "executive_summary": "Direct code-to-Parquet writer is ready for pinned correctness and fixed paired timing. Host and sanitizer checks pass; no Docker work or speedup claims have occurred.",
+  "state": "ready",
+  "phase": 1,
+  "slug": "h01-parquet-codes",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "branch": "codex/exp-20261008-radical-h01-parquet-codes",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes",
+  "implementation_source_sha256": "b38e3a43d030c37883b8844eb7ac3e91bbb5a6228ad3000d2ef7de0f43705d3f",
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-mr-deep-book-state-size",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-gbatch-hetero-mix"
+  ],
+  "test_evidence": {
+    "host": {
+      "path": "evidence/host-final/checks.json",
+      "sha256": "26f4d3b23ca79ba689bb1792abaa002f3b834fcb5cf0fe81f8188483ecf1dca4",
+      "summary": {
+        "status": "passed",
+        "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+        "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+        "arrow": "25.0.1",
+        "pinned": false,
+        "file_pairs": 102
+      }
+    },
+    "sanitized": {
+      "path": "evidence/host-sanitized/checks.json",
+      "sha256": "a7c367b2d0317aa54b788eb16aa17c244a8987b06cc4bff33142f6fa118e1866",
+      "summary": {
+        "status": "passed",
+        "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+        "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+        "arrow": "25.0.1",
+        "pinned": false,
+        "file_pairs": 102
+      }
+    },
+    "corpus": {
+      "path": "evidence/corpus-checks.json",
+      "sha256": "e9775228ffd02faf1902e003a778ea3080b3c529f853df827964e7ceb12b507f",
+      "summary": {
+        "t3-gb-mega-throughput": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-gb-pop-horizon-scale": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-mr-deep-book-state-size": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-s001-price-time-priority": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-gbatch-hetero-mix": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        }
+      }
+    }
+  },
+  "pinned_validation": "pending phase 2",
+  "docker_runs": 0,
+  "production_source_changes": [
+    "baselines/native/pqwrite.cpp"
+  ],
+  "numeric_settings_unchanged": true,
+  "baseline_dependencies_unchanged": true,
+  "rankable": false,
+  "adopted": false
+}

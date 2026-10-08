@@ -1,0 +1,1639 @@
+{
+  "primary_clock": "Docker FinishedAt minus StartedAt",
+  "excluded_warmups": 8,
+  "timed_samples": 40,
+  "all_samples": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 1.285876826,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002464110992150381,
+          "simulation_and_trace_finalize": 0.54270816,
+          "parquet_write": 0.2832931130024755,
+          "hashing": 0.1550255120091606
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 341594112
+      },
+      "docker_started_at": "2026-10-08T14:53:33.530987193Z",
+      "docker_finished_at": "2026-10-08T14:53:34.816864019Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699814,
+          "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451495,
+          "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 1.405272157,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0025249449972761795,
+          "simulation_and_trace_finalize": 0.617260607,
+          "parquet_write": 0.2940536720010898,
+          "hashing": 0.1476255419984227
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 342822912
+      },
+      "docker_started_at": "2026-10-08T14:53:43.235348383Z",
+      "docker_finished_at": "2026-10-08T14:53:44.64062054Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699643,
+          "sha256": "ffee0c123fb0e0b3dc72b543409fc8d6491a3853ad5bf7653ea38cca9f9f88fa"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451833,
+          "sha256": "61f907925a50712bfd08bb06bbceec008043db427622b7351a6c18a724c5a604"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 1.427739129,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0028480460023274645,
+          "simulation_and_trace_finalize": 0.576094803,
+          "parquet_write": 0.3386999660071305,
+          "hashing": 0.15521772699139547
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 364212224
+      },
+      "docker_started_at": "2026-10-08T14:53:51.810030506Z",
+      "docker_finished_at": "2026-10-08T14:53:53.237769635Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699814,
+          "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451495,
+          "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 1.624086217,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.006283044000156224,
+          "simulation_and_trace_finalize": 0.716812525,
+          "parquet_write": 0.24089835900215373,
+          "hashing": 0.2532407140097348
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 334979072
+      },
+      "docker_started_at": "2026-10-08T14:54:00.360458122Z",
+      "docker_finished_at": "2026-10-08T14:54:01.984544339Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699643,
+          "sha256": "ffee0c123fb0e0b3dc72b543409fc8d6491a3853ad5bf7653ea38cca9f9f88fa"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451833,
+          "sha256": "61f907925a50712bfd08bb06bbceec008043db427622b7351a6c18a724c5a604"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 1.658700743,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0040584959933767095,
+          "simulation_and_trace_finalize": 0.667086276,
+          "parquet_write": 0.27151869200334655,
+          "hashing": 0.1720363799977349
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 314396672
+      },
+      "docker_started_at": "2026-10-08T14:54:10.614285274Z",
+      "docker_finished_at": "2026-10-08T14:54:12.272986017Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699643,
+          "sha256": "ffee0c123fb0e0b3dc72b543409fc8d6491a3853ad5bf7653ea38cca9f9f88fa"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451833,
+          "sha256": "61f907925a50712bfd08bb06bbceec008043db427622b7351a6c18a724c5a604"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 1.897824724,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.00357684500340838,
+          "simulation_and_trace_finalize": 0.718936807,
+          "parquet_write": 0.45216746300443456,
+          "hashing": 0.18001240599551238
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 338665472
+      },
+      "docker_started_at": "2026-10-08T14:54:21.120821943Z",
+      "docker_finished_at": "2026-10-08T14:54:23.018646667Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699814,
+          "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451495,
+          "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 1.707164338,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.005324983008904383,
+          "simulation_and_trace_finalize": 0.635684689,
+          "parquet_write": 0.28605521499169273,
+          "hashing": 0.18319179699756205
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 331808768
+      },
+      "docker_started_at": "2026-10-08T14:54:32.985259747Z",
+      "docker_finished_at": "2026-10-08T14:54:34.692424085Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699814,
+          "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451495,
+          "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 1.538814399,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0027945140027441084,
+          "simulation_and_trace_finalize": 0.70253936,
+          "parquet_write": 0.22888836300052462,
+          "hashing": 0.18584427300083917
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 323403776
+      },
+      "docker_started_at": "2026-10-08T14:54:44.224640276Z",
+      "docker_finished_at": "2026-10-08T14:54:45.763454675Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699643,
+          "sha256": "ffee0c123fb0e0b3dc72b543409fc8d6491a3853ad5bf7653ea38cca9f9f88fa"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451833,
+          "sha256": "61f907925a50712bfd08bb06bbceec008043db427622b7351a6c18a724c5a604"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 1.754595431,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.003789926995523274,
+          "simulation_and_trace_finalize": 0.683303058,
+          "parquet_write": 0.463278322002317,
+          "hashing": 0.17690251300518867
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 310431744
+      },
+      "docker_started_at": "2026-10-08T14:54:54.480330836Z",
+      "docker_finished_at": "2026-10-08T14:54:56.234926267Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699643,
+          "sha256": "ffee0c123fb0e0b3dc72b543409fc8d6491a3853ad5bf7653ea38cca9f9f88fa"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451833,
+          "sha256": "61f907925a50712bfd08bb06bbceec008043db427622b7351a6c18a724c5a604"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 1.48681553,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.00668835399847012,
+          "simulation_and_trace_finalize": 0.720870427,
+          "parquet_write": 0.323501079999596,
+          "hashing": 0.16458063099707942
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 360722432
+      },
+      "docker_started_at": "2026-10-08T14:55:04.6328692Z",
+      "docker_finished_at": "2026-10-08T14:55:06.11968473Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699814,
+          "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451495,
+          "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 1.567736316,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.00302902000839822,
+          "simulation_and_trace_finalize": 0.640566491,
+          "parquet_write": 0.35453999499243727,
+          "hashing": 0.16628362800111063
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 361897984
+      },
+      "docker_started_at": "2026-10-08T14:55:14.116307742Z",
+      "docker_finished_at": "2026-10-08T14:55:15.684044058Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699814,
+          "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451495,
+          "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 1.227936915,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0026258059951942414,
+          "simulation_and_trace_finalize": 0.543187988,
+          "parquet_write": 0.18295978899345722,
+          "hashing": 0.14272700301080476
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 312176640
+      },
+      "docker_started_at": "2026-10-08T14:55:23.379162625Z",
+      "docker_finished_at": "2026-10-08T14:55:24.60709954Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 11699643,
+          "sha256": "ffee0c123fb0e0b3dc72b543409fc8d6491a3853ad5bf7653ea38cca9f9f88fa"
+        },
+        "message_trace.parquet": {
+          "bytes": 33451833,
+          "sha256": "61f907925a50712bfd08bb06bbceec008043db427622b7351a6c18a724c5a604"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 1.258460863,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002570629003457725,
+          "simulation_and_trace_finalize": 0.344204697,
+          "parquet_write": 0.4713751449902567,
+          "hashing": 0.09985462701297365
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 318992384
+      },
+      "docker_started_at": "2026-10-08T14:55:32.741710371Z",
+      "docker_finished_at": "2026-10-08T14:55:34.000171234Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311104,
+          "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710062,
+          "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 1.384075211,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0036718649935210124,
+          "simulation_and_trace_finalize": 0.41832254,
+          "parquet_write": 0.3860117850028556,
+          "hashing": 0.1118199740012642
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 335536128
+      },
+      "docker_started_at": "2026-10-08T14:55:38.524266274Z",
+      "docker_finished_at": "2026-10-08T14:55:39.908341485Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311103,
+          "sha256": "78291b5a138977a5672dc79062a157c92780ddd2ddb1e092387303a9c03f8ceb"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710283,
+          "sha256": "40558f4fad8ca1252e1db8f0849f598376e5f19aaa0e5c1d9e92c6eb47f026a7"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 1.568122084,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0038937200006330386,
+          "simulation_and_trace_finalize": 0.412702856,
+          "parquet_write": 0.44823503199189496,
+          "hashing": 0.097727610002039
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 329478144
+      },
+      "docker_started_at": "2026-10-08T14:55:45.090886004Z",
+      "docker_finished_at": "2026-10-08T14:55:46.659008088Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311104,
+          "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710062,
+          "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 1.62516596,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.005918415990890935,
+          "simulation_and_trace_finalize": 0.592227872,
+          "parquet_write": 0.2592737600016002,
+          "hashing": 0.11613622200093232
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 322715648
+      },
+      "docker_started_at": "2026-10-08T14:55:52.581171752Z",
+      "docker_finished_at": "2026-10-08T14:55:54.206337712Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311103,
+          "sha256": "78291b5a138977a5672dc79062a157c92780ddd2ddb1e092387303a9c03f8ceb"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710283,
+          "sha256": "40558f4fad8ca1252e1db8f0849f598376e5f19aaa0e5c1d9e92c6eb47f026a7"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 1.267665309,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0026000910002039745,
+          "simulation_and_trace_finalize": 0.277949822,
+          "parquet_write": 0.38169883798830645,
+          "hashing": 0.2994479410117492
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 345653248
+      },
+      "docker_started_at": "2026-10-08T14:55:58.96058805Z",
+      "docker_finished_at": "2026-10-08T14:56:00.228253359Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311103,
+          "sha256": "78291b5a138977a5672dc79062a157c92780ddd2ddb1e092387303a9c03f8ceb"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710283,
+          "sha256": "40558f4fad8ca1252e1db8f0849f598376e5f19aaa0e5c1d9e92c6eb47f026a7"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 0.773230823,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002545480994740501,
+          "simulation_and_trace_finalize": 0.342069574,
+          "parquet_write": 0.360903876999707,
+          "hashing": 0.10120934700535145
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 341123072
+      },
+      "docker_started_at": "2026-10-08T14:56:05.403870918Z",
+      "docker_finished_at": "2026-10-08T14:56:06.177101741Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311104,
+          "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710062,
+          "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 1.55502542,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.003954404004616663,
+          "simulation_and_trace_finalize": 0.40070217,
+          "parquet_write": 0.49898319699598187,
+          "hashing": 0.15839304399560206
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 310272000
+      },
+      "docker_started_at": "2026-10-08T14:56:11.37897941Z",
+      "docker_finished_at": "2026-10-08T14:56:12.93400483Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311104,
+          "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710062,
+          "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 1.040056377,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0036682619975181296,
+          "simulation_and_trace_finalize": 0.324954492,
+          "parquet_write": 0.290425816998283,
+          "hashing": 0.10681970200676005
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 316919808
+      },
+      "docker_started_at": "2026-10-08T14:56:17.280099838Z",
+      "docker_finished_at": "2026-10-08T14:56:18.320156215Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311103,
+          "sha256": "78291b5a138977a5672dc79062a157c92780ddd2ddb1e092387303a9c03f8ceb"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710283,
+          "sha256": "40558f4fad8ca1252e1db8f0849f598376e5f19aaa0e5c1d9e92c6eb47f026a7"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 0.902043415,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.00263018200348597,
+          "simulation_and_trace_finalize": 0.281892334,
+          "parquet_write": 0.24071852699315432,
+          "hashing": 0.10129852499812841
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 306491392
+      },
+      "docker_started_at": "2026-10-08T14:56:22.817132477Z",
+      "docker_finished_at": "2026-10-08T14:56:23.719175892Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311103,
+          "sha256": "78291b5a138977a5672dc79062a157c92780ddd2ddb1e092387303a9c03f8ceb"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710283,
+          "sha256": "40558f4fad8ca1252e1db8f0849f598376e5f19aaa0e5c1d9e92c6eb47f026a7"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 0.987325476,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0027089249924756587,
+          "simulation_and_trace_finalize": 0.280713895,
+          "parquet_write": 0.2794556500022817,
+          "hashing": 0.10060757400060538
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 335937536
+      },
+      "docker_started_at": "2026-10-08T14:56:28.075515743Z",
+      "docker_finished_at": "2026-10-08T14:56:29.062841219Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311104,
+          "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710062,
+          "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 1.362449645,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.00607453599513974,
+          "simulation_and_trace_finalize": 0.367787403,
+          "parquet_write": 0.29551278100913103,
+          "hashing": 0.10827518498990685
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 327630848
+      },
+      "docker_started_at": "2026-10-08T14:56:33.417189486Z",
+      "docker_finished_at": "2026-10-08T14:56:34.779639131Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311104,
+          "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710062,
+          "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11"
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 0.839774616,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002227557997684926,
+          "simulation_and_trace_finalize": 0.270643768,
+          "parquet_write": 0.17938329000288822,
+          "hashing": 0.09150727400265168
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 301789184
+      },
+      "docker_started_at": "2026-10-08T14:56:39.303749205Z",
+      "docker_finished_at": "2026-10-08T14:56:40.143523821Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 7311103,
+          "sha256": "78291b5a138977a5672dc79062a157c92780ddd2ddb1e092387303a9c03f8ceb"
+        },
+        "message_trace.parquet": {
+          "bytes": 20710283,
+          "sha256": "40558f4fad8ca1252e1db8f0849f598376e5f19aaa0e5c1d9e92c6eb47f026a7"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 0.740003745,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0026536559889791533,
+          "simulation_and_trace_finalize": 0.149913711,
+          "parquet_write": 0.1923159600050432,
+          "hashing": 0.040812407998600975
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 247627776
+      },
+      "docker_started_at": "2026-10-08T14:56:44.673073636Z",
+      "docker_finished_at": "2026-10-08T14:56:45.413077381Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2330078,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        "message_trace.parquet": {
+          "bytes": 7669002,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 0.682296182,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.003612617001635954,
+          "simulation_and_trace_finalize": 0.16667347,
+          "parquet_write": 0.11036314199484487,
+          "hashing": 0.039631961000850424
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 222519296
+      },
+      "docker_started_at": "2026-10-08T14:56:47.937360828Z",
+      "docker_finished_at": "2026-10-08T14:56:48.61965701Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2331564,
+          "sha256": "ddf581a9dccdc6d93038d62375a87be0e9939aa6fee20df7d4e5b82c198930ab"
+        },
+        "message_trace.parquet": {
+          "bytes": 7668782,
+          "sha256": "d129b1c0834ee10ea3f0b508ac2a23c3a660638755e3e33310983476c02b82e7"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 0.986891137,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.004236841996316798,
+          "simulation_and_trace_finalize": 0.232800892,
+          "parquet_write": 0.19898886300632077,
+          "hashing": 0.04834004100121092
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 247332864
+      },
+      "docker_started_at": "2026-10-08T14:56:51.223405715Z",
+      "docker_finished_at": "2026-10-08T14:56:52.210296852Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2330078,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        "message_trace.parquet": {
+          "bytes": 7669002,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 0.693958189,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0024678299960214645,
+          "simulation_and_trace_finalize": 0.174017557,
+          "parquet_write": 0.15222631099579953,
+          "hashing": 0.04069658801017795
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 245137408
+      },
+      "docker_started_at": "2026-10-08T14:56:54.692199466Z",
+      "docker_finished_at": "2026-10-08T14:56:55.386157655Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2331564,
+          "sha256": "ddf581a9dccdc6d93038d62375a87be0e9939aa6fee20df7d4e5b82c198930ab"
+        },
+        "message_trace.parquet": {
+          "bytes": 7668782,
+          "sha256": "d129b1c0834ee10ea3f0b508ac2a23c3a660638755e3e33310983476c02b82e7"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 0.71177518,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.00362586799019482,
+          "simulation_and_trace_finalize": 0.192730995,
+          "parquet_write": 0.16066203500364454,
+          "hashing": 0.041224596003303304
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 247173120
+      },
+      "docker_started_at": "2026-10-08T14:56:57.311599373Z",
+      "docker_finished_at": "2026-10-08T14:56:58.023374553Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2331564,
+          "sha256": "ddf581a9dccdc6d93038d62375a87be0e9939aa6fee20df7d4e5b82c198930ab"
+        },
+        "message_trace.parquet": {
+          "bytes": 7668782,
+          "sha256": "d129b1c0834ee10ea3f0b508ac2a23c3a660638755e3e33310983476c02b82e7"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 0.571321679,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002071214999887161,
+          "simulation_and_trace_finalize": 0.115831004,
+          "parquet_write": 0.16377472700426698,
+          "hashing": 0.04249233700102195
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 248164352
+      },
+      "docker_started_at": "2026-10-08T14:57:00.036833048Z",
+      "docker_finished_at": "2026-10-08T14:57:00.608154727Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2330078,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        "message_trace.parquet": {
+          "bytes": 7669002,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 0.945881456,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002619443999719806,
+          "simulation_and_trace_finalize": 0.200307433,
+          "parquet_write": 0.31339982100920494,
+          "hashing": 0.048399010993307456
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 249835520
+      },
+      "docker_started_at": "2026-10-08T14:57:03.155278535Z",
+      "docker_finished_at": "2026-10-08T14:57:04.101159991Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2330078,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        "message_trace.parquet": {
+          "bytes": 7669002,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 0.672939543,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0021584889909718186,
+          "simulation_and_trace_finalize": 0.190926623,
+          "parquet_write": 0.12163569901121749,
+          "hashing": 0.036879357998259366
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 246726656
+      },
+      "docker_started_at": "2026-10-08T14:57:06.469207299Z",
+      "docker_finished_at": "2026-10-08T14:57:07.142146842Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2331564,
+          "sha256": "ddf581a9dccdc6d93038d62375a87be0e9939aa6fee20df7d4e5b82c198930ab"
+        },
+        "message_trace.parquet": {
+          "bytes": 7668782,
+          "sha256": "d129b1c0834ee10ea3f0b508ac2a23c3a660638755e3e33310983476c02b82e7"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 0.789513599,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.003819429999566637,
+          "simulation_and_trace_finalize": 0.238121476,
+          "parquet_write": 0.1477593160041727,
+          "hashing": 0.04559529399557505
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 248827904
+      },
+      "docker_started_at": "2026-10-08T14:57:09.381221824Z",
+      "docker_finished_at": "2026-10-08T14:57:10.170735423Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2331564,
+          "sha256": "ddf581a9dccdc6d93038d62375a87be0e9939aa6fee20df7d4e5b82c198930ab"
+        },
+        "message_trace.parquet": {
+          "bytes": 7668782,
+          "sha256": "d129b1c0834ee10ea3f0b508ac2a23c3a660638755e3e33310983476c02b82e7"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 0.880315342,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0047376830043504015,
+          "simulation_and_trace_finalize": 0.20063514,
+          "parquet_write": 0.2341954389899314,
+          "hashing": 0.05246336100390181
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 250679296
+      },
+      "docker_started_at": "2026-10-08T14:57:12.526788671Z",
+      "docker_finished_at": "2026-10-08T14:57:13.407104013Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2330078,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        "message_trace.parquet": {
+          "bytes": 7669002,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 0.566180147,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.004534849998890422,
+          "simulation_and_trace_finalize": 0.148414835,
+          "parquet_write": 0.1602978360015582,
+          "hashing": 0.04055045401037205
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 250957824
+      },
+      "docker_started_at": "2026-10-08T14:57:15.768063984Z",
+      "docker_finished_at": "2026-10-08T14:57:16.334244131Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2330078,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        "message_trace.parquet": {
+          "bytes": 7669002,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 1.017591469,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002968746004626155,
+          "simulation_and_trace_finalize": 0.226820966,
+          "parquet_write": 0.3457455470012203,
+          "hashing": 0.059599785003229044
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 246091776
+      },
+      "docker_started_at": "2026-10-08T14:57:18.63926854Z",
+      "docker_finished_at": "2026-10-08T14:57:19.656860009Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 2331564,
+          "sha256": "ddf581a9dccdc6d93038d62375a87be0e9939aa6fee20df7d4e5b82c198930ab"
+        },
+        "message_trace.parquet": {
+          "bytes": 7668782,
+          "sha256": "d129b1c0834ee10ea3f0b508ac2a23c3a660638755e3e33310983476c02b82e7"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 0.474992763,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0034354970121057704,
+          "simulation_and_trace_finalize": 0.005219067,
+          "parquet_write": 0.10409518399261106,
+          "hashing": 0.003428951997193508
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 51134464
+      },
+      "docker_started_at": "2026-10-08T14:57:22.383433171Z",
+      "docker_finished_at": "2026-10-08T14:57:22.858425934Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10242,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        "message_trace.parquet": {
+          "bytes": 26925,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "container_sec": 0.385176441,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0023911589960334823,
+          "simulation_and_trace_finalize": 0.005275491,
+          "parquet_write": 0.12501594399443308,
+          "hashing": 0.0026270350062986836
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 59486208
+      },
+      "docker_started_at": "2026-10-08T14:57:23.159967869Z",
+      "docker_finished_at": "2026-10-08T14:57:23.54514431Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10241,
+          "sha256": "96bcddcae8a14e6c2a6d7303a6c1f8f52e0c88ee48e850f8677fa320f1bdf82b"
+        },
+        "message_trace.parquet": {
+          "bytes": 26934,
+          "sha256": "9d7cf0d38893687a8cd169692a0f7d9af7877c26ef0ae2f9926c08f9b34bf62c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 0.306434908,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002196065994212404,
+          "simulation_and_trace_finalize": 0.004376213,
+          "parquet_write": 0.057517568996332105,
+          "hashing": 0.00251999800093472
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 50876416
+      },
+      "docker_started_at": "2026-10-08T14:57:23.819158217Z",
+      "docker_finished_at": "2026-10-08T14:57:24.125593125Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10242,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        "message_trace.parquet": {
+          "bytes": 26925,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "container_sec": 0.366030513,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0020456810016185045,
+          "simulation_and_trace_finalize": 0.004200737,
+          "parquet_write": 0.11060404900424249,
+          "hashing": 0.0025062170025194064
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 59482112
+      },
+      "docker_started_at": "2026-10-08T14:57:24.421447767Z",
+      "docker_finished_at": "2026-10-08T14:57:24.78747828Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10241,
+          "sha256": "96bcddcae8a14e6c2a6d7303a6c1f8f52e0c88ee48e850f8677fa320f1bdf82b"
+        },
+        "message_trace.parquet": {
+          "bytes": 26934,
+          "sha256": "9d7cf0d38893687a8cd169692a0f7d9af7877c26ef0ae2f9926c08f9b34bf62c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 0.394645936,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0021100080048199743,
+          "simulation_and_trace_finalize": 0.004455293,
+          "parquet_write": 0.12890683400232864,
+          "hashing": 0.002888558999984525
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 59617280
+      },
+      "docker_started_at": "2026-10-08T14:57:25.057964138Z",
+      "docker_finished_at": "2026-10-08T14:57:25.452610074Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10241,
+          "sha256": "96bcddcae8a14e6c2a6d7303a6c1f8f52e0c88ee48e850f8677fa320f1bdf82b"
+        },
+        "message_trace.parquet": {
+          "bytes": 26934,
+          "sha256": "9d7cf0d38893687a8cd169692a0f7d9af7877c26ef0ae2f9926c08f9b34bf62c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "container_sec": 0.331892843,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0023878200008766726,
+          "simulation_and_trace_finalize": 0.004692119,
+          "parquet_write": 0.07258415800660378,
+          "hashing": 0.0025690319889690727
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 51355648
+      },
+      "docker_started_at": "2026-10-08T14:57:25.717358412Z",
+      "docker_finished_at": "2026-10-08T14:57:26.049251255Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10242,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        "message_trace.parquet": {
+          "bytes": 26925,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 0.337544499,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0026697470020735636,
+          "simulation_and_trace_finalize": 0.005160032,
+          "parquet_write": 0.06822844500157203,
+          "hashing": 0.0025651829928392544
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 51097600
+      },
+      "docker_started_at": "2026-10-08T14:57:26.276470458Z",
+      "docker_finished_at": "2026-10-08T14:57:26.614014957Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10242,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        "message_trace.parquet": {
+          "bytes": 26925,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "container_sec": 0.458773995,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0027096660051029176,
+          "simulation_and_trace_finalize": 0.005487629,
+          "parquet_write": 0.2028966499870687,
+          "hashing": 0.002559982007369399
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 59482112
+      },
+      "docker_started_at": "2026-10-08T14:57:26.871045865Z",
+      "docker_finished_at": "2026-10-08T14:57:27.32981986Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10241,
+          "sha256": "96bcddcae8a14e6c2a6d7303a6c1f8f52e0c88ee48e850f8677fa320f1bdf82b"
+        },
+        "message_trace.parquet": {
+          "bytes": 26934,
+          "sha256": "9d7cf0d38893687a8cd169692a0f7d9af7877c26ef0ae2f9926c08f9b34bf62c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 0.378855781,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0027637010061880574,
+          "simulation_and_trace_finalize": 0.004640464,
+          "parquet_write": 0.12327994000381666,
+          "hashing": 0.0030733689927728847
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 59486208
+      },
+      "docker_started_at": "2026-10-08T14:57:27.656477182Z",
+      "docker_finished_at": "2026-10-08T14:57:28.035332963Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10241,
+          "sha256": "96bcddcae8a14e6c2a6d7303a6c1f8f52e0c88ee48e850f8677fa320f1bdf82b"
+        },
+        "message_trace.parquet": {
+          "bytes": 26934,
+          "sha256": "9d7cf0d38893687a8cd169692a0f7d9af7877c26ef0ae2f9926c08f9b34bf62c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "container_sec": 0.35483838,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002274497994221747,
+          "simulation_and_trace_finalize": 0.004658945,
+          "parquet_write": 0.06825281900030963,
+          "hashing": 0.0024331090098712593
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 51490816
+      },
+      "docker_started_at": "2026-10-08T14:57:28.404647384Z",
+      "docker_finished_at": "2026-10-08T14:57:28.759485764Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10242,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        "message_trace.parquet": {
+          "bytes": 26925,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 0.291527348,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.002128969004843384,
+          "simulation_and_trace_finalize": 0.004339932,
+          "parquet_write": 0.052148469998649354,
+          "hashing": 0.0021943720057606697
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 51486720
+      },
+      "docker_started_at": "2026-10-08T14:57:28.977652997Z",
+      "docker_finished_at": "2026-10-08T14:57:29.269180345Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10242,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        "message_trace.parquet": {
+          "bytes": 26925,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "container_sec": 0.324827978,
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "phase_seconds_by_market": {
+        "single": {
+          "configuration": 0.0019361859885975718,
+          "simulation_and_trace_finalize": 0.00432146,
+          "parquet_write": 0.10342885500088517,
+          "hashing": 0.002660595011548139
+        }
+      },
+      "reported_process_peak_bytes_by_market": {
+        "single": 59355136
+      },
+      "docker_started_at": "2026-10-08T14:57:29.483350594Z",
+      "docker_finished_at": "2026-10-08T14:57:29.808178572Z",
+      "files": {
+        "trace.parquet": {
+          "bytes": 10241,
+          "sha256": "96bcddcae8a14e6c2a6d7303a6c1f8f52e0c88ee48e850f8677fa320f1bdf82b"
+        },
+        "message_trace.parquet": {
+          "bytes": 26934,
+          "sha256": "9d7cf0d38893687a8cd169692a0f7d9af7877c26ef0ae2f9926c08f9b34bf62c"
+        }
+      }
+    }
+  ]
+}

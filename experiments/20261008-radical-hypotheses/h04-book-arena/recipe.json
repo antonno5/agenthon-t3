@@ -1,0 +1,52 @@
+{
+  "executive_summary": "Rebuild the native extension only, preserving the pinned baseline runtime and shared exclusive Docker slot.",
+  "phase": "phase2a-prepared",
+  "build_context": "worktree root",
+  "local_recipe": "expirements/20261008-radical-hypotheses/h04-book-arena/Dockerfile",
+  "preferred_campaign_recipe": null,
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_tag": "track3-radical-h04-book-arena:phase2",
+  "build_argv_template": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "build",
+    "--platform=linux/amd64",
+    "--build-arg",
+    "BASE_IMAGE=<pinned-baseline-image-identity>",
+    "-f",
+    "<experiment-directory>/Dockerfile",
+    "-t",
+    "track3-radical-h04-book-arena:phase2",
+    "."
+  ],
+  "serial_slot_prefix": [
+    "<checker-python>",
+    "<campaign-directory>/docker_slot.py",
+    "--"
+  ],
+  "paired_runner": "<campaign-directory>/run_focused.py --slug h04-book-arena --candidate-image <immutable-candidate-image-identity> --candidate-commit <implementation-commit> --out <experiment-directory>/evidence/timing",
+  "controls_runner": "same run_focused.py with --controls-only and --out <experiment-directory>/evidence/controls",
+  "correctness_source": "unchanged scripts/run_differential_experiment.py and imported shared developer gates",
+  "compiler_flags_unchanged": [
+    "-std=c++17",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-strict-aliasing"
+  ],
+  "python_unchanged": "3.11",
+  "pyarrow_unchanged": "15.0.2",
+  "runtime_caps": {
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none"
+  },
+  "baseline_resolution": "local baseline tag guarded against immutable image ID before/after build",
+  "compiled_native_book_tests": [
+    "smoke",
+    "80000-mutation independently extracted baseline differential",
+    "requested-allocation memory probe"
+  ]
+}

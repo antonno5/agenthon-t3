@@ -1,0 +1,398 @@
+{
+  "complete": true,
+  "accepted": true,
+  "audits": [
+    {
+      "slug": "h01-parquet-codes",
+      "journal_digests_independently_rechecked": 96,
+      "runs": 48,
+      "correctness_control_runs": 10,
+      "controls_summary_sha256": "460e8751809d80893ec37c681e13f0b3f37eb7e5120498dfd916ae2a315e28a1",
+      "summary_sha256": "624d650776215aaff595bfc0ae24ad74fddaf2b54f47dcc71dd7e8741c753fe9",
+      "implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+      "completion": {
+        "executive_summary": "H01 completed its one fixed series with exact correctness. Full-run timing improved on one unit and regressed on three; no general writer speedup or production adoption is claimed.",
+        "state": "complete",
+        "phase": "2b",
+        "slug": "h01-parquet-codes",
+        "complete": true,
+        "accepted": true,
+        "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+        "candidate_image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6",
+        "image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6",
+        "image_source_commit": "0ff61563bde3ab0fe8a1392334ec5c3051fa4852",
+        "implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+        "measurement_implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+        "final_report_commit": "4dac76f215653a076709bb536a6489bee4f70049",
+        "branch": "codex/exp-20261008-radical-h01-parquet-codes",
+        "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes",
+        "report_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/result.json",
+        "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/README.md",
+        "completion_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/completion.json",
+        "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2b-timing",
+        "controls_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/controls",
+        "pinned_probe_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/pinned/checks.json",
+        "result_sha256": "08e95d6252910a634d52f1ba61a6ee67486542c5a314e116f16b767672f1b093",
+        "readme_sha256": "039697edf806956b900d80c40e2c1c814c7390523ee46f3b17a1a15a3d2ebdce",
+        "timing_summary_sha256": "624d650776215aaff595bfc0ae24ad74fddaf2b54f47dcc71dd7e8741c753fe9",
+        "counts": {
+          "accepted_runs": 48,
+          "timed_samples": 40,
+          "warmups": 8
+        },
+        "results": [
+          {
+            "unit": "t3-gb-mega-throughput",
+            "time_reduction_pct": 5.342486776312061
+          },
+          {
+            "unit": "t3-gb-pop-horizon-scale",
+            "time_reduction_pct": -1.4480998989087057
+          },
+          {
+            "unit": "t3-mr-deep-book-state-size",
+            "time_reduction_pct": -26.074887445616813
+          },
+          {
+            "unit": "t3-s001-price-time-priority",
+            "time_reduction_pct": -0.4917933702909494
+          }
+        ],
+        "source_unchanged_during_and_after_measurement": true,
+        "working_tree_clean": true,
+        "rankable": false,
+        "adopted": false,
+        "limitations": [
+          "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+          "Native core timing includes trace finalization; it is not matcher-only time.",
+          "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+          "Process peak values in profiles are not independent per-market memory peaks.",
+          "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+        ]
+      }
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "journal_digests_independently_rechecked": 96,
+      "runs": 48,
+      "correctness_control_runs": 12,
+      "controls_summary_sha256": "22b9ab0d997d4b91da38cdadae8dbaacbe60b7018ede1b9246082af9cd6af084",
+      "summary_sha256": "51332565d3141469d35b87c6559c8f95b32bba2ecf036024e801805249d003fc",
+      "implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+      "completion": {
+        "executive_summary": "H02 completed one fixed paired timing series with exact journals and shared gates passing on all 48 runs. Full-container medians improved locally by 9.47%, 3.38%, 7.78% and 3.11%; no production adoption.",
+        "state": "complete",
+        "slug": "h02-ledger-pipeline",
+        "complete": true,
+        "accepted": true,
+        "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline",
+        "branch": "codex/exp-20261008-radical-h02-ledger-pipeline",
+        "image": "sha256:c579f0db37f6e22491b5a191b335b3d87633d49e550c228dbe2e47fe90078bef",
+        "candidate_image": "sha256:c579f0db37f6e22491b5a191b335b3d87633d49e550c228dbe2e47fe90078bef",
+        "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+        "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+        "implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+        "measurement_implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+        "final_report_commit": "367728a6d093df211c1f89108b6b3e74492f2d82",
+        "report_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/README.md",
+        "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/result.json",
+        "evidence_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2b-timing",
+        "controls_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-focused-controls",
+        "evidence": {
+          "result": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/result.json",
+            "sha256": "bfee36b1889b58536bddf28959386bf99eb160fe4f813efb831c34b075199cda"
+          },
+          "raw_summary": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2b-timing/summary.json",
+            "sha256": "51332565d3141469d35b87c6559c8f95b32bba2ecf036024e801805249d003fc"
+          },
+          "final_audit": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2b-summary.json",
+            "sha256": "afbcce13877e9b9b904ae9d3393371202b1f9c297086d52abc48a3e7abd5551e"
+          }
+        },
+        "counts": {
+          "accepted_runs": 48,
+          "timed_samples": 40,
+          "warmups": 8
+        },
+        "results": [
+          {
+            "unit": "t3-gb-mega-throughput",
+            "time_reduction_pct": 9.471468970852637,
+            "candidate_faster_pairs": 3
+          },
+          {
+            "unit": "t3-gb-pop-horizon-scale",
+            "time_reduction_pct": 3.3834941851932143,
+            "candidate_faster_pairs": 3
+          },
+          {
+            "unit": "t3-gb-horizon-240s",
+            "time_reduction_pct": 7.778609243523693,
+            "candidate_faster_pairs": 4
+          },
+          {
+            "unit": "t3-s001-price-time-priority",
+            "time_reduction_pct": 3.1111708125954873,
+            "candidate_faster_pairs": 3
+          }
+        ],
+        "all_samples_retained": true,
+        "extra_repeats": 0,
+        "source_unchanged_during_measurement": true,
+        "implementation_unchanged_after_results": true,
+        "working_tree_clean": true,
+        "original_baselines_clean": true,
+        "rankable": false,
+        "adopted": false,
+        "merged": false,
+        "pushed": false,
+        "limitations": [
+          "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+          "Native core timing includes trace finalization; it is not matcher-only time.",
+          "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+          "Process peak values in profiles are not independent per-market memory peaks.",
+          "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+        ]
+      }
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "journal_digests_independently_rechecked": 120,
+      "runs": 60,
+      "correctness_control_runs": 18,
+      "controls_summary_sha256": "ada279c3a38c446e860133a1c0c178c241633c251ccb0bce226dd596daee072f",
+      "summary_sha256": "6ef9c0169a2f8e9ce44e7d5347e06b689567f3a321a1dd0a9f985f3acc1ca9ca",
+      "implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+      "completion": {
+        "executive_summary": "H03 preserved correctness but did not demonstrate a general full-container speed benefit in the one fixed local paired series. Every sample is retained and no production adoption occurred.",
+        "slug": "h03-recipient-scheduler",
+        "complete": true,
+        "accepted": true,
+        "rankable": false,
+        "adopted": false,
+        "branch": "codex/exp-20261008-radical-h03-recipient-scheduler",
+        "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler",
+        "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+        "candidate_image": "sha256:1e7fcc47642b134db12feba0cc04a91475785f7ffdf0d38af48a93ccd196f1e7",
+        "image": "sha256:1e7fcc47642b134db12feba0cc04a91475785f7ffdf0d38af48a93ccd196f1e7",
+        "implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+        "measurement_implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+        "candidate_build_commit": "b05b1a210e7b0f690a802095954648d65cfd0a45",
+        "final_report_commit": "94beeb12244fa22d1ec604c090d9fd9a633b67a9",
+        "report_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/README.md",
+        "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/result.json",
+        "report_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler",
+        "evidence_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2b-timing",
+        "phase2a_controls_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2a-03/controls",
+        "counts": {
+          "accepted_runs": 60,
+          "timed_samples": 50,
+          "warmups": 10
+        },
+        "results": [
+          {
+            "unit": "t3-coarse-tick-ties",
+            "time_reduction_pct": 0.8549492764652444,
+            "candidate_faster_pairs": 3
+          },
+          {
+            "unit": "t3-eq-deterministic-baseline",
+            "time_reduction_pct": -3.9594949342452113,
+            "candidate_faster_pairs": 2
+          },
+          {
+            "unit": "t3-s012-partial-fill-cancel-race",
+            "time_reduction_pct": -10.91338822625556,
+            "candidate_faster_pairs": 1
+          },
+          {
+            "unit": "t3-gb-pop-horizon-scale",
+            "time_reduction_pct": -16.80556283437329,
+            "candidate_faster_pairs": 1
+          },
+          {
+            "unit": "t3-s001-price-time-priority",
+            "time_reduction_pct": -3.6595469469124176,
+            "candidate_faster_pairs": 2
+          }
+        ],
+        "source_unchanged_during_measurement": true,
+        "final_commit_reports_only": true,
+        "worktree_clean": true,
+        "serial_slot_released": true,
+        "all_outliers_retained": true,
+        "additional_timing_repeats": 0,
+        "artifact_sha256": {
+          "README.md": "b9e3866ef0cd121c3824c705c191d30d64487ca41f47cd3701c323b0bf020777",
+          "result.json": "39f2b99da018eaffac5cdd075dcc93e1bc27abc75ce1bb4a6f1a96b109d11acc",
+          "report_audit.json": "8d0207f20929aa3a0970252b636f275919fe494636308cd3568f752eea8ae366",
+          "phase2-readiness.json": "6dc4267c4a1c3c92018dcbe17f39dce316b798898365109e9afa985ed1ce0a38",
+          "policy.json": "d3bd081143fcc58b138f5cff954a15336c6169ff4425227965113b0da6cee99b",
+          "structural_counts.json": "18b0a5c671e0f385b01b42bff2dd0b50a4db97d0e7388d14a561a3dd64e840d9"
+        }
+      }
+    },
+    {
+      "slug": "h04-book-arena",
+      "journal_digests_independently_rechecked": 96,
+      "runs": 48,
+      "correctness_control_runs": 16,
+      "controls_summary_sha256": "72396405c2bfa02c3dab0428db56b392c98c07bca6c711a42b9a18988b33b101",
+      "summary_sha256": "a05e136d5ac1d7e63602d32632c23e94725a74edc473fcddde9e68707840efc8",
+      "implementation_commit": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33",
+      "completion": {
+        "executive_summary": "H04 is complete and correct. One fixed paired local series found faster cancellation churn/multilevel crossing and slower deep-book/small-FIFO full-container medians. All evidence is retained; no production adoption.",
+        "slug": "h04-book-arena",
+        "state": "complete",
+        "complete": true,
+        "accepted": true,
+        "rankable": false,
+        "adopted": false,
+        "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena",
+        "branch": "codex/exp-20261008-radical-h04-book-arena",
+        "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+        "candidate_image": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+        "image": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+        "implementation_commit": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33",
+        "implementation_commit_measured": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33",
+        "candidate_build_commit": "8162577af0251257b96834c804925bd6306d2669",
+        "final_report_commit": "fd47cc0b4e657bb12cc87f8fcfda72f8f6584c75",
+        "report_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena",
+        "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/result.json",
+        "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/README.md",
+        "evidence_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing",
+        "controls_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/controls",
+        "counts": {
+          "accepted_runs": 48,
+          "timed_samples": 40,
+          "warmups": 8
+        },
+        "single_fixed_series": true,
+        "extra_timing_runs": 0,
+        "source_unchanged_during_measurement": true,
+        "git_status_clean": true,
+        "percent_formula": "100*(1-median(candidate)/median(baseline))",
+        "positive_means": "faster",
+        "results": [
+          {
+            "unit": "t3-mr-deep-book-state-size",
+            "full_container_reduction_pct": -3.8599725186478473,
+            "baseline_median_seconds": 0.683108309,
+            "candidate_median_seconds": 0.709476102,
+            "candidate_faster_pairs": 1
+          },
+          {
+            "unit": "t3-mp05-cancel-churn-newest",
+            "full_container_reduction_pct": 19.0722050103746,
+            "baseline_median_seconds": 0.655235679,
+            "candidate_median_seconds": 0.530267787,
+            "candidate_faster_pairs": 5
+          },
+          {
+            "unit": "t3-multilevel-crossing",
+            "full_container_reduction_pct": 7.2139566577391845,
+            "baseline_median_seconds": 0.436244387,
+            "candidate_median_seconds": 0.404773906,
+            "candidate_faster_pairs": 4
+          },
+          {
+            "unit": "t3-s001-price-time-priority",
+            "full_container_reduction_pct": -9.072983803693013,
+            "baseline_median_seconds": 0.295502302,
+            "candidate_median_seconds": 0.322313178,
+            "candidate_faster_pairs": 2
+          }
+        ],
+        "report_artifacts": {
+          "README.md": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/README.md",
+            "sha256": "d65bbc0e51c3b6ed4d2697ee91dec40e4179cee53e6e89814d3129660f93a356"
+          },
+          "result.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/result.json",
+            "sha256": "c3c07b209b0b1661af140c01bd488b36ac447604d58cbb5ff5f63346feab25d6"
+          },
+          "final-report-audit.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/final-report-audit.json",
+            "sha256": "e21127691fb555ab283ae43ac8b03d1074255a8283bf5ac932235b75b7a7578a"
+          },
+          "policy.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/policy.json",
+            "sha256": "ffd6e25243f23c6db7d21a178b372a45defd462d3a423cf4d8ac577bf66352c6"
+          },
+          "phase2a-correctness.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/phase2a-correctness.json",
+            "sha256": "f64ff253f81335b156f1d856cbe6b3ef5a068f089e2c0ec68451ada96a190bf6"
+          },
+          "linux-book-checks.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/linux-book-checks.json",
+            "sha256": "6c77639cd83402184f7ceb27da3d85621de36e69dcbcbeb92507d8dce270bef9"
+          },
+          "phase2a-image-audit.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/phase2a-image-audit.json",
+            "sha256": "2d1e8bb4655c7bf8da2e3a6502ca7986a14b745467dbc684d5bed1be373b4d0c"
+          },
+          "clock-audit.json": {
+            "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/clock-audit.json",
+            "sha256": "c8b91062d6e190e6bd6facfac177c65ad04a1a9b1604215cff417fabd71c2ce5"
+          }
+        },
+        "raw_evidence": {
+          "result": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing/result.json",
+          "summary": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing/summary.json",
+          "summary_sha256": "a05e136d5ac1d7e63602d32632c23e94725a74edc473fcddde9e68707840efc8"
+        },
+        "limitations": [
+          "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+          "Native core timing includes trace finalization; it is not matcher-only time.",
+          "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+          "Process peak values in profiles are not independent per-market memory peaks.",
+          "Historical Python measurements are motivation only; every control here is a fresh current-native run.",
+          "One adjacent s001 candidate pair has 18.671528 ms apparent overlap in Docker wall-clock intervals despite sequential harness launches. Cause unknown; VM clock adjustment is an unverified inference. Original primary clock values are preserved."
+        ],
+        "clock_audit": {
+          "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/clock-audit.json",
+          "apparent_overlap_ns": 18671528,
+          "affected_unit": "t3-s001-price-time-priority",
+          "affected_side": "candidate",
+          "timing_indices": [
+            2,
+            3
+          ],
+          "cause": "undetermined",
+          "vm_clock_adjustment": "unverified inference",
+          "primary_durations_and_percentages_preserved": true,
+          "timing_reruns": 0,
+          "code_changes": false
+        }
+      }
+    }
+  ],
+  "container_intervals_checked": 204,
+  "no_cross_experiment_timestamp_overlap": true,
+  "all_container_timestamps_nonoverlapping": false,
+  "clock_anomalies": [
+    {
+      "previous": [
+        "2026-10-08T11:10:05.411657371Z",
+        "2026-10-08T11:10:05.719943542Z",
+        "h04-book-arena",
+        "t3-s001-price-time-priority",
+        "timing"
+      ],
+      "next": [
+        "2026-10-08T11:10:05.701272014Z",
+        "2026-10-08T11:10:05.983541536Z",
+        "h04-book-arena",
+        "t3-s001-price-time-priority",
+        "timing"
+      ],
+      "cause": "unknown; Docker wall-clock intervals disagree with sequential launches and idle-slot checks"
+    }
+  ],
+  "serial_execution": "shared exclusive lock; synchronous runner with docker ps idle checks before each launch",
+  "timing_caveat": "One apparent 18.671528 ms overlap in H04 s001 candidate timing 2/3. Cause not established; original samples retained."
+}

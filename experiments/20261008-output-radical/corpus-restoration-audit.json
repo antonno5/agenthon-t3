@@ -1,0 +1,291 @@
+{
+  "executive_summary": "Untimed manifest and firewall audit confirms every public unit is intact after APFS plain-file restoration. No additional simulation scenario was benchmarked.",
+  "accepted": true,
+  "unit_count": 71,
+  "checks": {
+    "t3-as01-base-mix": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-as02-scale-up-noise": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-as03-mm-liquidity-heavy": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-as04-value-heavy": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-as05-oracle-variant": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-as06-throughput-fast": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ca-baseline-calm": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ca-fast-mean-reversion": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ca-fat-tail-jumps": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ca-high-volatility": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ca-thin-book-depth": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-cancelmodify-lifecycle": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-coarse-tick-ties": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-deterministic-baseline": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-lognormal-highmag": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-lognormal-highsigma": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-lognormal-lowsigma": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-pareto-heavytail": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-uniform-tight": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-uniform-wide": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq001-pareto-latency-tail": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-fastlob-core": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-fastlob-tight-book": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-base-30agent-30s": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-highfreq-40hz-60s": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-horizon-240s": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-mega-throughput": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-pop-128-agents": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-pop-horizon-scale": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-dense-3": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-hetero-mix": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-homog-4": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-homog-8": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-many-6": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-varsize": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-momentum-mix-priority": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp01-stp-newest-baseline": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp02-stp-oldest-baseline": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp03-mm-heavy-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp04-mm-heavy-oldest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp05-cancel-churn-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp06-tight-spread-selfcross": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp07-heavy-flow-oldest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mr-cancel-replace-churn": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mr-checkpoint-cadence-fine": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mr-deep-book-state-size": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mr-long-horizon-replay": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-multilevel-crossing": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-partialfill-atomicity": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ra01-fundamental-shock-mid": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ra02-shock-early": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ra03-large-shock": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ra04-shock-late": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ra05-shock-momentum-heavy": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-ra06-shock-value-heavy": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s001-price-time-priority": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s019-latency-jitter-kendall": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-01-baseline-regime": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-02-heavy-jump-tails": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-03-vol-clustering-momentum": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-04-thin-book-depth": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-05-deep-book-liquidity": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-06-high-fundamental-vol": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-sf-07-coarse-agent-batch": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-st01-liquidity-churn-baseline": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-st02-informed-entry-burst": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-st03-volatility-burst": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-st04-thin-book-mm-strain": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-st05-latency-spike-pareto": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-stp-cancel-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    }
+  }
+}

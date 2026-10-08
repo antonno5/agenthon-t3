@@ -1,0 +1,28 @@
+{
+  "executive_summary": "Host evidence matches the isolated candidate and unchanged baseline/checker scope.",
+  "passed": true,
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "branch": "codex/exp-20261008-radical-h04-book-arena",
+  "changed_baseline_files": [
+    "baselines/native/book.hpp",
+    "baselines/native/engine.cpp",
+    "baselines/native/tests/book_test.cpp"
+  ],
+  "protected_areas_unchanged": [
+    "scorer",
+    "cards",
+    "public traces",
+    "differential checker",
+    "RNG",
+    "Arrow writer",
+    "Python adapters",
+    "numeric build flags"
+  ],
+  "host_evidence_source_hashes_match": true,
+  "generated_mutations": 80000,
+  "integration_markets": 12,
+  "trace_rows_compared": 1036275,
+  "message_rows_compared": 897242,
+  "focused_manifest_and_firewall_pass": true,
+  "docker_phase2_pending": true
+}

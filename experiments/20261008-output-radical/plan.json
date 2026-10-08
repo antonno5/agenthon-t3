@@ -1,0 +1,121 @@
+{
+  "executive_summary": "Four isolated experiments test output encoding, native startup, a specialized writer and lifecycle pipelining on frozen public scenarios. Results are local, non-rankable, and no production adoption is authorized.",
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "baseline_source_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "baseline_tag": "track3-output-base:ff2c1d6",
+  "baseline_builder_tag": "track3-output-base-builder:ff2c1d6",
+  "corpus": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units",
+  "report_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-output-radical",
+  "campaign_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical",
+  "experiments": [
+    {
+      "slug": "h01-parquet-encoding",
+      "title": "Cheaper Parquet physical encoding",
+      "branch": "codex/exp-20261008-output-h01-parquet-encoding",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-pop-horizon-scale",
+        "t3-mr-deep-book-state-size",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-gbatch-hetero-mix"
+      ],
+      "comparison": "semantic_exact",
+      "experiment_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding",
+      "thread_id": "01a11bdf-cd99-7c02-b920-439c2b3f9ae5",
+      "host_id": "local"
+    },
+    {
+      "slug": "h02-native-executable",
+      "title": "Standalone native executable",
+      "branch": "codex/exp-20261008-output-h02-native-executable",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable",
+      "units": [
+        "t3-s001-price-time-priority",
+        "t3-eq-deterministic-baseline",
+        "t3-multilevel-crossing",
+        "t3-gb-mega-throughput"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-eq001-pareto-latency-tail",
+        "t3-gbatch-hetero-mix"
+      ],
+      "comparison": "byte_exact",
+      "experiment_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable",
+      "thread_id": "01a11bdf-d1a7-7410-9fd1-4faa7d3ac27c",
+      "host_id": "local"
+    },
+    {
+      "slug": "h03-specialized-writer",
+      "title": "Specialized fixed-schema Parquet writer",
+      "branch": "codex/exp-20261008-output-h03-specialized-writer",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-pop-horizon-scale",
+        "t3-mr-deep-book-state-size",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-gbatch-hetero-mix"
+      ],
+      "comparison": "semantic_exact",
+      "experiment_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer",
+      "thread_id": "01a11bdf-d64e-7f42-80fe-a9ce585e9b9f",
+      "host_id": "local"
+    },
+    {
+      "slug": "h04-lifecycle-pipeline",
+      "title": "Overlapping lifecycle trace encoding",
+      "branch": "codex/exp-20261008-output-h04-lifecycle-pipeline",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-horizon-240s",
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-partialfill-atomicity",
+        "t3-coarse-tick-ties",
+        "t3-s001-price-time-priority",
+        "t3-gbatch-hetero-mix"
+      ],
+      "comparison": "byte_exact",
+      "experiment_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline",
+      "thread_id": "01a11bdf-d993-7830-b9af-23de3240d67d",
+      "host_id": "local"
+    }
+  ],
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "baseline_builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e"
+}

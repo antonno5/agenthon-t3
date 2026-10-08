@@ -1,0 +1,29 @@
+{
+  "executive_summary": "Frozen base finalization and current native sources for reproducible isolated checks.",
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "original_engine_sha256": "fde55c5cce3c98411b5b99b4e4d449b6ba8844f4faf96d1aa3deb093f9138719",
+  "visibility_only_engine_sha256": "d81b29e276ad3bcafd57f72edf5e897f43fad198c935a5da29033121a9027bb4",
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "2f73e7a8277d02d02b94954f46f37ca09202662b1333a6dc3b775b32abf715bb",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/trace_stream.hpp": "a47143de34a01fa403b81cc28e1ff4ce8567f6997fc5a9e86f22c3ccdb663ef0"
+  }
+}

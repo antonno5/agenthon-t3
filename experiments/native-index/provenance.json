@@ -1,0 +1,26 @@
+{
+  "executive_summary": "Pinned native simulation sources adapted to preserve the current Python baseline price-index algorithms. No production files are changed.",
+  "source_repository": "https://github.com/antonno5/agenthon-t3",
+  "source_commit": "f563be0c2278aabae3036318e7a1869f0ba63d47",
+  "baseline_commit": "919d2f7",
+  "baseline_image": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+  "source_hashes": {
+    "native/engine.cpp": "7bdb7c3ea552165aae5be77ac5830974e14798edace574798ef87a3b0a3fa816",
+    "native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "agents_byte_equal": true,
+  "mapping_helpers_ast_equal": true,
+  "adopted": false
+}

@@ -1,0 +1,87 @@
+{
+  "slug": "h03-specialized-writer",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "implementation_commit": "aa1d514e1aeb219f9d5633462b4bdbe616b63eea",
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/result.json",
+  "result_sha256": "6b1c9066a3b0acedbc78b764f8909d1627c9dcf588caa778396585af24b5a17b",
+  "summary_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/phase2-timing/summary.json",
+  "summary_sha256": "f01292bd2cf6110a1079a261ac3685b610d972068139a8a89bedfeff82c1a45c",
+  "timing_command_sha256": "61827917ce99b1713aa382d7a65e7bfc941625f9c421816be503627de6086f92",
+  "timing_dispatch_log_sha256": "59878ba4dea050464841893a4fc7e9e43f65456dff16c0de3a056711916f0ffa",
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "source_unchanged": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "native_market_executions": 48,
+  "journal_file_comparisons": 128,
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "preflight_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/preflight.json",
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/phase2-timing",
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "median_container_seconds": {
+        "baseline": 1.567736316,
+        "candidate": 1.624086217
+      },
+      "time_reduction_pct": -3.5943481327123994,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "median_container_seconds": {
+        "baseline": 1.362449645,
+        "candidate": 1.040056377
+      },
+      "time_reduction_pct": 23.662765753078542,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "median_container_seconds": {
+        "baseline": 0.880315342,
+        "candidate": 0.71177518
+      },
+      "time_reduction_pct": 19.145430501880313,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "median_container_seconds": {
+        "baseline": 0.331892843,
+        "candidate": 0.378855781
+      },
+      "time_reduction_pct": -14.150030345788455,
+      "candidate_faster_pairs": 0
+    }
+  ]
+}

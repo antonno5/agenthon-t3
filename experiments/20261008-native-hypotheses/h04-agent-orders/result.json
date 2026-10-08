@@ -1,0 +1,1098 @@
+{
+  "executive_summary": "The compact trader order registry passes pinned correctness checks: every retained run executes natively, both Parquet journals match exactly, and all shared developer gates pass. Five paired full-container timings per assigned unit are retained, including outliers. The deep-book median is 7.25% faster; cancel-churn is 0.56% slower and lifecycle is 5.31% slower. Performance is experimental on an emulated amd64 host; no production adoption is made.",
+  "slug": "h04-agent-orders",
+  "title": "Компактный реестр заявок агента",
+  "branch": "codex/exp-20261008-h04-agent-orders",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image_source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "candidate_implementation_commit": "d1119e633be385478441c8f0e2e1623d258f21e7",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "assigned_units": [
+    "t3-mp05-cancel-churn-newest",
+    "t3-mr-deep-book-state-size",
+    "t3-cancelmodify-lifecycle"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca",
+      "digest": "sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca",
+      "repo_digests": [
+        "track3-h04-agent-orders@sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "d1119e633be385478441c8f0e2e1623d258f21e7"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/agent_orders.hpp": "28d17e8dac2f3da253a1f87491925a33d8bf4412fc5d06a63eca4d0f79f5c08f",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "bcf499598553a2b3bc7183c803c29c3f8eb5d70776fbabf7e49e24113bb2b469",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 36,
+    "timed_samples": 30,
+    "warmups": 6
+  },
+  "results": [
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "container_seconds_samples": {
+        "baseline": [
+          0.500643178,
+          0.514707025,
+          0.504961233,
+          0.455365433,
+          0.476492234
+        ],
+        "candidate": [
+          0.446168825,
+          0.591380427,
+          0.537108384,
+          0.466121476,
+          0.503447745
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.500643178,
+        "candidate": 0.503447745
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.500643178,
+          "candidate_seconds": 0.446168825,
+          "candidate_time_change_pct": -10.880873922544499
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.514707025,
+          "candidate_seconds": 0.591380427,
+          "candidate_time_change_pct": 14.896513604025529
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.504961233,
+          "candidate_seconds": 0.537108384,
+          "candidate_time_change_pct": 6.366261189797129
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.455365433,
+          "candidate_seconds": 0.466121476,
+          "candidate_time_change_pct": 2.3620684005674075
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.476492234,
+          "candidate_seconds": 0.503447745,
+          "candidate_time_change_pct": 5.657072471825431
+        }
+      ],
+      "candidate_faster_pairs": 1,
+      "time_reduction_pct": -0.5601927926400352,
+      "time_change_pct": 0.5601927926400352,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0021233989973552525,
+              0.0025059160034288652,
+              0.0019927180037484504,
+              0.002068159003101755,
+              0.002157739996619057
+            ],
+            "median": 0.0021233989973552525
+          },
+          "hashing": {
+            "samples": [
+              0.034567315997264814,
+              0.030570123002689797,
+              0.02835374300047988,
+              0.02863532700575888,
+              0.03213166000205092
+            ],
+            "median": 0.030570123002689797
+          },
+          "parquet_write": {
+            "samples": [
+              0.1560539210036354,
+              0.13833804899835467,
+              0.15062177099876398,
+              0.1346868149956565,
+              0.16150583799728507
+            ],
+            "median": 0.15062177099876398
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.095344971,
+              0.082225007,
+              0.094151336,
+              0.080271297,
+              0.075291292
+            ],
+            "median": 0.082225007
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0021492800005944446,
+              0.002768156999081839,
+              0.002400105004198849,
+              0.0023960619946592487,
+              0.002441799995722249
+            ],
+            "median": 0.002400105004198849
+          },
+          "hashing": {
+            "samples": [
+              0.028855074000603054,
+              0.030935053997382056,
+              0.032988525003020186,
+              0.032626836000417825,
+              0.033552888002304826
+            ],
+            "median": 0.032626836000417825
+          },
+          "parquet_write": {
+            "samples": [
+              0.13461969499888327,
+              0.19571779100502817,
+              0.16222454999624203,
+              0.14766079700091095,
+              0.1506140370009779
+            ],
+            "median": 0.1506140370009779
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.0713821,
+              0.095959652,
+              0.079843549,
+              0.071279093,
+              0.084335142
+            ],
+            "median": 0.079843549
+          }
+        }
+      },
+      "classification": "correct-but-slower"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "container_seconds_samples": {
+        "baseline": [
+          0.599284332,
+          0.69251336,
+          0.690310101,
+          0.642868833,
+          0.648350347
+        ],
+        "candidate": [
+          0.648057758,
+          0.583365991,
+          0.601350131,
+          0.619608474,
+          0.587816013
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.648350347,
+        "candidate": 0.601350131
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.599284332,
+          "candidate_seconds": 0.648057758,
+          "candidate_time_change_pct": 8.138611906843574
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.69251336,
+          "candidate_seconds": 0.583365991,
+          "candidate_time_change_pct": -15.761048855432913
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.690310101,
+          "candidate_seconds": 0.601350131,
+          "candidate_time_change_pct": -12.88695759646722
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.642868833,
+          "candidate_seconds": 0.619608474,
+          "candidate_time_change_pct": -3.618212270682597
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.648350347,
+          "candidate_seconds": 0.587816013,
+          "candidate_time_change_pct": -9.33667025553394
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 7.2492004080010215,
+      "time_change_pct": -7.2492004080010215,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0021604349967674352,
+              0.002726737002376467,
+              0.002974860995891504,
+              0.002214772001025267,
+              0.0027354940029908903
+            ],
+            "median": 0.002726737002376467
+          },
+          "hashing": {
+            "samples": [
+              0.04082815199944889,
+              0.032483773000421934,
+              0.03617191999364877,
+              0.03286932199989678,
+              0.03391517799900612
+            ],
+            "median": 0.03391517799900612
+          },
+          "parquet_write": {
+            "samples": [
+              0.19207840100104817,
+              0.19435457800115763,
+              0.2118186470045068,
+              0.1879550600014824,
+              0.2198946989989047
+            ],
+            "median": 0.19435457800115763
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.139874059,
+              0.166215726,
+              0.176511851,
+              0.164155427,
+              0.150882241
+            ],
+            "median": 0.164155427
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0028087809987482615,
+              0.0024380370014114305,
+              0.002254949002235662,
+              0.0031220729943015613,
+              0.002125701001205016
+            ],
+            "median": 0.0024380370014114305
+          },
+          "hashing": {
+            "samples": [
+              0.03158940499997698,
+              0.031445068001630716,
+              0.0329901980003342,
+              0.03151058300136356,
+              0.032173343999602366
+            ],
+            "median": 0.03158940499997698
+          },
+          "parquet_write": {
+            "samples": [
+              0.16832479700258954,
+              0.17533544399835405,
+              0.1993399279992286,
+              0.2037422520001533,
+              0.18980044099761917
+            ],
+            "median": 0.18980044099761917
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.17567922,
+              0.151046128,
+              0.137046613,
+              0.143957973,
+              0.134495892
+            ],
+            "median": 0.143957973
+          }
+        }
+      },
+      "classification": "correct-and-faster"
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "container_seconds_samples": {
+        "baseline": [
+          0.449321137,
+          0.436817675,
+          0.422032818,
+          0.416661042,
+          0.412644424
+        ],
+        "candidate": [
+          0.403667639,
+          0.490692041,
+          0.421559684,
+          0.474349042,
+          0.444428552
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.422032818,
+        "candidate": 0.444428552
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.449321137,
+          "candidate_seconds": 0.403667639,
+          "candidate_time_change_pct": -10.160549825191056
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.436817675,
+          "candidate_seconds": 0.490692041,
+          "candidate_time_change_pct": 12.333375933105263
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.422032818,
+          "candidate_seconds": 0.421559684,
+          "candidate_time_change_pct": -0.11210834319523855
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.416661042,
+          "candidate_seconds": 0.474349042,
+          "candidate_time_change_pct": 13.84530690056691
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.412644424,
+          "candidate_seconds": 0.444428552,
+          "candidate_time_change_pct": 7.702546345325145
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": -5.306633286513751,
+      "time_change_pct": 5.306633286513751,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0021847850002814084,
+              0.002134629998181481,
+              0.0022815470001660287,
+              0.0022033810018911026,
+              0.002352424002310727
+            ],
+            "median": 0.0022033810018911026
+          },
+          "hashing": {
+            "samples": [
+              0.021864327005459927,
+              0.019544672999472823,
+              0.01944651999656344,
+              0.018748677997791674,
+              0.01917949099879479
+            ],
+            "median": 0.01944651999656344
+          },
+          "parquet_write": {
+            "samples": [
+              0.14101936799438664,
+              0.1264681010029222,
+              0.12699782500230042,
+              0.11103371600413126,
+              0.12301153700186292
+            ],
+            "median": 0.1264681010029222
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.060259937,
+              0.055733275,
+              0.056020877,
+              0.062318863,
+              0.055269155
+            ],
+            "median": 0.056020877
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.002082227998471353,
+              0.003598532006435562,
+              0.0023674540061620064,
+              0.002509245001419913,
+              0.0024411190024693497
+            ],
+            "median": 0.0024411190024693497
+          },
+          "hashing": {
+            "samples": [
+              0.019454066001344472,
+              0.020874845002254006,
+              0.01900426999782212,
+              0.025641389001975767,
+              0.021887268994760234
+            ],
+            "median": 0.020874845002254006
+          },
+          "parquet_write": {
+            "samples": [
+              0.11625957400075176,
+              0.14432345699287646,
+              0.12008541599603148,
+              0.14541514899530367,
+              0.13065542900291138
+            ],
+            "median": 0.13065542900291138
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.055179072,
+              0.073042902,
+              0.054874083,
+              0.065515657,
+              0.056426847
+            ],
+            "median": 0.056426847
+          }
+        }
+      },
+      "classification": "correct-but-slower"
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/docker",
+  "summary_sha256": "6207a4c30076e58496b22cf06a9bdecbb9204ba1912549e42bc4f7b32689ebd4",
+  "runner_sha256": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null,
+  "host_checks": {
+    "executive_summary": "Focused host checks passed; actual pinned Docker checks remain pending.",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: arm64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "checks": [
+      {
+        "name": "compile-optimized",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native",
+          "-O2",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders/registry_test.cpp",
+          "-o",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-optimized"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "test-optimized",
+        "command": [
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-optimized"
+        ],
+        "returncode": 0,
+        "stdout": "PASS: lifecycle, independent snapshots, full/partial fills, repeated/unknown cancels, stable/recycled slots, bounded compaction, 50,000 map differential steps\n",
+        "stderr": ""
+      },
+      {
+        "name": "compile-sanitized",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-omit-frame-pointer",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders/registry_test.cpp",
+          "-o",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-sanitized"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "test-sanitized",
+        "command": [
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-sanitized"
+        ],
+        "returncode": 0,
+        "stdout": "PASS: lifecycle, independent snapshots, full/partial fills, repeated/unknown cancels, stable/recycled slots, bounded compaction, 50,000 map differential steps\n",
+        "stderr": ""
+      },
+      {
+        "name": "engine-syntax",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native",
+          "-fno-fast-math",
+          "-ffp-contract=off",
+          "-fsyntax-only",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native/engine.cpp"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "host_engine_checks": {
+    "executive_summary": "All output columns of the full host engine match the base on the three assigned units. Pinned Docker/Arrow checks remain pending.",
+    "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+    "results": [
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "ordered_columns_equal": true,
+        "bytes": 21461614,
+        "sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1"
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "ordered_columns_equal": true,
+        "bytes": 28319336,
+        "sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2"
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "ordered_columns_equal": true,
+        "bytes": 14685974,
+        "sha256": "c028d95c545d5a3c4b1552e3911850e8669d190b1a20290cc8422e23e84f89e6"
+      }
+    ],
+    "timing_evidence": false,
+    "limitations": [
+      "Host ARM64 and host NumPy/libm; not the pinned Linux amd64 runtime.",
+      "No Parquet output, shared scoring gates, or performance conclusions."
+    ]
+  },
+  "pinned_diagnostics": {
+    "executive_summary": "Frozen candidate build and focused pinned checks before paired timings.",
+    "implementation_commit": "d1119e633be385478441c8f0e2e1623d258f21e7",
+    "steps": [
+      {
+        "name": "idle-before-build",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "ps",
+          "--format",
+          "{{.ID}}"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/idle-before-build.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "baseline-before-build",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-native:20261008"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/baseline-before-build.log",
+        "log_sha256": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0"
+      },
+      {
+        "name": "candidate-build",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=track3-native:20261008",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/Dockerfile",
+          "-t",
+          "track3-h04-agent-orders:d1119e633be385478441c8f0e2e1623d258f21e7",
+          "."
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/candidate-build.log",
+        "log_sha256": "132e206f741cd4104238e48422b7c3979c7db1a304595fd2c85ec0d69cc02e73"
+      },
+      {
+        "name": "baseline-after-candidate-build",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-native:20261008"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/baseline-after-candidate-build.log",
+        "log_sha256": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0"
+      },
+      {
+        "name": "candidate-image-id",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-h04-agent-orders:d1119e633be385478441c8f0e2e1623d258f21e7"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/candidate-image-id.log",
+        "log_sha256": "db283f32849770477acb2d958233b423a92bc2ed52c881c88a826ba5c7a5d358"
+      },
+      {
+        "name": "builder-build",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=track3-native:20261008",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/Dockerfile",
+          "--target",
+          "native_builder",
+          "-t",
+          "track3-h04-agent-orders-builder:d1119e633be385478441c8f0e2e1623d258f21e7",
+          "."
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/builder-build.log",
+        "log_sha256": "13f5dba4db3236726c5ab2f7f7bd78ebd959778965a1335cace1334f45649508"
+      },
+      {
+        "name": "baseline-after-builder-build",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-native:20261008"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/baseline-after-builder-build.log",
+        "log_sha256": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0"
+      },
+      {
+        "name": "builder-image-id",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-h04-agent-orders-builder:d1119e633be385478441c8f0e2e1623d258f21e7"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/builder-image-id.log",
+        "log_sha256": "af25968f0e0cd563e952373debe70efef366aa4d3ded15e056fff96cd8048206"
+      },
+      {
+        "name": "pinned-registry-optimized",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders:/focused:ro",
+          "--entrypoint",
+          "sh",
+          "sha256:335cdaf7ba08dbd50ab3626139f9051352f56d9064d741403bec079732b299c9",
+          "-c",
+          "c++ -std=c++17 -Wall -Wextra -Werror -O2 -I/src/native /focused/registry_test.cpp -o /tmp/registry_test && /tmp/registry_test"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/pinned-registry-optimized.log",
+        "log_sha256": "2ab01bbaac5a60001ddf9aaa84e740946611433fce206a195ebb2a477ebdcd8a"
+      },
+      {
+        "name": "pinned-registry-ubsan",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders:/focused:ro",
+          "--entrypoint",
+          "sh",
+          "sha256:335cdaf7ba08dbd50ab3626139f9051352f56d9064d741403bec079732b299c9",
+          "-c",
+          "c++ -std=c++17 -Wall -Wextra -Werror -O1 -g -fsanitize=undefined -fno-sanitize-recover=all -I/src/native /focused/registry_test.cpp -o /tmp/registry_test && /tmp/registry_test"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/pinned-registry-ubsan.log",
+        "log_sha256": "2ab01bbaac5a60001ddf9aaa84e740946611433fce206a195ebb2a477ebdcd8a"
+      },
+      {
+        "name": "pinned-runtime-baseline",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--entrypoint",
+          "python",
+          "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+          "-c",
+          "import json,platform,pyarrow; from abides_fork import native; assert platform.python_version()=='3.11.17'; assert pyarrow.__version__=='15.0.2'; assert native._t3engine is not None; print(json.dumps({'python':platform.python_version(),'pyarrow':pyarrow.__version__,'machine':platform.machine(),'extension':native._t3engine.__file__}))"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/pinned-runtime-baseline.log",
+        "log_sha256": "3c618ed87d7f326e2b2fccba45a6586b1886b126553788de826cc1c0f3a0373b"
+      },
+      {
+        "name": "pinned-runtime-candidate",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--entrypoint",
+          "python",
+          "sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca",
+          "-c",
+          "import json,platform,pyarrow; from abides_fork import native; assert platform.python_version()=='3.11.17'; assert pyarrow.__version__=='15.0.2'; assert native._t3engine is not None; print(json.dumps({'python':platform.python_version(),'pyarrow':pyarrow.__version__,'machine':platform.machine(),'extension':native._t3engine.__file__}))"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/pinned-runtime-candidate.log",
+        "log_sha256": "3c618ed87d7f326e2b2fccba45a6586b1886b126553788de826cc1c0f3a0373b"
+      },
+      {
+        "name": "baseline-before-timing",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-native:20261008"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/baseline-before-timing.log",
+        "log_sha256": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0"
+      },
+      {
+        "name": "idle-before-timing",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "ps",
+          "--format",
+          "{{.ID}}"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/idle-before-timing.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "focused-runner",
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/run_focused.py",
+          "--slug",
+          "h04-agent-orders",
+          "--candidate-image",
+          "sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca",
+          "--candidate-commit",
+          "d1119e633be385478441c8f0e2e1623d258f21e7",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/docker"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/focused-runner.log",
+        "log_sha256": "8ac599f8e4b909568238c78394db2656926b571fb3d3ea91cb8611b5af0c4aea"
+      },
+      {
+        "name": "baseline-after-timing",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "track3-native:20261008"
+        ],
+        "returncode": 0,
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/baseline-after-timing.log",
+        "log_sha256": "dfc844b37c38560978e81f3e6dbfe61ab18762704e9745cf63ac29b31423c1f0"
+      }
+    ],
+    "baseline_checks": [
+      {
+        "name": "baseline-before-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "name": "baseline-after-candidate-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "name": "baseline-after-builder-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "name": "baseline-before-timing",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "name": "baseline-after-timing",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      }
+    ],
+    "shared_tool_sha256": {
+      "Dockerfile": "c78d805ba40c28171520299943495a78f41528949ac1d36e0c992e9dd940b1b8",
+      "Dockerfile.dockerignore": "a55c7da320bb8a4f04c8d2bbad148ef28e510296d8843edc3b1fe3c00544d21f",
+      "run_focused.py": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+      "docker_slot.py": "76b9218e0e31637945616009f6d89aafe207061438d195473c05eab479336d37"
+    },
+    "timing_runner_started": true,
+    "images": {
+      "baseline": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "candidate": "sha256:514d208681e44c99af3b7ef2f9d74b3eea7dbb0554b980000c56a44dea1743ca",
+      "focused_test_builder": "sha256:335cdaf7ba08dbd50ab3626139f9051352f56d9064d741403bec079732b299c9"
+    },
+    "runtime_checks": {
+      "baseline": {
+        "python": "3.11.17",
+        "pyarrow": "15.0.2",
+        "machine": "x86_64",
+        "extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so"
+      },
+      "candidate": {
+        "python": "3.11.17",
+        "pyarrow": "15.0.2",
+        "machine": "x86_64",
+        "extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so"
+      }
+    },
+    "status": "complete",
+    "source_unchanged": true
+  },
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp",
+    "baselines/native/agent_orders.hpp"
+  ],
+  "source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/agent_orders.hpp": "28d17e8dac2f3da253a1f87491925a33d8bf4412fc5d06a63eca4d0f79f5c08f",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "bcf499598553a2b3bc7183c803c29c3f8eb5d70776fbabf7e49e24113bb2b469",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "correctness": {
+    "status": "passed",
+    "actual_native_runs": 36,
+    "accepted_developer_gate_outputs": 36,
+    "exact_journal_comparisons": 48,
+    "both_journals": true,
+    "bytes_schema_ordered_values": true,
+    "all_emitted_digests_verified": true,
+    "focused_pinned_tests": [
+      "optimized",
+      "ubsan"
+    ],
+    "runtime": {
+      "baseline": {
+        "python": "3.11.17",
+        "pyarrow": "15.0.2",
+        "machine": "x86_64",
+        "extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so"
+      },
+      "candidate": {
+        "python": "3.11.17",
+        "pyarrow": "15.0.2",
+        "machine": "x86_64",
+        "extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so"
+      }
+    }
+  },
+  "logs": {
+    "phase2": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2",
+    "runner": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/phase2/focused-runner.log",
+    "docker_evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/docker",
+    "diagnostics_sha256": "0095dcfc913127490db3bb77194892cced7c0614dfd89f18bd409813e6ca7c89"
+  },
+  "failed_attempts": [],
+  "performance_classification": "correct-with-mixed-performance"
+}

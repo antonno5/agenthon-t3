@@ -1,0 +1,67 @@
+{
+  "executive_summary": "Phase 1 ready: bounded 64Ki message pipeline, fixed scenarios, host differential/concurrency checks and pinned build recipe committed. Exact pinned bytes and timing remain mandatory phase-2 gates.",
+  "state": "ready",
+  "phase": 1,
+  "slug": "h02-ledger-pipeline",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline",
+  "branch": "codex/exp-20261008-radical-h02-ledger-pipeline",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "source_commit": "7cef89fff2129632539c289f4078636add20c573",
+  "candidate_commit_resolution": "Campaign READY-h02-ledger-pipeline.json records the final commit including this readiness file.",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-gb-horizon-240s",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gbatch-hetero-mix"
+  ],
+  "test_evidence": {
+    "host-summary.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/host-summary.json",
+      "sha256": "954a74b0ae1f5316ce1a74c4d4816971ed486336a7f3dd8d602ad6b2d85a3528"
+    },
+    "corpus-checks.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/corpus-checks.json",
+      "sha256": "c5878ec49d86c9ef48f04404f656ab77a7f0e3146380cfc1e737bb7ef6496ffd"
+    },
+    "sanitizers.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/sanitizers.json",
+      "sha256": "01ac8460b856393177b574b334addb2df45e7f51a27a24b2c93b1cb826c4bf18"
+    }
+  },
+  "native_source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "72e8f36653c84c199b1eb0f121fd15feff3ef6bb9c91cf3d2851c3efbf6db45e",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "2f73e7a8277d02d02b94954f46f37ca09202662b1333a6dc3b775b32abf715bb",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d"
+  },
+  "host_correctness": {
+    "buffers_and_counts": "equal",
+    "both_journals_schema_and_ordered_values": "equal",
+    "default_arrow25_bytes": "s001 both and s012 trace equal; s012 ledger differs due to newer page-row cap",
+    "test_only_arrow15_batch_model_bytes": "both journals equal; all 10 synthetic row counts equal",
+    "ownership_backpressure_errors_empty_tiny": "passed",
+    "asan_ubsan": "passed",
+    "tsan": "passed",
+    "selected_corpus_manifest_firewall": "passed"
+  },
+  "pinned_validation": "pending phase 2; no speed claim until both journals byte/schema/value equality and developer gates pass",
+  "docker_runs": 0,
+  "numeric_settings_unchanged": true,
+  "baseline_dependencies_unchanged": true,
+  "original_baselines_clean": true,
+  "scorer_cards_public_traces_unchanged": true,
+  "rankable": false,
+  "adopted": false
+}

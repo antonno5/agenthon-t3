@@ -1,0 +1,757 @@
+{
+  "executive_summary": "All eight selected units pass unchanged developer gates and exact native journal comparisons in sixteen untimed pinned runs.",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "timing_started": false,
+  "units": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 319488,
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 269644,
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 201932800
+        },
+        "candidate": {
+          "single": 199041024
+        }
+      }
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 240829,
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 205166,
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 168894464
+        },
+        "candidate": {
+          "single": 168226816
+        }
+      }
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 72250,
+          "sha256": "50ef3497408fe4c28b11a5ac64c4ba8421d4ad0d01f2b4849fa1bed656bd7bad"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 66367,
+          "sha256": "4f0e104efae1aaa6e547a7fa5047d9da2215b149a9c7b6a3812ab3f31a803010"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 86474752
+        },
+        "candidate": {
+          "single": 86216704
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 604,
+          "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 664,
+          "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 49651712
+        },
+        "candidate": {
+          "single": 49655808
+        }
+      }
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 72049,
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 63623,
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 86937600
+        },
+        "candidate": {
+          "single": 87810048
+        }
+      }
+    },
+    {
+      "unit": "t3-partialfill-atomicity",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 72052,
+          "sha256": "9d2a091a70b22c08e37d4a07f22c8db7465da2eee2c94669cfcba5bebef89971"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 62955,
+          "sha256": "1dd9cff6524c5e0446c9188ea8f15ed60af75a94a11921745a3912f18e18ebfc"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 87887872
+        },
+        "candidate": {
+          "single": 88268800
+        }
+      }
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "trace.parquet",
+          "rows": 202291,
+          "sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+        },
+        {
+          "file": "message_trace.parquet",
+          "rows": 178236,
+          "sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "single": "native"
+        },
+        "candidate": {
+          "single": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "single": 165986304
+        },
+        "candidate": {
+          "single": 166551552
+        }
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "both_journals_byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_exact_equal": true,
+      "files": [
+        {
+          "file": "sub_00_noise/trace.parquet",
+          "rows": 8225,
+          "sha256": "53f051d40e860bc0ea940190fdbacab551b1624a8b60b2fcec7e33e76e800c95"
+        },
+        {
+          "file": "sub_00_noise/message_trace.parquet",
+          "rows": 7411,
+          "sha256": "e7f96c326882e51d3e12316c563fd003e2e8a023b808fd79b826097795da8a07"
+        },
+        {
+          "file": "sub_01_value/trace.parquet",
+          "rows": 8137,
+          "sha256": "dc756908aac1fe6615806a89493e64bdc4f37f154493666ee203ff6675c15d68"
+        },
+        {
+          "file": "sub_01_value/message_trace.parquet",
+          "rows": 7305,
+          "sha256": "d1c7ccb3e5b5c081bf0420a6baf04e5fd39481e0656d530291cf692fe9761403"
+        },
+        {
+          "file": "sub_02_mm/trace.parquet",
+          "rows": 24065,
+          "sha256": "38b4f456e15918a80869cfa7918f7d6e1a22bb45f92b9fb42dd7f60b64e70fce"
+        },
+        {
+          "file": "sub_02_mm/message_trace.parquet",
+          "rows": 21262,
+          "sha256": "1ef855f2f76394f82c7bd17a8cc590c319a1391f4dd5683a40c6cf8aa9fb768b"
+        },
+        {
+          "file": "sub_03_momentum/trace.parquet",
+          "rows": 8147,
+          "sha256": "d9d0fa28485959fb1035a15a66d1099c962a4e31022be70c182e05747fdd609a"
+        },
+        {
+          "file": "sub_03_momentum/message_trace.parquet",
+          "rows": 7331,
+          "sha256": "0c0d22306edae4a3c98bbc3c42fb32559c91117d56099a9511e8e769baeb663a"
+        },
+        {
+          "file": "sub_04_base/trace.parquet",
+          "rows": 8138,
+          "sha256": "0cb70d26605f5b2014947983b20c6298be99aac8f43b491479d7c640347d067a"
+        },
+        {
+          "file": "sub_04_base/message_trace.parquet",
+          "rows": 7278,
+          "sha256": "e868feefcd7df96559cb2bd2fdf3b2895114af7a34074d6c05406fa499141159"
+        }
+      ],
+      "actual_native_by_side": {
+        "baseline": {
+          "sub_00_noise": "native",
+          "sub_01_value": "native",
+          "sub_02_mm": "native",
+          "sub_03_momentum": "native",
+          "sub_04_base": "native"
+        },
+        "candidate": {
+          "sub_00_noise": "native",
+          "sub_01_value": "native",
+          "sub_02_mm": "native",
+          "sub_03_momentum": "native",
+          "sub_04_base": "native"
+        }
+      },
+      "developer_gates_by_side": {
+        "baseline": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        },
+        "candidate": {
+          "admissible": true,
+          "gates": {
+            "g0_integrity": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g1_schema": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g2_cutoff_resource": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            },
+            "g3_domain_semantics": {
+              "passed": true,
+              "label": null,
+              "detail": {}
+            }
+          }
+        }
+      },
+      "untimed_reported_process_peak_bytes_by_side": {
+        "baseline": {
+          "sub_00_noise": 53583872,
+          "sub_01_value": 55537664,
+          "sub_02_mm": 64974848,
+          "sub_03_momentum": 64974848,
+          "sub_04_base": 64974848
+        },
+        "candidate": {
+          "sub_00_noise": 54108160,
+          "sub_01_value": 55529472,
+          "sub_02_mm": 65097728,
+          "sub_03_momentum": 65097728,
+          "sub_04_base": 65097728
+        }
+      }
+    }
+  ],
+  "raw": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/controls/summary.json",
+    "sha256": "72396405c2bfa02c3dab0428db56b392c98c07bca6c711a42b9a18988b33b101"
+  }
+}

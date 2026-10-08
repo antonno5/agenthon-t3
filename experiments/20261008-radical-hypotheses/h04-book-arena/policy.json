@@ -1,0 +1,24 @@
+{
+  "executive_summary": "Compare shared order-arena and radix price storage with the unchanged native baseline on four focused markets; four additional controls check matching semantics.",
+  "slug": "h04-book-arena",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "timing_units": ["t3-mr-deep-book-state-size", "t3-mp05-cancel-churn-newest", "t3-multilevel-crossing", "t3-s001-price-time-priority"],
+  "correctness_only_units": ["t3-mp02-stp-oldest-baseline", "t3-partialfill-atomicity", "t3-s012-partial-fill-cancel-race", "t3-gbatch-hetero-mix"],
+  "selection_rationale": {
+    "t3-mr-deep-book-state-size": "Deep resting state exercises arena capacity, sparse price lookup, level insertion and removal.",
+    "t3-mp05-cancel-churn-newest": "Cancellation churn stresses direct order-ID lookup, FIFO unlink and cancel-newest STP.",
+    "t3-multilevel-crossing": "Marketable flow crosses levels and stresses best-price replacement and FIFO partial fills.",
+    "t3-s001-price-time-priority": "Small FIFO reference case checks ordering and captures fixed structure overhead.",
+    "t3-mp02-stp-oldest-baseline": "Cancel-oldest STP must keep removing the correct resting head.",
+    "t3-partialfill-atomicity": "Partial fill quantities and resting-order state must remain exact.",
+    "t3-s012-partial-fill-cancel-race": "Cancellation requests must use exchange residual state while sent snapshots remain independent.",
+    "t3-gbatch-hetero-mix": "Five heterogeneous markets check independent arena lifetime and native execution per market."
+  },
+  "correctness": {"require_actual_native_every_market": true, "both_journals_byte_equal": true, "schema_equal": true, "ordered_values_exact_equal": true, "shared_developer_gates_unchanged": true},
+  "timing": {"clock": "Docker State FinishedAt minus StartedAt", "excluded_warmups_per_side": 1, "paired_repeats": 5, "pair_order": ["AB", "BA", "AB", "BA", "AB"], "retain_all_outliers": true, "extra_repeats_or_post_result_tuning": false, "percent_formula": "100*(1-median(candidate)/median(baseline))", "positive_percent_means": "faster", "claim_speedup_only_if_correctness_passes": true, "separate_core_finalization_write_hash_phases": true},
+  "environment": {"platform": "linux/amd64", "docker_context": "colima-agenthon", "cpus": 4, "memory": "16g", "memory_swap": "16g", "network": "none", "single_serial_slot": true, "modify_vm_lifecycle": false, "python": "3.11", "pyarrow": "15.0.2", "numeric_flags": ["-fno-fast-math", "-ffp-contract=off"]},
+  "phase1_docker_runs": false,
+  "all_public_or_regression65": false,
+  "rankable": false,
+  "merge_push_or_production_adoption": false
+}

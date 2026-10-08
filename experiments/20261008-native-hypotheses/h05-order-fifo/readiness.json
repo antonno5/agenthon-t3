@@ -1,0 +1,219 @@
+{
+  "executive_summary": "The fixed indexed FIFO candidate is committed and all host reference, focused and sanitizer checks pass. With one live order, the host test retains 4095 slots and 4096 index buckets until level retirement; this explicit memory tradeoff is documented. No Docker run or timing has been performed.",
+  "slug": "h05-order-fifo",
+  "branch": "codex/exp-20261008-h05-order-fifo",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo",
+  "implementation_commit": "923a4cd7a3a53f442296efbbfaddb1e6508d01e6",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "allowed_changed_sources": [
+    "baselines/native/book.hpp"
+  ],
+  "source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "f9fa57fe32f4500be64f417b4c2ea23cf4bc45e1f06548ce095beb32f81e8f32",
+    "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "build_script_sha256": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+  "assigned_units": [
+    "t3-mp05-cancel-churn-newest",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-partialfill-atomicity"
+  ],
+  "host_checks": [
+    {
+      "name": "compiler",
+      "returncode": 0,
+      "stdout": "Apple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: arm64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+    },
+    {
+      "name": "book-release-compile",
+      "returncode": 0,
+      "stdout": ""
+    },
+    {
+      "name": "book-release-run",
+      "returncode": 0,
+      "stdout": "PASS: 80,000 differential mutations, FIFO, binary positions, aggregate volumes, prefix reuse and compaction\n"
+    },
+    {
+      "name": "fifo-release-compile",
+      "returncode": 0,
+      "stdout": ""
+    },
+    {
+      "name": "fifo-release-run",
+      "returncode": 0,
+      "stdout": "STORAGE peak: live=4095 slots=4095 capacity=4096 index_entries=4095 index_buckets=4096\nSTORAGE before_drain_after_copy_and_move: live=4092 slots=4095 capacity=4095 index_entries=4092 index_buckets=4096\nSTORAGE one_live_after_shrink: live=1 slots=4095 capacity=4095 index_entries=1 index_buckets=4096\nSTORAGE empty_before_level_retirement: live=0 slots=4095 capacity=4095 index_entries=0 index_buckets=4096\nSTORAGE refilled: live=4095 slots=4095 capacity=4095 index_entries=4095 index_buckets=4096\nSTORAGE retired_reset: live=0 slots=0 capacity=0 index_entries=0 index_buckets=0\nPASS: threshold, long newest/oldest/middle cancels, 12000 churn steps, partial snapshots, recycling, duplicate IDs and populated level moves\n"
+    },
+    {
+      "name": "book-sanitized-compile",
+      "returncode": 0,
+      "stdout": ""
+    },
+    {
+      "name": "book-sanitized-run",
+      "returncode": 0,
+      "stdout": "PASS: 80,000 differential mutations, FIFO, binary positions, aggregate volumes, prefix reuse and compaction\n"
+    },
+    {
+      "name": "fifo-sanitized-compile",
+      "returncode": 0,
+      "stdout": ""
+    },
+    {
+      "name": "fifo-sanitized-run",
+      "returncode": 0,
+      "stdout": "STORAGE peak: live=4095 slots=4095 capacity=4096 index_entries=4095 index_buckets=4096\nSTORAGE before_drain_after_copy_and_move: live=4092 slots=4095 capacity=4095 index_entries=4092 index_buckets=4096\nSTORAGE one_live_after_shrink: live=1 slots=4095 capacity=4095 index_entries=1 index_buckets=4096\nSTORAGE empty_before_level_retirement: live=0 slots=4095 capacity=4095 index_entries=0 index_buckets=4096\nSTORAGE refilled: live=4095 slots=4095 capacity=4095 index_entries=4095 index_buckets=4096\nSTORAGE retired_reset: live=0 slots=0 capacity=0 index_entries=0 index_buckets=0\nPASS: threshold, long newest/oldest/middle cancels, 12000 churn steps, partial snapshots, recycling, duplicate IDs and populated level moves\n"
+    },
+    {
+      "name": "engine-syntax",
+      "returncode": 0,
+      "stdout": ""
+    }
+  ],
+  "host_evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/host/host_checks.json",
+  "pending_actual_docker_checks": [
+    "Build committed candidate in the shared pinned Dockerfile",
+    "Run standalone book/FIFO checks and record actual Linux slots/capacity/index entry/bucket counters in the native builder image",
+    "Assert Python3.11.17/Arrow15.0.2 and native extension",
+    "Strict actual-native execution on the four assigned units",
+    "Exact bytes/schema/ordered values for trace.parquet and message_trace.parquet plus imported developer gates per retained output",
+    "One excluded warmup per side and five AB/BA pairs with fresh baseline per pair; complete Docker duration primary"
+  ],
+  "fixed_variant": {
+    "queue": "reusable vector slots with prev/next indices",
+    "lookup": "lazy level-local unordered_map",
+    "index_threshold_live_orders": 8,
+    "demotion": false,
+    "duplicate_ids": "first-occurrence linear cancellation for the remaining level lifetime"
+  },
+  "docker_invoked": false,
+  "status": "ready",
+  "report_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/expirements/20261008-native-hypotheses/h05-order-fifo",
+  "docker_recipe": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/expirements/20261008-native-hypotheses/h05-order-fifo/README.md",
+  "candidate_source_frozen": true,
+  "performance_claim": null,
+  "no_merge_no_push": true,
+  "memory_model": {
+    "bounded_by_current_live_order_count": false,
+    "slots": "Lifetime live-order high-water; vector capacity can exceed slot count",
+    "free_slots": "Reused without shrinking or compaction",
+    "index_entries": "Equals live orders when indexed",
+    "index_buckets": "Retained after deletion and duplicate-ID index disabling until level reset",
+    "release": "PriceSide retires empty levels and releases slot/index containers",
+    "host_container_implementation": "Apple clang 17 / libc++; counters are not heap-byte measurements",
+    "actual_host_storage_counters": {
+      "peak": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4096,
+        "index_entries": 4095,
+        "index_buckets": 4096
+      },
+      "before_drain_after_copy_and_move": {
+        "live_orders": 4092,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4092,
+        "index_buckets": 4096
+      },
+      "one_live_after_shrink": {
+        "live_orders": 1,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 1,
+        "index_buckets": 4096
+      },
+      "empty_before_level_retirement": {
+        "live_orders": 0,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 0,
+        "index_buckets": 4096
+      },
+      "refilled": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4095,
+        "index_buckets": 4096
+      },
+      "retired_reset": {
+        "live_orders": 0,
+        "slot_count": 0,
+        "slot_vector_capacity": 0,
+        "index_entries": 0,
+        "index_buckets": 0
+      }
+    },
+    "pending_linux_counters": false,
+    "actual_linux_storage_counters": {
+      "peak": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4096,
+        "index_entries": 4095,
+        "index_buckets": 7517
+      },
+      "before_drain_after_copy_and_move": {
+        "live_orders": 4092,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4092,
+        "index_buckets": 7517
+      },
+      "one_live_after_shrink": {
+        "live_orders": 1,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 1,
+        "index_buckets": 7517
+      },
+      "empty_before_level_retirement": {
+        "live_orders": 0,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 0,
+        "index_buckets": 7517
+      },
+      "refilled": {
+        "live_orders": 4095,
+        "slot_count": 4095,
+        "slot_vector_capacity": 4095,
+        "index_entries": 4095,
+        "index_buckets": 7517
+      },
+      "retired_reset": {
+        "live_orders": 0,
+        "slot_count": 0,
+        "slot_vector_capacity": 0,
+        "index_entries": 0,
+        "index_buckets": 1
+      }
+    },
+    "linux_container_implementation": "g++ / libstdc++ in the pinned native_builder image; counters are not heap-byte measurements"
+  },
+  "phase2_driver": "expirements/20261008-native-hypotheses/h05-order-fifo/phase2.py",
+  "docker_granted": true,
+  "phase2_complete": true,
+  "phase2_accepted": true,
+  "final_report_commit": "264ee3901a9c80b6209f3d968eb71d024d6a6226",
+  "done_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/DONE-h05-order-fifo.json"
+}

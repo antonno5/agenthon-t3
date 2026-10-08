@@ -1,0 +1,24 @@
+{
+  "executive_summary": "Test direct code-to-Parquet writing on four selected public workloads, retaining exact bytes and every timing sample.",
+  "slug": "h01-parquet-codes",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "branch": "codex/exp-20261008-radical-h01-parquet-codes",
+  "source_scope": ["baselines/native/pqwrite.cpp"],
+  "timing_units": ["t3-gb-mega-throughput", "t3-gb-pop-horizon-scale", "t3-mr-deep-book-state-size", "t3-s001-price-time-priority"],
+  "correctness_only_units": ["t3-gbatch-hetero-mix"],
+  "rationale": {
+    "t3-gb-mega-throughput": "Large journals expose repeated string expansion and Parquet finalization cost.",
+    "t3-gb-pop-horizon-scale": "Population and horizon growth test sustained message output volume.",
+    "t3-mr-deep-book-state-size": "A substantial state workload tests whether output savings remain visible when simulation cost is large.",
+    "t3-s001-price-time-priority": "Small deterministic matching workload checks fixed writer overhead and possible regressions.",
+    "t3-gbatch-hetero-mix": "Heterogeneous batch correctness control checks independent market schemas, nulls and vocabulary usage; excluded from timing."
+  },
+  "runtime": {"python": "3.11", "arrow": "15.0.2", "platform": "linux/amd64", "context": "colima-agenthon", "cpus": 4, "memory": "16g", "memory_swap": "16g", "network": "none", "numeric_flags": ["-fno-fast-math", "-ffp-contract=off"]},
+  "timing": {"primary_clock": "Docker FinishedAt minus StartedAt", "excluded_warmups_per_side": 1, "paired_repeats": 5, "order": ["AB", "BA", "AB", "BA", "AB"], "retain_all_outliers": true, "extra_repeats": false, "post_result_tuning": false, "time_reduction_pct": "100*(1-median(candidate)/median(baseline))", "secondary": "core, finalization, write and hash phases"},
+  "correctness": {"both_journals": true, "byte_equality": true, "schema_and_metadata_equality": true, "ordered_value_equality": true, "shared_developer_gates": "unchanged repository checker imported by coordinator", "actual_native_every_market": true, "report_speedup_on_failure": false},
+  "docker_slot": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/docker_slot.py",
+  "rankable": false,
+  "adopted": false,
+  "production_merge_or_push": false,
+  "phase1_docker_runs": 0
+}

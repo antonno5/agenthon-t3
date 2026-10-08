@@ -1,0 +1,61 @@
+{
+  "executive_summary": "Pinned Linux/amd64 compiled book checks pass against the independent base book, including 80,000 mutations and allocation diagnostics.",
+  "candidate_image": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+  "candidate_build_commit": "8162577af0251257b96834c804925bd6306d2669",
+  "baseline_header_sha256": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+  "tests": [
+    {
+      "test": "smoke",
+      "passed": true,
+      "stdout": "PASS: shared arena, FIFO, partial fills, cancellation validation, sparse prices\n",
+      "stderr": ""
+    },
+    {
+      "test": "differential",
+      "passed": true,
+      "stdout": "{\"passed\":true,\"generated_mutations\":80000,\"peak_active_orders\":1074,\"random_peak_candidate_payload_bytes\":258088,\"probe_active_orders\":14095,\"probe_candidate_payload_bytes\":1812080,\"probe_baseline_payload_bytes\":1102648,\"newest_cancel\":{\"index_lookups\":1,\"fifo_unlinks\":1,\"radix_visits\":0,\"baseline_fifo_entries_inspected_from_reference_loop\":10000},\"middle_level\":{\"radix_visits\":24,\"index_lookups\":1,\"candidate_price_shifts\":0,\"baseline_logical_suffix_moves_insert_plus_remove\":4096}}\n",
+      "stderr": "",
+      "metrics": {
+        "passed": true,
+        "generated_mutations": 80000,
+        "peak_active_orders": 1074,
+        "random_peak_candidate_payload_bytes": 258088,
+        "probe_active_orders": 14095,
+        "probe_candidate_payload_bytes": 1812080,
+        "probe_baseline_payload_bytes": 1102648,
+        "newest_cancel": {
+          "index_lookups": 1,
+          "fifo_unlinks": 1,
+          "radix_visits": 0,
+          "baseline_fifo_entries_inspected_from_reference_loop": 10000
+        },
+        "middle_level": {
+          "radix_visits": 24,
+          "index_lookups": 1,
+          "candidate_price_shifts": 0,
+          "baseline_logical_suffix_moves_insert_plus_remove": 4096
+        }
+      }
+    },
+    {
+      "test": "memory-probe",
+      "passed": true,
+      "stdout": "{\"passed\":true,\"orders\":14096,\"price_levels\":4097,\"candidate_live_requested_bytes\":1394448,\"candidate_peak_requested_bytes\":1431296,\"baseline_live_requested_bytes\":3155256,\"baseline_peak_requested_bytes\":3336568,\"allocator_metadata_and_rss_included\":false}\n",
+      "stderr": "",
+      "metrics": {
+        "passed": true,
+        "orders": 14096,
+        "price_levels": 4097,
+        "candidate_live_requested_bytes": 1394448,
+        "candidate_peak_requested_bytes": 1431296,
+        "baseline_live_requested_bytes": 3155256,
+        "baseline_peak_requested_bytes": 3336568,
+        "allocator_metadata_and_rss_included": false
+      }
+    }
+  ],
+  "raw": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/compiled-book-checks.json",
+    "sha256": "c1494217682e5ed761294dccca22025b161d3b23819c00595becd89114ea9b08"
+  }
+}

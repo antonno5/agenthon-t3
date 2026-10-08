@@ -1,0 +1,137 @@
+{
+  "executive_summary": "The candidate allocates string data once per column and preserves the original Arrow buffers and writer behavior in focused host checks. Pinned Docker checks and paired timing await the orchestration grant; no performance result exists yet.",
+  "slug": "h06-arrow-strings",
+  "branch": "codex/exp-20261008-h06-arrow-strings",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings",
+  "allowed_changed_sources": [
+    "baselines/native/pqwrite.cpp"
+  ],
+  "source_sha256": {
+    "baselines/native/pqwrite.cpp": "6d62f6e761735095a9a28d22922468f3a01a9db55be5afd59226f511151bec68"
+  },
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-s001-price-time-priority",
+    "t3-gbatch-hetero-mix"
+  ],
+  "host_checks": [
+    {
+      "status": "passed",
+      "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "arrow": "25.0.1",
+      "pinned_runtime": false,
+      "sanitizers": false,
+      "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+      "file_pairs": [
+        {
+          "file": "messages-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "67516d37404fd01484b2b582aef4a474f1c37a42461e9f3c9bc85d23eaf34a9b",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "messages-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "6ca68eae4aa0b5f8b06894fb2d505e7c8fac8b081d604955173542c77bac1f76",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "081722bf4161849c6fb9e8715c7a6ab00e06c9276267db371eb566e0ddba2fd0",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "17947560f267e5df0f34035c17630d4273c2fef75d678461b12d5378137271b4",
+          "exact_bytes_schema_values": true
+        }
+      ],
+      "evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/host/checks.json",
+      "evidence_sha256": "bf70622a5903e19fbd41ba014eeb2052ce3c09e49216d0108e468709e68ee47b"
+    },
+    {
+      "status": "passed",
+      "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "arrow": "25.0.1",
+      "pinned_runtime": false,
+      "sanitizers": true,
+      "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+      "file_pairs": [
+        {
+          "file": "messages-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "67516d37404fd01484b2b582aef4a474f1c37a42461e9f3c9bc85d23eaf34a9b",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "messages-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "6ca68eae4aa0b5f8b06894fb2d505e7c8fac8b081d604955173542c77bac1f76",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "081722bf4161849c6fb9e8715c7a6ab00e06c9276267db371eb566e0ddba2fd0",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "17947560f267e5df0f34035c17630d4273c2fef75d678461b12d5378137271b4",
+          "exact_bytes_schema_values": true
+        }
+      ],
+      "evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/host/checks-sanitized.json",
+      "evidence_sha256": "7bb4e0e175329d56dd67382a117ff32a875d31c9038d763e3a1f2eba725088e1"
+    }
+  ],
+  "pending_actual_docker_checks": [
+    "build native candidate on immutable production baseline using shared Dockerfile",
+    "require Python 3.11.17 / Arrow 15.0.2 and C++17 for focused writer/buffer checks",
+    "assert actual native simulation without Python fallback on all assigned units",
+    "exact complete bytes/schema/ordered values of both journals for every retained output including batch markets",
+    "imported shared developer gates for every retained output",
+    "one excluded warmup per side and five AB/BA pairs with fresh baseline per pair; retain all outliers"
+  ],
+  "status": "ready",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "phase": 1,
+  "implementation_commit": "34ddeca0d64108346c8b697d68ce6694b78deb6d",
+  "units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-s001-price-time-priority",
+    "t3-gbatch-hetero-mix"
+  ],
+  "docker_executed": false,
+  "timing_performed": false,
+  "source_clean": true,
+  "report_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/expirements/20261008-native-hypotheses/h06-arrow-strings",
+  "all_native_source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "6d62f6e761735095a9a28d22922468f3a01a9db55be5afd59226f511151bec68",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "initial_implementation_commit": "da88b3f3be9ee891c002e56e0b0a4d6a2bce207d",
+  "phase2_status": "granted"
+}

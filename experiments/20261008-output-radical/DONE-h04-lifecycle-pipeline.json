@@ -1,0 +1,53 @@
+{
+  "executive_summary": "H04 fixed series complete, accepted, source-frozen and reports committed. No further work or production adoption performed.",
+  "slug": "h04-lifecycle-pipeline",
+  "accepted": true,
+  "complete": true,
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline",
+  "implementation_commit": "3cb8784279483ce8ba7206d937ee2fddd109f786",
+  "reports_commit": "af5d9c2fd17d9313ca518e8bc0c2b7bffa5d75d7",
+  "candidate_image": "sha256:ff2a2f6032dd5650508b6847843b93380ed9e12776d5f4bba127f5e24847329a",
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "baseline_median_seconds": 1.72861465,
+      "candidate_median_seconds": 1.708198889,
+      "full_container_time_reduction_pct": 1.181047551575476,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "baseline_median_seconds": 0.998866013,
+      "candidate_median_seconds": 0.943128445,
+      "full_container_time_reduction_pct": 5.580084543331032,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_median_seconds": 1.184253422,
+      "candidate_median_seconds": 0.753805739,
+      "full_container_time_reduction_pct": 36.34759883345306,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_median_seconds": 0.712181137,
+      "candidate_median_seconds": 0.625825197,
+      "full_container_time_reduction_pct": 12.12555844483142,
+      "candidate_faster_pairs": 2
+    }
+  ],
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/result.json",
+  "result_sha256": "c105f0586905092c9d0b6b771b6858d6c05df90cec5dc04d7b84468221916ab7",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/README.md",
+  "measurement_summary_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/measurement-summary.json",
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/evidence/phase2-timing/runs",
+  "rankable": false,
+  "adopted": false,
+  "status": "idle"
+}

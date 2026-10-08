@@ -1,0 +1,117 @@
+{
+  "executive_summary": "Pinned correctness and installed-source audit pass for the 64Ki bounded message pipeline. All selected journals are byte/schema/value equal and all shared gates/native provenance checks pass. Ready for separately dispatched fixed timing.",
+  "state": "ready",
+  "phase": "2a",
+  "slug": "h02-ledger-pipeline",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline",
+  "branch": "codex/exp-20261008-radical-h02-ledger-pipeline",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "native_implementation_source_commit": "7cef89fff2129632539c289f4078636add20c573",
+  "image_built_from_commit": "4ae3166cf676d593f5b20608ffd6995fba2f02b5",
+  "controls_validation_commit": "7ed7400e89aed15fbf72f3b06dbafbf64d27aa87",
+  "implementation_commit_resolution": "Campaign READY-h02-ledger-pipeline.json records the final commit including this readiness metadata; native sources match the installed-source audit.",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_image": "sha256:c579f0db37f6e22491b5a191b335b3d87633d49e550c228dbe2e47fe90078bef",
+  "native_binary_sha256": "43a05ef5cf718e544b48af1b029a1c6853af60a2753d54409f602bd88f23d19a",
+  "native_source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "72e8f36653c84c199b1eb0f121fd15feff3ef6bb9c91cf3d2851c3efbf6db45e",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "2f73e7a8277d02d02b94954f46f37ca09202662b1333a6dc3b775b32abf715bb",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "controls_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-focused-controls",
+  "test_evidence": {
+    "focused_controls": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-focused-controls/summary.json",
+      "sha256": "22b9ab0d997d4b91da38cdadae8dbaacbe60b7018ede1b9246082af9cd6af084"
+    },
+    "installed_runtime": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-runtime-audit/summary.json",
+      "sha256": "d828779ba4ce30746693b858d969b9aa2d4ed1d65576b3448aa980eeca51b765"
+    },
+    "pinned_synthetic_and_build_manifest": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-runtime-audit/candidate-runtime.json",
+      "sha256": "85665546e916bad20bc9e3135c1e2d236d2ea833117864390e6e2903fb4fc2a8"
+    },
+    "pinned_binding_and_exceptions": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-pinned-local/local/pinned-binding-checks.json",
+      "sha256": "ad6ceb5e32633bb9986b72724403d06b6f750d6ba84c1811f6981bf3d6fcca6b"
+    },
+    "immutable_candidate": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-attempt02/image.json",
+      "sha256": "018357d073c5eb520fa0a3fcdf89b113df8f301ab53c407a50c4f9bee4742f08"
+    },
+    "candidate_image_inspect": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-attempt02/candidate-inspect.json",
+      "sha256": "d87ed60e75ec0bb98e928fad9d6928def27e065db7a2e64ff3fb8a3f0f28baa3"
+    },
+    "failed_build_attempt": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-attempt01/build-exit.json",
+      "sha256": "4e2fc741d54ab3853e97d694b60b09a2a3c7346c8bb0184f63cd915f0089d9df"
+    }
+  },
+  "pinned_correctness": {
+    "accepted": true,
+    "synthetic_pairs": 20,
+    "selected_units": 6,
+    "container_runs": 12,
+    "actual_native_market_executions": 20,
+    "journal_file_pairs": 20,
+    "byte_equal": true,
+    "schema_equal": true,
+    "ordered_values_equal": true,
+    "shared_developer_gates": "passed",
+    "empty_and_exception_controls": "passed",
+    "queue_backpressure_join_abort_controls": "passed"
+  },
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-gb-horizon-240s",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gbatch-hetero-mix"
+  ],
+  "timing_started": false,
+  "timed_pairs": 0,
+  "speedup_claim": null,
+  "numeric_flags": [
+    "-fno-fast-math",
+    "-ffp-contract=off"
+  ],
+  "runtime": {
+    "python": "3.11.17",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "pyarrow": "15.0.2",
+    "scipy": "1.17.1"
+  },
+  "fallback_source_and_numeric_libraries_unchanged": true,
+  "all_docker_compute_via_serial_slot": true,
+  "original_baselines_clean": true,
+  "scorer_cards_public_traces_unchanged": true,
+  "rankable": false,
+  "adopted": false,
+  "implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+  "working_tree_clean": true,
+  "readiness_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/phase2-readiness.json",
+  "phase1_readiness_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/readiness.json",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/README.md"
+}

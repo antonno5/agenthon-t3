@@ -1,0 +1,748 @@
+{
+  "executive_summary": "Local paired comparison of one isolated native hypothesis. Positive time reduction means a shorter complete container run; all five samples and diagnostics are retained.",
+  "slug": "h02-native-executable",
+  "title": "Standalone native executable",
+  "branch": "codex/exp-20261008-output-h02-native-executable",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable",
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "baseline_image_source_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "candidate_implementation_commit": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "comparison_policy": "byte_exact",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "assigned_units": [
+    "t3-s001-price-time-priority",
+    "t3-eq-deterministic-baseline",
+    "t3-multilevel-crossing",
+    "t3-gb-mega-throughput"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "digest": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "repo_digests": [
+        "track3-output-base@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5"
+    },
+    "candidate": {
+      "tag": "sha256:8957952bff08dbac958064408af26343b925fbf81b1f35d453a8b5b978c47499",
+      "digest": "sha256:8957952bff08dbac958064408af26343b925fbf81b1f35d453a8b5b978c47499",
+      "repo_digests": [
+        "track3-output-h02@sha256:8957952bff08dbac958064408af26343b925fbf81b1f35d453a8b5b978c47499"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "org.opencontainers.image.base.digest": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+        "org.opencontainers.image.revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "a91b789ef63f7bb0a70e7a734e5657a999b90c10"
+    }
+  },
+  "source_hashes": {
+    "baselines/Dockerfile": "ff1f5819f225de00e77b6e752a7453693f1391973ea9853335f06be31aad471a",
+    "baselines/_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
+    "baselines/abides_fork/__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
+    "baselines/abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+    "baselines/abides_fork/buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+    "baselines/abides_fork/components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+    "baselines/abides_fork/config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+    "baselines/abides_fork/native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+    "baselines/abides_fork/python_simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+    "baselines/abides_fork/scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+    "baselines/abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+    "baselines/abides_fork/simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+    "baselines/abides_fork/simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
+    "baselines/abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+    "baselines/build_and_validate.sh": "78f520fab0b119fb8a22d4be084990c9e5fa45081c18a2ac29cfacc5b5db9c69",
+    "baselines/build_executable.py": "f6477b2586b8c04faf035bab1876b277eead99f002e5b8c5e7a7b4b8ffb61939",
+    "baselines/build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+    "baselines/gpu_starter/Dockerfile": "4e19900297a83486ef13cabb33f93a372f821c27ed2ac412aa59a1672d5fae2c",
+    "baselines/gpu_starter/Dockerfile.verify": "2cc97a26dfb73011547f1c4880795b90edeeaef908e51e61a1869f001590bc21",
+    "baselines/gpu_starter/gpu_kernel_example.py": "34fa09601ff3ec04b538543d47a6056799400814f1468caedd126c4942fa28f8",
+    "baselines/gpu_starter/verify_gate.sh": "62d66eecdc3620018ecb0af2ef8e80d52b1cd9915d87c77c0b60cbafc82261de",
+    "baselines/install_matching.py": "9a121604ce1ca4979e2d9612d522b06189f7b4bc99e80079b5b76ed1464f8fd6",
+    "baselines/matching/__init__.py": "8daee28af9e91675b7abc70df84cf482f7c9edad0b7729770ef5f42a11fee91c",
+    "baselines/matching/facade.py": "fa509927ce37278c8bab7cb32d1100c21112878377f7221cd548209e0c682a35",
+    "baselines/matching/matcher.py": "ec1dc581710ca0b21d124d517654ab1f80d2cade3a7bcc4da5288005dad3e279",
+    "baselines/matching/price_level.py": "643927e00ef3c5bc658ef476a548bebefc03157b6268cc7ccf4a9f0328422809",
+    "baselines/matching/queries.py": "53692facde40a8bf5823b8dea304ace987c52576c92c77f4e466152cad117a1a",
+    "baselines/matching/state.py": "a2b877e6bf3d3efbe5d086f5b89ce0bdacea03c58489d28cf504a19ee7914df0",
+    "baselines/matching_compat/order_book.py": "563e8e0244fb0efdcfd7fa6a94419b85f07b5bbeaa3b4772106d5e66b27176dc",
+    "baselines/matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/cli.cpp": "03616a8111fa7b966aacbc82ae9b922eafbcf22340c77135b06b1320b6ec63a4",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/scenario.hpp": "87a57e627ec24a8ddbae620281255939464d4ae4526ce09f0668456bfa25149b",
+    "baselines/native/sha256.hpp": "feb021c09075101a9194dd9b03e303eda66f66e777fe0a73c523e7dacefd0a17",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/trace_stream.hpp": "a47143de34a01fa403b81cc28e1ff4ce8567f6997fc5a9e86f22c3ccdb663ef0",
+    "baselines/native/vendor/json.hpp": "9bea4c8066ef4a1c206b2be5a36302f8926f7fdc6087af5d20b417d0cf103ea6",
+    "experiments/20261008-output-radical/h02-native-executable/Dockerfile": "2539888a187c3db67819b11b30919f40c2f008ffee8c1dc8483ddb0f743c97f3",
+    "experiments/20261008-output-radical/h02-native-executable/tests/check_cli_boundaries.py": "109189c1135ca53b8fc672d21fb71b319462e6836f474c772e04af2d04014963",
+    "experiments/20261008-output-radical/h02-native-executable/tests/check_mapping.py": "ac5118676fff472763b97be1fda0a0717453989947966835fa72f7a45ed2bab2",
+    "experiments/20261008-output-radical/h02-native-executable/tests/mapper.cpp": "48a625d4126e4c8a049f7117bd25c3b6de1daadaaf550fea7dc84703648c4731",
+    "experiments/20261008-output-radical/h02-native-executable/tests/sha_check.cpp": "b206e074022d2cc4ff49f4bc2d0eff7648f181d63925743fa4960b94d864fa9d"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "container_seconds_samples": {
+        "baseline": [
+          0.482480543,
+          0.354205798,
+          0.40962108,
+          0.635771967,
+          0.420833991
+        ],
+        "candidate": [
+          0.233071856,
+          0.227789347,
+          0.223544529,
+          0.264920201,
+          0.25503662
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.420833991,
+        "candidate": 0.233071856
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.482480543,
+          "candidate_seconds": 0.233071856,
+          "candidate_time_change_pct": -51.69300412597156
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.354205798,
+          "candidate_seconds": 0.227789347,
+          "candidate_time_change_pct": -35.690113406895726
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.40962108,
+          "candidate_seconds": 0.223544529,
+          "candidate_time_change_pct": -45.4265075908691
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.635771967,
+          "candidate_seconds": 0.264920201,
+          "candidate_time_change_pct": -58.330940219010955
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.420833991,
+          "candidate_seconds": 0.25503662,
+          "candidate_time_change_pct": -39.39733352004829
+        }
+      ],
+      "candidate_faster_pairs": 5,
+      "time_reduction_pct": 44.61667522479191,
+      "time_change_pct": -44.61667522479191,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.00546565699914936,
+              0.0022475890000350773,
+              0.003589707994251512,
+              0.005974872998194769,
+              0.002272661993629299
+            ],
+            "median": 0.003589707994251512
+          },
+          "hashing": {
+            "samples": [
+              0.005330757005140185,
+              0.0029996219964232296,
+              0.0031593969906680286,
+              0.005044436009484343,
+              0.0035321449977345765
+            ],
+            "median": 0.0035321449977345765
+          },
+          "parquet_write": {
+            "samples": [
+              0.11011654899442078,
+              0.07299841600194744,
+              0.12368152800567327,
+              0.14361168699630383,
+              0.08426098800297131
+            ],
+            "median": 0.11011654899442078
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.008352936,
+              0.004784374,
+              0.005975146,
+              0.008421218,
+              0.005490503
+            ],
+            "median": 0.005975146
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.007949326,
+              0.008825899,
+              0.008610561,
+              0.009293897,
+              0.015694416
+            ],
+            "median": 0.008825899
+          },
+          "hashing": {
+            "samples": [
+              0.01770348399999999,
+              0.016938224,
+              0.015888253000000005,
+              0.015541228000000018,
+              0.01696407500000001
+            ],
+            "median": 0.016938224
+          },
+          "parquet_write": {
+            "samples": [
+              0.076044545,
+              0.078547535,
+              0.07074855899999999,
+              0.112230076,
+              0.083035106
+            ],
+            "median": 0.078547535
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.004628532,
+              0.005453505,
+              0.005141343,
+              0.00466704,
+              0.006294133
+            ],
+            "median": 0.005141343
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "container_seconds_samples": {
+        "baseline": [
+          0.393511605,
+          0.358324375,
+          0.343303372,
+          0.489086654,
+          0.434209499
+        ],
+        "candidate": [
+          0.213398429,
+          0.105163386,
+          0.219683266,
+          0.303682192,
+          0.257440897
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.393511605,
+        "candidate": 0.219683266
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.393511605,
+          "candidate_seconds": 0.213398429,
+          "candidate_time_change_pct": -45.77074061132199
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.358324375,
+          "candidate_seconds": 0.105163386,
+          "candidate_time_change_pct": -70.65134460919663
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.343303372,
+          "candidate_seconds": 0.219683266,
+          "candidate_time_change_pct": -36.00899847846528
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.489086654,
+          "candidate_seconds": 0.303682192,
+          "candidate_time_change_pct": -37.908305304114876
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.434209499,
+          "candidate_seconds": 0.257440897,
+          "candidate_time_change_pct": -40.71044102146646
+        }
+      ],
+      "candidate_faster_pairs": 5,
+      "time_reduction_pct": 44.173624561847426,
+      "time_change_pct": -44.173624561847426,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0024277610064018518,
+              0.0028721339913317934,
+              0.002898990991525352,
+              0.0043556220043683425,
+              0.005815661992528476
+            ],
+            "median": 0.002898990991525352
+          },
+          "hashing": {
+            "samples": [
+              0.003996999992523342,
+              0.00429196200275328,
+              0.006525912001961842,
+              0.004921161991660483,
+              0.0054995050013531
+            ],
+            "median": 0.004921161991660483
+          },
+          "parquet_write": {
+            "samples": [
+              0.07604354699976244,
+              0.08201797900481764,
+              0.07452274400965275,
+              0.0880445150005858,
+              0.10144125001122241
+            ],
+            "median": 0.08201797900481764
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.010563106,
+              0.0111591,
+              0.009527799,
+              0.00902511,
+              0.009102818
+            ],
+            "median": 0.009527799
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.008026336,
+              0.009765764,
+              0.008409226,
+              0.011439898,
+              0.008861851
+            ],
+            "median": 0.008861851
+          },
+          "hashing": {
+            "samples": [
+              0.014652093000000005,
+              0.014782887999999994,
+              0.017781158000000005,
+              0.019363005000000016,
+              0.01986338800000001
+            ],
+            "median": 0.017781158000000005
+          },
+          "parquet_write": {
+            "samples": [
+              0.073210147,
+              0.080489474,
+              0.07342371799999999,
+              0.11451381599999999,
+              0.085039197
+            ],
+            "median": 0.080489474
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.009630916,
+              0.008876936,
+              0.009153615,
+              0.011443488,
+              0.008877135
+            ],
+            "median": 0.009153615
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "container_seconds_samples": {
+        "baseline": [
+          0.565489803,
+          0.633454684,
+          0.541636108,
+          0.420803652,
+          0.430343896
+        ],
+        "candidate": [
+          0.256519669,
+          0.257889451,
+          0.472785659,
+          0.462140109,
+          0.287358218
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.541636108,
+        "candidate": 0.287358218
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.565489803,
+          "candidate_seconds": 0.256519669,
+          "candidate_time_change_pct": -54.63761368655484
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.633454684,
+          "candidate_seconds": 0.257889451,
+          "candidate_time_change_pct": -59.28841359708061
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.541636108,
+          "candidate_seconds": 0.472785659,
+          "candidate_time_change_pct": -12.711569258968225
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.420803652,
+          "candidate_seconds": 0.462140109,
+          "candidate_time_change_pct": 9.82321726618476
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.430343896,
+          "candidate_seconds": 0.287358218,
+          "candidate_time_change_pct": -33.22591056339742
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 46.94625898168516,
+      "time_change_pct": -46.94625898168516,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0036681710043922067,
+              0.0031838280119700357,
+              0.005917531001614407,
+              0.0031227680010488257,
+              0.003191203999449499
+            ],
+            "median": 0.003191203999449499
+          },
+          "hashing": {
+            "samples": [
+              0.013124032993800938,
+              0.015118939991225488,
+              0.01750131999142468,
+              0.011982669006101787,
+              0.01188307799748145
+            ],
+            "median": 0.013124032993800938
+          },
+          "parquet_write": {
+            "samples": [
+              0.1718134390049627,
+              0.1736238779977943,
+              0.15903775600457343,
+              0.1056329119973442,
+              0.11587426799613836
+            ],
+            "median": 0.15903775600457343
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.033909525,
+              0.03974912,
+              0.035782515,
+              0.027789715,
+              0.027844724
+            ],
+            "median": 0.033909525
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.008643041,
+              0.007901217,
+              0.013503939,
+              0.013925087,
+              0.008308711
+            ],
+            "median": 0.008643041
+          },
+          "hashing": {
+            "samples": [
+              0.022822530000000008,
+              0.021730273000000022,
+              0.03771185399999999,
+              0.04061577600000002,
+              0.03209456499999999
+            ],
+            "median": 0.03209456499999999
+          },
+          "parquet_write": {
+            "samples": [
+              0.09429104699999999,
+              0.09492928499999999,
+              0.20728025,
+              0.174999541,
+              0.09042323800000002
+            ],
+            "median": 0.09492928499999999
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.022480117,
+              0.02339199,
+              0.036053305,
+              0.054725321,
+              0.025122973
+            ],
+            "median": 0.025122973
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "container_seconds_samples": {
+        "baseline": [
+          1.420291267,
+          1.68251234,
+          1.814522962,
+          1.679551945,
+          1.727133652
+        ],
+        "candidate": [
+          1.511683445,
+          1.471285221,
+          1.623369869,
+          2.009172614,
+          1.14905643
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 1.68251234,
+        "candidate": 1.511683445
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 1.420291267,
+          "candidate_seconds": 1.511683445,
+          "candidate_time_change_pct": 6.434748992933148
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 1.68251234,
+          "candidate_seconds": 1.471285221,
+          "candidate_time_change_pct": -12.554268636151578
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 1.814522962,
+          "candidate_seconds": 1.623369869,
+          "candidate_time_change_pct": -10.534619677080725
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 1.679551945,
+          "candidate_seconds": 2.009172614,
+          "candidate_time_change_pct": 19.62551202904297
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 1.727133652,
+          "candidate_seconds": 1.14905643,
+          "candidate_time_change_pct": -33.470323580957015
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": 10.153203096269703,
+      "time_change_pct": -10.153203096269703,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002894093995564617,
+              0.002698413998587057,
+              0.003978036998887546,
+              0.00355184699583333,
+              0.003031852000276558
+            ],
+            "median": 0.003031852000276558
+          },
+          "hashing": {
+            "samples": [
+              0.2497710399911739,
+              0.17860349699913058,
+              0.25618077999388333,
+              0.1664609949948499,
+              0.162758752994705
+            ],
+            "median": 0.17860349699913058
+          },
+          "parquet_write": {
+            "samples": [
+              0.32375797200707246,
+              0.403455747991883,
+              0.35729063599956756,
+              0.3435634990011617,
+              0.4366421850000034
+            ],
+            "median": 0.35729063599956756
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.563383062,
+              0.756209817,
+              0.626473067,
+              0.694064696,
+              0.658379296
+            ],
+            "median": 0.658379296
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.008864712,
+              0.012840209,
+              0.013088407,
+              0.015229749,
+              0.009283545
+            ],
+            "median": 0.012840209
+          },
+          "hashing": {
+            "samples": [
+              0.1770479330000001,
+              0.176023013,
+              0.22151530600000013,
+              0.23808176699999994,
+              0.155411756
+            ],
+            "median": 0.1770479330000001
+          },
+          "parquet_write": {
+            "samples": [
+              0.3578886199999999,
+              0.337019434,
+              0.36002591799999994,
+              0.515245049,
+              0.2730601690000001
+            ],
+            "median": 0.3578886199999999
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.791159861,
+              0.66453419,
+              0.804756007,
+              0.972240991,
+              0.541139759
+            ],
+            "median": 0.791159861
+          }
+        }
+      }
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence/timing-01",
+  "summary_sha256": "1ca54551980d83dc50471c0e4e52921c2f0ce0b72c8e73e99eee3383d1ab4cb7",
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null
+}

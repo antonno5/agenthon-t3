@@ -1,0 +1,68 @@
+{
+  "executive_summary": "Build only the native extension on the audited pinned baseline; run selected correctness, component diagnostics and fixed paired timing as separately dispatched stages.",
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "baseline_image": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+  "builder_image": "sha256:902a221eca63fc3781587c30114edd3d33e16d057049b30a23b552a0e4bc0d57",
+  "campaign": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-component-radical",
+  "overlay_dockerfile_sha256": "aa9248a6531663929898e6e4d6b5c5609124cf7713f508d5131b1e4f344b5b03",
+  "build_native_sha256": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+  "plan_sha256": "0c922a7a7d9aa217e7a9c331352634f537cd01d2f7bde9174fae821d80b26bd0",
+  "commands": {
+    "checks": [
+      "python",
+      "CAMPAIGN/docker_slot.py",
+      "--",
+      "python",
+      "experiments/20261008-component-radical/h01-trace-stream/phase2.py",
+      "--stage",
+      "checks",
+      "--coordinator-dispatch"
+    ],
+    "component": [
+      "python",
+      "CAMPAIGN/docker_slot.py",
+      "--",
+      "python",
+      "experiments/20261008-component-radical/h01-trace-stream/phase2.py",
+      "--stage",
+      "component",
+      "--coordinator-dispatch"
+    ],
+    "timing": [
+      "python",
+      "CAMPAIGN/docker_slot.py",
+      "--",
+      "python",
+      "experiments/20261008-component-radical/h01-trace-stream/phase2.py",
+      "--stage",
+      "timing",
+      "--coordinator-dispatch"
+    ]
+  },
+  "phase1": "No Docker, builds, component timing or performance loops may run before explicit coordinator dispatch.",
+  "correctness": "13 assigned market configurations, 7 lifecycle and 12 message columns in standalone O2/ASan/UBSan; strict pinned Docker comparisons additionally require both parquet journals byte/schema/ordered-value exactness, unchanged shared gates and actual native execution.",
+  "component": "Real logs captured from each of the four assigned timing units by the actual original native engine. Both sides replay the identical immutable chronological input. Actual original logging/capture plus Sim::extract against all candidate append/flush/finish work. One excluded warmup per side then five AB/BA pairs per unit. Both output columns compare exactly. Initial simulation, replay preparation and equality are excluded. Component series excluded from full-run speed medians.",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Exact bytes, schema and ordered values of BOTH journals, shared developer gates, actual native execution per market. Correctness-only scenarios excluded from speed conclusions."
+  }
+}

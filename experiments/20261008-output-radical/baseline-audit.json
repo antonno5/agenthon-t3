@@ -1,0 +1,251 @@
+{
+  "executive_summary": "The current combined native baseline is source-bound and passes the selected canonical public correctness check.",
+  "accepted": true,
+  "rankable": false,
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "runtime_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "runtime": {
+    "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "1.5.3",
+      "pyarrow": "15.0.2",
+      "scipy": "1.17.1"
+    },
+    "dispatch": "libm",
+    "files": {
+      "/opt/abides_fork/config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+      "/opt/abides_fork/components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+      "/opt/abides_fork/simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+      "/opt/abides_fork/simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
+      "/opt/abides_fork/scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+      "/opt/abides_fork/native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+      "/opt/abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+      "/opt/abides_fork/buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+      "/opt/abides_fork/__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
+      "/opt/abides_fork/python_simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+      "/opt/abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+      "/opt/abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+      "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so": "a40c10a6283278d3aca6bd0f1bddddf40aff73dd08368125f611419e4a075085"
+    }
+  },
+  "frozen_native_source_hashes": {
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/trace_stream.hpp": "a47143de34a01fa403b81cc28e1ff4ce8567f6997fc5a9e86f22c3ccdb663ef0",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6"
+  },
+  "correctness_record": {
+    "unit": "t3-s001-price-time-priority",
+    "side": "baseline",
+    "image_digest": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+    "kind": "correctness",
+    "index": 0,
+    "command": [
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "run",
+      "--name",
+      "t3-diff-3f3557e36329",
+      "--platform",
+      "linux/amd64",
+      "--network=none",
+      "--cpus=4",
+      "--memory=16g",
+      "--memory-swap=16g",
+      "-v",
+      "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/baseline-evidence/inputs/t3-s001-price-time-priority:/input:ro",
+      "-v",
+      "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/baseline-evidence/runs/t3-s001-price-time-priority/correctness-00/baseline/raw:/output",
+      "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "simulate",
+      "--config",
+      "/input/scenario.json",
+      "--out",
+      "/output/trace.parquet",
+      "--trace-mode",
+      "buffered"
+    ],
+    "batch_cli_args": [],
+    "diagnostics_mount": null,
+    "rankable": false,
+    "accepted": true,
+    "exit_code": 0,
+    "host_launch_sec": 0.38288337498670444,
+    "host_launch_clock": "perf_counter around Docker CLI",
+    "host_peak_cgroup_memory_bytes": null,
+    "host_peak_rss_bytes": null,
+    "rss_source": "not_sampled; cgroup_memory_is_recorded_separately",
+    "memory_source": "unavailable_on_host",
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-08T14:18:39.649444595Z",
+      "FinishedAt": "2026-10-08T14:18:39.909305481Z"
+    },
+    "container_sec": 0.259860886,
+    "container_clock": "Docker State FinishedAt - StartedAt",
+    "check": {
+      "accepted": true,
+      "rankable": false,
+      "hashes": {
+        "events.json": "0177c91858157c5b48624cfbfcff0cfe8e4e2154b7e9558633abd8d4cc8efe54",
+        "message_trace.parquet": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+        "profile.json": "d4d79189cd87ba68e67188c3dece976fad5212620a9dbb67d4f039b34fa0b69c",
+        "trace.parquet": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53"
+      },
+      "developer": {
+        "admissible": true,
+        "rankable": false,
+        "profile": "developer",
+        "detail": {
+          "score": 9289.792301623816,
+          "profile": "developer",
+          "rankable": false,
+          "score_source": "self_reported",
+          "stylized_facts": null
+        },
+        "labels": [],
+        "gates": {
+          "g0_integrity": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g1_schema": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g2_cutoff_resource": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          },
+          "g3_domain_semantics": {
+            "passed": true,
+            "label": null,
+            "detail": {}
+          }
+        }
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+          "actual_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+          "actual_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+          "matches": true
+        }
+      ],
+      "reference_comparison": {
+        "files": [
+          {
+            "file": "trace.parquet",
+            "left": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority/trace.parquet",
+            "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/baseline-evidence/runs/t3-s001-price-time-priority/correctness-00/baseline/retained/trace.parquet",
+            "byte_equal": true,
+            "schema_equal": true,
+            "semantic_exact_equal": true,
+            "left_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+            "right_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+            "left_rows": 604,
+            "right_rows": 604,
+            "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+            "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+            "field_schema_equal": true
+          },
+          {
+            "file": "message_trace.parquet",
+            "left": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority/message_trace.parquet",
+            "right": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/baseline-evidence/runs/t3-s001-price-time-priority/correctness-00/baseline/retained/message_trace.parquet",
+            "byte_equal": true,
+            "schema_equal": true,
+            "semantic_exact_equal": true,
+            "left_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+            "right_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+            "left_rows": 664,
+            "right_rows": 664,
+            "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+            "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+            "field_schema_equal": true
+          }
+        ],
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    "events": {
+      "scenario_id": "a1b2c3d4-0001-0000-0000-000000000001",
+      "seed": 1001,
+      "n_events": 604,
+      "n_messages": 664,
+      "engine": "native",
+      "trace_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+      "message_trace_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+      "peak_memory_bytes": 51228672,
+      "gpu_seconds": 0.0,
+      "simulation_wall_clock_sec": 0.004098516,
+      "wall_clock_sec": 0.06501760000537615,
+      "events_per_sec": 9289.792301623816
+    },
+    "adapter_peak_rss_bytes_self_reported": 51228672,
+    "adapter_sec_self_reported": 0.06501760000537615,
+    "cold_start_and_container_other_sec": 0.19484328599462386,
+    "profiles": {
+      "profile.json": {
+        "schema_version": 1,
+        "engine": "native",
+        "trace_mode": "buffered",
+        "detailed": false,
+        "timing_kind": "wall_clock_phases",
+        "wall_clock_sec": 0.062313472997630015,
+        "phases": {
+          "configuration": 0.003625842000474222,
+          "simulation_and_trace_finalize": 0.004098516,
+          "parquet_write": 0.052567634994715284,
+          "hashing": 0.002021480002440512
+        },
+        "components": {},
+        "simulation_components": {},
+        "component_calls": {},
+        "gpu_utilization": 0.0,
+        "peak_memory_bytes": 51228672
+      }
+    }
+  }
+}

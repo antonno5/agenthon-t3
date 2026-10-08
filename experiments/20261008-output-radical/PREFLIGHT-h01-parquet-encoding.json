@@ -1,0 +1,505 @@
+{
+  "executive_summary": "Frozen H01 pinned preflight before any timing.",
+  "slug": "h01-parquet-encoding",
+  "frozen_commit": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+  "image_id": "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "complete": true,
+  "accepted": true,
+  "timing_started": true,
+  "build": {
+    "source_commit": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+    "started_unix": 1791469999.345261,
+    "prior_failed_attempt": "build-command.json",
+    "steps": [
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "track3-output-base:ff2c1d6"
+        ],
+        "exit_code": 0,
+        "output": "[\n    {\n        \"Architecture\": \"amd64\",\n        \"Author\": \"\",\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Config\": {\n            \"ArgsEscaped\": true,\n            \"AttachStderr\": false,\n            \"AttachStdin\": false,\n            \"AttachStdout\": false,\n            \"Cmd\": [\n                \"simulate\",\n                \"--help\"\n            ],\n            \"Domainname\": \"\",\n            \"Entrypoint\": null,\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"LANG=C.UTF-8\",\n                \"GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\n                \"PYTHON_VERSION=3.11.17\",\n                \"PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599\",\n                \"PYTHONDONTWRITEBYTECODE=1\",\n                \"PYTHONUNBUFFERED=1\",\n                \"PIP_NO_CACHE_DIR=1\",\n                \"PYTHONPATH=/opt\",\n                \"T3_ENGINE=auto\"\n            ],\n            \"Hostname\": \"\",\n            \"Image\": \"\",\n            \"Labels\": {\n                \"qfbench2.interface_version\": \"2.0\"\n            },\n            \"OnBuild\": null,\n            \"OpenStdin\": false,\n            \"StdinOnce\": false,\n            \"Tty\": false,\n            \"User\": \"\",\n            \"Volumes\": null,\n            \"WorkingDir\": \"/tmp\"\n        },\n        \"Created\": \"2026-10-08T17:17:51.942286735+03:00\",\n        \"Descriptor\": {\n            \"digest\": \"sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\",\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"size\": 856\n        },\n        \"DockerVersion\": \"\",\n        \"GraphDriver\": {\n            \"Data\": null,\n            \"Name\": \"overlayfs\"\n        },\n        \"Id\": \"sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\",\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-10-08T14:17:52.113553214Z\"\n        },\n        \"Os\": \"linux\",\n        \"Parent\": \"\",\n        \"RepoDigests\": [\n            \"track3-output-base@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\"\n        ],\n        \"RepoTags\": [\n            \"track3-output-base:ff2c1d6\"\n        ],\n        \"RootFS\": {\n            \"Layers\": [\n                \"sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62\",\n                \"sha256:56864e09c37360dbf846cf5ac9fc3090034f02e382fd0fbe4c7b576207436200\",\n                \"sha256:ba18d048b43a42f86dc288babadbdfe01602571200fd60c9e172deb8abf4147f\",\n                \"sha256:020f37c339b9fc549a11bcc5a937b81e3500281270bb62edde29022b27919d86\",\n                \"sha256:3216c6a01155bebe32e279ba3eb4c3310f0326db76e05a49aaeb6137e8ef9151\",\n                \"sha256:a12dd6f7442a22ce3bd3ad5bdcf0078b07ac84a01b98edbdfffa192496b2dd95\",\n                \"sha256:8450cce833f818e08001838ca8a6bcb7d5e0a52f92276154c26cdbfc680a3ae3\",\n                \"sha256:80e334dda2703aad52abf96e9edb390a42a20214455e7b438fbb39b876c9777d\",\n                \"sha256:37d38ea3dbe1da674c3ed84f9953a565ad09b634be7a2a3c44e4803c7dca5c5f\",\n                \"sha256:be2cfedc32dbddd1d2c6813e70b3d10fa843e80c9826700ffb406c572ee2e9f0\",\n                \"sha256:d0c9b33d8848a2c7a7ef8ee9e300022917bddb3da6956d968263ace5b615c7e9\",\n                \"sha256:f7574401ab3079865a17557ab1c74993b7f5eb0c9dc16e136d2509140f464fe3\",\n                \"sha256:f09ed478c03f25e77b4fd7ab9abd15a75fd1dcea2a6d0e8443056c2917eb64f6\",\n                \"sha256:b114a1ce6a9751156499140d679c5f9c35f9c3be69bf555b9dd8c2785290432e\",\n                \"sha256:f9959f40ad832b7130790bb417c267636100718fbd6e56788daae0f52b932b00\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:f4705dd97861240701cfadb0137fa953aab84e6dc6dce77b75dd2c872e38cf6f\",\n                \"sha256:5868e04a78795ba987c7f4dbd1f56e0a687ae5f430a86bc1b2d889913e6fffa7\",\n                \"sha256:73664c63e57c3fd32426cfe6af3d70608feb93984b88a57c6305a776bc2e29ff\",\n                \"sha256:15d03eab7e3df6b8f122b0d7da98689a748728dd20699e24cac8548f854060d3\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:db5a2411ae45f83f716b00b2c3ee722a4c94f21ac3fc2133cfc6d3b146691e9c\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:01403a855f9bec9efed6e00d2169dd31bfdb02c0e721f1e59c28937d237dd54c\",\n                \"sha256:b8b3e1e9fd3a598ae58f073fb2d555f07b7ad4e91bc2d9bcaac31a7d3296aa46\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\"\n            ],\n            \"Type\": \"layers\"\n        },\n        \"Size\": 189865836\n    }\n]\n"
+      },
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "track3-output-base-builder:ff2c1d6"
+        ],
+        "exit_code": 0,
+        "output": "[\n    {\n        \"Architecture\": \"amd64\",\n        \"Author\": \"\",\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Config\": {\n            \"ArgsEscaped\": true,\n            \"AttachStderr\": false,\n            \"AttachStdin\": false,\n            \"AttachStdout\": false,\n            \"Cmd\": [\n                \"simulate\",\n                \"--help\"\n            ],\n            \"Domainname\": \"\",\n            \"Entrypoint\": null,\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"LANG=C.UTF-8\",\n                \"GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\n                \"PYTHON_VERSION=3.11.17\",\n                \"PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599\",\n                \"PYTHONDONTWRITEBYTECODE=1\",\n                \"PYTHONUNBUFFERED=1\",\n                \"PIP_NO_CACHE_DIR=1\",\n                \"PYTHONPATH=/opt\",\n                \"T3_ENGINE=auto\"\n            ],\n            \"Hostname\": \"\",\n            \"Image\": \"\",\n            \"Labels\": {\n                \"qfbench2.interface_version\": \"2.0\"\n            },\n            \"OnBuild\": null,\n            \"OpenStdin\": false,\n            \"StdinOnce\": false,\n            \"Tty\": false,\n            \"User\": \"\",\n            \"Volumes\": null,\n            \"WorkingDir\": \"/tmp\"\n        },\n        \"Created\": \"2026-10-08T17:17:33.798322146+03:00\",\n        \"Descriptor\": {\n            \"digest\": \"sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\",\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"size\": 856\n        },\n        \"DockerVersion\": \"\",\n        \"GraphDriver\": {\n            \"Data\": null,\n            \"Name\": \"overlayfs\"\n        },\n        \"Id\": \"sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\",\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-10-08T14:17:34.089396287Z\"\n        },\n        \"Os\": \"linux\",\n        \"Parent\": \"\",\n        \"RepoDigests\": [\n            \"track3-output-base-builder@sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\"\n        ],\n        \"RepoTags\": [\n            \"track3-output-base-builder:ff2c1d6\"\n        ],\n        \"RootFS\": {\n            \"Layers\": [\n                \"sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62\",\n                \"sha256:56864e09c37360dbf846cf5ac9fc3090034f02e382fd0fbe4c7b576207436200\",\n                \"sha256:ba18d048b43a42f86dc288babadbdfe01602571200fd60c9e172deb8abf4147f\",\n                \"sha256:020f37c339b9fc549a11bcc5a937b81e3500281270bb62edde29022b27919d86\",\n                \"sha256:3216c6a01155bebe32e279ba3eb4c3310f0326db76e05a49aaeb6137e8ef9151\",\n                \"sha256:a12dd6f7442a22ce3bd3ad5bdcf0078b07ac84a01b98edbdfffa192496b2dd95\",\n                \"sha256:8450cce833f818e08001838ca8a6bcb7d5e0a52f92276154c26cdbfc680a3ae3\",\n                \"sha256:80e334dda2703aad52abf96e9edb390a42a20214455e7b438fbb39b876c9777d\",\n                \"sha256:37d38ea3dbe1da674c3ed84f9953a565ad09b634be7a2a3c44e4803c7dca5c5f\",\n                \"sha256:be2cfedc32dbddd1d2c6813e70b3d10fa843e80c9826700ffb406c572ee2e9f0\",\n                \"sha256:d0c9b33d8848a2c7a7ef8ee9e300022917bddb3da6956d968263ace5b615c7e9\",\n                \"sha256:f7574401ab3079865a17557ab1c74993b7f5eb0c9dc16e136d2509140f464fe3\",\n                \"sha256:f09ed478c03f25e77b4fd7ab9abd15a75fd1dcea2a6d0e8443056c2917eb64f6\",\n                \"sha256:b114a1ce6a9751156499140d679c5f9c35f9c3be69bf555b9dd8c2785290432e\",\n                \"sha256:f9959f40ad832b7130790bb417c267636100718fbd6e56788daae0f52b932b00\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:f4705dd97861240701cfadb0137fa953aab84e6dc6dce77b75dd2c872e38cf6f\",\n                \"sha256:5868e04a78795ba987c7f4dbd1f56e0a687ae5f430a86bc1b2d889913e6fffa7\",\n                \"sha256:73664c63e57c3fd32426cfe6af3d70608feb93984b88a57c6305a776bc2e29ff\",\n                \"sha256:15d03eab7e3df6b8f122b0d7da98689a748728dd20699e24cac8548f854060d3\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:17dbe1fb6fa18299a2c2345e776fc813d0fd0b801e8f700211b98c0c5f1e4d1e\",\n                \"sha256:10d7ef29d69e0c8f2d83e49a77f3ad42697c30ce45278b5fa79feb4560c5c300\",\n                \"sha256:0242833ec6d4e41612a5b216ad02da95eea55e66de109485e56c3a69cfeeef7d\",\n                \"sha256:7be9cfcf2730e5b45d732b3d24fe539d8bf9dbdd0f0a4235336ad99cb22dfd53\",\n                \"sha256:436969fbb3729de575c63ead496446a0ba8f9de743f2ed77ab06e2e1118e86c6\",\n                \"sha256:b2777a88f80e1bbc6c669b963be322d00943c6127ddd75424988986d36052b8e\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:0cfac0b6b83b4058f388d4a19ff4c158be09c39fb97a7ef78cfca433b185bf45\"\n            ],\n            \"Type\": \"layers\"\n        },\n        \"Size\": 338804918\n    }\n]\n"
+      },
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--iidfile",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/preflight/image.id",
+          "--build-arg",
+          "BASE_IMAGE=track3-output-base:ff2c1d6",
+          "--build-arg",
+          "BUILDER_IMAGE=track3-output-base-builder:ff2c1d6",
+          "--network=none",
+          "--platform=linux/amd64",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/Dockerfile",
+          "-t",
+          "track3-output-h01:encoding",
+          "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding"
+        ],
+        "exit_code": 0,
+        "output": "#0 building with \"colima-agenthon\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 612B done\n#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value \"linux/amd64\" (line 4)\n#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value \"linux/amd64\" (line 8)\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/track3-output-base-builder:ff2c1d6\n#2 DONE 0.0s\n\n#3 [internal] load metadata for docker.io/library/track3-output-base:ff2c1d6\n#3 DONE 0.0s\n\n#4 [internal] load .dockerignore\n#4 transferring context: 2B done\n#4 DONE 0.0s\n\n#5 [stage-1 1/3] FROM docker.io/library/track3-output-base:ff2c1d6@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\n#5 resolve docker.io/library/track3-output-base:ff2c1d6@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2 0.0s done\n#5 DONE 0.0s\n\n#6 [internal] load build context\n#6 transferring context: 133.89kB 0.0s done\n#6 DONE 0.0s\n\n#7 [builder 1/4] FROM docker.io/library/track3-output-base-builder:ff2c1d6@sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\n#7 resolve docker.io/library/track3-output-base-builder:ff2c1d6@sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e 0.0s done\n#7 CACHED\n\n#8 [builder 2/4] COPY baselines/native /src/native\n#8 DONE 0.1s\n\n#9 [builder 3/4] COPY baselines/build_native.py /src/native_build.py\n#9 DONE 0.0s\n\n#10 [builder 4/4] RUN rm -f /native-output/_t3engine*.so && python /src/native_build.py /src /native-output\n#10 1.303 running build_ext\n#10 1.313 building '_t3engine' extension\n#10 1.317 creating /tmp/t3native-mr9db5y0/tmp/src/native\n#10 1.318 g++ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -I/src/native -I/usr/local/lib/python3.11/site-packages/pyarrow/include -I/usr/local/include/python3.11 -c /src/native/engine.cpp -o /tmp/t3native-mr9db5y0/tmp/src/native/engine.o -std=c++17 -O2 -fno-fast-math -ffp-contract=off -fno-strict-aliasing -Wall -Wno-unused-function\n#10 7.719 g++ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -I/src/native -I/usr/local/lib/python3.11/site-packages/pyarrow/include -I/usr/local/include/python3.11 -c /src/native/module.cpp -o /tmp/t3native-mr9db5y0/tmp/src/native/module.o -std=c++17 -O2 -fno-fast-math -ffp-contract=off -fno-strict-aliasing -Wall -Wno-unused-function\n#10 12.66 g++ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -I/src/native -I/usr/local/lib/python3.11/site-packages/pyarrow/include -I/usr/local/include/python3.11 -c /src/native/nplog.cpp -o /tmp/t3native-mr9db5y0/tmp/src/native/nplog.o -std=c++17 -O2 -fno-fast-math -ffp-contract=off -fno-strict-aliasing -Wall -Wno-unused-function\n#10 15.88 g++ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -I/src/native -I/usr/local/lib/python3.11/site-packages/pyarrow/include -I/usr/local/include/python3.11 -c /src/native/pqwrite.cpp -o /tmp/t3native-mr9db5y0/tmp/src/native/pqwrite.o -std=c++17 -O2 -fno-fast-math -ffp-contract=off -fno-strict-aliasing -Wall -Wno-unused-function\n#10 24.53 g++ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -shared /tmp/t3native-mr9db5y0/tmp/src/native/engine.o /tmp/t3native-mr9db5y0/tmp/src/native/module.o /tmp/t3native-mr9db5y0/tmp/src/native/nplog.o /tmp/t3native-mr9db5y0/tmp/src/native/pqwrite.o /tmp/t3svml-01c5wht4/svml_z0_log_d_la.o -L/usr/local/lib -o /tmp/t3native-mr9db5y0/_t3engine.cpython-311-x86_64-linux-gnu.so -L/usr/local/lib/python3.11/site-packages/pyarrow -l:libparquet.so.1500 -l:libarrow.so.1500 -Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow\n#10 25.02 built /native-output/_t3engine.cpython-311-x86_64-linux-gnu.so\n#10 DONE 25.3s\n\n#5 [stage-1 1/3] FROM docker.io/library/track3-output-base:ff2c1d6@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\n#5 CACHED\n\n#11 [stage-1 2/3] COPY --from=builder /native-output/_t3engine*.so /opt/abides_fork/\n#11 DONE 0.1s\n\n#12 [stage-1 3/3] WORKDIR /tmp\n#12 DONE 0.0s\n\n#13 exporting to image\n#13 exporting layers\n#13 exporting layers 0.3s done\n#13 exporting manifest sha256:4b808960938cceedeab6f68347cf1b623c0775282c105c0afc86015724688e3c 0.0s done\n#13 exporting config sha256:453413c2a5a70dc0b05c1ad62c6e5cc9f01d2a5c200fdb8384de810eb7ac192c 0.0s done\n#13 exporting attestation manifest sha256:26ae9b2126ab357a9fbce6a274645f52098c9f768a3831fa40954d9dda9873cb 0.0s done\n#13 exporting manifest list sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a 0.0s done\n#13 naming to docker.io/library/track3-output-h01:encoding done\n#13 DONE 0.4s\n\n \u001b[33m2 warnings found (use docker --debug to expand):\n\u001b[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value \"linux/amd64\" (line 4)\n - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value \"linux/amd64\" (line 8)\n"
+      },
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "track3-output-base:ff2c1d6"
+        ],
+        "exit_code": 0,
+        "output": "[\n    {\n        \"Architecture\": \"amd64\",\n        \"Author\": \"\",\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Config\": {\n            \"ArgsEscaped\": true,\n            \"AttachStderr\": false,\n            \"AttachStdin\": false,\n            \"AttachStdout\": false,\n            \"Cmd\": [\n                \"simulate\",\n                \"--help\"\n            ],\n            \"Domainname\": \"\",\n            \"Entrypoint\": null,\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"LANG=C.UTF-8\",\n                \"GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\n                \"PYTHON_VERSION=3.11.17\",\n                \"PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599\",\n                \"PYTHONDONTWRITEBYTECODE=1\",\n                \"PYTHONUNBUFFERED=1\",\n                \"PIP_NO_CACHE_DIR=1\",\n                \"PYTHONPATH=/opt\",\n                \"T3_ENGINE=auto\"\n            ],\n            \"Hostname\": \"\",\n            \"Image\": \"\",\n            \"Labels\": {\n                \"qfbench2.interface_version\": \"2.0\"\n            },\n            \"OnBuild\": null,\n            \"OpenStdin\": false,\n            \"StdinOnce\": false,\n            \"Tty\": false,\n            \"User\": \"\",\n            \"Volumes\": null,\n            \"WorkingDir\": \"/tmp\"\n        },\n        \"Created\": \"2026-10-08T17:17:51.942286735+03:00\",\n        \"Descriptor\": {\n            \"digest\": \"sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\",\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"size\": 856\n        },\n        \"DockerVersion\": \"\",\n        \"GraphDriver\": {\n            \"Data\": null,\n            \"Name\": \"overlayfs\"\n        },\n        \"Id\": \"sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\",\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-10-08T14:17:52.113553214Z\"\n        },\n        \"Os\": \"linux\",\n        \"Parent\": \"\",\n        \"RepoDigests\": [\n            \"track3-output-base@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2\"\n        ],\n        \"RepoTags\": [\n            \"track3-output-base:ff2c1d6\"\n        ],\n        \"RootFS\": {\n            \"Layers\": [\n                \"sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62\",\n                \"sha256:56864e09c37360dbf846cf5ac9fc3090034f02e382fd0fbe4c7b576207436200\",\n                \"sha256:ba18d048b43a42f86dc288babadbdfe01602571200fd60c9e172deb8abf4147f\",\n                \"sha256:020f37c339b9fc549a11bcc5a937b81e3500281270bb62edde29022b27919d86\",\n                \"sha256:3216c6a01155bebe32e279ba3eb4c3310f0326db76e05a49aaeb6137e8ef9151\",\n                \"sha256:a12dd6f7442a22ce3bd3ad5bdcf0078b07ac84a01b98edbdfffa192496b2dd95\",\n                \"sha256:8450cce833f818e08001838ca8a6bcb7d5e0a52f92276154c26cdbfc680a3ae3\",\n                \"sha256:80e334dda2703aad52abf96e9edb390a42a20214455e7b438fbb39b876c9777d\",\n                \"sha256:37d38ea3dbe1da674c3ed84f9953a565ad09b634be7a2a3c44e4803c7dca5c5f\",\n                \"sha256:be2cfedc32dbddd1d2c6813e70b3d10fa843e80c9826700ffb406c572ee2e9f0\",\n                \"sha256:d0c9b33d8848a2c7a7ef8ee9e300022917bddb3da6956d968263ace5b615c7e9\",\n                \"sha256:f7574401ab3079865a17557ab1c74993b7f5eb0c9dc16e136d2509140f464fe3\",\n                \"sha256:f09ed478c03f25e77b4fd7ab9abd15a75fd1dcea2a6d0e8443056c2917eb64f6\",\n                \"sha256:b114a1ce6a9751156499140d679c5f9c35f9c3be69bf555b9dd8c2785290432e\",\n                \"sha256:f9959f40ad832b7130790bb417c267636100718fbd6e56788daae0f52b932b00\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:f4705dd97861240701cfadb0137fa953aab84e6dc6dce77b75dd2c872e38cf6f\",\n                \"sha256:5868e04a78795ba987c7f4dbd1f56e0a687ae5f430a86bc1b2d889913e6fffa7\",\n                \"sha256:73664c63e57c3fd32426cfe6af3d70608feb93984b88a57c6305a776bc2e29ff\",\n                \"sha256:15d03eab7e3df6b8f122b0d7da98689a748728dd20699e24cac8548f854060d3\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:db5a2411ae45f83f716b00b2c3ee722a4c94f21ac3fc2133cfc6d3b146691e9c\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:01403a855f9bec9efed6e00d2169dd31bfdb02c0e721f1e59c28937d237dd54c\",\n                \"sha256:b8b3e1e9fd3a598ae58f073fb2d555f07b7ad4e91bc2d9bcaac31a7d3296aa46\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\"\n            ],\n            \"Type\": \"layers\"\n        },\n        \"Size\": 189865836\n    }\n]\n"
+      },
+      {
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "image",
+          "inspect",
+          "track3-output-base-builder:ff2c1d6"
+        ],
+        "exit_code": 0,
+        "output": "[\n    {\n        \"Architecture\": \"amd64\",\n        \"Author\": \"\",\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Config\": {\n            \"ArgsEscaped\": true,\n            \"AttachStderr\": false,\n            \"AttachStdin\": false,\n            \"AttachStdout\": false,\n            \"Cmd\": [\n                \"simulate\",\n                \"--help\"\n            ],\n            \"Domainname\": \"\",\n            \"Entrypoint\": null,\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"LANG=C.UTF-8\",\n                \"GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\n                \"PYTHON_VERSION=3.11.17\",\n                \"PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599\",\n                \"PYTHONDONTWRITEBYTECODE=1\",\n                \"PYTHONUNBUFFERED=1\",\n                \"PIP_NO_CACHE_DIR=1\",\n                \"PYTHONPATH=/opt\",\n                \"T3_ENGINE=auto\"\n            ],\n            \"Hostname\": \"\",\n            \"Image\": \"\",\n            \"Labels\": {\n                \"qfbench2.interface_version\": \"2.0\"\n            },\n            \"OnBuild\": null,\n            \"OpenStdin\": false,\n            \"StdinOnce\": false,\n            \"Tty\": false,\n            \"User\": \"\",\n            \"Volumes\": null,\n            \"WorkingDir\": \"/tmp\"\n        },\n        \"Created\": \"2026-10-08T17:17:33.798322146+03:00\",\n        \"Descriptor\": {\n            \"digest\": \"sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\",\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"size\": 856\n        },\n        \"DockerVersion\": \"\",\n        \"GraphDriver\": {\n            \"Data\": null,\n            \"Name\": \"overlayfs\"\n        },\n        \"Id\": \"sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\",\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-10-08T14:17:34.089396287Z\"\n        },\n        \"Os\": \"linux\",\n        \"Parent\": \"\",\n        \"RepoDigests\": [\n            \"track3-output-base-builder@sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e\"\n        ],\n        \"RepoTags\": [\n            \"track3-output-base-builder:ff2c1d6\"\n        ],\n        \"RootFS\": {\n            \"Layers\": [\n                \"sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62\",\n                \"sha256:56864e09c37360dbf846cf5ac9fc3090034f02e382fd0fbe4c7b576207436200\",\n                \"sha256:ba18d048b43a42f86dc288babadbdfe01602571200fd60c9e172deb8abf4147f\",\n                \"sha256:020f37c339b9fc549a11bcc5a937b81e3500281270bb62edde29022b27919d86\",\n                \"sha256:3216c6a01155bebe32e279ba3eb4c3310f0326db76e05a49aaeb6137e8ef9151\",\n                \"sha256:a12dd6f7442a22ce3bd3ad5bdcf0078b07ac84a01b98edbdfffa192496b2dd95\",\n                \"sha256:8450cce833f818e08001838ca8a6bcb7d5e0a52f92276154c26cdbfc680a3ae3\",\n                \"sha256:80e334dda2703aad52abf96e9edb390a42a20214455e7b438fbb39b876c9777d\",\n                \"sha256:37d38ea3dbe1da674c3ed84f9953a565ad09b634be7a2a3c44e4803c7dca5c5f\",\n                \"sha256:be2cfedc32dbddd1d2c6813e70b3d10fa843e80c9826700ffb406c572ee2e9f0\",\n                \"sha256:d0c9b33d8848a2c7a7ef8ee9e300022917bddb3da6956d968263ace5b615c7e9\",\n                \"sha256:f7574401ab3079865a17557ab1c74993b7f5eb0c9dc16e136d2509140f464fe3\",\n                \"sha256:f09ed478c03f25e77b4fd7ab9abd15a75fd1dcea2a6d0e8443056c2917eb64f6\",\n                \"sha256:b114a1ce6a9751156499140d679c5f9c35f9c3be69bf555b9dd8c2785290432e\",\n                \"sha256:f9959f40ad832b7130790bb417c267636100718fbd6e56788daae0f52b932b00\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:f4705dd97861240701cfadb0137fa953aab84e6dc6dce77b75dd2c872e38cf6f\",\n                \"sha256:5868e04a78795ba987c7f4dbd1f56e0a687ae5f430a86bc1b2d889913e6fffa7\",\n                \"sha256:73664c63e57c3fd32426cfe6af3d70608feb93984b88a57c6305a776bc2e29ff\",\n                \"sha256:15d03eab7e3df6b8f122b0d7da98689a748728dd20699e24cac8548f854060d3\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:17dbe1fb6fa18299a2c2345e776fc813d0fd0b801e8f700211b98c0c5f1e4d1e\",\n                \"sha256:10d7ef29d69e0c8f2d83e49a77f3ad42697c30ce45278b5fa79feb4560c5c300\",\n                \"sha256:0242833ec6d4e41612a5b216ad02da95eea55e66de109485e56c3a69cfeeef7d\",\n                \"sha256:7be9cfcf2730e5b45d732b3d24fe539d8bf9dbdd0f0a4235336ad99cb22dfd53\",\n                \"sha256:436969fbb3729de575c63ead496446a0ba8f9de743f2ed77ab06e2e1118e86c6\",\n                \"sha256:b2777a88f80e1bbc6c669b963be322d00943c6127ddd75424988986d36052b8e\",\n                \"sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\",\n                \"sha256:0cfac0b6b83b4058f388d4a19ff4c158be09c39fb97a7ef78cfca433b185bf45\"\n            ],\n            \"Type\": \"layers\"\n        },\n        \"Size\": 338804918\n    }\n]\n"
+      }
+    ],
+    "finished_unix": 1791470027.265718,
+    "exit_code": 0,
+    "image_id": "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a"
+  },
+  "prior_failed_build": {
+    "command": [
+      "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+      "--",
+      "docker",
+      "--context",
+      "colima-agenthon",
+      "build",
+      "--iidfile",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/preflight/image.id",
+      "--build-arg",
+      "BASE_IMAGE=sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "--build-arg",
+      "BUILDER_IMAGE=sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+      "--network=none",
+      "--platform=linux/amd64",
+      "-f",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/Dockerfile",
+      "-t",
+      "track3-output-h01:encoding",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding"
+    ],
+    "source_commit": "b77cc8c7d87da005629dce376851a30bf9e5652d",
+    "started_unix": 1791469805.466284,
+    "exit_code": 1,
+    "finished_unix": 1791469892.438177,
+    "log_sha256": "5f66dadb3f5d5185411e57a6c513d299a6536715a667800344d4c9212a0b5626"
+  },
+  "steps": [
+    {
+      "step": "baseline-image-inspect",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+        "--",
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "image",
+        "inspect",
+        "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2"
+      ],
+      "started_unix": 1791470035.452232,
+      "exit_code": 0,
+      "finished_unix": 1791470080.154331,
+      "log_sha256": "2219e084c4a5df300d605baece2d0ef2e15a113a50c24b012875ba394856d681"
+    },
+    {
+      "step": "baseline-runtime-audit",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+        "--",
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform=linux/amd64",
+        "--network=none",
+        "--cpus=4",
+        "--memory=16g",
+        "--memory-swap=16g",
+        "--entrypoint",
+        "python",
+        "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+        "-c",
+        "import json,sys,hashlib,pathlib,pyarrow,numpy,pandas,scipy,abides_fork._t3engine as n; p=pathlib.Path(n.__file__); print(json.dumps(dict(python=sys.version,arrow=pyarrow.__version__,numpy=numpy.__version__,pandas=pandas.__version__,scipy=scipy.__version__,native_path=str(p),native_sha256=hashlib.sha256(p.read_bytes()).hexdigest())))"
+      ],
+      "started_unix": 1791470080.1566699,
+      "exit_code": 0,
+      "finished_unix": 1791470134.272118,
+      "log_sha256": "451cb858d4e3ed94229a7a4b37537a05ab58e742b633ea991e1d3cf9f6c10a5a"
+    },
+    {
+      "step": "candidate-image-inspect",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+        "--",
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "image",
+        "inspect",
+        "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a"
+      ],
+      "started_unix": 1791470134.273983,
+      "exit_code": 0,
+      "finished_unix": 1791470169.30553,
+      "log_sha256": "90d65b7ea68ae03a4316fa77b2a8d58fb9589ca039139792a4298ad188659837"
+    },
+    {
+      "step": "candidate-runtime-audit",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+        "--",
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform=linux/amd64",
+        "--network=none",
+        "--cpus=4",
+        "--memory=16g",
+        "--memory-swap=16g",
+        "--entrypoint",
+        "python",
+        "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+        "-c",
+        "import json,sys,hashlib,pathlib,pyarrow,numpy,pandas,scipy,abides_fork._t3engine as n; p=pathlib.Path(n.__file__); print(json.dumps(dict(python=sys.version,arrow=pyarrow.__version__,numpy=numpy.__version__,pandas=pandas.__version__,scipy=scipy.__version__,native_path=str(p),native_sha256=hashlib.sha256(p.read_bytes()).hexdigest())))"
+      ],
+      "started_unix": 1791470169.308033,
+      "exit_code": 0,
+      "finished_unix": 1791470186.615993,
+      "log_sha256": "612975ddef67995c4c0a41833b0f864333b245cb788b84403ee95e7e7e2d8c16"
+    },
+    {
+      "step": "pinned-writer-check",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+        "--",
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform=linux/amd64",
+        "--network=none",
+        "--cpus=4",
+        "--memory=16g",
+        "--memory-swap=16g",
+        "-v",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding:/work",
+        "-w",
+        "/work",
+        "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+        "python",
+        "experiments/20261008-output-radical/h01-parquet-encoding/tests/check.py",
+        "--out",
+        "experiments/20261008-output-radical/h01-parquet-encoding/evidence/pinned-01"
+      ],
+      "started_unix": 1791470186.617346,
+      "exit_code": 0,
+      "finished_unix": 1791470341.9401028,
+      "log_sha256": "bf9a7192eda478d89bccd7b5b9be789d2f667a633d4eb1e81cd0c3be5d140f8b"
+    },
+    {
+      "step": "shared-controls",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+        "--",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/run_focused.py",
+        "--slug",
+        "h01-parquet-encoding",
+        "--candidate-image",
+        "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+        "--candidate-commit",
+        "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+        "--out",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/controls-01",
+        "--controls-only"
+      ],
+      "started_unix": 1791470341.947297,
+      "exit_code": 0,
+      "finished_unix": 1791470399.357305,
+      "log_sha256": "0912fc27a8886481d2ea7326252dcc0e3e96150c158adc5a2279e40f9daf0e4a"
+    }
+  ],
+  "baseline_image_inspect": {
+    "Architecture": "amd64",
+    "Author": "",
+    "Comment": "buildkit.dockerfile.v0",
+    "Config": {
+      "ArgsEscaped": true,
+      "AttachStderr": false,
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "Cmd": [
+        "simulate",
+        "--help"
+      ],
+      "Domainname": "",
+      "Entrypoint": null,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D",
+        "PYTHON_VERSION=3.11.17",
+        "PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONUNBUFFERED=1",
+        "PIP_NO_CACHE_DIR=1",
+        "PYTHONPATH=/opt",
+        "T3_ENGINE=auto"
+      ],
+      "Hostname": "",
+      "Image": "",
+      "Labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "OnBuild": null,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Tty": false,
+      "User": "",
+      "Volumes": null,
+      "WorkingDir": "/tmp"
+    },
+    "Created": "2026-10-08T17:17:51.942286735+03:00",
+    "Descriptor": {
+      "digest": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "mediaType": "application/vnd.oci.image.index.v1+json",
+      "size": 856
+    },
+    "DockerVersion": "",
+    "GraphDriver": {
+      "Data": null,
+      "Name": "overlayfs"
+    },
+    "Id": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+    "Metadata": {
+      "LastTagTime": "2026-10-08T14:17:52.113553214Z"
+    },
+    "Os": "linux",
+    "Parent": "",
+    "RepoDigests": [
+      "track3-output-base@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2"
+    ],
+    "RepoTags": [
+      "track3-output-base:ff2c1d6"
+    ],
+    "RootFS": {
+      "Layers": [
+        "sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62",
+        "sha256:56864e09c37360dbf846cf5ac9fc3090034f02e382fd0fbe4c7b576207436200",
+        "sha256:ba18d048b43a42f86dc288babadbdfe01602571200fd60c9e172deb8abf4147f",
+        "sha256:020f37c339b9fc549a11bcc5a937b81e3500281270bb62edde29022b27919d86",
+        "sha256:3216c6a01155bebe32e279ba3eb4c3310f0326db76e05a49aaeb6137e8ef9151",
+        "sha256:a12dd6f7442a22ce3bd3ad5bdcf0078b07ac84a01b98edbdfffa192496b2dd95",
+        "sha256:8450cce833f818e08001838ca8a6bcb7d5e0a52f92276154c26cdbfc680a3ae3",
+        "sha256:80e334dda2703aad52abf96e9edb390a42a20214455e7b438fbb39b876c9777d",
+        "sha256:37d38ea3dbe1da674c3ed84f9953a565ad09b634be7a2a3c44e4803c7dca5c5f",
+        "sha256:be2cfedc32dbddd1d2c6813e70b3d10fa843e80c9826700ffb406c572ee2e9f0",
+        "sha256:d0c9b33d8848a2c7a7ef8ee9e300022917bddb3da6956d968263ace5b615c7e9",
+        "sha256:f7574401ab3079865a17557ab1c74993b7f5eb0c9dc16e136d2509140f464fe3",
+        "sha256:f09ed478c03f25e77b4fd7ab9abd15a75fd1dcea2a6d0e8443056c2917eb64f6",
+        "sha256:b114a1ce6a9751156499140d679c5f9c35f9c3be69bf555b9dd8c2785290432e",
+        "sha256:f9959f40ad832b7130790bb417c267636100718fbd6e56788daae0f52b932b00",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:f4705dd97861240701cfadb0137fa953aab84e6dc6dce77b75dd2c872e38cf6f",
+        "sha256:5868e04a78795ba987c7f4dbd1f56e0a687ae5f430a86bc1b2d889913e6fffa7",
+        "sha256:73664c63e57c3fd32426cfe6af3d70608feb93984b88a57c6305a776bc2e29ff",
+        "sha256:15d03eab7e3df6b8f122b0d7da98689a748728dd20699e24cac8548f854060d3",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:db5a2411ae45f83f716b00b2c3ee722a4c94f21ac3fc2133cfc6d3b146691e9c",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:01403a855f9bec9efed6e00d2169dd31bfdb02c0e721f1e59c28937d237dd54c",
+        "sha256:b8b3e1e9fd3a598ae58f073fb2d555f07b7ad4e91bc2d9bcaac31a7d3296aa46",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ],
+      "Type": "layers"
+    },
+    "Size": 189865836
+  },
+  "baseline_runtime_audit": {
+    "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+    "arrow": "15.0.2",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "scipy": "1.17.1",
+    "native_path": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+    "native_sha256": "a40c10a6283278d3aca6bd0f1bddddf40aff73dd08368125f611419e4a075085"
+  },
+  "candidate_image_inspect": {
+    "Architecture": "amd64",
+    "Author": "",
+    "Comment": "buildkit.dockerfile.v0",
+    "Config": {
+      "ArgsEscaped": true,
+      "AttachStderr": false,
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "Cmd": [
+        "simulate",
+        "--help"
+      ],
+      "Domainname": "",
+      "Entrypoint": null,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D",
+        "PYTHON_VERSION=3.11.17",
+        "PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONUNBUFFERED=1",
+        "PIP_NO_CACHE_DIR=1",
+        "PYTHONPATH=/opt",
+        "T3_ENGINE=auto"
+      ],
+      "Hostname": "",
+      "Image": "",
+      "Labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "OnBuild": null,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Tty": false,
+      "User": "",
+      "Volumes": null,
+      "WorkingDir": "/tmp"
+    },
+    "Created": "2026-10-08T17:33:46.553496149+03:00",
+    "Descriptor": {
+      "digest": "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+      "mediaType": "application/vnd.oci.image.index.v1+json",
+      "size": 856
+    },
+    "DockerVersion": "",
+    "GraphDriver": {
+      "Data": null,
+      "Name": "overlayfs"
+    },
+    "Id": "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+    "Metadata": {
+      "LastTagTime": "2026-10-08T14:33:46.890816566Z"
+    },
+    "Os": "linux",
+    "Parent": "",
+    "RepoDigests": [
+      "track3-output-h01@sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a"
+    ],
+    "RepoTags": [
+      "track3-output-h01:encoding"
+    ],
+    "RootFS": {
+      "Layers": [
+        "sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62",
+        "sha256:56864e09c37360dbf846cf5ac9fc3090034f02e382fd0fbe4c7b576207436200",
+        "sha256:ba18d048b43a42f86dc288babadbdfe01602571200fd60c9e172deb8abf4147f",
+        "sha256:020f37c339b9fc549a11bcc5a937b81e3500281270bb62edde29022b27919d86",
+        "sha256:3216c6a01155bebe32e279ba3eb4c3310f0326db76e05a49aaeb6137e8ef9151",
+        "sha256:a12dd6f7442a22ce3bd3ad5bdcf0078b07ac84a01b98edbdfffa192496b2dd95",
+        "sha256:8450cce833f818e08001838ca8a6bcb7d5e0a52f92276154c26cdbfc680a3ae3",
+        "sha256:80e334dda2703aad52abf96e9edb390a42a20214455e7b438fbb39b876c9777d",
+        "sha256:37d38ea3dbe1da674c3ed84f9953a565ad09b634be7a2a3c44e4803c7dca5c5f",
+        "sha256:be2cfedc32dbddd1d2c6813e70b3d10fa843e80c9826700ffb406c572ee2e9f0",
+        "sha256:d0c9b33d8848a2c7a7ef8ee9e300022917bddb3da6956d968263ace5b615c7e9",
+        "sha256:f7574401ab3079865a17557ab1c74993b7f5eb0c9dc16e136d2509140f464fe3",
+        "sha256:f09ed478c03f25e77b4fd7ab9abd15a75fd1dcea2a6d0e8443056c2917eb64f6",
+        "sha256:b114a1ce6a9751156499140d679c5f9c35f9c3be69bf555b9dd8c2785290432e",
+        "sha256:f9959f40ad832b7130790bb417c267636100718fbd6e56788daae0f52b932b00",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:f4705dd97861240701cfadb0137fa953aab84e6dc6dce77b75dd2c872e38cf6f",
+        "sha256:5868e04a78795ba987c7f4dbd1f56e0a687ae5f430a86bc1b2d889913e6fffa7",
+        "sha256:73664c63e57c3fd32426cfe6af3d70608feb93984b88a57c6305a776bc2e29ff",
+        "sha256:15d03eab7e3df6b8f122b0d7da98689a748728dd20699e24cac8548f854060d3",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:db5a2411ae45f83f716b00b2c3ee722a4c94f21ac3fc2133cfc6d3b146691e9c",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:01403a855f9bec9efed6e00d2169dd31bfdb02c0e721f1e59c28937d237dd54c",
+        "sha256:b8b3e1e9fd3a598ae58f073fb2d555f07b7ad4e91bc2d9bcaac31a7d3296aa46",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:e93768d68f0fc443f87b82906131de9350ac9f0c7688f3691171020efb102d1e",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ],
+      "Type": "layers"
+    },
+    "Size": 191190116
+  },
+  "candidate_runtime_audit": {
+    "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+    "arrow": "15.0.2",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "scipy": "1.17.1",
+    "native_path": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+    "native_sha256": "1ec76c7bc91ebdcdddc263100a3f9f588f597bed9a21e4a2a2b1cadc700bd864"
+  },
+  "pinned_checks": {
+    "status": "passed",
+    "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/pinned-01/checks.json",
+    "sha256": "8a2215265668ce02b4879442effcc538691f2d00549fde32ebe6659d95c3d6e2",
+    "comparisons": 114,
+    "stream_table_checks": 39,
+    "scope": "pinned Arrow15 writer correctness"
+  },
+  "controls": {
+    "status": "passed",
+    "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/controls-01/summary.json",
+    "sha256": "08650481a7094c841df720362c8843d716eab1e950d6d3918a5d538f9e783e76",
+    "runs": 12,
+    "comparisons": 6
+  },
+  "pinned_compaction": {
+    "manifest": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/preflight/pinned-compaction.json",
+    "bytes_freed": 412180480
+  },
+  "control_output_diagnostics": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/preflight/control-output-diagnostics.json",
+    "journal_count": 40,
+    "native_market_executions": 20
+  }
+}

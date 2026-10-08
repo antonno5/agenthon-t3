@@ -1,0 +1,188 @@
+{
+  "executive_summary": "Four isolated radical optimization experiments. Positive percentages mean less complete-container time; negative percentages mean longer runs. All timings are local and non-rankable.",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "correctness": "Exact bytes, schema, ordered values for BOTH journals plus unchanged shared developer gates; assert actual native engine every market.",
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "phase1": "Implementation, host checks, fixed scenario plan, immutable commit; no Docker until coordinator phase2 dispatch."
+  },
+  "results": [
+    {
+      "slug": "h01-parquet-codes",
+      "title": "Специализированный Parquet writer",
+      "unit": "t3-gb-mega-throughput",
+      "baseline_seconds": 1.666174943,
+      "candidate_seconds": 1.577159767,
+      "time_reduction_pct": 5.342486776312061,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "slug": "h01-parquet-codes",
+      "title": "Специализированный Parquet writer",
+      "unit": "t3-gb-pop-horizon-scale",
+      "baseline_seconds": 1.195908239,
+      "candidate_seconds": 1.213226185,
+      "time_reduction_pct": -1.4480998989087057,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "slug": "h01-parquet-codes",
+      "title": "Специализированный Parquet writer",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.731698959,
+      "candidate_seconds": 0.922488639,
+      "time_reduction_pct": -26.074887445616813,
+      "candidate_faster_pairs": 0
+    },
+    {
+      "slug": "h01-parquet-codes",
+      "title": "Специализированный Parquet writer",
+      "unit": "t3-s001-price-time-priority",
+      "baseline_seconds": 0.396765617,
+      "candidate_seconds": 0.398716884,
+      "time_reduction_pct": -0.4917933702909494,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "title": "Потоковая запись message ledger",
+      "unit": "t3-gb-mega-throughput",
+      "baseline_seconds": 1.829212074,
+      "candidate_seconds": 1.65595882,
+      "time_reduction_pct": 9.471468970852637,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "title": "Потоковая запись message ledger",
+      "unit": "t3-gb-pop-horizon-scale",
+      "baseline_seconds": 1.021858975,
+      "candidate_seconds": 0.987284436,
+      "time_reduction_pct": 3.3834941851932143,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "title": "Потоковая запись message ledger",
+      "unit": "t3-gb-horizon-240s",
+      "baseline_seconds": 1.062136359,
+      "candidate_seconds": 0.979516922,
+      "time_reduction_pct": 7.778609243523693,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "title": "Потоковая запись message ledger",
+      "unit": "t3-s001-price-time-priority",
+      "baseline_seconds": 0.307128042,
+      "candidate_seconds": 0.297572764,
+      "time_reduction_pct": 3.1111708125954873,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "title": "Очереди получателей без повторных requeue",
+      "unit": "t3-coarse-tick-ties",
+      "baseline_seconds": 0.398980278,
+      "candidate_seconds": 0.395569199,
+      "time_reduction_pct": 0.8549492764652444,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "title": "Очереди получателей без повторных requeue",
+      "unit": "t3-eq-deterministic-baseline",
+      "baseline_seconds": 0.289331119,
+      "candidate_seconds": 0.30078717,
+      "time_reduction_pct": -3.9594949342452113,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "title": "Очереди получателей без повторных requeue",
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "baseline_seconds": 0.520623768,
+      "candidate_seconds": 0.577441461,
+      "time_reduction_pct": -10.91338822625556,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "title": "Очереди получателей без повторных requeue",
+      "unit": "t3-gb-pop-horizon-scale",
+      "baseline_seconds": 1.096446378,
+      "candidate_seconds": 1.280710363,
+      "time_reduction_pct": -16.80556283437329,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "title": "Очереди получателей без повторных requeue",
+      "unit": "t3-s001-price-time-priority",
+      "baseline_seconds": 0.304854649,
+      "candidate_seconds": 0.316010948,
+      "time_reduction_pct": -3.6595469469124176,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "slug": "h04-book-arena",
+      "title": "Арена заявок и разреженный индекс цен",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.683108309,
+      "candidate_seconds": 0.709476102,
+      "time_reduction_pct": -3.8599725186478473,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "slug": "h04-book-arena",
+      "title": "Арена заявок и разреженный индекс цен",
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_seconds": 0.655235679,
+      "candidate_seconds": 0.530267787,
+      "time_reduction_pct": 19.0722050103746,
+      "candidate_faster_pairs": 5
+    },
+    {
+      "slug": "h04-book-arena",
+      "title": "Арена заявок и разреженный индекс цен",
+      "unit": "t3-multilevel-crossing",
+      "baseline_seconds": 0.436244387,
+      "candidate_seconds": 0.404773906,
+      "time_reduction_pct": 7.2139566577391845,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "slug": "h04-book-arena",
+      "title": "Арена заявок и разреженный индекс цен",
+      "unit": "t3-s001-price-time-priority",
+      "baseline_seconds": 0.295502302,
+      "candidate_seconds": 0.322313178,
+      "time_reduction_pct": -9.072983803693013,
+      "candidate_faster_pairs": 2
+    }
+  ]
+}

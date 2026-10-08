@@ -1,0 +1,11 @@
+**
+!baselines
+!baselines/native
+!baselines/native/**
+!baselines/build_native.py
+!experiments
+!experiments/20261008-output-radical
+!experiments/20261008-output-radical/h04-lifecycle-pipeline
+!experiments/20261008-output-radical/h04-lifecycle-pipeline/tests
+!experiments/20261008-output-radical/h04-lifecycle-pipeline/tests/**
+**/__pycache__

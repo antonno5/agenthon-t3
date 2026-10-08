@@ -1,0 +1,708 @@
+{
+  "executive_summary": "Local paired comparison of one isolated native hypothesis. Positive time reduction means a shorter complete container run; all five samples and diagnostics are retained.",
+  "slug": "h04-book-arena",
+  "title": "Арена заявок и разреженный индекс цен",
+  "branch": "codex/exp-20261008-radical-h04-book-arena",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_image_source_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "candidate_implementation_commit": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "correctness": "Exact bytes, schema, ordered values for BOTH journals plus unchanged shared developer gates; assert actual native engine every market.",
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "phase1": "Implementation, host checks, fixed scenario plan, immutable commit; no Docker until coordinator phase2 dispatch."
+  },
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-multilevel-crossing",
+    "t3-s001-price-time-priority"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+      "digest": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+      "repo_digests": [
+        "track3-radical-base@sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9"
+    },
+    "candidate": {
+      "tag": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+      "digest": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+      "repo_digests": [
+        "track3-radical-h04-book-arena@sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "99072d25fde6a11514eb7c53bad2db68147fb63889aabc4df852a48e2ce97a8f",
+    "baselines/native/engine.cpp": "f12171da3b8b24187bc40b89cc564b4eaaa6b55d75a6a74cac78ab6e64d54247",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "0d8f531ad1fc77c2a0705daff6869639d9ea33600cc6fffae228db4135d5baf9",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "container_seconds_samples": {
+        "baseline": [
+          0.732203086,
+          0.683108309,
+          0.575812046,
+          0.510778685,
+          0.743561007
+        ],
+        "candidate": [
+          0.927847442,
+          0.709476102,
+          0.654981629,
+          0.842636734,
+          0.578702021
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.683108309,
+        "candidate": 0.709476102
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.732203086,
+          "candidate_seconds": 0.927847442,
+          "candidate_time_change_pct": 26.719957856064003
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.683108309,
+          "candidate_seconds": 0.709476102,
+          "candidate_time_change_pct": 3.8599725186478473
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.575812046,
+          "candidate_seconds": 0.654981629,
+          "candidate_time_change_pct": 13.749205760797857
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.510778685,
+          "candidate_seconds": 0.842636734,
+          "candidate_time_change_pct": 64.97100578893577
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.743561007,
+          "candidate_seconds": 0.578702021,
+          "candidate_time_change_pct": -22.171548056984115
+        }
+      ],
+      "candidate_faster_pairs": 1,
+      "time_reduction_pct": -3.8599725186478473,
+      "time_change_pct": 3.8599725186478473,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.004411829999298789,
+              0.002530632002162747,
+              0.0035975570062873885,
+              0.0026061509997816756,
+              0.003095092994044535
+            ],
+            "median": 0.003095092994044535
+          },
+          "hashing": {
+            "samples": [
+              0.034912905990495346,
+              0.03800047800177708,
+              0.04460646900406573,
+              0.03609245400002692,
+              0.055009736999636516
+            ],
+            "median": 0.03800047800177708
+          },
+          "parquet_write": {
+            "samples": [
+              0.283771023005043,
+              0.2002818369928906,
+              0.18462354099392894,
+              0.2358263750068125,
+              0.2180262589950282
+            ],
+            "median": 0.2180262589950282
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.126461033,
+              0.178424574,
+              0.121478432,
+              0.120900914,
+              0.171877534
+            ],
+            "median": 0.126461033
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.005223192987614311,
+              0.0029970699979458004,
+              0.0023143069993238896,
+              0.0026393209991510957,
+              0.002592441000160761
+            ],
+            "median": 0.0026393209991510957
+          },
+          "hashing": {
+            "samples": [
+              0.04392903701227624,
+              0.05122971200034954,
+              0.03927096999541391,
+              0.035551649998524226,
+              0.03588514699367806
+            ],
+            "median": 0.03927096999541391
+          },
+          "parquet_write": {
+            "samples": [
+              0.27529833100087153,
+              0.2475171750029707,
+              0.2468935019985462,
+              0.24014458500002533,
+              0.19910023300177723
+            ],
+            "median": 0.2468935019985462
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.235924111,
+              0.121881301,
+              0.118920657,
+              0.244088081,
+              0.119618888
+            ],
+            "median": 0.121881301
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "container_seconds_samples": {
+        "baseline": [
+          0.655235679,
+          0.625465044,
+          0.648004883,
+          0.805534837,
+          0.709551056
+        ],
+        "candidate": [
+          0.510774298,
+          0.520682988,
+          0.545350916,
+          0.530267787,
+          0.631322002
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.655235679,
+        "candidate": 0.530267787
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.655235679,
+          "candidate_seconds": 0.510774298,
+          "candidate_time_change_pct": -22.047239738298817
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.625465044,
+          "candidate_seconds": 0.520682988,
+          "candidate_time_change_pct": -16.752663798746205
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.648004883,
+          "candidate_seconds": 0.545350916,
+          "candidate_time_change_pct": -15.841542200230618
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.805534837,
+          "candidate_seconds": 0.530267787,
+          "candidate_time_change_pct": -34.17196095766122
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.709551056,
+          "candidate_seconds": 0.631322002,
+          "candidate_time_change_pct": -11.025147991605555
+        }
+      ],
+      "candidate_faster_pairs": 5,
+      "time_reduction_pct": 19.0722050103746,
+      "time_change_pct": -19.0722050103746,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.003725595001014881,
+              0.003626161997090094,
+              0.0029329660028452054,
+              0.0045702299976255745,
+              0.0027458719996502623
+            ],
+            "median": 0.003626161997090094
+          },
+          "hashing": {
+            "samples": [
+              0.039734506004606374,
+              0.050025389005895704,
+              0.04571684698748868,
+              0.060895767994225025,
+              0.05451483599608764
+            ],
+            "median": 0.050025389005895704
+          },
+          "parquet_write": {
+            "samples": [
+              0.24225808399526738,
+              0.22014192099933008,
+              0.22797984900176077,
+              0.26459983301108825,
+              0.2885283709992706
+            ],
+            "median": 0.24225808399526738
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.095676333,
+              0.099873509,
+              0.103917933,
+              0.156075394,
+              0.074489054
+            ],
+            "median": 0.099873509
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0024343959958059713,
+              0.002298498002346605,
+              0.002766782999970019,
+              0.0034490999969420955,
+              0.0024733070022193715
+            ],
+            "median": 0.0024733070022193715
+          },
+          "hashing": {
+            "samples": [
+              0.042496429989114404,
+              0.040400140002020635,
+              0.04037067500757985,
+              0.04243457000120543,
+              0.07014044899551664
+            ],
+            "median": 0.04243457000120543
+          },
+          "parquet_write": {
+            "samples": [
+              0.16797665500371634,
+              0.16424548999695832,
+              0.1833288200008949,
+              0.17147993500500758,
+              0.20968262599851129
+            ],
+            "median": 0.17147993500500758
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.064570387,
+              0.071228976,
+              0.074361259,
+              0.060187797,
+              0.09138532
+            ],
+            "median": 0.071228976
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "container_seconds_samples": {
+        "baseline": [
+          0.579552163,
+          0.379219805,
+          0.424734615,
+          0.436244387,
+          0.529737344
+        ],
+        "candidate": [
+          0.404773906,
+          0.446810616,
+          0.374732106,
+          0.381603227,
+          0.481763248
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.436244387,
+        "candidate": 0.404773906
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.579552163,
+          "candidate_seconds": 0.404773906,
+          "candidate_time_change_pct": -30.157467810192607
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.379219805,
+          "candidate_seconds": 0.446810616,
+          "candidate_time_change_pct": 17.823650059627028
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.424734615,
+          "candidate_seconds": 0.374732106,
+          "candidate_time_change_pct": -11.77264749189325
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.436244387,
+          "candidate_seconds": 0.381603227,
+          "candidate_time_change_pct": -12.52535542652151
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.529737344,
+          "candidate_seconds": 0.481763248,
+          "candidate_time_change_pct": -9.056204276208257
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 7.2139566577391845,
+      "time_change_pct": -7.2139566577391845,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0031719920079922304,
+              0.0029339770117076114,
+              0.004223864001687616,
+              0.004366156994365156,
+              0.005224716005614027
+            ],
+            "median": 0.004223864001687616
+          },
+          "hashing": {
+            "samples": [
+              0.013242988992715254,
+              0.010939939005766064,
+              0.01155343500431627,
+              0.010782974000903778,
+              0.017976830989937298
+            ],
+            "median": 0.01155343500431627
+          },
+          "parquet_write": {
+            "samples": [
+              0.17825063900238997,
+              0.1105936609902349,
+              0.10817425500153213,
+              0.11107849000834154,
+              0.1846328030025305
+            ],
+            "median": 0.11107849000834154
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.052927436,
+              0.02529348,
+              0.02702424,
+              0.049855366,
+              0.026595743
+            ],
+            "median": 0.02702424
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0025161789963021874,
+              0.0038539709930773824,
+              0.0023400030040647835,
+              0.002429966989438981,
+              0.0030142239993438125
+            ],
+            "median": 0.0025161789963021874
+          },
+          "hashing": {
+            "samples": [
+              0.011400110000977293,
+              0.011550259005161934,
+              0.011783137990278192,
+              0.012448902009055018,
+              0.01674816699232906
+            ],
+            "median": 0.011783137990278192
+          },
+          "parquet_write": {
+            "samples": [
+              0.11829696599160124,
+              0.1413611149990725,
+              0.11448179599763446,
+              0.10738734899713448,
+              0.1335752149998417
+            ],
+            "median": 0.11829696599160124
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.023378255,
+              0.033913806,
+              0.021732653,
+              0.024807419,
+              0.036260717
+            ],
+            "median": 0.024807419
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "container_seconds_samples": {
+        "baseline": [
+          0.346320063,
+          0.3098092,
+          0.29140807,
+          0.285641499,
+          0.295502302
+        ],
+        "candidate": [
+          0.322313178,
+          0.347773317,
+          0.308286171,
+          0.282269522,
+          0.439929104
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.295502302,
+        "candidate": 0.322313178
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.346320063,
+          "candidate_seconds": 0.322313178,
+          "candidate_time_change_pct": -6.9319937147274135
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.3098092,
+          "candidate_seconds": 0.347773317,
+          "candidate_time_change_pct": 12.25403151358966
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.29140807,
+          "candidate_seconds": 0.308286171,
+          "candidate_time_change_pct": 5.791912694799417
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.285641499,
+          "candidate_seconds": 0.282269522,
+          "candidate_time_change_pct": -1.1804926846431418
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.295502302,
+          "candidate_seconds": 0.439929104,
+          "candidate_time_change_pct": 48.87501756246895
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": -9.072983803693013,
+      "time_change_pct": 9.072983803693013,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0035027440026169643,
+              0.0022348799975588918,
+              0.002343638989259489,
+              0.002342294988920912,
+              0.002735408997978084
+            ],
+            "median": 0.002343638989259489
+          },
+          "hashing": {
+            "samples": [
+              0.002931429000454955,
+              0.002646049004397355,
+              0.002744162004091777,
+              0.0026949299935949966,
+              0.0028570529975695536
+            ],
+            "median": 0.002744162004091777
+          },
+          "parquet_write": {
+            "samples": [
+              0.08695660399477359,
+              0.07553032199508357,
+              0.0754441999992148,
+              0.06395091900588505,
+              0.06922609499569399
+            ],
+            "median": 0.0754441999992148
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.00411238,
+              0.003581144,
+              0.003546646,
+              0.003563155,
+              0.003823578
+            ],
+            "median": 0.003581144
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0021002670109737664,
+              0.0025619100051699206,
+              0.0023397460026899353,
+              0.00215578600182198,
+              0.003944012991269119
+            ],
+            "median": 0.0023397460026899353
+          },
+          "hashing": {
+            "samples": [
+              0.0027932850061915815,
+              0.0028719450056087226,
+              0.0023422849917551503,
+              0.0025527760008117184,
+              0.004649615002563223
+            ],
+            "median": 0.0027932850061915815
+          },
+          "parquet_write": {
+            "samples": [
+              0.07990882499170213,
+              0.07453610298818462,
+              0.05289264000408349,
+              0.06340143400856732,
+              0.1314860850012139
+            ],
+            "median": 0.07453610298818462
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.004019574,
+              0.004189183,
+              0.003936801,
+              0.003724737,
+              0.00388169
+            ],
+            "median": 0.003936801
+          }
+        }
+      }
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing",
+  "summary_sha256": "a05e136d5ac1d7e63602d32632c23e94725a74edc473fcddde9e68707840efc8",
+  "runner_sha256": "c1944f9b2cac3da97277419c5cbd844836b4b53cfa36e75709cf7c5579bf483f",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null
+}

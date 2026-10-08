@@ -1,0 +1,298 @@
+{
+  "executive_summary": "Independent read-only audit confirmed source immutability, pinned native execution, byte-identical journals, recalculated medians and non-overlapping scheduled container intervals for every trial.",
+  "passed": true,
+  "counts": {
+    "hypotheses": 8,
+    "hypothesis_scenario_cases": 29,
+    "distinct_scenarios": 14,
+    "accepted_scheduled_runs": 348,
+    "timed_samples": 290,
+    "excluded_warmups": 58
+  },
+  "journal_files_independently_hashed": 792,
+  "scheduled_container_intervals_nonoverlapping": true,
+  "production_sources_unchanged": true,
+  "shared_runner_and_checker_unchanged": true,
+  "experiments": [
+    {
+      "slug": "h01-trace-finalize",
+      "final_report_commit": "853881ffac5787e526310ae3b55a06d3ae940b49",
+      "measured_candidate_commit": "5ed05198f536c4c3f8e1577312491a1c36c275ad",
+      "result_sha256": "caec3d4ed6c75c76e39936f8d8977c9c76c4471074e98989ab02e4d8cbe9c359",
+      "accepted_scheduled_runs": 36,
+      "changed_sources": [
+        "baselines/native/engine.cpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "a74353323e2c5420847951240cbaa293114141125bf8e62025feced4996f1c08",
+          "archive_sha256": "26ac8abbea4224dd052f3b308037f2ec5a27a50b68297acc46ff6a24cc71cc5b"
+        },
+        "host_checks.json": {
+          "source_sha256": "3b90bb59ae678ac2b54606ae2718860a5bb166212fa54e2e96e84f902104b5a5",
+          "archive_sha256": "3b90bb59ae678ac2b54606ae2718860a5bb166212fa54e2e96e84f902104b5a5"
+        },
+        "pinned_correctness.json": {
+          "source_sha256": "ea554dcddf40cae014993ebd9ccba4260f4921d096e2b4d87bf9b1f55ddfdd76",
+          "archive_sha256": "ea554dcddf40cae014993ebd9ccba4260f4921d096e2b4d87bf9b1f55ddfdd76"
+        },
+        "result.json": {
+          "source_sha256": "caec3d4ed6c75c76e39936f8d8977c9c76c4471074e98989ab02e4d8cbe9c359",
+          "archive_sha256": "caec3d4ed6c75c76e39936f8d8977c9c76c4471074e98989ab02e4d8cbe9c359"
+        },
+        "readiness.json": {
+          "source_sha256": "1595895c6373e21722f337346f7a79df75ab86b5585535aeee7373a136cd81c0",
+          "archive_sha256": "1595895c6373e21722f337346f7a79df75ab86b5585535aeee7373a136cd81c0"
+        },
+        "completion.json": {
+          "source_sha256": "4a721dd46f648cbcc6761c3e6bab55c7de99664ed76d6608091584805ea35d4c",
+          "archive_sha256": "4a721dd46f648cbcc6761c3e6bab55c7de99664ed76d6608091584805ea35d4c"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker"
+    },
+    {
+      "slug": "h02-time-groups",
+      "final_report_commit": "409f86b15cb1703372915acbfc17342c1bb860b6",
+      "measured_candidate_commit": "f828ef6b307b6e6f651e33b2a03beadf8fb77b5e",
+      "result_sha256": "8f34b9548ca8d68da576ddcb2df7610cdb08bba0a95235bce861a36fc0514f7e",
+      "accepted_scheduled_runs": 48,
+      "changed_sources": [
+        "baselines/native/engine.cpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "59843c7f38a8f6a498fc56fd22ada7e22f545c5f806baa7fa3cc5bef022be2f0",
+          "archive_sha256": "7dd71944666f8f6535408bda98ad01d12f770859815deaafb8f3eb06c4088168"
+        },
+        "host_checks.json": {
+          "source_sha256": "72c77926d263c474f452dbc407b11114e839794e058668ca331f3310005d3e9a",
+          "archive_sha256": "72c77926d263c474f452dbc407b11114e839794e058668ca331f3310005d3e9a"
+        },
+        "pinned_correctness.json": {
+          "source_sha256": "c12bd275b3d2b7b502814162e0c1f91835b2ba6e37984084c8b0b1429452f42f",
+          "archive_sha256": "c12bd275b3d2b7b502814162e0c1f91835b2ba6e37984084c8b0b1429452f42f"
+        },
+        "result.json": {
+          "source_sha256": "8f34b9548ca8d68da576ddcb2df7610cdb08bba0a95235bce861a36fc0514f7e",
+          "archive_sha256": "8f34b9548ca8d68da576ddcb2df7610cdb08bba0a95235bce861a36fc0514f7e"
+        },
+        "readiness.json": {
+          "source_sha256": "a87bd493f3f195a3907f3609e9b4953222221307f4b5925111ed961c255fde7d",
+          "archive_sha256": "a87bd493f3f195a3907f3609e9b4953222221307f4b5925111ed961c255fde7d"
+        },
+        "completion.json": {
+          "source_sha256": "ebafc9fa5d343a832d8cf168e69ad20627b2b0def326bc3df564089e84aff331",
+          "archive_sha256": "ebafc9fa5d343a832d8cf168e69ad20627b2b0def326bc3df564089e84aff331"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing"
+    },
+    {
+      "slug": "h03-level-pool",
+      "final_report_commit": "28dd1f49cc55558346105c6559f019507ae91fba",
+      "measured_candidate_commit": "c0d97e59311b81c8b42959ac8b0999930e744bf0",
+      "result_sha256": "691e3d66144685973d475ea7e91d3f632815a9d395368762e449ecebfce78975",
+      "accepted_scheduled_runs": 48,
+      "changed_sources": [
+        "baselines/native/book.hpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "67df3fccddfeaa28344e7df6f05b606546cdcc5bcf0daa58819d55b3f77b731c",
+          "archive_sha256": "67df3fccddfeaa28344e7df6f05b606546cdcc5bcf0daa58819d55b3f77b731c"
+        },
+        "host-result.json": {
+          "source_sha256": "0dee12cb7e8257af3ba616afc5b2eac8fa613b38d2406685041edaccfeb32d2d",
+          "archive_sha256": "0dee12cb7e8257af3ba616afc5b2eac8fa613b38d2406685041edaccfeb32d2d"
+        },
+        "result.json": {
+          "source_sha256": "691e3d66144685973d475ea7e91d3f632815a9d395368762e449ecebfce78975",
+          "archive_sha256": "691e3d66144685973d475ea7e91d3f632815a9d395368762e449ecebfce78975"
+        },
+        "readiness.json": {
+          "source_sha256": "18b7eef633de66691bb7a60486bfbf8cdba7812021c90c521c3f9fbfcafad806",
+          "archive_sha256": "18b7eef633de66691bb7a60486bfbf8cdba7812021c90c521c3f9fbfcafad806"
+        },
+        "completion.json": {
+          "source_sha256": "fa3d7e2bbcc85485f5575d60cca32570bd684ede21616f41fc42b85ec6966e78",
+          "archive_sha256": "fa3d7e2bbcc85485f5575d60cca32570bd684ede21616f41fc42b85ec6966e78"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/docker"
+    },
+    {
+      "slug": "h04-agent-orders",
+      "final_report_commit": "dad47b47e6f02385044ab7f77f3540a1808f605e",
+      "measured_candidate_commit": "d1119e633be385478441c8f0e2e1623d258f21e7",
+      "result_sha256": "3f6c3e445b0f4eed149a0ea436bdd807c32cad997fbfc3023208feb3e6fe8fc1",
+      "accepted_scheduled_runs": 36,
+      "changed_sources": [
+        "baselines/native/agent_orders.hpp",
+        "baselines/native/engine.cpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "933550007c7abdf4540f8ddee31dd8e3c601ec65eaf4a1116acc3ce2b85e7ced",
+          "archive_sha256": "28ff211ed32db85604e92fe02ce3431e49c6840b5d309335a40674a1d3170263"
+        },
+        "result.json": {
+          "source_sha256": "3f6c3e445b0f4eed149a0ea436bdd807c32cad997fbfc3023208feb3e6fe8fc1",
+          "archive_sha256": "3f6c3e445b0f4eed149a0ea436bdd807c32cad997fbfc3023208feb3e6fe8fc1"
+        },
+        "readiness.json": {
+          "source_sha256": "9d4adb7a64e8ccf1dbc2d073ed0452ea20586deb429b019d1bfcf7a770d8ef3a",
+          "archive_sha256": "9d4adb7a64e8ccf1dbc2d073ed0452ea20586deb429b019d1bfcf7a770d8ef3a"
+        },
+        "completion.json": {
+          "source_sha256": "f4f8816837f1928c5533c72f410f3735d8149584ee5ee555a82cd805300b748f",
+          "archive_sha256": "f4f8816837f1928c5533c72f410f3735d8149584ee5ee555a82cd805300b748f"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/docker"
+    },
+    {
+      "slug": "h05-order-fifo",
+      "final_report_commit": "264ee3901a9c80b6209f3d968eb71d024d6a6226",
+      "measured_candidate_commit": "923a4cd7a3a53f442296efbbfaddb1e6508d01e6",
+      "result_sha256": "d8f3abf7a62231c50c31e990ceeb47b964cbac2ed51f92ac9ebb21aafa02377b",
+      "accepted_scheduled_runs": 48,
+      "changed_sources": [
+        "baselines/native/book.hpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "08b0ea431e116059d4a05652ea60f15f6510d885993f873cac733e498a237355",
+          "archive_sha256": "08b0ea431e116059d4a05652ea60f15f6510d885993f873cac733e498a237355"
+        },
+        "result.json": {
+          "source_sha256": "d8f3abf7a62231c50c31e990ceeb47b964cbac2ed51f92ac9ebb21aafa02377b",
+          "archive_sha256": "d8f3abf7a62231c50c31e990ceeb47b964cbac2ed51f92ac9ebb21aafa02377b"
+        },
+        "readiness.json": {
+          "source_sha256": "3246046d2f674824582e4f3fe68a403b3bcdc197a4c39cb70c691270b2ded0a6",
+          "archive_sha256": "3246046d2f674824582e4f3fe68a403b3bcdc197a4c39cb70c691270b2ded0a6"
+        },
+        "completion.json": {
+          "source_sha256": "44038ddef18c62814b53f519ebdf63aac49828379f76080e5e05ec65f41c7de1",
+          "archive_sha256": "44038ddef18c62814b53f519ebdf63aac49828379f76080e5e05ec65f41c7de1"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h05-order-fifo/out/h05-order-fifo/phase2/campaign"
+    },
+    {
+      "slug": "h06-arrow-strings",
+      "final_report_commit": "aab15b0181d486b511802eac4278f634a4829931",
+      "measured_candidate_commit": "34ddeca0d64108346c8b697d68ce6694b78deb6d",
+      "result_sha256": "b43824ba5b2661c29cea113e732bf89fa3bf885c6d0341d75d3dc9d3865978bb",
+      "accepted_scheduled_runs": 48,
+      "changed_sources": [
+        "baselines/native/pqwrite.cpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "35c5e75543bf1e4938df5bbe0257167d376a4c3c39fb2a253e1b1b1ff9c02bb8",
+          "archive_sha256": "35c5e75543bf1e4938df5bbe0257167d376a4c3c39fb2a253e1b1b1ff9c02bb8"
+        },
+        "result.json": {
+          "source_sha256": "b43824ba5b2661c29cea113e732bf89fa3bf885c6d0341d75d3dc9d3865978bb",
+          "archive_sha256": "b43824ba5b2661c29cea113e732bf89fa3bf885c6d0341d75d3dc9d3865978bb"
+        },
+        "readiness.json": {
+          "source_sha256": "ff94d4c6c2b2d72c94a44483953884822667bd88a914ad50d7fc84e53fe95656",
+          "archive_sha256": "ff94d4c6c2b2d72c94a44483953884822667bd88a914ad50d7fc84e53fe95656"
+        },
+        "completion.json": {
+          "source_sha256": "435aaec5e44097fe1bec7557d0a8db9a65daa3fcb1f91ba796b222ca25d5431b",
+          "archive_sha256": "435aaec5e44097fe1bec7557d0a8db9a65daa3fcb1f91ba796b222ca25d5431b"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/paired"
+    },
+    {
+      "slug": "h07-event-heap",
+      "final_report_commit": "7fa23e82a464cfa4cd5d125765ce7d28a3cda3ec",
+      "measured_candidate_commit": "3c3964f5bf40cd8b3ea30deb9b786f48bd716e1d",
+      "result_sha256": "c5efd35e465b2e9a643414dbb042f3192350bae66ce775382cb3b5e1c07f5cf7",
+      "accepted_scheduled_runs": 48,
+      "changed_sources": [
+        "baselines/native/engine.cpp",
+        "baselines/native/event_heap.hpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "2354a80d6bc358c79cc3a34638bcd28c525f253343f3f9b9253af276b7ea5782",
+          "archive_sha256": "2354a80d6bc358c79cc3a34638bcd28c525f253343f3f9b9253af276b7ea5782"
+        },
+        "correctness_audit.json": {
+          "source_sha256": "4b52f665c08226cd98c6fa56c33094b9178e49e2b2bdc265d86ceb2e25e1ed26",
+          "archive_sha256": "4b52f665c08226cd98c6fa56c33094b9178e49e2b2bdc265d86ceb2e25e1ed26"
+        },
+        "host_checks.json": {
+          "source_sha256": "a9572ce509c0b411cf0ff8c98484713b7f0721ebd0f27c6b3934dd59b40170cd",
+          "archive_sha256": "a9572ce509c0b411cf0ff8c98484713b7f0721ebd0f27c6b3934dd59b40170cd"
+        },
+        "pinned_checks.json": {
+          "source_sha256": "eaecc9cb79e2a86c7f0c690a857f71df48336390a95efccfed4c7291ccc3a356",
+          "archive_sha256": "eaecc9cb79e2a86c7f0c690a857f71df48336390a95efccfed4c7291ccc3a356"
+        },
+        "result.json": {
+          "source_sha256": "c5efd35e465b2e9a643414dbb042f3192350bae66ce775382cb3b5e1c07f5cf7",
+          "archive_sha256": "c5efd35e465b2e9a643414dbb042f3192350bae66ce775382cb3b5e1c07f5cf7"
+        },
+        "readiness.json": {
+          "source_sha256": "7f314f951dcdee7707d588f79f17154a5ddadf758b1fcf9084b663de4526d943",
+          "archive_sha256": "7f314f951dcdee7707d588f79f17154a5ddadf758b1fcf9084b663de4526d943"
+        },
+        "completion.json": {
+          "source_sha256": "640a7341b7eb84170c3a7bca6ac88b665259269d537233d3827eb0d7f1576797",
+          "archive_sha256": "640a7341b7eb84170c3a7bca6ac88b665259269d537233d3827eb0d7f1576797"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h07-event-heap/out/h07-event-heap/phase2-20261008/timing"
+    },
+    {
+      "slug": "h08-momentum-ring",
+      "final_report_commit": "b905b2b3f34b14fd16e5198c1516e9c81e631362",
+      "measured_candidate_commit": "59d33ec60a3194dce02b5e15d09ca36cade75053",
+      "result_sha256": "64ecc37c8e2d40049d6cef92f21a5e03fa6bf3fcb2e0b4d85b371dee02e0635d",
+      "accepted_scheduled_runs": 36,
+      "changed_sources": [
+        "baselines/native/engine.cpp",
+        "baselines/native/momentum_history.hpp"
+      ],
+      "archived_artifact_sha256": {
+        "README.md": {
+          "source_sha256": "dd2d6498ad834262ba3b4f1aa97610f4a31ed94e36e836e83ef37f0b4cfb19da",
+          "archive_sha256": "dd2d6498ad834262ba3b4f1aa97610f4a31ed94e36e836e83ef37f0b4cfb19da"
+        },
+        "docker-recipe.json": {
+          "source_sha256": "035afcfbadf5ba6138eae965fe1741b60d6d5b40f1d1c65e7ba54f5268634d5f",
+          "archive_sha256": "035afcfbadf5ba6138eae965fe1741b60d6d5b40f1d1c65e7ba54f5268634d5f"
+        },
+        "result.json": {
+          "source_sha256": "64ecc37c8e2d40049d6cef92f21a5e03fa6bf3fcb2e0b4d85b371dee02e0635d",
+          "archive_sha256": "64ecc37c8e2d40049d6cef92f21a5e03fa6bf3fcb2e0b4d85b371dee02e0635d"
+        },
+        "readiness.json": {
+          "source_sha256": "cf19b3f53fe24c9e8c6fa7b04bd8c37bf109378fe32006975229fea55ec4ddc1",
+          "archive_sha256": "cf19b3f53fe24c9e8c6fa7b04bd8c37bf109378fe32006975229fea55ec4ddc1"
+        },
+        "completion.json": {
+          "source_sha256": "5d30166720ae05b06c56087d09e85bb52e33fd9ba81ba7bda8730baa79c67213",
+          "archive_sha256": "5d30166720ae05b06c56087d09e85bb52e33fd9ba81ba7bda8730baa79c67213"
+        }
+      },
+      "all_checks_passed": true,
+      "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/timing"
+    }
+  ],
+  "scope": "Audit covers all 348 scheduled warmup/timing runs. Additional pinned correctness, sanitizer and host diagnostics are retained separately and are excluded from performance statistics."
+}

@@ -1,0 +1,11 @@
+{
+  "executive_summary": "Completed isolated experiment copied into the main experiments archive; production changes remain on its branch.",
+  "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel",
+  "archive": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical/h02-parquet-parallel",
+  "method": "Copy reports/tools; hardlink closed Parquet/IPC/native-library payloads, copy on link failure",
+  "original_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/timing",
+  "primary_result_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/result.json",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel",
+  "branch": "codex/exp-20261008-component-h02-parquet-parallel",
+  "thread_id": "01a11b9c-a4b4-7bb3-b3c5-53e5cde2d489"
+}

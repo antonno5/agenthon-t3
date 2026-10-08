@@ -1,0 +1,169 @@
+{
+  "executive_summary": "The time-group lifecycle candidate is frozen in one experimental commit. Host sorting/extraction and full native-engine differential checks passed; pinned Docker build, correctness gates and paired timing await an explicit grant.",
+  "slug": "h02-time-groups",
+  "branch": "codex/exp-20261008-h02-time-groups",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups",
+  "implementation_commit": "f828ef6b307b6e6f651e33b2a03beadf8fb77b5e",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp"
+  ],
+  "source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "9378ee51db8f0c3ba1080e6c7c4e92c3b0f3d3e97fca94e34a17ab7d5321a65a",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea"
+  },
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-cancelmodify-lifecycle",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-s001-price-time-priority"
+  ],
+  "host_checks": [
+    {
+      "name": "standalone engine compilation",
+      "status": "passed",
+      "compiler": "Apple Clang 17, arm64 host",
+      "flags": [
+        "-std=c++17",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra"
+      ]
+    },
+    {
+      "name": "focused lifecycle and grouped extraction differential",
+      "status": "passed",
+      "histories": 512,
+      "rows": 1024000,
+      "cases": [
+        "timestamp/order-id stable ties",
+        "submitted/accepted/executed/cancelled same id",
+        "last partial-fill execution labels",
+        "nonmonotonic timestamps",
+        "quote deduplication and merge",
+        "missing fill price",
+        "original log owner independent of emitted agent"
+      ]
+    },
+    {
+      "name": "unchanged C++ engine differential",
+      "status": "passed",
+      "simulations": 144,
+      "checked": "all seven trace and twelve message ledger arrays",
+      "filled": 57150,
+      "partial": 41854,
+      "cancelled": 8777
+    },
+    {
+      "name": "shared manifest verification and public firewall",
+      "status": "passed",
+      "results": [
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "check": "verify",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "check": "assert-public-safe",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-cancelmodify-lifecycle",
+          "check": "verify",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-cancelmodify-lifecycle",
+          "check": "assert-public-safe",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-s012-partial-fill-cancel-race",
+          "check": "verify",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-s012-partial-fill-cancel-race",
+          "check": "assert-public-safe",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-s001-price-time-priority",
+          "check": "verify",
+          "exit_code": 0
+        },
+        {
+          "unit": "t3-s001-price-time-priority",
+          "check": "assert-public-safe",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "Python syntax compilation and git diff whitespace",
+      "status": "passed"
+    }
+  ],
+  "pending_actual_docker_checks": [
+    "pinned Linux amd64 native build",
+    "actual native provenance with fallback rejected",
+    "exact bytes/schema/ordered values/digests of both journals",
+    "shared developer gates for every retained output",
+    "excluded warmup per side and five AB/BA pairs per assigned unit"
+  ],
+  "status": "ready",
+  "docker_run": false,
+  "timing_run": false,
+  "rankable": false,
+  "adopted": false,
+  "reports_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/expirements/20261008-native-hypotheses/h02-time-groups",
+  "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups",
+  "recipe": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/expirements/20261008-native-hypotheses/h02-time-groups/README.md",
+  "limitations": [
+    "Host checks use Apple arm64 Clang/libm, not the pinned Linux amd64 runtime.",
+    "No Arrow/Parquet bytes or developer gates checked until granted Docker execution.",
+    "No timing evidence or speedup claim; source cannot be tuned after timing begins."
+  ],
+  "phase2_preflight_attempts": [
+    {
+      "attempt": 1,
+      "stage": "Docker builder image resolution",
+      "exit_code": 1,
+      "timing_started": false,
+      "production_sources_changed": false,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2/build-builder.log",
+      "reason": "Dockerfile FROM interprets bare image ID as repository tag; use local baseline tag with exact immutable ID assertion."
+    },
+    {
+      "attempt": 2,
+      "stage": "correctness input staging import",
+      "exit_code": 1,
+      "timing_started": false,
+      "production_sources_changed": false,
+      "standalone_pinned_checks_passed": true,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/pinned-standalone.log",
+      "reason": "Shared staging function is a local import in run_experiment; import throughput.run_unit._stage_input directly."
+    }
+  ]
+}

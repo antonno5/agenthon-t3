@@ -1,0 +1,162 @@
+{
+  "executive_summary": "The compact agent-order registry passes focused host checks and matches every full-engine output column on the three assigned public units. Pinned Docker correctness and paired timings remain pending an orchestrator grant; no speedup is claimed.",
+  "slug": "h04-agent-orders",
+  "branch": "codex/exp-20261008-h04-agent-orders",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders",
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp",
+    "baselines/native/agent_orders.hpp"
+  ],
+  "source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/agent_orders.hpp": "28d17e8dac2f3da253a1f87491925a33d8bf4412fc5d06a63eca4d0f79f5c08f",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "bcf499598553a2b3bc7183c803c29c3f8eb5d70776fbabf7e49e24113bb2b469",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "assigned_units": [
+    "t3-mp05-cancel-churn-newest",
+    "t3-mr-deep-book-state-size",
+    "t3-cancelmodify-lifecycle"
+  ],
+  "host_checks": {
+    "executive_summary": "Focused host checks passed; actual pinned Docker checks remain pending.",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: arm64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+    "checks": [
+      {
+        "name": "compile-optimized",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native",
+          "-O2",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders/registry_test.cpp",
+          "-o",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-optimized"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "test-optimized",
+        "command": [
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-optimized"
+        ],
+        "returncode": 0,
+        "stdout": "PASS: lifecycle, independent snapshots, full/partial fills, repeated/unknown cancels, stable/recycled slots, bounded compaction, 50,000 map differential steps\n",
+        "stderr": ""
+      },
+      {
+        "name": "compile-sanitized",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-omit-frame-pointer",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders/registry_test.cpp",
+          "-o",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-sanitized"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "test-sanitized",
+        "command": [
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/out/h04-agent-orders/registry-sanitized"
+        ],
+        "returncode": 0,
+        "stdout": "PASS: lifecycle, independent snapshots, full/partial fills, repeated/unknown cancels, stable/recycled slots, bounded compaction, 50,000 map differential steps\n",
+        "stderr": ""
+      },
+      {
+        "name": "engine-syntax",
+        "command": [
+          "c++",
+          "-std=c++17",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native",
+          "-fno-fast-math",
+          "-ffp-contract=off",
+          "-fsyntax-only",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/baselines/native/engine.cpp"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "host_engine_checks": {
+    "executive_summary": "All output columns of the full host engine match the base on the three assigned units. Pinned Docker/Arrow checks remain pending.",
+    "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+    "results": [
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "ordered_columns_equal": true,
+        "bytes": 21461614,
+        "sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1"
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "ordered_columns_equal": true,
+        "bytes": 28319336,
+        "sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2"
+      },
+      {
+        "unit": "t3-cancelmodify-lifecycle",
+        "ordered_columns_equal": true,
+        "bytes": 14685974,
+        "sha256": "c028d95c545d5a3c4b1552e3911850e8669d190b1a20290cc8422e23e84f89e6"
+      }
+    ],
+    "timing_evidence": false,
+    "limitations": [
+      "Host ARM64 and host NumPy/libm; not the pinned Linux amd64 runtime.",
+      "No Parquet output, shared scoring gates, or performance conclusions."
+    ]
+  },
+  "pending_actual_docker_checks": [
+    "Pinned Python 3.11.17 / Arrow 15.0.2 linux/amd64 native extension build.",
+    "Actual native execution assertion, exact Parquet bytes/schema/ordered values and emitted digest validation for both journals on every retained output.",
+    "Imported shared developer gates on every retained output.",
+    "One excluded warmup per side and five AB/BA pairs on only the three assigned units with fresh baseline each pair, immutable images, 4CPU/16g/16g-swap/networknone and retained outliers."
+  ],
+  "status": "ready",
+  "implementation_commit": "d1119e633be385478441c8f0e2e1623d258f21e7",
+  "result_json": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h04-agent-orders/expirements/20261008-native-hypotheses/h04-agent-orders/result.json",
+  "docker_invocations": 0,
+  "timing_samples": 0,
+  "source_worktree_clean": true
+}

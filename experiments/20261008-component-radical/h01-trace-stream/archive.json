@@ -1,0 +1,11 @@
+{
+  "executive_summary": "Completed isolated experiment copied into the main experiments archive; production changes remain on its branch.",
+  "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h01-trace-stream/experiments/20261008-component-radical/h01-trace-stream",
+  "archive": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical/h01-trace-stream",
+  "method": "Copy reports/tools; hardlink closed Parquet/IPC/native-library payloads, copy on link failure",
+  "original_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h01-trace-stream/experiments/20261008-component-radical/h01-trace-stream/evidence/timing",
+  "primary_result_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h01-trace-stream/experiments/20261008-component-radical/h01-trace-stream/result.json",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h01-trace-stream",
+  "branch": "codex/exp-20261008-component-h01-trace-stream",
+  "thread_id": "01a11b9c-a0af-7130-bb63-7e68b61a2609"
+}

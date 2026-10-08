@@ -1,0 +1,66 @@
+{
+  "executive_summary": "Standalone host comparisons passed; pinned Docker checks remain pending.",
+  "baseline_source_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "exit_code": 0,
+  "stdout": "PASS: focused lifecycle/tie/quote cases, 512 histories (1,024,000 rows), 144 full engine differential simulations; filled=57150 partial=41854 cancelled=8777",
+  "docker_run": false,
+  "timing_claim": false,
+  "manifest_checks": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest units/t3-mr-deep-book-state-size\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe units/t3-mr-deep-book-state-size\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest units/t3-cancelmodify-lifecycle\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe units/t3-cancelmodify-lifecycle\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest units/t3-s012-partial-fill-cancel-race\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe units/t3-s012-partial-fill-cancel-race\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest units/t3-s001-price-time-priority\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe units/t3-s001-price-time-priority\n",
+      "stderr": ""
+    }
+  ]
+}

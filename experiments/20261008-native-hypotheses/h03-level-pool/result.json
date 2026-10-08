@@ -1,0 +1,3711 @@
+{
+  "executive_summary": "All four assigned native scenarios passed byte-exact journals and shared developer gates in all 48 outputs. Complete Docker median times were 2.33% slower on cancel churn, 1.64% faster on deep book, 1.40% faster on STP oldest and 4.89% slower on cancel/modify lifecycle. Only 8 of 20 pairs were faster; this local emulated run does not establish a consistent overall speedup.",
+  "slug": "h03-level-pool",
+  "title": "Пул стабильных уровней стакана",
+  "branch": "codex/exp-20261008-h03-level-pool",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image_source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "candidate_implementation_commit": "c0d97e59311b81c8b42959ac8b0999930e744bf0",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "assigned_units": [
+    "t3-mp05-cancel-churn-newest",
+    "t3-mr-deep-book-state-size",
+    "t3-mp02-stp-oldest-baseline",
+    "t3-cancelmodify-lifecycle"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "repo_digests": [],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "c0d97e59311b81c8b42959ac8b0999930e744bf0"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "d3ae721ac4dc178c6a289aa25fba2429f4f8ad7ed90da33782a5d35dad98d096",
+    "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "container_seconds_samples": {
+        "baseline": [
+          0.48857037,
+          0.486101184,
+          0.489520638,
+          0.489491018,
+          0.547655344
+        ],
+        "candidate": [
+          0.500883057,
+          0.499163125,
+          0.539875512,
+          0.50490217,
+          0.486134365
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.489491018,
+        "candidate": 0.500883057
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.48857037,
+          "candidate_seconds": 0.500883057,
+          "candidate_time_change_pct": 2.5201460743515813
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.486101184,
+          "candidate_seconds": 0.499163125,
+          "candidate_time_change_pct": 2.687082737078872
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.489520638,
+          "candidate_seconds": 0.539875512,
+          "candidate_time_change_pct": 10.286568142608111
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.489491018,
+          "candidate_seconds": 0.50490217,
+          "candidate_time_change_pct": 3.1484034299481323
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.547655344,
+          "candidate_seconds": 0.486134365,
+          "candidate_time_change_pct": -11.23352116874441
+        }
+      ],
+      "candidate_faster_pairs": 1,
+      "time_reduction_pct": -2.327323399425496,
+      "time_change_pct": 2.327323399425496,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002551801997469738,
+              0.0021787379955640063,
+              0.0022000449971528724,
+              0.002094395000312943,
+              0.0022472080017905682
+            ],
+            "median": 0.0022000449971528724
+          },
+          "hashing": {
+            "samples": [
+              0.03135523699893383,
+              0.03054483499727212,
+              0.02902261200506473,
+              0.03244674699817551,
+              0.03330112199910218
+            ],
+            "median": 0.03135523699893383
+          },
+          "parquet_write": {
+            "samples": [
+              0.1412121180019113,
+              0.14499418700152344,
+              0.16078330599965585,
+              0.14524779699755425,
+              0.18778707800331051
+            ],
+            "median": 0.14524779699755425
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.080621051,
+              0.087610167,
+              0.087037978,
+              0.0918556,
+              0.076509238
+            ],
+            "median": 0.087037978
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.002044630004093051,
+              0.0023614460005774163,
+              0.002703635000216309,
+              0.002344116997846868,
+              0.0028385900004650466
+            ],
+            "median": 0.0023614460005774163
+          },
+          "hashing": {
+            "samples": [
+              0.0302191440059687,
+              0.03350032299931627,
+              0.03039526000065962,
+              0.03051732299354626,
+              0.03159757299727062
+            ],
+            "median": 0.03051732299354626
+          },
+          "parquet_write": {
+            "samples": [
+              0.1758228349950752,
+              0.1538237900040404,
+              0.19523499399463026,
+              0.17324094300569437,
+              0.14760785599973786
+            ],
+            "median": 0.17324094300569437
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.086812205,
+              0.079313016,
+              0.073430519,
+              0.086564607,
+              0.087940093
+            ],
+            "median": 0.086564607
+          }
+        }
+      },
+      "classification": "correct_but_slower",
+      "reported_process_peak_bytes": {
+        "baseline": {
+          "samples": [
+            171536384,
+            171552768,
+            171327488,
+            171614208,
+            186990592
+          ],
+          "median": 171552768
+        },
+        "candidate": {
+          "samples": [
+            170762240,
+            170487808,
+            170627072,
+            170696704,
+            170594304
+          ],
+          "median": 170627072
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "container_seconds_samples": {
+        "baseline": [
+          0.583915524,
+          0.565256268,
+          0.581231922,
+          0.557533268,
+          0.63360801
+        ],
+        "candidate": [
+          0.622175546,
+          0.571694049,
+          0.557135849,
+          0.589610486,
+          0.570361402
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.581231922,
+        "candidate": 0.571694049
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.583915524,
+          "candidate_seconds": 0.622175546,
+          "candidate_time_change_pct": 6.552321427919416
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.565256268,
+          "candidate_seconds": 0.571694049,
+          "candidate_time_change_pct": 1.1389136864909721
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.581231922,
+          "candidate_seconds": 0.557135849,
+          "candidate_time_change_pct": -4.145689885215898
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.557533268,
+          "candidate_seconds": 0.589610486,
+          "candidate_time_change_pct": 5.753417749414003
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.63360801,
+          "candidate_seconds": 0.570361402,
+          "candidate_time_change_pct": -9.981977342742244
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": 1.6409754246085595,
+      "time_change_pct": -1.6409754246085595,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002022630003921222,
+              0.0021460049974848516,
+              0.002138804004061967,
+              0.0021508229983737692,
+              0.0022577569980057888
+            ],
+            "median": 0.0021460049974848516
+          },
+          "hashing": {
+            "samples": [
+              0.03226026500487933,
+              0.032349431996408384,
+              0.03102077799849212,
+              0.031650362005166244,
+              0.03925733100186335
+            ],
+            "median": 0.03226026500487933
+          },
+          "parquet_write": {
+            "samples": [
+              0.1938654589957875,
+              0.16587400200261893,
+              0.19113806900231056,
+              0.1620116029962416,
+              0.21935573400023697
+            ],
+            "median": 0.19113806900231056
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.143641097,
+              0.141089825,
+              0.144664621,
+              0.14503857,
+              0.136681976
+            ],
+            "median": 0.143641097
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0029896609994466417,
+              0.0022171919990796596,
+              0.0021802360060974024,
+              0.002451337997626979,
+              0.002316309997695498
+            ],
+            "median": 0.002316309997695498
+          },
+          "hashing": {
+            "samples": [
+              0.03414499299833551,
+              0.03255402400100138,
+              0.03338131799682742,
+              0.03100686000107089,
+              0.0315675019955961
+            ],
+            "median": 0.03255402400100138
+          },
+          "parquet_write": {
+            "samples": [
+              0.2080561910049821,
+              0.16484096100045648,
+              0.15759731899891816,
+              0.17948325800113227,
+              0.16496232500604155
+            ],
+            "median": 0.16496232500604155
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.136146434,
+              0.146696946,
+              0.146886203,
+              0.146428056,
+              0.147828647
+            ],
+            "median": 0.146696946
+          }
+        }
+      },
+      "classification": "correct_observed_faster",
+      "reported_process_peak_bytes": {
+        "baseline": {
+          "samples": [
+            202858496,
+            203026432,
+            202809344,
+            202874880,
+            202985472
+          ],
+          "median": 202874880
+        },
+        "candidate": {
+          "samples": [
+            203116544,
+            203132928,
+            203038720,
+            202670080,
+            202944512
+          ],
+          "median": 203038720
+        }
+      }
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "container_seconds_samples": {
+        "baseline": [
+          0.364873429,
+          0.325637695,
+          0.404873258,
+          0.323345147,
+          0.336064269
+        ],
+        "candidate": [
+          0.331344145,
+          0.332763665,
+          0.368187661,
+          0.326242301,
+          0.320790292
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.336064269,
+        "candidate": 0.331344145
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.364873429,
+          "candidate_seconds": 0.331344145,
+          "candidate_time_change_pct": -9.189291774929453
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.325637695,
+          "candidate_seconds": 0.332763665,
+          "candidate_time_change_pct": 2.1883123819556483
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.404873258,
+          "candidate_seconds": 0.368187661,
+          "candidate_time_change_pct": -9.061007679593402
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.323345147,
+          "candidate_seconds": 0.326242301,
+          "candidate_time_change_pct": 0.8959942732649218
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.336064269,
+          "candidate_seconds": 0.320790292,
+          "candidate_time_change_pct": -4.5449571433016756
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": 1.4045301555102419,
+      "time_change_pct": -1.4045301555102419,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002726061997236684,
+              0.002160070995159913,
+              0.002523612005461473,
+              0.0020737779996125028,
+              0.002080172002024483
+            ],
+            "median": 0.002160070995159913
+          },
+          "hashing": {
+            "samples": [
+              0.011727778997737914,
+              0.01066061500023352,
+              0.012821609998354688,
+              0.010565857999608852,
+              0.011128721002023667
+            ],
+            "median": 0.011128721002023667
+          },
+          "parquet_write": {
+            "samples": [
+              0.09074197400248105,
+              0.0793332890042737,
+              0.12697255799948196,
+              0.08257561599810997,
+              0.0839840589969979
+            ],
+            "median": 0.0839840589969979
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.028097026,
+              0.025079997,
+              0.02563879,
+              0.025670413,
+              0.024869586
+            ],
+            "median": 0.02563879
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0022995510007604025,
+              0.002181094001571182,
+              0.001997929997742176,
+              0.0021291899975039996,
+              0.0021600859981845133
+            ],
+            "median": 0.0021600859981845133
+          },
+          "hashing": {
+            "samples": [
+              0.011584603998926468,
+              0.010657206999894697,
+              0.012084176996722817,
+              0.010772243003884796,
+              0.011367622995749116
+            ],
+            "median": 0.011367622995749116
+          },
+          "parquet_write": {
+            "samples": [
+              0.07843181199981136,
+              0.0842205539968345,
+              0.10379278700155949,
+              0.0832606419990343,
+              0.08434473800133471
+            ],
+            "median": 0.0842205539968345
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.027761557,
+              0.024326685,
+              0.025598318,
+              0.027950742,
+              0.024338473
+            ],
+            "median": 0.025598318
+          }
+        }
+      },
+      "classification": "correct_observed_faster",
+      "reported_process_peak_bytes": {
+        "baseline": {
+          "samples": [
+            88854528,
+            88977408,
+            88875008,
+            88719360,
+            88838144
+          ],
+          "median": 88854528
+        },
+        "candidate": {
+          "samples": [
+            88879104,
+            88776704,
+            88625152,
+            89440256,
+            88895488
+          ],
+          "median": 88879104
+        }
+      }
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "container_seconds_samples": {
+        "baseline": [
+          0.414584971,
+          0.406962533,
+          0.416053596,
+          0.435146766,
+          0.413889204
+        ],
+        "candidate": [
+          0.401953179,
+          0.429024408,
+          0.458479233,
+          0.434842413,
+          0.450180137
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.414584971,
+        "candidate": 0.434842413
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.414584971,
+          "candidate_seconds": 0.401953179,
+          "candidate_time_change_pct": -3.0468523664838876
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.406962533,
+          "candidate_seconds": 0.429024408,
+          "candidate_time_change_pct": 5.421107156318983
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.416053596,
+          "candidate_seconds": 0.458479233,
+          "candidate_time_change_pct": 10.197156666325258
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.435146766,
+          "candidate_seconds": 0.434842413,
+          "candidate_time_change_pct": -0.06994260874273461
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.413889204,
+          "candidate_seconds": 0.450180137,
+          "candidate_time_change_pct": 8.768272438437407
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": -4.886197864610953,
+      "time_change_pct": 4.886197864610953,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002105085994116962,
+              0.0019949280031141825,
+              0.002040618004684802,
+              0.0021162230041227303,
+              0.002114228998834733
+            ],
+            "median": 0.002105085994116962
+          },
+          "hashing": {
+            "samples": [
+              0.018957652006065473,
+              0.019422987999860197,
+              0.019523896000464447,
+              0.018789964000461623,
+              0.019903070999134798
+            ],
+            "median": 0.019422987999860197
+          },
+          "parquet_write": {
+            "samples": [
+              0.12770744600029824,
+              0.11586596200055413,
+              0.13559288299737698,
+              0.131261611996093,
+              0.11820338000022304
+            ],
+            "median": 0.12770744600029824
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.05377349,
+              0.055866697,
+              0.059894748,
+              0.063568018,
+              0.062113583
+            ],
+            "median": 0.059894748
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.002101346995914355,
+              0.00220440100383712,
+              0.002105947998643387,
+              0.0027076999976998195,
+              0.003325122997921426
+            ],
+            "median": 0.00220440100383712
+          },
+          "hashing": {
+            "samples": [
+              0.018335863001993857,
+              0.020696045998192858,
+              0.022081944996898528,
+              0.020686795003712177,
+              0.019700732998899184
+            ],
+            "median": 0.020686795003712177
+          },
+          "parquet_write": {
+            "samples": [
+              0.1248829880045007,
+              0.1307770589976497,
+              0.16013129100383278,
+              0.11602407299928473,
+              0.1207630490011048
+            ],
+            "median": 0.1248829880045007
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.054944612,
+              0.055813875,
+              0.062207038,
+              0.056948711,
+              0.05417189
+            ],
+            "median": 0.055813875
+          }
+        }
+      },
+      "classification": "correct_but_slower",
+      "reported_process_peak_bytes": {
+        "baseline": {
+          "samples": [
+            160010240,
+            160018432,
+            159756288,
+            159768576,
+            160153600
+          ],
+          "median": 160010240
+        },
+        "candidate": {
+          "samples": [
+            158715904,
+            157782016,
+            158720000,
+            158732288,
+            158842880
+          ],
+          "median": 158720000
+        }
+      }
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/docker",
+  "summary_sha256": "3da0d1304267a589c8a9ad7bce6149ca69cf1e67ab3c7ea0efad12115ac2de78",
+  "runner_sha256": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null,
+  "status": "complete",
+  "correctness_status": "passed",
+  "performance_status": "mixed_no_consistent_speedup",
+  "original_source_implementation_commit": "710b6cfc5b4dd50e27ea474bf1b108704f8519ae",
+  "total_candidate_faster_pairs": 8,
+  "total_pairs": 20,
+  "retained_output_audits": [
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:45.893815122Z",
+        "FinishedAt": "2026-10-07T22:44:46.391176714Z"
+      },
+      "container_sec": 0.497361592,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 171589632
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:48.272878499Z",
+        "FinishedAt": "2026-10-07T22:44:48.758342791Z"
+      },
+      "container_sec": 0.485464292,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 170930176
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:50.162707376Z",
+        "FinishedAt": "2026-10-07T22:44:50.651277746Z"
+      },
+      "container_sec": 0.48857037,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 171536384
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:51.963129206Z",
+        "FinishedAt": "2026-10-07T22:44:52.464012263Z"
+      },
+      "container_sec": 0.500883057,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 170762240
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:53.847195724Z",
+        "FinishedAt": "2026-10-07T22:44:54.346358849Z"
+      },
+      "container_sec": 0.499163125,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 170487808
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:55.838821605Z",
+        "FinishedAt": "2026-10-07T22:44:56.324922789Z"
+      },
+      "container_sec": 0.486101184,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 171552768
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:57.718953805Z",
+        "FinishedAt": "2026-10-07T22:44:58.208474443Z"
+      },
+      "container_sec": 0.489520638,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 171327488
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:44:59.672647386Z",
+        "FinishedAt": "2026-10-07T22:45:00.212522898Z"
+      },
+      "container_sec": 0.539875512,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 170627072
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:01.668657602Z",
+        "FinishedAt": "2026-10-07T22:45:02.173559772Z"
+      },
+      "container_sec": 0.50490217,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 170696704
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:03.485498885Z",
+        "FinishedAt": "2026-10-07T22:45:03.974989903Z"
+      },
+      "container_sec": 0.489491018,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 171614208
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:05.436620948Z",
+        "FinishedAt": "2026-10-07T22:45:05.984276292Z"
+      },
+      "container_sec": 0.547655344,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 186990592
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:07.341277904Z",
+        "FinishedAt": "2026-10-07T22:45:07.827412269Z"
+      },
+      "container_sec": 0.486134365,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 170594304
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:09.228415279Z",
+        "FinishedAt": "2026-10-07T22:45:09.831120446Z"
+      },
+      "container_sec": 0.602705167,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202915840
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:11.55676634Z",
+        "FinishedAt": "2026-10-07T22:45:12.15929131Z"
+      },
+      "container_sec": 0.60252497,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202911744
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:13.833984939Z",
+        "FinishedAt": "2026-10-07T22:45:14.417900463Z"
+      },
+      "container_sec": 0.583915524,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202858496
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:16.133143162Z",
+        "FinishedAt": "2026-10-07T22:45:16.755318708Z"
+      },
+      "container_sec": 0.622175546,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 203116544
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:18.523737602Z",
+        "FinishedAt": "2026-10-07T22:45:19.095431651Z"
+      },
+      "container_sec": 0.571694049,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 203132928
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:20.725216439Z",
+        "FinishedAt": "2026-10-07T22:45:21.290472707Z"
+      },
+      "container_sec": 0.565256268,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 203026432
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:23.155098789Z",
+        "FinishedAt": "2026-10-07T22:45:23.736330711Z"
+      },
+      "container_sec": 0.581231922,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202809344
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:25.466312615Z",
+        "FinishedAt": "2026-10-07T22:45:26.023448464Z"
+      },
+      "container_sec": 0.557135849,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 203038720
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:27.826394432Z",
+        "FinishedAt": "2026-10-07T22:45:28.416004918Z"
+      },
+      "container_sec": 0.589610486,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202670080
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:30.110288129Z",
+        "FinishedAt": "2026-10-07T22:45:30.667821397Z"
+      },
+      "container_sec": 0.557533268,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202874880
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:32.467671635Z",
+        "FinishedAt": "2026-10-07T22:45:33.101279645Z"
+      },
+      "container_sec": 0.63360801,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202985472
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:34.787681777Z",
+        "FinishedAt": "2026-10-07T22:45:35.358043179Z"
+      },
+      "container_sec": 0.570361402,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 202944512
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:37.124049773Z",
+        "FinishedAt": "2026-10-07T22:45:37.490725773Z"
+      },
+      "container_sec": 0.366676,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 89096192
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:38.141784787Z",
+        "FinishedAt": "2026-10-07T22:45:38.484952934Z"
+      },
+      "container_sec": 0.343168147,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88633344
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:39.070483181Z",
+        "FinishedAt": "2026-10-07T22:45:39.43535661Z"
+      },
+      "container_sec": 0.364873429,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88854528
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:39.996519896Z",
+        "FinishedAt": "2026-10-07T22:45:40.327864041Z"
+      },
+      "container_sec": 0.331344145,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88879104
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:40.908107899Z",
+        "FinishedAt": "2026-10-07T22:45:41.240871564Z"
+      },
+      "container_sec": 0.332763665,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88776704
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:41.8065126Z",
+        "FinishedAt": "2026-10-07T22:45:42.132150295Z"
+      },
+      "container_sec": 0.325637695,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88977408
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:42.701857938Z",
+        "FinishedAt": "2026-10-07T22:45:43.106731196Z"
+      },
+      "container_sec": 0.404873258,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88875008
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:43.762143333Z",
+        "FinishedAt": "2026-10-07T22:45:44.130330994Z"
+      },
+      "container_sec": 0.368187661,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88625152
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:44.718931145Z",
+        "FinishedAt": "2026-10-07T22:45:45.045173446Z"
+      },
+      "container_sec": 0.326242301,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 89440256
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:45.61022724Z",
+        "FinishedAt": "2026-10-07T22:45:45.933572387Z"
+      },
+      "container_sec": 0.323345147,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88719360
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:46.512008306Z",
+        "FinishedAt": "2026-10-07T22:45:46.848072575Z"
+      },
+      "container_sec": 0.336064269,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88838144
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:47.405135621Z",
+        "FinishedAt": "2026-10-07T22:45:47.725925913Z"
+      },
+      "container_sec": 0.320790292,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 88895488
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "d766b2eecbc4b5b67867d66bf29f7427c3bcb213f0c47f0aed4202432129d46c",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "54262822bac387730be4043fdcce330f65c6e66463e47b24c41f9cb9785f9348",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "baseline",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:48.365344487Z",
+        "FinishedAt": "2026-10-07T22:45:48.771711704Z"
+      },
+      "container_sec": 0.406367217,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 160034816
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "candidate",
+      "kind": "warmup",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:49.727506534Z",
+        "FinishedAt": "2026-10-07T22:45:50.184767227Z"
+      },
+      "container_sec": 0.457260693,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 158846976
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:51.152108573Z",
+        "FinishedAt": "2026-10-07T22:45:51.566693544Z"
+      },
+      "container_sec": 0.414584971,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 160010240
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 0,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:52.534993351Z",
+        "FinishedAt": "2026-10-07T22:45:52.93694653Z"
+      },
+      "container_sec": 0.401953179,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 158715904
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:53.924782147Z",
+        "FinishedAt": "2026-10-07T22:45:54.353806555Z"
+      },
+      "container_sec": 0.429024408,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 157782016
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 1,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:55.370927421Z",
+        "FinishedAt": "2026-10-07T22:45:55.777889954Z"
+      },
+      "container_sec": 0.406962533,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 160018432
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:56.741752715Z",
+        "FinishedAt": "2026-10-07T22:45:57.157806311Z"
+      },
+      "container_sec": 0.416053596,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 159756288
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 2,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:58.131504134Z",
+        "FinishedAt": "2026-10-07T22:45:58.589983367Z"
+      },
+      "container_sec": 0.458479233,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 158720000
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:45:59.630025314Z",
+        "FinishedAt": "2026-10-07T22:46:00.064867727Z"
+      },
+      "container_sec": 0.434842413,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 158732288
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 3,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:46:01.006827123Z",
+        "FinishedAt": "2026-10-07T22:46:01.441973889Z"
+      },
+      "container_sec": 0.435146766,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 159768576
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "baseline",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:46:02.445627692Z",
+        "FinishedAt": "2026-10-07T22:46:02.859516896Z"
+      },
+      "container_sec": 0.413889204,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 160153600
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "side": "candidate",
+      "kind": "timing",
+      "index": 4,
+      "image_digest": "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-07T22:46:03.812453659Z",
+        "FinishedAt": "2026-10-07T22:46:04.262633796Z"
+      },
+      "container_sec": 0.450180137,
+      "container_clock": "Docker State FinishedAt - StartedAt",
+      "reported_process_peak_bytes_by_market": {
+        "single": 158842880
+      },
+      "developer_gates": {
+        "g0_integrity": true,
+        "g1_schema": true,
+        "g2_cutoff_resource": true,
+        "g3_domain_semantics": true
+      },
+      "exact_reference_checks": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "journal_digests": [
+        {
+          "file": "trace.parquet",
+          "sha256": "797af9c4b00e9b2ed5e8afb79ddf323dc1088ad57966f8807bb4d32f83a4f733",
+          "declared_digest_matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "sha256": "929bf1b7d8765f352d503368cc302708a9f869587d8ba7d9bacb831b2ad99e26",
+          "declared_digest_matches": true
+        }
+      ]
+    }
+  ],
+  "comparison_counts": {
+    "between_sides": 24,
+    "repeat_stability": 40,
+    "total": 64,
+    "journals_per_comparison": 2,
+    "all_bytes_schema_ordered_values_equal": true
+  },
+  "host_diagnostics": {
+    "result": {
+      "executive_summary": "Host standalone checks for stable native price levels; actual pinned Docker correctness and timing remain pending.",
+      "slug": "h03-level-pool",
+      "status": "host_passed",
+      "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+      "host_python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "compiler": "/usr/bin/clang++",
+      "source_sha256": {
+        "baselines/native/book.hpp": "d3ae721ac4dc178c6a289aa25fba2429f4f8ad7ed90da33782a5d35dad98d096"
+      },
+      "checks": [
+        {
+          "name": "compiler-version",
+          "command": [
+            "/usr/bin/clang++",
+            "--version"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compiler-version.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compiler-version.stderr.txt"
+        },
+        {
+          "name": "compile-baseline-book-optimized",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++17",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-fno-fast-math",
+            "-ffp-contract=off",
+            "-I",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+            "-O2",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native/tests/book_test.cpp",
+            "-o",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-optimized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-optimized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-optimized.stderr.txt"
+        },
+        {
+          "name": "run-baseline-book-optimized",
+          "command": [
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-optimized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-optimized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-optimized.stderr.txt"
+        },
+        {
+          "name": "compile-level-pool-optimized",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++17",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-fno-fast-math",
+            "-ffp-contract=off",
+            "-I",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+            "-O2",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/expirements/20261008-native-hypotheses/h03-level-pool/level_pool_test.cpp",
+            "-o",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-optimized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-optimized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-optimized.stderr.txt"
+        },
+        {
+          "name": "run-level-pool-optimized",
+          "command": [
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-optimized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-optimized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-optimized.stderr.txt"
+        },
+        {
+          "name": "compile-baseline-book-sanitized",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++17",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-fno-fast-math",
+            "-ffp-contract=off",
+            "-I",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-omit-frame-pointer",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native/tests/book_test.cpp",
+            "-o",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-sanitized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-sanitized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-sanitized.stderr.txt"
+        },
+        {
+          "name": "run-baseline-book-sanitized",
+          "command": [
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-sanitized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-sanitized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-sanitized.stderr.txt"
+        },
+        {
+          "name": "compile-level-pool-sanitized",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++17",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-fno-fast-math",
+            "-ffp-contract=off",
+            "-I",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-omit-frame-pointer",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/expirements/20261008-native-hypotheses/h03-level-pool/level_pool_test.cpp",
+            "-o",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-sanitized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-sanitized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-sanitized.stderr.txt"
+        },
+        {
+          "name": "run-level-pool-sanitized",
+          "command": [
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-sanitized"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-sanitized.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-sanitized.stderr.txt"
+        },
+        {
+          "name": "engine-syntax",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++17",
+            "-Wall",
+            "-Wno-unused-function",
+            "-fno-fast-math",
+            "-ffp-contract=off",
+            "-fsyntax-only",
+            "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native/engine.cpp"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/engine-syntax.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/engine-syntax.stderr.txt"
+        },
+        {
+          "name": "diff-whitespace",
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exit_code": 0,
+          "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/diff-whitespace.stdout.txt",
+          "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/diff-whitespace.stderr.txt"
+        }
+      ],
+      "error": null,
+      "docker_executed": false,
+      "actual_docker_checks": "pending explicit orchestrator grant",
+      "timing_executed": false,
+      "performance_claim": null,
+      "rankable": false,
+      "adopted": false
+    },
+    "archived_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/expirements/20261008-native-hypotheses/h03-level-pool/host-result.json",
+    "sha256": "0dee12cb7e8257af3ba616afc5b2eac8fa613b38d2406685041edaccfeb32d2d"
+  },
+  "pinned_diagnostics": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "build-builder",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--platform=linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=track3-native:20261008",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/Dockerfile",
+          "--target",
+          "native_builder",
+          "--iidfile",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/builder-image-id.txt",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool"
+        ],
+        "status": "passed",
+        "started_unix": 1791413020.700062,
+        "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-builder.attempt-01.stdout.txt",
+        "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-builder.attempt-01.stderr.txt",
+        "finished_unix": 1791413035.177918
+      },
+      {
+        "name": "linux-book-correctness",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "-v",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool:/checkout:ro",
+          "--entrypoint",
+          "sh",
+          "sha256:b90652284e581cac5d331be5548542996b48987b0c16f1bcb3b482531f7f65ae",
+          "-c",
+          "\nset -eu\npython -c 'import sys, pyarrow; assert sys.version_info[:3] == (3,11,17); assert pyarrow.__version__ == \"15.0.2\"'\nfor mode in optimized sanitized; do\n  case \"$mode\" in\n    optimized) flags='-O2' ;;\n    sanitized) flags='-O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer' ;;\n  esac\n  for test in baseline-book level-pool; do\n    case \"$test\" in\n      baseline-book) source=/checkout/baselines/native/tests/book_test.cpp ;;\n      level-pool) source=/checkout/expirements/20261008-native-hypotheses/h03-level-pool/level_pool_test.cpp ;;\n    esac\n    g++ -std=c++17 -Wall -Wextra -Werror -fno-fast-math -ffp-contract=off $flags \\\n      -I /checkout/baselines/native \"$source\" -o \"/tmp/$test-$mode\"\n    \"/tmp/$test-$mode\"\n  done\ndone\n"
+        ],
+        "status": "passed",
+        "started_unix": 1791413035.249642,
+        "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/linux-book-correctness.attempt-01.stdout.txt",
+        "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/linux-book-correctness.attempt-01.stderr.txt",
+        "finished_unix": 1791413081.706572
+      },
+      {
+        "name": "build-candidate",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--platform=linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=track3-native:20261008",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/Dockerfile",
+          "--iidfile",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/candidate-image-id.txt",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool"
+        ],
+        "status": "passed",
+        "started_unix": 1791413081.771017,
+        "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-candidate.attempt-01.stdout.txt",
+        "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-candidate.attempt-01.stderr.txt",
+        "finished_unix": 1791413082.834513
+      },
+      {
+        "name": "native-runtime-baseline",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--entrypoint",
+          "python",
+          "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+          "-c",
+          "import sys, pyarrow, abides_fork._t3engine; assert sys.version_info[:3] == (3,11,17); assert pyarrow.__version__ == \"15.0.2\""
+        ],
+        "status": "passed",
+        "started_unix": 1791413082.87112,
+        "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-baseline.attempt-01.stdout.txt",
+        "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-baseline.attempt-01.stderr.txt",
+        "finished_unix": 1791413083.373234
+      },
+      {
+        "name": "native-runtime-candidate",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform=linux/amd64",
+          "--network=none",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--entrypoint",
+          "python",
+          "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+          "-c",
+          "import sys, pyarrow, abides_fork._t3engine; assert sys.version_info[:3] == (3,11,17); assert pyarrow.__version__ == \"15.0.2\""
+        ],
+        "status": "passed",
+        "started_unix": 1791413083.373794,
+        "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-candidate.attempt-01.stdout.txt",
+        "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-candidate.attempt-01.stderr.txt",
+        "finished_unix": 1791413083.894228
+      },
+      {
+        "name": "focused-run",
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/run_focused.py",
+          "--slug",
+          "h03-level-pool",
+          "--candidate-image",
+          "sha256:e14b6a4d90904db245e7bb787296e15855e263c2522c9d5229b3a2834d3a8a5c",
+          "--candidate-commit",
+          "c0d97e59311b81c8b42959ac8b0999930e744bf0",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/docker"
+        ],
+        "status": "passed",
+        "started_unix": 1791413083.8948202,
+        "stdout": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/focused-run.attempt-01.stdout.txt",
+        "stderr": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/focused-run.attempt-01.stderr.txt",
+        "finished_unix": 1791413165.32152
+      }
+    ],
+    "baseline_tag_checks": [
+      {
+        "phase": "before-builder-build",
+        "tag": "track3-native:20261008",
+        "actual_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "required_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "accepted": true,
+        "checked_unix": 1791413020.699755
+      },
+      {
+        "phase": "after-builder-build",
+        "tag": "track3-native:20261008",
+        "actual_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "required_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "accepted": true,
+        "checked_unix": 1791413035.249362
+      },
+      {
+        "phase": "before-candidate-build",
+        "tag": "track3-native:20261008",
+        "actual_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "required_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "accepted": true,
+        "checked_unix": 1791413081.77056
+      },
+      {
+        "phase": "after-candidate-build",
+        "tag": "track3-native:20261008",
+        "actual_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "required_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "accepted": true,
+        "checked_unix": 1791413082.870831
+      }
+    ],
+    "builder_image_id": "sha256:b90652284e581cac5d331be5548542996b48987b0c16f1bcb3b482531f7f65ae",
+    "linux_book_check_stdout": "PASS: 80,000 differential mutations, FIFO, binary positions, aggregate volumes, prefix reuse and compaction\nPASS: stable addresses, stale requests, prefix reuse/reset, middle retirement, bounded pool reclamation, FIFO, full order fields and large queue reset\nPASS: 80,000 differential mutations, FIFO, binary positions, aggregate volumes, prefix reuse and compaction\nPASS: stable addresses, stale requests, prefix reuse/reset, middle retirement, bounded pool reclamation, FIFO, full order fields and large queue reset\n",
+    "linux_book_check_stderr": "",
+    "runtime": {
+      "python": "3.11.17",
+      "pyarrow": "15.0.2",
+      "baseline_native_extension_import": true,
+      "candidate_native_extension_import": true
+    },
+    "preflight_failed_attempts": [
+      {
+        "executive_summary": "The first phase-2 invocation failed its frozen-commit preflight before any Docker operation. The supplied SHA was mistyped; the retry reads git rev-parse HEAD directly.",
+        "status": "failed",
+        "phase": "candidate commit preflight",
+        "supplied_commit": "c0d97e5b22679b64705e6e5fd6ac2c65ea4ef6cb",
+        "actual_commit": "c0d97e59311b81c8b42959ac8b0999930e744bf0",
+        "error": "Frozen candidate commit mismatch",
+        "docker_executed": false
+      }
+    ]
+  },
+  "diagnostic_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool",
+  "docker_lock_released": true,
+  "no_post_timing_tuning": true,
+  "no_extra_repeats": true,
+  "original_runner_result_sha256": "82187f281120b08f68939e9810503b9667896b378533209c0f6780743d6cff75",
+  "diagnostic_log_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-builder.attempt-01.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-builder.attempt-01.stderr.txt": "db4bb56b8ce1d9864fbd75271d2a7d04423859a36c0db460264d682f29203c08",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/linux-book-correctness.attempt-01.stdout.txt": "77dda5ae2c2ad92eb3e3403da420a2a80a8448e830b6dc415314c435324db12d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/linux-book-correctness.attempt-01.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-candidate.attempt-01.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/build-candidate.attempt-01.stderr.txt": "6f3b194bca51700d14eca607e7c6aa89cfbe113c3c3605eb0109dd5cef141e33",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-baseline.attempt-01.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-baseline.attempt-01.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-candidate.attempt-01.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/native-runtime-candidate.attempt-01.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/focused-run.attempt-01.stdout.txt": "92c1cfb2d93fbbf7755b53b531f1d68d12c01129fea25cb7a9d2b117e9d4ecd2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/focused-run.attempt-01.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

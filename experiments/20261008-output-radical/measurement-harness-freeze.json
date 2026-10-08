@@ -1,0 +1,9 @@
+{
+  "executive_summary": "Measurement schedule, runner and unchanged shared checker are frozen before every experiment timing series.",
+  "hashes": {
+    "plan.json": "9d4e2c8a5c01b08989b3240c9082ceaf52ed79aae0a955757fc3a53eed31937b",
+    "run_focused.py": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+    "docker_slot.py": "76b9218e0e31637945616009f6d89aafe207061438d195473c05eab479336d37",
+    "shared_checker": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c"
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "executive_summary": "h08 is complete and correct: all 36 retained native outputs pass developer gates and exact journal checks. Complete-container medians are +0.37%, +1.58%, and -0.44%, so the evidence establishes no stable overall speedup. The report is committed, the Docker slot is released, and the candidate remains experimental.",
+  "slug": "h08-momentum-ring",
+  "branch": "codex/exp-20261008-h08-momentum-ring",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring",
+  "implementation_commit": "59d33ec60a3194dce02b5e15d09ca36cade75053",
+  "final_report_commit": "b905b2b3f34b14fd16e5198c1516e9c81e631362",
+  "report_commit": "b905b2b3f34b14fd16e5198c1516e9c81e631362",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "immutable_images": {
+    "baseline": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "candidate": "sha256:5adf25c85ca3be219ecba1202a2520658cdf1158bd5674637374ac669d1726bf"
+  },
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "candidate_image": "sha256:5adf25c85ca3be219ecba1202a2520658cdf1158bd5674637374ac669d1726bf",
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp",
+    "baselines/native/momentum_history.hpp"
+  ],
+  "source_sha256": {
+    "baselines/native/engine.cpp": "f85696593e9b3dd3f1a799f5c596c81ebdb15eca7f28509a87aae691a7df2521",
+    "baselines/native/momentum_history.hpp": "58158e3aecac34be0002d50a220dcec038b18c8c2719d676d2f2048ac5134576"
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "f85696593e9b3dd3f1a799f5c596c81ebdb15eca7f28509a87aae691a7df2521",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/momentum_history.hpp": "58158e3aecac34be0002d50a220dcec038b18c8c2719d676d2f2048ac5134576",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "units": [
+    "t3-momentum-mix-priority",
+    "t3-ra05-shock-momentum-heavy",
+    "t3-sf-03-vol-clustering-momentum"
+  ],
+  "assigned_units": [
+    "t3-momentum-mix-priority",
+    "t3-ra05-shock-momentum-heavy",
+    "t3-sf-03-vol-clustering-momentum"
+  ],
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "outcome": "correct_no_clear_gain",
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/expirements/20261008-native-hypotheses/h08-momentum-ring/result.json",
+  "result_sha256": "64ecc37c8e2d40049d6cef92f21a5e03fa6bf3fcb2e0b4d85b371dee02e0635d",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/expirements/20261008-native-hypotheses/h08-momentum-ring/README.md",
+  "readme_sha256": "dd2d6498ad834262ba3b4f1aa97610f4a31ed94e36e836e83ef37f0b4cfb19da",
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "counts": {
+    "accepted_runs": 36,
+    "timed_samples": 30,
+    "warmups": 6
+  },
+  "correctness": {
+    "accepted_runs": 36,
+    "native_runs": 36,
+    "shared_developer_gates": "passed for every retained output including warmups",
+    "exact_journal_comparisons": 48,
+    "both_journals_byte_equal": true,
+    "both_journals_schema_equal": true,
+    "both_journals_ordered_values_equal": true,
+    "retained_output_digests_verified": true,
+    "comparisons_complete": true
+  },
+  "host_checks": {
+    "status": "passed",
+    "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "compiler": "Apple Clang 17.0.0",
+    "syntax_compile": "passed",
+    "vector_reference_lookbacks": [
+      1,
+      5,
+      12,
+      1024,
+      16384,
+      1000000
+    ],
+    "exact_bits_and_startup": "passed",
+    "multiple_wraps_and_retained_order": "passed",
+    "threshold_and_book_side_decisions": "passed",
+    "copy_move": "passed",
+    "address_and_undefined_sanitizers": "passed",
+    "engine_fixture_seeds": [
+      17,
+      767052790,
+      1007636279
+    ],
+    "engine_fixture_lookbacks": [
+      1,
+      5,
+      12,
+      1024
+    ],
+    "all_native_result_columns_exact": true,
+    "engine_fixture_bytes": 41407632,
+    "engine_fixture_sha256": "b23eb8a68594fbd18e20b1401660fbc0a4a9e02d5224f7f3c167cf39d356c8d8",
+    "raw_report": "out/h08-momentum-ring/host/host-checks.json",
+    "synthetic_fixture_performance": "not measured"
+  },
+  "pinned_checks": {
+    "status": "passed",
+    "ring_lookbacks": [
+      1,
+      5,
+      12,
+      1024,
+      16384,
+      1000000
+    ],
+    "all_fixture_columns_exact": true,
+    "fixture_bytes": 41407632,
+    "fixture_sha256": "b23eb8a68594fbd18e20b1401660fbc0a4a9e02d5224f7f3c167cf39d356c8d8",
+    "evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/pinned"
+  },
+  "runtime_audits": {
+    "baseline": {
+      "python": "3.11.17",
+      "pyarrow": "15.0.2",
+      "native_extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+      "native_extension_sha256": "5d722746740ad62776290cc26f2461a478963b652e075bf3b8ede5b4fc713685"
+    },
+    "candidate": {
+      "python": "3.11.17",
+      "pyarrow": "15.0.2",
+      "native_extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+      "native_extension_sha256": "9a1779428149b3d46733d44c678be500ff17471647240148197e53d70d78b587"
+    }
+  },
+  "summary_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/timing/summary.json",
+  "summary_sha256": "4f63f22c12a0b9abd70463534c4f50539f4010bbc8dd3c2447a7f010ae39ed04",
+  "logs": [
+    {
+      "operation": "idle-containers",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/idle-containers.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "returncode": 0
+    },
+    {
+      "operation": "baseline-before-builder",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/baseline-before-builder.log",
+      "sha256": "f8fbfb8902a9ed00088baa590d3215be9d518715e5528e4f7de515e1866c266d",
+      "returncode": 0
+    },
+    {
+      "operation": "build-builder",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/build-builder.log",
+      "sha256": "ef3bff8f5ef2937c03f7d7f05366334c3d5b67d36f06259a724c510b15444192",
+      "returncode": 0
+    },
+    {
+      "operation": "baseline-after-builder",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/baseline-after-builder.log",
+      "sha256": "f8fbfb8902a9ed00088baa590d3215be9d518715e5528e4f7de515e1866c266d",
+      "returncode": 0
+    },
+    {
+      "operation": "builder-image",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/builder-image.log",
+      "sha256": "9e0a6815f9af1cbbfab0b0c8bf43c2af20464cdcf4136bf23c0282cbf6b9edb2",
+      "returncode": 0
+    },
+    {
+      "operation": "baseline-before-candidate",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/baseline-before-candidate.log",
+      "sha256": "f8fbfb8902a9ed00088baa590d3215be9d518715e5528e4f7de515e1866c266d",
+      "returncode": 0
+    },
+    {
+      "operation": "build-candidate",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/build-candidate.log",
+      "sha256": "69c85710968fdb823129b97185a1f3190cf9ae3d264701fd12e2f8c451cf20d3",
+      "returncode": 0
+    },
+    {
+      "operation": "baseline-after-candidate",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/baseline-after-candidate.log",
+      "sha256": "f8fbfb8902a9ed00088baa590d3215be9d518715e5528e4f7de515e1866c266d",
+      "returncode": 0
+    },
+    {
+      "operation": "candidate-image",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/candidate-image.log",
+      "sha256": "4802b2d55797aa2f34d084eb560565dc0ee53a2d842b40718b4fbe1839b8cf4a",
+      "returncode": 0
+    },
+    {
+      "operation": "pinned-standalone",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/pinned-standalone.log",
+      "sha256": "aacdaeb76e82b47c47543c0ee700c0caaf6a45c79e3de2e9cabddd37aa551a4c",
+      "returncode": 0
+    },
+    {
+      "operation": "runtime-baseline",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/runtime-baseline.log",
+      "sha256": "79363ab6aa7e79ae330e2a3507bf4808fc768f07796d4fbb9fbb023f33177a10",
+      "returncode": 0
+    },
+    {
+      "operation": "runtime-candidate",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/runtime-candidate.log",
+      "sha256": "67d6d4c05e5b7de88ac7151b8d95a7d5a3c26409e4741e9f8c7c6d58bea4c9cb",
+      "returncode": 0
+    },
+    {
+      "operation": "baseline-before-timing",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/baseline-before-timing.log",
+      "sha256": "f8fbfb8902a9ed00088baa590d3215be9d518715e5528e4f7de515e1866c266d",
+      "returncode": 0
+    },
+    {
+      "operation": "focused-timing",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/focused-timing.log",
+      "sha256": "84d70e7c92d3fcab1ed05be7684c75e41f8f09d67da259ca5ca3e95ef12ce834",
+      "returncode": 0
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring",
+  "timing_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/timing",
+  "provenance_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2/provenance.json",
+  "provenance_sha256": "f17a143b2a5ac76f2628313008f434b97febccc0bd1558449d7439a77843773a",
+  "runner_sha256": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "unit_results": [
+    {
+      "unit": "t3-momentum-mix-priority",
+      "median_container_seconds": {
+        "baseline": 0.368097817,
+        "candidate": 0.369470299
+      },
+      "time_change_pct": 0.37285795693811075,
+      "candidate_faster_pairs": 2,
+      "container_seconds_samples": {
+        "baseline": [
+          0.368097817,
+          0.485477806,
+          0.414317763,
+          0.359973007,
+          0.342307346
+        ],
+        "candidate": [
+          0.348122401,
+          0.373558769,
+          0.429702535,
+          0.369470299,
+          0.362464098
+        ]
+      },
+      "observed_outcome": "correct_but_slower"
+    },
+    {
+      "unit": "t3-ra05-shock-momentum-heavy",
+      "median_container_seconds": {
+        "baseline": 0.315961023,
+        "candidate": 0.320945222
+      },
+      "time_change_pct": 1.577472737831953,
+      "candidate_faster_pairs": 1,
+      "container_seconds_samples": {
+        "baseline": [
+          0.423265035,
+          0.319977434,
+          0.315961023,
+          0.294521904,
+          0.306940322
+        ],
+        "candidate": [
+          0.388423142,
+          0.365365429,
+          0.320945222,
+          0.308406406,
+          0.320743004
+        ]
+      },
+      "observed_outcome": "correct_but_slower"
+    },
+    {
+      "unit": "t3-sf-03-vol-clustering-momentum",
+      "median_container_seconds": {
+        "baseline": 0.355240477,
+        "candidate": 0.353676733
+      },
+      "time_change_pct": -0.4401930808126897,
+      "candidate_faster_pairs": 3,
+      "container_seconds_samples": {
+        "baseline": [
+          0.424388538,
+          0.355240477,
+          0.354880677,
+          0.354503184,
+          0.364858796
+        ],
+        "candidate": [
+          0.353676733,
+          0.36222345,
+          0.334287395,
+          0.347967618,
+          0.423360782
+        ]
+      },
+      "observed_outcome": "correct_and_faster"
+    }
+  ],
+  "all_outliers_retained": true,
+  "tuning_after_timing": false,
+  "timing_reruns": 0,
+  "docker_slot_released": true,
+  "clean_worktree": true,
+  "status": "complete"
+}

@@ -1,0 +1,202 @@
+{
+  "executive_summary": "H01 completed its single fixed full-container series. Three large scenarios improved, the small s001 slowed; exact journal semantics and all gates/native provenance passed. No production adoption.",
+  "slug": "h01-parquet-encoding",
+  "complete": true,
+  "accepted": true,
+  "status": "done",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding",
+  "branch": "codex/exp-20261008-output-h01-parquet-encoding",
+  "frozen_implementation_commit": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+  "report_commit": "b64f47cd15f7544e37b2735455385124625b9e12",
+  "baseline_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "candidate_image": "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "median_container_seconds": {
+        "baseline": 1.373317546,
+        "candidate": 1.259953907
+      },
+      "time_reduction_pct": 8.254728801083843,
+      "candidate_faster_pairs": 5
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "median_container_seconds": {
+        "baseline": 1.110079761,
+        "candidate": 0.884521781
+      },
+      "time_reduction_pct": 20.319078675644818,
+      "candidate_faster_pairs": 5
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "median_container_seconds": {
+        "baseline": 0.619163229,
+        "candidate": 0.476379241
+      },
+      "time_reduction_pct": 23.060799044963954,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "median_container_seconds": {
+        "baseline": 0.337758019,
+        "candidate": 0.368280413
+      },
+      "time_reduction_pct": -9.036763683766136,
+      "candidate_faster_pairs": 2
+    }
+  ],
+  "size_tradeoffs": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "total_bytes": {
+        "baseline": 45151309,
+        "candidate": 47399337
+      },
+      "candidate_size_change_pct": 4.978876692146406
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "total_bytes": {
+        "baseline": 28021166,
+        "candidate": 29758978
+      },
+      "candidate_size_change_pct": 6.201783323363497
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "total_bytes": {
+        "baseline": 9999080,
+        "candidate": 9030059
+      },
+      "candidate_size_change_pct": -9.691101581345485
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "total_bytes": {
+        "baseline": 37167,
+        "candidate": 34859
+      },
+      "candidate_size_change_pct": -6.209809777490783
+    }
+  ],
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "correctness": {
+    "executive_summary": "The single frozen H01 series passed exact journal semantics, native provenance and unchanged developer gates. All samples and outliers retained.",
+    "accepted": true,
+    "candidate_implementation_commit": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+    "source_unchanged_through_timing": true,
+    "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+    "single_timing_series": true,
+    "counts": {
+      "accepted_runs": 48,
+      "timed_samples": 40,
+      "warmups": 8
+    },
+    "controls": {
+      "accepted": true,
+      "containers": 12,
+      "unit_pairs": 6,
+      "native_market_executions": 20
+    },
+    "timing": {
+      "accepted": true,
+      "comparison_categories": {
+        "baseline_candidate": 24,
+        "baseline_repeat_stability": 20,
+        "candidate_repeat_stability": 20
+      },
+      "native_market_executions": 48,
+      "timed_pairs_per_unit": 5,
+      "pair_order": [
+        "AB",
+        "BA",
+        "AB",
+        "BA",
+        "AB"
+      ],
+      "warmups_per_side_per_unit": 1,
+      "warmups_excluded": true,
+      "all_outliers_retained": true,
+      "no_profile_series": true,
+      "all_own_journal_digests_accepted": true,
+      "own_journals_checked": 136,
+      "sample_output_digests_match_fresh_control": true,
+      "monotonic_intervals_serial": true,
+      "full_schemas_including_metadata": true,
+      "all_ordered_values_exact": true
+    },
+    "pinned_writer_checks": {
+      "status": "passed",
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/pinned-01/checks.json",
+      "sha256": "8a2215265668ce02b4879442effcc538691f2d00549fde32ebe6659d95c3d6e2",
+      "comparisons": 114,
+      "stream_table_checks": 39,
+      "scope": "pinned Arrow15 writer correctness"
+    },
+    "runtime_audits": {
+      "baseline": {
+        "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+        "arrow": "15.0.2",
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "scipy": "1.17.1",
+        "native_path": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+        "native_sha256": "a40c10a6283278d3aca6bd0f1bddddf40aff73dd08368125f611419e4a075085"
+      },
+      "candidate": {
+        "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+        "arrow": "15.0.2",
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "scipy": "1.17.1",
+        "native_path": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+        "native_sha256": "1ec76c7bc91ebdcdddc263100a3f9f588f597bed9a21e4a2a2b1cadc700bd864"
+      }
+    },
+    "failed_attempts": [
+      {
+        "kind": "initial build",
+        "log": "evidence/preflight/build.log",
+        "reason": "BuildKit interpreted FROM sha256:image-ID as registry name; failed before compilation. Fixed with cached tags verified against immutable IDs before/after build; native writer unchanged."
+      },
+      {
+        "kind": "post-run report assertion",
+        "record": "evidence/preflight/report-audit-attempt01.json",
+        "reason": "Report expected 24 comparisons; checker also records 40 repeat stability comparisons. Report counts corrected; no extra run or source change."
+      }
+    ],
+    "evidence": {
+      "primary": "evidence/timing-01/summary.json",
+      "primary_sha256": "833bffdd216e88518cd937ee8b12d6537a5275e050e9c04d184bde5f05a2a3f9",
+      "controls": "evidence/controls-01/summary.json",
+      "controls_sha256": "08650481a7094c841df720362c8843d716eab1e950d6d3918a5d538f9e783e76",
+      "pinned": "evidence/pinned-01/checks.json",
+      "pinned_sha256": "8a2215265668ce02b4879442effcc538691f2d00549fde32ebe6659d95c3d6e2"
+    },
+    "adopted": false,
+    "rankable": false
+  },
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/result.json",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/README.md",
+  "validation_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/validation.json",
+  "size_hashes_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/output-size-hashes.json",
+  "artifact_hashes": {
+    "README.md": "75254758baedb2c1e2157f23de0b3253158c94217de31c72ff0fa098eedb0fe8",
+    "result.json": "8e747502663fdae6d7dca2f1264f27c484d6ad0538386e66c43b9b8eb567b179",
+    "validation.json": "405fae11ec2febad881da36ae1fe6d5678b73fa2d091b3a8ae6384b6ad4a7705",
+    "preflight.json": "51cbc471252b62c603f2aaf79d4eb04830ab922750c95ca04cefb0b05da205ce",
+    "output-size-hashes.json": "82c451cb1ce456fab74d9206a7f5afe61153ae97c8ec629cab56fcb02fe1b6e7"
+  },
+  "all_samples_retained": true,
+  "no_extra_timing_series": true,
+  "rankable": false,
+  "adopted": false
+}

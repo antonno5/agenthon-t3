@@ -1,0 +1,378 @@
+{
+  "slug": "h02-native-executable",
+  "accepted": true,
+  "preflight_complete": true,
+  "implementation_commit": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+  "candidate_image": "sha256:8957952bff08dbac958064408af26343b925fbf81b1f35d453a8b5b978c47499",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "source_hashes": {
+    "baselines/build_executable.py": "f6477b2586b8c04faf035bab1876b277eead99f002e5b8c5e7a7b4b8ffb61939",
+    "baselines/native/cli.cpp": "03616a8111fa7b966aacbc82ae9b922eafbcf22340c77135b06b1320b6ec63a4",
+    "baselines/native/scenario.hpp": "87a57e627ec24a8ddbae620281255939464d4ae4526ce09f0668456bfa25149b",
+    "baselines/native/vendor/json.hpp": "9bea4c8066ef4a1c206b2be5a36302f8926f7fdc6087af5d20b417d0cf103ea6",
+    "baselines/native/vendor/README.md": "5070a59dff2ee073b7cc6659f4ef7a369da3f0a7f77c11421e0443367fc7d372",
+    "baselines/native/vendor/LICENSE.json": "62176251affdda17bece4ddd44271d68019e2448ca721d2c1af4c650f29c9898",
+    "experiments/20261008-output-radical/h02-native-executable/Dockerfile": "2539888a187c3db67819b11b30919f40c2f008ffee8c1dc8483ddb0f743c97f3",
+    "experiments/20261008-output-radical/h02-native-executable/tests/mapper.cpp": "48a625d4126e4c8a049f7117bd25c3b6de1daadaaf550fea7dc84703648c4731",
+    "experiments/20261008-output-radical/h02-native-executable/tests/check_mapping.py": "ac5118676fff472763b97be1fda0a0717453989947966835fa72f7a45ed2bab2",
+    "baselines/native/sha256.hpp": "feb021c09075101a9194dd9b03e303eda66f66e777fe0a73c523e7dacefd0a17",
+    "experiments/20261008-output-radical/h02-native-executable/tests/sha_check.cpp": "b206e074022d2cc4ff49f4bc2d0eff7648f181d63925743fa4960b94d864fa9d",
+    "experiments/20261008-output-radical/h02-native-executable/tests/check_cli_boundaries.py": "109189c1135ca53b8fc672d21fb71b319462e6836f474c772e04af2d04014963",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c"
+  },
+  "image_evidence_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence/preflight-final/image.json",
+  "runtime_checks": {
+    "passed": true,
+    "mapping_checks": 11,
+    "mapping_configs": [
+      "t3-s001-price-time-priority/scenario.json",
+      "t3-eq-deterministic-baseline/scenario.json",
+      "t3-multilevel-crossing/scenario.json",
+      "t3-gb-mega-throughput/scenario.json",
+      "t3-s012-partial-fill-cancel-race/scenario.json",
+      "t3-eq001-pareto-latency-tail/scenario.json",
+      "t3-gbatch-hetero-mix/scenarios/sub_00_noise.json",
+      "t3-gbatch-hetero-mix/scenarios/sub_01_value.json",
+      "t3-gbatch-hetero-mix/scenarios/sub_02_mm.json",
+      "t3-gbatch-hetero-mix/scenarios/sub_03_momentum.json",
+      "t3-gbatch-hetero-mix/scenarios/sub_04_base.json"
+    ],
+    "mapping_policy": "exact int and binary64 hex with actual pinned extension NumPy dispatch",
+    "numpy_log_dispatch": "libm",
+    "numpy_log_samples": 10000,
+    "hash_checks": 5,
+    "native_elf": true,
+    "python_startup_excluded_by_PATH": true,
+    "ldd": {
+      "/usr/local/bin/t3-native": "\tlibparquet.so.1500 => /usr/local/lib/python3.11/site-packages/pyarrow/libparquet.so.1500 (0x00007ffffef06000)\n\tlibarrow.so.1500 => /usr/local/lib/python3.11/site-packages/pyarrow/libarrow.so.1500 (0x00007ffffc31c000)\n\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007ffffbcdf000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007ffffba79000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007ffffb989000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007ffffb95c000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007ffffb766000)\n\tlibrt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007ffffb761000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007ffffb75c000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ffffb757000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007ffffffc8000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007ffffb737000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007ffffb66b000)\n",
+      "/usr/local/lib/python3.11/lib-dynload/_hashlib.cpython-311-x86_64-linux-gnu.so": "\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007fffff178000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007ffffef84000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007ffffef64000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007ffffee9a000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007ffffffc8000)\n"
+    },
+    "openssl_version": "OpenSSL 3.5.7 9 Jun 2026",
+    "hashlib_type": "<class '_hashlib.HASH'>",
+    "hashlib_and_native_provider": "default",
+    "libcrypto_sha256": "8ae56f0a9481280a68c19f59809cd242a07a91ad7142944d21a878221992244b",
+    "no_python_command": [
+      "/usr/local/bin/t3-native",
+      "simulate",
+      "--config",
+      "/corpus/t3-s001-price-time-priority/scenario.json",
+      "--out",
+      "/checks/no-python/s001/trace.parquet",
+      "--trace-mode",
+      "buffered",
+      "--engine",
+      "native"
+    ],
+    "no_python_exit_code": 0
+  },
+  "cli_boundary_checks": {
+    "passed": true,
+    "count": 10,
+    "checks": [
+      {
+        "args": [
+          "--seed",
+          ""
+        ],
+        "exit_code": 2,
+        "pass": true
+      },
+      {
+        "args": [
+          "--seed",
+          "not-int"
+        ],
+        "exit_code": 2,
+        "pass": true
+      },
+      {
+        "args": [
+          "--seed",
+          "-1"
+        ],
+        "exit_code": 1,
+        "pass": true
+      },
+      {
+        "args": [
+          "--seed",
+          "4294967296"
+        ],
+        "exit_code": 1,
+        "pass": true
+      },
+      {
+        "args": [
+          "--trace-mode",
+          "unknown"
+        ],
+        "exit_code": 1,
+        "pass": true
+      },
+      {
+        "args": [
+          "--engine",
+          "unknown"
+        ],
+        "exit_code": 1,
+        "pass": true
+      },
+      {
+        "seed_override": 0,
+        "pass": true
+      },
+      {
+        "seed_override": 4294967295,
+        "pass": true
+      },
+      {
+        "help": true,
+        "pass": true
+      },
+      {
+        "batch_dispatch_help": true,
+        "pass": true
+      }
+    ]
+  },
+  "sanitizer": {
+    "exit_code": 0,
+    "asan": true,
+    "ubsan": true,
+    "leak_detection": false,
+    "leak_scope_note": "Address/undefined behavior checks; leak detection disabled for emulated ASAN runtime, no leak-check claim",
+    "unit": "t3-s001-price-time-priority"
+  },
+  "controls": {
+    "accepted": true,
+    "complete": true,
+    "units": [
+      "t3-s001-price-time-priority",
+      "t3-eq-deterministic-baseline",
+      "t3-multilevel-crossing",
+      "t3-gb-mega-throughput",
+      "t3-s012-partial-fill-cancel-race",
+      "t3-eq001-pareto-latency-tail",
+      "t3-gbatch-hetero-mix"
+    ],
+    "run_count": 14,
+    "journal_comparisons": 22,
+    "both_journals_byte_equal": true,
+    "full_schema_and_metadata_equal": true,
+    "ordered_decoded_values_equal": true,
+    "developer_gates": "unchanged and accepted for every run",
+    "every_market_native": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "side": "baseline",
+        "market": "single",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-s001-price-time-priority",
+        "side": "candidate",
+        "market": "single",
+        "engine": "native",
+        "native_executable": true,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-eq-deterministic-baseline",
+        "side": "baseline",
+        "market": "single",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-eq-deterministic-baseline",
+        "side": "candidate",
+        "market": "single",
+        "engine": "native",
+        "native_executable": true,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-multilevel-crossing",
+        "side": "baseline",
+        "market": "single",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-multilevel-crossing",
+        "side": "candidate",
+        "market": "single",
+        "engine": "native",
+        "native_executable": true,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gb-mega-throughput",
+        "side": "baseline",
+        "market": "single",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gb-mega-throughput",
+        "side": "candidate",
+        "market": "single",
+        "engine": "native",
+        "native_executable": true,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "side": "baseline",
+        "market": "single",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-s012-partial-fill-cancel-race",
+        "side": "candidate",
+        "market": "single",
+        "engine": "native",
+        "native_executable": true,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-eq001-pareto-latency-tail",
+        "side": "baseline",
+        "market": "single",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-eq001-pareto-latency-tail",
+        "side": "candidate",
+        "market": "single",
+        "engine": "native",
+        "native_executable": true,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "baseline",
+        "market": "sub_00_noise",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "baseline",
+        "market": "sub_01_value",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "baseline",
+        "market": "sub_02_mm",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "baseline",
+        "market": "sub_03_momentum",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "baseline",
+        "market": "sub_04_base",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "candidate",
+        "market": "sub_00_noise",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "candidate",
+        "market": "sub_01_value",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "candidate",
+        "market": "sub_02_mm",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "candidate",
+        "market": "sub_03_momentum",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "side": "candidate",
+        "market": "sub_04_base",
+        "engine": "native",
+        "native_executable": false,
+        "plain_single_link_files": true
+      }
+    ],
+    "source_unchanged": true,
+    "summary_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence/controls-02/summary.json",
+    "sanitizer_and_no_python_journals_byte_equal_baseline": true
+  },
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "receipt_hashes": {
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/runtime-checks.json": "6ad32c049096b21109d3f5d04063bd962be100543f7f6eeb1f04f78af79bce8d",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/cli-boundaries.json": "bffa8415222a9d2baa71cbe47250a1ea5f4e8b0651561fd0a6e4b366cbef54e1",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/sanitizer-status.json": "8747d47fa1a793f815e304f18f095c7867d92e08b4eb71227f18d583a7637995",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/controls-02/summary.json": "3d65a1cbf7b5f567b491cc2fa9f3e146e05f5ddb35bb0fc4d7bdfef721ffd645",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/controls-command.json": "59e0324f12c39df8384d572dfbff2840b104ecc228f6e0aba4b678b588cb9016",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/sanitizer-build-command.json": "6edc1e4bef7f19b720eece11975b7307b02d963acc8723267531ff90ef5d9988",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/sanitizer-run-command.json": "c2142f032908ca21a91ae9064ab73cb76b1dcb8dc35d707809667cab33c9bcd5",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/container-checks.py": "9ccdcb362bd19b702a926b44618f77ab9eea0293721c6c845bfa7cf53d741b11",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/pinned-checks-final.py": "e5115a78efd09d35d8cf8b2ab4b7869024c17c8602c87ae9cbbe6f84e8c9afa3",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/sanitizer-final.py": "be144dd3d57f17738da2e5d4ce652234a816e64eef663560a9a70623dc29cbb4",
+    "experiments/20261008-output-radical/h02-native-executable/evidence/preflight/controls-final.py": "49478eede11a58101574cc5028d479600fce93a456a58919493d015dddd3e0e1"
+  },
+  "hash_provider_policy": "Native and hashlib use same pinned OpenSSL 3.5.7 default EVP SHA256 and same libcrypto.so.3; no portable algorithm confound",
+  "batch_policy": "Unchanged original adapter; all5 independent markets native; no batch startup speedup claimed",
+  "failed_attempts_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence/failure-history.json",
+  "earlier_controls_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence/controls-01/summary.json",
+  "phase_status": "idle awaiting explicit timing grant",
+  "timed_runs": 0,
+  "host_work_finished": true,
+  "docker_work_finished": true,
+  "rankable": false
+}

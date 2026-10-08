@@ -1,0 +1,71 @@
+{
+  "executive_summary": "One pair of sequential H04 s001 candidate runs has overlapping Docker wall-clock intervals. The cause is unknown; original Docker durations and percentage results remain unchanged.",
+  "scope": "48 recorded launches in original execution order, including excluded warmups",
+  "recorded_launches": 48,
+  "adjacent_run_intervals_checked": 47,
+  "all_adjacent_docker_timestamps_nonoverlapping": false,
+  "anomalies": [
+    {
+      "previous_run": {
+        "unit": "t3-s001-price-time-priority",
+        "side": "candidate",
+        "kind": "timing",
+        "index": 2,
+        "started_at": "2026-10-08T11:10:05.411657371Z",
+        "finished_at": "2026-10-08T11:10:05.719943542Z",
+        "state_status": "exited",
+        "state_running": false,
+        "exit_code": 0,
+        "recorded_container_seconds": 0.308286171
+      },
+      "next_run": {
+        "unit": "t3-s001-price-time-priority",
+        "side": "candidate",
+        "kind": "timing",
+        "index": 3,
+        "started_at": "2026-10-08T11:10:05.701272014Z",
+        "finished_at": "2026-10-08T11:10:05.983541536Z",
+        "state_status": "exited",
+        "state_running": false,
+        "exit_code": 0,
+        "recorded_container_seconds": 0.282269522
+      },
+      "apparent_overlap_ns": 18671528,
+      "apparent_overlap_ms": 18.671528
+    }
+  ],
+  "execution_evidence": {
+    "launches_sequential_by_harness": true,
+    "active_container_check_before_each_launch": {
+      "argv": [
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "ps",
+        "--format",
+        "{{.ID}}"
+      ],
+      "requirement": "empty active-container list or fail before launch"
+    },
+    "process_wait_before_state_inspection": true,
+    "affected_states_exited_not_running": true,
+    "shared_checker_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/scripts/run_differential_experiment.py",
+    "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c"
+  },
+  "cause": "undetermined",
+  "possible_explanation": {
+    "description": "VM clock adjustment",
+    "status": "unverified inference; not an established cause"
+  },
+  "primary_clock": "Docker State FinishedAt minus StartedAt",
+  "primary_durations_preserved": true,
+  "percentages_preserved": true,
+  "additional_timing_runs": 0,
+  "code_changes": false,
+  "raw_summary": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing/summary.json",
+    "sha256": "a05e136d5ac1d7e63602d32632c23e94725a74edc473fcddde9e68707840efc8"
+  },
+  "standard_result_sha256": "c3c07b209b0b1661af140c01bd488b36ac447604d58cbb5ff5f63346feab25d6",
+  "rankable": false
+}

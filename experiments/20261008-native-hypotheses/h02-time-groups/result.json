@@ -1,0 +1,1077 @@
+{
+  "executive_summary": "All four assigned public units passed pinned native correctness. Median complete Docker time improved 14.89% for cancelmodify and 2.06% for price-time-priority, and regressed 1.17% for deep-book and 9.41% for partial-fill/cancel-race. All five pairs and outliers are retained; this is local, non-rankable evidence.",
+  "slug": "h02-time-groups",
+  "title": "Сортировка событий по группам времени",
+  "branch": "codex/exp-20261008-h02-time-groups",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image_source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "candidate_implementation_commit": "f828ef6b307b6e6f651e33b2a03beadf8fb77b5e",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-cancelmodify-lifecycle",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-s001-price-time-priority"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:27ac770384b308a0f61f2ae8c29dcf90d37457b6d372470c9597645f42cbf828",
+      "digest": "sha256:27ac770384b308a0f61f2ae8c29dcf90d37457b6d372470c9597645f42cbf828",
+      "repo_digests": [
+        "track3-h02-time-groups@sha256:27ac770384b308a0f61f2ae8c29dcf90d37457b6d372470c9597645f42cbf828"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "f828ef6b307b6e6f651e33b2a03beadf8fb77b5e"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "9378ee51db8f0c3ba1080e6c7c4e92c3b0f3d3e97fca94e34a17ab7d5321a65a",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "container_seconds_samples": {
+        "baseline": [
+          0.545025042,
+          0.567982657,
+          0.538412646,
+          0.567585058,
+          0.595348723
+        ],
+        "candidate": [
+          0.526008022,
+          0.608753338,
+          0.574227379,
+          0.577217706,
+          0.516365911
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.567585058,
+        "candidate": 0.574227379
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.545025042,
+          "candidate_seconds": 0.526008022,
+          "candidate_time_change_pct": -3.4892011438990123
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.567982657,
+          "candidate_seconds": 0.608753338,
+          "candidate_time_change_pct": 7.178155969646105
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.538412646,
+          "candidate_seconds": 0.574227379,
+          "candidate_time_change_pct": 6.651911552612377
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.567585058,
+          "candidate_seconds": 0.577217706,
+          "candidate_time_change_pct": 1.697128538574022
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.595348723,
+          "candidate_seconds": 0.516365911,
+          "candidate_time_change_pct": -13.266646748144616
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": -1.170277636167083,
+      "time_change_pct": 1.170277636167083,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002110667002853006,
+              0.002524504998291377,
+              0.002221706999989692,
+              0.002237877997686155,
+              0.002690015004191082
+            ],
+            "median": 0.002237877997686155
+          },
+          "hashing": {
+            "samples": [
+              0.03436469699954614,
+              0.037416753999423236,
+              0.03090512700146064,
+              0.03220632999727968,
+              0.03694176400313154
+            ],
+            "median": 0.03436469699954614
+          },
+          "parquet_write": {
+            "samples": [
+              0.17709806699905709,
+              0.17903262900138286,
+              0.1632442049984939,
+              0.16949830900287638,
+              0.20400464299723148
+            ],
+            "median": 0.17709806699905709
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.129084348,
+              0.135132907,
+              0.129332652,
+              0.144953512,
+              0.134792694
+            ],
+            "median": 0.134792694
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0022065550001570955,
+              0.0026935010027955286,
+              0.0023417280026478693,
+              0.002839298998878803,
+              0.0021036799953435548
+            ],
+            "median": 0.0023417280026478693
+          },
+          "hashing": {
+            "samples": [
+              0.03158309900027234,
+              0.036196294000546914,
+              0.03298151699709706,
+              0.033306010998785496,
+              0.030923288002668414
+            ],
+            "median": 0.03298151699709706
+          },
+          "parquet_write": {
+            "samples": [
+              0.15441332000246205,
+              0.17033480199968296,
+              0.16739345200105693,
+              0.18402884899984687,
+              0.15764301399924294
+            ],
+            "median": 0.16739345200105693
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.12548778,
+              0.146073241,
+              0.136933604,
+              0.127363086,
+              0.125774282
+            ],
+            "median": 0.127363086
+          }
+        }
+      },
+      "outcome": "correct-but-slower",
+      "secondary_core_time_change_pct": -5.511877372226126
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "container_seconds_samples": {
+        "baseline": [
+          0.480602915,
+          0.55271299,
+          0.469391126,
+          0.402945562,
+          0.441733704
+        ],
+        "candidate": [
+          0.418255999,
+          0.398623496,
+          0.399512634,
+          0.385064688,
+          0.404098397
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.469391126,
+        "candidate": 0.399512634
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.480602915,
+          "candidate_seconds": 0.418255999,
+          "candidate_time_change_pct": -12.972646243729091
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.55271299,
+          "candidate_seconds": 0.398623496,
+          "candidate_time_change_pct": -27.87875385378584
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.469391126,
+          "candidate_seconds": 0.399512634,
+          "candidate_time_change_pct": -14.887050080277831
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.402945562,
+          "candidate_seconds": 0.385064688,
+          "candidate_time_change_pct": -4.437540870595313
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.441733704,
+          "candidate_seconds": 0.404098397,
+          "candidate_time_change_pct": -8.519908410701671
+        }
+      ],
+      "candidate_faster_pairs": 5,
+      "time_reduction_pct": 14.887050080277831,
+      "time_change_pct": -14.887050080277831,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.003466930997092277,
+              0.0033055699968826957,
+              0.002375974007009063,
+              0.0023882340028649196,
+              0.002262886002426967
+            ],
+            "median": 0.0023882340028649196
+          },
+          "hashing": {
+            "samples": [
+              0.019153866000124253,
+              0.03054054200038081,
+              0.01959852499567205,
+              0.0191373220004607,
+              0.020857324998360127
+            ],
+            "median": 0.01959852499567205
+          },
+          "parquet_write": {
+            "samples": [
+              0.15112644300343803,
+              0.2215142020014123,
+              0.14857849299868686,
+              0.11505513000113965,
+              0.13248632800300444
+            ],
+            "median": 0.14857849299868686
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.06470208,
+              0.066087309,
+              0.058260368,
+              0.057686695,
+              0.059993618
+            ],
+            "median": 0.059993618
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0021114480041433126,
+              0.0020963630013284273,
+              0.002119512006174773,
+              0.002101387995935511,
+              0.0022650859973509796
+            ],
+            "median": 0.0021114480041433126
+          },
+          "hashing": {
+            "samples": [
+              0.018868208993808366,
+              0.018347689998336136,
+              0.02103245699981926,
+              0.018766279994451907,
+              0.020886222999251913
+            ],
+            "median": 0.018868208993808366
+          },
+          "parquet_write": {
+            "samples": [
+              0.12425398700195953,
+              0.11951062200283057,
+              0.1216969609942201,
+              0.11770360200295718,
+              0.11478155199932771
+            ],
+            "median": 0.11951062200283057
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.052351999,
+              0.056594928,
+              0.053859169,
+              0.050586942,
+              0.054113105
+            ],
+            "median": 0.053859169
+          }
+        }
+      },
+      "outcome": "correct-but-faster",
+      "secondary_core_time_change_pct": -10.225169283839497
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "container_seconds_samples": {
+        "baseline": [
+          0.454221079,
+          0.421060235,
+          0.420575828,
+          0.415194604,
+          0.429296866
+        ],
+        "candidate": [
+          0.444386906,
+          0.480326062,
+          0.460693346,
+          0.438409515,
+          0.475985771
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.421060235,
+        "candidate": 0.460693346
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.454221079,
+          "candidate_seconds": 0.444386906,
+          "candidate_time_change_pct": -2.165063105756926
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.421060235,
+          "candidate_seconds": 0.480326062,
+          "candidate_time_change_pct": 14.075379737533279
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.420575828,
+          "candidate_seconds": 0.460693346,
+          "candidate_time_change_pct": 9.538712243823966
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.415194604,
+          "candidate_seconds": 0.438409515,
+          "candidate_time_change_pct": 5.59133254053561
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.429296866,
+          "candidate_seconds": 0.475985771,
+          "candidate_time_change_pct": 10.875668726638231
+        }
+      ],
+      "candidate_faster_pairs": 1,
+      "time_reduction_pct": -9.412693886897205,
+      "time_change_pct": 9.412693886897205,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0021659430058207363,
+              0.0021908330018050037,
+              0.002184386001317762,
+              0.0021330410017981194,
+              0.0020729759999085218
+            ],
+            "median": 0.0021659430058207363
+          },
+          "hashing": {
+            "samples": [
+              0.025743208003405016,
+              0.022310398999252357,
+              0.023569421005959157,
+              0.022751392003556248,
+              0.022112423997896258
+            ],
+            "median": 0.022751392003556248
+          },
+          "parquet_write": {
+            "samples": [
+              0.1510552099955953,
+              0.11886670199797453,
+              0.12219741799393702,
+              0.1261495320000156,
+              0.11809987899902478
+            ],
+            "median": 0.12219741799393702
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.061258378,
+              0.066722333,
+              0.066074627,
+              0.062191728,
+              0.062811464
+            ],
+            "median": 0.062811464
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0020965930016245693,
+              0.0031163260064204223,
+              0.0021537439970416017,
+              0.0022830820016679354,
+              0.0027578789959079586
+            ],
+            "median": 0.0022830820016679354
+          },
+          "hashing": {
+            "samples": [
+              0.025193692003085744,
+              0.0283383740024874,
+              0.029274332999193575,
+              0.0233148120023543,
+              0.030654560003313236
+            ],
+            "median": 0.0283383740024874
+          },
+          "parquet_write": {
+            "samples": [
+              0.13255500199756567,
+              0.14227058299594225,
+              0.14553025800492228,
+              0.12548550900100022,
+              0.1520988240024946
+            ],
+            "median": 0.14227058299594225
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.062741087,
+              0.067096278,
+              0.062871769,
+              0.059047363,
+              0.059361111
+            ],
+            "median": 0.062741087
+          }
+        }
+      },
+      "outcome": "correct-but-slower",
+      "secondary_core_time_change_pct": -0.11204483308969726
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "container_seconds_samples": {
+        "baseline": [
+          0.267087371,
+          0.263680099,
+          0.284293578,
+          0.283030271,
+          0.258988574
+        ],
+        "candidate": [
+          0.247181375,
+          0.261583662,
+          0.277499486,
+          0.301388159,
+          0.255877027
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.267087371,
+        "candidate": 0.261583662
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.267087371,
+          "candidate_seconds": 0.247181375,
+          "candidate_time_change_pct": -7.4529903549801375
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.263680099,
+          "candidate_seconds": 0.261583662,
+          "candidate_time_change_pct": -0.7950683452982221
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.284293578,
+          "candidate_seconds": 0.277499486,
+          "candidate_time_change_pct": -2.3898155026210177
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.283030271,
+          "candidate_seconds": 0.301388159,
+          "candidate_time_change_pct": 6.4861924256857995
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.258988574,
+          "candidate_seconds": 0.255877027,
+          "candidate_time_change_pct": -1.2014224998204148
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 2.0606399244537887,
+      "time_change_pct": -2.0606399244537887,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0019805850024567917,
+              0.0018754830016405322,
+              0.0025546619945089333,
+              0.0021155760041438043,
+              0.001990439006476663
+            ],
+            "median": 0.001990439006476663
+          },
+          "hashing": {
+            "samples": [
+              0.0022486199959530495,
+              0.0024351109968847595,
+              0.003498030004266184,
+              0.0024603589990874752,
+              0.0021904739987803623
+            ],
+            "median": 0.0024351109968847595
+          },
+          "parquet_write": {
+            "samples": [
+              0.054955670999964366,
+              0.05472620400190412,
+              0.06551181500123342,
+              0.07460932899542609,
+              0.05757927499725698
+            ],
+            "median": 0.05757927499725698
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.003694069,
+              0.003694461,
+              0.003791261,
+              0.003648846,
+              0.003733354
+            ],
+            "median": 0.003694461
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0018078799985232763,
+              0.0018890939973061904,
+              0.001995341997826472,
+              0.002184983000915963,
+              0.001967117997992318
+            ],
+            "median": 0.001967117997992318
+          },
+          "hashing": {
+            "samples": [
+              0.001992517994949594,
+              0.0022516210010508075,
+              0.0023549569959868677,
+              0.0023658909994992428,
+              0.002147677994798869
+            ],
+            "median": 0.0022516210010508075
+          },
+          "parquet_write": {
+            "samples": [
+              0.049292173005024226,
+              0.054154439999216125,
+              0.0546814080041323,
+              0.07560991499631133,
+              0.05124756300349251
+            ],
+            "median": 0.054154439999216125
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.003715726,
+              0.003718309,
+              0.003800666,
+              0.003865047,
+              0.003816764
+            ],
+            "median": 0.003800666
+          }
+        }
+      },
+      "outcome": "correct-but-faster",
+      "secondary_core_time_change_pct": 2.8747089223569944
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing",
+  "summary_sha256": "6ac4f31ad7176733b4716791e6950d580ba5024d69a3436e94378cd8a8e0f3eb",
+  "runner_sha256": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null,
+  "status": "done",
+  "phase": 2,
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp"
+  ],
+  "host_checks": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/expirements/20261008-native-hypotheses/h02-time-groups/host_checks.json",
+    "sha256": "72c77926d263c474f452dbc407b11114e839794e058668ca331f3310005d3e9a",
+    "passed": true,
+    "diagnostics": {
+      "executive_summary": "Standalone host comparisons passed; pinned Docker checks remain pending.",
+      "baseline_source_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+      "exit_code": 0,
+      "stdout": "PASS: focused lifecycle/tie/quote cases, 512 histories (1,024,000 rows), 144 full engine differential simulations; filled=57150 partial=41854 cancelled=8777",
+      "docker_run": false,
+      "timing_claim": false,
+      "manifest_checks": [
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "check": "verify",
+          "exit_code": 0,
+          "stdout": "OK   manifest units/t3-mr-deep-book-state-size\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "check": "assert-public-safe",
+          "exit_code": 0,
+          "stdout": "OK   public-safe units/t3-mr-deep-book-state-size\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-cancelmodify-lifecycle",
+          "check": "verify",
+          "exit_code": 0,
+          "stdout": "OK   manifest units/t3-cancelmodify-lifecycle\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-cancelmodify-lifecycle",
+          "check": "assert-public-safe",
+          "exit_code": 0,
+          "stdout": "OK   public-safe units/t3-cancelmodify-lifecycle\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-s012-partial-fill-cancel-race",
+          "check": "verify",
+          "exit_code": 0,
+          "stdout": "OK   manifest units/t3-s012-partial-fill-cancel-race\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-s012-partial-fill-cancel-race",
+          "check": "assert-public-safe",
+          "exit_code": 0,
+          "stdout": "OK   public-safe units/t3-s012-partial-fill-cancel-race\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-s001-price-time-priority",
+          "check": "verify",
+          "exit_code": 0,
+          "stdout": "OK   manifest units/t3-s001-price-time-priority\n",
+          "stderr": ""
+        },
+        {
+          "unit": "t3-s001-price-time-priority",
+          "check": "assert-public-safe",
+          "exit_code": 0,
+          "stdout": "OK   public-safe units/t3-s001-price-time-priority\n",
+          "stderr": ""
+        }
+      ]
+    }
+  },
+  "pinned_checks": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/expirements/20261008-native-hypotheses/h02-time-groups/pinned_correctness.json",
+    "sha256": "c12bd275b3d2b7b502814162e0c1f91835b2ba6e37984084c8b0b1429452f42f",
+    "passed": true,
+    "preflight_outputs": 8,
+    "preflight_pairs": 4,
+    "timed_outputs": 48,
+    "timed_comparisons": 64,
+    "runtime": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      }
+    }
+  },
+  "failed_preflight_attempts": [
+    {
+      "attempt": 1,
+      "stage": "Docker builder image resolution",
+      "exit_code": 1,
+      "timing_started": false,
+      "production_sources_changed": false,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2/build-builder.log",
+      "reason": "Dockerfile FROM interprets bare image ID as repository tag; use local baseline tag with exact immutable ID assertion."
+    },
+    {
+      "attempt": 2,
+      "stage": "correctness input staging import",
+      "exit_code": 1,
+      "timing_started": false,
+      "production_sources_changed": false,
+      "standalone_pinned_checks_passed": true,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/pinned-standalone.log",
+      "reason": "Shared staging function is a local import in run_experiment; import throughput.run_unit._stage_input directly."
+    }
+  ],
+  "failed_docker_outputs": 0,
+  "docker_slot_released": true,
+  "timing_started_once": true,
+  "timing_reruns": 0,
+  "frozen_source_tuned_after_timing": false,
+  "interpretation": "Correctness passed. Complete-container outcomes are mixed; this experiment does not establish a uniform speedup or justify production adoption. Phase diagnostics are secondary and include unchanged serialization/hash work and runtime variation.",
+  "log_paths": [
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2/build-builder.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/build-builder.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/build-candidate.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/pinned-standalone.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/build-builder.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/build-candidate.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/pinned-standalone.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/baseline/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/baseline/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/candidate/stderr.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/candidate/stdout.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing.log"
+  ],
+  "log_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2/build-builder.log": "76e142f6bc731c842dd0f7f60f954fb3683ddb9c97f7f0642b42dbec16cd3e87",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/build-builder.log": "28f31423319fddfd5b5efb88084920a31d83b32726ce10d308e1b582c8430da1",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/build-candidate.log": "6e668e3710ac83d1c3d1daf7a96816b75b81a71827d3e3039e4fcaf99d86efab",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt02/pinned-standalone.log": "2fa4847aa8eae148e6db04f516f004f2482a716e7766264fa21e5ef363459343",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/build-builder.log": "77848ca09cf9c00c53971f832e47b5be76e3c3d68ea2bb06dbc9b48f31e1ad9b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/build-candidate.log": "a8eb157940415c420931cbcf249a1570d0258810b4ca8b5692fe51e41910ea68",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/baseline/stdout.log": "cfbd2b9b87a4dd5b973bd0c1be595d369b32e95476b5ceeb7118fa077b42bb85",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-cancelmodify-lifecycle/correctness-00/candidate/stdout.log": "134d8eba3f0cf65bbaa6ae18f0ccf307e8a1d17fcf11651e45f532dca0b0077c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/baseline/stdout.log": "5857e4a2037d913c99b1f19442357436113aa111d453db884abf9ea82914639a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-mr-deep-book-state-size/correctness-00/candidate/stdout.log": "aef20a2abb152806fed1d23afd24f0feff959c792e7d1574a36e1180ff95730d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/baseline/stdout.log": "05a4d3142a2877f5920c9845b891ac7b173807e67449a450b317daaec51f74dd",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s001-price-time-priority/correctness-00/candidate/stdout.log": "78e53d7e806a1488f00d55823abf49c796b241484803a83d0166926b5dee0901",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/baseline/stdout.log": "0ae6d3a3dc7f1ced4a62f07ca0179479ee5388f610199eb639a00c331c0108cb",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/correctness/runs/t3-s012-partial-fill-cancel-race/correctness-00/candidate/stdout.log": "2259d128efe334e7cd4bde4232a179c2b02617648f1e4ff2e32ae1b614ffdd38",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/pinned-standalone.log": "2fa4847aa8eae148e6db04f516f004f2482a716e7766264fa21e5ef363459343",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/baseline/stdout.log": "a88406a8e8799e1ee24bf6965b5c25ab8f9e8a82a6f491fdab66973a7afdbf31",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-00/candidate/stdout.log": "6917a0d90e14e2095353320b33ee8eb0a24088040d65f4d3919e0469f33c5d56",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/baseline/stdout.log": "013d7c6c4db2b5abfeb8d0b6a1d376f5f313844faaf6d38a05701463a101bbd5",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-01/candidate/stdout.log": "201bb11ea9ee3301d52e627c508b699e441fb36463bf7a91c343b435885743c0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/baseline/stdout.log": "4e19a8070d7c8677600dad67bb70c1743450aaf0b145dba7362fc0cad586b4ee",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-02/candidate/stdout.log": "bbd0e2ac1e8d2a4e92dfbdfc259438deeef6050af2433434d7be069525675912",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/baseline/stdout.log": "e16c67c98bad7316f280d2cb0c93fb456162b1a7c649de5127aefe9d8448ebae",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-03/candidate/stdout.log": "4c93bf4c5405a336567cff3fb5a5dd9ff7fe2afb6520440cd849ad8d11ab8e8c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/baseline/stdout.log": "1ef11c080c591004ef43095444bc4754d3c90bd2f90d93d5063c78c239dde3e2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/timing-04/candidate/stdout.log": "35f7e2ddbd949cdfa424e106679d1063c186b67df74f2655d661800ea4a11db4",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/baseline/stdout.log": "4ce7a4bedaa4df5532171c785303b4b4ec845ae157e1f4d8506da9019475a239",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-cancelmodify-lifecycle/warmup-00/candidate/stdout.log": "2499146905f2a9b362a83200e09b2b432feffb3bb619c8d5bb96d0d9fb8b44e7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/baseline/stdout.log": "3c918fc643a73218d40c2bc1c36f642e276ec59a962ce3e0fe82fafa52ef537e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-00/candidate/stdout.log": "20499945ad6649001367faeffe090472b754d0b2d0517d1b0440264059835686",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/baseline/stdout.log": "45f41eb9def86f58f269e98f438774486107424c97ad8230263884405469870e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-01/candidate/stdout.log": "a10fd7bcc7921e915d2cd716aeff9df5b36cdc7661298baad52c4b173457c25c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/baseline/stdout.log": "d0fb36f2e457e88fe42b9cc05fd5455f90713a53b934f8b0647eb91a4c035b7b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-02/candidate/stdout.log": "adc88c7c9658ede440767fddb0a5e179de648aaf268cbd0c39f1ba8ce329df66",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/baseline/stdout.log": "31b76150b6c3897161f822bb9412523426b49432390e6767bd416c66e0d1f1a3",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-03/candidate/stdout.log": "bcc22ca38d3977148271461c6b623fb3d6faf3553157c451be41115d97d00789",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/baseline/stdout.log": "19a00733dcee0917fd22bd558a040048b7d7a4298679d5719495d71638fd6ab7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/timing-04/candidate/stdout.log": "e3cd05de038c608b126e36cf0e161e0666ee3850f6d54a974465e2d291736643",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/baseline/stdout.log": "730ef7241635973b3daccdef86ef7cff9cf4b79e85074c87d6a2c02b2a225476",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-mr-deep-book-state-size/warmup-00/candidate/stdout.log": "68d6a288b47f60f224602a066afaff920f0d07a99a75f9d47fe47da88d9245a9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/baseline/stdout.log": "b05ac8b5cea67b10dee56526d3f086b2bfbefc2f1f683c26b150294ea58b070e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-00/candidate/stdout.log": "76b79c9b20df9d17f951e9b5e544c2bf65fd7cf2e2df642f0aa7803650939f1a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/baseline/stdout.log": "1f55adbd0a5b60564abdfc6002a825b58046e91c162de71b6ebc186b001ad75c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-01/candidate/stdout.log": "a78f15c6f756660bc04a174e44c53e601b0c70581b0fe5526eb096083ff27dd9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/baseline/stdout.log": "f670bc9ce9aa23584efb698aabbc2ff2b322f1ca7ce6a15564336d20c1055351",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-02/candidate/stdout.log": "f46b3be0dde21b5297f65796766d8f3789ab7bc155bd504fa4e19ac433c9bba9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/baseline/stdout.log": "34e576b5c64000e2bc442e16954959f0eeed3ced7bb3f85b42a9cdbace19f003",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-03/candidate/stdout.log": "0da8e6f3780a75508a84ba2c6389abced6474a6ccfaa6130ab6f5777b62632cb",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/baseline/stdout.log": "21deeef94914b1f4590dcf037be397288b13c0ae132ae80649fc6e23031c5a4a",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/timing-04/candidate/stdout.log": "ef1d300d479a0fa9e13bb357d7be04282b3ecae36db728422da6584347f07366",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/baseline/stdout.log": "3ece2002a1515b7a8d14976de56f947955d9be783a62c8ba96077c876a0ce33c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s001-price-time-priority/warmup-00/candidate/stdout.log": "3003e02a19a276759437387f74eba8a35168a07f9f7a089d0c9543a55347f1d0",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/baseline/stdout.log": "ce7d73f5e57329568fe7de6116766bd402bfc705f386747a8ae99342d46477be",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-00/candidate/stdout.log": "9959f5cec30bb103245e6f895521e03ec0c5ae501ac23dea08b76ed92f92b11e",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/baseline/stdout.log": "872870c44a3dd5029e9bbb9db2bc6e844fb8121d9fa44af061b532a7a5f0fe8d",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-01/candidate/stdout.log": "d1259c4ef3aded9dbbc32a372b377792695ceecf66c8e3cb5f165f4f94d57e9f",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/baseline/stdout.log": "6d253fca055be170ee1b15868395fe84bf6a9f96112910c7ff9fb35a4e627550",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-02/candidate/stdout.log": "96bb0357d93ac204c4c12009595ee859ccc340ec89521ff7e11df7673740f8b9",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/baseline/stdout.log": "d2ea8223df8a81c56eb84368194c4153e235239e3a52a1c53e45ca5cf6d242e7",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-03/candidate/stdout.log": "91b7aa271fcb8568028e63d01fce50f9d486ce70723864382c82cd4d46bb8539",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/baseline/stdout.log": "d998e1ce1799c0bc364cb7a1e2b4f7e3909cdfcd18e61764d186500f144e0a17",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/timing-04/candidate/stdout.log": "97e23cb7794299b32f15abd08e17a4604674bc1137b91af7371ec6ab6a24a637",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/baseline/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/baseline/stdout.log": "241289a8be313eacf434a75f2e4ddc606ec878e0bdbabf84086c84b2f8624e80",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/candidate/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing/runs/t3-s012-partial-fill-cancel-race/warmup-00/candidate/stdout.log": "9451d69360fadf10004d7a8c7147c415261fea0c3f4bcf7c61bdad087ea90dc2",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h02-time-groups/out/h02-time-groups/phase2-attempt03/timing.log": "ac7b7736b0cf4c527d8168aab28c025c43a7ba524893458aa35b371e56bea635"
+  }
+}

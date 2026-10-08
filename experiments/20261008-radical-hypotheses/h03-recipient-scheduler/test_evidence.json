@@ -1,0 +1,37 @@
+{
+  "executive_summary": "Queue-level and complete Sim differential checks passed on the host; Docker checks remain phase2 work.",
+  "host_architecture": "arm64",
+  "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+  "commands": [
+    "<checker_python> tests/host_checks.py --counts-only",
+    "<checker_python> tests/host_checks.py",
+    "<checker_python> tests/run_scheduler_tests.py"
+  ],
+  "structural_counts": "structural_counts.json",
+  "scheduler_checks": "scheduler_checks.json",
+  "full_sim_checks": "host_sim_checks.json",
+  "raw_local_evidence": "evidence/ (ignored, generated here)",
+  "scheduler_generated_cases": 12000,
+  "scheduler_explicit_cases": 9,
+  "scheduler_asan_ubsan": "passed",
+  "full_sim_public_markets": 13,
+  "full_sim_generated_params": 80,
+  "full_sim_all_columns_equal": true,
+  "timing_evidence": false,
+  "pinned_docker_correctness": "pending phase2",
+  "reference_parquet_import_or_copy": false,
+  "selected_public_manifest_checks": "manifest_checks.json",
+  "selected_manifest_and_firewall_passed": true,
+  "original_checkout_baselines_clean": true,
+  "baseline_check_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "unchanged_paths_checked": [
+    "baselines/build_native.py",
+    "baselines/native/engine.hpp",
+    "baselines/native/module.cpp",
+    "baselines/native/pqwrite.cpp",
+    "baselines/abides_fork",
+    "qfbench2_track_simulation",
+    "scripts/run_differential_experiment.py",
+    "units"
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "executive_summary": "Scenario-specific reductions in complete container time; no pooled ranking is implied.",
+  "accepted": true,
+  "rankable": false,
+  "hypotheses": [
+    {
+      "slug": "h01-parquet-encoding",
+      "min_time_reduction_pct": -9.036763683766136,
+      "max_time_reduction_pct": 23.060799044963954,
+      "results": [
+        {
+          "unit": "t3-gb-mega-throughput",
+          "time_reduction_pct": 8.254728801083843,
+          "median_seconds": {
+            "baseline": 1.373317546,
+            "candidate": 1.259953907
+          },
+          "faster_pairs": 5
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "time_reduction_pct": 20.319078675644818,
+          "median_seconds": {
+            "baseline": 1.110079761,
+            "candidate": 0.884521781
+          },
+          "faster_pairs": 5
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "time_reduction_pct": 23.060799044963954,
+          "median_seconds": {
+            "baseline": 0.619163229,
+            "candidate": 0.476379241
+          },
+          "faster_pairs": 3
+        },
+        {
+          "unit": "t3-s001-price-time-priority",
+          "time_reduction_pct": -9.036763683766136,
+          "median_seconds": {
+            "baseline": 0.337758019,
+            "candidate": 0.368280413
+          },
+          "faster_pairs": 2
+        }
+      ]
+    },
+    {
+      "slug": "h02-native-executable",
+      "min_time_reduction_pct": 10.153203096269703,
+      "max_time_reduction_pct": 46.94625898168516,
+      "results": [
+        {
+          "unit": "t3-s001-price-time-priority",
+          "time_reduction_pct": 44.61667522479191,
+          "median_seconds": {
+            "baseline": 0.420833991,
+            "candidate": 0.233071856
+          },
+          "faster_pairs": 5
+        },
+        {
+          "unit": "t3-eq-deterministic-baseline",
+          "time_reduction_pct": 44.173624561847426,
+          "median_seconds": {
+            "baseline": 0.393511605,
+            "candidate": 0.219683266
+          },
+          "faster_pairs": 5
+        },
+        {
+          "unit": "t3-multilevel-crossing",
+          "time_reduction_pct": 46.94625898168516,
+          "median_seconds": {
+            "baseline": 0.541636108,
+            "candidate": 0.287358218
+          },
+          "faster_pairs": 4
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "time_reduction_pct": 10.153203096269703,
+          "median_seconds": {
+            "baseline": 1.68251234,
+            "candidate": 1.511683445
+          },
+          "faster_pairs": 3
+        }
+      ]
+    },
+    {
+      "slug": "h03-specialized-writer",
+      "min_time_reduction_pct": -14.150030345788455,
+      "max_time_reduction_pct": 23.662765753078542,
+      "results": [
+        {
+          "unit": "t3-gb-mega-throughput",
+          "time_reduction_pct": -3.5943481327123994,
+          "median_seconds": {
+            "baseline": 1.567736316,
+            "candidate": 1.624086217
+          },
+          "faster_pairs": 3
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "time_reduction_pct": 23.662765753078542,
+          "median_seconds": {
+            "baseline": 1.362449645,
+            "candidate": 1.040056377
+          },
+          "faster_pairs": 3
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "time_reduction_pct": 19.145430501880313,
+          "median_seconds": {
+            "baseline": 0.880315342,
+            "candidate": 0.71177518
+          },
+          "faster_pairs": 3
+        },
+        {
+          "unit": "t3-s001-price-time-priority",
+          "time_reduction_pct": -14.150030345788455,
+          "median_seconds": {
+            "baseline": 0.331892843,
+            "candidate": 0.378855781
+          },
+          "faster_pairs": 0
+        }
+      ]
+    },
+    {
+      "slug": "h04-lifecycle-pipeline",
+      "min_time_reduction_pct": 1.181047551575476,
+      "max_time_reduction_pct": 36.34759883345306,
+      "results": [
+        {
+          "unit": "t3-gb-mega-throughput",
+          "time_reduction_pct": 1.181047551575476,
+          "median_seconds": {
+            "baseline": 1.72861465,
+            "candidate": 1.708198889
+          },
+          "faster_pairs": 2
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "time_reduction_pct": 5.580084543331032,
+          "median_seconds": {
+            "baseline": 0.998866013,
+            "candidate": 0.943128445
+          },
+          "faster_pairs": 2
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "time_reduction_pct": 36.34759883345306,
+          "median_seconds": {
+            "baseline": 1.184253422,
+            "candidate": 0.753805739
+          },
+          "faster_pairs": 4
+        },
+        {
+          "unit": "t3-mp05-cancel-churn-newest",
+          "time_reduction_pct": 12.12555844483142,
+          "median_seconds": {
+            "baseline": 0.712181137,
+            "candidate": 0.625825197
+          },
+          "faster_pairs": 2
+        }
+      ]
+    }
+  ]
+}

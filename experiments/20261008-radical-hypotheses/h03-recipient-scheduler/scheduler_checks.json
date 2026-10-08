@@ -1,0 +1,29 @@
+{
+  "generated_cases": 12000,
+  "explicit_cases": 9,
+  "operations": 24698436,
+  "baseline_pops": 6470396,
+  "candidate_pops": 4645099,
+  "passed": true,
+  "timed": false,
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "independent_entry_sha256": "5d5c7fda553412ba5f6c77795ed8730ecca2172d88c4de21e8f7e5bc1b5ed488",
+  "independent_helpers_sha256": "f6c269522d47bf7ede520b79fe64ac27d3b10a8151714d0c1588cd918af36964",
+  "flags": [
+    "-std=c++17",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-Wall",
+    "-Wextra"
+  ],
+  "sanitizers": {
+    "generated_cases": 12000,
+    "explicit_cases": 9,
+    "operations": 24698436,
+    "baseline_pops": 6470396,
+    "candidate_pops": 4645099,
+    "passed": true,
+    "timed": false
+  }
+}

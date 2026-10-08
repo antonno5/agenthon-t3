@@ -1,0 +1,50 @@
+{
+  "executive_summary": "The one fixed series is complete and exact: 48 accepted native containers, every sample retained, unchanged source identities, and correct Docker-state medians.",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "single_fixed_series": true,
+  "additional_timing_runs": 0,
+  "implementation_commit_measured": "2d995b4177bbc4ee9c4968e29fdda7335bd49e33",
+  "candidate_image": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "timed_samples": 40,
+  "excluded_warmups": 8,
+  "paired_comparisons_including_warmups": 24,
+  "repeat_stability_comparisons": 40,
+  "timed_pair_order": [
+    "AB",
+    "BA",
+    "AB",
+    "BA",
+    "AB"
+  ],
+  "all_actual_native": true,
+  "all_shared_developer_gates_pass": true,
+  "both_journals_byte_schema_ordered_values_equal": true,
+  "native_source_unchanged": true,
+  "container_clock_recomputed_from_state": true,
+  "median_and_percent_recomputed": true,
+  "standard_result_copied_byte_exact": true,
+  "evidence": {
+    "result.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing/result.json",
+      "sha256": "c3c07b209b0b1661af140c01bd488b36ac447604d58cbb5ff5f63346feab25d6"
+    },
+    "summary.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2b-timing/summary.json",
+      "sha256": "a05e136d5ac1d7e63602d32632c23e94725a74edc473fcddde9e68707840efc8"
+    }
+  },
+  "phase2a_controls": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/controls",
+    "accepted": true,
+    "units": 8,
+    "runs": 16
+  },
+  "structural_memory_source": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/linux-book-checks.json",
+    "sha256": "6c77639cd83402184f7ceb27da3d85621de36e69dcbcbeb92507d8dce270bef9"
+  },
+  "production_adoption": false
+}

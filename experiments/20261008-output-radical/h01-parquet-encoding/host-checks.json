@@ -1,0 +1,22 @@
+{
+  "executive_summary": "Journal schemas, ordered values, physical encoding and writer boundaries passed.",
+  "scope": "preliminary host Arrow only",
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "arrow": "25.0.1",
+  "sanitizer_scope": "Own test/native sources instrumented; bundled Arrow libraries uninstrumented.",
+  "status": "passed",
+  "comparisons": 114,
+  "candidate_comparisons": 76,
+  "physical_policy_checks": true,
+  "stream_table_checks": 39,
+  "retained_empty_errors": [
+    "0-messages-stream.status",
+    "malformed.status",
+    "0-trace.status",
+    "0-messages-table.status"
+  ],
+  "failures": [],
+  "evidence": "evidence/host-01/checks.json",
+  "harness_update": "After completed checks, replaced runtime git-show with byte-identical committed baseline snapshots so pinned container checks require no host git metadata. Snapshot bytes and all unchanged native hashes verified; final checker py_compile passed."
+}

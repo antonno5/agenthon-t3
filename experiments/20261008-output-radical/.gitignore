@@ -1,0 +1,4 @@
+**/evidence/
+baseline-evidence/
+checker-evidence/
+**/__pycache__/

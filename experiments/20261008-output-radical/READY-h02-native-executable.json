@@ -1,0 +1,168 @@
+{
+  "slug": "h02-native-executable",
+  "ready": true,
+  "phase": 1,
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable",
+  "branch": "codex/exp-20261008-output-h02-native-executable",
+  "implementation_commit": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+  "source_hashes": {
+    "baselines/build_executable.py": "f6477b2586b8c04faf035bab1876b277eead99f002e5b8c5e7a7b4b8ffb61939",
+    "baselines/native/cli.cpp": "03616a8111fa7b966aacbc82ae9b922eafbcf22340c77135b06b1320b6ec63a4",
+    "baselines/native/scenario.hpp": "87a57e627ec24a8ddbae620281255939464d4ae4526ce09f0668456bfa25149b",
+    "baselines/native/vendor/json.hpp": "9bea4c8066ef4a1c206b2be5a36302f8926f7fdc6087af5d20b417d0cf103ea6",
+    "baselines/native/vendor/README.md": "5070a59dff2ee073b7cc6659f4ef7a369da3f0a7f77c11421e0443367fc7d372",
+    "baselines/native/vendor/LICENSE.json": "62176251affdda17bece4ddd44271d68019e2448ca721d2c1af4c650f29c9898",
+    "experiments/20261008-output-radical/h02-native-executable/Dockerfile": "2539888a187c3db67819b11b30919f40c2f008ffee8c1dc8483ddb0f743c97f3",
+    "experiments/20261008-output-radical/h02-native-executable/tests/mapper.cpp": "48a625d4126e4c8a049f7117bd25c3b6de1daadaaf550fea7dc84703648c4731",
+    "experiments/20261008-output-radical/h02-native-executable/tests/check_mapping.py": "ac5118676fff472763b97be1fda0a0717453989947966835fa72f7a45ed2bab2",
+    "baselines/native/sha256.hpp": "feb021c09075101a9194dd9b03e303eda66f66e777fe0a73c523e7dacefd0a17",
+    "experiments/20261008-output-radical/h02-native-executable/tests/sha_check.cpp": "b206e074022d2cc4ff49f4bc2d0eff7648f181d63925743fa4960b94d864fa9d",
+    "experiments/20261008-output-radical/h02-native-executable/tests/check_cli_boundaries.py": "109189c1135ca53b8fc672d21fb71b319462e6836f474c772e04af2d04014963",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c"
+  },
+  "host_check_results": {
+    "phase": 1,
+    "passed": true,
+    "mapping_checks": 70,
+    "mapping_float_policy": "exact binary64 hex",
+    "public_configs": [
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority/scenario.json",
+        "sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq-deterministic-baseline/scenario.json",
+        "sha256": "a7443084be120140edbaed8db5fd1363c827292ff8b765e277c9b705fb955947"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-multilevel-crossing/scenario.json",
+        "sha256": "99a22e9dc9e8ffe21e6c207ff4a73fd0b2a76f6d419c3ee2141107405940f863"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gb-mega-throughput/scenario.json",
+        "sha256": "af565789aeb35a1c70e39dee4f067563d1bdd0e605c2a470c7ab4079d2e34fab"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s012-partial-fill-cancel-race/scenario.json",
+        "sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq001-pareto-latency-tail/scenario.json",
+        "sha256": "0db4f8f6062a99647434b66ed3abc1f73e08eb680b8455f6a8c95b87db16bc42"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_00_noise.json",
+        "sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_01_value.json",
+        "sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_02_mm.json",
+        "sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_03_momentum.json",
+        "sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_04_base.json",
+        "sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3"
+      }
+    ],
+    "unchanged_core_sources": {
+      "baselines/native/engine.cpp": true,
+      "baselines/native/engine.hpp": true,
+      "baselines/native/rng.hpp": true,
+      "baselines/native/message_pipeline.hpp": true,
+      "baselines/native/pqwrite.cpp": true,
+      "baselines/native/pqwrite.hpp": true,
+      "baselines/native/nplog.cpp": true,
+      "baselines/native/nplog.hpp": true,
+      "baselines/native/svml/svml_z0_log_d_la.s": true
+    },
+    "cli_syntax": "clang++ -std=c++17 -fsyntax-only -Wall -Ibaselines/native baselines/native/cli.cpp: exit 0",
+    "python_ast": "passed",
+    "git_diff_check": "passed",
+    "docker_operations": 0,
+    "parquet_byte_equality": "pending required Phase 2",
+    "numpy_dispatch": "ARM host matching injected libm; real x86 dispatch pending Phase 2",
+    "openssl_provider_revision": "Uses pinned EVP SHA256; runtime checks pending"
+  },
+  "dockerfile_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/Dockerfile",
+  "build_context": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable",
+  "pinned_build_images": {
+    "accepted": true,
+    "runtime_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+    "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+    "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5"
+  },
+  "integration_constraints": [
+    "No Docker operations until coordinator assigns Phase 2 slot.",
+    "Use shared docker_slot.py exclusive lock around every entire Docker subprocess.",
+    "simulate-batch intentionally remains original adapter with independent native markets.",
+    "Supported timed single-market path is native ELF and has no Python startup.",
+    "Unknown dispatch and Python coercions route original adapter; native-required mapping/runtime failures reject.",
+    "ARM host tests inject matching libm; production x86 NumPy dispatch must be checked."
+  ],
+  "planned_runtime_diagnostics": [
+    "ldd/readelf from builder verify native binary has no libpython dependency.",
+    "Both log dispatch implementations must report matching svml/libm and mapped lat_mu binary64.",
+    "Check native_executable true for single-market profiles; every market engine=native and full sidecar fields/digests.",
+    "Check unchanged original batch adapter independently via shared developer gates.",
+    "Exact schema with metadata, ordered values and SHA-256 byte identity of both journals before first timing pair.",
+    "Primary complete container clock plus separate configuration, core, parquet, hashing phases."
+  ],
+  "exact_comparison_policy": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only.",
+  "comparison": "byte_exact",
+  "timing_units": [
+    "t3-s001-price-time-priority",
+    "t3-eq-deterministic-baseline",
+    "t3-multilevel-crossing",
+    "t3-gb-mega-throughput"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-eq001-pareto-latency-tail",
+    "t3-gbatch-hetero-mix"
+  ],
+  "timing_policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/README.md",
+  "byte_equality_status": "pending required Phase 2; not claimed in Phase 1",
+  "no_docker_operations": true,
+  "previous_implementation_commit": "8985bf0e9869e796abc27bd6c18bd1aa63b50391",
+  "hash_provider_policy": "Same pinned libcrypto.so.3 OpenSSL default fetched SHA256 as hashlib; no portable hash confound",
+  "seed_boundary_fix": "Empty override rejected;10 additional CLI boundary tests before timing"
+}

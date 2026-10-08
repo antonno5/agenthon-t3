@@ -1,0 +1,78 @@
+{
+  "executive_summary": "H02 completed one fixed paired timing series with exact journals and shared gates passing on all 48 runs. Full-container medians improved locally by 9.47%, 3.38%, 7.78% and 3.11%; no production adoption.",
+  "state": "complete",
+  "slug": "h02-ledger-pipeline",
+  "complete": true,
+  "accepted": true,
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline",
+  "branch": "codex/exp-20261008-radical-h02-ledger-pipeline",
+  "image": "sha256:c579f0db37f6e22491b5a191b335b3d87633d49e550c228dbe2e47fe90078bef",
+  "candidate_image": "sha256:c579f0db37f6e22491b5a191b335b3d87633d49e550c228dbe2e47fe90078bef",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+  "measurement_implementation_commit": "e4ac43f39c57c98ba6766f3b306b65b6bc89e891",
+  "final_report_commit": "367728a6d093df211c1f89108b6b3e74492f2d82",
+  "report_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/README.md",
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/result.json",
+  "evidence_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2b-timing",
+  "controls_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2a-focused-controls",
+  "evidence": {
+    "result": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/result.json",
+      "sha256": "bfee36b1889b58536bddf28959386bf99eb160fe4f813efb831c34b075199cda"
+    },
+    "raw_summary": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2b-timing/summary.json",
+      "sha256": "51332565d3141469d35b87c6559c8f95b32bba2ecf036024e801805249d003fc"
+    },
+    "final_audit": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h02-ledger-pipeline/expirements/20261008-radical-hypotheses/h02-ledger-pipeline/evidence/phase2b-summary.json",
+      "sha256": "afbcce13877e9b9b904ae9d3393371202b1f9c297086d52abc48a3e7abd5551e"
+    }
+  },
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "time_reduction_pct": 9.471468970852637,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "time_reduction_pct": 3.3834941851932143,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "time_reduction_pct": 7.778609243523693,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "time_reduction_pct": 3.1111708125954873,
+      "candidate_faster_pairs": 3
+    }
+  ],
+  "all_samples_retained": true,
+  "extra_repeats": 0,
+  "source_unchanged_during_measurement": true,
+  "implementation_unchanged_after_results": true,
+  "working_tree_clean": true,
+  "original_baselines_clean": true,
+  "rankable": false,
+  "adopted": false,
+  "merged": false,
+  "pushed": false,
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ]
+}

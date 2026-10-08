@@ -1,0 +1,137 @@
+{
+  "executive_summary": "Pinned Arrow 15 writer probes and all five selected public correctness controls passed. The candidate is ready for the coordinator fixed timing series, which has not begun.",
+  "state": "ready",
+  "phase": "2a",
+  "slug": "h01-parquet-codes",
+  "baseline_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "image_source_commit": "0ff61563bde3ab0fe8a1392334ec5c3051fa4852",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6",
+  "builder_image": "sha256:030b4077f2ddb3a256e90d66b730a99b8f1108853510c1ba738d4aacd21db1e7",
+  "runtime": {
+    "python": "3.11.17",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "1.5.3",
+      "pyarrow": "15.0.2",
+      "scipy": "1.17.1",
+      "abides-core": "0.0.0",
+      "abides-markets": "0.0.0"
+    }
+  },
+  "architecture": "amd64",
+  "implementation_source_sha256": "b38e3a43d030c37883b8844eb7ac3e91bbb5a6228ad3000d2ef7de0f43705d3f",
+  "source_unchanged_since_phase1": true,
+  "controls_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/controls",
+  "pinned_probe_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/pinned/checks.json",
+  "test_evidence": {
+    "build_summary": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/phase2a-summary.json",
+      "sha256": "599ec4d9971fc3be7996f489188a27fb7fd2e88e243a8e46e87af260ed697c1b"
+    },
+    "writer_probes": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/pinned/checks.json",
+      "sha256": "10125ff0260d4ea2a88356d2228682aa58d7f2201f6962fbea5bb3fa28d79ac3"
+    },
+    "controls": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/controls/summary.json",
+      "sha256": "460e8751809d80893ec37c681e13f0b3f37eb7e5120498dfd916ae2a315e28a1"
+    },
+    "source_audit": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/source-audit.json",
+      "sha256": "f749df7a89547f4a728b21830566c9e7df848069800cec66f92c0c4d5c6f1ea8"
+    },
+    "extension_audit": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/extension-audit.json",
+      "sha256": "6d40a4d6eb669699ffba2b5cac4262aaba8451d098cdfece42243b091f619936"
+    },
+    "image_metadata": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/image-metadata.json",
+      "sha256": "7a14a688c52f29b3248d68797fad27679dc7a07d37e205455179450f8512bead"
+    }
+  },
+  "writer_probe_file_pairs": 102,
+  "correctness_runs": 10,
+  "journal_file_pairs": 18,
+  "native_market_executions": 18,
+  "selected_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-mr-deep-book-state-size",
+    "t3-s001-price-time-priority",
+    "t3-gbatch-hetero-mix"
+  ],
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-mr-deep-book-state-size",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-gbatch-hetero-mix"
+  ],
+  "timing_runs": 0,
+  "failed_pinned_attempts": 0,
+  "speedup_claim": null,
+  "rankable": false,
+  "adopted": false,
+  "docker_slot": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/docker_slot.py",
+  "implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+  "branch": "codex/exp-20261008-radical-h01-parquet-codes",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes",
+  "working_tree_clean": true,
+  "readiness_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/phase2-readiness.json",
+  "ready_for_timing": true,
+  "host_test_evidence": {
+    "host": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/host-final/checks.json",
+      "sha256": "26f4d3b23ca79ba689bb1792abaa002f3b834fcb5cf0fe81f8188483ecf1dca4",
+      "summary": {
+        "status": "passed",
+        "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+        "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+        "arrow": "25.0.1",
+        "pinned": false,
+        "file_pairs": 102
+      }
+    },
+    "sanitized": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/host-sanitized/checks.json",
+      "sha256": "a7c367b2d0317aa54b788eb16aa17c244a8987b06cc4bff33142f6fa118e1866",
+      "summary": {
+        "status": "passed",
+        "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+        "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+        "arrow": "25.0.1",
+        "pinned": false,
+        "file_pairs": 102
+      }
+    },
+    "corpus": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/corpus-checks.json",
+      "sha256": "e9775228ffd02faf1902e003a778ea3080b3c529f853df827964e7ceb12b507f",
+      "summary": {
+        "t3-gb-mega-throughput": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-gb-pop-horizon-scale": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-mr-deep-book-state-size": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-s001-price-time-priority": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-gbatch-hetero-mix": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        }
+      }
+    }
+  }
+}

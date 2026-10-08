@@ -11,6 +11,9 @@ public suite is not run automatically. These are local results, not official sco
 
 | Каталог | Что сравнивает | Одна команда |
 |---|---|---|
+| [native-io-batch-comparison](native-io-batch-comparison/README.md) | Сводное сравнение потокового SHA256 и параллельных batch-рынков; только отчёты и данные, код не принят. | `comparison.json` и `orchestration-audit.json` |
+| [stream-hash](stream-hash/README.md) | Потоковый SHA256 при записи Parquet и общий batch-пул; архив замеров. | Исходная ветка и исторические команды в отчёте |
+| [native-batch](native-batch/README.md) | Независимые native batch-рынки: база, один и два worker; архив замеров. | Исходная ветка и исторические команды в отчёте |
 | [hotpaths-20261006](hotpaths-20261006/ARCHIVE.md) | Пять гипотез: все отчёты, доказательства и независимое сравнение. | См. `comparison.json` и `archive-index.json` |
 | [startup-integration](startup-integration/README.md) | Отложенный импорт SciPy вместе с уже принятыми DEBUG-guards. | Стандартная сборка `baselines/Dockerfile` |
 | [components](components/README.md) | Общие логи и типизированный сборщик событий; время компонентов. | `make experiment` |

@@ -1,0 +1,14 @@
+{
+  "executive_summary": "Diagnostic tools compile and preserve both real small-market journals on host; no performance conclusion is drawn.",
+  "kind": "host correctness smoke only",
+  "results": {
+    "baseline": {
+      "encode": "byte equal to uninstrumented baseline",
+      "pipeline": "byte equal to uninstrumented baseline"
+    },
+    "candidate": {
+      "encode": "byte equal to uninstrumented baseline",
+      "pipeline": "byte equal to uninstrumented baseline"
+    }
+  }
+}

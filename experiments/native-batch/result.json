@@ -1,0 +1,576 @@
+{
+  "executive_summary": "Two workers preserved every event and message, but took 19–52% more full-container time than the serial baseline in the four tested public batches. The new adapter with one worker took 7–19% more time. This local arm64 host running linux/amd64 containers provides nonrankable developer evidence; it does not support enabling two workers by default. All 104 scheduled runs were accepted, and the experiment remains on its branch.",
+  "schema_version": 1,
+  "variant": "native-batch",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "implementation_commit": "11a9a6c77184d3335932a026c1dee93bea8e3ad6",
+  "runner_commit": "fb40d7e5355e1932f81f355db3470836cb873ee9",
+  "branch": "codex/exp-20261008-native-batch-parallel",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel",
+  "images": {
+    "base_serial": {
+      "id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "tag": "track3-native:20261008",
+      "source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b"
+    },
+    "candidate": {
+      "id": "sha256:f1305d6a2cfb50d5b5bb3a9b6b46be16895576006a191c06457d796362a7f5dc",
+      "tag": "track3-native-batch-parallel:20261008",
+      "source_commit": "11a9a6c77184d3335932a026c1dee93bea8e3ad6"
+    }
+  },
+  "image_probes": {
+    "baseline": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      },
+      "sources": {
+        "simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+        "native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+        "simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
+        "extension": "5d722746740ad62776290cc26f2461a478963b652e075bf3b8ede5b4fc713685"
+      }
+    },
+    "candidate": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      },
+      "sources": {
+        "simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+        "native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+        "simulate_batch.py": "0202822ab8059e82c8594fbe58afe03ddf38504a4e562dedaa25940ce9703717",
+        "extension": "5d722746740ad62776290cc26f2461a478963b652e075bf3b8ede5b4fc713685"
+      }
+    }
+  },
+  "source_hashes": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel/experiments/native-batch/run_experiment.py": "c46c2fc024c9cb532b78e300e66d146b58a1e23c3e7e393bc6d0f9df1bf0d24b",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel/experiments/native-batch/Dockerfile": "0e51818eef95b052a9c0b0b8a5f674d995cf44c1628cfcb3e9182ac09631f369",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel/experiments/native-batch/tests/check_native_batch.py": "29d99383afd7477964ab67326673e63f0b2482747fdd002e0587656310b3f4b3",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel/experiments/native-batch/tests/check_native_batch_failures.py": "d01ada1cad2d502d0f779e1e87ab85b27c386c36233777594266a690ab087d67",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel/baselines/abides_fork/simulate_batch.py": "0202822ab8059e82c8594fbe58afe03ddf38504a4e562dedaa25940ce9703717",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/worktrees/native-batch-parallel/scripts/run_differential_experiment.py": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/docker_slot.py": "76b9218e0e31637945616009f6d89aafe207061438d195473c05eab479336d37",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/memory_probe.py": "f29f5c932efb023d8ed1c72123128a23bf99acc81416d2050cb6b42fd267a1d2"
+  },
+  "runtime": {
+    "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "packages": {
+      "qfbench2-common": "2.4.4",
+      "numpy": "2.5.3",
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "scipy": "1.18.1"
+    },
+    "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "docker_version": {
+      "Client": {
+        "Platform": {
+          "Name": "Docker Engine - Community"
+        },
+        "Version": "28.0.1",
+        "ApiVersion": "1.48",
+        "DefaultAPIVersion": "1.48",
+        "GitCommit": "068a01ea94",
+        "GoVersion": "go1.24.0",
+        "Os": "darwin",
+        "Arch": "arm64",
+        "BuildTime": "Tue Feb 25 17:52:55 2025",
+        "Context": "colima-agenthon"
+      },
+      "Server": {
+        "Platform": {
+          "Name": "Docker Engine - Community"
+        },
+        "Components": [
+          {
+            "Name": "Engine",
+            "Version": "29.5.2",
+            "Details": {
+              "ApiVersion": "1.54",
+              "Arch": "arm64",
+              "BuildTime": "Wed May 20 14:39:25 2026",
+              "Experimental": "false",
+              "GitCommit": "568f755",
+              "GoVersion": "go1.26.3",
+              "KernelVersion": "6.8.0-117-generic",
+              "MinAPIVersion": "1.40",
+              "Module": "github.com/moby/moby/v2",
+              "ModuleVersion": "v2.0.0+unknown",
+              "Os": "linux"
+            }
+          },
+          {
+            "Name": "containerd",
+            "Version": "v2.2.4",
+            "Details": {
+              "GitCommit": "193637f7ee8ae5f5aa5248f49e7baa3e6164966e"
+            }
+          },
+          {
+            "Name": "runc",
+            "Version": "1.3.5",
+            "Details": {
+              "GitCommit": "v1.3.5-0-g488fc13e"
+            }
+          },
+          {
+            "Name": "docker-init",
+            "Version": "0.19.0",
+            "Details": {
+              "GitCommit": "de40ad0"
+            }
+          }
+        ],
+        "Version": "29.5.2",
+        "ApiVersion": "1.54",
+        "MinAPIVersion": "1.40",
+        "GitCommit": "568f755",
+        "GoVersion": "go1.26.3",
+        "Os": "linux",
+        "Arch": "arm64",
+        "KernelVersion": "6.8.0-117-generic",
+        "BuildTime": "2026-05-20T14:39:25.000000000+00:00"
+      }
+    },
+    "context": "colima-agenthon",
+    "runner_commit_at_run": "fb40d7e5355e1932f81f355db3470836cb873ee9"
+  },
+  "resources": {
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "disk_cap_enforced": false
+  },
+  "policy": {
+    "metric": "Docker State FinishedAt minus StartedAt; entire container lifecycle",
+    "warmups_per_unit_mode": 1,
+    "timed_repeats_per_unit_mode": 5,
+    "order": "Within each repeat, adjacent base_serial/workers2 alternate AB/BA; workers1 separately retained before odd pairs and after even pairs. Fixed order and all samples retained.",
+    "old_timing_reused": false,
+    "containers_sequential": true,
+    "slot_wrapper": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/docker_slot.py"
+  },
+  "counts": {
+    "scheduled_runs": 104,
+    "accepted_runs": 104,
+    "public_correctness_runs": 18,
+    "native_check_containers": 2,
+    "warmups_excluded": 12,
+    "timed_samples": 60,
+    "memory_diagnostics_excluded": 12,
+    "additional_runtime_probes": 2,
+    "public_retention_and_developer_gate_runs": 102,
+    "independent_sha256_journal_checks": 1062,
+    "literal_anchor_journal_comparisons": 1002,
+    "repeat_reorder_isolated_native_outputs": 35,
+    "real_fallback_error_cases": 4
+  },
+  "correctness_units": [
+    "t3-gbatch-homog-4",
+    "t3-gbatch-homog-8",
+    "t3-gbatch-hetero-mix",
+    "t3-gbatch-varsize",
+    "t3-gbatch-dense-3",
+    "t3-gbatch-many-6"
+  ],
+  "correctness": {
+    "all_developer_gates_accepted": true,
+    "all_reference_and_anchor_exact_tree_checks_accepted": true,
+    "all_independent_journal_hashes_and_byte_comparisons_accepted": true,
+    "all_public_outputs_native": true,
+    "all_counts_verified_from_parquet": true,
+    "native_stress_pass": true,
+    "real_mixed_fallback_and_writer_error_checks_pass": true,
+    "failure_cleanup_preserves_existing_files": true
+  },
+  "timing_summary": [
+    {
+      "unit": "t3-gbatch-homog-4",
+      "rankable": false,
+      "container_sec_samples": {
+        "base_serial": [
+          0.310078042,
+          0.383047556,
+          0.340915499,
+          0.318656104,
+          0.325511309
+        ],
+        "workers1": [
+          0.370445585,
+          0.375169438,
+          0.35574156,
+          0.416087703,
+          0.34373405
+        ],
+        "workers2": [
+          0.518200021,
+          0.411609093,
+          0.426521429,
+          0.496246318,
+          0.527203443
+        ]
+      },
+      "median_container_sec": {
+        "base_serial": 0.325511309,
+        "workers1": 0.370445585,
+        "workers2": 0.496246318
+      },
+      "min_container_sec": {
+        "base_serial": 0.310078042,
+        "workers1": 0.34373405,
+        "workers2": 0.411609093
+      },
+      "max_container_sec": {
+        "base_serial": 0.383047556,
+        "workers1": 0.416087703,
+        "workers2": 0.527203443
+      },
+      "paired_base_over_workers2": [
+        0.59837520153246,
+        0.9306100436415773,
+        0.799292780668237,
+        0.6421329336694444,
+        0.6174301653792501
+      ],
+      "median_paired_base_over_workers2": 0.6421329336694444,
+      "local_ratio_of_medians_base_over_workers2": 0.6559470512786757,
+      "workers1_over_base_median_ratio": 1.138042134812588,
+      "scope": "nonrankable local host/container comparison",
+      "workers2_over_base_median_ratio": 1.5245132942523971,
+      "workers2_median_slowdown_percent": 52.45132942523971,
+      "workers1_median_overhead_percent": 13.804213481258799,
+      "median_adapter_sec_self_reported": {
+        "base_serial": 0.13113192099990556,
+        "workers1": 0.13353227200423134,
+        "workers2": 0.2448230110021541
+      }
+    },
+    {
+      "unit": "t3-gbatch-homog-8",
+      "rankable": false,
+      "container_sec_samples": {
+        "base_serial": [
+          0.378106347,
+          0.486011154,
+          0.419953876,
+          0.414841926,
+          0.413316107
+        ],
+        "workers1": [
+          0.478138671,
+          0.536456703,
+          0.589129477,
+          0.449411766,
+          0.450652698
+        ],
+        "workers2": [
+          0.558162976,
+          0.478816636,
+          0.522350143,
+          0.557653803,
+          0.535288664
+        ]
+      },
+      "median_container_sec": {
+        "base_serial": 0.414841926,
+        "workers1": 0.478138671,
+        "workers2": 0.535288664
+      },
+      "min_container_sec": {
+        "base_serial": 0.378106347,
+        "workers1": 0.449411766,
+        "workers2": 0.478816636
+      },
+      "max_container_sec": {
+        "base_serial": 0.486011154,
+        "workers1": 0.589129477,
+        "workers2": 0.558162976
+      },
+      "paired_base_over_workers2": [
+        0.6774120879705214,
+        1.0150256224597844,
+        0.8039700603661938,
+        0.7439058494146054,
+        0.7721368577310279
+      ],
+      "median_paired_base_over_workers2": 0.7721368577310279,
+      "local_ratio_of_medians_base_over_workers2": 0.7749873178707929,
+      "workers1_over_base_median_ratio": 1.1525803951647837,
+      "scope": "nonrankable local host/container comparison",
+      "workers2_over_base_median_ratio": 1.2903436958780292,
+      "workers2_median_slowdown_percent": 29.03436958780292,
+      "workers1_median_overhead_percent": 15.258039516478373,
+      "median_adapter_sec_self_reported": {
+        "base_serial": 0.2191677869996056,
+        "workers1": 0.23454065999976592,
+        "workers2": 0.28050685099879047
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "rankable": false,
+      "container_sec_samples": {
+        "base_serial": [
+          0.434257649,
+          0.35875487,
+          0.415574564,
+          0.229302788,
+          0.350889203
+        ],
+        "workers1": [
+          0.439785315,
+          0.426347272,
+          0.372918653,
+          0.460126487,
+          0.428321071
+        ],
+        "workers2": [
+          0.5172457,
+          0.436860802,
+          0.439507644,
+          0.423907925,
+          0.546050043
+        ]
+      },
+      "median_container_sec": {
+        "base_serial": 0.35875487,
+        "workers1": 0.428321071,
+        "workers2": 0.439507644
+      },
+      "min_container_sec": {
+        "base_serial": 0.229302788,
+        "workers1": 0.372918653,
+        "workers2": 0.423907925
+      },
+      "max_container_sec": {
+        "base_serial": 0.434257649,
+        "workers1": 0.460126487,
+        "workers2": 0.546050043
+      },
+      "paired_base_over_workers2": [
+        0.8395577749607198,
+        0.8212109403214436,
+        0.9455457024997727,
+        0.5409259286671746,
+        0.6425953216159713
+      ],
+      "median_paired_base_over_workers2": 0.8212109403214436,
+      "local_ratio_of_medians_base_over_workers2": 0.8162653708020605,
+      "workers1_over_base_median_ratio": 1.193910123087667,
+      "scope": "nonrankable local host/container comparison",
+      "workers2_over_base_median_ratio": 1.2250917848167469,
+      "workers2_median_slowdown_percent": 22.509178481674684,
+      "workers1_median_overhead_percent": 19.391012308766697,
+      "median_adapter_sec_self_reported": {
+        "base_serial": 0.15657888900022954,
+        "workers1": 0.17962440900009824,
+        "workers2": 0.20319920100155286
+      }
+    },
+    {
+      "unit": "t3-gbatch-varsize",
+      "rankable": false,
+      "container_sec_samples": {
+        "base_serial": [
+          0.319075633,
+          0.3624179,
+          0.34187755,
+          0.334905369,
+          0.374936824
+        ],
+        "workers1": [
+          0.430471018,
+          0.359771112,
+          0.367066118,
+          0.425314915,
+          0.363858744
+        ],
+        "workers2": [
+          0.441511753,
+          0.397323925,
+          0.40703064,
+          0.465165013,
+          0.40754475
+        ]
+      },
+      "median_container_sec": {
+        "base_serial": 0.34187755,
+        "workers1": 0.367066118,
+        "workers2": 0.40754475
+      },
+      "min_container_sec": {
+        "base_serial": 0.319075633,
+        "workers1": 0.359771112,
+        "workers2": 0.397323925
+      },
+      "max_container_sec": {
+        "base_serial": 0.374936824,
+        "workers1": 0.430471018,
+        "workers2": 0.465165013
+      },
+      "paired_base_over_workers2": [
+        0.7226888770954191,
+        0.9121471856999298,
+        0.8399307482109946,
+        0.7199711062534275,
+        0.919989336140387
+      ],
+      "median_paired_base_over_workers2": 0.8399307482109946,
+      "local_ratio_of_medians_base_over_workers2": 0.8388711914458473,
+      "workers1_over_base_median_ratio": 1.073677163066133,
+      "scope": "nonrankable local host/container comparison",
+      "workers2_over_base_median_ratio": 1.1920781285580175,
+      "workers2_median_slowdown_percent": 19.207812855801755,
+      "workers1_median_overhead_percent": 7.367716306613303,
+      "median_adapter_sec_self_reported": {
+        "base_serial": 0.13972984099382302,
+        "workers1": 0.13905326399981277,
+        "workers2": 0.18724086900328984
+      }
+    }
+  ],
+  "whole_container_memory": [
+    {
+      "unit": "t3-gbatch-homog-4",
+      "mode": "base_serial",
+      "cgroup_peak_bytes": 45219840,
+      "child_peak_rss_bytes": 56864768,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "mode": "workers1",
+      "cgroup_peak_bytes": 47783936,
+      "child_peak_rss_bytes": 59830272,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "mode": "workers2",
+      "cgroup_peak_bytes": 56250368,
+      "child_peak_rss_bytes": 68169728,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-homog-8",
+      "mode": "base_serial",
+      "cgroup_peak_bytes": 47153152,
+      "child_peak_rss_bytes": 57540608,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-homog-8",
+      "mode": "workers1",
+      "cgroup_peak_bytes": 48947200,
+      "child_peak_rss_bytes": 60252160,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-homog-8",
+      "mode": "workers2",
+      "cgroup_peak_bytes": 60391424,
+      "child_peak_rss_bytes": 70860800,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "mode": "base_serial",
+      "cgroup_peak_bytes": 54652928,
+      "child_peak_rss_bytes": 65794048,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "mode": "workers1",
+      "cgroup_peak_bytes": 57352192,
+      "child_peak_rss_bytes": 69091328,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "mode": "workers2",
+      "cgroup_peak_bytes": 65261568,
+      "child_peak_rss_bytes": 76206080,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-varsize",
+      "mode": "base_serial",
+      "cgroup_peak_bytes": 48037888,
+      "child_peak_rss_bytes": 59969536,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-varsize",
+      "mode": "workers1",
+      "cgroup_peak_bytes": 50520064,
+      "child_peak_rss_bytes": 62734336,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    },
+    {
+      "unit": "t3-gbatch-varsize",
+      "mode": "workers2",
+      "cgroup_peak_bytes": 62984192,
+      "child_peak_rss_bytes": 74825728,
+      "excluded_from_timings": true,
+      "cgroup_source": "/sys/fs/cgroup/memory.peak"
+    }
+  ],
+  "memory_scope": "Cgroup lifetime high-water including small diagnostic parent and file cache; child process ru_maxrss across all threads. Distinct counters are preserved without equating them or taking max individual-market values as an exact concurrent peak.",
+  "interpretation": [
+    "The candidate workers2 full-container median was slower for each requested unit; no local speedup was observed.",
+    "The workers1 overhead control was also slower; its median overhead is reported separately.",
+    "Containers are short: medians range from 0.326 to 0.535 seconds, with all five samples and ranges retained.",
+    "Host and Docker server report arm64, while immutable images are linux/amd64. This cross-architecture local run is not a prediction for dedicated official timing hardware.",
+    "Adapter self-reported medians also increased for workers2 in all four units; no isolated causal attribution is claimed.",
+    "No GPU utilization or official rankable measurement is claimed; the local disk cap is not enforced.",
+    "No simulation suite beyond the six public batches and declared derived native stress/fallback/error cases was run.",
+    "No merges, pushes, develop changes, sealed-data access or public-unit/reference edits were performed."
+  ],
+  "artifacts": {
+    "full_records": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/results.json",
+    "predeclared_plan": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/plan.json",
+    "build_log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/build.log",
+    "execution_log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/execution.log",
+    "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/evidence",
+    "native_checks_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/native-checks",
+    "memory_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/memory",
+    "provenance_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-io-batch/native-batch/experiment-20261008/provenance"
+  },
+  "artifact_sha256": {
+    "results.json": "b7a309dbad796564dbbfd23e3fd7a6674b8957d7a25345e633e5b19c98e2d395",
+    "plan.json": "b9c50942303fb0033f95a0d9e7c43cccd3356b5ad6e342414a78be34f9c73902",
+    "build.log": "b9b6a5371027b59743e249022da2ef23ef8ddd6abbab08000098c75c21963a40",
+    "execution.log": "11359e7fee41ce0e4bafcb9957c78fd432ff83f77558667839a46590a3e6618a"
+  },
+  "finished_utc": "2026-10-07T22:00:31.511708+00:00",
+  "performance_adoption": "No recommendation to adopt parallel default based on this local result."
+}

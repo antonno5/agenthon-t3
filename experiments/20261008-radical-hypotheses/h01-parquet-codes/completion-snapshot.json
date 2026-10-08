@@ -1,0 +1,60 @@
+{
+  "executive_summary": "H01 completed its one fixed series with exact correctness. Full-run timing improved on one unit and regressed on three; no general writer speedup or production adoption is claimed.",
+  "state": "complete",
+  "phase": "2b",
+  "slug": "h01-parquet-codes",
+  "complete": true,
+  "accepted": true,
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6",
+  "image": "sha256:7a21a621eb5fa9aa82b03039da00242b9ca1ad6f825a6134f59c4ffb974387c6",
+  "image_source_commit": "0ff61563bde3ab0fe8a1392334ec5c3051fa4852",
+  "implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+  "measurement_implementation_commit": "faf294fd03ddf89e12bd119955604176eb8a04d6",
+  "final_report_commit": "4dac76f215653a076709bb536a6489bee4f70049",
+  "branch": "codex/exp-20261008-radical-h01-parquet-codes",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes",
+  "report_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/result.json",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/README.md",
+  "completion_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/completion.json",
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2b-timing",
+  "controls_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/controls",
+  "pinned_probe_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h01-parquet-codes/expirements/20261008-radical-hypotheses/h01-parquet-codes/evidence/phase2a-attempt01/pinned/checks.json",
+  "result_sha256": "08e95d6252910a634d52f1ba61a6ee67486542c5a314e116f16b767672f1b093",
+  "readme_sha256": "039697edf806956b900d80c40e2c1c814c7390523ee46f3b17a1a15a3d2ebdce",
+  "timing_summary_sha256": "624d650776215aaff595bfc0ae24ad74fddaf2b54f47dcc71dd7e8741c753fe9",
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "time_reduction_pct": 5.342486776312061
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "time_reduction_pct": -1.4480998989087057
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "time_reduction_pct": -26.074887445616813
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "time_reduction_pct": -0.4917933702909494
+    }
+  ],
+  "source_unchanged_during_and_after_measurement": true,
+  "working_tree_clean": true,
+  "rankable": false,
+  "adopted": false,
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ]
+}

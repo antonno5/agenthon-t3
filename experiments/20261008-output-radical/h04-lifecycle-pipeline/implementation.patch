@@ -1,0 +1,555 @@
+diff --git a/baselines/native/engine.cpp b/baselines/native/engine.cpp
+index e18e1c1..59a4108 100644
+--- a/baselines/native/engine.cpp
++++ b/baselines/native/engine.cpp
+@@ -155,10 +155,10 @@ struct Trader {
+ 
+ class Sim {
+  public:
+-  explicit Sim(Params p, MessageSink* sink)
++  explicit Sim(Params p, MessageSink* sink, TraceSink* trace_sink)
+       : P(std::move(p)), message_sink(sink),
+         trace(P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
+-              P.pipeline_delay >= 0 && P.computation_delay >= 0) {}
++              P.pipeline_delay >= 0 && P.computation_delay >= 0, trace_sink) {}
+   Result run();
+ 
+  private:
+@@ -777,6 +777,7 @@ Result Sim::run() {
+     }
+     release(e.slot);
+   }
++  trace.simulation_finished();
+   if (message_sink && !mcols.t_recv.empty()) message_sink->submit(mcols);
+   return extract();
+ }
+@@ -793,8 +794,8 @@ Result Sim::extract() {
+ 
+ }  // namespace
+ 
+-Result run(Params params, MessageSink* sink) {
+-  Sim sim(std::move(params), sink);
++Result run(Params params, MessageSink* sink, TraceSink* trace_sink) {
++  Sim sim(std::move(params), sink, trace_sink);
+   return sim.run();
+ }
+ 
+diff --git a/baselines/native/engine.hpp b/baselines/native/engine.hpp
+index f36fe62..824a64f 100644
+--- a/baselines/native/engine.hpp
++++ b/baselines/native/engine.hpp
+@@ -113,6 +113,16 @@ struct MessageSink {
+   virtual void submit(MessageColumns& block) = 0;
+ };
+ 
++// Immutable lifecycle prefix: one canonical row group can be encoded while
++// msg_type remains mutable. The retained trace is still the source of final types.
++constexpr size_t kTraceBlockRows = 64 * 1024;
++constexpr size_t kTracePipelineRows = kMessageRowGroupRows;
++struct TraceSink {
++  virtual ~TraceSink() = default;
++  virtual void simulation_finished() {}
++  virtual void submit(TraceColumns& block) = 0;
++};
++
+ struct Result {
+   TraceColumns trace;
+   MessageColumns messages;
+@@ -120,6 +130,6 @@ struct Result {
+ };
+ 
+ // Throws std::runtime_error on any state the Python reference would have raised on.
+-Result run(Params params, MessageSink* sink = nullptr);
++Result run(Params params, MessageSink* sink = nullptr, TraceSink* trace_sink = nullptr);
+ 
+ }  // namespace t3
+diff --git a/baselines/native/module.cpp b/baselines/native/module.cpp
+index 48c3d1d..6420541 100644
+--- a/baselines/native/module.cpp
++++ b/baselines/native/module.cpp
+@@ -12,7 +12,9 @@
+ #include <cstdio>
+ #include <unistd.h>
+ #include <memory>
++#include <atomic>
+ #include "message_pipeline.hpp"
++#include "trace_pipeline.hpp"
+ 
+ #include "engine.hpp"
+ #include "nplog.hpp"
+@@ -197,8 +199,18 @@ PyObject* py_run(PyObject*, PyObject* cfg) {
+   return out;
+ }
+ 
++struct LifecycleDiagnostics { size_t rows = 0, while_sim_rows = 0, blocks = 0; };
++thread_local LifecycleDiagnostics lifecycle_diagnostics;
++PyObject* py_lifecycle_diagnostics(PyObject*, PyObject*) {
++  return Py_BuildValue("{s:n,s:n,s:n,s:n}",
++      "immutable_rows", static_cast<Py_ssize_t>(lifecycle_diagnostics.rows),
++      "encoded_while_sim_rows", static_cast<Py_ssize_t>(lifecycle_diagnostics.while_sim_rows),
++      "blocks", static_cast<Py_ssize_t>(lifecycle_diagnostics.blocks),
++      "row_cap", static_cast<Py_ssize_t>(t3::kTracePipelineRows));
++}
++
+ // run_write(cfg, trace_path, msg_path) -> (n_events, n_messages, engine_seconds) | None.
+-// Runs the engine with a bounded message writer pipeline, then writes the lifecycle trace.
++// Runs both journals with bounded dispatchers; lifecycle types finalize after Sim.
+ // None, with nothing written, when the trace is empty (the Python path builds that frame
+ // with different dtypes, so it must produce it).
+ PyObject* py_run_write(PyObject*, PyObject* args) {
+@@ -213,6 +225,7 @@ PyObject* py_run_write(PyObject*, PyObject* args) {
+     if (!PyErr_Occurred()) PyErr_SetString(PyExc_ValueError, e.what());
+     return nullptr;
+   }
++  lifecycle_diagnostics = {};
+   t3::Result r;
+   double seconds = 0;
+   std::string error;
+@@ -236,6 +249,21 @@ PyObject* py_run_write(PyObject*, PyObject* args) {
+     };
+     std::unique_ptr<StagedMessage> staged;
+     std::unique_ptr<t3::MessageParquetWriter> writer;
++    std::atomic<bool> sim_running{true};
++    std::atomic<size_t> early_rows{0}, encoded_rows{0}, encoded_blocks{0};
++    std::unique_ptr<StagedMessage> staged_trace;
++    std::unique_ptr<t3::TraceParquetWriter> trace_writer;
++    t3::TracePipeline trace_pipeline(
++        [&](const t3::TraceColumns& block, size_t offset) {
++          if (!trace_writer) {
++            staged_trace = std::make_unique<StagedMessage>(trace_path);
++            trace_writer = std::make_unique<t3::TraceParquetWriter>(staged_trace->path);
++          }
++          trace_writer->append_immutable(block, offset);
++          encoded_rows += block.t_ns.size();
++          ++encoded_blocks;
++          if (sim_running.load()) early_rows += block.t_ns.size();
++        }, [] {}, [&] { sim_running = false; });
+     t3::MessagePipeline pipeline(
+         [&](const t3::MessageColumns& block, size_t offset) {
+           if (!writer) {
+@@ -251,15 +279,26 @@ PyObject* py_run_write(PyObject*, PyObject* args) {
+           writer->close();
+         });
+     const auto t0 = std::chrono::steady_clock::now();
+-    r = t3::run(std::move(params), &pipeline);
++    r = t3::run(std::move(params), &pipeline, &trace_pipeline);
++    sim_running = false;
+     seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
+     if (r.trace.t_ns.empty()) {
+       empty = true;
+       pipeline.cancel();
++      trace_pipeline.cancel();
+     } else {
+-      // Trace finalization is unchanged; ledger worker drains concurrently.
+-      t3::write_trace(r.trace, trace_path);
++      trace_pipeline.finish();
++      lifecycle_diagnostics = {encoded_rows.load(), early_rows.load(), encoded_blocks.load()};
++      if (trace_writer) {
++        trace_writer->finish(r.trace);
++      } else {
++        // Negative latency disables early handoff: final sorting remains unchanged.
++        staged_trace = std::make_unique<StagedMessage>(trace_path);
++        t3::write_trace(r.trace, staged_trace->path);
++      }
+       pipeline.finish();
++      if (std::rename(staged_trace->path.c_str(), trace_path) != 0)
++        throw std::runtime_error("cannot publish staged lifecycle parquet");
+       if (std::rename(staged->path.c_str(), msg_path) != 0)
+         throw std::runtime_error("cannot publish staged message parquet");
+     }
+@@ -302,6 +341,8 @@ PyMethodDef methods[] = {
+     {"run", py_run, METH_O, "Run one scenario natively; returns column buffers."},
+     {"run_write", py_run_write, METH_VARARGS,
+      "Run one scenario natively and write both parquet files."},
++    {"lifecycle_pipeline_diagnostics", py_lifecycle_diagnostics, METH_NOARGS,
++     "Immutable lifecycle encoding completed while Sim was running, for the last call."},
+     {"msg_type_names", msg_type_names, METH_NOARGS, "Ledger msg_type names by code."},
+     {"numpy_log", py_numpy_log, METH_O, "np.log(x) for a float64, or None."},
+     {"numpy_log_dispatch", py_numpy_log_dispatch, METH_NOARGS, "svml | libm | unknown"},
+diff --git a/baselines/native/pqwrite.cpp b/baselines/native/pqwrite.cpp
+index a54c2e9..687a33c 100644
+--- a/baselines/native/pqwrite.cpp
++++ b/baselines/native/pqwrite.cpp
+@@ -8,6 +8,12 @@
+ 
+ #include <arrow/api.h>
+ #include <arrow/io/file.h>
++#include <arrow/ipc/writer.h>
++#include <arrow/util/base64.h>
++#include <arrow/util/parallel.h>
++#include <parquet/arrow/schema.h>
++#include <parquet/column_writer.h>
++#include <parquet/file_writer.h>
+ #include <arrow/util/thread_pool.h>
+ #include <parquet/arrow/writer.h>
+ #include <parquet/properties.h>
+@@ -110,9 +116,11 @@ std::shared_ptr<arrow::Array> nullable_int64(int64_t n, const std::vector<int64_
+       arrow::ArrayData::Make(arrow::int64(), n, {validity, view(values)}, null_count));
+ }
+ 
+-std::unique_ptr<parquet::arrow::FileWriter> open_writer(
+-    const std::shared_ptr<arrow::Schema>& schema,
+-    const std::shared_ptr<arrow::io::OutputStream>& sink) {
++arrow::internal::ThreadPool* encoder_pool() {
++  static auto encoders = value(arrow::internal::ThreadPool::Make(2));
++  return encoders.get();
++}
++std::shared_ptr<parquet::WriterProperties> writer_properties() {
+   // _create_writer_properties(...) with write_table's defaults
+   parquet::WriterProperties::Builder props;
+   props.data_page_version(parquet::ParquetDataPageVersion::V1);  // data_page_version="1.0"
+@@ -123,6 +131,9 @@ std::unique_ptr<parquet::arrow::FileWriter> open_writer(
+   props.max_row_group_length(64 * 1024 * 1024);                  // _MAX_ROW_GROUP_SIZE
+   props.disable_page_checksum();                                 // write_page_checksum=False
+   props.disable_write_page_index();                              // write_page_index=False
++  return props.build();
++}
++std::shared_ptr<parquet::ArrowWriterProperties> arrow_properties() {
+   // _create_arrow_writer_properties(...) with ParquetWriter's defaults (engine "V2")
+   parquet::ArrowWriterProperties::Builder aprops;
+   aprops.store_schema();
+@@ -133,12 +144,16 @@ std::unique_ptr<parquet::arrow::FileWriter> open_writer(
+   // encoding runs here: caller + MessagePipeline dispatcher remain outside the
+   // pool, so concurrent WriteRecordBatch calls cannot nest blocking work in it.
+   // Simulation + ledger dispatcher + two encoders fit the four-CPU contract.
+-  static auto encoders = value(arrow::internal::ThreadPool::Make(2));
+   aprops.set_use_threads(true);
+-  aprops.set_executor(encoders.get());
++  aprops.set_executor(encoder_pool());
+ 
++  return aprops.build();
++}
++std::unique_ptr<parquet::arrow::FileWriter> open_writer(
++    const std::shared_ptr<arrow::Schema>& schema,
++    const std::shared_ptr<arrow::io::OutputStream>& sink) {
+   return value(parquet::arrow::FileWriter::Open(*schema, arrow::default_memory_pool(),
+-                                               sink, props.build(), aprops.build()));
++                                               sink, writer_properties(), arrow_properties()));
+ }
+ void write_buffered_table(const std::shared_ptr<arrow::Table>& table,
+                           parquet::arrow::FileWriter* writer) {
+@@ -170,22 +185,26 @@ void write_table(const std::shared_ptr<arrow::Table>& table, const std::string&
+ }  // namespace
+ 
+ namespace {
+-std::shared_ptr<arrow::Table> trace_table(const TraceColumns& t, OwnedBuffers& own) {
+-  const int64_t n = static_cast<int64_t>(t.t_ns.size());
+-  auto schema = arrow::schema(
++std::shared_ptr<arrow::Schema> trace_schema() {
++  return arrow::schema(
+       {arrow::field("t_ns", arrow::int64()), arrow::field("agent_id", arrow::int32()),
+        arrow::field("msg_type", arrow::utf8()), arrow::field("side", arrow::utf8()),
+        arrow::field("price", arrow::int64()), arrow::field("size", arrow::int64()),
+        arrow::field("order_id", arrow::int64())},
+       arrow::key_value_metadata({"pandas"}, {kTraceMeta}));
+-  auto table = arrow::Table::Make(
+-      schema, {int_array(arrow::int64(), n, view(t.t_ns)),
++}
++std::vector<std::shared_ptr<arrow::Array>> trace_arrays(
++    const TraceColumns& t, OwnedBuffers& own, bool types = true) {
++  const int64_t n = static_cast<int64_t>(t.t_ns.size());
++  return {int_array(arrow::int64(), n, view(t.t_ns)),
+                int_array(arrow::int32(), n, view(t.agent_id)),
+-               string_array(n, t.msg_type, kTraceMsgTypes, own),
++               types ? string_array(n, t.msg_type, kTraceMsgTypes, own) : nullptr,
+                string_array(n, t.side, kSides, own), int_array(arrow::int64(), n, view(t.price)),
+                int_array(arrow::int64(), n, view(t.size)),
+-               int_array(arrow::int64(), n, view(t.order_id))});
+-  return table;
++               int_array(arrow::int64(), n, view(t.order_id))};
++}
++std::shared_ptr<arrow::Table> trace_table(const TraceColumns& t, OwnedBuffers& own) {
++  return arrow::Table::Make(trace_schema(), trace_arrays(t, own));
+ }
+ }  // namespace
+ void write_trace(const TraceColumns& t, const std::string& path) {
+@@ -193,6 +212,100 @@ void write_trace(const TraceColumns& t, const std::string& path) {
+   write_table(trace_table(t, own), path);
+ }
+ 
++// Use Arrow's public leaf-column entry point, the same entry point called by
++// FileWriter::WriteRecordBatch. Only flat, nullable, non-null lifecycle columns
++// reach this code: their definition levels are all 1 and repetition levels absent.
++struct TraceParquetWriter::Impl {
++  std::shared_ptr<arrow::io::FileOutputStream> sink;
++  std::shared_ptr<parquet::ArrowWriterProperties> aprops = arrow_properties();
++  std::unique_ptr<parquet::ParquetFileWriter> writer;
++  parquet::RowGroupWriter* group = nullptr;
++  size_t rows = 0;
++  bool partial = false, closed = false;
++
++  explicit Impl(const std::string& path) {
++    auto schema = trace_schema();
++    auto props = writer_properties();
++    std::shared_ptr<parquet::SchemaDescriptor> descriptor;
++    check(parquet::arrow::ToParquetSchema(schema.get(), *props, *aprops, &descriptor));
++    // Exactly FileWriter::Open's stored Arrow schema and metadata encounter order.
++    auto metadata = schema->metadata()->Copy();
++    auto serialized = value(arrow::ipc::SerializeSchema(*schema, arrow::default_memory_pool()));
++    metadata->Append("ARROW:schema", arrow::util::base64_encode(serialized->ToString()));
++    sink = value(arrow::io::FileOutputStream::Open(path));
++    writer = parquet::ParquetFileWriter::Open(
++        sink, std::static_pointer_cast<parquet::schema::GroupNode>(descriptor->schema_root()),
++        props, metadata);
++  }
++  void encode(const std::vector<std::shared_ptr<arrow::Array>>& arrays,
++              int64_t offset, int64_t n, bool immutable, bool types_only = false) {
++    if (!group) group = writer->AppendBufferedRowGroup();
++    // Construct columns on the dispatcher in original encounter order. Column
++    // writers and contexts are then independent, with one shared two-worker pool.
++    std::vector<parquet::ColumnWriter*> columns(7);
++    std::vector<parquet::ArrowWriteContext> contexts;
++    for (int i = 0; i < 7; ++i) {
++      columns[i] = group->column(i);
++      contexts.emplace_back(arrow::default_memory_pool(), aprops.get());
++    }
++    std::vector<int16_t> definitions(static_cast<size_t>(n), 1);
++    check(arrow::internal::ParallelFor(7, [&](int i) {
++      if ((immutable && i == 2) || (types_only && i != 2)) return arrow::Status::OK();
++      auto array = arrays[i]->Slice(offset, n);
++      return columns[i]->WriteArrow(definitions.data(), nullptr, n, *array, &contexts[i], true);
++    }, encoder_pool()));
++  }
++};
++TraceParquetWriter::TraceParquetWriter(const std::string& path)
++    : impl_(std::make_unique<Impl>(path)) {}
++TraceParquetWriter::~TraceParquetWriter() = default;
++size_t TraceParquetWriter::encoded_rows() const { return impl_->rows; }
++void TraceParquetWriter::append_immutable(const TraceColumns& t, size_t offset) {
++  const size_t n = t.t_ns.size();
++  if (impl_->closed || impl_->partial || offset != impl_->rows || !n ||
++      n > kTraceBlockRows || offset + n > kTracePipelineRows || !t.msg_type.empty() ||
++      t.agent_id.size() != n || t.side.size() != n || t.price.size() != n ||
++      t.size.size() != n || t.order_id.size() != n)
++    throw std::runtime_error("invalid immutable lifecycle block boundary");
++  OwnedBuffers own;
++  impl_->encode(trace_arrays(t, own, false), 0, n, true);
++  impl_->rows += n;
++  impl_->partial = n < kTraceBlockRows;
++}
++void TraceParquetWriter::finish(const TraceColumns& t) {
++  if (impl_->closed) throw std::runtime_error("lifecycle writer already finished");
++  OwnedBuffers own;
++  auto table = trace_table(t, own);
++  check(table->Validate());
++  const size_t n = t.t_ns.size();
++  if (impl_->rows > n || (impl_->rows && impl_->rows != std::min(n, kTracePipelineRows)))
++    throw std::runtime_error("incomplete immutable lifecycle prefix");
++  std::vector<std::shared_ptr<arrow::Array>> arrays;
++  for (const auto& column : table->columns()) arrays.push_back(column->chunk(0));
++  if (impl_->rows) {
++    // No type was encoded before now. Earlier executions may have been demoted
++    // across arbitrary timestamps, buffer boundaries and even row groups.
++    impl_->encode(arrays, 0, impl_->rows, false, true);
++    impl_->group->Close();
++    impl_->group = nullptr;
++  }
++  for (size_t offset = impl_->rows; offset < n; offset += kMessageRowGroupRows) {
++    impl_->encode(arrays, offset, std::min(n - offset, kMessageRowGroupRows), false);
++    impl_->group->Close();
++    impl_->group = nullptr;
++  }
++  if (!n) {
++    // Direct empty writer callers retain the original zero-row group representation.
++    impl_->group = impl_->writer->AppendBufferedRowGroup();
++    for (int i = 0; i < 7; ++i) impl_->group->column(i);
++    impl_->group->Close();
++    impl_->group = nullptr;
++  }
++  impl_->writer->Close();
++  check(impl_->sink->Close());
++  impl_->closed = true;
++}
++
+ namespace {
+ std::shared_ptr<arrow::Schema> message_schema() {
+   return arrow::schema(
+diff --git a/baselines/native/pqwrite.hpp b/baselines/native/pqwrite.hpp
+index b0fcd1e..bf83683 100644
+--- a/baselines/native/pqwrite.hpp
++++ b/baselines/native/pqwrite.hpp
+@@ -19,6 +19,19 @@ class MessageParquetWriter {
+   struct Impl;
+   std::unique_ptr<Impl> impl_;
+ };
++// Only the immutable columns of the first canonical row group are encoded early.
++// At finish, final msg_type completes it; remaining groups use the same encoders.
++class TraceParquetWriter {
++ public:
++  explicit TraceParquetWriter(const std::string& path);
++  ~TraceParquetWriter();
++  void append_immutable(const TraceColumns& t, size_t offset);
++  void finish(const TraceColumns& t);
++  size_t encoded_rows() const;
++ private:
++  struct Impl;
++  std::unique_ptr<Impl> impl_;
++};
+ void write_trace(const TraceColumns& t, const std::string& path);
+ void write_messages(const MessageColumns& m, const std::string& path);
+ }  // namespace t3
+diff --git a/baselines/native/trace_pipeline.hpp b/baselines/native/trace_pipeline.hpp
+new file mode 100644
+index 0000000..68c2d52
+--- /dev/null
++++ b/baselines/native/trace_pipeline.hpp
+@@ -0,0 +1,107 @@
++// Three reusable immutable lifecycle buffers; dispatcher stays outside Arrow pool.
++// Only the worker calls writer callbacks; no Arrow views survive a callback.
++#pragma once
++#include "engine.hpp"
++#include <condition_variable>
++#include <deque>
++#include <exception>
++#include <functional>
++#include <memory>
++#include <mutex>
++#include <stdexcept>
++#include <thread>
++#include <utility>
++
++namespace t3 {
++inline void clear_trace(TraceColumns& m) {
++  m.t_ns.clear(); m.agent_id.clear(); m.msg_type.clear(); m.side.clear();
++  m.price.clear(); m.size.clear(); m.order_id.clear();
++}
++class TracePipeline final : public TraceSink {
++ public:
++  using Write = std::function<void(const TraceColumns&, size_t)>;
++  TracePipeline(Write write, std::function<void()> close,
++                std::function<void()> simulation_finished = [] {})
++      : write_(std::move(write)), close_(std::move(close)),
++        simulation_finished_(std::move(simulation_finished)) {
++    free_.push_back(std::make_unique<TraceColumns>());
++    free_.push_back(std::make_unique<TraceColumns>());
++    worker_ = std::thread([this] { consume(); });
++  }
++  TracePipeline(const TracePipeline&) = delete;
++  TracePipeline& operator=(const TracePipeline&) = delete;
++  ~TracePipeline() { cancel(); }
++
++  void submit(TraceColumns& block) override {
++    std::unique_lock<std::mutex> lock(mutex_);
++    changed_.wait(lock, [this] { return error_ || stopped_ || !free_.empty(); });
++    if (error_) std::rethrow_exception(error_);
++    if (stopped_) throw std::runtime_error("trace pipeline already stopped");
++    auto buffer = std::move(free_.back());
++    free_.pop_back();
++    std::swap(*buffer, block);
++    pending_.push_back(std::move(buffer));
++    changed_.notify_all();
++  }
++  void simulation_finished() override { simulation_finished_(); }
++  void finish() {
++    {
++      std::lock_guard<std::mutex> lock(mutex_);
++      stopped_ = true;
++    }
++    changed_.notify_all();
++    if (worker_.joinable()) worker_.join();
++    if (error_) std::rethrow_exception(error_);
++  }
++  void cancel() noexcept {
++    {
++      std::lock_guard<std::mutex> lock(mutex_);
++      cancelled_ = stopped_ = true;
++    }
++    changed_.notify_all();
++    if (worker_.joinable()) worker_.join();
++  }
++ private:
++  void consume() noexcept {
++    try {
++      size_t offset = 0;
++      for (;;) {
++        std::unique_ptr<TraceColumns> block;
++        {
++          std::unique_lock<std::mutex> lock(mutex_);
++          changed_.wait(lock, [this] { return stopped_ || !pending_.empty(); });
++          if (cancelled_) return;
++          if (pending_.empty()) break;
++          block = std::move(pending_.front());
++          pending_.pop_front();
++        }
++        write_(*block, offset);
++        offset += block->t_ns.size();
++        clear_trace(*block);
++        {
++          std::lock_guard<std::mutex> lock(mutex_);
++          free_.push_back(std::move(block));
++        }
++        changed_.notify_all();
++      }
++      close_();
++    } catch (...) {
++      {
++        std::lock_guard<std::mutex> lock(mutex_);
++        error_ = std::current_exception();
++        stopped_ = true;
++      }
++      changed_.notify_all();
++    }
++  }
++  Write write_;
++  std::function<void()> close_, simulation_finished_;
++  std::mutex mutex_;
++  std::condition_variable changed_;
++  std::vector<std::unique_ptr<TraceColumns>> free_;
++  std::deque<std::unique_ptr<TraceColumns>> pending_;
++  bool stopped_ = false, cancelled_ = false;
++  std::exception_ptr error_;
++  std::thread worker_;
++};
++}  // namespace t3
+diff --git a/baselines/native/trace_stream.hpp b/baselines/native/trace_stream.hpp
+index 9651f55..7f7f9fc 100644
+--- a/baselines/native/trace_stream.hpp
++++ b/baselines/native/trace_stream.hpp
+@@ -14,7 +14,8 @@ class TraceStream {
+  public:
+   // Negative latency is accepted by the existing config mapper. It can move the
+   // kernel backwards across agents, so retain compact rows for that guarded case.
+-  explicit TraceStream(bool chronological = true) : chronological_(chronological) {}
++  explicit TraceStream(bool chronological = true, TraceSink* sink = nullptr)
++      : chronological_(chronological), sink_(chronological ? sink : nullptr) {}
+ 
+   void order(int64_t t, int32_t owner, int32_t agent, uint8_t type, uint8_t side,
+              int64_t price, int64_t size, int64_t oid) {
+@@ -43,8 +44,12 @@ class TraceStream {
+     }
+   }
+ 
++  void simulation_finished() { if (sink_) sink_->simulation_finished(); }
++
+   TraceColumns finish() {
++    simulation_finished();
+     flush();
++    if (sink_ && !block_.t_ns.empty()) sink_->submit(block_);
+     return std::move(columns_);
+   }
+ 
+@@ -66,6 +71,8 @@ class TraceStream {
+   // previous retained execution without a hash table or a final classification pass.
+   std::vector<size_t> last_execution_;
+   TraceColumns columns_;
++  TraceColumns block_;  // msg_type is deliberately absent: later fills can change it.
++  TraceSink* sink_;
+ 
+   void advance(int64_t t) {
+     if (chronological_ && have_time_ && t != time_) {
+@@ -102,6 +109,15 @@ class TraceStream {
+       columns_.price.push_back(r.price);
+       columns_.size.push_back(r.size);
+       columns_.order_id.push_back(r.oid);
++      if (sink_ && columns_.t_ns.size() <= kTracePipelineRows) {
++        block_.t_ns.push_back(r.t);
++        block_.agent_id.push_back(r.agent);
++        block_.side.push_back(r.side);
++        block_.price.push_back(r.price);
++        block_.size.push_back(r.size);
++        block_.order_id.push_back(r.oid);
++        if (block_.t_ns.size() == kTraceBlockRows) sink_->submit(block_);
++      }
+     }
+     pending_.clear();
+   }

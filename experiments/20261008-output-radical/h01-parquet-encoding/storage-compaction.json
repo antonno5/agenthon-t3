@@ -1,0 +1,1196 @@
+{
+  "executive_summary": "Completed synthetic fixture Parquet outputs and probe binaries removed to relieve host disk pressure. Correctness records, original hashes, all logs and reproducible sources/recipes are preserved.",
+  "scope": "H01 Phase 1 synthetic fixtures only; no real testcase outputs existed or were removed.",
+  "implementation_commit": "21edc27231f4e0052d0bf19734cb09855e639f37",
+  "removed_paths": [
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1-messages-stream.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1-messages-table.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1-trace.parquet",
+      "bytes": 3673,
+      "sha256": "4c144c316baa273d3cc7bd38d302ce437f114f679e70b1fd6d5103ee7de59d83",
+      "inode": 126983975,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1023-messages-stream.parquet",
+      "bytes": 33355,
+      "sha256": "03d8ea44a574924d867c76d19d72a76d099dda10158205eab55a4c7ffd0e5a1d",
+      "inode": 126983977,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1023-messages-table.parquet",
+      "bytes": 33355,
+      "sha256": "03d8ea44a574924d867c76d19d72a76d099dda10158205eab55a4c7ffd0e5a1d",
+      "inode": 126983977,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1023-trace.parquet",
+      "bytes": 15555,
+      "sha256": "eefe584875fafa454e1c4c00b0acb945b8e1ba6f1c0e71e6013f8d6b074b0223",
+      "inode": 126983978,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1024-messages-stream.parquet",
+      "bytes": 33603,
+      "sha256": "aa68c9dce0bd903fe4083d4dca18f78dfe1d91789eab1ca34a899f454f8f866e",
+      "inode": 126983980,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1024-messages-table.parquet",
+      "bytes": 33603,
+      "sha256": "aa68c9dce0bd903fe4083d4dca18f78dfe1d91789eab1ca34a899f454f8f866e",
+      "inode": 126983980,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1024-trace.parquet",
+      "bytes": 15967,
+      "sha256": "ea96753e081fe5563f1305743080faf8c57a6047bfe3fff2038aa6eba13c222e",
+      "inode": 126983981,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1025-messages-stream.parquet",
+      "bytes": 33633,
+      "sha256": "83d2fb60e8c9f7ba901be2942d636878595595390f3d3366725b2e5693095794",
+      "inode": 126983983,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1025-messages-table.parquet",
+      "bytes": 33633,
+      "sha256": "83d2fb60e8c9f7ba901be2942d636878595595390f3d3366725b2e5693095794",
+      "inode": 126983983,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1025-trace.parquet",
+      "bytes": 15976,
+      "sha256": "8ee0486b94c7532ec060f3a840bb516be80ff906faddaa4e9df7fdeb4bcbd60e",
+      "inode": 126983984,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048575-messages-stream.parquet",
+      "bytes": 28123778,
+      "sha256": "86e00088ab599afd9cdba87e6cbe234a40b8970a954d0872fa3e73b71ba5b015",
+      "inode": 126983995,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048575-messages-table.parquet",
+      "bytes": 28123778,
+      "sha256": "86e00088ab599afd9cdba87e6cbe234a40b8970a954d0872fa3e73b71ba5b015",
+      "inode": 126983995,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048575-trace.parquet",
+      "bytes": 9869408,
+      "sha256": "5050c2cb42557102456c57381e970065998c8faf2bef7bb65c35eb4893e44db2",
+      "inode": 126983996,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048576-messages-stream.parquet",
+      "bytes": 28123827,
+      "sha256": "1299acc13ef2c1467e6e0dc8388992399cb4e1395afb1350a69b4039660798a5",
+      "inode": 126983998,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048576-messages-table.parquet",
+      "bytes": 28123827,
+      "sha256": "1299acc13ef2c1467e6e0dc8388992399cb4e1395afb1350a69b4039660798a5",
+      "inode": 126983998,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048576-trace.parquet",
+      "bytes": 9869443,
+      "sha256": "a13a989191112908101120e0bcb2f6d9fcb75e1b707a6f3d201696bb699e7389",
+      "inode": 126983999,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048577-messages-stream.parquet",
+      "bytes": 28124754,
+      "sha256": "27907e2c035c0d8d2471adf678120c1fe34954ca38f719fc76ac7ae61f84a40d",
+      "inode": 126984001,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048577-messages-table.parquet",
+      "bytes": 28124754,
+      "sha256": "27907e2c035c0d8d2471adf678120c1fe34954ca38f719fc76ac7ae61f84a40d",
+      "inode": 126984001,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/1048577-trace.parquet",
+      "bytes": 9870124,
+      "sha256": "58f9e24ddff4c8165d78bd6b7c9151e1bf1f123cdb55505510039af649322b0b",
+      "inode": 126984002,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/2098689-messages-stream.parquet",
+      "bytes": 56287037,
+      "sha256": "b57716ffdc58ec9430fe35c41c84874ec7f8471e28dad8dc61589f61c7f32c43",
+      "inode": 126984008,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/2098689-messages-table.parquet",
+      "bytes": 56287037,
+      "sha256": "b57716ffdc58ec9430fe35c41c84874ec7f8471e28dad8dc61589f61c7f32c43",
+      "inode": 126984008,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/2098689-trace.parquet",
+      "bytes": 19753817,
+      "sha256": "6d6e7fbf86bdf74c180b083264d65927f27cf74b121b469f14ffdd54efe3381c",
+      "inode": 126984012,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65535-messages-stream.parquet",
+      "bytes": 1761867,
+      "sha256": "99cabc0a8fc87a2004318515abab599f89f55106afb9b867f2c172d9563d1704",
+      "inode": 126983986,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65535-messages-table.parquet",
+      "bytes": 1761867,
+      "sha256": "99cabc0a8fc87a2004318515abab599f89f55106afb9b867f2c172d9563d1704",
+      "inode": 126983986,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65535-trace.parquet",
+      "bytes": 619603,
+      "sha256": "4a0d96e529fd72611218187c862bdbc917af599b8a5a5eef4f21cfc3c0455673",
+      "inode": 126983987,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65536-messages-stream.parquet",
+      "bytes": 1761912,
+      "sha256": "bbf330125c3a1f6e73f49dac1b0cfc56ae21201f2a95e2d92988b87995da6914",
+      "inode": 126983989,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65536-messages-table.parquet",
+      "bytes": 1761912,
+      "sha256": "bbf330125c3a1f6e73f49dac1b0cfc56ae21201f2a95e2d92988b87995da6914",
+      "inode": 126983989,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65536-trace.parquet",
+      "bytes": 619631,
+      "sha256": "a664f462f0407b7a12355173d7827acc2fe28c1f6b4a471c1f4c445fdc64396e",
+      "inode": 126983990,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65537-messages-stream.parquet",
+      "bytes": 1761948,
+      "sha256": "e561fbd222f1ca6f0a27ac64055cfae440f5467feafacc323d6a82c15db4a1b2",
+      "inode": 126983992,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65537-messages-table.parquet",
+      "bytes": 1761948,
+      "sha256": "e561fbd222f1ca6f0a27ac64055cfae440f5467feafacc323d6a82c15db4a1b2",
+      "inode": 126983992,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/65537-trace.parquet",
+      "bytes": 619661,
+      "sha256": "36f6d23f564127bc608a31930aa111510c49c5fe61684556901a9cea730322bc",
+      "inode": 126983993,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/errors.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/null-1-stream.parquet",
+      "bytes": 1092857,
+      "sha256": "fefabcf1e36374a5d83171a26d070b0a1f31d3a140ab5222be342fd3b6e01dae",
+      "inode": 126984014,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/null-1-table.parquet",
+      "bytes": 1092857,
+      "sha256": "fefabcf1e36374a5d83171a26d070b0a1f31d3a140ab5222be342fd3b6e01dae",
+      "inode": 126984014,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/null-2-stream.parquet",
+      "bytes": 1823787,
+      "sha256": "e1f4cf1d90784b4cc71172db9fc7cabb8f05af3775aa9ba559538c728cdde652",
+      "inode": 126984016,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/journals/null-2-table.parquet",
+      "bytes": 1823787,
+      "sha256": "e1f4cf1d90784b4cc71172db9fc7cabb8f05af3775aa9ba559538c728cdde652",
+      "inode": 126984016,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/asan-ubsan/candidate/writer-probe",
+      "bytes": 799056,
+      "sha256": "22146a210a6196a6890452959fe7ab5b1043506ecdeb7ce31645f12281e24105",
+      "inode": 126984043,
+      "kind": "completed synthetic writer binary"
+    },
+    {
+      "path": "evidence/host-01/objects/03d8ea44a574924d867c76d19d72a76d099dda10158205eab55a4c7ffd0e5a1d.parquet",
+      "bytes": 33355,
+      "sha256": "03d8ea44a574924d867c76d19d72a76d099dda10158205eab55a4c7ffd0e5a1d",
+      "inode": 126983977,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/126cec00677ac15bf6717d9943ff7133811186f0d85f77a94ca7538475e5bf0e.parquet",
+      "bytes": 2567193,
+      "sha256": "126cec00677ac15bf6717d9943ff7133811186f0d85f77a94ca7538475e5bf0e",
+      "inode": 126983933,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/1299acc13ef2c1467e6e0dc8388992399cb4e1395afb1350a69b4039660798a5.parquet",
+      "bytes": 28123827,
+      "sha256": "1299acc13ef2c1467e6e0dc8388992399cb4e1395afb1350a69b4039660798a5",
+      "inode": 126983998,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/22c4cabc855bbfa9a406f72f9f4af22a540994cd5b4c7c83e2b25e3900da9cca.parquet",
+      "bytes": 9307411,
+      "sha256": "22c4cabc855bbfa9a406f72f9f4af22a540994cd5b4c7c83e2b25e3900da9cca",
+      "inode": 126983940,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/27907e2c035c0d8d2471adf678120c1fe34954ca38f719fc76ac7ae61f84a40d.parquet",
+      "bytes": 28124754,
+      "sha256": "27907e2c035c0d8d2471adf678120c1fe34954ca38f719fc76ac7ae61f84a40d",
+      "inode": 126984001,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/2e00ade25bb05166d1a630be0a1c55cb3581a46c0898ede429265fde6cfbc568.parquet",
+      "bytes": 812833,
+      "sha256": "2e00ade25bb05166d1a630be0a1c55cb3581a46c0898ede429265fde6cfbc568",
+      "inode": 126983934,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/36f6d23f564127bc608a31930aa111510c49c5fe61684556901a9cea730322bc.parquet",
+      "bytes": 619661,
+      "sha256": "36f6d23f564127bc608a31930aa111510c49c5fe61684556901a9cea730322bc",
+      "inode": 126983993,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/370a43e84f6912a6c643b5a84f622736d308bea12b0fede6a56a26b37c4152c3.parquet",
+      "bytes": 811345,
+      "sha256": "370a43e84f6912a6c643b5a84f622736d308bea12b0fede6a56a26b37c4152c3",
+      "inode": 126983928,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/3da8cb8b078c7cea121fea1473b683b0092ddc82fdc0663913be2328ffae5488.parquet",
+      "bytes": 4361,
+      "sha256": "3da8cb8b078c7cea121fea1473b683b0092ddc82fdc0663913be2328ffae5488",
+      "inode": 126983916,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/423883764e83f90240d88d606a08d21215d7a171b3002cce99a5a4e9372144ac.parquet",
+      "bytes": 19485,
+      "sha256": "423883764e83f90240d88d606a08d21215d7a171b3002cce99a5a4e9372144ac",
+      "inode": 126983925,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d.parquet",
+      "bytes": 5888,
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "inode": 126983915,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/4a0d96e529fd72611218187c862bdbc917af599b8a5a5eef4f21cfc3c0455673.parquet",
+      "bytes": 619603,
+      "sha256": "4a0d96e529fd72611218187c862bdbc917af599b8a5a5eef4f21cfc3c0455673",
+      "inode": 126983987,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/4c144c316baa273d3cc7bd38d302ce437f114f679e70b1fd6d5103ee7de59d83.parquet",
+      "bytes": 3673,
+      "sha256": "4c144c316baa273d3cc7bd38d302ce437f114f679e70b1fd6d5103ee7de59d83",
+      "inode": 126983975,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/5050c2cb42557102456c57381e970065998c8faf2bef7bb65c35eb4893e44db2.parquet",
+      "bytes": 9869408,
+      "sha256": "5050c2cb42557102456c57381e970065998c8faf2bef7bb65c35eb4893e44db2",
+      "inode": 126983996,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/58f9e24ddff4c8165d78bd6b7c9151e1bf1f123cdb55505510039af649322b0b.parquet",
+      "bytes": 9870124,
+      "sha256": "58f9e24ddff4c8165d78bd6b7c9151e1bf1f123cdb55505510039af649322b0b",
+      "inode": 126984002,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/5b1cd8469f70bd64285cf39b617d25fc7e5b5a5e057daaa3c1a15e544f362216.parquet",
+      "bytes": 811357,
+      "sha256": "5b1cd8469f70bd64285cf39b617d25fc7e5b5a5e057daaa3c1a15e544f362216",
+      "inode": 126983931,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/65d1398dce3702e4b092a424eb419df02fb08f3fe16693e74c5b0038bd16a3ec.parquet",
+      "bytes": 9307387,
+      "sha256": "65d1398dce3702e4b092a424eb419df02fb08f3fe16693e74c5b0038bd16a3ec",
+      "inode": 126983937,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/6d6e7fbf86bdf74c180b083264d65927f27cf74b121b469f14ffdd54efe3381c.parquet",
+      "bytes": 19753817,
+      "sha256": "6d6e7fbf86bdf74c180b083264d65927f27cf74b121b469f14ffdd54efe3381c",
+      "inode": 126984012,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/7d27a9379418fd72f49d3546ecd45e48174196cee56687ed06496e99f348a00f.parquet",
+      "bytes": 29747361,
+      "sha256": "7d27a9379418fd72f49d3546ecd45e48174196cee56687ed06496e99f348a00f",
+      "inode": 126983935,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/7d930c43ec7dbf1c26d68e01117952f459c96c1a039d74b9f52cb76d2cceaf0c.parquet",
+      "bytes": 1590840,
+      "sha256": "7d930c43ec7dbf1c26d68e01117952f459c96c1a039d74b9f52cb76d2cceaf0c",
+      "inode": 126983949,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/7f04c5127aef9e94668a028c51d64a095c70a4734a334dc80c331741b8c48899.parquet",
+      "bytes": 19186,
+      "sha256": "7f04c5127aef9e94668a028c51d64a095c70a4734a334dc80c331741b8c48899",
+      "inode": 126983922,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/83d2fb60e8c9f7ba901be2942d636878595595390f3d3366725b2e5693095794.parquet",
+      "bytes": 33633,
+      "sha256": "83d2fb60e8c9f7ba901be2942d636878595595390f3d3366725b2e5693095794",
+      "inode": 126983983,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/86e00088ab599afd9cdba87e6cbe234a40b8970a954d0872fa3e73b71ba5b015.parquet",
+      "bytes": 28123778,
+      "sha256": "86e00088ab599afd9cdba87e6cbe234a40b8970a954d0872fa3e73b71ba5b015",
+      "inode": 126983995,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/8aa365dd460607396cf08249614f00e6f48b3cbe46967ed7431d42c6e1254427.parquet",
+      "bytes": 2563645,
+      "sha256": "8aa365dd460607396cf08249614f00e6f48b3cbe46967ed7431d42c6e1254427",
+      "inode": 126983927,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/8ee0486b94c7532ec060f3a840bb516be80ff906faddaa4e9df7fdeb4bcbd60e.parquet",
+      "bytes": 15976,
+      "sha256": "8ee0486b94c7532ec060f3a840bb516be80ff906faddaa4e9df7fdeb4bcbd60e",
+      "inode": 126983984,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/99cabc0a8fc87a2004318515abab599f89f55106afb9b867f2c172d9563d1704.parquet",
+      "bytes": 1761867,
+      "sha256": "99cabc0a8fc87a2004318515abab599f89f55106afb9b867f2c172d9563d1704",
+      "inode": 126983986,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/9f7416a00ad5f626ea1106670217e19da64820c4c246ec1cc2bf789fa362b811.parquet",
+      "bytes": 29747407,
+      "sha256": "9f7416a00ad5f626ea1106670217e19da64820c4c246ec1cc2bf789fa362b811",
+      "inode": 126983938,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/9f8001974d65e2149d608acfaa585da81967f4abcf0c2f4111d43c96200266ff.parquet",
+      "bytes": 29749469,
+      "sha256": "9f8001974d65e2149d608acfaa585da81967f4abcf0c2f4111d43c96200266ff",
+      "inode": 126983941,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/a13a989191112908101120e0bcb2f6d9fcb75e1b707a6f3d201696bb699e7389.parquet",
+      "bytes": 9869443,
+      "sha256": "a13a989191112908101120e0bcb2f6d9fcb75e1b707a6f3d201696bb699e7389",
+      "inode": 126983999,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/a664f462f0407b7a12355173d7827acc2fe28c1f6b4a471c1f4c445fdc64396e.parquet",
+      "bytes": 619631,
+      "sha256": "a664f462f0407b7a12355173d7827acc2fe28c1f6b4a471c1f4c445fdc64396e",
+      "inode": 126983990,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/aa68c9dce0bd903fe4083d4dca18f78dfe1d91789eab1ca34a899f454f8f866e.parquet",
+      "bytes": 33603,
+      "sha256": "aa68c9dce0bd903fe4083d4dca18f78dfe1d91789eab1ca34a899f454f8f866e",
+      "inode": 126983980,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/b19c14aa30b77e3d78b9438acfbe84b4b6ada6497e67096fb336e68dcf9d9a4b.parquet",
+      "bytes": 29740328,
+      "sha256": "b19c14aa30b77e3d78b9438acfbe84b4b6ada6497e67096fb336e68dcf9d9a4b",
+      "inode": 126983939,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/b516a72d92db2fd0ac1b1d42f30529fd211970d41b64dbd677a573f508a94082.parquet",
+      "bytes": 42453,
+      "sha256": "b516a72d92db2fd0ac1b1d42f30529fd211970d41b64dbd677a573f508a94082",
+      "inode": 126983924,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/b57716ffdc58ec9430fe35c41c84874ec7f8471e28dad8dc61589f61c7f32c43.parquet",
+      "bytes": 56287037,
+      "sha256": "b57716ffdc58ec9430fe35c41c84874ec7f8471e28dad8dc61589f61c7f32c43",
+      "inode": 126984008,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/b73b2753dcd282c1db09a746a4182af795457501e23fd9ac728cd96e974db9de.parquet",
+      "bytes": 59549714,
+      "sha256": "b73b2753dcd282c1db09a746a4182af795457501e23fd9ac728cd96e974db9de",
+      "inode": 126983945,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/bbf330125c3a1f6e73f49dac1b0cfc56ae21201f2a95e2d92988b87995da6914.parquet",
+      "bytes": 1761912,
+      "sha256": "bbf330125c3a1f6e73f49dac1b0cfc56ae21201f2a95e2d92988b87995da6914",
+      "inode": 126983989,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/bd355bc9c7cba188812311af02f98568c5d1073935035fa9b7237ae0c2d5b1a7.parquet",
+      "bytes": 2635238,
+      "sha256": "bd355bc9c7cba188812311af02f98568c5d1073935035fa9b7237ae0c2d5b1a7",
+      "inode": 126983951,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/cfd1b34c6ddb90917aa1b49f68081cd13bc54e507855b8d68ac8db4250f15bcb.parquet",
+      "bytes": 29742390,
+      "sha256": "cfd1b34c6ddb90917aa1b49f68081cd13bc54e507855b8d68ac8db4250f15bcb",
+      "inode": 126983943,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/d2af99d8ec096d79f21d26e7ba587d2f74bffa295882ae5a1a7ca40cfdbbfc99.parquet",
+      "bytes": 2563695,
+      "sha256": "d2af99d8ec096d79f21d26e7ba587d2f74bffa295882ae5a1a7ca40cfdbbfc99",
+      "inode": 126983930,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/d50d69880026de975a1aedb6625246c086a6ff6ab01d70846e610339b2962526.parquet",
+      "bytes": 9308779,
+      "sha256": "d50d69880026de975a1aedb6625246c086a6ff6ab01d70846e610339b2962526",
+      "inode": 126983944,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/d62b83ce5cb537389a5de53cc803dc648f38bf40b6f98a2ec72890ac7eafc132.parquet",
+      "bytes": 41647,
+      "sha256": "d62b83ce5cb537389a5de53cc803dc648f38bf40b6f98a2ec72890ac7eafc132",
+      "inode": 126983918,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/e1f4cf1d90784b4cc71172db9fc7cabb8f05af3775aa9ba559538c728cdde652.parquet",
+      "bytes": 1823787,
+      "sha256": "e1f4cf1d90784b4cc71172db9fc7cabb8f05af3775aa9ba559538c728cdde652",
+      "inode": 126984016,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/e53a0a60e266ffa41136ba2fe7fb4d7070d4bf9874395f360c94fe8698fb456b.parquet",
+      "bytes": 41749,
+      "sha256": "e53a0a60e266ffa41136ba2fe7fb4d7070d4bf9874395f360c94fe8698fb456b",
+      "inode": 126983921,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/e561fbd222f1ca6f0a27ac64055cfae440f5467feafacc323d6a82c15db4a1b2.parquet",
+      "bytes": 1761948,
+      "sha256": "e561fbd222f1ca6f0a27ac64055cfae440f5467feafacc323d6a82c15db4a1b2",
+      "inode": 126983992,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/e7b6fe8468879ca13eb110aac954e4e9b9ac1025bb991371bcf86beff548de5b.parquet",
+      "bytes": 19164,
+      "sha256": "e7b6fe8468879ca13eb110aac954e4e9b9ac1025bb991371bcf86beff548de5b",
+      "inode": 126983919,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/ea96753e081fe5563f1305743080faf8c57a6047bfe3fff2038aa6eba13c222e.parquet",
+      "bytes": 15967,
+      "sha256": "ea96753e081fe5563f1305743080faf8c57a6047bfe3fff2038aa6eba13c222e",
+      "inode": 126983981,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/eefe584875fafa454e1c4c00b0acb945b8e1ba6f1c0e71e6013f8d6b074b0223.parquet",
+      "bytes": 15555,
+      "sha256": "eefe584875fafa454e1c4c00b0acb945b8e1ba6f1c0e71e6013f8d6b074b0223",
+      "inode": 126983978,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/f024ec4ab8eda8ba95aedec133f74ec987db5e63c80b4c0d08ae8521701320b1.parquet",
+      "bytes": 18635383,
+      "sha256": "f024ec4ab8eda8ba95aedec133f74ec987db5e63c80b4c0d08ae8521701320b1",
+      "inode": 126983947,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/f3c35cff90c765bd7d878ccd06475fb0529ab5142efa9af45c15843f78077fab.parquet",
+      "bytes": 29740283,
+      "sha256": "f3c35cff90c765bd7d878ccd06475fb0529ab5142efa9af45c15843f78077fab",
+      "inode": 126983936,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/fee0070535aeba841bd37a0e1df4e03faa65434f6c12ad74e9792a96d9d1b63d.parquet",
+      "bytes": 59535607,
+      "sha256": "fee0070535aeba841bd37a0e1df4e03faa65434f6c12ad74e9792a96d9d1b63d",
+      "inode": 126983946,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/objects/fefabcf1e36374a5d83171a26d070b0a1f31d3a140ab5222be342fd3b6e01dae.parquet",
+      "bytes": 1092857,
+      "sha256": "fefabcf1e36374a5d83171a26d070b0a1f31d3a140ab5222be342fd3b6e01dae",
+      "inode": 126984014,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1-messages-stream.parquet",
+      "bytes": 5888,
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "inode": 126983915,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1-messages-table.parquet",
+      "bytes": 5888,
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "inode": 126983915,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1-trace.parquet",
+      "bytes": 4361,
+      "sha256": "3da8cb8b078c7cea121fea1473b683b0092ddc82fdc0663913be2328ffae5488",
+      "inode": 126983916,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1023-messages-stream.parquet",
+      "bytes": 41647,
+      "sha256": "d62b83ce5cb537389a5de53cc803dc648f38bf40b6f98a2ec72890ac7eafc132",
+      "inode": 126983918,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1023-messages-table.parquet",
+      "bytes": 41647,
+      "sha256": "d62b83ce5cb537389a5de53cc803dc648f38bf40b6f98a2ec72890ac7eafc132",
+      "inode": 126983918,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1023-trace.parquet",
+      "bytes": 19164,
+      "sha256": "e7b6fe8468879ca13eb110aac954e4e9b9ac1025bb991371bcf86beff548de5b",
+      "inode": 126983919,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1024-messages-stream.parquet",
+      "bytes": 41749,
+      "sha256": "e53a0a60e266ffa41136ba2fe7fb4d7070d4bf9874395f360c94fe8698fb456b",
+      "inode": 126983921,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1024-messages-table.parquet",
+      "bytes": 41749,
+      "sha256": "e53a0a60e266ffa41136ba2fe7fb4d7070d4bf9874395f360c94fe8698fb456b",
+      "inode": 126983921,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1024-trace.parquet",
+      "bytes": 19186,
+      "sha256": "7f04c5127aef9e94668a028c51d64a095c70a4734a334dc80c331741b8c48899",
+      "inode": 126983922,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1025-messages-stream.parquet",
+      "bytes": 42453,
+      "sha256": "b516a72d92db2fd0ac1b1d42f30529fd211970d41b64dbd677a573f508a94082",
+      "inode": 126983924,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1025-messages-table.parquet",
+      "bytes": 42453,
+      "sha256": "b516a72d92db2fd0ac1b1d42f30529fd211970d41b64dbd677a573f508a94082",
+      "inode": 126983924,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1025-trace.parquet",
+      "bytes": 19485,
+      "sha256": "423883764e83f90240d88d606a08d21215d7a171b3002cce99a5a4e9372144ac",
+      "inode": 126983925,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048575-messages-stream.parquet",
+      "bytes": 29740283,
+      "sha256": "f3c35cff90c765bd7d878ccd06475fb0529ab5142efa9af45c15843f78077fab",
+      "inode": 126983936,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048575-messages-table.parquet",
+      "bytes": 29747361,
+      "sha256": "7d27a9379418fd72f49d3546ecd45e48174196cee56687ed06496e99f348a00f",
+      "inode": 126983935,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048575-trace.parquet",
+      "bytes": 9307387,
+      "sha256": "65d1398dce3702e4b092a424eb419df02fb08f3fe16693e74c5b0038bd16a3ec",
+      "inode": 126983937,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048576-messages-stream.parquet",
+      "bytes": 29740328,
+      "sha256": "b19c14aa30b77e3d78b9438acfbe84b4b6ada6497e67096fb336e68dcf9d9a4b",
+      "inode": 126983939,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048576-messages-table.parquet",
+      "bytes": 29747407,
+      "sha256": "9f7416a00ad5f626ea1106670217e19da64820c4c246ec1cc2bf789fa362b811",
+      "inode": 126983938,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048576-trace.parquet",
+      "bytes": 9307411,
+      "sha256": "22c4cabc855bbfa9a406f72f9f4af22a540994cd5b4c7c83e2b25e3900da9cca",
+      "inode": 126983940,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048577-messages-stream.parquet",
+      "bytes": 29742390,
+      "sha256": "cfd1b34c6ddb90917aa1b49f68081cd13bc54e507855b8d68ac8db4250f15bcb",
+      "inode": 126983943,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048577-messages-table.parquet",
+      "bytes": 29749469,
+      "sha256": "9f8001974d65e2149d608acfaa585da81967f4abcf0c2f4111d43c96200266ff",
+      "inode": 126983941,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/1048577-trace.parquet",
+      "bytes": 9308779,
+      "sha256": "d50d69880026de975a1aedb6625246c086a6ff6ab01d70846e610339b2962526",
+      "inode": 126983944,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/2098689-messages-stream.parquet",
+      "bytes": 59535607,
+      "sha256": "fee0070535aeba841bd37a0e1df4e03faa65434f6c12ad74e9792a96d9d1b63d",
+      "inode": 126983946,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/2098689-messages-table.parquet",
+      "bytes": 59549714,
+      "sha256": "b73b2753dcd282c1db09a746a4182af795457501e23fd9ac728cd96e974db9de",
+      "inode": 126983945,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/2098689-trace.parquet",
+      "bytes": 18635383,
+      "sha256": "f024ec4ab8eda8ba95aedec133f74ec987db5e63c80b4c0d08ae8521701320b1",
+      "inode": 126983947,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65535-messages-stream.parquet",
+      "bytes": 2563645,
+      "sha256": "8aa365dd460607396cf08249614f00e6f48b3cbe46967ed7431d42c6e1254427",
+      "inode": 126983927,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65535-messages-table.parquet",
+      "bytes": 2563645,
+      "sha256": "8aa365dd460607396cf08249614f00e6f48b3cbe46967ed7431d42c6e1254427",
+      "inode": 126983927,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65535-trace.parquet",
+      "bytes": 811345,
+      "sha256": "370a43e84f6912a6c643b5a84f622736d308bea12b0fede6a56a26b37c4152c3",
+      "inode": 126983928,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65536-messages-stream.parquet",
+      "bytes": 2563695,
+      "sha256": "d2af99d8ec096d79f21d26e7ba587d2f74bffa295882ae5a1a7ca40cfdbbfc99",
+      "inode": 126983930,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65536-messages-table.parquet",
+      "bytes": 2563695,
+      "sha256": "d2af99d8ec096d79f21d26e7ba587d2f74bffa295882ae5a1a7ca40cfdbbfc99",
+      "inode": 126983930,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65536-trace.parquet",
+      "bytes": 811357,
+      "sha256": "5b1cd8469f70bd64285cf39b617d25fc7e5b5a5e057daaa3c1a15e544f362216",
+      "inode": 126983931,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65537-messages-stream.parquet",
+      "bytes": 2567193,
+      "sha256": "126cec00677ac15bf6717d9943ff7133811186f0d85f77a94ca7538475e5bf0e",
+      "inode": 126983933,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65537-messages-table.parquet",
+      "bytes": 2567193,
+      "sha256": "126cec00677ac15bf6717d9943ff7133811186f0d85f77a94ca7538475e5bf0e",
+      "inode": 126983933,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/65537-trace.parquet",
+      "bytes": 812833,
+      "sha256": "2e00ade25bb05166d1a630be0a1c55cb3581a46c0898ede429265fde6cfbc568",
+      "inode": 126983934,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/errors.parquet",
+      "bytes": 5888,
+      "sha256": "455a9aca3dd788a43f4a5dd5130e0727fc77ed02a5080be18750340e4a94700d",
+      "inode": 126983915,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/null-1-stream.parquet",
+      "bytes": 1590840,
+      "sha256": "7d930c43ec7dbf1c26d68e01117952f459c96c1a039d74b9f52cb76d2cceaf0c",
+      "inode": 126983949,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/null-1-table.parquet",
+      "bytes": 1590840,
+      "sha256": "7d930c43ec7dbf1c26d68e01117952f459c96c1a039d74b9f52cb76d2cceaf0c",
+      "inode": 126983949,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/null-2-stream.parquet",
+      "bytes": 2635238,
+      "sha256": "bd355bc9c7cba188812311af02f98568c5d1073935035fa9b7237ae0c2d5b1a7",
+      "inode": 126983951,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/journals/null-2-table.parquet",
+      "bytes": 2635238,
+      "sha256": "bd355bc9c7cba188812311af02f98568c5d1073935035fa9b7237ae0c2d5b1a7",
+      "inode": 126983951,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/baseline/writer-probe",
+      "bytes": 195088,
+      "sha256": "2d0633dbf1dd6d28b5988c7e129f0992a5254ef4349d50f0307da9ac7f13fa7d",
+      "inode": 126983904,
+      "kind": "completed synthetic writer binary"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1-messages-stream.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1-messages-table.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1-trace.parquet",
+      "bytes": 3673,
+      "sha256": "4c144c316baa273d3cc7bd38d302ce437f114f679e70b1fd6d5103ee7de59d83",
+      "inode": 126983975,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1023-messages-stream.parquet",
+      "bytes": 33355,
+      "sha256": "03d8ea44a574924d867c76d19d72a76d099dda10158205eab55a4c7ffd0e5a1d",
+      "inode": 126983977,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1023-messages-table.parquet",
+      "bytes": 33355,
+      "sha256": "03d8ea44a574924d867c76d19d72a76d099dda10158205eab55a4c7ffd0e5a1d",
+      "inode": 126983977,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1023-trace.parquet",
+      "bytes": 15555,
+      "sha256": "eefe584875fafa454e1c4c00b0acb945b8e1ba6f1c0e71e6013f8d6b074b0223",
+      "inode": 126983978,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1024-messages-stream.parquet",
+      "bytes": 33603,
+      "sha256": "aa68c9dce0bd903fe4083d4dca18f78dfe1d91789eab1ca34a899f454f8f866e",
+      "inode": 126983980,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1024-messages-table.parquet",
+      "bytes": 33603,
+      "sha256": "aa68c9dce0bd903fe4083d4dca18f78dfe1d91789eab1ca34a899f454f8f866e",
+      "inode": 126983980,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1024-trace.parquet",
+      "bytes": 15967,
+      "sha256": "ea96753e081fe5563f1305743080faf8c57a6047bfe3fff2038aa6eba13c222e",
+      "inode": 126983981,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1025-messages-stream.parquet",
+      "bytes": 33633,
+      "sha256": "83d2fb60e8c9f7ba901be2942d636878595595390f3d3366725b2e5693095794",
+      "inode": 126983983,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1025-messages-table.parquet",
+      "bytes": 33633,
+      "sha256": "83d2fb60e8c9f7ba901be2942d636878595595390f3d3366725b2e5693095794",
+      "inode": 126983983,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1025-trace.parquet",
+      "bytes": 15976,
+      "sha256": "8ee0486b94c7532ec060f3a840bb516be80ff906faddaa4e9df7fdeb4bcbd60e",
+      "inode": 126983984,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048575-messages-stream.parquet",
+      "bytes": 28123778,
+      "sha256": "86e00088ab599afd9cdba87e6cbe234a40b8970a954d0872fa3e73b71ba5b015",
+      "inode": 126983995,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048575-messages-table.parquet",
+      "bytes": 28123778,
+      "sha256": "86e00088ab599afd9cdba87e6cbe234a40b8970a954d0872fa3e73b71ba5b015",
+      "inode": 126983995,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048575-trace.parquet",
+      "bytes": 9869408,
+      "sha256": "5050c2cb42557102456c57381e970065998c8faf2bef7bb65c35eb4893e44db2",
+      "inode": 126983996,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048576-messages-stream.parquet",
+      "bytes": 28123827,
+      "sha256": "1299acc13ef2c1467e6e0dc8388992399cb4e1395afb1350a69b4039660798a5",
+      "inode": 126983998,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048576-messages-table.parquet",
+      "bytes": 28123827,
+      "sha256": "1299acc13ef2c1467e6e0dc8388992399cb4e1395afb1350a69b4039660798a5",
+      "inode": 126983998,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048576-trace.parquet",
+      "bytes": 9869443,
+      "sha256": "a13a989191112908101120e0bcb2f6d9fcb75e1b707a6f3d201696bb699e7389",
+      "inode": 126983999,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048577-messages-stream.parquet",
+      "bytes": 28124754,
+      "sha256": "27907e2c035c0d8d2471adf678120c1fe34954ca38f719fc76ac7ae61f84a40d",
+      "inode": 126984001,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048577-messages-table.parquet",
+      "bytes": 28124754,
+      "sha256": "27907e2c035c0d8d2471adf678120c1fe34954ca38f719fc76ac7ae61f84a40d",
+      "inode": 126984001,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/1048577-trace.parquet",
+      "bytes": 9870124,
+      "sha256": "58f9e24ddff4c8165d78bd6b7c9151e1bf1f123cdb55505510039af649322b0b",
+      "inode": 126984002,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/2098689-messages-stream.parquet",
+      "bytes": 56287037,
+      "sha256": "b57716ffdc58ec9430fe35c41c84874ec7f8471e28dad8dc61589f61c7f32c43",
+      "inode": 126984008,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/2098689-messages-table.parquet",
+      "bytes": 56287037,
+      "sha256": "b57716ffdc58ec9430fe35c41c84874ec7f8471e28dad8dc61589f61c7f32c43",
+      "inode": 126984008,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/2098689-trace.parquet",
+      "bytes": 19753817,
+      "sha256": "6d6e7fbf86bdf74c180b083264d65927f27cf74b121b469f14ffdd54efe3381c",
+      "inode": 126984012,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65535-messages-stream.parquet",
+      "bytes": 1761867,
+      "sha256": "99cabc0a8fc87a2004318515abab599f89f55106afb9b867f2c172d9563d1704",
+      "inode": 126983986,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65535-messages-table.parquet",
+      "bytes": 1761867,
+      "sha256": "99cabc0a8fc87a2004318515abab599f89f55106afb9b867f2c172d9563d1704",
+      "inode": 126983986,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65535-trace.parquet",
+      "bytes": 619603,
+      "sha256": "4a0d96e529fd72611218187c862bdbc917af599b8a5a5eef4f21cfc3c0455673",
+      "inode": 126983987,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65536-messages-stream.parquet",
+      "bytes": 1761912,
+      "sha256": "bbf330125c3a1f6e73f49dac1b0cfc56ae21201f2a95e2d92988b87995da6914",
+      "inode": 126983989,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65536-messages-table.parquet",
+      "bytes": 1761912,
+      "sha256": "bbf330125c3a1f6e73f49dac1b0cfc56ae21201f2a95e2d92988b87995da6914",
+      "inode": 126983989,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65536-trace.parquet",
+      "bytes": 619631,
+      "sha256": "a664f462f0407b7a12355173d7827acc2fe28c1f6b4a471c1f4c445fdc64396e",
+      "inode": 126983990,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65537-messages-stream.parquet",
+      "bytes": 1761948,
+      "sha256": "e561fbd222f1ca6f0a27ac64055cfae440f5467feafacc323d6a82c15db4a1b2",
+      "inode": 126983992,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65537-messages-table.parquet",
+      "bytes": 1761948,
+      "sha256": "e561fbd222f1ca6f0a27ac64055cfae440f5467feafacc323d6a82c15db4a1b2",
+      "inode": 126983992,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/65537-trace.parquet",
+      "bytes": 619661,
+      "sha256": "36f6d23f564127bc608a31930aa111510c49c5fe61684556901a9cea730322bc",
+      "inode": 126983993,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/errors.parquet",
+      "bytes": 5053,
+      "sha256": "0c02ee2ec9a5e05d147777ea836750de92d6256f16b231d2d92b6872570ec918",
+      "inode": 126983974,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/null-1-stream.parquet",
+      "bytes": 1092857,
+      "sha256": "fefabcf1e36374a5d83171a26d070b0a1f31d3a140ab5222be342fd3b6e01dae",
+      "inode": 126984014,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/null-1-table.parquet",
+      "bytes": 1092857,
+      "sha256": "fefabcf1e36374a5d83171a26d070b0a1f31d3a140ab5222be342fd3b6e01dae",
+      "inode": 126984014,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/null-2-stream.parquet",
+      "bytes": 1823787,
+      "sha256": "e1f4cf1d90784b4cc71172db9fc7cabb8f05af3775aa9ba559538c728cdde652",
+      "inode": 126984016,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/journals/null-2-table.parquet",
+      "bytes": 1823787,
+      "sha256": "e1f4cf1d90784b4cc71172db9fc7cabb8f05af3775aa9ba559538c728cdde652",
+      "inode": 126984016,
+      "kind": "completed synthetic journal"
+    },
+    {
+      "path": "evidence/host-01/regular/candidate/writer-probe",
+      "bytes": 196016,
+      "sha256": "59c9204a5ab97a3d3d3471ea3f211513df1e5d98bde78ac7cccdaa745dfa65ed",
+      "inode": 126983963,
+      "kind": "completed synthetic writer binary"
+    }
+  ],
+  "removed_path_count": 169,
+  "unique_removed_inodes": 55,
+  "estimated_disk_bytes_freed": 560214016,
+  "correctness_record": "evidence/host-01/checks.json",
+  "reproduction": "tests/check.py --host --out evidence/host-new",
+  "remaining_evidence_bytes": 585728
+}

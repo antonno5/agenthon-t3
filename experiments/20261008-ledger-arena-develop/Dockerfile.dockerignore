@@ -1,0 +1,9 @@
+*
+!baselines
+!baselines/native
+!baselines/native/**
+!baselines/build_native.py
+!expirements
+!expirements/20261008-ledger-arena-develop
+!expirements/20261008-ledger-arena-develop/tests
+!expirements/20261008-ledger-arena-develop/tests/**

@@ -1,0 +1,424 @@
+{
+  "executive_summary": "H2 is complete and pinned correctness passed. Bounded parallel Parquet encoding gives moderate local gains, misses the 2x encoding target, and is not adopted. Every fixed primary and diagnostic sample is preserved.",
+  "slug": "h02-parquet-parallel",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "implementation_commit": "c9ec65640d6904ab01a26d2369caef5075aca86b",
+  "final_commit": "afad1a32ea816e1c1b35bca242acdaa305fdc3ce",
+  "branch": "codex/exp-20261008-component-h02-parquet-parallel",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel",
+  "paths": {
+    "result": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/result.json",
+    "report": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/README.md",
+    "component_result": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/component-results.json",
+    "pipeline_medians": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/pipeline-medians.json",
+    "pinned_validation": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/pinned-validation.json",
+    "controls_validation": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/controls-validation.json",
+    "evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence",
+    "storage_manifest": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/storage-manifest.json",
+    "phase2_status": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/phase2/status.json",
+    "runtime_audit": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence/runtime-audit"
+  },
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/result.json",
+  "report_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/README.md",
+  "component_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/component-results.json",
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel/experiments/20261008-component-radical/h02-parquet-parallel/evidence",
+  "artifact_sha256": {
+    "result": "356161a682df4641234cf2dc1ee138a9026c8fc38dd85ebd5ead70c87d0f3e9f",
+    "report": "225b4f607649c006c0be699ba82c8473510b122ca3ddc44a53f95ed53dd1c401",
+    "component_result": "1f36ed1c2cb735b5d3b03732cbbb299140aa0a3f2765767dde85ca3a9f71add9",
+    "pipeline_medians": "cbd8e8aee7e88b799f265a4130ebcc6bba8dd1cbe3cab1316c6f6ca3183a350a",
+    "pinned_validation": "b17754b7376beaf667165f9abefe74270abd58759b1b1f99a63555c15cd96695",
+    "controls_validation": "ace8e1671dceae0fd5894d610bf12319c795f765a012a8934cc7fa1ff066cf45",
+    "storage_manifest": "62917173841869d81622d40aa2fdf3689a523e0439505a40690e706b97811afa",
+    "phase2_status": "d5e077f79f64fa0f3fa7fd712c813e4956e6e1dc8222793ba5871ff7b06d0ea9"
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "fde55c5cce3c98411b5b99b4e4d449b6ba8844f4faf96d1aa3deb093f9138719",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "candidate_image": "sha256:8be4efb0eff25eeb35fb63ea33b370919ca70e55a2494232c005429056429941",
+  "baseline_image": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+  "checks": {
+    "pinned_arrow15": "passed",
+    "ASan_UBSan": "passed",
+    "isolated_journal_comparisons": 80,
+    "shared_controls_runs": 14,
+    "shared_controls_units": 7,
+    "actual_native_and_both_journal_bytes_schema_ordered_values": "passed",
+    "primary_samples": 40,
+    "primary_excluded_warmups": 8,
+    "diagnostic_samples": 192,
+    "diagnostic_timed_samples": 160,
+    "diagnostic_excluded_warmups": 32,
+    "diagnostic_outputs_byte_equal": true
+  },
+  "primary_results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "full_run_time_reduction_pct": 14.31837511267695,
+      "baseline_median_seconds": 1.645488473,
+      "candidate_median_seconds": 1.409881261,
+      "faster_pairs": 4
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "full_run_time_reduction_pct": 5.09048565539808,
+      "baseline_median_seconds": 0.930198103,
+      "candidate_median_seconds": 0.882846502,
+      "faster_pairs": 4
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "full_run_time_reduction_pct": 0.4073716045456366,
+      "baseline_median_seconds": 0.920292666,
+      "candidate_median_seconds": 0.916543655,
+      "faster_pairs": 3
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "full_run_time_reduction_pct": 7.905858086351536,
+      "baseline_median_seconds": 0.663913549,
+      "candidate_median_seconds": 0.611425486,
+      "faster_pairs": 4
+    }
+  ],
+  "standalone_encoding_results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "mode": "trace",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.204032995,
+        "candidate": 0.144245845
+      },
+      "time_change_pct": -29.302687048239417,
+      "time_reduction_pct": 29.302687048239417,
+      "speedup": 1.4144809162440692,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "mode": "messages",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.354844076,
+        "candidate": 0.257631079
+      },
+      "time_change_pct": -27.39597574682352,
+      "time_reduction_pct": 27.39597574682352,
+      "speedup": 1.3773341220218234,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "mode": "trace",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.138103918,
+        "candidate": 0.103189691
+      },
+      "time_change_pct": -25.28112707128265,
+      "time_reduction_pct": 25.28112707128265,
+      "speedup": 1.3383499520315454,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "mode": "messages",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.257032945,
+        "candidate": 0.17642660300000002
+      },
+      "time_change_pct": -31.360315308996668,
+      "time_reduction_pct": 31.360315308996668,
+      "speedup": 1.4568831493060035,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "mode": "trace",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.11762375,
+        "candidate": 0.094226337
+      },
+      "time_change_pct": -19.891742101403842,
+      "time_reduction_pct": 19.891742101403842,
+      "speedup": 1.248310756259155,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "mode": "messages",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.193559239,
+        "candidate": 0.15284188199999998
+      },
+      "time_change_pct": -21.03612165989143,
+      "time_reduction_pct": 21.03612165989143,
+      "speedup": 1.2664018295718187,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "mode": "trace",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.076985052,
+        "candidate": 0.062581283
+      },
+      "time_change_pct": -18.709825642515632,
+      "time_reduction_pct": 18.709825642515632,
+      "speedup": 1.2301609732098333,
+      "overlaps_other_journal": false
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "mode": "messages",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.123337586,
+        "candidate": 0.089299759
+      },
+      "time_change_pct": -27.59728652383385,
+      "time_reduction_pct": 27.59728652383385,
+      "speedup": 1.3811637050442656,
+      "overlaps_other_journal": false
+    }
+  ],
+  "overlap_and_pipeline_results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "mode": "overlap",
+      "clock": "wall_seconds",
+      "seconds": {
+        "baseline": 0.380280486,
+        "candidate": 0.349103474
+      },
+      "time_change_pct": -8.198425411710442,
+      "time_reduction_pct": 8.198425411710442,
+      "speedup": 1.089305934549365
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "mode": "overlap",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.207137803,
+        "candidate": 0.173833927
+      },
+      "time_change_pct": -16.078125536554044,
+      "time_reduction_pct": 16.078125536554044,
+      "speedup": 1.1915844425467073,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "mode": "overlap",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.361712747,
+        "candidate": 0.333538618
+      },
+      "time_change_pct": -7.78908933502418,
+      "time_reduction_pct": 7.78908933502418,
+      "speedup": 1.0844703655874715,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "mode": "pipeline",
+      "clock": "run_write_wall_seconds",
+      "seconds": {
+        "baseline": 1.1348889229993802,
+        "candidate": 0.977121766001801
+      },
+      "time_change_pct": -13.901550521844797,
+      "time_reduction_pct": 13.901550521844797,
+      "speedup": 1.161461101867716
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "mode": "overlap",
+      "clock": "wall_seconds",
+      "seconds": {
+        "baseline": 0.249029027,
+        "candidate": 0.248163147
+      },
+      "time_change_pct": -0.3477024387201211,
+      "time_reduction_pct": 0.3477024387201211,
+      "speedup": 1.003489156268638
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "mode": "overlap",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.139838558,
+        "candidate": 0.121906686
+      },
+      "time_change_pct": -12.823267242215131,
+      "time_reduction_pct": 12.823267242215131,
+      "speedup": 1.1470950658112387,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "mode": "overlap",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.22568710200000003,
+        "candidate": 0.223716021
+      },
+      "time_change_pct": -0.873368917644235,
+      "time_reduction_pct": 0.873368917644235,
+      "speedup": 1.008810638555028,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "mode": "pipeline",
+      "clock": "run_write_wall_seconds",
+      "seconds": {
+        "baseline": 0.6536163260025205,
+        "candidate": 0.552261353994254
+      },
+      "time_change_pct": -15.506799321881637,
+      "time_reduction_pct": 15.506799321881637,
+      "speedup": 1.1835271855892364
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "mode": "overlap",
+      "clock": "wall_seconds",
+      "seconds": {
+        "baseline": 0.216623254,
+        "candidate": 0.201650775
+      },
+      "time_change_pct": -6.911759805805517,
+      "time_reduction_pct": 6.911759805805517,
+      "speedup": 1.07424954850781
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "mode": "overlap",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.11447382900000001,
+        "candidate": 0.099887621
+      },
+      "time_change_pct": -12.741958688216858,
+      "time_reduction_pct": 12.741958688216858,
+      "speedup": 1.1460261827639284,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "mode": "overlap",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.194826113,
+        "candidate": 0.178394913
+      },
+      "time_change_pct": -8.433777047125101,
+      "time_reduction_pct": 8.433777047125101,
+      "speedup": 1.0921057653701145,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "mode": "pipeline",
+      "clock": "run_write_wall_seconds",
+      "seconds": {
+        "baseline": 0.5399794709956041,
+        "candidate": 0.4167133390001254
+      },
+      "time_change_pct": -22.827929322609776,
+      "time_reduction_pct": 22.827929322609776,
+      "speedup": 1.2958055825408592
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "mode": "overlap",
+      "clock": "wall_seconds",
+      "seconds": {
+        "baseline": 0.139508885,
+        "candidate": 0.128712898
+      },
+      "time_change_pct": -7.738565898508909,
+      "time_reduction_pct": 7.738565898508909,
+      "speedup": 1.0838764969770163
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "mode": "overlap",
+      "clock": "trace_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.077093706,
+        "candidate": 0.061210767
+      },
+      "time_change_pct": -20.602121527274875,
+      "time_reduction_pct": 20.602121527274875,
+      "speedup": 1.2594794964748603,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "mode": "overlap",
+      "clock": "messages_write_plus_close_seconds",
+      "seconds": {
+        "baseline": 0.11800377100000001,
+        "candidate": 0.109076174
+      },
+      "time_change_pct": -7.565518393475756,
+      "time_reduction_pct": 7.565518393475756,
+      "speedup": 1.0818473610928085,
+      "overlaps_other_journal": true
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "mode": "pipeline",
+      "clock": "run_write_wall_seconds",
+      "seconds": {
+        "baseline": 0.27836024899443146,
+        "candidate": 0.24205844399693888
+      },
+      "time_change_pct": -13.04130353692089,
+      "time_reduction_pct": 13.04130353692089,
+      "speedup": 1.149971239995047
+    }
+  ],
+  "aspirational_encoding_target": {
+    "target_speedup": 2.0,
+    "maximum_actual_speedup": 1.4568831493060035,
+    "achieved": false
+  },
+  "conclusion": "Moderate local improvement; no radical speedup. Horizon full-container gain is weak at 0.41% with 3/5 faster pairs. Shared pool contention and serial close/conversion limit benefit; the latter is an inference from overlapping diagnostics, not a measured per-column CPU decomposition.",
+  "evidence_preservation": "All clocks, commands, logs, binaries and independently hashed journal paths retained. 288 diagnostic output paths use identical validated control hardlinks; IPC inputs match original recorded hashes. Storage-only preservation ran under the shared slot and repeated no simulation/measurement.",
+  "post_result_performance_repeats": 0,
+  "merge_push_main_checkout_changes": false
+}

@@ -1,0 +1,42 @@
+{
+  "executive_summary": "All nine assigned unit manifests and shared public firewall checks pass.",
+  "accepted": true,
+  "checks": {
+    "t3-mr-deep-book-state-size": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp05-cancel-churn-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-horizon-240s": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-mega-throughput": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-coarse-tick-ties": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-partialfill-atomicity": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s001-price-time-priority": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-hetero-mix": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    }
+  }
+}

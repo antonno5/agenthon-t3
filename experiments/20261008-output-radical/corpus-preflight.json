@@ -1,0 +1,59 @@
+{
+  "executive_summary": "All selected public scenarios pass unchanged manifest and firewall checks after corpus plain-file restoration.",
+  "accepted": true,
+  "after_storage_restoration": true,
+  "units": {
+    "t3-coarse-tick-ties": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq-deterministic-baseline": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-eq001-pareto-latency-tail": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-horizon-240s": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-mega-throughput": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gb-pop-horizon-scale": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-hetero-mix": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp05-cancel-churn-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mr-deep-book-state-size": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-multilevel-crossing": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-partialfill-atomicity": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s001-price-time-priority": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    }
+  }
+}

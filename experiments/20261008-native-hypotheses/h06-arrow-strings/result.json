@@ -1,0 +1,1124 @@
+{
+  "executive_summary": "The Arrow string allocation candidate is correct on all four assigned units, with identical journal bytes and passing developer gates in all 48 retained runs. Median full-container times improve by 4.84% and 4.81% on two units and worsen by 0.97% and 0.25% on two others. Paired results are mixed and do not establish a uniform speed benefit; no production adoption.",
+  "slug": "h06-arrow-strings",
+  "title": "Однократное выделение строковых буферов Arrow",
+  "branch": "codex/exp-20261008-h06-arrow-strings",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image_source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "candidate_implementation_commit": "34ddeca0d64108346c8b697d68ce6694b78deb6d",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-s001-price-time-priority",
+    "t3-gbatch-hetero-mix"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:3c88777a2b1fe3596cdf70947ee29ea4b5800619b51a89bba3f1c40f4834f104",
+      "digest": "sha256:3c88777a2b1fe3596cdf70947ee29ea4b5800619b51a89bba3f1c40f4834f104",
+      "repo_digests": [],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "34ddeca0d64108346c8b697d68ce6694b78deb6d"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "6d62f6e761735095a9a28d22922468f3a01a9db55be5afd59226f511151bec68",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "container_seconds_samples": {
+        "baseline": [
+          0.572812954,
+          0.636455032,
+          0.65882065,
+          0.704396254,
+          0.721301553
+        ],
+        "candidate": [
+          0.677795666,
+          0.697212439,
+          0.626916601,
+          0.561440515,
+          0.537451419
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.65882065,
+        "candidate": 0.626916601
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.572812954,
+          "candidate_seconds": 0.677795666,
+          "candidate_time_change_pct": 18.327572948009816
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.636455032,
+          "candidate_seconds": 0.697212439,
+          "candidate_time_change_pct": 9.546221483876959
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.65882065,
+          "candidate_seconds": 0.626916601,
+          "candidate_time_change_pct": -4.842600030827815
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.704396254,
+          "candidate_seconds": 0.561440515,
+          "candidate_time_change_pct": -20.29478978461462
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.721301553,
+          "candidate_seconds": 0.537451419,
+          "candidate_time_change_pct": -25.488664655627037
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": 4.842600030827815,
+      "time_change_pct": -4.842600030827815,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0022293279980658554,
+              0.0020181679938104935,
+              0.0032068289947346784,
+              0.0026267139983247034,
+              0.0024212270000134595
+            ],
+            "median": 0.0024212270000134595
+          },
+          "hashing": {
+            "samples": [
+              0.03317249300016556,
+              0.03725344799750019,
+              0.035917289002100006,
+              0.034637100994586945,
+              0.03196146799746202
+            ],
+            "median": 0.034637100994586945
+          },
+          "parquet_write": {
+            "samples": [
+              0.17538025000141924,
+              0.19566000700534075,
+              0.18333250499882964,
+              0.19701806400475233,
+              0.16072949500220945
+            ],
+            "median": 0.18333250499882964
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.134119042,
+              0.17428061,
+              0.182730514,
+              0.180056733,
+              0.225715993
+            ],
+            "median": 0.180056733
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0036285409951233305,
+              0.0026358090035500936,
+              0.002617476995510515,
+              0.0020325369987403974,
+              0.002151468004740309
+            ],
+            "median": 0.002617476995510515
+          },
+          "hashing": {
+            "samples": [
+              0.03674056699674111,
+              0.03274262700142572,
+              0.032368085005145986,
+              0.03255845599778695,
+              0.03196524300437886
+            ],
+            "median": 0.03255845599778695
+          },
+          "parquet_write": {
+            "samples": [
+              0.19623128300239834,
+              0.19311694599649593,
+              0.1796852549989,
+              0.1744967180026144,
+              0.15902374799520272
+            ],
+            "median": 0.1796852549989
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.158419113,
+              0.167914807,
+              0.164241108,
+              0.138466107,
+              0.128829516
+            ],
+            "median": 0.158419113
+          }
+        }
+      },
+      "classification": "correct-and-faster-median"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "container_seconds_samples": {
+        "baseline": [
+          0.503741558,
+          0.714674447,
+          0.474033472,
+          0.523606945,
+          0.466935275
+        ],
+        "candidate": [
+          0.489565908,
+          0.508624139,
+          0.513854708,
+          0.565390727,
+          0.490317671
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.503741558,
+        "candidate": 0.508624139
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.503741558,
+          "candidate_seconds": 0.489565908,
+          "candidate_time_change_pct": -2.814071972993737
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.714674447,
+          "candidate_seconds": 0.508624139,
+          "candidate_time_change_pct": -28.831352354199957
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.474033472,
+          "candidate_seconds": 0.513854708,
+          "candidate_time_change_pct": 8.400511430551472
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.523606945,
+          "candidate_seconds": 0.565390727,
+          "candidate_time_change_pct": 7.97999002858909
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.466935275,
+          "candidate_seconds": 0.490317671,
+          "candidate_time_change_pct": 5.00763108976936
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": -0.9692630918491929,
+      "time_change_pct": 0.9692630918491929,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002303729997947812,
+              0.002954899005999323,
+              0.002080824997392483,
+              0.0021867359973839484,
+              0.002135645001544617
+            ],
+            "median": 0.0021867359973839484
+          },
+          "hashing": {
+            "samples": [
+              0.029077537001285236,
+              0.03460441800416447,
+              0.029375543002970517,
+              0.02873709199775476,
+              0.028513574005046394
+            ],
+            "median": 0.029077537001285236
+          },
+          "parquet_write": {
+            "samples": [
+              0.16665578700009764,
+              0.21901262699323817,
+              0.14282130200141224,
+              0.1482289760033363,
+              0.13223850099947332
+            ],
+            "median": 0.1482289760033363
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.088425141,
+              0.164387254,
+              0.088494166,
+              0.085744256,
+              0.08652905
+            ],
+            "median": 0.088425141
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0021301549932104535,
+              0.0026836620018002577,
+              0.0026809709961526096,
+              0.003314670000690967,
+              0.0024047549959504977
+            ],
+            "median": 0.0026809709961526096
+          },
+          "hashing": {
+            "samples": [
+              0.02903572699869983,
+              0.03476191999652656,
+              0.0337127290040371,
+              0.032327822998922784,
+              0.029904654998972546
+            ],
+            "median": 0.032327822998922784
+          },
+          "parquet_write": {
+            "samples": [
+              0.15224645200511527,
+              0.17913749900439663,
+              0.1683557189977235,
+              0.16428566299511627,
+              0.16851625900286357
+            ],
+            "median": 0.1683557189977235
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.07926019,
+              0.075810753,
+              0.071233864,
+              0.116982386,
+              0.069478552
+            ],
+            "median": 0.075810753
+          }
+        }
+      },
+      "classification": "correct-but-slower-median"
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "container_seconds_samples": {
+        "baseline": [
+          0.32750102,
+          0.291120591,
+          0.288067125,
+          0.282307091,
+          0.261105174
+        ],
+        "candidate": [
+          0.293977523,
+          0.25932169,
+          0.289003917,
+          0.274220913,
+          0.258656717
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.288067125,
+        "candidate": 0.274220913
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.32750102,
+          "candidate_seconds": 0.293977523,
+          "candidate_time_change_pct": -10.236150409546807
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.291120591,
+          "candidate_seconds": 0.25932169,
+          "candidate_time_change_pct": -10.922930903228345
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.288067125,
+          "candidate_seconds": 0.289003917,
+          "candidate_time_change_pct": 0.32519920487283915
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.282307091,
+          "candidate_seconds": 0.274220913,
+          "candidate_time_change_pct": -2.864319833893225
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.261105174,
+          "candidate_seconds": 0.258656717,
+          "candidate_time_change_pct": -0.9377282581156443
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 4.8065922135335555,
+      "time_change_pct": -4.8065922135335555,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0036967049964005128,
+              0.0019764909957302734,
+              0.0019916200035368092,
+              0.0020928140002069995,
+              0.001999749001697637
+            ],
+            "median": 0.001999749001697637
+          },
+          "hashing": {
+            "samples": [
+              0.003314901994599495,
+              0.0031760389974806458,
+              0.00258868499804521,
+              0.002208551006333437,
+              0.0021940060032648034
+            ],
+            "median": 0.00258868499804521
+          },
+          "parquet_write": {
+            "samples": [
+              0.0732563860049485,
+              0.07079341500208519,
+              0.058671945996592915,
+              0.06384168499607934,
+              0.056543862998645666
+            ],
+            "median": 0.06384168499607934
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.00379623,
+              0.00370692,
+              0.003813197,
+              0.004097731,
+              0.003819829
+            ],
+            "median": 0.003813197
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0022111309954198077,
+              0.0021832900019944645,
+              0.001989994998439215,
+              0.0019278970066807233,
+              0.001925024000229314
+            ],
+            "median": 0.001989994998439215
+          },
+          "hashing": {
+            "samples": [
+              0.002250265999464318,
+              0.002058509999187663,
+              0.002535589999752119,
+              0.002083644998492673,
+              0.0018782199986162595
+            ],
+            "median": 0.002083644998492673
+          },
+          "parquet_write": {
+            "samples": [
+              0.054514836006362824,
+              0.05278457399905115,
+              0.0462308439989635,
+              0.0588832080001065,
+              0.04610961999682237
+            ],
+            "median": 0.05278457399905115
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.003870792,
+              0.004413427,
+              0.004194503,
+              0.003978115,
+              0.004274778
+            ],
+            "median": 0.004194503
+          }
+        }
+      },
+      "classification": "correct-and-faster-median"
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "container_seconds_samples": {
+        "baseline": [
+          0.453867358,
+          0.393789536,
+          0.407855323,
+          0.384489826,
+          0.376829967
+        ],
+        "candidate": [
+          0.394783024,
+          0.379485215,
+          0.420472429,
+          0.42528982,
+          0.392961686
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.393789536,
+        "candidate": 0.394783024
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.453867358,
+          "candidate_seconds": 0.394783024,
+          "candidate_time_change_pct": -13.017973854819498
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.393789536,
+          "candidate_seconds": 0.379485215,
+          "candidate_time_change_pct": -3.6324786954217148
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.407855323,
+          "candidate_seconds": 0.420472429,
+          "candidate_time_change_pct": 3.0935249066248005
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.384489826,
+          "candidate_seconds": 0.42528982,
+          "candidate_time_change_pct": 10.611462577425911
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.376829967,
+          "candidate_seconds": 0.392961686,
+          "candidate_time_change_pct": 4.280901311651775
+        }
+      ],
+      "candidate_faster_pairs": 2,
+      "time_reduction_pct": -0.25228908063215094,
+      "time_change_pct": 0.25228908063215094,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.007248410001921002,
+              0.005733411991968751,
+              0.005893204011954367,
+              0.00486115098465234,
+              0.004941152990795672
+            ],
+            "median": 0.005733411991968751
+          },
+          "hashing": {
+            "samples": [
+              0.014065377014048863,
+              0.013695262001419906,
+              0.013949206004326697,
+              0.012545104997116141,
+              0.01270265800121706
+            ],
+            "median": 0.013695262001419906
+          },
+          "parquet_write": {
+            "samples": [
+              0.1403273059894215,
+              0.13009235300387564,
+              0.14249343299367648,
+              0.11352533400661127,
+              0.10800083100617607
+            ],
+            "median": 0.13009235300387564
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.023710222,
+              0.02264857,
+              0.019443764,
+              0.020631983,
+              0.020727544
+            ],
+            "median": 0.020727544
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0059497940019355156,
+              0.005607501007034443,
+              0.006061998014047276,
+              0.006517734000226483,
+              0.005090182996354997
+            ],
+            "median": 0.0059497940019355156
+          },
+          "hashing": {
+            "samples": [
+              0.013581428007455543,
+              0.012667161005083472,
+              0.012713741998595651,
+              0.013818339990393724,
+              0.013539763007429428
+            ],
+            "median": 0.013539763007429428
+          },
+          "parquet_write": {
+            "samples": [
+              0.11973439199465111,
+              0.1214892309935837,
+              0.1444536969930356,
+              0.1383677450063444,
+              0.12315670099265791
+            ],
+            "median": 0.12315670099265791
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.025526609,
+              0.019427704,
+              0.021158769,
+              0.023911785,
+              0.020819333
+            ],
+            "median": 0.021158769
+          }
+        }
+      },
+      "classification": "correct-but-slower-median"
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/paired",
+  "summary_sha256": "e2f191dab7516b89fbe23690b1650fc94f98c3133064064765137f0d6900b064",
+  "runner_sha256": "72b10246b593a2d3b678edfc66e6bb335c6e60fd80ab8bd1a43adc49892cfb25",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run.",
+    "Only the writer source changes; observed simulation/core variation is not attributed to this hypothesis. The mixed five-pair results on emulated containers do not establish a uniform performance improvement."
+  ],
+  "error": null,
+  "phase": 2,
+  "status": "complete",
+  "outcome": "correct-mixed-performance",
+  "host_checks": [
+    {
+      "status": "passed",
+      "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "arrow": "25.0.1",
+      "pinned_runtime": false,
+      "sanitizers": false,
+      "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+      "file_pairs": [
+        {
+          "file": "messages-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "67516d37404fd01484b2b582aef4a474f1c37a42461e9f3c9bc85d23eaf34a9b",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "messages-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "6ca68eae4aa0b5f8b06894fb2d505e7c8fac8b081d604955173542c77bac1f76",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "081722bf4161849c6fb9e8715c7a6ab00e06c9276267db371eb566e0ddba2fd0",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "17947560f267e5df0f34035c17630d4273c2fef75d678461b12d5378137271b4",
+          "exact_bytes_schema_values": true
+        }
+      ],
+      "evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/host/checks.json",
+      "evidence_sha256": "bf70622a5903e19fbd41ba014eeb2052ce3c09e49216d0108e468709e68ee47b"
+    },
+    {
+      "status": "passed",
+      "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "arrow": "25.0.1",
+      "pinned_runtime": false,
+      "sanitizers": true,
+      "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+      "file_pairs": [
+        {
+          "file": "messages-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "67516d37404fd01484b2b582aef4a474f1c37a42461e9f3c9bc85d23eaf34a9b",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "messages-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "6ca68eae4aa0b5f8b06894fb2d505e7c8fac8b081d604955173542c77bac1f76",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-1-candidate.parquet",
+          "rows": 1,
+          "sha256": "081722bf4161849c6fb9e8715c7a6ab00e06c9276267db371eb566e0ddba2fd0",
+          "exact_bytes_schema_values": true
+        },
+        {
+          "file": "trace-16384-candidate.parquet",
+          "rows": 16384,
+          "sha256": "17947560f267e5df0f34035c17630d4273c2fef75d678461b12d5378137271b4",
+          "exact_bytes_schema_values": true
+        }
+      ],
+      "evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/host/checks-sanitized.json",
+      "evidence_sha256": "7bb4e0e175329d56dd67382a117ff32a875d31c9038d763e3a1f2eba725088e1"
+    }
+  ],
+  "pinned_diagnostics": {
+    "executive_summary": "Focused actual-writer and Arrow buffer checks passed; no timing claim.",
+    "status": "passed",
+    "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+    "arrow": "15.0.2",
+    "pinned_runtime": true,
+    "sanitizers": false,
+    "compiler": "c++ (Debian 14.2.0-19) 14.2.0",
+    "candidate_sha256": "6d62f6e761735095a9a28d22922468f3a01a9db55be5afd59226f511151bec68",
+    "baseline_sha256": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "command": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-DCANDIDATE_SOURCE=\"/work/baselines/native/pqwrite.cpp\"",
+      "-I",
+      "/work/baselines/native",
+      "-isystem",
+      "/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-I",
+      "/evidence",
+      "/work/expirements/20261008-native-hypotheses/h06-arrow-strings/check_strings.cpp",
+      "/usr/local/lib/python3.11/site-packages/pyarrow/libparquet.so.1500",
+      "/usr/local/lib/python3.11/site-packages/pyarrow/libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/evidence/check_strings"
+    ],
+    "stdout": "empty_trace=parquet write: Invalid: Column 2: In chunk 0: Invalid: Value data buffer is null\nempty_messages=parquet write: Invalid: Column 7: In chunk 0: Invalid: Value data buffer is null\nPASS: three vocabularies, zero rows, all valid codes, invalid codes, row counts, INT32_MAX offsets, Arrow buffers, complete Parquet bytes\n",
+    "stderr": "",
+    "file_pairs": [
+      {
+        "file": "messages-1-candidate.parquet",
+        "rows": 1,
+        "sha256": "eaa5f7b72bfb2743fbcde75be6b0031afb6a7e58a40b1bc19e36063192ef648d",
+        "exact_bytes_schema_values": true
+      },
+      {
+        "file": "messages-16384-candidate.parquet",
+        "rows": 16384,
+        "sha256": "b96d8c58dd25816abd82bf0fb3acbbb57f327c1426a08dc983ca7dc58b2e4137",
+        "exact_bytes_schema_values": true
+      },
+      {
+        "file": "trace-1-candidate.parquet",
+        "rows": 1,
+        "sha256": "214f20a8c539e45d34ab99cbb8b507b570a6dbec7b92c75ab362c1a3b8e23d0e",
+        "exact_bytes_schema_values": true
+      },
+      {
+        "file": "trace-16384-candidate.parquet",
+        "rows": 16384,
+        "sha256": "37766decce51e809a28f0b07f797870330dd77b4a8653290c5f35e8dd0b67f93",
+        "exact_bytes_schema_values": true
+      }
+    ]
+  },
+  "initial_implementation_commit": "da88b3f3be9ee891c002e56e0b0a4d6a2bce207d",
+  "allowed_changed_sources": [
+    "baselines/native/pqwrite.cpp"
+  ],
+  "source_sha256": {
+    "baselines/native/pqwrite.cpp": "6d62f6e761735095a9a28d22922468f3a01a9db55be5afd59226f511151bec68"
+  },
+  "execution_diagnostics": {
+    "executive_summary": "Sequential pinned build, focused correctness and fixed paired timing under the granted Docker slot.",
+    "candidate_commit": "34ddeca0d64108346c8b697d68ce6694b78deb6d",
+    "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "source_sha256": {
+      "baselines/native/pqwrite.cpp": "6d62f6e761735095a9a28d22922468f3a01a9db55be5afd59226f511151bec68"
+    },
+    "commands": [
+      {
+        "name": "prepare-focused",
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/expirements/20261008-native-hypotheses/h06-arrow-strings/run_checks.py",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned",
+          "--prepare-only"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/prepare-focused.log",
+        "returncode": 0,
+        "elapsed_seconds": 0.058295583992730826
+      },
+      {
+        "name": "build-builder",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=track3-native:20261008",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/Dockerfile",
+          "--target",
+          "native_builder",
+          "--iidfile",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/builder-image.iid",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/build-builder.log",
+        "returncode": 0,
+        "elapsed_seconds": 14.875717208022252
+      },
+      {
+        "name": "pinned-focused",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--network=none",
+          "--entrypoint",
+          "python",
+          "-v",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings:/work:ro",
+          "-v",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned:/evidence",
+          "sha256:156f67ebe0ff20109059b3c7c598a9ac664ef19f8f6b63d0f537696053c5be66",
+          "/work/expirements/20261008-native-hypotheses/h06-arrow-strings/run_checks.py",
+          "--out",
+          "/evidence",
+          "--prepared",
+          "--require-pinned"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned-focused.log",
+        "returncode": 0,
+        "elapsed_seconds": 6.955311124998843
+      },
+      {
+        "name": "build-candidate",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "build",
+          "--platform",
+          "linux/amd64",
+          "--build-arg",
+          "BASE_IMAGE=track3-native:20261008",
+          "-f",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/Dockerfile",
+          "--iidfile",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/candidate-image.iid",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/build-candidate.log",
+        "returncode": 0,
+        "elapsed_seconds": 0.8766726659960113
+      },
+      {
+        "name": "runtime-baseline",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--network=none",
+          "--entrypoint",
+          "python",
+          "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+          "-c",
+          "import sys,json,hashlib,pyarrow; import abides_fork._t3engine as native; assert sys.version_info[:3] == (3,11,17), sys.version; assert pyarrow.__version__ == '15.0.2', pyarrow.__version__; print(json.dumps({'python':sys.version,'arrow':pyarrow.__version__,'native_extension':native.__file__,'extension_sha256':hashlib.sha256(open(native.__file__,'rb').read()).hexdigest()}))"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/runtime-baseline.log",
+        "returncode": 0,
+        "elapsed_seconds": 0.5111464159854222
+      },
+      {
+        "name": "runtime-candidate",
+        "command": [
+          "docker",
+          "--context",
+          "colima-agenthon",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/amd64",
+          "--cpus=4",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--network=none",
+          "--entrypoint",
+          "python",
+          "sha256:3c88777a2b1fe3596cdf70947ee29ea4b5800619b51a89bba3f1c40f4834f104",
+          "-c",
+          "import sys,json,hashlib,pyarrow; import abides_fork._t3engine as native; assert sys.version_info[:3] == (3,11,17), sys.version; assert pyarrow.__version__ == '15.0.2', pyarrow.__version__; print(json.dumps({'python':sys.version,'arrow':pyarrow.__version__,'native_extension':native.__file__,'extension_sha256':hashlib.sha256(open(native.__file__,'rb').read()).hexdigest()}))"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/runtime-candidate.log",
+        "returncode": 0,
+        "elapsed_seconds": 0.4905901250021998
+      },
+      {
+        "name": "paired",
+        "command": [
+          "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/run_focused.py",
+          "--slug",
+          "h06-arrow-strings",
+          "--candidate-image",
+          "sha256:3c88777a2b1fe3596cdf70947ee29ea4b5800619b51a89bba3f1c40f4834f104",
+          "--candidate-commit",
+          "34ddeca0d64108346c8b697d68ce6694b78deb6d",
+          "--out",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/paired"
+        ],
+        "log": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/paired.log",
+        "returncode": 0,
+        "elapsed_seconds": 74.22908704099245
+      }
+    ],
+    "baseline_tag_checks": [
+      {
+        "when": "before-builder-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "when": "after-builder-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "when": "before-candidate-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      },
+      {
+        "when": "after-candidate-build",
+        "tag": "track3-native:20261008",
+        "image_id": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      }
+    ],
+    "timing_started": true,
+    "complete": true,
+    "builder_image": "sha256:156f67ebe0ff20109059b3c7c598a9ac664ef19f8f6b63d0f537696053c5be66",
+    "candidate_image": "sha256:3c88777a2b1fe3596cdf70947ee29ea4b5800619b51a89bba3f1c40f4834f104"
+  },
+  "validation_audit": {
+    "accepted_retained_runs": 48,
+    "timed_samples": 40,
+    "excluded_warmups": 8,
+    "exact_comparisons": 64,
+    "all_comparisons_bytes_schema_ordered_values": true,
+    "all_outputs_developer_gates_pass": true,
+    "all_outputs_actual_native": true,
+    "native_market_executions": 96,
+    "no_fallback": true,
+    "pinned_focused_file_pairs": 4
+  },
+  "evidence_files": {
+    "out/h06-arrow-strings/phase2/execution.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/execution.json",
+      "sha256": "6e940173941beb79be9540dd86380c4e37ea77ac39252e808e099588b73810dd"
+    },
+    "out/h06-arrow-strings/phase2/pinned/checks.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned/checks.json",
+      "sha256": "2a53b62a5665c91b1f2106e0a1d7d898b25f29dbad3a979b96240a8354894a2d"
+    },
+    "out/h06-arrow-strings/phase2/pinned/compile.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned/compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "out/h06-arrow-strings/phase2/pinned/run.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned/run.log",
+      "sha256": "a763ba8befa567f7828bffd660bc79460b6afcbffd37d973d6ce68b50d399a7b"
+    },
+    "out/h06-arrow-strings/paired/result.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/paired/result.json",
+      "sha256": "c89402b7ece4b67fc84a0fdd332bf73fa677d988240aaebd271da5a7696afeef"
+    },
+    "out/h06-arrow-strings/paired/summary.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/paired/summary.json",
+      "sha256": "e2f191dab7516b89fbe23690b1650fc94f98c3133064064765137f0d6900b064"
+    },
+    "out/h06-arrow-strings/phase2/prepare-focused.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/prepare-focused.log",
+      "sha256": "fb5e7f36ae2a91ced5624ed4a910976223a592ffd278d7520d1e9abf1de12eff"
+    },
+    "out/h06-arrow-strings/phase2/build-builder.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/build-builder.log",
+      "sha256": "55e5089e416384729750d4e96b8902caa14d48803c72dbb3e3233d55bcd5823a"
+    },
+    "out/h06-arrow-strings/phase2/pinned-focused.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned-focused.log",
+      "sha256": "8099c8eaafc045de90bd59a9f84c859a446d67064a36109c970330619ab89e63"
+    },
+    "out/h06-arrow-strings/phase2/build-candidate.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/build-candidate.log",
+      "sha256": "b842e6f42d9b87d399166951704f13a51e44dc0f23c907e9103436f312c0fe57"
+    },
+    "out/h06-arrow-strings/phase2/runtime-baseline.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/runtime-baseline.log",
+      "sha256": "7b90ace8dda65cabd78ff82924abfdaeb6e7835c3876abdc216fc2614fcb1964"
+    },
+    "out/h06-arrow-strings/phase2/runtime-candidate.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/runtime-candidate.log",
+      "sha256": "f50f42a5120a8e7d8bbf65d5ba395841b8a672c44c439c88c7621736e1dd1a46"
+    },
+    "out/h06-arrow-strings/phase2/paired.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/paired.log",
+      "sha256": "0e3133d98ba231ef9baef92ed72366735e64fb6fad068dfdb4d5ea5450ededd9"
+    }
+  },
+  "pending_actual_docker_checks": [],
+  "no_extra_repeats": true,
+  "no_source_tuning_after_timing": true,
+  "pinned_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h06-arrow-strings/out/h06-arrow-strings/phase2/pinned",
+  "runtime_diagnostics": {
+    "baseline": {
+      "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+      "arrow": "15.0.2",
+      "native_extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+      "extension_sha256": "5d722746740ad62776290cc26f2461a478963b652e075bf3b8ede5b4fc713685"
+    },
+    "candidate": {
+      "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+      "arrow": "15.0.2",
+      "native_extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+      "extension_sha256": "c92183a09cefe86ac354cdfcd832a7f6dbdf9c4857241005ed32b6f0dfcee181"
+    }
+  }
+}

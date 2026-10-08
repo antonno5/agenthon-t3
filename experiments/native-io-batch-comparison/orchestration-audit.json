@@ -1,0 +1,40 @@
+{
+  "executive_summary": "Independent orchestration audit confirms accepted experiment records, stable simulation algorithms and matching streamed hash declarations. Performance adoption is a separate decision; neither experiment demonstrates a general speedup.",
+  "accepted": true,
+  "rankable": false,
+  "base_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "unchanged_core_source_hashes": {
+    "stream-hash-batch": {
+      "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+      "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+      "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+      "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+      "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+      "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+      "baselines/abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+      "baselines/abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0"
+    },
+    "native-batch-parallel": {
+      "baselines/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+      "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+      "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+      "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+      "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+      "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+      "baselines/abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+      "baselines/abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0"
+    }
+  },
+  "experiment_A": {
+    "run_records": 48,
+    "comparisons": 64,
+    "independently_rehashed_journals": 192,
+    "summary_sha256": "5bb756316c7631b96e08726b921555dd9781a87ab6ef560ad0302c3bee2fb5fb"
+  },
+  "experiment_B": {
+    "run_records": 104,
+    "summary_sha256": "b7a309dbad796564dbbfd23e3fd7a6674b8957d7a25345e633e5b19c98e2d395",
+    "independently_rehashed_journals": 1062
+  },
+  "performance_adopted": false
+}

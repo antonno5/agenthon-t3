@@ -1,0 +1,273 @@
+{
+  "executive_summary": "All focused lifecycle tests and the assigned full native simulations match the original source exactly in all 7 trace and 12 message columns.",
+  "accepted": true,
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: arm64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+  "plan_sha256": "0c922a7a7d9aa217e7a9c331352634f537cd01d2f7bde9174fae821d80b26bd0",
+  "reports": [
+    {
+      "sanitizers": false,
+      "leak_detection": false,
+      "isolated_component": {
+        "executive_summary": "Actual base finalizer and candidate agree on edges and 64 generated histories.",
+        "accepted": true,
+        "generated_histories": 64,
+        "generated_input_rows": 131072
+      },
+      "simulations": [
+        {
+          "case": "t3-mr-deep-book-state-size/scenario",
+          "scenario_sha256": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7",
+          "trace_rows": 319488,
+          "message_rows": 269644,
+          "base_column_bytes_sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2",
+          "candidate_column_bytes_sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2"
+        },
+        {
+          "case": "t3-mp05-cancel-churn-newest/scenario",
+          "scenario_sha256": "0af9f298f191c4a33982852cf344b5dbe81475846beb274ca56a92f8c95a9183",
+          "trace_rows": 240829,
+          "message_rows": 205166,
+          "base_column_bytes_sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1",
+          "candidate_column_bytes_sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1"
+        },
+        {
+          "case": "t3-gb-horizon-240s/scenario",
+          "scenario_sha256": "650e0d29b40f3709f224a6af278b9e0cc9899294bcdfa31deb4f95bb5e84dc8b",
+          "trace_rows": 555032,
+          "message_rows": 692641,
+          "base_column_bytes_sha256": "02f83ec1e37e9ae72c21a34d8109d5aacabf3eeb4ba8389bc0c021c9102c5762",
+          "candidate_column_bytes_sha256": "02f83ec1e37e9ae72c21a34d8109d5aacabf3eeb4ba8389bc0c021c9102c5762"
+        },
+        {
+          "case": "t3-gb-mega-throughput/scenario",
+          "scenario_sha256": "af565789aeb35a1c70e39dee4f067563d1bdd0e605c2a470c7ab4079d2e34fab",
+          "trace_rows": 1168360,
+          "message_rows": 1420862,
+          "base_column_bytes_sha256": "e8241f4febabe9f6a66e533f141e92ba2e1500532c357044d29e7a874d1c4093",
+          "candidate_column_bytes_sha256": "e8241f4febabe9f6a66e533f141e92ba2e1500532c357044d29e7a874d1c4093"
+        },
+        {
+          "case": "t3-coarse-tick-ties/scenario",
+          "scenario_sha256": "c0e1dbdc4c5da5c21d5d2cd444414db18252302990d376eb87fdd136fee51f02",
+          "trace_rows": 72004,
+          "message_rows": 63338,
+          "base_column_bytes_sha256": "7da32e1523356d56afc4d58f85232174538eb980410fa3ee8ab2fd2e922007c2",
+          "candidate_column_bytes_sha256": "7da32e1523356d56afc4d58f85232174538eb980410fa3ee8ab2fd2e922007c2"
+        },
+        {
+          "case": "t3-s012-partial-fill-cancel-race/scenario",
+          "scenario_sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c",
+          "trace_rows": 202291,
+          "message_rows": 178236,
+          "base_column_bytes_sha256": "9cc6d50076600bb97ff6c8e955d007800606bbd5b5a9ab8324b3b039f92d5271",
+          "candidate_column_bytes_sha256": "9cc6d50076600bb97ff6c8e955d007800606bbd5b5a9ab8324b3b039f92d5271"
+        },
+        {
+          "case": "t3-partialfill-atomicity/scenario",
+          "scenario_sha256": "551ece5f033cccbeba222215c7a82eeb526eeb06c582bfc71b4f3baba1839e3f",
+          "trace_rows": 72052,
+          "message_rows": 62955,
+          "base_column_bytes_sha256": "5d412b03c33de0dc6fdb3f5e51acd272fd9d47579ac7eed84476de29f5f1cd1b",
+          "candidate_column_bytes_sha256": "5d412b03c33de0dc6fdb3f5e51acd272fd9d47579ac7eed84476de29f5f1cd1b"
+        },
+        {
+          "case": "t3-s001-price-time-priority/scenario",
+          "scenario_sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b",
+          "trace_rows": 604,
+          "message_rows": 664,
+          "base_column_bytes_sha256": "53bbece16cf7831849848788f8f178e99f8901565dfcc6c7da95242e31bea995",
+          "candidate_column_bytes_sha256": "53bbece16cf7831849848788f8f178e99f8901565dfcc6c7da95242e31bea995"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_00_noise",
+          "scenario_sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177",
+          "trace_rows": 8225,
+          "message_rows": 7411,
+          "base_column_bytes_sha256": "771b7cb96c854a3f009acb2371f000d5760cbabf2605a707f144224cc058345d",
+          "candidate_column_bytes_sha256": "771b7cb96c854a3f009acb2371f000d5760cbabf2605a707f144224cc058345d"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_01_value",
+          "scenario_sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7",
+          "trace_rows": 8137,
+          "message_rows": 7305,
+          "base_column_bytes_sha256": "f3028eef80aac1148ff5ec5ec58d3e1d587c8e6c34f890536ff8888ce0b43a72",
+          "candidate_column_bytes_sha256": "f3028eef80aac1148ff5ec5ec58d3e1d587c8e6c34f890536ff8888ce0b43a72"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_02_mm",
+          "scenario_sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006",
+          "trace_rows": 24065,
+          "message_rows": 21262,
+          "base_column_bytes_sha256": "35f8805633c8558c2aa9f1d3216f0894724d69f291d5a0b0b41e9b5b9b0ed2ee",
+          "candidate_column_bytes_sha256": "35f8805633c8558c2aa9f1d3216f0894724d69f291d5a0b0b41e9b5b9b0ed2ee"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_03_momentum",
+          "scenario_sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c",
+          "trace_rows": 8147,
+          "message_rows": 7331,
+          "base_column_bytes_sha256": "95856290fab788cf1b79525f42e92c0e8f5ff9aea2d4259255c60b96a148bf62",
+          "candidate_column_bytes_sha256": "95856290fab788cf1b79525f42e92c0e8f5ff9aea2d4259255c60b96a148bf62"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_04_base",
+          "scenario_sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3",
+          "trace_rows": 8138,
+          "message_rows": 7278,
+          "base_column_bytes_sha256": "c9787230f10b78748226dcc7ed140e8ad9cf4de63c37ec327e50a79d96c7e568",
+          "candidate_column_bytes_sha256": "c9787230f10b78748226dcc7ed140e8ad9cf4de63c37ec327e50a79d96c7e568"
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "sanitizers": true,
+      "leak_detection": false,
+      "isolated_component": {
+        "executive_summary": "Actual base finalizer and candidate agree on edges and 64 generated histories.",
+        "accepted": true,
+        "generated_histories": 64,
+        "generated_input_rows": 131072
+      },
+      "simulations": [
+        {
+          "case": "t3-mr-deep-book-state-size/scenario",
+          "scenario_sha256": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7",
+          "trace_rows": 319488,
+          "message_rows": 269644,
+          "base_column_bytes_sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2",
+          "candidate_column_bytes_sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2"
+        },
+        {
+          "case": "t3-mp05-cancel-churn-newest/scenario",
+          "scenario_sha256": "0af9f298f191c4a33982852cf344b5dbe81475846beb274ca56a92f8c95a9183",
+          "trace_rows": 240829,
+          "message_rows": 205166,
+          "base_column_bytes_sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1",
+          "candidate_column_bytes_sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1"
+        },
+        {
+          "case": "t3-gb-horizon-240s/scenario",
+          "scenario_sha256": "650e0d29b40f3709f224a6af278b9e0cc9899294bcdfa31deb4f95bb5e84dc8b",
+          "trace_rows": 555032,
+          "message_rows": 692641,
+          "base_column_bytes_sha256": "02f83ec1e37e9ae72c21a34d8109d5aacabf3eeb4ba8389bc0c021c9102c5762",
+          "candidate_column_bytes_sha256": "02f83ec1e37e9ae72c21a34d8109d5aacabf3eeb4ba8389bc0c021c9102c5762"
+        },
+        {
+          "case": "t3-gb-mega-throughput/scenario",
+          "scenario_sha256": "af565789aeb35a1c70e39dee4f067563d1bdd0e605c2a470c7ab4079d2e34fab",
+          "trace_rows": 1168360,
+          "message_rows": 1420862,
+          "base_column_bytes_sha256": "e8241f4febabe9f6a66e533f141e92ba2e1500532c357044d29e7a874d1c4093",
+          "candidate_column_bytes_sha256": "e8241f4febabe9f6a66e533f141e92ba2e1500532c357044d29e7a874d1c4093"
+        },
+        {
+          "case": "t3-coarse-tick-ties/scenario",
+          "scenario_sha256": "c0e1dbdc4c5da5c21d5d2cd444414db18252302990d376eb87fdd136fee51f02",
+          "trace_rows": 72004,
+          "message_rows": 63338,
+          "base_column_bytes_sha256": "7da32e1523356d56afc4d58f85232174538eb980410fa3ee8ab2fd2e922007c2",
+          "candidate_column_bytes_sha256": "7da32e1523356d56afc4d58f85232174538eb980410fa3ee8ab2fd2e922007c2"
+        },
+        {
+          "case": "t3-s012-partial-fill-cancel-race/scenario",
+          "scenario_sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c",
+          "trace_rows": 202291,
+          "message_rows": 178236,
+          "base_column_bytes_sha256": "9cc6d50076600bb97ff6c8e955d007800606bbd5b5a9ab8324b3b039f92d5271",
+          "candidate_column_bytes_sha256": "9cc6d50076600bb97ff6c8e955d007800606bbd5b5a9ab8324b3b039f92d5271"
+        },
+        {
+          "case": "t3-partialfill-atomicity/scenario",
+          "scenario_sha256": "551ece5f033cccbeba222215c7a82eeb526eeb06c582bfc71b4f3baba1839e3f",
+          "trace_rows": 72052,
+          "message_rows": 62955,
+          "base_column_bytes_sha256": "5d412b03c33de0dc6fdb3f5e51acd272fd9d47579ac7eed84476de29f5f1cd1b",
+          "candidate_column_bytes_sha256": "5d412b03c33de0dc6fdb3f5e51acd272fd9d47579ac7eed84476de29f5f1cd1b"
+        },
+        {
+          "case": "t3-s001-price-time-priority/scenario",
+          "scenario_sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b",
+          "trace_rows": 604,
+          "message_rows": 664,
+          "base_column_bytes_sha256": "53bbece16cf7831849848788f8f178e99f8901565dfcc6c7da95242e31bea995",
+          "candidate_column_bytes_sha256": "53bbece16cf7831849848788f8f178e99f8901565dfcc6c7da95242e31bea995"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_00_noise",
+          "scenario_sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177",
+          "trace_rows": 8225,
+          "message_rows": 7411,
+          "base_column_bytes_sha256": "771b7cb96c854a3f009acb2371f000d5760cbabf2605a707f144224cc058345d",
+          "candidate_column_bytes_sha256": "771b7cb96c854a3f009acb2371f000d5760cbabf2605a707f144224cc058345d"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_01_value",
+          "scenario_sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7",
+          "trace_rows": 8137,
+          "message_rows": 7305,
+          "base_column_bytes_sha256": "f3028eef80aac1148ff5ec5ec58d3e1d587c8e6c34f890536ff8888ce0b43a72",
+          "candidate_column_bytes_sha256": "f3028eef80aac1148ff5ec5ec58d3e1d587c8e6c34f890536ff8888ce0b43a72"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_02_mm",
+          "scenario_sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006",
+          "trace_rows": 24065,
+          "message_rows": 21262,
+          "base_column_bytes_sha256": "35f8805633c8558c2aa9f1d3216f0894724d69f291d5a0b0b41e9b5b9b0ed2ee",
+          "candidate_column_bytes_sha256": "35f8805633c8558c2aa9f1d3216f0894724d69f291d5a0b0b41e9b5b9b0ed2ee"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_03_momentum",
+          "scenario_sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c",
+          "trace_rows": 8147,
+          "message_rows": 7331,
+          "base_column_bytes_sha256": "95856290fab788cf1b79525f42e92c0e8f5ff9aea2d4259255c60b96a148bf62",
+          "candidate_column_bytes_sha256": "95856290fab788cf1b79525f42e92c0e8f5ff9aea2d4259255c60b96a148bf62"
+        },
+        {
+          "case": "t3-gbatch-hetero-mix/sub_04_base",
+          "scenario_sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3",
+          "trace_rows": 8138,
+          "message_rows": 7278,
+          "base_column_bytes_sha256": "c9787230f10b78748226dcc7ed140e8ad9cf4de63c37ec327e50a79d96c7e568",
+          "candidate_column_bytes_sha256": "c9787230f10b78748226dcc7ed140e8ad9cf4de63c37ec327e50a79d96c7e568"
+        }
+      ],
+      "accepted": true
+    }
+  ],
+  "limits": [
+    "Standalone host columns do not establish pinned Parquet byte equality or shared scoring gates.",
+    "Only frozen H1 units were simulated; no performance loops were run."
+  ],
+  "additional_isolated_checks": {
+    "executive_summary": "After adding large timestamp-group and sparse-id boundary cases, the isolated component test passed ASan/UBSan again.",
+    "accepted": true,
+    "same_timestamp_rows": 4096,
+    "sparse_execution_order_id": 8191,
+    "timestamps": [
+      0,
+      9223372036854775807
+    ]
+  },
+  "initial_test_recipe_failure": "macOS ASan rejected detect_leaks=1 before executing sanitizer tests. Host leak detection was disabled because unsupported; Linux recipe retains detect_leaks=1.",
+  "untimed_real_capture_replay": {
+    "executive_summary": "The captured cancel-churn log replay matches the actual base finalizer exactly without any benchmark loops.",
+    "accepted": true,
+    "unit": "t3-mp05-cancel-churn-newest",
+    "input_rows": 240831,
+    "output_rows": 240829,
+    "pending_peak_rows": 12,
+    "dense_execution_slots": 46169,
+    "sanitizers": true
+  },
+  "factored_parameter_reader_check": {
+    "executive_summary": "The factored parameter reader preserves the recorded candidate column digest for cancel-churn.",
+    "accepted": true,
+    "column_digest": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1"
+  }
+}

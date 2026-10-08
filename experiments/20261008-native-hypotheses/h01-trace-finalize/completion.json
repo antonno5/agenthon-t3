@@ -1,0 +1,197 @@
+{
+  "executive_summary": "All three assigned public units passed pinned native correctness: 36 accepted outputs and 48 exact journal comparisons. Median complete Docker time improved 11.14% for deep-book and 3.78% for partial-fill, and regressed 1.57% for cancel-churn. All five pairs and outliers are retained; this is local, non-rankable evidence and the worktree is clean.",
+  "slug": "h01-trace-finalize",
+  "branch": "codex/exp-20261008-h01-trace-finalize",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize",
+  "status": "done",
+  "final_report_commit": "853881ffac5787e526310ae3b55a06d3ae940b49",
+  "report_commit": "853881ffac5787e526310ae3b55a06d3ae940b49",
+  "implementation_commit": "5ed05198f536c4c3f8e1577312491a1c36c275ad",
+  "original_implementation_commit": "0ca20940c509b23a4ecae062da7546f24fb49394",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image_source_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "immutable_images": {
+    "baseline": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "candidate": "sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080"
+  },
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080",
+      "digest": "sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080",
+      "repo_digests": [
+        "track3-native@sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "5ed05198f536c4c3f8e1577312491a1c36c275ad"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp"
+  ],
+  "source_unchanged_during_measurement": true,
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-s012-partial-fill-cancel-race"
+  ],
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize/result.json",
+  "result_sha256": "caec3d4ed6c75c76e39936f8d8977c9c76c4471074e98989ab02e4d8cbe9c359",
+  "timing_policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "counts": {
+    "accepted_runs": 36,
+    "timed_samples": 30,
+    "warmups": 6
+  },
+  "unit_outcomes": {
+    "t3-mr-deep-book-state-size": "correct-but-faster",
+    "t3-mp05-cancel-churn-newest": "correct-but-slower",
+    "t3-s012-partial-fill-cancel-race": "correct-but-faster"
+  },
+  "unit_results": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "median_container_seconds": {
+        "baseline": 0.651054174,
+        "candidate": 0.57853438
+      },
+      "time_change_pct": -11.138826367466004,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "median_container_seconds": {
+        "baseline": 0.476837902,
+        "candidate": 0.484320265
+      },
+      "time_change_pct": 1.5691628053509987,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "median_container_seconds": {
+        "baseline": 0.459449916,
+        "candidate": 0.442077186
+      },
+      "time_change_pct": -3.781202127807115,
+      "candidate_faster_pairs": 3
+    }
+  ],
+  "host_correctness_evidence": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize/host_checks.json",
+    "sha256": "3b90bb59ae678ac2b54606ae2718860a5bb166212fa54e2e96e84f902104b5a5"
+  },
+  "pinned_correctness_evidence": {
+    "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize/pinned_correctness.json",
+    "sha256": "ea554dcddf40cae014993ebd9ccba4260f4921d096e2b4d87bf9b1f55ddfdd76"
+  },
+  "log_paths": [
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/build.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt01.log",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt02.log"
+  ],
+  "log_sha256": {
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/build.log": "65b15747d204cc9fb29684f04de175c3fdb4288ba069208817caea966800bbe6",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt01.log": "39f0abe5d0fc665ab8e663f695f4107773f7d6389a0183bb696b743be80fe5cd",
+    "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt02.log": "f578442e71685c19c7c7c6bc2f93b1b3dae1640e060a4a979b33c336abf3e98f"
+  },
+  "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker",
+  "raw_result_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/result.json",
+  "summary_sha256": "a02fded71e65d76eeb2b2fd0d1103d3656969bd803f672e12521db890ee76f1a",
+  "failed_preflight_attempts": [
+    {
+      "attempt": 1,
+      "stage": "recipe interpreter path",
+      "docker_started": false,
+      "timing_started": false,
+      "exit_code": 127,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt01.log",
+      "reason": "The recipe failed to quote the checker Python path containing spaces; only recipe quoting changed."
+    }
+  ],
+  "failed_docker_outputs": 0,
+  "git_clean": true,
+  "docker_slot_released": true,
+  "notes": [
+    "No Docker operations were performed after the successful exclusive recipe returned.",
+    "Frozen production sources were not tuned after timing. Report-only commit follows the measured implementation commit.",
+    "No merge, cherry-pick, push, full71 regression or production adoption was performed."
+  ]
+}

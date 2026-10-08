@@ -1,0 +1,152 @@
+{
+  "executive_summary": "Untimed host structural counts and exact column comparisons; no speed evidence.",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_source_sha256": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+  "counts_only": true,
+  "rows": [
+    {
+      "name": "t3-coarse-tick-ties",
+      "baseline_exit": 0,
+      "deliveries": 63338,
+      "requeues": 128084,
+      "heap_pops": 191422,
+      "max_heap": 57,
+      "max_backlog": 17,
+      "max_recipient_backlog": 17,
+      "requeues_per_delivery": 2.0222299409517195
+    },
+    {
+      "name": "t3-eq-deterministic-baseline",
+      "baseline_exit": 0,
+      "deliveries": 18568,
+      "requeues": 8130,
+      "heap_pops": 26698,
+      "max_heap": 64,
+      "max_backlog": 32,
+      "max_recipient_backlog": 23,
+      "requeues_per_delivery": 0.4378500646273158
+    },
+    {
+      "name": "t3-mp07-heavy-flow-oldest",
+      "baseline_exit": 0,
+      "deliveries": 64131,
+      "requeues": 126,
+      "heap_pops": 64257,
+      "max_heap": 50,
+      "max_backlog": 2,
+      "max_recipient_backlog": 2,
+      "requeues_per_delivery": 0.00196472844646115
+    },
+    {
+      "name": "t3-gb-pop-horizon-scale",
+      "baseline_exit": 0,
+      "deliveries": 892129,
+      "requeues": 36987,
+      "heap_pops": 929116,
+      "max_heap": 309,
+      "max_backlog": 14,
+      "max_recipient_backlog": 7,
+      "requeues_per_delivery": 0.041459250848251764
+    },
+    {
+      "name": "t3-s001-price-time-priority",
+      "baseline_exit": 0,
+      "deliveries": 664,
+      "requeues": 38,
+      "heap_pops": 702,
+      "max_heap": 23,
+      "max_backlog": 2,
+      "max_recipient_backlog": 2,
+      "requeues_per_delivery": 0.0572289156626506
+    },
+    {
+      "name": "t3-s019-latency-jitter-kendall",
+      "baseline_exit": 0,
+      "deliveries": 15774,
+      "requeues": 23,
+      "heap_pops": 15797,
+      "max_heap": 31,
+      "max_backlog": 1,
+      "max_recipient_backlog": 1,
+      "requeues_per_delivery": 0.0014580956003550146
+    },
+    {
+      "name": "t3-eq001-pareto-latency-tail",
+      "baseline_exit": 0,
+      "deliveries": 21249,
+      "requeues": 1760,
+      "heap_pops": 23009,
+      "max_heap": 39,
+      "max_backlog": 12,
+      "max_recipient_backlog": 12,
+      "requeues_per_delivery": 0.08282742717304344
+    },
+    {
+      "name": "t3-s012-partial-fill-cancel-race",
+      "baseline_exit": 0,
+      "deliveries": 178236,
+      "requeues": 84132,
+      "heap_pops": 262368,
+      "max_heap": 40,
+      "max_backlog": 8,
+      "max_recipient_backlog": 8,
+      "requeues_per_delivery": 0.472025853362957
+    },
+    {
+      "name": "t3-gbatch-hetero-mix/sub_00_noise",
+      "baseline_exit": 0,
+      "deliveries": 7411,
+      "requeues": 3061,
+      "heap_pops": 10472,
+      "max_heap": 44,
+      "max_backlog": 6,
+      "max_recipient_backlog": 6,
+      "requeues_per_delivery": 0.4130346781810822
+    },
+    {
+      "name": "t3-gbatch-hetero-mix/sub_01_value",
+      "baseline_exit": 0,
+      "deliveries": 7305,
+      "requeues": 3279,
+      "heap_pops": 10584,
+      "max_heap": 47,
+      "max_backlog": 6,
+      "max_recipient_backlog": 6,
+      "requeues_per_delivery": 0.448870636550308
+    },
+    {
+      "name": "t3-gbatch-hetero-mix/sub_02_mm",
+      "baseline_exit": 0,
+      "deliveries": 21262,
+      "requeues": 9836,
+      "heap_pops": 31098,
+      "max_heap": 79,
+      "max_backlog": 11,
+      "max_recipient_backlog": 7,
+      "requeues_per_delivery": 0.4626093500141097
+    },
+    {
+      "name": "t3-gbatch-hetero-mix/sub_03_momentum",
+      "baseline_exit": 0,
+      "deliveries": 7331,
+      "requeues": 3425,
+      "heap_pops": 10756,
+      "max_heap": 47,
+      "max_backlog": 7,
+      "max_recipient_backlog": 7,
+      "requeues_per_delivery": 0.46719410721593235
+    },
+    {
+      "name": "t3-gbatch-hetero-mix/sub_04_base",
+      "baseline_exit": 0,
+      "deliveries": 7278,
+      "requeues": 3407,
+      "heap_pops": 10685,
+      "max_heap": 39,
+      "max_backlog": 6,
+      "max_recipient_backlog": 6,
+      "requeues_per_delivery": 0.4681231107447101
+    }
+  ],
+  "limitations": "Host arm64 libm dispatch. Not pinned Docker/Arrow byte checks or developer gates."
+}

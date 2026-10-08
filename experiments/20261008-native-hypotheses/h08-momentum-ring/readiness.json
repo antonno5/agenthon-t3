@@ -1,0 +1,82 @@
+{
+  "executive_summary": "The h08 momentum-ring candidate is frozen in one experimental commit. Host vector-reference, sanitizer, and complete native-column equivalence checks pass. Pinned Docker correctness and three-unit paired timing remain pending the orchestration grant.",
+  "slug": "h08-momentum-ring",
+  "branch": "codex/exp-20261008-h08-momentum-ring",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring",
+  "implementation_commit": "59d33ec60a3194dce02b5e15d09ca36cade75053",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp",
+    "baselines/native/momentum_history.hpp"
+  ],
+  "source_sha256": {
+    "baselines/native/engine.cpp": "f85696593e9b3dd3f1a799f5c596c81ebdb15eca7f28509a87aae691a7df2521",
+    "baselines/native/momentum_history.hpp": "58158e3aecac34be0002d50a220dcec038b18c8c2719d676d2f2048ac5134576"
+  },
+  "assigned_units": [
+    "t3-momentum-mix-priority",
+    "t3-ra05-shock-momentum-heavy",
+    "t3-sf-03-vol-clustering-momentum"
+  ],
+  "units": [
+    "t3-momentum-mix-priority",
+    "t3-ra05-shock-momentum-heavy",
+    "t3-sf-03-vol-clustering-momentum"
+  ],
+  "host_checks": {
+    "status": "passed",
+    "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "compiler": "Apple Clang 17.0.0",
+    "syntax_compile": "passed",
+    "vector_reference_lookbacks": [
+      1,
+      5,
+      12,
+      1024,
+      16384,
+      1000000
+    ],
+    "exact_bits_and_startup": "passed",
+    "multiple_wraps_and_retained_order": "passed",
+    "threshold_and_book_side_decisions": "passed",
+    "copy_move": "passed",
+    "address_and_undefined_sanitizers": "passed",
+    "engine_fixture_seeds": [
+      17,
+      767052790,
+      1007636279
+    ],
+    "engine_fixture_lookbacks": [
+      1,
+      5,
+      12,
+      1024
+    ],
+    "all_native_result_columns_exact": true,
+    "engine_fixture_bytes": 41407632,
+    "engine_fixture_sha256": "b23eb8a68594fbd18e20b1401660fbc0a4a9e02d5224f7f3c167cf39d356c8d8",
+    "raw_report": "out/h08-momentum-ring/host/host-checks.json",
+    "synthetic_fixture_performance": "not measured"
+  },
+  "host_checks_report": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/host/host-checks.json",
+  "pending_actual_docker_checks": [
+    "Pinned Linux/amd64 native extension build and runtime identity",
+    "Standalone ring reference checks on Linux/amd64",
+    "Native-only runs for exactly the three assigned public units",
+    "Exact bytes, schemas and ordered values for trace and message journals",
+    "Imported shared developer gates for every retained output",
+    "One excluded warmup per side and five fresh AB/BA timing pairs per unit"
+  ],
+  "docker_recipe": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/expirements/20261008-native-hypotheses/h08-momentum-ring/docker-recipe.json",
+  "result_file": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/expirements/20261008-native-hypotheses/h08-momentum-ring/result.json",
+  "report_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/expirements/20261008-native-hypotheses/h08-momentum-ring",
+  "raw_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring",
+  "docker_started": false,
+  "status": "ready",
+  "phase": 1,
+  "performance_claim": null,
+  "rankable": false,
+  "adopted": false,
+  "clean_worktree": true
+}

@@ -1,0 +1,131 @@
+{
+  "executive_summary": "All host tests passed under AddressSanitizer and UndefinedBehaviorSanitizer.",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_header_sha256": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+  "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: arm64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "candidate_source_sha256": {
+    "baselines/native/book.hpp": "99072d25fde6a11514eb7c53bad2db68147fb63889aabc4df852a48e2ce97a8f",
+    "baselines/native/tests/book_test.cpp": "0d8f531ad1fc77c2a0705daff6869639d9ea33600cc6fffae228db4135d5baf9",
+    "expirements/20261008-radical-hypotheses/h04-book-arena/book_differential.cpp": "31b7f5d2d3069b6625ccb90e7dea0c4ceb6a755e630145768d90b35d5c474270",
+    "expirements/20261008-radical-hypotheses/h04-book-arena/memory_probe.cpp": "8c07ca59d3c46a39a4a4b35ee74c6531ed8556072b2715dbcbccbc789d67636f"
+  },
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "tests": [
+    {
+      "test": "build-smoke",
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/baselines/native",
+        "-I",
+        "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-book-host-hz1iu3in",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/baselines/native/tests/book_test.cpp",
+        "-o",
+        "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-book-host-hz1iu3in/build-smoke"
+      ],
+      "stdout": "PASS: shared arena, FIFO, partial fills, cancellation validation, sparse prices\n",
+      "stderr": "",
+      "passed": true,
+      "metrics": null
+    },
+    {
+      "test": "differential",
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/baselines/native",
+        "-I",
+        "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-book-host-hz1iu3in",
+        "-DT3_BOOK_DIAGNOSTICS",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/book_differential.cpp",
+        "-o",
+        "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-book-host-hz1iu3in/differential"
+      ],
+      "stdout": "{\"passed\":true,\"generated_mutations\":80000,\"peak_active_orders\":1074,\"random_peak_candidate_payload_bytes\":258088,\"probe_active_orders\":14095,\"probe_candidate_payload_bytes\":1812080,\"probe_baseline_payload_bytes\":971544,\"newest_cancel\":{\"index_lookups\":1,\"fifo_unlinks\":1,\"radix_visits\":0,\"baseline_fifo_entries_inspected_from_reference_loop\":10000},\"middle_level\":{\"radix_visits\":24,\"index_lookups\":1,\"candidate_price_shifts\":0,\"baseline_logical_suffix_moves_insert_plus_remove\":4096}}\n",
+      "stderr": "",
+      "passed": true,
+      "metrics": {
+        "passed": true,
+        "generated_mutations": 80000,
+        "peak_active_orders": 1074,
+        "random_peak_candidate_payload_bytes": 258088,
+        "probe_active_orders": 14095,
+        "probe_candidate_payload_bytes": 1812080,
+        "probe_baseline_payload_bytes": 971544,
+        "newest_cancel": {
+          "index_lookups": 1,
+          "fifo_unlinks": 1,
+          "radix_visits": 0,
+          "baseline_fifo_entries_inspected_from_reference_loop": 10000
+        },
+        "middle_level": {
+          "radix_visits": 24,
+          "index_lookups": 1,
+          "candidate_price_shifts": 0,
+          "baseline_logical_suffix_moves_insert_plus_remove": 4096
+        }
+      }
+    },
+    {
+      "test": "memory-probe",
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/baselines/native",
+        "-I",
+        "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-gcc-format-memory-ywdmcuou",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/memory_probe.cpp",
+        "-o",
+        "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-gcc-format-memory-ywdmcuou/memory-probe"
+      ],
+      "stdout": "{\"passed\":true,\"orders\":14096,\"price_levels\":4097,\"candidate_live_requested_bytes\":1358112,\"candidate_peak_requested_bytes\":1415440,\"baseline_live_requested_bytes\":17521896,\"baseline_peak_requested_bytes\":17521896,\"allocator_metadata_and_rss_included\":false}\n",
+      "stderr": "",
+      "passed": true,
+      "metrics": {
+        "passed": true,
+        "orders": 14096,
+        "price_levels": 4097,
+        "candidate_live_requested_bytes": 1358112,
+        "candidate_peak_requested_bytes": 1415440,
+        "baseline_live_requested_bytes": 17521896,
+        "baseline_peak_requested_bytes": 17521896,
+        "allocator_metadata_and_rss_included": false
+      }
+    }
+  ],
+  "measurement_scope": "Host structure payload/capacity and operation counts; no container performance claims.",
+  "memory_probe_recheck_reason": "GCC -Werror formatting correction after retained Docker build attempt 01; semantics unchanged."
+}

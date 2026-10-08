@@ -1,0 +1,46 @@
+{
+  "slug": "h01-parquet-encoding",
+  "frozen_commit": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+  "image_id": "sha256:81cbb6b1ca47c83743669b66746448afc5739b9e6c2cd6028aa33450a31e996a",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "complete": true,
+  "accepted": true,
+  "pinned_checks": {
+    "status": "passed",
+    "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/pinned-01/checks.json",
+    "sha256": "8a2215265668ce02b4879442effcc538691f2d00549fde32ebe6659d95c3d6e2",
+    "comparisons": 114,
+    "stream_table_checks": 39,
+    "scope": "pinned Arrow15 writer correctness"
+  },
+  "controls": {
+    "status": "passed",
+    "path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/controls-01/summary.json",
+    "sha256": "08650481a7094c841df720362c8843d716eab1e950d6d3918a5d538f9e783e76",
+    "runs": 12,
+    "comparisons": 6
+  },
+  "baseline_runtime_audit": {
+    "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+    "arrow": "15.0.2",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "scipy": "1.17.1",
+    "native_path": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+    "native_sha256": "a40c10a6283278d3aca6bd0f1bddddf40aff73dd08368125f611419e4a075085"
+  },
+  "candidate_runtime_audit": {
+    "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+    "arrow": "15.0.2",
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "scipy": "1.17.1",
+    "native_path": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+    "native_sha256": "1ec76c7bc91ebdcdddc263100a3f9f588f597bed9a21e4a2a2b1cadc700bd864"
+  },
+  "pinned_compaction": {
+    "manifest": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/evidence/preflight/pinned-compaction.json",
+    "bytes_freed": 412180480
+  }
+}

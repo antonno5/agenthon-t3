@@ -1,0 +1,224 @@
+{
+  "executive_summary": "All selected markets have identical ordered trace and ledger columns under host ASan/UBSan.",
+  "passed": true,
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_source_sha256": {
+    "engine.cpp": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+    "engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d"
+  },
+  "candidate_source_sha256": {
+    "engine.cpp": "f12171da3b8b24187bc40b89cc564b4eaaa6b55d75a6a74cac78ab6e64d54247",
+    "engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "book.hpp": "99072d25fde6a11514eb7c53bad2db68147fb63889aabc4df852a48e2ce97a8f",
+    "rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d"
+  },
+  "commands": [
+    [
+      "clang++",
+      "-std=c++17",
+      "-O1",
+      "-g",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-Wall",
+      "-I",
+      "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-engine-host-1pmfc1cp/baseline",
+      "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-engine-host-1pmfc1cp/baseline/engine.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/engine_host.cpp",
+      "-o",
+      "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-engine-host-1pmfc1cp/baseline-engine"
+    ],
+    [
+      "clang++",
+      "-std=c++17",
+      "-O1",
+      "-g",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-Wall",
+      "-I",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/baselines/native",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/baselines/native/engine.cpp",
+      "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/engine_host.cpp",
+      "-o",
+      "/var/folders/dg/2xrnxpls1t740_dt0wsmywl40000gn/T/h04-engine-host-1pmfc1cp/candidate-engine"
+    ]
+  ],
+  "markets": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "market": "single",
+      "stp": 0,
+      "scenario_sha256": "ece8b904b0bca208e2736e85269934e5c799f5299119dca7490092f9db01dfb7",
+      "raw_columns_sha256": "2297e16878dd1f68f4091afe23113f5c3b1c2c3036b78da1b08b0579c1f08bb2",
+      "trace_rows": 319488,
+      "message_rows": 269644,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "market": "single",
+      "stp": 2,
+      "scenario_sha256": "0af9f298f191c4a33982852cf344b5dbe81475846beb274ca56a92f8c95a9183",
+      "raw_columns_sha256": "65da21d83902870b8032d436193511af0f9551f8bf533f9b16067e8356c3cfd1",
+      "trace_rows": 240829,
+      "message_rows": 205166,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "market": "single",
+      "stp": 0,
+      "scenario_sha256": "99a22e9dc9e8ffe21e6c207ff4a73fd0b2a76f6d419c3ee2141107405940f863",
+      "raw_columns_sha256": "8c2abeea5c34bc85dba3bc3872089887b4125efcaa3dc263d04aefa68c6948f8",
+      "trace_rows": 72250,
+      "message_rows": 66367,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "market": "single",
+      "stp": 0,
+      "scenario_sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b",
+      "raw_columns_sha256": "53bbece16cf7831849848788f8f178e99f8901565dfcc6c7da95242e31bea995",
+      "trace_rows": 604,
+      "message_rows": 664,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "market": "single",
+      "stp": 1,
+      "scenario_sha256": "a99cbdd359bb37854687a96d2d23446b5a9e603d435f7b18c42860ad704c6837",
+      "raw_columns_sha256": "7dcee642033d4a08aa1ed8745169de26586676215625b4e1472fc63a5fda7a8e",
+      "trace_rows": 72049,
+      "message_rows": 63623,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-partialfill-atomicity",
+      "market": "single",
+      "stp": 0,
+      "scenario_sha256": "551ece5f033cccbeba222215c7a82eeb526eeb06c582bfc71b4f3baba1839e3f",
+      "raw_columns_sha256": "5d412b03c33de0dc6fdb3f5e51acd272fd9d47579ac7eed84476de29f5f1cd1b",
+      "trace_rows": 72052,
+      "message_rows": 62955,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "market": "single",
+      "stp": 0,
+      "scenario_sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c",
+      "raw_columns_sha256": "9cc6d50076600bb97ff6c8e955d007800606bbd5b5a9ab8324b3b039f92d5271",
+      "trace_rows": 202291,
+      "message_rows": 178236,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "market": "sub_00_noise",
+      "stp": 0,
+      "scenario_sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177",
+      "raw_columns_sha256": "771b7cb96c854a3f009acb2371f000d5760cbabf2605a707f144224cc058345d",
+      "trace_rows": 8225,
+      "message_rows": 7411,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "market": "sub_01_value",
+      "stp": 0,
+      "scenario_sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7",
+      "raw_columns_sha256": "f3028eef80aac1148ff5ec5ec58d3e1d587c8e6c34f890536ff8888ce0b43a72",
+      "trace_rows": 8137,
+      "message_rows": 7305,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "market": "sub_02_mm",
+      "stp": 0,
+      "scenario_sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006",
+      "raw_columns_sha256": "35f8805633c8558c2aa9f1d3216f0894724d69f291d5a0b0b41e9b5b9b0ed2ee",
+      "trace_rows": 24065,
+      "message_rows": 21262,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "market": "sub_03_momentum",
+      "stp": 0,
+      "scenario_sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c",
+      "raw_columns_sha256": "95856290fab788cf1b79525f42e92c0e8f5ff9aea2d4259255c60b96a148bf62",
+      "trace_rows": 8147,
+      "message_rows": 7331,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "market": "sub_04_base",
+      "stp": 0,
+      "scenario_sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3",
+      "raw_columns_sha256": "c9787230f10b78748226dcc7ed140e8ad9cf4de63c37ec327e50a79d96c7e568",
+      "trace_rows": 8138,
+      "message_rows": 7278,
+      "all_19_columns_byte_equal": true,
+      "sanitizer_stderr": {
+        "baseline": "",
+        "candidate": ""
+      }
+    }
+  ],
+  "limitation": "Host arm64 libm; no Arrow output or shared gates. Pinned Linux/amd64 Docker correctness remains phase2."
+}

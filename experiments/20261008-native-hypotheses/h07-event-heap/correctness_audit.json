@@ -1,0 +1,21 @@
+{
+  "executive_summary": "All predeclared retained native outputs and exact comparisons passed. The complete AB/BA schedule and frozen source identities were audited after Docker finished.",
+  "status": "passed",
+  "scheduled_runs": 48,
+  "timed_samples": 40,
+  "excluded_warmups": 8,
+  "retained_journals": 96,
+  "developer_gate_checked_outputs": 48,
+  "actual_native_checked_outputs": 48,
+  "fresh_baseline_candidate_comparisons": 24,
+  "repeat_stability_comparisons": 40,
+  "all_bytes_schemas_ordered_values_equal": true,
+  "schedule_exact": true,
+  "source_unchanged": true,
+  "every_outlier_retained": true,
+  "selective_reruns": false,
+  "extra_repeats": false,
+  "no_docker_operations_after_slot_release": true,
+  "exact_journal_file_comparisons": 128,
+  "reference_journal_file_comparisons": 96
+}

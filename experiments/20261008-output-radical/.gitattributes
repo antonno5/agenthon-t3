@@ -1,0 +1,2 @@
+# Preserve the mandatory space on blank context lines in archived Git patches.
+**/implementation.patch whitespace=-blank-at-eol

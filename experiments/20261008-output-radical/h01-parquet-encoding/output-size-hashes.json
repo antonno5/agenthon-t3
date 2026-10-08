@@ -1,0 +1,325 @@
+{
+  "executive_summary": "Both exact decoded journals use changed physical encoding. Every timed and warmup digest matches its own accepted control; complete file sizes expose the storage tradeoff.",
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "journals": {
+        "baseline": {
+          "message_trace.parquet": {
+            "bytes": 33451495,
+            "sha256": "6b9363867695269d2849ea5c16c27d04ddf56abeb51a12c9e925437084d7097a",
+            "rows": 1420862,
+            "rowgroups": [
+              1048576,
+              372286
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-mega-throughput/warmup-00/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-00/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-01/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-02/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-03/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-04/baseline/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 11699814,
+            "sha256": "80e48cd5a0c28449e444960b087da5105b98f64470d4685714d6997031cfa6fc",
+            "rows": 1168360,
+            "rowgroups": [
+              1048576,
+              119784
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-mega-throughput/warmup-00/baseline/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-00/baseline/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-01/baseline/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-02/baseline/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-03/baseline/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-04/baseline/retained/trace.parquet"
+            ]
+          }
+        },
+        "candidate": {
+          "message_trace.parquet": {
+            "bytes": 34078739,
+            "sha256": "e9713947de295dadb30ee68ed199cde7a4c2589bafe3edaf703d6dad1995a57e",
+            "rows": 1420862,
+            "rowgroups": [
+              1048576,
+              372286
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-mega-throughput/warmup-00/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-00/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-01/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-02/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-03/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-04/candidate/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 13320598,
+            "sha256": "6df36721854cff42ec99f68a5f82df42b629a3f357e76caab19077d0e7da1eb6",
+            "rows": 1168360,
+            "rowgroups": [
+              1048576,
+              119784
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-mega-throughput/warmup-00/candidate/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-00/candidate/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-01/candidate/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-02/candidate/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-03/candidate/retained/trace.parquet",
+              "runs/t3-gb-mega-throughput/timing-04/candidate/retained/trace.parquet"
+            ]
+          }
+        }
+      },
+      "total_bytes": {
+        "baseline": 45151309,
+        "candidate": 47399337
+      },
+      "candidate_size_change_pct": 4.978876692146406,
+      "physical_byte_equal_between_sides": false
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "journals": {
+        "baseline": {
+          "message_trace.parquet": {
+            "bytes": 20710062,
+            "sha256": "3b8f667cf44385e09df41cb7cb97f41ad81e72b7f9ae77fa18f6189b2e658b11",
+            "rows": 892129,
+            "rowgroups": [
+              892129
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-pop-horizon-scale/warmup-00/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-00/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-01/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-02/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-03/baseline/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-04/baseline/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 7311104,
+            "sha256": "5bff5aa64fc916f62063c033a687a0783ba568b39e9c80f36699ff6b98553976",
+            "rows": 725591,
+            "rowgroups": [
+              725591
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-pop-horizon-scale/warmup-00/baseline/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-00/baseline/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-01/baseline/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-02/baseline/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-03/baseline/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-04/baseline/retained/trace.parquet"
+            ]
+          }
+        },
+        "candidate": {
+          "message_trace.parquet": {
+            "bytes": 21456695,
+            "sha256": "e36c7e34ce9ebabab6460384bf0a9cdfe82f57a7ebbd1a9d011f558da31295e3",
+            "rows": 892129,
+            "rowgroups": [
+              892129
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-pop-horizon-scale/warmup-00/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-00/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-01/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-02/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-03/candidate/retained/message_trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-04/candidate/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 8302283,
+            "sha256": "e49832ff290e55ea76f068d1bf42f40270e7a94907d02d03273c29acb26f3668",
+            "rows": 725591,
+            "rowgroups": [
+              725591
+            ],
+            "verified_run_paths": [
+              "runs/t3-gb-pop-horizon-scale/warmup-00/candidate/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-00/candidate/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-01/candidate/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-02/candidate/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-03/candidate/retained/trace.parquet",
+              "runs/t3-gb-pop-horizon-scale/timing-04/candidate/retained/trace.parquet"
+            ]
+          }
+        }
+      },
+      "total_bytes": {
+        "baseline": 28021166,
+        "candidate": 29758978
+      },
+      "candidate_size_change_pct": 6.201783323363497,
+      "physical_byte_equal_between_sides": false
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "journals": {
+        "baseline": {
+          "message_trace.parquet": {
+            "bytes": 7669002,
+            "sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+            "rows": 269644,
+            "rowgroups": [
+              269644
+            ],
+            "verified_run_paths": [
+              "runs/t3-mr-deep-book-state-size/warmup-00/baseline/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-00/baseline/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-01/baseline/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-02/baseline/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-03/baseline/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-04/baseline/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 2330078,
+            "sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+            "rows": 319488,
+            "rowgroups": [
+              319488
+            ],
+            "verified_run_paths": [
+              "runs/t3-mr-deep-book-state-size/warmup-00/baseline/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-00/baseline/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-01/baseline/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-02/baseline/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-03/baseline/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-04/baseline/retained/trace.parquet"
+            ]
+          }
+        },
+        "candidate": {
+          "message_trace.parquet": {
+            "bytes": 6573254,
+            "sha256": "d84050d46b5cef1f913fe5f72245966995e32f53cd6ee4af8f42d8fdd095e26b",
+            "rows": 269644,
+            "rowgroups": [
+              269644
+            ],
+            "verified_run_paths": [
+              "runs/t3-mr-deep-book-state-size/warmup-00/candidate/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-00/candidate/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-01/candidate/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-02/candidate/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-03/candidate/retained/message_trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-04/candidate/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 2456805,
+            "sha256": "cb17461af6c3e48ee6cc71cd18f761595c4f1af22ef2b6518fc2526ba40018b9",
+            "rows": 319488,
+            "rowgroups": [
+              319488
+            ],
+            "verified_run_paths": [
+              "runs/t3-mr-deep-book-state-size/warmup-00/candidate/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-00/candidate/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-01/candidate/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-02/candidate/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-03/candidate/retained/trace.parquet",
+              "runs/t3-mr-deep-book-state-size/timing-04/candidate/retained/trace.parquet"
+            ]
+          }
+        }
+      },
+      "total_bytes": {
+        "baseline": 9999080,
+        "candidate": 9030059
+      },
+      "candidate_size_change_pct": -9.691101581345485,
+      "physical_byte_equal_between_sides": false
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "journals": {
+        "baseline": {
+          "message_trace.parquet": {
+            "bytes": 26925,
+            "sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+            "rows": 664,
+            "rowgroups": [
+              664
+            ],
+            "verified_run_paths": [
+              "runs/t3-s001-price-time-priority/warmup-00/baseline/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-00/baseline/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-01/baseline/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-02/baseline/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-03/baseline/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-04/baseline/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 10242,
+            "sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+            "rows": 604,
+            "rowgroups": [
+              604
+            ],
+            "verified_run_paths": [
+              "runs/t3-s001-price-time-priority/warmup-00/baseline/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-00/baseline/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-01/baseline/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-02/baseline/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-03/baseline/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-04/baseline/retained/trace.parquet"
+            ]
+          }
+        },
+        "candidate": {
+          "message_trace.parquet": {
+            "bytes": 24099,
+            "sha256": "20b6aa8b83c8dfa22428a38f7be777293ac733536a356e30feb32011f45f862e",
+            "rows": 664,
+            "rowgroups": [
+              664
+            ],
+            "verified_run_paths": [
+              "runs/t3-s001-price-time-priority/warmup-00/candidate/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-00/candidate/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-01/candidate/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-02/candidate/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-03/candidate/retained/message_trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-04/candidate/retained/message_trace.parquet"
+            ]
+          },
+          "trace.parquet": {
+            "bytes": 10760,
+            "sha256": "e1f723b746e885631a6512ea937e819d5d57e2b5325958bccc39419ced3d8cd2",
+            "rows": 604,
+            "rowgroups": [
+              604
+            ],
+            "verified_run_paths": [
+              "runs/t3-s001-price-time-priority/warmup-00/candidate/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-00/candidate/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-01/candidate/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-02/candidate/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-03/candidate/retained/trace.parquet",
+              "runs/t3-s001-price-time-priority/timing-04/candidate/retained/trace.parquet"
+            ]
+          }
+        }
+      },
+      "total_bytes": {
+        "baseline": 37167,
+        "candidate": 34859
+      },
+      "candidate_size_change_pct": -6.209809777490783,
+      "physical_byte_equal_between_sides": false
+    }
+  ]
+}

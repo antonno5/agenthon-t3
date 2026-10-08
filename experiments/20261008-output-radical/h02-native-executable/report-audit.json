@@ -1,0 +1,502 @@
+{
+  "accepted": true,
+  "timing_count": 40,
+  "warmup_count": 8,
+  "accepted_run_count": 48,
+  "journal_comparison_records": 64,
+  "schema_metadata_ordered_values_and_bytes_equal": true,
+  "pair_order_verified": true,
+  "faster_pair_counts_recomputed": true,
+  "percentages_recomputed": true,
+  "source_freeze_verified": true,
+  "runtime_versions_equal": true,
+  "all_candidate_single_profiles_native_executable": true,
+  "all_file_digests_validated_by_unchanged_shared_runner": true,
+  "all_retained_parquet_nlink_one": true,
+  "runs": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "native": true,
+      "digest_declarations_match": true,
+      "file_single_link": true
+    }
+  ],
+  "result_sha256": "cfbface90cab3dd7c5e479e879003e20dacc3bccf229a975c5757a0b60c5ca1c",
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "report_script_sha256": "29361c46cc7fd18e36f2b0b69041b5fc06c77fc50be61bc1b4e92c007bbbef82"
+}

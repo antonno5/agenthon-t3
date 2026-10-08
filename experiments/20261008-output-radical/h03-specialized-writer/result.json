@@ -1,0 +1,739 @@
+{
+  "executive_summary": "Local paired comparison of one isolated native hypothesis. Positive time reduction means a shorter complete container run; all five samples and diagnostics are retained.",
+  "slug": "h03-specialized-writer",
+  "title": "Specialized fixed-schema Parquet writer",
+  "branch": "codex/exp-20261008-output-h03-specialized-writer",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer",
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "baseline_image_source_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "candidate_implementation_commit": "aa1d514e1aeb219f9d5633462b4bdbe616b63eea",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "comparison_policy": "semantic_exact",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "assigned_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-mr-deep-book-state-size",
+    "t3-s001-price-time-priority"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "digest": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "repo_digests": [
+        "track3-output-base@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5"
+    },
+    "candidate": {
+      "tag": "sha256:ee247fdabbdac307c51d983be703cce5d6b79a3149aa6979dc346040c78571f9",
+      "digest": "sha256:ee247fdabbdac307c51d983be703cce5d6b79a3149aa6979dc346040c78571f9",
+      "repo_digests": [
+        "track3-output-h03@sha256:ee247fdabbdac307c51d983be703cce5d6b79a3149aa6979dc346040c78571f9"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "aa1d514e1aeb219f9d5633462b4bdbe616b63eea"
+    }
+  },
+  "source_hashes": {
+    "baselines/Dockerfile": "ff1f5819f225de00e77b6e752a7453693f1391973ea9853335f06be31aad471a",
+    "baselines/_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
+    "baselines/abides_fork/__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
+    "baselines/abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+    "baselines/abides_fork/buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+    "baselines/abides_fork/components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+    "baselines/abides_fork/config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+    "baselines/abides_fork/native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+    "baselines/abides_fork/python_simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+    "baselines/abides_fork/scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+    "baselines/abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+    "baselines/abides_fork/simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+    "baselines/abides_fork/simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
+    "baselines/abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+    "baselines/build_and_validate.sh": "78f520fab0b119fb8a22d4be084990c9e5fa45081c18a2ac29cfacc5b5db9c69",
+    "baselines/build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+    "baselines/gpu_starter/Dockerfile": "4e19900297a83486ef13cabb33f93a372f821c27ed2ac412aa59a1672d5fae2c",
+    "baselines/gpu_starter/Dockerfile.verify": "2cc97a26dfb73011547f1c4880795b90edeeaef908e51e61a1869f001590bc21",
+    "baselines/gpu_starter/gpu_kernel_example.py": "34fa09601ff3ec04b538543d47a6056799400814f1468caedd126c4942fa28f8",
+    "baselines/gpu_starter/verify_gate.sh": "62d66eecdc3620018ecb0af2ef8e80d52b1cd9915d87c77c0b60cbafc82261de",
+    "baselines/install_matching.py": "9a121604ce1ca4979e2d9612d522b06189f7b4bc99e80079b5b76ed1464f8fd6",
+    "baselines/matching/__init__.py": "8daee28af9e91675b7abc70df84cf482f7c9edad0b7729770ef5f42a11fee91c",
+    "baselines/matching/facade.py": "fa509927ce37278c8bab7cb32d1100c21112878377f7221cd548209e0c682a35",
+    "baselines/matching/matcher.py": "ec1dc581710ca0b21d124d517654ab1f80d2cade3a7bcc4da5288005dad3e279",
+    "baselines/matching/price_level.py": "643927e00ef3c5bc658ef476a548bebefc03157b6268cc7ccf4a9f0328422809",
+    "baselines/matching/queries.py": "53692facde40a8bf5823b8dea304ace987c52576c92c77f4e466152cad117a1a",
+    "baselines/matching/state.py": "a2b877e6bf3d3efbe5d086f5b89ce0bdacea03c58489d28cf504a19ee7914df0",
+    "baselines/matching_compat/order_book.py": "563e8e0244fb0efdcfd7fa6a94419b85f07b5bbeaa3b4772106d5e66b27176dc",
+    "baselines/matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "dc8c366b36797b99a77c4fd409bd16c6b04e5842ffdb8e819ad25d6db1e9e544",
+    "baselines/native/pqwrite.hpp": "c4ca440f4566def5c19db00d9d57c3aca8a23e67344692f7aa5f10ffe811cd43",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/trace_stream.hpp": "a47143de34a01fa403b81cc28e1ff4ce8567f6997fc5a9e86f22c3ccdb663ef0",
+    "experiments/20261008-output-radical/h03-specialized-writer/Dockerfile": "8f58960969d4355aa6c32fed7917311f0efcbf8a1f4225abc317feea280c905a",
+    "experiments/20261008-output-radical/h03-specialized-writer/run_checks.py": "adad49d77b3a3e7b65fa8f8e3179f755cb477f1732877763a184b5890aad95d2",
+    "experiments/20261008-output-radical/h03-specialized-writer/tests/writer_probe.cpp": "a2862c1e9b05ef0e343f4c8638954b8d61f329de52c17a671458f82012298bc7"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "container_seconds_samples": {
+        "baseline": [
+          1.427739129,
+          1.897824724,
+          1.707164338,
+          1.48681553,
+          1.567736316
+        ],
+        "candidate": [
+          1.624086217,
+          1.658700743,
+          1.538814399,
+          1.754595431,
+          1.227936915
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 1.567736316,
+        "candidate": 1.624086217
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 1.427739129,
+          "candidate_seconds": 1.624086217,
+          "candidate_time_change_pct": 13.7523083882644
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 1.897824724,
+          "candidate_seconds": 1.658700743,
+          "candidate_time_change_pct": -12.599898082052807
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 1.707164338,
+          "candidate_seconds": 1.538814399,
+          "candidate_time_change_pct": -9.86137861790315
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 1.48681553,
+          "candidate_seconds": 1.754595431,
+          "candidate_time_change_pct": 18.010297551842225
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 1.567736316,
+          "candidate_seconds": 1.227936915,
+          "candidate_time_change_pct": -21.6745250800199
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": -3.5943481327123994,
+      "time_change_pct": 3.5943481327123994,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0028480460023274645,
+              0.00357684500340838,
+              0.005324983008904383,
+              0.00668835399847012,
+              0.00302902000839822
+            ],
+            "median": 0.00357684500340838
+          },
+          "hashing": {
+            "samples": [
+              0.15521772699139547,
+              0.18001240599551238,
+              0.18319179699756205,
+              0.16458063099707942,
+              0.16628362800111063
+            ],
+            "median": 0.16628362800111063
+          },
+          "parquet_write": {
+            "samples": [
+              0.3386999660071305,
+              0.45216746300443456,
+              0.28605521499169273,
+              0.323501079999596,
+              0.35453999499243727
+            ],
+            "median": 0.3386999660071305
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.576094803,
+              0.718936807,
+              0.635684689,
+              0.720870427,
+              0.640566491
+            ],
+            "median": 0.640566491
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.006283044000156224,
+              0.0040584959933767095,
+              0.0027945140027441084,
+              0.003789926995523274,
+              0.0026258059951942414
+            ],
+            "median": 0.003789926995523274
+          },
+          "hashing": {
+            "samples": [
+              0.2532407140097348,
+              0.1720363799977349,
+              0.18584427300083917,
+              0.17690251300518867,
+              0.14272700301080476
+            ],
+            "median": 0.17690251300518867
+          },
+          "parquet_write": {
+            "samples": [
+              0.24089835900215373,
+              0.27151869200334655,
+              0.22888836300052462,
+              0.463278322002317,
+              0.18295978899345722
+            ],
+            "median": 0.24089835900215373
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.716812525,
+              0.667086276,
+              0.70253936,
+              0.683303058,
+              0.543187988
+            ],
+            "median": 0.683303058
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "container_seconds_samples": {
+        "baseline": [
+          1.568122084,
+          0.773230823,
+          1.55502542,
+          0.987325476,
+          1.362449645
+        ],
+        "candidate": [
+          1.62516596,
+          1.267665309,
+          1.040056377,
+          0.902043415,
+          0.839774616
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 1.362449645,
+        "candidate": 1.040056377
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 1.568122084,
+          "candidate_seconds": 1.62516596,
+          "candidate_time_change_pct": 3.6377190642256085
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.773230823,
+          "candidate_seconds": 1.267665309,
+          "candidate_time_change_pct": 63.94397006597343
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 1.55502542,
+          "candidate_seconds": 1.040056377,
+          "candidate_time_change_pct": -33.11643889396998
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.987325476,
+          "candidate_seconds": 0.902043415,
+          "candidate_time_change_pct": -8.637684641290466
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 1.362449645,
+          "candidate_seconds": 0.839774616,
+          "candidate_time_change_pct": -38.36288782621394
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": 23.662765753078542,
+      "time_change_pct": -23.662765753078542,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0038937200006330386,
+              0.002545480994740501,
+              0.003954404004616663,
+              0.0027089249924756587,
+              0.00607453599513974
+            ],
+            "median": 0.0038937200006330386
+          },
+          "hashing": {
+            "samples": [
+              0.097727610002039,
+              0.10120934700535145,
+              0.15839304399560206,
+              0.10060757400060538,
+              0.10827518498990685
+            ],
+            "median": 0.10120934700535145
+          },
+          "parquet_write": {
+            "samples": [
+              0.44823503199189496,
+              0.360903876999707,
+              0.49898319699598187,
+              0.2794556500022817,
+              0.29551278100913103
+            ],
+            "median": 0.360903876999707
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.412702856,
+              0.342069574,
+              0.40070217,
+              0.280713895,
+              0.367787403
+            ],
+            "median": 0.367787403
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.005918415990890935,
+              0.0026000910002039745,
+              0.0036682619975181296,
+              0.00263018200348597,
+              0.002227557997684926
+            ],
+            "median": 0.00263018200348597
+          },
+          "hashing": {
+            "samples": [
+              0.11613622200093232,
+              0.2994479410117492,
+              0.10681970200676005,
+              0.10129852499812841,
+              0.09150727400265168
+            ],
+            "median": 0.10681970200676005
+          },
+          "parquet_write": {
+            "samples": [
+              0.2592737600016002,
+              0.38169883798830645,
+              0.290425816998283,
+              0.24071852699315432,
+              0.17938329000288822
+            ],
+            "median": 0.2592737600016002
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.592227872,
+              0.277949822,
+              0.324954492,
+              0.281892334,
+              0.270643768
+            ],
+            "median": 0.281892334
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "container_seconds_samples": {
+        "baseline": [
+          0.986891137,
+          0.571321679,
+          0.945881456,
+          0.880315342,
+          0.566180147
+        ],
+        "candidate": [
+          0.693958189,
+          0.71177518,
+          0.672939543,
+          0.789513599,
+          1.017591469
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.880315342,
+        "candidate": 0.71177518
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.986891137,
+          "candidate_seconds": 0.693958189,
+          "candidate_time_change_pct": -29.68239727944786
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.571321679,
+          "candidate_seconds": 0.71177518,
+          "candidate_time_change_pct": 24.58396139384027
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.945881456,
+          "candidate_seconds": 0.672939543,
+          "candidate_time_change_pct": -28.855826622739066
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.880315342,
+          "candidate_seconds": 0.789513599,
+          "candidate_time_change_pct": -10.314683689790794
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.566180147,
+          "candidate_seconds": 1.017591469,
+          "candidate_time_change_pct": 79.72927422338603
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": 19.145430501880313,
+      "time_change_pct": -19.145430501880313,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.004236841996316798,
+              0.002071214999887161,
+              0.002619443999719806,
+              0.0047376830043504015,
+              0.004534849998890422
+            ],
+            "median": 0.004236841996316798
+          },
+          "hashing": {
+            "samples": [
+              0.04834004100121092,
+              0.04249233700102195,
+              0.048399010993307456,
+              0.05246336100390181,
+              0.04055045401037205
+            ],
+            "median": 0.04834004100121092
+          },
+          "parquet_write": {
+            "samples": [
+              0.19898886300632077,
+              0.16377472700426698,
+              0.31339982100920494,
+              0.2341954389899314,
+              0.1602978360015582
+            ],
+            "median": 0.19898886300632077
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.232800892,
+              0.115831004,
+              0.200307433,
+              0.20063514,
+              0.148414835
+            ],
+            "median": 0.200307433
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0024678299960214645,
+              0.00362586799019482,
+              0.0021584889909718186,
+              0.003819429999566637,
+              0.002968746004626155
+            ],
+            "median": 0.002968746004626155
+          },
+          "hashing": {
+            "samples": [
+              0.04069658801017795,
+              0.041224596003303304,
+              0.036879357998259366,
+              0.04559529399557505,
+              0.059599785003229044
+            ],
+            "median": 0.041224596003303304
+          },
+          "parquet_write": {
+            "samples": [
+              0.15222631099579953,
+              0.16066203500364454,
+              0.12163569901121749,
+              0.1477593160041727,
+              0.3457455470012203
+            ],
+            "median": 0.15222631099579953
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.174017557,
+              0.192730995,
+              0.190926623,
+              0.238121476,
+              0.226820966
+            ],
+            "median": 0.192730995
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "container_seconds_samples": {
+        "baseline": [
+          0.306434908,
+          0.331892843,
+          0.337544499,
+          0.35483838,
+          0.291527348
+        ],
+        "candidate": [
+          0.366030513,
+          0.394645936,
+          0.458773995,
+          0.378855781,
+          0.324827978
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.331892843,
+        "candidate": 0.378855781
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.306434908,
+          "candidate_seconds": 0.366030513,
+          "candidate_time_change_pct": 19.44804702211016
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.331892843,
+          "candidate_seconds": 0.394645936,
+          "candidate_time_change_pct": 18.907636703693555
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.337544499,
+          "candidate_seconds": 0.458773995,
+          "candidate_time_change_pct": 35.915115298620215
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.35483838,
+          "candidate_seconds": 0.378855781,
+          "candidate_time_change_pct": 6.768546570413259
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.291527348,
+          "candidate_seconds": 0.324827978,
+          "candidate_time_change_pct": 11.422815124706576
+        }
+      ],
+      "candidate_faster_pairs": 0,
+      "time_reduction_pct": -14.150030345788455,
+      "time_change_pct": 14.150030345788455,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002196065994212404,
+              0.0023878200008766726,
+              0.0026697470020735636,
+              0.002274497994221747,
+              0.002128969004843384
+            ],
+            "median": 0.002274497994221747
+          },
+          "hashing": {
+            "samples": [
+              0.00251999800093472,
+              0.0025690319889690727,
+              0.0025651829928392544,
+              0.0024331090098712593,
+              0.0021943720057606697
+            ],
+            "median": 0.00251999800093472
+          },
+          "parquet_write": {
+            "samples": [
+              0.057517568996332105,
+              0.07258415800660378,
+              0.06822844500157203,
+              0.06825281900030963,
+              0.052148469998649354
+            ],
+            "median": 0.06822844500157203
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.004376213,
+              0.004692119,
+              0.005160032,
+              0.004658945,
+              0.004339932
+            ],
+            "median": 0.004658945
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0020456810016185045,
+              0.0021100080048199743,
+              0.0027096660051029176,
+              0.0027637010061880574,
+              0.0019361859885975718
+            ],
+            "median": 0.0021100080048199743
+          },
+          "hashing": {
+            "samples": [
+              0.0025062170025194064,
+              0.002888558999984525,
+              0.002559982007369399,
+              0.0030733689927728847,
+              0.002660595011548139
+            ],
+            "median": 0.002660595011548139
+          },
+          "parquet_write": {
+            "samples": [
+              0.11060404900424249,
+              0.12890683400232864,
+              0.2028966499870687,
+              0.12327994000381666,
+              0.10342885500088517
+            ],
+            "median": 0.12327994000381666
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.004200737,
+              0.004455293,
+              0.005487629,
+              0.004640464,
+              0.00432146
+            ],
+            "median": 0.004455293
+          }
+        }
+      }
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/phase2-timing",
+  "summary_sha256": "f01292bd2cf6110a1079a261ac3685b610d972068139a8a89bedfeff82c1a45c",
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null
+}

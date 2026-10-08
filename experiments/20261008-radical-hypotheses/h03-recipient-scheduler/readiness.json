@@ -1,0 +1,40 @@
+{
+  "executive_summary": "The isolated recipient scheduler and host differential tests are ready for coordinator-dispatched pinned Docker checks and paired timing.",
+  "state": "ready",
+  "phase": 1,
+  "slug": "h03-recipient-scheduler",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler",
+  "branch": "codex/exp-20261008-radical-h03-recipient-scheduler",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "timing_units": [
+    "t3-coarse-tick-ties",
+    "t3-eq-deterministic-baseline",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gb-pop-horizon-scale",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s019-latency-jitter-kendall",
+    "t3-eq001-pareto-latency-tail",
+    "t3-mp07-heavy-flow-oldest",
+    "t3-gbatch-hetero-mix"
+  ],
+  "selection_change": "Move s012 to timing and mp07 to correctness-only based on untimed requeue counts. Coordinator must synchronize these arrays into the shared plan before phase2.",
+  "test_evidence": "test_evidence.json",
+  "scheduler_checks": "scheduler_checks.json",
+  "full_sim_checks": "host_sim_checks.json",
+  "structural_counts": "structural_counts.json",
+  "source_hashes": {
+    "baselines/native/engine.cpp": "20c65a8ce3c8a6cf1ce4fda6112c120fc059d55c45773fc816d065117fc3356f",
+    "baselines/native/scheduler.hpp": "245819f0ed9b634d2dc051352d6407e4ae93c1bdabcc43a1ffe20a0ee9c8f2f3"
+  },
+  "commit_identity": "Coordinator READY file records the immutable commit containing this readiness document.",
+  "pinned_docker_correctness": "pending phase2",
+  "paired_timing": "pending phase2",
+  "docker_actions_in_phase1": 0,
+  "shared_corpus_mutations": 0,
+  "production_adoption": false,
+  "manifest_checks": "manifest_checks.json",
+  "selected_manifest_and_firewall_passed": true,
+  "baseline_sources_clean": true
+}

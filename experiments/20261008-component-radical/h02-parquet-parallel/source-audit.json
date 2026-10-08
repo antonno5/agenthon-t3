@@ -1,0 +1,46 @@
+{
+  "executive_summary": "Arrow 15.0.2 parallelizes only buffered RecordBatch columns. A shared two-worker executor keeps both writers within the four-CPU single-market budget.",
+  "tag": "apache-arrow-15.0.2",
+  "sources": {
+    "parquet/arrow/writer.cc": {
+      "url": "https://raw.githubusercontent.com/apache/arrow/apache-arrow-15.0.2/cpp/src/parquet/arrow/writer.cc",
+      "sha256": "d7c082285577d0009b413fb9033d2e8c1a0988c36613a5a625494c298b4c35a6",
+      "bytes": 23616
+    },
+    "parquet/properties.h": {
+      "url": "https://raw.githubusercontent.com/apache/arrow/apache-arrow-15.0.2/cpp/src/parquet/properties.h",
+      "sha256": "4982df117905ff2fb697c695aabf79ca40dbb18003bb300d97cd4d22b5fb4243",
+      "bytes": 45676
+    },
+    "arrow/util/parallel.h": {
+      "url": "https://raw.githubusercontent.com/apache/arrow/apache-arrow-15.0.2/cpp/src/arrow/util/parallel.h",
+      "sha256": "899067d02ec791084634a113e564d7089d857ed72bc82640c811b0720eea46fa",
+      "bytes": 3616
+    },
+    "parquet/file_writer.cc": {
+      "url": "https://raw.githubusercontent.com/apache/arrow/apache-arrow-15.0.2/cpp/src/parquet/file_writer.cc",
+      "sha256": "70ececc056171aecc7d5004886c6e4f8bbb9fc2feb9f2320524bd50758491aec",
+      "bytes": 24901
+    },
+    "parquet/column_writer.cc": {
+      "url": "https://raw.githubusercontent.com/apache/arrow/apache-arrow-15.0.2/cpp/src/parquet/column_writer.cc",
+      "sha256": "4fdbd33bd74c8dd5bb8b930ef5e8d3b400079e25c63aa1cfbcb859b489080880",
+      "bytes": 99854
+    }
+  },
+  "findings": [
+    "WriteTable calls NewRowGroup and writes column chunks serially even with use_threads enabled.",
+    "WriteRecordBatch prepares distinct column writers/contexts and calls ParallelFor with the configured executor.",
+    "ParallelFor submits all column tasks and awaits every future status before returning normal task errors. Input array/OwnedBuffers storage therefore outlives tasks.",
+    "No caller or pipeline dispatcher is scheduled inside the encoder executor; the nested-executor deadlock warned about in properties.h is avoided.",
+    "Buffered row group column writers keep independent state; row-group Close serializes column writers in schema order.",
+    "Dense UTF8 and integers still use progressive encoder dictionaries; no dictionary array or precomputed vocabulary is introduced.",
+    "Dictionary page limit, data page limit, write_batch_size=1024, 64Mi property maximum and actual 1Mi groups remain unchanged.",
+    "Pending column tasks are bounded by at most two synchronous writer calls times 7/10 columns; three ledger buffers and existing backpressure remain unchanged."
+  ],
+  "limitations": [
+    "Pool creation/shutdown infrastructure failures are not fault-injected.",
+    "Single market caller contract: pool capacity is shared process-wide but unrelated concurrent run_write callers are outside the frozen runner contract.",
+    "Host Arrow25 checks are preliminary; pinned Arrow15 byte checks remain required."
+  ]
+}

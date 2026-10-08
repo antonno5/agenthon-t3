@@ -1,0 +1,14 @@
+{
+  "baselines/build_executable.py": "f6477b2586b8c04faf035bab1876b277eead99f002e5b8c5e7a7b4b8ffb61939",
+  "baselines/native/cli.cpp": "03616a8111fa7b966aacbc82ae9b922eafbcf22340c77135b06b1320b6ec63a4",
+  "baselines/native/scenario.hpp": "87a57e627ec24a8ddbae620281255939464d4ae4526ce09f0668456bfa25149b",
+  "baselines/native/vendor/json.hpp": "9bea4c8066ef4a1c206b2be5a36302f8926f7fdc6087af5d20b417d0cf103ea6",
+  "baselines/native/vendor/README.md": "5070a59dff2ee073b7cc6659f4ef7a369da3f0a7f77c11421e0443367fc7d372",
+  "baselines/native/vendor/LICENSE.json": "62176251affdda17bece4ddd44271d68019e2448ca721d2c1af4c650f29c9898",
+  "experiments/20261008-output-radical/h02-native-executable/Dockerfile": "2539888a187c3db67819b11b30919f40c2f008ffee8c1dc8483ddb0f743c97f3",
+  "experiments/20261008-output-radical/h02-native-executable/tests/mapper.cpp": "48a625d4126e4c8a049f7117bd25c3b6de1daadaaf550fea7dc84703648c4731",
+  "experiments/20261008-output-radical/h02-native-executable/tests/check_mapping.py": "ac5118676fff472763b97be1fda0a0717453989947966835fa72f7a45ed2bab2",
+  "baselines/native/sha256.hpp": "feb021c09075101a9194dd9b03e303eda66f66e777fe0a73c523e7dacefd0a17",
+  "experiments/20261008-output-radical/h02-native-executable/tests/sha_check.cpp": "b206e074022d2cc4ff49f4bc2d0eff7648f181d63925743fa4960b94d864fa9d",
+  "experiments/20261008-output-radical/h02-native-executable/tests/check_cli_boundaries.py": "109189c1135ca53b8fc672d21fb71b319462e6836f474c772e04af2d04014963"
+}

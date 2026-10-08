@@ -1,0 +1,46 @@
+{
+  "executive_summary": "All four isolated experiments and their evidence are archived; production sources are unchanged.",
+  "adopted": false,
+  "experiments": [
+    {
+      "slug": "h01-parquet-encoding",
+      "candidate_commit": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+      "branch": "codex/exp-20261008-output-h01-parquet-encoding",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding",
+      "thread_id": "01a11bdf-cd99-7c02-b920-439c2b3f9ae5",
+      "result_sha256": "8e747502663fdae6d7dca2f1264f27c484d6ad0538386e66c43b9b8eb567b179",
+      "implementation_patch_sha256": "9a96e8aa2b0ce08dbec2164d62839a91ce4ab628a61934150fb202bd0b69f257",
+      "archived_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-output-radical/h01-parquet-encoding"
+    },
+    {
+      "slug": "h02-native-executable",
+      "candidate_commit": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "branch": "codex/exp-20261008-output-h02-native-executable",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable",
+      "thread_id": "01a11bdf-d1a7-7410-9fd1-4faa7d3ac27c",
+      "result_sha256": "cfbface90cab3dd7c5e479e879003e20dacc3bccf229a975c5757a0b60c5ca1c",
+      "implementation_patch_sha256": "035c704c0008e2579293870a30adaf787aa9cbd702ce346a2b4e040d861f3c23",
+      "archived_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-output-radical/h02-native-executable"
+    },
+    {
+      "slug": "h03-specialized-writer",
+      "candidate_commit": "aa1d514e1aeb219f9d5633462b4bdbe616b63eea",
+      "branch": "codex/exp-20261008-output-h03-specialized-writer",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer",
+      "thread_id": "01a11bdf-d64e-7f42-80fe-a9ce585e9b9f",
+      "result_sha256": "6b1c9066a3b0acedbc78b764f8909d1627c9dcf588caa778396585af24b5a17b",
+      "implementation_patch_sha256": "01602482967c34b9b7383970a43c50ac8825f018454430b76205b85ac4a7680f",
+      "archived_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-output-radical/h03-specialized-writer"
+    },
+    {
+      "slug": "h04-lifecycle-pipeline",
+      "candidate_commit": "3cb8784279483ce8ba7206d937ee2fddd109f786",
+      "branch": "codex/exp-20261008-output-h04-lifecycle-pipeline",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline",
+      "thread_id": "01a11bdf-d993-7830-b9af-23de3240d67d",
+      "result_sha256": "c105f0586905092c9d0b6b771b6858d6c05df90cec5dc04d7b84468221916ab7",
+      "implementation_patch_sha256": "d58d6533165ded3f42eaeef80f9aae9acbf3405a5806761242f03585bafd7699",
+      "archived_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-output-radical/h04-lifecycle-pipeline"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "executive_summary": "Build the H01 candidate and check pinned writer fixtures using cached immutable images, only after coordinator starts Phase 2.",
+  "phase1_docker_operations": 0,
+  "working_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding",
+  "exclusive_lock_wrapper": [
+    "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/docker_slot.py",
+    "--"
+  ],
+  "candidate_tag": "track3-output-h01:encoding",
+  "build_argv": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "build",
+    "--network=none",
+    "--platform=linux/amd64",
+    "-f",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding/experiments/20261008-output-radical/h01-parquet-encoding/Dockerfile",
+    "-t",
+    "track3-output-h01:encoding",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding"
+  ],
+  "base_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "pinned_check_argv": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--network=none",
+    "--cpus=4",
+    "--memory=16g",
+    "--memory-swap=16g",
+    "-v",
+    "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h01-parquet-encoding:/work",
+    "-w",
+    "/work",
+    "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+    "python",
+    "experiments/20261008-output-radical/h01-parquet-encoding/tests/check.py",
+    "--out",
+    "experiments/20261008-output-radical/h01-parquet-encoding/evidence/pinned-01"
+  ],
+  "runtime_checks": [
+    "Freeze image ID and audit pinned pyarrow15.0.2/runtime dependency versions and native extension digest.",
+    "Pinned fixture checks before shared controls; repair failures before first timing series.",
+    "Use shared run_focused.py --controls-only for all six predefined units.",
+    "Run shared run_focused.py once for four timing units, exactly five pairs and one excluded warmup each side."
+  ],
+  "diagnostics": [
+    "Collect existing profile phase clocks per market and retain all samples; core includes producer backpressure and is not matcher-only.",
+    "Compare full run total Parquet bytes and each journal bytes with fresh baseline controls; preserve each own digest, schema metadata and rowgroup/column encoding descriptions.",
+    "No additional component timing series or codec selection after performance inspection."
+  ],
+  "comparison": "semantic_exact",
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-mr-deep-book-state-size",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gbatch-hetero-mix"
+  ],
+  "encoding_policy": {
+    "executive_summary": "Use cheaper physical Parquet encoding without changing decoded journals.",
+    "frozen_before_timing": true,
+    "codec": "SNAPPY",
+    "codec_reason": "Already supported by pinned Arrow15 and used in the baseline; fast compression avoids uncompressed IO expansion and adds no dependency or codec sweep.",
+    "dictionary_columns": [
+      "msg_type",
+      "side"
+    ],
+    "all_other_columns_dictionary": false,
+    "write_statistics": false,
+    "unchanged": [
+      "Arrow15.0.2 writer",
+      "DataPageV1",
+      "Parquet2.6",
+      "schema metadata",
+      "nulls",
+      "decoded values/order",
+      "1024-row write batches",
+      "1048576-row groups",
+      "65536-row message blocks",
+      "encoder pool size 2",
+      "launcher",
+      "staging and journal digest publication"
+    ],
+    "selection_method": "reasoned policy, no synthetic timing or scenario sweeps"
+  },
+  "image_binding": "BuildKit rejects FROM image IDs. Resolve local runtime/builder tags to the specified immutable IDs before and after build inside the same exclusive slot; run all checks and samples by immutable IDs.",
+  "base_tag": "track3-output-base:ff2c1d6",
+  "builder_tag": "track3-output-base-builder:ff2c1d6"
+}

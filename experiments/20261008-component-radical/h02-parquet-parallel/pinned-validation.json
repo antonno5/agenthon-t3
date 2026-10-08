@@ -1,0 +1,1638 @@
+{
+  "executive_summary": "Isolated writer byte/schema/value checks, concurrent writer checks, ASan/UBSan and binding cleanup checks passed.",
+  "scope": "pinned correctness",
+  "python": "3.11.17 (main, Oct  6 2026, 02:02:21) [GCC 14.2.0]",
+  "arrow": "15.0.2",
+  "sanitizer_library_scope": "Instrumented own native/test sources; bundled Arrow/Parquet libraries are not instrumented.",
+  "comparisons": [
+    {
+      "mode": "regular",
+      "fixture": "1-messages-stream.parquet",
+      "sha256": "59e1779fb34a4a8ae3be7574f72f0df7a8c3a3c787bd5de59d1f4f3d431d493d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1-messages-table.parquet",
+      "sha256": "59e1779fb34a4a8ae3be7574f72f0df7a8c3a3c787bd5de59d1f4f3d431d493d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1-trace.parquet",
+      "sha256": "b7bc48cfb644412dc03c757f057555ca413e0899574d07759f4c7fa135781f6d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1023-messages-stream.parquet",
+      "sha256": "350e84f2c0d5950707aa6ed58daf8455d8114438b80cb24f6f5ef6ad4fec9a17",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1023-messages-table.parquet",
+      "sha256": "350e84f2c0d5950707aa6ed58daf8455d8114438b80cb24f6f5ef6ad4fec9a17",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1023-trace.parquet",
+      "sha256": "46bdc346192640080571cce32be76727900b138ac5988179ef2823b329430cad",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1024-messages-stream.parquet",
+      "sha256": "0ba658b220ee45fde25a654655d1599a3f2cc8a5a18704a6b5f356f5db9ea473",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1024-messages-table.parquet",
+      "sha256": "0ba658b220ee45fde25a654655d1599a3f2cc8a5a18704a6b5f356f5db9ea473",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1024-trace.parquet",
+      "sha256": "d3e6dd13b3473e2081ba3e480d3e6adf34ea5f8d52393456a66677d875245e89",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1025-messages-stream.parquet",
+      "sha256": "95df636a9e00e41681398cfcdf0afd3ece9bbac915d21a3b278ec3817bb4e61d",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1025-messages-table.parquet",
+      "sha256": "95df636a9e00e41681398cfcdf0afd3ece9bbac915d21a3b278ec3817bb4e61d",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1025-trace.parquet",
+      "sha256": "16ad453d9b6e06de9cbc9d51a086180340e09e9aafb4ab4c94bb699ec00d6e39",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048575-messages-stream.parquet",
+      "sha256": "7a1200ce495920988ca69822f789356f34bdd62e81e6b965d54731d54aaafd37",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048575-messages-table.parquet",
+      "sha256": "7a1200ce495920988ca69822f789356f34bdd62e81e6b965d54731d54aaafd37",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048575-trace.parquet",
+      "sha256": "6c76d59aeb40af40b8c5a0734ad9ac4dad559d45b627fede525da5ba0f90dc85",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048576-messages-stream.parquet",
+      "sha256": "66eb7a2a5073e645846acb640fa3fe2c60cf4f3f4642c0e80f0647d71c2e2b7d",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048576-messages-table.parquet",
+      "sha256": "66eb7a2a5073e645846acb640fa3fe2c60cf4f3f4642c0e80f0647d71c2e2b7d",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048576-trace.parquet",
+      "sha256": "6a09a86d0db7657616f006ffe138c5aa8a45eb1b811b9e0bb6c6588bac38fe90",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048577-messages-stream.parquet",
+      "sha256": "0668e430cc40e94ccbad56f1833db132346a99822690763786da102cd5adb6da",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048577-messages-table.parquet",
+      "sha256": "0668e430cc40e94ccbad56f1833db132346a99822690763786da102cd5adb6da",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "1048577-trace.parquet",
+      "sha256": "6a00f434bce6dea137e68b95401c59d8f0c2200ae594d7e25208ee8683b1a6e8",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "2098689-messages-stream.parquet",
+      "sha256": "85db3a10b76eb5d0476a8115585d8f13f1f62520b5790c3702c0fbacca9781a6",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "2098689-messages-table.parquet",
+      "sha256": "85db3a10b76eb5d0476a8115585d8f13f1f62520b5790c3702c0fbacca9781a6",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "2098689-trace.parquet",
+      "sha256": "3d15a5f5e1dc29f8119944f9e83386c5368a9ffd9cf6067e93a6ee3529f0eb5c",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65535-messages-stream.parquet",
+      "sha256": "6e108c979aedd24a01aa01af666b2fef090b72a2c848ae1c0e48c94b56130289",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65535-messages-table.parquet",
+      "sha256": "6e108c979aedd24a01aa01af666b2fef090b72a2c848ae1c0e48c94b56130289",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65535-trace.parquet",
+      "sha256": "912c4258de088b8fc398e7d70b2ac20ad717c34a9239e3205658e2e541bc2a1e",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65536-messages-stream.parquet",
+      "sha256": "f7c0849ddadcef0c26c5fdfd480a9666bd7c5bbb0a7ac3a10984db3086e5c98d",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65536-messages-table.parquet",
+      "sha256": "f7c0849ddadcef0c26c5fdfd480a9666bd7c5bbb0a7ac3a10984db3086e5c98d",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65536-trace.parquet",
+      "sha256": "54791685623331e97d0d20b86e369331c946f0261e5b533eada308dcdb94a3d7",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65537-messages-stream.parquet",
+      "sha256": "734c092b29209a815bfb7dbc60865b748c4e283236acb6312facd5e3ef2c521c",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65537-messages-table.parquet",
+      "sha256": "734c092b29209a815bfb7dbc60865b748c4e283236acb6312facd5e3ef2c521c",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "65537-trace.parquet",
+      "sha256": "335d17faaadbeeb0340fccfe8e6c57b3d4c62805cd253898f921a14ebab828c6",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "errors.parquet",
+      "sha256": "59e1779fb34a4a8ae3be7574f72f0df7a8c3a3c787bd5de59d1f4f3d431d493d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-1-stream.parquet",
+      "sha256": "52e04893a904ab1daf012315998457ec2aaaa92f8ad92fe29408843281d98428",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-1-table.parquet",
+      "sha256": "52e04893a904ab1daf012315998457ec2aaaa92f8ad92fe29408843281d98428",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-2-stream.parquet",
+      "sha256": "506ea94a18f8f420f396423b85218fa671daa2a6e2a050d6e13cc32e8425ddb5",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "null-2-table.parquet",
+      "sha256": "506ea94a18f8f420f396423b85218fa671daa2a6e2a050d6e13cc32e8425ddb5",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "vocabulary-0.parquet",
+      "sha256": "d7aaba07967e2418655da2e1822e94eda01e1f42a5f36131febd3746fb4edd95",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "regular",
+      "fixture": "vocabulary-1.parquet",
+      "sha256": "a54330015daa0502871173ea11c1deda55d25f663479873bef25af5c958bf0f7",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1-messages-stream.parquet",
+      "sha256": "59e1779fb34a4a8ae3be7574f72f0df7a8c3a3c787bd5de59d1f4f3d431d493d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1-messages-table.parquet",
+      "sha256": "59e1779fb34a4a8ae3be7574f72f0df7a8c3a3c787bd5de59d1f4f3d431d493d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1-trace.parquet",
+      "sha256": "b7bc48cfb644412dc03c757f057555ca413e0899574d07759f4c7fa135781f6d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1023-messages-stream.parquet",
+      "sha256": "350e84f2c0d5950707aa6ed58daf8455d8114438b80cb24f6f5ef6ad4fec9a17",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1023-messages-table.parquet",
+      "sha256": "350e84f2c0d5950707aa6ed58daf8455d8114438b80cb24f6f5ef6ad4fec9a17",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1023-trace.parquet",
+      "sha256": "46bdc346192640080571cce32be76727900b138ac5988179ef2823b329430cad",
+      "rows": 1023,
+      "rowgroups": [
+        1023
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1024-messages-stream.parquet",
+      "sha256": "0ba658b220ee45fde25a654655d1599a3f2cc8a5a18704a6b5f356f5db9ea473",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1024-messages-table.parquet",
+      "sha256": "0ba658b220ee45fde25a654655d1599a3f2cc8a5a18704a6b5f356f5db9ea473",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1024-trace.parquet",
+      "sha256": "d3e6dd13b3473e2081ba3e480d3e6adf34ea5f8d52393456a66677d875245e89",
+      "rows": 1024,
+      "rowgroups": [
+        1024
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1025-messages-stream.parquet",
+      "sha256": "95df636a9e00e41681398cfcdf0afd3ece9bbac915d21a3b278ec3817bb4e61d",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1025-messages-table.parquet",
+      "sha256": "95df636a9e00e41681398cfcdf0afd3ece9bbac915d21a3b278ec3817bb4e61d",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1025-trace.parquet",
+      "sha256": "16ad453d9b6e06de9cbc9d51a086180340e09e9aafb4ab4c94bb699ec00d6e39",
+      "rows": 1025,
+      "rowgroups": [
+        1025
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048575-messages-stream.parquet",
+      "sha256": "7a1200ce495920988ca69822f789356f34bdd62e81e6b965d54731d54aaafd37",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048575-messages-table.parquet",
+      "sha256": "7a1200ce495920988ca69822f789356f34bdd62e81e6b965d54731d54aaafd37",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048575-trace.parquet",
+      "sha256": "6c76d59aeb40af40b8c5a0734ad9ac4dad559d45b627fede525da5ba0f90dc85",
+      "rows": 1048575,
+      "rowgroups": [
+        1048575
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048576-messages-stream.parquet",
+      "sha256": "66eb7a2a5073e645846acb640fa3fe2c60cf4f3f4642c0e80f0647d71c2e2b7d",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048576-messages-table.parquet",
+      "sha256": "66eb7a2a5073e645846acb640fa3fe2c60cf4f3f4642c0e80f0647d71c2e2b7d",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048576-trace.parquet",
+      "sha256": "6a09a86d0db7657616f006ffe138c5aa8a45eb1b811b9e0bb6c6588bac38fe90",
+      "rows": 1048576,
+      "rowgroups": [
+        1048576
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048577-messages-stream.parquet",
+      "sha256": "0668e430cc40e94ccbad56f1833db132346a99822690763786da102cd5adb6da",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048577-messages-table.parquet",
+      "sha256": "0668e430cc40e94ccbad56f1833db132346a99822690763786da102cd5adb6da",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "1048577-trace.parquet",
+      "sha256": "6a00f434bce6dea137e68b95401c59d8f0c2200ae594d7e25208ee8683b1a6e8",
+      "rows": 1048577,
+      "rowgroups": [
+        1048576,
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "2098689-messages-stream.parquet",
+      "sha256": "85db3a10b76eb5d0476a8115585d8f13f1f62520b5790c3702c0fbacca9781a6",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "2098689-messages-table.parquet",
+      "sha256": "85db3a10b76eb5d0476a8115585d8f13f1f62520b5790c3702c0fbacca9781a6",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "2098689-trace.parquet",
+      "sha256": "3d15a5f5e1dc29f8119944f9e83386c5368a9ffd9cf6067e93a6ee3529f0eb5c",
+      "rows": 2098689,
+      "rowgroups": [
+        1048576,
+        1048576,
+        1537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65535-messages-stream.parquet",
+      "sha256": "6e108c979aedd24a01aa01af666b2fef090b72a2c848ae1c0e48c94b56130289",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65535-messages-table.parquet",
+      "sha256": "6e108c979aedd24a01aa01af666b2fef090b72a2c848ae1c0e48c94b56130289",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65535-trace.parquet",
+      "sha256": "912c4258de088b8fc398e7d70b2ac20ad717c34a9239e3205658e2e541bc2a1e",
+      "rows": 65535,
+      "rowgroups": [
+        65535
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65536-messages-stream.parquet",
+      "sha256": "f7c0849ddadcef0c26c5fdfd480a9666bd7c5bbb0a7ac3a10984db3086e5c98d",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65536-messages-table.parquet",
+      "sha256": "f7c0849ddadcef0c26c5fdfd480a9666bd7c5bbb0a7ac3a10984db3086e5c98d",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65536-trace.parquet",
+      "sha256": "54791685623331e97d0d20b86e369331c946f0261e5b533eada308dcdb94a3d7",
+      "rows": 65536,
+      "rowgroups": [
+        65536
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65537-messages-stream.parquet",
+      "sha256": "734c092b29209a815bfb7dbc60865b748c4e283236acb6312facd5e3ef2c521c",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65537-messages-table.parquet",
+      "sha256": "734c092b29209a815bfb7dbc60865b748c4e283236acb6312facd5e3ef2c521c",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "65537-trace.parquet",
+      "sha256": "335d17faaadbeeb0340fccfe8e6c57b3d4c62805cd253898f921a14ebab828c6",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "errors.parquet",
+      "sha256": "59e1779fb34a4a8ae3be7574f72f0df7a8c3a3c787bd5de59d1f4f3d431d493d",
+      "rows": 1,
+      "rowgroups": [
+        1
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-1-stream.parquet",
+      "sha256": "52e04893a904ab1daf012315998457ec2aaaa92f8ad92fe29408843281d98428",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-1-table.parquet",
+      "sha256": "52e04893a904ab1daf012315998457ec2aaaa92f8ad92fe29408843281d98428",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-2-stream.parquet",
+      "sha256": "506ea94a18f8f420f396423b85218fa671daa2a6e2a050d6e13cc32e8425ddb5",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "null-2-table.parquet",
+      "sha256": "506ea94a18f8f420f396423b85218fa671daa2a6e2a050d6e13cc32e8425ddb5",
+      "rows": 65537,
+      "rowgroups": [
+        65537
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "vocabulary-0.parquet",
+      "sha256": "d7aaba07967e2418655da2e1822e94eda01e1f42a5f36131febd3746fb4edd95",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "fixture": "vocabulary-1.parquet",
+      "sha256": "a54330015daa0502871173ea11c1deda55d25f663479873bef25af5c958bf0f7",
+      "rows": 131073,
+      "rowgroups": [
+        131073
+      ],
+      "byte_equal": true,
+      "schema_equal": true,
+      "ordered_values_equal": true
+    }
+  ],
+  "stream_table_checks": [
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "baseline",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "regular",
+      "side": "candidate",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "baseline",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1048575-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1048576-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1048577-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "2098689-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1024-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "65537-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1023-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "null-2-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "65535-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "null-1-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "65536-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1025-messages-table.parquet",
+      "byte_equal": true
+    },
+    {
+      "mode": "asan-ubsan",
+      "side": "candidate",
+      "fixture": "1-messages-table.parquet",
+      "byte_equal": true
+    }
+  ],
+  "bindings": {
+    "baseline": {
+      "t3-s001-price-time-priority": {
+        "buffer_sha256": "eb252999b1b8515a4d386b18cb7583e801fbf89b4bed58238ce436dd1e086a88",
+        "n_events": 604,
+        "n_messages": 664
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "buffer_sha256": "5c22995ad0872376107995283f916a9757c2b7065397f7a33fd3ee4fcbee634c",
+        "n_events": 202291,
+        "n_messages": 178236
+      },
+      "t3-gbatch-hetero-mix/sub_00_noise": {
+        "buffer_sha256": "29f60cfeb3dc1a6bf5400bec0921f933261ba0637179afd46481bfb01a6eb403",
+        "n_events": 8225,
+        "n_messages": 7411
+      },
+      "t3-gbatch-hetero-mix/sub_01_value": {
+        "buffer_sha256": "9e82fabf51d6a005282461d134e203ab6d198da23ecc07d0ee6e908e76643eca",
+        "n_events": 8137,
+        "n_messages": 7305
+      },
+      "t3-gbatch-hetero-mix/sub_02_mm": {
+        "buffer_sha256": "74f488e1ed658d07d5d83d90c43b0a35b5d8b651058d2c1ecd56836b617fe78f",
+        "n_events": 24065,
+        "n_messages": 21262
+      },
+      "t3-gbatch-hetero-mix/sub_03_momentum": {
+        "buffer_sha256": "685642b61c30c3a92709e93bd197bb340e7b1a99c96e150794be726fe0c2166c",
+        "n_events": 8147,
+        "n_messages": 7331
+      },
+      "t3-gbatch-hetero-mix/sub_04_base": {
+        "buffer_sha256": "a7cb14275e7a6e7876413d905324d58057a3936617ac177d2c4819d50582d59d",
+        "n_events": 8138,
+        "n_messages": 7278
+      },
+      "empty-controls": "passed",
+      "exception-controls": "passed"
+    },
+    "candidate": {
+      "t3-s001-price-time-priority": {
+        "buffer_sha256": "eb252999b1b8515a4d386b18cb7583e801fbf89b4bed58238ce436dd1e086a88",
+        "n_events": 604,
+        "n_messages": 664
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "buffer_sha256": "5c22995ad0872376107995283f916a9757c2b7065397f7a33fd3ee4fcbee634c",
+        "n_events": 202291,
+        "n_messages": 178236
+      },
+      "t3-gbatch-hetero-mix/sub_00_noise": {
+        "buffer_sha256": "29f60cfeb3dc1a6bf5400bec0921f933261ba0637179afd46481bfb01a6eb403",
+        "n_events": 8225,
+        "n_messages": 7411
+      },
+      "t3-gbatch-hetero-mix/sub_01_value": {
+        "buffer_sha256": "9e82fabf51d6a005282461d134e203ab6d198da23ecc07d0ee6e908e76643eca",
+        "n_events": 8137,
+        "n_messages": 7305
+      },
+      "t3-gbatch-hetero-mix/sub_02_mm": {
+        "buffer_sha256": "74f488e1ed658d07d5d83d90c43b0a35b5d8b651058d2c1ecd56836b617fe78f",
+        "n_events": 24065,
+        "n_messages": 21262
+      },
+      "t3-gbatch-hetero-mix/sub_03_momentum": {
+        "buffer_sha256": "685642b61c30c3a92709e93bd197bb340e7b1a99c96e150794be726fe0c2166c",
+        "n_events": 8147,
+        "n_messages": 7331
+      },
+      "t3-gbatch-hetero-mix/sub_04_base": {
+        "buffer_sha256": "a7cb14275e7a6e7876413d905324d58057a3936617ac177d2c4819d50582d59d",
+        "n_events": 8138,
+        "n_messages": 7278
+      },
+      "empty-controls": "passed",
+      "exception-controls": "passed"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "fde55c5cce3c98411b5b99b4e4d449b6ba8844f4faf96d1aa3deb093f9138719",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "0ec1fcb3b60b308d2419f7b5b64b016bc059aad4f4a21defb45253770b1ce42e",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "commands": [
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-I/checks/reference-native",
+      "-I/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/checks/reference-native/pqwrite.cpp\"",
+      "/worktree/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/checks/reference-native/engine.cpp",
+      "-L/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-l:libparquet.so.1500",
+      "-l:libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/checks/regular/baseline/writer-probe"
+    ],
+    [
+      "/checks/regular/baseline/writer-probe",
+      "/checks/regular/baseline/journals"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-I/worktree/baselines/native",
+      "-I/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/worktree/baselines/native/pqwrite.cpp\"",
+      "/worktree/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/worktree/baselines/native/engine.cpp",
+      "-L/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-l:libparquet.so.1500",
+      "-l:libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/checks/regular/candidate/writer-probe"
+    ],
+    [
+      "/checks/regular/candidate/writer-probe",
+      "/checks/regular/candidate/journals"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-I/worktree/baselines/native",
+      "/worktree/baselines/native/tests/pipeline_test.cpp",
+      "-o",
+      "/checks/regular/pipeline-test"
+    ],
+    [
+      "/checks/regular/pipeline-test"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-I/checks/reference-native",
+      "-I/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/checks/reference-native/pqwrite.cpp\"",
+      "/worktree/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/checks/reference-native/engine.cpp",
+      "-L/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-l:libparquet.so.1500",
+      "-l:libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/checks/asan-ubsan/baseline/writer-probe"
+    ],
+    [
+      "/checks/asan-ubsan/baseline/writer-probe",
+      "/checks/asan-ubsan/baseline/journals"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-I/worktree/baselines/native",
+      "-I/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-DPQSOURCE=\"/worktree/baselines/native/pqwrite.cpp\"",
+      "/worktree/experiments/20261008-component-radical/h02-parquet-parallel/tests/writer_probe.cpp",
+      "/worktree/baselines/native/engine.cpp",
+      "-L/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-l:libparquet.so.1500",
+      "-l:libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/checks/asan-ubsan/candidate/writer-probe"
+    ],
+    [
+      "/checks/asan-ubsan/candidate/writer-probe",
+      "/checks/asan-ubsan/candidate/journals"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-I/worktree/baselines/native",
+      "/worktree/baselines/native/tests/pipeline_test.cpp",
+      "-o",
+      "/checks/asan-ubsan/pipeline-test"
+    ],
+    [
+      "/checks/asan-ubsan/pipeline-test"
+    ],
+    [
+      "gcc",
+      "-c",
+      "/worktree/baselines/native/svml/svml_z0_log_d_la.s",
+      "-o",
+      "/checks/bindings/baseline/svml.o"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-shared",
+      "-fPIC",
+      "-I/checks/reference-native",
+      "-I/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-I/usr/local/include/python3.11",
+      "/checks/reference-native/engine.cpp",
+      "/checks/reference-native/pqwrite.cpp",
+      "/checks/reference-native/module.cpp",
+      "/checks/reference-native/nplog.cpp",
+      "/checks/bindings/baseline/svml.o",
+      "-L/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-l:libparquet.so.1500",
+      "-l:libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/checks/bindings/baseline/_t3engine.cpython-311-x86_64-linux-gnu.so"
+    ],
+    [
+      "/usr/local/bin/python",
+      "/worktree/experiments/20261008-component-radical/h02-parquet-parallel/tests/binding_worker.py",
+      "--module-dir",
+      "/checks/bindings/baseline",
+      "--corpus",
+      "/corpus",
+      "--out",
+      "/checks/binding-results/baseline",
+      "--adapter-dir",
+      "/worktree/baselines"
+    ],
+    [
+      "gcc",
+      "-c",
+      "/worktree/baselines/native/svml/svml_z0_log_d_la.s",
+      "-o",
+      "/checks/bindings/candidate/svml.o"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-strict-aliasing",
+      "-Wall",
+      "-pthread",
+      "-shared",
+      "-fPIC",
+      "-I/worktree/baselines/native",
+      "-I/usr/local/lib/python3.11/site-packages/pyarrow/include",
+      "-I/usr/local/include/python3.11",
+      "/worktree/baselines/native/engine.cpp",
+      "/worktree/baselines/native/pqwrite.cpp",
+      "/worktree/baselines/native/module.cpp",
+      "/worktree/baselines/native/nplog.cpp",
+      "/checks/bindings/candidate/svml.o",
+      "-L/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-l:libparquet.so.1500",
+      "-l:libarrow.so.1500",
+      "-Wl,-rpath,/usr/local/lib/python3.11/site-packages/pyarrow",
+      "-o",
+      "/checks/bindings/candidate/_t3engine.cpython-311-x86_64-linux-gnu.so"
+    ],
+    [
+      "/usr/local/bin/python",
+      "/worktree/experiments/20261008-component-radical/h02-parquet-parallel/tests/binding_worker.py",
+      "--module-dir",
+      "/checks/bindings/candidate",
+      "--corpus",
+      "/corpus",
+      "--out",
+      "/checks/binding-results/candidate",
+      "--adapter-dir",
+      "/worktree/baselines"
+    ]
+  ]
+}

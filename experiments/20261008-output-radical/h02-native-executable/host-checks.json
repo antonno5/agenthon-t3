@@ -1,0 +1,70 @@
+{
+  "phase": 1,
+  "passed": true,
+  "mapping_checks": 70,
+  "mapping_float_policy": "exact binary64 hex",
+  "public_configs": [
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority/scenario.json",
+      "sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq-deterministic-baseline/scenario.json",
+      "sha256": "a7443084be120140edbaed8db5fd1363c827292ff8b765e277c9b705fb955947"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-multilevel-crossing/scenario.json",
+      "sha256": "99a22e9dc9e8ffe21e6c207ff4a73fd0b2a76f6d419c3ee2141107405940f863"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gb-mega-throughput/scenario.json",
+      "sha256": "af565789aeb35a1c70e39dee4f067563d1bdd0e605c2a470c7ab4079d2e34fab"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s012-partial-fill-cancel-race/scenario.json",
+      "sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq001-pareto-latency-tail/scenario.json",
+      "sha256": "0db4f8f6062a99647434b66ed3abc1f73e08eb680b8455f6a8c95b87db16bc42"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_00_noise.json",
+      "sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_01_value.json",
+      "sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_02_mm.json",
+      "sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_03_momentum.json",
+      "sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c"
+    },
+    {
+      "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_04_base.json",
+      "sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3"
+    }
+  ],
+  "unchanged_core_sources": {
+    "baselines/native/engine.cpp": true,
+    "baselines/native/engine.hpp": true,
+    "baselines/native/rng.hpp": true,
+    "baselines/native/message_pipeline.hpp": true,
+    "baselines/native/pqwrite.cpp": true,
+    "baselines/native/pqwrite.hpp": true,
+    "baselines/native/nplog.cpp": true,
+    "baselines/native/nplog.hpp": true,
+    "baselines/native/svml/svml_z0_log_d_la.s": true
+  },
+  "cli_syntax": "clang++ -std=c++17 -fsyntax-only -Wall -Ibaselines/native baselines/native/cli.cpp: exit 0",
+  "python_ast": "passed",
+  "git_diff_check": "passed",
+  "docker_operations": 0,
+  "parquet_byte_equality": "pending required Phase 2",
+  "numpy_dispatch": "ARM host matching injected libm; real x86 dispatch pending Phase 2",
+  "openssl_provider_revision": "Uses pinned EVP SHA256; runtime checks pending"
+}

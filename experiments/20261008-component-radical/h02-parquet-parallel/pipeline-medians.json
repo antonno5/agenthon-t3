@@ -1,0 +1,101 @@
+{
+  "executive_summary": "Pipeline clocks are overlapping medians, not additive elapsed times; producer waits and dispatcher idle are separate from encoding.",
+  "units": {
+    "t3-gb-mega-throughput": {
+      "baseline": {
+        "engine_including_producer_wait_seconds": 0.72409698,
+        "producer_wait_seconds": 0.33055120000000004,
+        "ledger_write_callbacks_seconds": 0.639208924,
+        "ledger_close_seconds": 0.098434367,
+        "trace_write_seconds": 0.31809731,
+        "finish_wait_seconds": 0.099381401,
+        "ledger_dispatcher_idle_seconds": 0.38793121999999997,
+        "ledger_callback_count": 22,
+        "producer_submit_count": 22
+      },
+      "candidate": {
+        "engine_including_producer_wait_seconds": 0.613590926,
+        "producer_wait_seconds": 0.22166591500000002,
+        "ledger_write_callbacks_seconds": 0.47852581099999997,
+        "ledger_close_seconds": 0.098644169,
+        "trace_write_seconds": 0.271229578,
+        "finish_wait_seconds": 0.099584077,
+        "ledger_dispatcher_idle_seconds": 0.402516584,
+        "ledger_callback_count": 22,
+        "producer_submit_count": 22
+      }
+    },
+    "t3-gb-pop-horizon-scale": {
+      "baseline": {
+        "engine_including_producer_wait_seconds": 0.312260679,
+        "producer_wait_seconds": 0.059445363999999994,
+        "ledger_write_callbacks_seconds": 0.256796042,
+        "ledger_close_seconds": 0.111063237,
+        "trace_write_seconds": 0.202193479,
+        "finish_wait_seconds": 0.111951981,
+        "ledger_dispatcher_idle_seconds": 0.24349152000000002,
+        "ledger_callback_count": 14,
+        "producer_submit_count": 14
+      },
+      "candidate": {
+        "engine_including_producer_wait_seconds": 0.269004437,
+        "producer_wait_seconds": 0.015610482999999996,
+        "ledger_write_callbacks_seconds": 0.16062163499999998,
+        "ledger_close_seconds": 0.13660537,
+        "trace_write_seconds": 0.143852324,
+        "finish_wait_seconds": 0.137731946,
+        "ledger_dispatcher_idle_seconds": 0.240425331,
+        "ledger_callback_count": 14,
+        "producer_submit_count": 14
+      }
+    },
+    "t3-gb-horizon-240s": {
+      "baseline": {
+        "engine_including_producer_wait_seconds": 0.261184261,
+        "producer_wait_seconds": 0.076416592,
+        "ledger_write_callbacks_seconds": 0.214967139,
+        "ledger_close_seconds": 0.123573954,
+        "trace_write_seconds": 0.14763697,
+        "finish_wait_seconds": 0.124962198,
+        "ledger_dispatcher_idle_seconds": 0.181953988,
+        "ledger_callback_count": 11,
+        "producer_submit_count": 11
+      },
+      "candidate": {
+        "engine_including_producer_wait_seconds": 0.19603186,
+        "producer_wait_seconds": 0.018481208,
+        "ledger_write_callbacks_seconds": 0.124407615,
+        "ledger_close_seconds": 0.099190431,
+        "trace_write_seconds": 0.113701235,
+        "finish_wait_seconds": 0.100658341,
+        "ledger_dispatcher_idle_seconds": 0.174544138,
+        "ledger_callback_count": 11,
+        "producer_submit_count": 11
+      }
+    },
+    "t3-mr-deep-book-state-size": {
+      "baseline": {
+        "engine_including_producer_wait_seconds": 0.130975474,
+        "producer_wait_seconds": 0.018063064,
+        "ledger_write_callbacks_seconds": 0.11995246999999999,
+        "ledger_close_seconds": 0.043002971,
+        "trace_write_seconds": 0.08821216,
+        "finish_wait_seconds": 0.043929967,
+        "ledger_dispatcher_idle_seconds": 0.088685032,
+        "ledger_callback_count": 5,
+        "producer_submit_count": 5
+      },
+      "candidate": {
+        "engine_including_producer_wait_seconds": 0.128172347,
+        "producer_wait_seconds": 8.76e-07,
+        "ledger_write_callbacks_seconds": 0.086486992,
+        "ledger_close_seconds": 0.04763587,
+        "trace_write_seconds": 0.067228675,
+        "finish_wait_seconds": 0.049706113,
+        "ledger_dispatcher_idle_seconds": 0.08980322,
+        "ledger_callback_count": 5,
+        "producer_submit_count": 5
+      }
+    }
+  }
+}

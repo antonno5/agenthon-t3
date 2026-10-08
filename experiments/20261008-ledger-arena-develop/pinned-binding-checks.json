@@ -1,0 +1,91 @@
+{
+  "executive_summary": "Pinned binding and journal checks passed.",
+  "binding": {
+    "baseline": {
+      "t3-s001-price-time-priority": {
+        "buffer_sha256": "eb252999b1b8515a4d386b18cb7583e801fbf89b4bed58238ce436dd1e086a88",
+        "n_events": 604,
+        "n_messages": 664
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "buffer_sha256": "5c22995ad0872376107995283f916a9757c2b7065397f7a33fd3ee4fcbee634c",
+        "n_events": 202291,
+        "n_messages": 178236
+      },
+      "empty-controls": "passed",
+      "exception-controls": "passed"
+    },
+    "candidate": {
+      "t3-s001-price-time-priority": {
+        "buffer_sha256": "eb252999b1b8515a4d386b18cb7583e801fbf89b4bed58238ce436dd1e086a88",
+        "n_events": 604,
+        "n_messages": 664
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "buffer_sha256": "5c22995ad0872376107995283f916a9757c2b7065397f7a33fd3ee4fcbee634c",
+        "n_events": 202291,
+        "n_messages": 178236
+      },
+      "empty-controls": "passed",
+      "exception-controls": "passed"
+    }
+  },
+  "comparisons": {
+    "t3-s001-price-time-priority/trace.parquet": {
+      "left": "/checks/baseline/t3-s001-price-time-priority/trace.parquet",
+      "right": "/checks/candidate/t3-s001-price-time-priority/trace.parquet",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "left_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+      "right_sha256": "09a87aa12b27f0dee85322812e7fa85810e5a09f369aaa297c2a58a9a3ef3c53",
+      "left_rows": 604,
+      "right_rows": 604,
+      "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+      "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+      "field_schema_equal": true
+    },
+    "t3-s001-price-time-priority/message_trace.parquet": {
+      "left": "/checks/baseline/t3-s001-price-time-priority/message_trace.parquet",
+      "right": "/checks/candidate/t3-s001-price-time-priority/message_trace.parquet",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "left_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+      "right_sha256": "ee1a9e4f1951c5b5af6576436235383dc66dd8c5ee11063b990afe87e432942c",
+      "left_rows": 664,
+      "right_rows": 664,
+      "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+      "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+      "field_schema_equal": true
+    },
+    "t3-s012-partial-fill-cancel-race/trace.parquet": {
+      "left": "/checks/baseline/t3-s012-partial-fill-cancel-race/trace.parquet",
+      "right": "/checks/candidate/t3-s012-partial-fill-cancel-race/trace.parquet",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "left_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+      "right_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+      "left_rows": 202291,
+      "right_rows": 202291,
+      "left_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+      "right_schema": "t_ns: int64\nagent_id: int32\nmsg_type: string\nside: string\nprice: int64\nsize: int64\norder_id: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 842",
+      "field_schema_equal": true
+    },
+    "t3-s012-partial-fill-cancel-race/message_trace.parquet": {
+      "left": "/checks/baseline/t3-s012-partial-fill-cancel-race/message_trace.parquet",
+      "right": "/checks/candidate/t3-s012-partial-fill-cancel-race/message_trace.parquet",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "left_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+      "right_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+      "left_rows": 178236,
+      "right_rows": 178236,
+      "left_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+      "right_schema": "seq: int64\nt_recv_ns: int64\nt_send_ns: int64\nlatency_ns: int64\nsrc_id: int32\ndst_id: int32\nmessage_id: int64\nmsg_type: string\norder_id: int64\ncausal_parent: int64\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 1212",
+      "field_schema_equal": true
+    }
+  }
+}

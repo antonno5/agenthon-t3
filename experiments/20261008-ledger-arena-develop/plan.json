@@ -1,0 +1,59 @@
+{
+  "executive_summary": "Combine ledger streaming and arena order book in develop, then compare fresh paired runs with the previous develop revision. Both journals must remain exactly equal.",
+  "base_commit": "18af3d5b56c017bc7297a5f0aa38a449043c97a6",
+  "baseline_source_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "baseline_tag": "track3-radical-base:a7fb6c3",
+  "baseline_source_equivalent": true,
+  "corpus": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units",
+  "checker_python": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/.venv/bin/python",
+  "report_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/expirements/20261008-ledger-arena-develop",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "correctness": "Exact bytes, schema, ordered values for BOTH journals plus unchanged shared developer gates; assert actual native engine every market.",
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": false,
+    "phase1": "Combined implementation committed before image build and correctness validation."
+  },
+  "experiments": [
+    {
+      "slug": "combined-ledger-arena",
+      "title": "Ledger pipeline + arena order book",
+      "branch": "codex/develop",
+      "worktree": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public",
+      "units": [
+        "t3-gb-mega-throughput",
+        "t3-gb-pop-horizon-scale",
+        "t3-gb-horizon-240s",
+        "t3-mr-deep-book-state-size",
+        "t3-mp05-cancel-churn-newest",
+        "t3-multilevel-crossing",
+        "t3-s001-price-time-priority"
+      ],
+      "correctness_only_units": [
+        "t3-s012-partial-fill-cancel-race",
+        "t3-gbatch-hetero-mix",
+        "t3-mp02-stp-oldest-baseline",
+        "t3-partialfill-atomicity"
+      ]
+    }
+  ],
+  "shared_docker_slot": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/docker_slot.py"
+}

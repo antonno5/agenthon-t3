@@ -1,0 +1,768 @@
+{
+  "executive_summary": "Uninstrumented engine-only measurements on frozen H3 timing inputs; every pair and outlier is retained.",
+  "versions": {
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "pyarrow": "15.0.2",
+    "scipy": "1.17.1",
+    "python": "3.11.17"
+  },
+  "rankable": false,
+  "warmups_per_side": 1,
+  "pairs": 5,
+  "order": [
+    "AB",
+    "BA",
+    "AB",
+    "BA",
+    "AB"
+  ],
+  "timer_boundary": "Executive summary: measure the engine alone in one fixed pinned paired campaign.\n\nThe timer excludes input parsing, trace finalization and Parquet output. It\nincludes engine initialization, event ordering, all ledger column appends,\nagent lifecycle/quote logs, handlers, RNG and destruction of the Sim state.\nResult column destruction occurs after the timer on both sides.",
+  "binary_sha256": {
+    "base": "b7164d403fecec15abc3f5c25d5ae92a1646c190529315fb8b9bed82860ee7ed",
+    "candidate": "3763bcc2b65fed6f7e59bdd18b0cc796f5dd3d748f09e7f52cd5e65e6a3bf5e3"
+  },
+  "records": [
+    {
+      "name": "t3-gb-highfreq-40hz-60s--scenario",
+      "unit": "t3-gb-highfreq-40hz-60s",
+      "timing": true,
+      "scenario_sha256": "f9efd1a6693436f29ac2940f2ddfa9148ef3316b367c38cca135ab82e8997d6c",
+      "mapped_sha256": "012d9b768e85fbde55aaedc4b961101205f7e922504ffb36520395dc42a03722",
+      "path": "/experiment/experiments/20261008-component-radical/h03-protocol-fusion/artifacts/pinned/inputs/t3-gb-highfreq-40hz-60s--scenario.txt",
+      "warmup": {
+        "base": {
+          "messages": 635646,
+          "trace_rows": 0,
+          "engine_seconds": 0.142606908,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        },
+        "candidate": {
+          "messages": 635646,
+          "trace_rows": 0,
+          "engine_seconds": 0.174540146,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        }
+      },
+      "pairs": [
+        {
+          "order": "AB",
+          "base": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.154316587,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.166122506,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.164829927,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.148346523,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.131216084,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.144889458,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.142463841,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.130232629,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.149234194,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 635646,
+            "trace_rows": 0,
+            "engine_seconds": 0.156478464,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        }
+      ],
+      "median_speedup": 0.9141451478905442,
+      "median_time_reduction_percent": -9.391818389844552
+    },
+    {
+      "name": "t3-gb-pop-horizon-scale--scenario",
+      "unit": "t3-gb-pop-horizon-scale",
+      "timing": true,
+      "scenario_sha256": "a9f59935d0358a7b064251283e43d05f2dc8299e9748d4b5c67f7b98d0165c6a",
+      "mapped_sha256": "eca0899a8bde9ce215615349599db58a5b48f7eca67d4937f384783f7cc7d20a",
+      "path": "/experiment/experiments/20261008-component-radical/h03-protocol-fusion/artifacts/pinned/inputs/t3-gb-pop-horizon-scale--scenario.txt",
+      "warmup": {
+        "base": {
+          "messages": 892129,
+          "trace_rows": 0,
+          "engine_seconds": 0.211285801,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        },
+        "candidate": {
+          "messages": 892129,
+          "trace_rows": 0,
+          "engine_seconds": 0.266116838,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        }
+      },
+      "pairs": [
+        {
+          "order": "AB",
+          "base": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.207928228,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.22020132,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.213406764,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.191144915,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.19242162,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.209839859,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.221505001,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.205355591,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.192496546,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 892129,
+            "trace_rows": 0,
+            "engine_seconds": 0.207405626,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        }
+      ],
+      "median_speedup": 0.927092345874394,
+      "median_time_reduction_percent": -7.864119949867843
+    },
+    {
+      "name": "t3-mp07-heavy-flow-oldest--scenario",
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "timing": true,
+      "scenario_sha256": "5fb7dc981da38025752e66688901212c5020987eb713a7ff2fa44101a7761c0d",
+      "mapped_sha256": "4091059121c399ba4e6e7fb2f24d62d45ea8f721ca4844bcd21380958671e6f1",
+      "path": "/experiment/experiments/20261008-component-radical/h03-protocol-fusion/artifacts/pinned/inputs/t3-mp07-heavy-flow-oldest--scenario.txt",
+      "warmup": {
+        "base": {
+          "messages": 64131,
+          "trace_rows": 0,
+          "engine_seconds": 0.017606864,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        },
+        "candidate": {
+          "messages": 64131,
+          "trace_rows": 0,
+          "engine_seconds": 0.019002027,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        }
+      },
+      "pairs": [
+        {
+          "order": "AB",
+          "base": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.017874822,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.019378859,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.019817566,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.018262946,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.01911736,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.018917986,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.019015444,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.017439531,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.017786198,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 64131,
+            "trace_rows": 0,
+            "engine_seconds": 0.01863507,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        }
+      ],
+      "median_speedup": 0.9223877422298186,
+      "median_time_reduction_percent": -8.414276796714404
+    },
+    {
+      "name": "t3-coarse-tick-ties--scenario",
+      "unit": "t3-coarse-tick-ties",
+      "timing": true,
+      "scenario_sha256": "c0e1dbdc4c5da5c21d5d2cd444414db18252302990d376eb87fdd136fee51f02",
+      "mapped_sha256": "a9b127485765e3a6b9ef7867afbbc8db8bdabecc7ca72b6fd55aa82239fefd14",
+      "path": "/experiment/experiments/20261008-component-radical/h03-protocol-fusion/artifacts/pinned/inputs/t3-coarse-tick-ties--scenario.txt",
+      "warmup": {
+        "base": {
+          "messages": 63338,
+          "trace_rows": 0,
+          "engine_seconds": 0.021571978,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        },
+        "candidate": {
+          "messages": 63338,
+          "trace_rows": 0,
+          "engine_seconds": 0.024497011,
+          "deliveries": 0,
+          "fast_events": 0,
+          "inline_deliveries": 0,
+          "typed_dispatches": 0,
+          "heap_pushes": 0,
+          "heap_pops": 0,
+          "pool_allocations": 0,
+          "requeues": 0
+        }
+      },
+      "pairs": [
+        {
+          "order": "AB",
+          "base": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.022462558,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.023823471,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.025729508,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.023457181,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.022590892,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.024461136,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "BA",
+          "candidate": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.025056384,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "base": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.02259981,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        },
+        {
+          "order": "AB",
+          "base": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.023055808,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          },
+          "candidate": {
+            "messages": 63338,
+            "trace_rows": 0,
+            "engine_seconds": 0.028398667,
+            "deliveries": 0,
+            "fast_events": 0,
+            "inline_deliveries": 0,
+            "typed_dispatches": 0,
+            "heap_pushes": 0,
+            "heap_pops": 0,
+            "pool_allocations": 0,
+            "requeues": 0
+          }
+        }
+      ],
+      "median_speedup": 0.911684008881942,
+      "median_time_reduction_percent": -9.687127366242354
+    }
+  ],
+  "complete": true
+}

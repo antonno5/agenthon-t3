@@ -1,0 +1,11 @@
+{
+  "executive_summary": "Completed isolated experiment copied into the main experiments archive; production changes remain on its branch.",
+  "source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion/experiments/20261008-component-radical/h03-protocol-fusion",
+  "archive": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical/h03-protocol-fusion",
+  "method": "Copy reports/tools; hardlink closed Parquet/IPC/native-library payloads, copy on link failure",
+  "original_evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion/experiments/20261008-component-radical/h03-protocol-fusion/focused-pinned",
+  "primary_result_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion/experiments/20261008-component-radical/h03-protocol-fusion/focused-pinned/result.json",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion",
+  "branch": "codex/exp-20261008-component-h03-protocol-fusion",
+  "thread_id": "01a11b9c-a7d8-7270-8279-b9a0af98c57f"
+}

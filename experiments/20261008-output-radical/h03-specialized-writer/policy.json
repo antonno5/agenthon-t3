@@ -1,0 +1,44 @@
+{
+  "experiment": {
+    "slug": "h03-specialized-writer",
+    "title": "Specialized fixed-schema Parquet writer",
+    "branch": "codex/exp-20261008-output-h03-specialized-writer",
+    "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer",
+    "units": [
+      "t3-gb-mega-throughput",
+      "t3-gb-pop-horizon-scale",
+      "t3-mr-deep-book-state-size",
+      "t3-s001-price-time-priority"
+    ],
+    "correctness_only_units": [
+      "t3-s012-partial-fill-cancel-race",
+      "t3-gbatch-hetero-mix"
+    ],
+    "comparison": "semantic_exact",
+    "experiment_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer"
+  },
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5"
+}

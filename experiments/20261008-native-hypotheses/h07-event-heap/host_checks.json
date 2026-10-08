@@ -1,0 +1,51 @@
+{
+  "executive_summary": "The four-ary queue matches the original binary queue in focused host correctness tests. Pinned Docker compilation, full-output correctness and performance remain pending.",
+  "compiler": "Apple clang 17.0.0 (clang-1700.6.3.2)",
+  "host_target": "arm64-apple-darwin24.6.0",
+  "queue_optimized": {
+    "status": "passed",
+    "flags": "-std=c++17 -O2 -Wall -Wextra -Werror -pedantic",
+    "differential_operations": 767512,
+    "delayed_requeues": 204808
+  },
+  "queue_sanitizers": {
+    "status": "passed",
+    "flags": "-std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Werror -pedantic",
+    "differential_operations": 767512,
+    "delayed_requeues": 204808
+  },
+  "engine_syntax": {
+    "status": "passed",
+    "flags": "-std=c++17 -fsyntax-only -Wall -Wextra -fno-fast-math -ffp-contract=off -fno-strict-aliasing"
+  },
+  "qentry_definition_and_comparator": {
+    "status": "passed",
+    "check": "QEntry definition and comments exactly preserved from base commit"
+  },
+  "assigned_public_inputs": {
+    "status": "passed",
+    "units": {
+      "t3-mp07-heavy-flow-oldest": {
+        "manifest_errors": [],
+        "firewall_errors": []
+      },
+      "t3-momentum-mix-priority": {
+        "manifest_errors": [],
+        "firewall_errors": []
+      },
+      "t3-s019-latency-jitter-kendall": {
+        "manifest_errors": [],
+        "firewall_errors": []
+      },
+      "t3-eq001-pareto-latency-tail": {
+        "manifest_errors": [],
+        "firewall_errors": []
+      }
+    }
+  },
+  "git_diff_check": {
+    "status": "passed"
+  },
+  "performance_measured": false,
+  "docker_invoked": false
+}

@@ -1,0 +1,77 @@
+{
+  "executive_summary": "The four implementations preserve RNG, numeric dispatch, scenario mapping, Python fallback, CLI and compiler settings. Only hypothesis-specific native sources change.",
+  "audits": [
+    {
+      "slug": "h01-parquet-codes",
+      "baseline_source_changes": [
+        "baselines/native/pqwrite.cpp"
+      ],
+      "unchanged_files_verified": [
+        "baselines/native/rng.hpp",
+        "baselines/native/nplog.cpp",
+        "baselines/native/nplog.hpp",
+        "baselines/abides_fork/native.py",
+        "baselines/abides_fork/scenario_params.py",
+        "baselines/abides_fork/simulate.py",
+        "baselines/abides_fork/simulate_batch.py",
+        "baselines/build_native.py"
+      ]
+    },
+    {
+      "slug": "h02-ledger-pipeline",
+      "baseline_source_changes": [
+        "baselines/native/engine.cpp",
+        "baselines/native/engine.hpp",
+        "baselines/native/message_pipeline.hpp",
+        "baselines/native/module.cpp",
+        "baselines/native/pqwrite.cpp",
+        "baselines/native/pqwrite.hpp"
+      ],
+      "unchanged_files_verified": [
+        "baselines/native/rng.hpp",
+        "baselines/native/nplog.cpp",
+        "baselines/native/nplog.hpp",
+        "baselines/abides_fork/native.py",
+        "baselines/abides_fork/scenario_params.py",
+        "baselines/abides_fork/simulate.py",
+        "baselines/abides_fork/simulate_batch.py",
+        "baselines/build_native.py"
+      ]
+    },
+    {
+      "slug": "h03-recipient-scheduler",
+      "baseline_source_changes": [
+        "baselines/native/engine.cpp",
+        "baselines/native/scheduler.hpp"
+      ],
+      "unchanged_files_verified": [
+        "baselines/native/rng.hpp",
+        "baselines/native/nplog.cpp",
+        "baselines/native/nplog.hpp",
+        "baselines/abides_fork/native.py",
+        "baselines/abides_fork/scenario_params.py",
+        "baselines/abides_fork/simulate.py",
+        "baselines/abides_fork/simulate_batch.py",
+        "baselines/build_native.py"
+      ]
+    },
+    {
+      "slug": "h04-book-arena",
+      "baseline_source_changes": [
+        "baselines/native/book.hpp",
+        "baselines/native/engine.cpp",
+        "baselines/native/tests/book_test.cpp"
+      ],
+      "unchanged_files_verified": [
+        "baselines/native/rng.hpp",
+        "baselines/native/nplog.cpp",
+        "baselines/native/nplog.hpp",
+        "baselines/abides_fork/native.py",
+        "baselines/abides_fork/scenario_params.py",
+        "baselines/abides_fork/simulate.py",
+        "baselines/abides_fork/simulate_batch.py",
+        "baselines/build_native.py"
+      ]
+    }
+  ]
+}

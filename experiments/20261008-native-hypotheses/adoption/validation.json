@@ -1,0 +1,138 @@
+{
+  "executive_summary": "Independent audit passed for all 84 scheduled native runs, exact journals, recomputed medians and unchanged production sources during measurement.",
+  "accepted": true,
+  "rankable": false,
+  "scheduled_runs": 84,
+  "timed_samples": 70,
+  "excluded_warmups": 14,
+  "journal_files_independently_hashed": 264,
+  "intervals_nonoverlapping": true,
+  "source_unchanged": true,
+  "candidate_source_commit": "e75081368185949568e7f72384a9f70f04d0e4d6",
+  "result_sha256": "b43c812071503738c7ae5b5472a4f8a9156cd692f89f3535e150c743ff170fc6",
+  "summary_sha256": "9464ea5d10ed29edbff32f528893daebef831d63a04c9a40b16f793b6321739c",
+  "raw_evidence_directory": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/docker",
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "94e66380b9152d76a193ee84c70a3660c6098845"
+    },
+    "candidate": {
+      "tag": "sha256:24ad586d3ef90d85e4c6af29072f7cf41aef584373f31e4438c2b63bbf5c8697",
+      "digest": "sha256:24ad586d3ef90d85e4c6af29072f7cf41aef584373f31e4438c2b63bbf5c8697",
+      "repo_digests": [
+        "track3-native-adoption-20261008@sha256:24ad586d3ef90d85e4c6af29072f7cf41aef584373f31e4438c2b63bbf5c8697"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "e75081368185949568e7f72384a9f70f04d0e4d6"
+    }
+  },
+  "pinned_checks": {
+    "pinned-correctness": {
+      "command": [
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--cpus=4",
+        "--memory=16g",
+        "--memory-swap=16g",
+        "--entrypoint",
+        "bash",
+        "-v",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public:/candidate:ro",
+        "-v",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/docker/pinned:/checks",
+        "sha256:84489d8dfc57f4928def1c8dc116677d52e81ee4e83ab453def52dc2de0ff0fa",
+        "-c",
+        "set -eu\ng++ -std=c++17 -O2 -fno-fast-math -ffp-contract=off -Wall -Wextra -Dt3=t3_baseline -c /candidate/out/native-adoption-20261008/host/baseline/engine.cpp -o /checks/baseline.o\ng++ -std=c++17 -O2 -fno-fast-math -ffp-contract=off -Wall -Wextra -I/candidate/baselines/native -I/candidate/out/native-adoption-20261008/host /candidate/experiments/20261008-native-hypotheses/adoption/host_checks.cpp /checks/baseline.o -o /checks/integration\n/checks/integration\ng++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -I/candidate/baselines/native /candidate/baselines/native/tests/agent_orders_test.cpp -o /checks/registry-sanitized\n/checks/registry-sanitized\npython -c 'import platform,pyarrow; assert platform.python_version()==\"3.11.17\"; assert pyarrow.__version__==\"15.0.2\"; print(\"PASS: pinned runtime\",platform.python_version(),pyarrow.__version__)'\n"
+      ],
+      "exit_code": 0
+    },
+    "native-probe-baseline": {
+      "command": [
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--cpus=4",
+        "--memory=16g",
+        "--memory-swap=16g",
+        "-e",
+        "T3_ENGINE=native",
+        "-e",
+        "T3_REQUIRE_NATIVE=1",
+        "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+        "python",
+        "-c",
+        "import abides_fork._t3engine; print(\"PASS: native import\")"
+      ],
+      "exit_code": 0
+    },
+    "native-probe-candidate": {
+      "command": [
+        "docker",
+        "--context",
+        "colima-agenthon",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--cpus=4",
+        "--memory=16g",
+        "--memory-swap=16g",
+        "-e",
+        "T3_ENGINE=native",
+        "-e",
+        "T3_REQUIRE_NATIVE=1",
+        "sha256:24ad586d3ef90d85e4c6af29072f7cf41aef584373f31e4438c2b63bbf5c8697",
+        "python",
+        "-c",
+        "import abides_fork._t3engine; print(\"PASS: native import\")"
+      ],
+      "exit_code": 0
+    }
+  }
+}

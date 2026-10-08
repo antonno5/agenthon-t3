@@ -1,0 +1,25 @@
+{
+  "executive_summary": "All frozen H3 inputs match the unchanged base on this host and pass ASan/UBSan; pinned checks and timings remain pending.",
+  "host_runtime": {
+    "python": "3.13.3",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "numpy": "2.5.3",
+    "pyarrow": "25.0.1",
+    "scipy": "1.18.1",
+    "pandas": "3.0.6"
+  },
+  "units": 10,
+  "markets": 14,
+  "byte_equal_all_nineteen_columns": true,
+  "asan_ubsan_all_markets": true,
+  "isolated_queue_asan_ubsan": true,
+  "randomized_queue_model_turns": 5000,
+  "leak_detection": false,
+  "leak_detection_reason": "Apple ASan does not support detect_leaks. Linux recipe enables it.",
+  "docker_executed": false,
+  "timing_campaign_executed": false,
+  "pinned_checks_pending": true,
+  "correctness_evidence": "host-correctness.json",
+  "structural_evidence": "host-structural.json",
+  "component_timer_status": "Prepared, unexecuted; separate uninstrumented binaries with identical event-only boundaries."
+}

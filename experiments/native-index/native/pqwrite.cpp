@@ -1,0 +1,189 @@
+// Parquet output through the libarrow/libparquet that ship inside the pinned pyarrow wheel,
+// configured exactly as pyarrow.parquet.write_table(table, path, compression="snappy") does
+// (pyarrow 15.0.2: parquet/core.py ParquetWriter + _parquet.pyx _create_writer_properties /
+// _create_arrow_writer_properties / ParquetWriter.write_table). Same library, same
+// properties, same input arrays -> the same bytes the pandas/pyarrow path writes, without
+// importing pyarrow (and with it numpy) into the process.
+#include "pqwrite.hpp"
+
+#include <arrow/api.h>
+#include <arrow/io/file.h>
+#include <parquet/arrow/writer.h>
+#include <parquet/properties.h>
+
+#include <algorithm>
+#include <stdexcept>
+#include <string>
+
+namespace t3 {
+namespace {
+
+// pandas' to_parquet(index=False) schema metadata for trace.py's two frames (constant: with
+// no index it depends only on column names and dtypes). Identical to native.py's strings.
+const char* const kTraceMeta =
+    "{\"index_columns\": [], \"column_indexes\": [], \"columns\": ["
+    "{\"name\": \"t_ns\", \"field_name\": \"t_ns\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"agent_id\", \"field_name\": \"agent_id\", \"pandas_type\": \"int32\", \"numpy_type\": \"int32\", \"metadata\": null}, "
+    "{\"name\": \"msg_type\", \"field_name\": \"msg_type\", \"pandas_type\": \"unicode\", \"numpy_type\": \"string\", \"metadata\": null}, "
+    "{\"name\": \"side\", \"field_name\": \"side\", \"pandas_type\": \"unicode\", \"numpy_type\": \"string\", \"metadata\": null}, "
+    "{\"name\": \"price\", \"field_name\": \"price\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"size\", \"field_name\": \"size\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"order_id\", \"field_name\": \"order_id\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}], "
+    "\"creator\": {\"library\": \"pyarrow\", \"version\": \"15.0.2\"}, \"pandas_version\": \"1.5.3\"}";
+
+const char* const kMsgMeta =
+    "{\"index_columns\": [], \"column_indexes\": [], \"columns\": ["
+    "{\"name\": \"seq\", \"field_name\": \"seq\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"t_recv_ns\", \"field_name\": \"t_recv_ns\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"t_send_ns\", \"field_name\": \"t_send_ns\", \"pandas_type\": \"int64\", \"numpy_type\": \"Int64\", \"metadata\": null}, "
+    "{\"name\": \"latency_ns\", \"field_name\": \"latency_ns\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"src_id\", \"field_name\": \"src_id\", \"pandas_type\": \"int32\", \"numpy_type\": \"int32\", \"metadata\": null}, "
+    "{\"name\": \"dst_id\", \"field_name\": \"dst_id\", \"pandas_type\": \"int32\", \"numpy_type\": \"int32\", \"metadata\": null}, "
+    "{\"name\": \"message_id\", \"field_name\": \"message_id\", \"pandas_type\": \"int64\", \"numpy_type\": \"int64\", \"metadata\": null}, "
+    "{\"name\": \"msg_type\", \"field_name\": \"msg_type\", \"pandas_type\": \"unicode\", \"numpy_type\": \"string\", \"metadata\": null}, "
+    "{\"name\": \"order_id\", \"field_name\": \"order_id\", \"pandas_type\": \"int64\", \"numpy_type\": \"Int64\", \"metadata\": null}, "
+    "{\"name\": \"causal_parent\", \"field_name\": \"causal_parent\", \"pandas_type\": \"int64\", \"numpy_type\": \"Int64\", \"metadata\": null}], "
+    "\"creator\": {\"library\": \"pyarrow\", \"version\": \"15.0.2\"}, \"pandas_version\": \"1.5.3\"}";
+
+const char* const kTraceMsgTypes[] = {"ORDER_SUBMITTED", "ORDER_ACCEPTED", "ORDER_CANCELLED",
+                                      "PARTIAL_FILL",    "ORDER_FILLED",   "QUOTE_UPDATE"};
+const char* const kSides[] = {"BID", "ASK"};
+
+void check(const arrow::Status& st) {
+  if (!st.ok()) throw std::runtime_error("parquet write: " + st.ToString());
+}
+template <class T>
+T value(arrow::Result<T> r) {
+  if (!r.ok()) throw std::runtime_error("parquet write: " + r.status().ToString());
+  return std::move(r).ValueUnsafe();
+}
+
+// Non-owning views over the engine's column vectors (they outlive the write).
+template <class T>
+std::shared_ptr<arrow::Buffer> view(const std::vector<T>& v) {
+  return std::make_shared<arrow::Buffer>(reinterpret_cast<const uint8_t*>(v.data()),
+                                         static_cast<int64_t>(v.size() * sizeof(T)));
+}
+
+std::shared_ptr<arrow::Array> int_array(const std::shared_ptr<arrow::DataType>& type,
+                                        int64_t n, std::shared_ptr<arrow::Buffer> data) {
+  return arrow::MakeArray(arrow::ArrayData::Make(type, n, {nullptr, std::move(data)}, 0));
+}
+
+struct OwnedBuffers {  // storage for buffers built here (strings, bitmaps)
+  std::vector<std::vector<uint8_t>> bytes;
+  std::vector<std::vector<int32_t>> offsets;
+};
+
+std::shared_ptr<arrow::Array> string_array(int64_t n, const std::vector<uint8_t>& codes,
+                                           const char* const* names, OwnedBuffers& own) {
+  own.offsets.emplace_back(codes.size() + 1);
+  own.bytes.emplace_back();
+  std::vector<int32_t>& off = own.offsets.back();
+  std::vector<uint8_t>& data = own.bytes.back();
+  off[0] = 0;
+  for (size_t i = 0; i < codes.size(); i++) {
+    const char* s = names[codes[i]];
+    data.insert(data.end(), s, s + std::char_traits<char>::length(s));
+    off[i + 1] = static_cast<int32_t>(data.size());
+  }
+  return arrow::MakeArray(
+      arrow::ArrayData::Make(arrow::utf8(), n, {nullptr, view(off), view(data)}, 0));
+}
+
+std::shared_ptr<arrow::Array> nullable_int64(int64_t n, const std::vector<int64_t>& values,
+                                             const std::vector<uint8_t>& nulls,
+                                             OwnedBuffers& own) {
+  int64_t null_count = 0;
+  own.bytes.emplace_back((nulls.size() + 7) / 8, 0);
+  std::vector<uint8_t>& bm = own.bytes.back();
+  for (size_t i = 0; i < nulls.size(); i++) {
+    if (nulls[i])
+      null_count++;
+    else
+      bm[i >> 3] |= static_cast<uint8_t>(1u << (i & 7));
+  }
+  // pyarrow.Array.from_buffers(..., [None if no nulls else bitmap, data], null_count=...)
+  std::shared_ptr<arrow::Buffer> validity = null_count ? view(bm) : nullptr;
+  return arrow::MakeArray(
+      arrow::ArrayData::Make(arrow::int64(), n, {validity, view(values)}, null_count));
+}
+
+void write_table(const std::shared_ptr<arrow::Table>& table, const std::string& path) {
+  // _create_writer_properties(...) with write_table's defaults
+  parquet::WriterProperties::Builder props;
+  props.data_page_version(parquet::ParquetDataPageVersion::V1);  // data_page_version="1.0"
+  props.version(parquet::ParquetVersion::PARQUET_2_6);           // version="2.6"
+  props.compression(parquet::Compression::SNAPPY);               // compression="snappy"
+  props.enable_dictionary();                                     // use_dictionary=True
+  props.enable_statistics();                                     // write_statistics=True
+  props.max_row_group_length(64 * 1024 * 1024);                  // _MAX_ROW_GROUP_SIZE
+  props.disable_page_checksum();                                 // write_page_checksum=False
+  props.disable_write_page_index();                              // write_page_index=False
+  // _create_arrow_writer_properties(...) with ParquetWriter's defaults (engine "V2")
+  parquet::ArrowWriterProperties::Builder aprops;
+  aprops.store_schema();
+  aprops.disable_deprecated_int96_timestamps();
+  aprops.disallow_truncated_timestamps();
+  aprops.enable_compliant_nested_types();
+
+  std::shared_ptr<arrow::io::FileOutputStream> sink =
+      value(arrow::io::FileOutputStream::Open(path));
+  std::unique_ptr<parquet::arrow::FileWriter> writer =
+      value(parquet::arrow::FileWriter::Open(*table->schema(), arrow::default_memory_pool(),
+                                             sink, props.build(), aprops.build()));
+  // ParquetWriter.write_table: row_group_size=None -> min(num_rows, _DEFAULT_ROW_GROUP_SIZE)
+  const int64_t chunk = std::min<int64_t>(table->num_rows(), 1024 * 1024);
+  check(writer->WriteTable(*table, chunk));
+  check(writer->Close());
+  check(sink->Close());
+}
+
+}  // namespace
+
+void write_trace(const TraceColumns& t, const std::string& path) {
+  const int64_t n = static_cast<int64_t>(t.t_ns.size());
+  OwnedBuffers own;
+  auto schema = arrow::schema(
+      {arrow::field("t_ns", arrow::int64()), arrow::field("agent_id", arrow::int32()),
+       arrow::field("msg_type", arrow::utf8()), arrow::field("side", arrow::utf8()),
+       arrow::field("price", arrow::int64()), arrow::field("size", arrow::int64()),
+       arrow::field("order_id", arrow::int64())},
+      arrow::key_value_metadata({"pandas"}, {kTraceMeta}));
+  auto table = arrow::Table::Make(
+      schema, {int_array(arrow::int64(), n, view(t.t_ns)),
+               int_array(arrow::int32(), n, view(t.agent_id)),
+               string_array(n, t.msg_type, kTraceMsgTypes, own),
+               string_array(n, t.side, kSides, own), int_array(arrow::int64(), n, view(t.price)),
+               int_array(arrow::int64(), n, view(t.size)),
+               int_array(arrow::int64(), n, view(t.order_id))});
+  write_table(table, path);
+}
+
+void write_messages(const MessageColumns& m, const std::string& path) {
+  const int64_t k = static_cast<int64_t>(m.t_recv.size());
+  OwnedBuffers own;
+  std::vector<int64_t> seq(m.t_recv.size());
+  for (size_t i = 0; i < seq.size(); i++) seq[i] = static_cast<int64_t>(i);
+  auto schema = arrow::schema(
+      {arrow::field("seq", arrow::int64()), arrow::field("t_recv_ns", arrow::int64()),
+       arrow::field("t_send_ns", arrow::int64()), arrow::field("latency_ns", arrow::int64()),
+       arrow::field("src_id", arrow::int32()), arrow::field("dst_id", arrow::int32()),
+       arrow::field("message_id", arrow::int64()), arrow::field("msg_type", arrow::utf8()),
+       arrow::field("order_id", arrow::int64()), arrow::field("causal_parent", arrow::int64())},
+      arrow::key_value_metadata({"pandas"}, {kMsgMeta}));
+  auto table = arrow::Table::Make(
+      schema, {int_array(arrow::int64(), k, view(seq)),
+               int_array(arrow::int64(), k, view(m.t_recv)),
+               nullable_int64(k, m.t_send, m.t_send_null, own),
+               int_array(arrow::int64(), k, view(m.latency)),
+               int_array(arrow::int32(), k, view(m.src)),
+               int_array(arrow::int32(), k, view(m.dst)),
+               int_array(arrow::int64(), k, view(m.message_id)),
+               string_array(k, m.msg_type, kMsgTypeNames, own),
+               nullable_int64(k, m.order_id, m.order_id_null, own),
+               nullable_int64(k, m.causal_parent, m.causal_null, own)});
+  write_table(table, path);
+}
+
+}  // namespace t3

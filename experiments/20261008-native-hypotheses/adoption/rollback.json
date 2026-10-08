@@ -1,0 +1,17 @@
+{
+  "executive_summary": "Only the previously tested trace finalization remains in develop. Other adopted changes were reverted without new timing; all combined-trial JSON evidence is preserved byte for byte.",
+  "retained_hypothesis": "h01-trace-finalize",
+  "retained_source_commit": "5ed05198f536c4c3f8e1577312491a1c36c275ad",
+  "reverted_hypotheses": [
+    "h02-time-groups",
+    "h04-agent-orders"
+  ],
+  "archived_measured_commit": "e75081368185949568e7f72384a9f70f04d0e4d6",
+  "new_timing_runs": 0,
+  "engine_sha256": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+  "preserved_artifact_sha256": {
+    "result.json": "b43c812071503738c7ae5b5472a4f8a9156cd692f89f3535e150c743ff170fc6",
+    "validation.json": "8d8f1da5c17501ba0a9070e09262009788a0c48b718ca9f5d1815f12bb9a09b1",
+    "host_checks.json": "f4401133218d19dfa6f0bbf71d2941de2d5c2198191ef8f22af7e32935a1eef3"
+  }
+}

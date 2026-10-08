@@ -1,0 +1,2822 @@
+{
+  "executive_summary": "Both immutable Linux amd64 images loaded the native extension with Python 3.11.17 and Arrow 15.0.2. All 36 outputs passed the imported developer gates, digest audits, and exact byte/schema/ordered-value checks for both journals; all 48 pair and repeat comparisons passed.",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "images": {
+    "baseline": {
+      "tag": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "digest": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+      "repo_digests": [
+        "track3-native@sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ebb266470bee09a426df85d0b2c342b4854b7082"
+    },
+    "candidate": {
+      "tag": "sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080",
+      "digest": "sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080",
+      "repo_digests": [
+        "track3-native@sha256:60a40eea0cecb68d69f75b00db5e398f4afe5b0fbcb4bc4423754de00deee080"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "5ed05198f536c4c3f8e1577312491a1c36c275ad"
+    }
+  },
+  "runtime_probes": {
+    "separate_from_timing": true,
+    "count": 2,
+    "python": "3.11.17",
+    "pyarrow": "15.0.2",
+    "native_extension": "/opt/abides_fork/_t3engine.cpython-311-x86_64-linux-gnu.so",
+    "log_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt02.log",
+    "log_sha256": "f578442e71685c19c7c7c6bc2f93b1b3dae1640e060a4a979b33c336abf3e98f"
+  },
+  "corpus_checks": {
+    "t3-mr-deep-book-state-size": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp05-cancel-churn-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    }
+  },
+  "records": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "c8cec02f479b76a9d1c921e2d9db13e66311490d6c1dd8bb2a90906553654383",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "ddc0f40d00e974fce6e932a3a312745ebe9cbc201a91afe061a50971b5c0e4a2",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/warmup-00/baseline/record.json",
+      "record_sha256": "d2b66ff8f7d585eeeeb522d5953c17441b7b7668f3edcdc6d8e03e7ac3ebf7dc"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "9f9383295fe5468021e061277de2f12d422f73d16a3ee67dfd55e118b996d4c4",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "b95cdc721ab0bcf963ee31cb08f0effa8e31733c0c646d669302248394ada5ca",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/warmup-00/candidate/record.json",
+      "record_sha256": "eebd7af91916c4b18f24bc64f0e8a6c5588e15eaf325ef8e3421c6d9451765e7"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "86b821f1cd8d66bff4298ae4b62f883c09b14cd20de1d7740a38663261e43cff",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "c0c54445b3e85e6ec3197250d1b0fa72a9d79ea39000581ab64c0bf5884bbc18",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-00/baseline/record.json",
+      "record_sha256": "eb0b1271d52f09edc35eaa58d7e190e9ed755126abb1dc5f4a30ff0446636e04"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "76cb2bc7cd9477c558678eb77838bffd8e48012663b324ed90fde660c3e60dcd",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "f3ae5185438852d374755201fd6bfbcc9cc521e7c69d73fea0d55163ebb70118",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-00/candidate/record.json",
+      "record_sha256": "7e7e5e9b8c721d87c38dfaa601dc143d1335cb2c54d453441a7e465ab9450579"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "d4054290a2f72bc45b10acd956a6ad8898617542ee566c97b46d77960bddf37c",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "6e939ab13ecce3e3b12e5caa640f13005ade6ba4d7ddfc5f430640aa204de779",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-01/candidate/record.json",
+      "record_sha256": "fe047e06f438a25c75e4318a14f2666d358ab12cdd4da95e425176c58fd2a420"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "fa3e9dee09e5b7e0d38aa1ce7abd26ef961fe01233548542537dcbe4386eca71",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "92806ec07be6777a87ba92fd163701efb9af73d9154530824fa2a21c35a234d0",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-01/baseline/record.json",
+      "record_sha256": "0c7fd226145949090d34837f335109e213530c07cb1337ea65ecfe3b094adc9a"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "4553d60b1af1cf87c0747371de7519ca4368e92c9fd556909ae589ddc3b577c7",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "55ab821520a9466b32c1954b368812476ad8a9d6b84b28f581ea07b4325a0586",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-02/baseline/record.json",
+      "record_sha256": "40a7490b906e5a14ac7cdc770885f9e9ec51832d3d470d569100c072edab9156"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "c77d65394b258f275b25a6ab20fb79ab8ab47f7d3599fe943a7c2c4d6d5b5415",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "4892efceb88bdafd19c9cea3e214070da15ef9834b815d520e6ee4426b99e978",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-02/candidate/record.json",
+      "record_sha256": "3fc64af2b01171f1bee4283633ec6781bef4b5f833644cb8ed841445cbe6d2fc"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "e60d1f1b1c8370fe0fb569b5c911dd3caa0e0764e45b909e2e129b5a34e638bd",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "ef61f3faa24ae2e16734c4a15ba2b1a1a3661870b5bdf713d235ed2669cdc1ab",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-03/candidate/record.json",
+      "record_sha256": "1023637856ac8d66699af59cf61f4a74f17c997eee12f557c7bcf715bd9f28d0"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "ac293fc3202f66b138904bcdd78b6e214ef7ad163cfb489d7c529266eb280963",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "b6a6919ea4fad84b6510118b015fadd64d6e5fa314e161add0f3d13b87cf5555",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-03/baseline/record.json",
+      "record_sha256": "00f4042335aeacd4569ef0401d2ded46ffecd9b36df3385e681a32491305d764"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "f8fffd2bdafe88fa9dcbc0d9c6540c0114ceb7a51a8b99209876be1007876858",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "4bc06c97370c552d558286b930494fb831af3f6109c683eb0139a6470bc1085c",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-04/baseline/record.json",
+      "record_sha256": "473787a1cbfc0abab56c83e3bf90576ed4039c122e3d0caa11fd7c9106c1377f"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "actual_sha256": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "actual_sha256": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "a445d50e181f0d0d22e2b33f3ea0cdd18c5016a0251c5dbf0d8d0a70191f3f8b",
+        "message_trace.parquet": "f4902d3f5e0734ea2c3fb24e4e32405ffa66e16ad859bb473a725c1e254d5cd9",
+        "profile.json": "fa6bd8e64ffdbcd9aa174fa97be66abd6d72f206b7350d575ec03ed35ebb78cf",
+        "trace.parquet": "6381010d829ef8f00131a4e87c6562da495ba2fa3d294b2353bf8c055fbb568b"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mr-deep-book-state-size/timing-04/candidate/record.json",
+      "record_sha256": "b8f14b393fdebcfd244479c612a74a366930191e8143c8bddb3f23d67120fef9"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "3aa99824dca14179be17bb558d4a5f48a57976c459d3519814dd81f97d8cb3ca",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "a860d253cd6948bee7f67db6fdcb50c90fd78c68747486fc20f351c1de64b186",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/warmup-00/baseline/record.json",
+      "record_sha256": "540a17bc2c6c717627b8be0e6029a64ad98f651f7e29304eb7f94890b3259e5c"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "3950bdd3ef3dd58bd41cc9ad63eeda5c7165e75c2ae4fc868823b8400d132c62",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "8a3ab8ae47b6504ee774669f360281031267341aa0f307b639cce604f772a5b3",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/warmup-00/candidate/record.json",
+      "record_sha256": "5b14a0b501fc6a3296e1bca5ecc78350174785a6de0306b506650b175bed9c25"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "c82c40e13eba221f941d2dad364a05203db2303d23ec12e9300c4841a1a28e94",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "3a70a96e381cbabc15945ac851fc6d693f76ad83ad7a8083aef051a1b320c905",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-00/baseline/record.json",
+      "record_sha256": "4c4d2ecda7289c4810b57daaf03811b720757eb6153a7fc07fee3766a62380e8"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "e4c2e813fd64e17b3f554d6c7326ff36728494e3885ab38f4a8622fa7afa3edd",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "7736d2c5cf039c23094740f598c07f977875350e3f4966b8c8b767e95bc5b18e",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-00/candidate/record.json",
+      "record_sha256": "b54e47b7ee51df8ddf8d388e44f32158928e316b7c3de4c2b4aa4c1fd7ce68c4"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "e11f9cf830334988f67bcead08e0fae839f1947a011c77142126eeb14ccc28c9",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "0d739d29384a3961566cc4a86e29902fb1c304d0ac934bd96fada8f111d37599",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-01/candidate/record.json",
+      "record_sha256": "fa88b965c25136fa16909ebb843062524e8904397ad56cd5b2b076dc51104975"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "c42c44f7e63c50605042c221bda00f2e884360e53c50c68fff9ca956d97f951a",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "a817f8d4ea5f8c25a7aef79425c04a2d7aaaf08b9f445e2ea861aa99c4f7cae1",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-01/baseline/record.json",
+      "record_sha256": "1488bd58b5a36d538074bc15ae90e53a019f6d678680270aa96198e9648ebc38"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "78fc4da1164199da4795d32a14a31938c411de718caadfeada8075d8eaa089b6",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "c0bfe4cdde07058eeb04bb3b0b3d41037895ace9d588303245dbda24e2a6793e",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-02/baseline/record.json",
+      "record_sha256": "b04fdad61bd89d12bc170a3c94d408768c9c85cd02e0d32754a5623c4d8c0d9c"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "e0002fff6394f07b6af93c286fc69132cd81df6678b5d4bac3bcc7df4da2e841",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "0fdee2a4ae01f7843056fa6d65ab8d3103f943dfe43def97ada0d892e5e81982",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-02/candidate/record.json",
+      "record_sha256": "acd48c92203c0555fe290b198e604449f2697d9d61deb84de6037afb397baab0"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "b89207ef729626ad79bd3932671e2e68d76ecbe2160838f59f4b00e0aed6d7b0",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "ea92840a3b96e5c951d8f2ab4b09b540e9f7cf34e408ed357b7bef59b49898fa",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-03/candidate/record.json",
+      "record_sha256": "a5f450b79f43d6b3de1e16331b186a3e0dc8564497af3f579f858948ddd40648"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "bad07c43f524c4c2bf833490286ce3fb48442bda9fe76ff323e70f5af5781e33",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "531e2bfadbc9752fb54b6fb42c8771d9d715da34e12c660cf7a5abde541e8c57",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-03/baseline/record.json",
+      "record_sha256": "6ad5e26e2cf6689a920f565649f297e05ff7b148e4c4b9ad059c0b619d109cad"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "bbb20f7474aa5e411ed477aaec316c21dc0159308cf91d24ae50695727404130",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "7c4382c38520e51a8fc7091b47ec7abe2b5d6a7987ab6d8d8af9d10754403666",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-04/baseline/record.json",
+      "record_sha256": "9490bdc0e7a59ab327bd4341858d89a7953a4b0704433eeec0947699380e36ef"
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "actual_sha256": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "actual_sha256": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "13692abde2be7066dc8ae28ff7873d400935ae9a20485a46fe82192c46cfbd0e",
+        "message_trace.parquet": "8342cfb62afbbccf6ae765d9c36493096bfaa265e2c7dfd873cc8b0c40426afb",
+        "profile.json": "134ff585f4d341a47dfa7a2b563a667faa1be6ac4016f73049c0e09006c7df69",
+        "trace.parquet": "f83b6143c66629a0e2887ca5944b3360cd3bcb7c0b46e57de763f192452f6c14"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-mp05-cancel-churn-newest/timing-04/candidate/record.json",
+      "record_sha256": "b10b48355758de53089b259c8518be97f9b37ea2ed7790863e3ff021aa3974c5"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "warmup",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "73112b05e6b5cfd353f5431c00997b715c098cc008690456785d5811bd1e979a",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "eb80010578c52accfb991a279aa6732bbb08d7ddcc9abb79f5b45c4942299418",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/warmup-00/baseline/record.json",
+      "record_sha256": "e3f201d1d2ff7eee4f74b2843afa45b0457e5e4a07ddf00dc255277162fbad34"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "warmup",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "a115f2564213365449610c5edaae9f6f412c012361e172925e082993eb10d05a",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "a9f954ad360ad64d2760ced00f4a7bd7834d01b802ca46af4ee583b86cecf232",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/warmup-00/candidate/record.json",
+      "record_sha256": "a94e2dec30b3422626d17d3b740cf16337740a6904dcbb041a88cc96d1518b4a"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 0,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "722e6e2f7529f5abd2babbca9d8df1a47822b1706ea9cb26698fdfa396188f6d",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "6206d371c8481853503a9cf33936ba7ac99bad46b5b756384d6058d650943ac2",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-00/baseline/record.json",
+      "record_sha256": "61bb0e0f817519f836418f408d5d25812947a9e2e5e2f594d45c734572b10c95"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 0,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "3dd7cd4aad4594d0d7a6d70b0e6a60c40fe0368ba9254b0cf8b1cc57027c67d0",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "7db79abaeed0c3516fc1ee8742650a2be8be03a86b1412a36a3fff8f1a2042ac",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-00/candidate/record.json",
+      "record_sha256": "baceeee718da01ba88f215a7707603af1cd9f2d353dc00e4526eb459bb49eabc"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 1,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "3fc352bcc9069660a58124e31bdf3a1e969e7f936370518183f0007727c36fed",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "bf07a77748ba7e996733b9ea27ef373089d282566a93cc0ba03c39701563807c",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-01/candidate/record.json",
+      "record_sha256": "c006e0713099ab5789dbd0bc276be13115638d91b1edea2b316eb00eb92bdd0c"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 1,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "6a8a2ea74901114667ab86e9ad3d2eb391cd3bb9efce582b06729387d0b2dbcf",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "d1fe1d517acc3aa2726475c3a251f940acf12db98c35fcafda754744879cbac4",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-01/baseline/record.json",
+      "record_sha256": "f95a0d33e0f0b569185798aa8c9b3714e5a96a9d70129334d84d76f8c92e1738"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 2,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "7a06364bb7fd3db06b697095cd63ec9a5035df80e6361aa0171e7d0eb5d8dea6",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "ccad688aa8c6ca0a70bb8bfbe6cecd876ea87383f3fcfedd9163783d791489df",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-02/baseline/record.json",
+      "record_sha256": "d642cddcc96cff3374dec685b2abd89718b9159098de745f75a051b9b2142675"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 2,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "dd7d7582a7aedd170d96f06e642c5ed154627f11d29b7a29ae57dd733f91c910",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "d38d8acce1519400e9bc9387139b15aa142cfd2dd32a8b0d8c74101d3ff7ba85",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-02/candidate/record.json",
+      "record_sha256": "4de87d7dee2f92038a8d926b459ff2e0361fb47d0be38437185bf12bae986efb"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 3,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "ebdbe5d35db8365f52f04825bea81ff77d08377140293d4cbe6862e00ad34b12",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "3ff20b86e85e5ae63f04d28fa6cf28300556aa18ae82b3a6043498227e960f72",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-03/candidate/record.json",
+      "record_sha256": "fb1ab0cf2b2474a84a74f6df6812e7e82fbb2d9b9425441a286cfcc1dcab88af"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 3,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "0bca21dbddbc0c8089a08ae47a022812330b35a75fd117f8869faa33d2e03b89",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "c8a4dad595eacf230c04afcdf063ae77b9290892cd11f64505ebb64e34ce0093",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-03/baseline/record.json",
+      "record_sha256": "4e950dd780ac3257c07e5120aab549f29c15e73ab1fd2616424e070bfeb3eac9"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 4,
+      "side": "baseline",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "9ce0199a01a9537db6f416a517508da5d38924f0b22a6dffbadf05255160f1e6",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "32a3586a6b09ff0613e3fc98c19250e982e4bbbab54ea9f15122c00ab3a75842",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-04/baseline/record.json",
+      "record_sha256": "8c0f01f90387f2f098b4cf7a11220610f3d2620b066df6fff52949b73e37d4cc"
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 4,
+      "side": "candidate",
+      "accepted": true,
+      "actual_native": {
+        "single": "native"
+      },
+      "developer_gates": {
+        "g0_integrity": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g1_schema": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g2_cutoff_resource": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        },
+        "g3_domain_semantics": {
+          "passed": true,
+          "label": null,
+          "detail": {}
+        }
+      },
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "digest_declarations": [
+        {
+          "file": "trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "actual_sha256": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e",
+          "matches": true
+        },
+        {
+          "file": "message_trace.parquet",
+          "source": "events.json",
+          "declared_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "actual_sha256": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+          "matches": true
+        }
+      ],
+      "retained_hashes": {
+        "events.json": "938651a68d2145710d7dd0b7d7b64aa4381f1bcf06659640893088be1cbdd8e7",
+        "message_trace.parquet": "4e1977ea5947ed2c8253dd540793eaf65e8e72269502d9a9a0023c71df0492e4",
+        "profile.json": "bc1d88e184f3f937a69c0be7d233b3c7b1a28faff169e9189849a11dd1d9bee3",
+        "trace.parquet": "259ef9b786471156e32cbfba678f279d6ad3a7991e0d03ed20a530f71e05887e"
+      },
+      "record_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/runs/t3-s012-partial-fill-cancel-race/timing-04/candidate/record.json",
+      "record_sha256": "35f8357add8db671ff4b7dd64c4d8a4d0d5dbf8ae3f4b12f4229dc5890a2f587"
+    }
+  ],
+  "comparisons": [
+    {
+      "summary_comparison_index": 0,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "warmup",
+      "index": 0,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "23d0cc2d2b43d64b776f0716c27a7397c0aed7d0b5e3fcf31d54299cbb680419"
+    },
+    {
+      "summary_comparison_index": 1,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "4dc8a4f082c9edbc452d87027b782a1a2256c2e7fd6c6c17ca1c47ecb6d9cab1"
+    },
+    {
+      "summary_comparison_index": 2,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "ba2c81efc42699785927b63322f122c33f0f908a0d323d393bb20b8da867b30f"
+    },
+    {
+      "summary_comparison_index": 3,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "209d4b5b1de2ac7bf2143ad22466eed3422baf9f4fc4e9df91e732f5e4205e21"
+    },
+    {
+      "summary_comparison_index": 4,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "835a66f3b658231d74050cc126ca643b60819c3f3f4950529d2f35ff32b0e64d"
+    },
+    {
+      "summary_comparison_index": 5,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "e19bbf9620c250c6b52520f6050a04cb9b43e07998d33a70de2085e05fcef590"
+    },
+    {
+      "summary_comparison_index": 6,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "4b0446f95730dc22508e187673bf94e3c70b26e4083619c98aee1ce259bfe425"
+    },
+    {
+      "summary_comparison_index": 7,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "4c8ee4b17b089b81dc22191c97f53efc1a1621305b87c758eec8fd2e96e993d7"
+    },
+    {
+      "summary_comparison_index": 8,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "e4f98df4614f241c99d8708768a02ee42983f110e9390c02b48002ef517bc3a1"
+    },
+    {
+      "summary_comparison_index": 9,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "f085fe63a83f3ca9ea4126b9ee10750214d6730b09febcda637be3cd14e4a942"
+    },
+    {
+      "summary_comparison_index": 10,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "40378e18bdd34c2bf934bb870fb330c3c4c5edc23a320875a831d4f6c19c6d83"
+    },
+    {
+      "summary_comparison_index": 11,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "1e4fd808149b3776c0bb6e91c203318fb0d5c569d390bec0d8f8333aa7026ea2"
+    },
+    {
+      "summary_comparison_index": 12,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "1c39dbe909c6df68b08e0996172e81e834c2316375aa01b890323f7fd896abef"
+    },
+    {
+      "summary_comparison_index": 13,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "a4c9468dc331e7674d00c96ed4fe9398868d492c33193d39723cf0d99e29fb7f"
+    },
+    {
+      "summary_comparison_index": 14,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "a6121b5956974741c1db145285631dc51a202381b0850afae34fe2dd90d69215"
+    },
+    {
+      "summary_comparison_index": 15,
+      "unit": "t3-mr-deep-book-state-size",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "8a36d440af064f83685c672947f9028e575cffe33115d4ddc63611ac476961d8"
+    },
+    {
+      "summary_comparison_index": 16,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "warmup",
+      "index": 0,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "9c093728dea60b7f9d5582e60bbdf4d8bae21894ea4974c85d66327ea6301c12"
+    },
+    {
+      "summary_comparison_index": 17,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "52cd0e596738c9e8a27b91422c4404093262b2770bbf46d9fbdb4b6490c622f7"
+    },
+    {
+      "summary_comparison_index": 18,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "2e8be217c7693621073eabaceb969dac1869f4c197f906d96825e2edebfca8f5"
+    },
+    {
+      "summary_comparison_index": 19,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "e6a3907668078466f1544c03f8ade39fd1ff9fab379720f81683686fd3d77f4d"
+    },
+    {
+      "summary_comparison_index": 20,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "9a5a43a37f17d30fcbb1dd1431a97bbcac763b0dbe691b7feb73d05d3ff8f637"
+    },
+    {
+      "summary_comparison_index": 21,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "889e69d862af6ad5ac769c74af1d94facf37772bbb95cdb106b883672b60c973"
+    },
+    {
+      "summary_comparison_index": 22,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "35f8a671f0b56ecba1bc8718bc888437d69c50b218df7063aa136feb29bfd994"
+    },
+    {
+      "summary_comparison_index": 23,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "f972a0d78ebf6dada6c139907569bc921ed418790d6964121ee25f14e951703e"
+    },
+    {
+      "summary_comparison_index": 24,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "630a47e8b43525827c7b846526d47ba0a245ee928f4be207a5c20efcc2ce9568"
+    },
+    {
+      "summary_comparison_index": 25,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "287d1db8b785055c38864d95838916db4f0420adaccc1509007498019ce7817c"
+    },
+    {
+      "summary_comparison_index": 26,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "39870d5be00bc3488add293281cc40093e2c2338876c648229c78f549f4343bc"
+    },
+    {
+      "summary_comparison_index": 27,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "adef29874e5a8964776eb840941c68d6d78d93d4dc765ed9570dd70b918d1ada"
+    },
+    {
+      "summary_comparison_index": 28,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "419d3c8aba6ddb3397c37623ada17af25e28e6d7b6e7083d1e40583374f0a7e0"
+    },
+    {
+      "summary_comparison_index": 29,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "a8c1095491da64ff5aeab5b72d20d50530b69d78f2a88cedaf61a0a40d503905"
+    },
+    {
+      "summary_comparison_index": 30,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "49c8239b046ffdab2664e42dfd075f842340c992b630cf646dbe72df93e6c679"
+    },
+    {
+      "summary_comparison_index": 31,
+      "unit": "t3-mp05-cancel-churn-newest",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "470e9fac763657089ea3a21f007e71c525d055145a0d7c0ba9553f7915400d33"
+    },
+    {
+      "summary_comparison_index": 32,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "warmup",
+      "index": 0,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "e3fb689d587e245b08ad63cf1bbcd046809173f31bfec768612c3eeccf6130b0"
+    },
+    {
+      "summary_comparison_index": 33,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "1dd9ae4764094a568001a686aa2db049f0215649f9b4ec72657da4a64ff969b4"
+    },
+    {
+      "summary_comparison_index": 34,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "7bb123c8296ca334826f5afa36a917b7ded5a2e1b32cccbaeb4d51a3555cc360"
+    },
+    {
+      "summary_comparison_index": 35,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 0,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "c9fe7609faf5b311d48f3f4a537d7214da1e67740daa01d6f72d948ec85d32d3"
+    },
+    {
+      "summary_comparison_index": 36,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "4fbbe7a98db3d05af1658e026685293afe04e6f7b0708c443cc5be155b36cf38"
+    },
+    {
+      "summary_comparison_index": 37,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "abecbc81a059b56417f85c5dc1a2dd28308c86eaf04918924ff6b1268b85f3c1"
+    },
+    {
+      "summary_comparison_index": 38,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 1,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "c4703cf09097197a35b09b4ecc607cf2be8ebf009c989f7c07f02302ee59da65"
+    },
+    {
+      "summary_comparison_index": 39,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "f1520649e5ba590dbfa77b74eb473a7cefc3cc5f1be40ca825fa5fb9da04f1f0"
+    },
+    {
+      "summary_comparison_index": 40,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "1c153727fcbe7122fe9eee3564b46374ec2ba317acc1859270783ca15e1b2218"
+    },
+    {
+      "summary_comparison_index": 41,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 2,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "a62e8b959994d63ff78cb43584e6c97e067d71791d184417e8ae54fb54a9727f"
+    },
+    {
+      "summary_comparison_index": 42,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "ef88dd463ae0903fae93b4a987dff51cd45b84503d4af4ea36b05fd40eaedf2c"
+    },
+    {
+      "summary_comparison_index": 43,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "891d3be954f753a80b769080f151cdf99889284d720370c9fd7d01ae565d79a8"
+    },
+    {
+      "summary_comparison_index": 44,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 3,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "518dbdca3db00b52a9532d5e9cc9b4f8da7941ef72778ca80e54c5a06d0047ad"
+    },
+    {
+      "summary_comparison_index": 45,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "baseline_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "5f1830dc9d0b958bffbe935d6a3e51e4ca8627dc7db854c485ecf74ec7a676a6"
+    },
+    {
+      "summary_comparison_index": 46,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "candidate_repeat_stability",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "b5b5e077bc14ec0eb22a9fda1156dc23180f3cb895bd284c9a4eb244a4333305"
+    },
+    {
+      "summary_comparison_index": 47,
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "kind": "timing",
+      "index": 4,
+      "comparison": "baseline_candidate",
+      "byte_equal": true,
+      "schema_equal": true,
+      "semantic_exact_equal": true,
+      "full_comparison_sha256": "17fd681c89145a0de13522516acc960f08cc6d38d68e945dd15575392c287c5c"
+    }
+  ],
+  "checks_use_imported_shared_scorer": true,
+  "summary_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/docker/summary.json",
+  "summary_sha256": "a02fded71e65d76eeb2b2fd0d1103d3656969bd803f672e12521db890ee76f1a",
+  "failed_preflight_attempts": [
+    {
+      "attempt": 1,
+      "stage": "recipe interpreter path",
+      "docker_started": false,
+      "timing_started": false,
+      "exit_code": 127,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt01.log",
+      "reason": "The recipe failed to quote the checker Python path containing spaces; only recipe quoting changed."
+    }
+  ],
+  "limitations": [
+    "Pinned full-simulation correctness covers only the three assigned public units. Synthetic side-transition extraction checks were compiled on the host."
+  ]
+}

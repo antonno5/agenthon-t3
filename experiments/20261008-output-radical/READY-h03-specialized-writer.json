@@ -1,0 +1,187 @@
+{
+  "slug": "h03-specialized-writer",
+  "phase": "phase1_ready",
+  "ready": true,
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer",
+  "branch": "codex/exp-20261008-output-h03-specialized-writer",
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "implementation_commit": "aa1d514e1aeb219f9d5633462b4bdbe616b63eea",
+  "source_hashes": {
+    "baselines/Dockerfile": "ff1f5819f225de00e77b6e752a7453693f1391973ea9853335f06be31aad471a",
+    "baselines/_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
+    "baselines/abides_fork/__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
+    "baselines/abides_fork/agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+    "baselines/abides_fork/buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+    "baselines/abides_fork/components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+    "baselines/abides_fork/config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+    "baselines/abides_fork/native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+    "baselines/abides_fork/python_simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+    "baselines/abides_fork/scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+    "baselines/abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+    "baselines/abides_fork/simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+    "baselines/abides_fork/simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
+    "baselines/abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
+    "baselines/build_and_validate.sh": "78f520fab0b119fb8a22d4be084990c9e5fa45081c18a2ac29cfacc5b5db9c69",
+    "baselines/build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+    "baselines/gpu_starter/Dockerfile": "4e19900297a83486ef13cabb33f93a372f821c27ed2ac412aa59a1672d5fae2c",
+    "baselines/gpu_starter/Dockerfile.verify": "2cc97a26dfb73011547f1c4880795b90edeeaef908e51e61a1869f001590bc21",
+    "baselines/gpu_starter/gpu_kernel_example.py": "34fa09601ff3ec04b538543d47a6056799400814f1468caedd126c4942fa28f8",
+    "baselines/gpu_starter/verify_gate.sh": "62d66eecdc3620018ecb0af2ef8e80d52b1cd9915d87c77c0b60cbafc82261de",
+    "baselines/install_matching.py": "9a121604ce1ca4979e2d9612d522b06189f7b4bc99e80079b5b76ed1464f8fd6",
+    "baselines/matching/__init__.py": "8daee28af9e91675b7abc70df84cf482f7c9edad0b7729770ef5f42a11fee91c",
+    "baselines/matching/facade.py": "fa509927ce37278c8bab7cb32d1100c21112878377f7221cd548209e0c682a35",
+    "baselines/matching/matcher.py": "ec1dc581710ca0b21d124d517654ab1f80d2cade3a7bcc4da5288005dad3e279",
+    "baselines/matching/price_level.py": "643927e00ef3c5bc658ef476a548bebefc03157b6268cc7ccf4a9f0328422809",
+    "baselines/matching/queries.py": "53692facde40a8bf5823b8dea304ace987c52576c92c77f4e466152cad117a1a",
+    "baselines/matching/state.py": "a2b877e6bf3d3efbe5d086f5b89ce0bdacea03c58489d28cf504a19ee7914df0",
+    "baselines/matching_compat/order_book.py": "563e8e0244fb0efdcfd7fa6a94419b85f07b5bbeaa3b4772106d5e66b27176dc",
+    "baselines/matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "dc8c366b36797b99a77c4fd409bd16c6b04e5842ffdb8e819ad25d6db1e9e544",
+    "baselines/native/pqwrite.hpp": "c4ca440f4566def5c19db00d9d57c3aca8a23e67344692f7aa5f10ffe811cd43",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/trace_stream.hpp": "a47143de34a01fa403b81cc28e1ff4ce8567f6997fc5a9e86f22c3ccdb663ef0",
+    "experiments/20261008-output-radical/h03-specialized-writer/Dockerfile": "8f58960969d4355aa6c32fed7917311f0efcbf8a1f4225abc317feea280c905a",
+    "experiments/20261008-output-radical/h03-specialized-writer/run_checks.py": "adad49d77b3a3e7b65fa8f8e3179f755cb477f1732877763a184b5890aad95d2",
+    "experiments/20261008-output-radical/h03-specialized-writer/tests/writer_probe.cpp": "a2862c1e9b05ef0e343f4c8638954b8d61f329de52c17a671458f82012298bc7"
+  },
+  "host_check_results": {
+    "host-final": {
+      "passed": true,
+      "files_checked": 42,
+      "summary_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/host-final/summary.json",
+      "summary_sha256": "abd83a471573516fc29b8b822b3e74e0850c879878b1ea65d480f4ef7d93b5e1",
+      "runtime": {
+        "python": "3.13.3",
+        "arrow": "25.0.1",
+        "system": "Darwin",
+        "machine": "arm64",
+        "cxx_standard": "c++20"
+      }
+    },
+    "host-sanitized": {
+      "passed": true,
+      "files_checked": 42,
+      "summary_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/host-sanitized/summary.json",
+      "summary_sha256": "b2b2add77d0141be6c6bf6a9d445208b74b57b33c2cd869f3e83078ca8579d67",
+      "runtime": {
+        "python": "3.13.3",
+        "arrow": "25.0.1",
+        "system": "Darwin",
+        "machine": "arm64",
+        "cxx_standard": "c++20"
+      }
+    },
+    "pipeline": {
+      "passed": true,
+      "test": "baselines/native/tests/pipeline_test.cpp",
+      "checks": [
+        "ownership",
+        "backpressure",
+        "write_error",
+        "close_error",
+        "blocked_producer_error",
+        "cancellation"
+      ]
+    },
+    "diff_check": {
+      "passed": true
+    },
+    "preserved_failure_logs": {
+      "host-attempt01": {
+        "evidence/host-attempt01/baseline-compile.log": "b22eea8af6ece40033e5ac7776441ce28a69e21d9efea9355cd2d00de0d19184"
+      },
+      "host-attempt02": {
+        "evidence/host-attempt02/baseline-compile.log": "34a7b32c92d04474f13d94b22e0832977ee4a6873aa49fe803a40c8234935110",
+        "evidence/host-attempt02/baseline-probe.log": "7b0f3f92dc918c971473a99c05cbfec3cd75142c66b0346be862797bbe15d7ce",
+        "evidence/host-attempt02/candidate-compile.log": "e186b6ac487a08258b2ee8552c7f24c1ba27fe205428d8c9e1c577ba6d8c5300"
+      },
+      "host-attempt03": {
+        "evidence/host-attempt03/baseline-compile.log": "64f6f415c1146289cbef81c80aefb7621375a925858a89c4bc7c50537508ee89",
+        "evidence/host-attempt03/baseline-probe.log": "7b0f3f92dc918c971473a99c05cbfec3cd75142c66b0346be862797bbe15d7ce",
+        "evidence/host-attempt03/candidate-compile.log": "256c64f3197f2c7a5574bf411fcccee9faa8898207ebbf5a18ac2263875640f3",
+        "evidence/host-attempt03/candidate-probe.log": "859e8f7a49c11437f1913a9dce3bd359c7cf9e3cd3a9943ebd0319b3b34d0384"
+      }
+    }
+  },
+  "dockerfile_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/Dockerfile",
+  "build_recipe": {
+    "context": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer",
+    "dockerfile": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/Dockerfile",
+    "base_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+    "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+    "explicit_build_args_required": [
+      "BASE_IMAGE",
+      "BUILDER_IMAGE"
+    ]
+  },
+  "integration_constraints": [
+    "No Docker or scenario timing executed in phase1.",
+    "Pinned Arrow15 C++17 checks remain required; host checks use Arrow25 C++20.",
+    "Only pqwrite.cpp implementation and pqwrite.hpp contract comment changed; existing module/message pipeline/engine/startup untouched.",
+    "One shared two-thread encoding pool; no nested executor waits; callback joins all jobs before buffer recycle.",
+    "Dictionary interface retains small Arrow dictionary wrappers; numeric Arrow arrays, generic tables and record batches removed.",
+    "Preloaded fixed vocabulary changes physical encoding; exposed Arrow string schemas remain plain and nullable.",
+    "Host fixture outputs are deleted after exact validation with per-file digests retained; no real scenario output deletion.",
+    "Require coordinator scheduling signal and shared exclusive docker_slot.py for entire Docker operations."
+  ],
+  "planned_runtime_diagnostics": [
+    "immutable runtime/builder/candidate image IDs and extension digest",
+    "source identity fingerprint",
+    "pinned Python/Arrow dependency versions",
+    "per-market actual-native confirmation",
+    "both journal schema/metadata and ordered-value comparisons",
+    "own journal SHA256 and physical sizes/encoding metadata",
+    "shared unmodified developer gates",
+    "adapter phase profiles separate from Docker primary lifetime"
+  ],
+  "comparison_policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "comparison": "semantic_exact",
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-mr-deep-book-state-size",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gbatch-hetero-mix"
+  ],
+  "evidence_size_after_compaction": "748K",
+  "readme_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/README.md",
+  "working_tree_clean": true
+}

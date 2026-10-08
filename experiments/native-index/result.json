@@ -1,0 +1,1539 @@
+{
+  "executive_summary": "The experimental native simulation retains our binary numeric price index, best-price fast path and reusable prefix. Paired focused times and exact public checks are retained; the production baseline is unchanged.",
+  "complete": true,
+  "accepted": true,
+  "adopted": false,
+  "rankable": false,
+  "baseline_image": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+  "candidate_image": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+  "provenance": {
+    "executive_summary": "Pinned native simulation sources adapted to preserve the current Python baseline price-index algorithms. No production files are changed.",
+    "source_repository": "https://github.com/antonno5/agenthon-t3",
+    "source_commit": "f563be0c2278aabae3036318e7a1869f0ba63d47",
+    "baseline_commit": "919d2f7",
+    "baseline_image": "sha256:4a54f2c8a59d8f7bd7d23373bf96e54025d01a7560289fdcf1a0f3d0a56fdfbe",
+    "source_hashes": {
+      "native/engine.cpp": "7bdb7c3ea552165aae5be77ac5830974e14798edace574798ef87a3b0a3fa816",
+      "native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+      "native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+      "native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+      "native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+      "native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+      "native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+      "native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+      "native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+      "native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+      "native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+      "native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+      "native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+      "native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+    },
+    "agents_byte_equal": true,
+    "mapping_helpers_ast_equal": true,
+    "adopted": false
+  },
+  "timing_policy": {
+    "units": [
+      "t3-mp02-stp-oldest-baseline",
+      "t3-mr-deep-book-state-size",
+      "t3-mp05-cancel-churn-newest",
+      "t3-s001-price-time-priority",
+      "t3-s012-partial-fill-cancel-race",
+      "t3-cancelmodify-lifecycle",
+      "t3-mp07-heavy-flow-oldest"
+    ],
+    "repeats": 5,
+    "warmups": 1,
+    "platform": "linux/amd64",
+    "context": "colima-agenthon",
+    "cpus": 4,
+    "memory": "16g",
+    "network": "none",
+    "containers": "sequential",
+    "primary_clock": "Docker FinishedAt minus StartedAt",
+    "simulation_clock_note": "Native core includes trace extraction; Python simulation phase excludes trace extraction."
+  },
+  "source_hashes_at_measurement": {
+    "experiments/native-index/Dockerfile": "34f6ee4c6f6d4469eca689bd5f63f7af6fb716289d9b50beaa62d099e8fcd387",
+    "experiments/native-index/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "experiments/native-index/README.md": "eba8ab4fb77262c4be790d1fdb0f6b584c8cd62b8f409dd9d568e2b8ede06d02",
+    "experiments/native-index/adapter/__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
+    "experiments/native-index/adapter/native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+    "experiments/native-index/adapter/python_simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+    "experiments/native-index/adapter/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+    "experiments/native-index/adapter/simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
+    "experiments/native-index/adapter/simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
+    "experiments/native-index/build/native_build.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+    "experiments/native-index/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "experiments/native-index/native/engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+    "experiments/native-index/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "experiments/native-index/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "experiments/native-index/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "experiments/native-index/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "experiments/native-index/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "experiments/native-index/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "experiments/native-index/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "experiments/native-index/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "experiments/native-index/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "experiments/native-index/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "experiments/native-index/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "experiments/native-index/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "experiments/native-index/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "experiments/native-index/provenance.json": "02044b7a50ad49028255be86ebd3d0a82c09d79458b2e481712d70295e609f71",
+    "experiments/native-index/run_experiment.py": "c244c608b415477ce0ff7ff314823645078169a0e091a00b785cddbb6b573478",
+    "experiments/native-index/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "experiments/native-index/tests/test_native.py": "b8c45280e52184b9345fd7676b27ccbbc7bcbb5ca9d8160c9e20d274403b18c7"
+  },
+  "validation": {
+    "runtime_tests_passed": 159,
+    "price_side_differential_mutations": 80000,
+    "rng_interleaved_scripts": 100,
+    "rng_mismatches": 0,
+    "numpy_log_samples": 100000,
+    "numpy_log_mismatches": 0,
+    "single_public_units": 65,
+    "batch_public_units": 6,
+    "focused_simulator_runs": 84,
+    "additional_correctness_runs": 64,
+    "all_checked_runs_used_native": true,
+    "source_audit": {
+      "executive_summary": "All installed Python core and matching sources remain byte-identical to the optimized baseline; its original simulator is preserved as the fallback. Native extension and lazy dispatch are isolated to the experiment.",
+      "accepted": true,
+      "versions": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1"
+      },
+      "unchanged_python_core_and_markets_files": 48,
+      "changed_files": [
+        "adapter/__init__.py",
+        "adapter/native.py",
+        "adapter/python_simulate.py",
+        "adapter/scenario_params.py",
+        "adapter/simulate.py",
+        "adapter/simulate_batch.py",
+        "native_extension/_t3engine.cpython-311-x86_64-linux-gnu.so"
+      ],
+      "native_extension_sha256": {
+        "native_extension/_t3engine.cpython-311-x86_64-linux-gnu.so": "1fdc05a038b758006c71989180361118a14fabe4002e41e4eb30148c3093e478"
+      },
+      "fallback_simulator_byte_equal": true,
+      "candidate_image": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217"
+    },
+    "read_only_unprivileged_run_accepted": true,
+    "full_batch_reference_digests": {
+      "accepted": true,
+      "checks": [
+        {
+          "unit": "t3-gbatch-dense-3",
+          "sub": "sub_00",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-dense-3",
+          "sub": "sub_01",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-dense-3",
+          "sub": "sub_02",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-hetero-mix",
+          "sub": "sub_00_noise",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-hetero-mix",
+          "sub": "sub_01_value",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-hetero-mix",
+          "sub": "sub_02_mm",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-hetero-mix",
+          "sub": "sub_03_momentum",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-hetero-mix",
+          "sub": "sub_04_base",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "sub": "sub_00",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "sub": "sub_01",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "sub": "sub_02",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-4",
+          "sub": "sub_03",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_00",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_01",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_02",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_03",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_04",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_05",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_06",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-homog-8",
+          "sub": "sub_07",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-many-6",
+          "sub": "sub_00",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-many-6",
+          "sub": "sub_01",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-many-6",
+          "sub": "sub_02",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-many-6",
+          "sub": "sub_03",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-many-6",
+          "sub": "sub_04",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-many-6",
+          "sub": "sub_05",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-varsize",
+          "sub": "sub_00_short",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-varsize",
+          "sub": "sub_01_med",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-varsize",
+          "sub": "sub_02_long",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        },
+        {
+          "unit": "t3-gbatch-varsize",
+          "sub": "sub_03_med",
+          "native": true,
+          "trace_byte_equal": true,
+          "message_byte_equal": true
+        }
+      ],
+      "markets": 30
+    },
+    "focused_pairs_byte_equal": true
+  },
+  "results": [
+    {
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              3.794658354,
+              3.728547146,
+              3.729759513,
+              3.846597356,
+              3.76406546
+            ],
+            "candidate": [
+              0.304239109,
+              0.323951921,
+              0.357174856,
+              0.305051331,
+              0.325711108
+            ]
+          },
+          "medians": {
+            "baseline": 3.76406546,
+            "candidate": 0.323951921
+          },
+          "speedup": 11.61921018520523,
+          "time_change_percent": -91.39356303861942
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              2.7393305169971427,
+              2.720730335000553,
+              2.6818972560067778,
+              2.7747083690046566,
+              2.7215892159947543
+            ],
+            "candidate": [
+              0.1116302789960173,
+              0.12377118899894413,
+              0.13039832699723775,
+              0.11713092699937988,
+              0.12527076299738837
+            ]
+          },
+          "medians": {
+            "baseline": 2.7215892159947543,
+            "candidate": 0.12377118899894413
+          },
+          "speedup": 21.988875100957234,
+          "time_change_percent": -95.4522457587816
+        }
+      },
+      "native_core_samples": [
+        0.022256247,
+        0.023983401,
+        0.023737033,
+        0.023816449,
+        0.02262592
+      ],
+      "python_simulation_samples": [
+        2.426139648996468,
+        2.417139484998188,
+        2.413773829001002,
+        2.4869490989949554,
+        2.4473032000023522
+      ]
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              15.768997323,
+              15.512693209,
+              15.769712496,
+              15.717445339,
+              15.499810389
+            ],
+            "candidate": [
+              0.565158622,
+              0.539931476,
+              0.541412029,
+              0.530926775,
+              0.518515294
+            ]
+          },
+          "medians": {
+            "baseline": 15.717445339,
+            "candidate": 0.539931476
+          },
+          "speedup": 29.11007421801058,
+          "time_change_percent": -96.5647631383183
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              14.634689843005617,
+              14.377053453004919,
+              14.630871359993762,
+              14.567861552997783,
+              14.381493387001683
+            ],
+            "candidate": [
+              0.35743898700457066,
+              0.34733356600190746,
+              0.3476363070003572,
+              0.3341625640023267,
+              0.32096806499612285
+            ]
+          },
+          "medians": {
+            "baseline": 14.567861552997783,
+            "candidate": 0.34733356600190746
+          },
+          "speedup": 41.94199173055961,
+          "time_change_percent": -97.61575462027622
+        }
+      },
+      "native_core_samples": [
+        0.132609171,
+        0.127036962,
+        0.130038643,
+        0.130064188,
+        0.12922468
+      ],
+      "python_simulation_samples": [
+        13.674583026004257,
+        13.447995813003217,
+        13.757705468997301,
+        13.682274739003333,
+        13.504083891995833
+      ]
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              9.787660157,
+              9.944956902,
+              10.062489096,
+              10.377167694,
+              10.171752035
+            ],
+            "candidate": [
+              0.449283036,
+              0.434098289,
+              0.596107214,
+              0.540714903,
+              0.488788254
+            ]
+          },
+          "medians": {
+            "baseline": 10.062489096,
+            "candidate": 0.488788254
+          },
+          "speedup": 20.586601690309852,
+          "time_change_percent": -95.14247171513158
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              8.710605653999664,
+              8.750884186003532,
+              8.897966269003518,
+              9.072801196998626,
+              9.06596150900441
+            ],
+            "candidate": [
+              0.25361997700383654,
+              0.23480420199484797,
+              0.2957303260045592,
+              0.29727349399763625,
+              0.27885529000195675
+            ]
+          },
+          "medians": {
+            "baseline": 8.897966269003518,
+            "candidate": 0.27885529000195675
+          },
+          "speedup": 31.908902531277356,
+          "time_change_percent": -96.8660783647454
+        }
+      },
+      "native_core_samples": [
+        0.069444151,
+        0.069110154,
+        0.08944079,
+        0.079052383,
+        0.073856137
+      ],
+      "python_simulation_samples": [
+        8.003966181000578,
+        8.013574597003753,
+        8.107459863000258,
+        8.341169660998276,
+        8.31249792399467
+      ]
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              1.222215923,
+              1.149201519,
+              1.236559376,
+              1.691486831,
+              1.237093729
+            ],
+            "candidate": [
+              0.302648205,
+              0.245684076,
+              0.263917217,
+              0.288827487,
+              0.321776654
+            ]
+          },
+          "medians": {
+            "baseline": 1.236559376,
+            "candidate": 0.288827487
+          },
+          "speedup": 4.281307810568597,
+          "time_change_percent": -76.64265116534122
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              0.17873465199954808,
+              0.16116802200122038,
+              0.16501221699581947,
+              0.18110052900010487,
+              0.18785354700230528
+            ],
+            "candidate": [
+              0.08527550999860978,
+              0.05468055800156435,
+              0.06886095800291514,
+              0.0851431409973884,
+              0.08318840299762087
+            ]
+          },
+          "medians": {
+            "baseline": 0.17873465199954808,
+            "candidate": 0.08318840299762087
+          },
+          "speedup": 2.148552509232083,
+          "time_change_percent": -53.457036972421434
+        }
+      },
+      "native_core_samples": [
+        0.00379265,
+        0.003629818,
+        0.003631359,
+        0.00363161,
+        0.003737318
+      ],
+      "python_simulation_samples": [
+        0.058728664997033775,
+        0.05513564000284532,
+        0.05663734300469514,
+        0.06307210900558857,
+        0.057942633000493515
+      ]
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              9.215489268,
+              8.779835652,
+              8.73555443,
+              8.716811661,
+              8.71937818
+            ],
+            "candidate": [
+              0.436867246,
+              0.452942525,
+              0.434612905,
+              0.415872315,
+              0.410588299
+            ]
+          },
+          "medians": {
+            "baseline": 8.73555443,
+            "candidate": 0.434612905
+          },
+          "speedup": 20.099620442701767,
+          "time_change_percent": -95.0247816726156
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              7.952195762998599,
+              7.579094961001829,
+              7.596810166003706,
+              7.640584682005283,
+              7.584618127002614
+            ],
+            "candidate": [
+              0.2165561939982581,
+              0.24286867800401524,
+              0.23753529600071488,
+              0.226733671996044,
+              0.20747737100464292
+            ]
+          },
+          "medians": {
+            "baseline": 7.596810166003706,
+            "candidate": 0.226733671996044
+          },
+          "speedup": 33.50543436766752,
+          "time_change_percent": -97.01540953319204
+        }
+      },
+      "native_core_samples": [
+        0.058546729,
+        0.06146476,
+        0.060109446,
+        0.061535942,
+        0.062382703
+      ],
+      "python_simulation_samples": [
+        7.325469941002666,
+        6.959298062000016,
+        6.9671865300042555,
+        6.960261847001675,
+        6.963990393000131
+      ]
+    },
+    {
+      "unit": "t3-cancelmodify-lifecycle",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              7.596865068,
+              7.437143489,
+              7.550540163,
+              7.89621595,
+              7.537346373
+            ],
+            "candidate": [
+              0.383256804,
+              0.401478378,
+              0.387254365,
+              0.409785468,
+              0.37497993
+            ]
+          },
+          "medians": {
+            "baseline": 7.550540163,
+            "candidate": 0.387254365
+          },
+          "speedup": 19.4976244179972,
+          "time_change_percent": -94.8711700535325
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              6.532535413003643,
+              6.381225731005543,
+              6.474398424004903,
+              6.751921757997479,
+              6.474097061000066
+            ],
+            "candidate": [
+              0.18711660400003893,
+              0.20172089400148252,
+              0.19270587299979525,
+              0.20708428999932948,
+              0.1841324330016505
+            ]
+          },
+          "medians": {
+            "baseline": 6.474398424004903,
+            "candidate": 0.19270587299979525
+          },
+          "speedup": 33.597307249747296,
+          "time_change_percent": -97.0235709886913
+        }
+      },
+      "native_core_samples": [
+        0.055170197,
+        0.051468752,
+        0.051770134,
+        0.054763834,
+        0.05435647
+      ],
+      "python_simulation_samples": [
+        6.0073338670044905,
+        5.85213914099586,
+        5.972836665001523,
+        6.175545873004012,
+        5.972964954999043
+      ]
+    },
+    {
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "metrics": {
+        "container_sec": {
+          "samples": {
+            "baseline": [
+              3.844882909,
+              3.918642005,
+              3.937331694,
+              3.870594917,
+              3.90049353
+            ],
+            "candidate": [
+              0.325948102,
+              0.306323701,
+              0.319964608,
+              0.314564833,
+              0.342282623
+            ]
+          },
+          "medians": {
+            "baseline": 3.90049353,
+            "candidate": 0.319964608
+          },
+          "speedup": 12.190390538443552,
+          "time_change_percent": -91.79681736326326
+        },
+        "adapter_sec_self_reported": {
+          "samples": {
+            "baseline": [
+              2.851462511003774,
+              2.857560486001603,
+              2.885896148000029,
+              2.817137111000193,
+              2.864959220001765
+            ],
+            "candidate": [
+              0.1316320949990768,
+              0.11835688399878563,
+              0.11878955899737775,
+              0.12088767999375705,
+              0.1512669450021349
+            ]
+          },
+          "medians": {
+            "baseline": 2.857560486001603,
+            "candidate": 0.12088767999375705
+          },
+          "speedup": 23.638144814667424,
+          "time_change_percent": -95.76954956558393
+        }
+      },
+      "native_core_samples": [
+        0.024487766,
+        0.023513477,
+        0.024466185,
+        0.024814726,
+        0.025366018
+      ],
+      "python_simulation_samples": [
+        2.573695487997611,
+        2.554563097997743,
+        2.6101213010042557,
+        2.547442148999835,
+        2.551318526995601
+      ]
+    }
+  ],
+  "container_speedup_geomean": 14.61488689830597,
+  "public_checks": [
+    {
+      "unit": "t3-as01-base-mix",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-as02-scale-up-noise",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-as03-mm-liquidity-heavy",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-as04-value-heavy",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-as05-oracle-variant",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-as06-throughput-fast",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ca-baseline-calm",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ca-fast-mean-reversion",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ca-fat-tail-jumps",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ca-high-volatility",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ca-thin-book-depth",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-coarse-tick-ties",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-lognormal-highmag",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-lognormal-highsigma",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-lognormal-lowsigma",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-pareto-heavytail",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-uniform-tight",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq-uniform-wide",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-eq001-pareto-latency-tail",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-fastlob-core",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-fastlob-tight-book",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gb-base-30agent-30s",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gb-highfreq-40hz-60s",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gb-pop-128-agents",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gbatch-dense-3",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gbatch-homog-4",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gbatch-homog-8",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gbatch-many-6",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-gbatch-varsize",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-momentum-mix-priority",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mp01-stp-newest-baseline",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mp03-mm-heavy-newest",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mp04-mm-heavy-oldest",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mp06-tight-spread-selfcross",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mr-cancel-replace-churn",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mr-checkpoint-cadence-fine",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-mr-long-horizon-replay",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-partialfill-atomicity",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ra01-fundamental-shock-mid",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ra02-shock-early",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ra03-large-shock",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ra04-shock-late",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ra05-shock-momentum-heavy",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-ra06-shock-value-heavy",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-s019-latency-jitter-kendall",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-01-baseline-regime",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-02-heavy-jump-tails",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-03-vol-clustering-momentum",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-04-thin-book-depth",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-05-deep-book-liquidity",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-06-high-fundamental-vol",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-sf-07-coarse-agent-batch",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-st01-liquidity-churn-baseline",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-st02-informed-entry-burst",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-st03-volatility-burst",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-st04-thin-book-mm-strain",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-st05-latency-spike-pareto",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    },
+    {
+      "unit": "t3-stp-cancel-newest",
+      "image_digest": "sha256:70c31ccdaf2060c51293f0f7a063e2bea95f7fed1f6a21ae6288193954b1c217",
+      "native": true,
+      "accepted": true,
+      "reference_comparison": {
+        "byte_equal": true,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      }
+    }
+  ],
+  "limitations": [
+    "Local Mac/emulated sequential container runs are non-rankable.",
+    "The native path supports the adapter flow; arbitrary ABIDES extensions and hidden/PTC APIs retain the optimized Python implementation.",
+    "Native core timing includes trace extraction and is not the same boundary as the Python simulation-only timer.",
+    "There is no per-feature performance ablation; gains describe the combined implementation.",
+    "Middle price insertion/removal still shifts vectors, and within-level arbitrary cancellation is linear.",
+    "Numeric differential coverage is sampled; it does not prove equivalence for all possible extreme inputs or every CPU dispatch."
+  ],
+  "evidence_sha256": {
+    "timing/summary.json": "0ce61942dba8cf7166c8432d1572e0ddef0df9eff8398676f49bc153c9fc1a12",
+    "public/summary.json": "cf87de18255e092f6562b0e353aa4016a303b37f6517294ef1e5ed2a007a142b",
+    "runtime-tests.log": "138ae535bb8add0c45e18ea9cb55ac056b78be501f18bb4ef7f57ed58dfb78a6",
+    "numeric-tests.log": "ecbeab1481770e77769818fcbe28a870b38bd3201df1cc4dc76a1bd9522e7155",
+    "source-audit.json": "d26693649fdf367227f73385c8b35a13fc628d5b20a4ea127b8b092ad05cd052",
+    "readonly/validation.json": "57020fa963e908ab14ebac21a8259672c081bb3ec0c79d1aa07662f4ee266981",
+    "batch-reference-digests.json": "1480d9d5f913f7c8960907098724ae55c3a2d728ef792ec96304d340ec188939",
+    "build-validated.log": "4936840f8deb0ed3c5bb474ac464b3d29b115d4be739cc16ad5fe00916f39718"
+  }
+}

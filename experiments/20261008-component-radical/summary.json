@@ -1,0 +1,449 @@
+{
+  "executive_summary": "Three isolated native optimizations were tested on only their frozen scenarios. Complete-container percentages and component diagnostics are separate; no production adoption occurred.",
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "baseline_checkout": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "baseline_image_source_commit": "286ae974641e4ad23e81288b5beee2d7d9da20c5",
+  "baseline_image": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Exact bytes, schema and ordered values of BOTH journals, shared developer gates, actual native execution per market. Correctness-only scenarios excluded from speed conclusions."
+  },
+  "hypotheses": [
+    {
+      "slug": "h01-trace-stream",
+      "title": "Chronological compact lifecycle trace",
+      "branch": "codex/exp-20261008-component-h01-trace-stream",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h01-trace-stream",
+      "thread_id": "01a11b9c-a0af-7130-bb63-7e68b61a2609",
+      "final_commit": "3e2136a2d06c49ae836df241b247da67d2170b33",
+      "measured_commit": "c821fecb3f6f2f837e996ab162e907cf22fe17f7",
+      "rows": [
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "baseline_ms": 507.6802339999999,
+          "candidate_ms": 478.29646399999996,
+          "time_reduction_pct": 5.7878499165677555,
+          "speedup_factor": 1.0614342195931434,
+          "candidate_faster_pairs": 5
+        },
+        {
+          "unit": "t3-mp05-cancel-churn-newest",
+          "baseline_ms": 483.324162,
+          "candidate_ms": 463.442598,
+          "time_reduction_pct": 4.113505088951053,
+          "speedup_factor": 1.0428997336149062,
+          "candidate_faster_pairs": 3
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "baseline_ms": 756.516212,
+          "candidate_ms": 729.851394,
+          "time_reduction_pct": 3.5246856018466888,
+          "speedup_factor": 1.0365345852857273,
+          "candidate_faster_pairs": 5
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "baseline_ms": 1311.560037,
+          "candidate_ms": 1214.002101,
+          "time_reduction_pct": 7.438312638981392,
+          "speedup_factor": 1.080360598980545,
+          "candidate_faster_pairs": 5
+        }
+      ],
+      "component_rows": [
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "boundary": "Logging/capture plus actual finalization on identical replay of real captured logs; initial simulation, chronological replay preparation, baseline agent scaffold initialization and equality checks excluded. Candidate includes every online sort/flush and column append. Baseline extract-only samples are secondary.",
+          "time_reduction_pct": 34.91175668423322,
+          "speedup_factor": 1.5363757708878938
+        },
+        {
+          "unit": "t3-mp05-cancel-churn-newest",
+          "boundary": "Logging/capture plus actual finalization on identical replay of real captured logs; initial simulation, chronological replay preparation, baseline agent scaffold initialization and equality checks excluded. Candidate includes every online sort/flush and column append. Baseline extract-only samples are secondary.",
+          "time_reduction_pct": 37.496294513532,
+          "speedup_factor": 1.5999051451701518
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "boundary": "Logging/capture plus actual finalization on identical replay of real captured logs; initial simulation, chronological replay preparation, baseline agent scaffold initialization and equality checks excluded. Candidate includes every online sort/flush and column append. Baseline extract-only samples are secondary.",
+          "time_reduction_pct": 60.308792891865416,
+          "speedup_factor": 2.5194497040001917
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "boundary": "Logging/capture plus actual finalization on identical replay of real captured logs; initial simulation, chronological replay preparation, baseline agent scaffold initialization and equality checks excluded. Candidate includes every online sort/flush and column append. Baseline extract-only samples are secondary.",
+          "time_reduction_pct": 66.2265447405805,
+          "speedup_factor": 2.960905220738697
+        }
+      ],
+      "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical/h01-trace-stream/README.md"
+    },
+    {
+      "slug": "h02-parquet-parallel",
+      "title": "Parallel Parquet column encoding",
+      "branch": "codex/exp-20261008-component-h02-parquet-parallel",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h02-parquet-parallel",
+      "thread_id": "01a11b9c-a4b4-7bb3-b3c5-53e5cde2d489",
+      "final_commit": "afad1a32ea816e1c1b35bca242acdaa305fdc3ce",
+      "measured_commit": "c9ec65640d6904ab01a26d2369caef5075aca86b",
+      "rows": [
+        {
+          "unit": "t3-gb-mega-throughput",
+          "baseline_ms": 1645.4884729999999,
+          "candidate_ms": 1409.881261,
+          "time_reduction_pct": 14.31837511267695,
+          "speedup_factor": 1.1671113862687192,
+          "candidate_faster_pairs": 4
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "baseline_ms": 930.1981030000001,
+          "candidate_ms": 882.846502,
+          "time_reduction_pct": 5.09048565539808,
+          "speedup_factor": 1.0536351459656121,
+          "candidate_faster_pairs": 4
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "baseline_ms": 920.292666,
+          "candidate_ms": 916.5436550000001,
+          "time_reduction_pct": 0.4073716045456366,
+          "speedup_factor": 1.0040903790883806,
+          "candidate_faster_pairs": 3
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "baseline_ms": 663.913549,
+          "candidate_ms": 611.425486,
+          "time_reduction_pct": 7.905858086351536,
+          "speedup_factor": 1.0858453960488,
+          "candidate_faster_pairs": 4
+        }
+      ],
+      "component_rows": [
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "trace",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 28.11953150099483,
+          "speedup_factor": 1.3911985006244638
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "trace",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 29.302687048239417,
+          "speedup_factor": 1.4144809162440692
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "messages",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 26.850244940841485,
+          "speedup_factor": 1.367058576192454
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "messages",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 27.39597574682352,
+          "speedup_factor": 1.3773341220218234
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "overlap",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 8.198425411710442,
+          "speedup_factor": 1.089305934549365
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "overlap",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 16.078125536554044,
+          "speedup_factor": 1.1915844425467073
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "overlap",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 7.78908933502418,
+          "speedup_factor": 1.0844703655874715
+        },
+        {
+          "unit": "t3-gb-mega-throughput",
+          "mode": "pipeline",
+          "clock": "run_write_wall_seconds",
+          "time_reduction_pct": 13.901550521844797,
+          "speedup_factor": 1.161461101867716
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "trace",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 24.225608770904504,
+          "speedup_factor": 1.3197070722437223
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "trace",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 25.28112707128265,
+          "speedup_factor": 1.3383499520315454
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "messages",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 30.32840397590836,
+          "speedup_factor": 1.435305141645114
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "messages",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 31.360315308996668,
+          "speedup_factor": 1.4568831493060035
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "overlap",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 0.3477024387201211,
+          "speedup_factor": 1.003489156268638
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "overlap",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 12.823267242215131,
+          "speedup_factor": 1.1470950658112387
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "overlap",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 0.873368917644235,
+          "speedup_factor": 1.008810638555028
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "mode": "pipeline",
+          "clock": "run_write_wall_seconds",
+          "time_reduction_pct": 15.506799321881637,
+          "speedup_factor": 1.1835271855892364
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "trace",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 18.61739045183457,
+          "speedup_factor": 1.2287637439398655
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "trace",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 19.891742101403842,
+          "speedup_factor": 1.248310756259155
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "messages",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 20.360606505221334,
+          "speedup_factor": 1.2556599895070297
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "messages",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 21.03612165989143,
+          "speedup_factor": 1.2664018295718187
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "overlap",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 6.911759805805517,
+          "speedup_factor": 1.07424954850781
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "overlap",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 12.741958688216858,
+          "speedup_factor": 1.1460261827639284
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "overlap",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 8.433777047125101,
+          "speedup_factor": 1.0921057653701145
+        },
+        {
+          "unit": "t3-gb-horizon-240s",
+          "mode": "pipeline",
+          "clock": "run_write_wall_seconds",
+          "time_reduction_pct": 22.827929322609776,
+          "speedup_factor": 1.2958055825408592
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "trace",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 15.560265212064529,
+          "speedup_factor": 1.1842765760828484
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "trace",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 18.709825642515632,
+          "speedup_factor": 1.2301609732098333
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "messages",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 26.128953990740257,
+          "speedup_factor": 1.3537103561179435
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "messages",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 27.59728652383385,
+          "speedup_factor": 1.3811637050442656
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "overlap",
+          "clock": "wall_seconds",
+          "time_reduction_pct": 7.738565898508909,
+          "speedup_factor": 1.0838764969770163
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "overlap",
+          "clock": "trace_write_plus_close_seconds",
+          "time_reduction_pct": 20.602121527274875,
+          "speedup_factor": 1.2594794964748603
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "overlap",
+          "clock": "messages_write_plus_close_seconds",
+          "time_reduction_pct": 7.565518393475756,
+          "speedup_factor": 1.0818473610928085
+        },
+        {
+          "unit": "t3-mr-deep-book-state-size",
+          "mode": "pipeline",
+          "clock": "run_write_wall_seconds",
+          "time_reduction_pct": 13.04130353692089,
+          "speedup_factor": 1.149971239995047
+        }
+      ],
+      "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical/h02-parquet-parallel/README.md"
+    },
+    {
+      "slug": "h03-protocol-fusion",
+      "title": "Specialized protocol execution",
+      "branch": "codex/exp-20261008-component-h03-protocol-fusion",
+      "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion",
+      "thread_id": "01a11b9c-a7d8-7270-8279-b9a0af98c57f",
+      "final_commit": "cc7a4833ef4f8fa4ab1c345f06e589de70d4887f",
+      "measured_commit": "38db7d34e69e6d7b12b28c33dcac19a935e74c29",
+      "rows": [
+        {
+          "unit": "t3-gb-highfreq-40hz-60s",
+          "baseline_ms": 883.589493,
+          "candidate_ms": 838.668348,
+          "time_reduction_pct": 5.08393833967874,
+          "speedup_factor": 1.0535624661490146,
+          "candidate_faster_pairs": 4
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "baseline_ms": 1068.63764,
+          "candidate_ms": 1075.87423,
+          "time_reduction_pct": -0.6771790295539315,
+          "speedup_factor": 0.9932737584020392,
+          "candidate_faster_pairs": 1
+        },
+        {
+          "unit": "t3-mp07-heavy-flow-oldest",
+          "baseline_ms": 352.811617,
+          "candidate_ms": 350.059439,
+          "time_reduction_pct": 0.7800701188362624,
+          "speedup_factor": 1.0078620305393338,
+          "candidate_faster_pairs": 4
+        },
+        {
+          "unit": "t3-coarse-tick-ties",
+          "baseline_ms": 396.852219,
+          "candidate_ms": 380.23265200000003,
+          "time_reduction_pct": 4.187847819492729,
+          "speedup_factor": 1.0437089421768018,
+          "candidate_faster_pairs": 3
+        }
+      ],
+      "component_rows": [
+        {
+          "unit": "t3-gb-highfreq-40hz-60s",
+          "boundary": "Executive summary: measure the engine alone in one fixed pinned paired campaign.\n\nThe timer excludes input parsing, trace finalization and Parquet output. It\nincludes engine initialization, event ordering, all ledger column appends,\nagent lifecycle/quote logs, handlers, RNG and destruction of the Sim state.\nResult column destruction occurs after the timer on both sides.",
+          "time_reduction_pct": -9.391818389844552,
+          "speedup_factor": 0.9141451478905442,
+          "aggregation": "Median paired time reduction; primary rows use ratio of medians"
+        },
+        {
+          "unit": "t3-gb-pop-horizon-scale",
+          "boundary": "Executive summary: measure the engine alone in one fixed pinned paired campaign.\n\nThe timer excludes input parsing, trace finalization and Parquet output. It\nincludes engine initialization, event ordering, all ledger column appends,\nagent lifecycle/quote logs, handlers, RNG and destruction of the Sim state.\nResult column destruction occurs after the timer on both sides.",
+          "time_reduction_pct": -7.864119949867843,
+          "speedup_factor": 0.927092345874394,
+          "aggregation": "Median paired time reduction; primary rows use ratio of medians"
+        },
+        {
+          "unit": "t3-mp07-heavy-flow-oldest",
+          "boundary": "Executive summary: measure the engine alone in one fixed pinned paired campaign.\n\nThe timer excludes input parsing, trace finalization and Parquet output. It\nincludes engine initialization, event ordering, all ledger column appends,\nagent lifecycle/quote logs, handlers, RNG and destruction of the Sim state.\nResult column destruction occurs after the timer on both sides.",
+          "time_reduction_pct": -8.414276796714404,
+          "speedup_factor": 0.9223877422298186,
+          "aggregation": "Median paired time reduction; primary rows use ratio of medians"
+        },
+        {
+          "unit": "t3-coarse-tick-ties",
+          "boundary": "Executive summary: measure the engine alone in one fixed pinned paired campaign.\n\nThe timer excludes input parsing, trace finalization and Parquet output. It\nincludes engine initialization, event ordering, all ledger column appends,\nagent lifecycle/quote logs, handlers, RNG and destruction of the Sim state.\nResult column destruction occurs after the timer on both sides.",
+          "time_reduction_pct": -9.687127366242354,
+          "speedup_factor": 0.911684008881942,
+          "aggregation": "Median paired time reduction; primary rows use ratio of medians"
+        }
+      ],
+      "report": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-component-radical/h03-protocol-fusion/README.md"
+    }
+  ],
+  "any_full_run_at_least_2x": false
+}

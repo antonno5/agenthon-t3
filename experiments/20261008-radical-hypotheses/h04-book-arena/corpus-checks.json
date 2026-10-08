@@ -1,0 +1,38 @@
+{
+  "executive_summary": "The eight selected immutable public units pass the unchanged repository corpus checker.",
+  "passed": true,
+  "checks": {
+    "t3-mr-deep-book-state-size": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp05-cancel-churn-newest": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-multilevel-crossing": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s001-price-time-priority": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-mp02-stp-oldest-baseline": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-partialfill-atomicity": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-s012-partial-fill-cancel-race": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    },
+    "t3-gbatch-hetero-mix": {
+      "manifest_errors": [],
+      "firewall_errors": []
+    }
+  }
+}

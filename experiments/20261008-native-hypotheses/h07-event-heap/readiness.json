@@ -1,0 +1,113 @@
+{
+  "executive_summary": "The isolated four-ary event heap is frozen in one experimental commit. Focused host differential and sanitizer checks pass; Docker compilation, scenario correctness and paired timing await an explicit orchestration grant.",
+  "slug": "h07-event-heap",
+  "branch": "codex/exp-20261008-h07-event-heap",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h07-event-heap",
+  "implementation_commit": "3c3964f5bf40cd8b3ea30deb9b786f48bd716e1d",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp",
+    "baselines/native/event_heap.hpp"
+  ],
+  "source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "f346b8ecfcc5d0414bb5a330e822514c0bd24db623e83fd1f77e5fd670ae03c7",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/event_heap.hpp": "570efbd05d4a8fafc87a209b1ba0d86a3f01db7d7cb1980cc8eae064fbd1f32d",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "assigned_units": [
+    "t3-mp07-heavy-flow-oldest",
+    "t3-momentum-mix-priority",
+    "t3-s019-latency-jitter-kendall",
+    "t3-eq001-pareto-latency-tail"
+  ],
+  "host_checks": {
+    "executive_summary": "The four-ary queue matches the original binary queue in focused host correctness tests. Pinned Docker compilation, full-output correctness and performance remain pending.",
+    "compiler": "Apple clang 17.0.0 (clang-1700.6.3.2)",
+    "host_target": "arm64-apple-darwin24.6.0",
+    "queue_optimized": {
+      "status": "passed",
+      "flags": "-std=c++17 -O2 -Wall -Wextra -Werror -pedantic",
+      "differential_operations": 767512,
+      "delayed_requeues": 204808
+    },
+    "queue_sanitizers": {
+      "status": "passed",
+      "flags": "-std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Werror -pedantic",
+      "differential_operations": 767512,
+      "delayed_requeues": 204808
+    },
+    "engine_syntax": {
+      "status": "passed",
+      "flags": "-std=c++17 -fsyntax-only -Wall -Wextra -fno-fast-math -ffp-contract=off -fno-strict-aliasing"
+    },
+    "qentry_definition_and_comparator": {
+      "status": "passed",
+      "check": "QEntry definition and comments exactly preserved from base commit"
+    },
+    "assigned_public_inputs": {
+      "status": "passed",
+      "units": {
+        "t3-mp07-heavy-flow-oldest": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-momentum-mix-priority": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-s019-latency-jitter-kendall": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        },
+        "t3-eq001-pareto-latency-tail": {
+          "manifest_errors": [],
+          "firewall_errors": []
+        }
+      }
+    },
+    "git_diff_check": {
+      "status": "passed"
+    },
+    "performance_measured": false,
+    "docker_invoked": false
+  },
+  "pending_actual_docker_checks": [
+    "Pinned linux/amd64 native extension build and runtime identity",
+    "Actual native execution without fallback on four assigned scenarios",
+    "Byte, schema and ordered-value equality for both journals; imported developer gates for every retained output",
+    "One excluded warmup per side and five fresh AB/BA pairs per assigned unit; retain every outlier"
+  ],
+  "report_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h07-event-heap/expirements/20261008-native-hypotheses/h07-event-heap",
+  "recipe": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h07-event-heap/expirements/20261008-native-hypotheses/h07-event-heap/README.md",
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h07-event-heap/out/h07-event-heap",
+  "changed_files": [
+    "baselines/native/engine.cpp",
+    "baselines/native/event_heap.hpp",
+    "expirements/20261008-native-hypotheses/h07-event-heap/README.md",
+    "expirements/20261008-native-hypotheses/h07-event-heap/host_checks.json",
+    "expirements/20261008-native-hypotheses/h07-event-heap/queue_test.cpp",
+    "expirements/20261008-native-hypotheses/h07-event-heap/result.json"
+  ],
+  "docker_invoked": false,
+  "status": "ready",
+  "accepted": false,
+  "rankable": false,
+  "adopted": false
+}

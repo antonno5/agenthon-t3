@@ -1,0 +1,709 @@
+{
+  "executive_summary": "Local paired comparison of one isolated native hypothesis. Positive time reduction means a shorter complete container run; all five samples and diagnostics are retained.",
+  "slug": "h03-protocol-fusion",
+  "title": "Specialized protocol execution",
+  "branch": "codex/exp-20261008-component-h03-protocol-fusion",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion",
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "baseline_image_source_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "candidate_implementation_commit": "38db7d34e69e6d7b12b28c33dcac19a935e74c29",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Exact bytes, schema and ordered values of BOTH journals, shared developer gates, actual native execution per market. Correctness-only scenarios excluded from speed conclusions."
+  },
+  "assigned_units": [
+    "t3-gb-highfreq-40hz-60s",
+    "t3-gb-pop-horizon-scale",
+    "t3-mp07-heavy-flow-oldest",
+    "t3-coarse-tick-ties"
+  ],
+  "images": {
+    "baseline": {
+      "tag": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+      "digest": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+      "repo_digests": [
+        "track3-ledger-arena@sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "33027d74553e9a318d66557fe0f7b7bed84cfa38"
+    },
+    "candidate": {
+      "tag": "sha256:2fffed1588f4b614f524d927e3a5fbb83073d55ac810c10d4e663f874cf943cb",
+      "digest": "sha256:2fffed1588f4b614f524d927e3a5fbb83073d55ac810c10d4e663f874cf943cb",
+      "repo_digests": [
+        "track3-component-h03@sha256:2fffed1588f4b614f524d927e3a5fbb83073d55ac810c10d4e663f874cf943cb"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "38db7d34e69e6d7b12b28c33dcac19a935e74c29"
+    }
+  },
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "439a08a5d6f38694397f2c12eb36516db1e6d7d212242500238995cdf45340c2",
+    "baselines/native/engine.hpp": "c9b2b108030413b47f9314a9eaa14fda1e1ef631d2d5e0ae414bedc98d844a9a",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "2f73e7a8277d02d02b94954f46f37ca09202662b1333a6dc3b775b32abf715bb",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "source_unchanged_during_measurement": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-gb-highfreq-40hz-60s",
+      "container_seconds_samples": {
+        "baseline": [
+          0.84876123,
+          0.776910948,
+          0.883589493,
+          0.900109045,
+          0.927654276
+        ],
+        "candidate": [
+          0.80114632,
+          0.852795611,
+          0.790204426,
+          0.87910737,
+          0.838668348
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.883589493,
+        "candidate": 0.838668348
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.84876123,
+          "candidate_seconds": 0.80114632,
+          "candidate_time_change_pct": -5.609929897481303
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.776910948,
+          "candidate_seconds": 0.852795611,
+          "candidate_time_change_pct": 9.767485346338557
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.883589493,
+          "candidate_seconds": 0.790204426,
+          "candidate_time_change_pct": -10.56882950055632
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.900109045,
+          "candidate_seconds": 0.87910737,
+          "candidate_time_change_pct": -2.3332367468877013
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.927654276,
+          "candidate_seconds": 0.838668348,
+          "candidate_time_change_pct": -9.592574550909527
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 5.08393833967874,
+      "time_change_pct": -5.08393833967874,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0022663690033368766,
+              0.002325413006474264,
+              0.0029132449999451637,
+              0.0022626229911111295,
+              0.0031854970002314076
+            ],
+            "median": 0.002325413006474264
+          },
+          "hashing": {
+            "samples": [
+              0.0745345309987897,
+              0.06945787399308756,
+              0.06791297398740426,
+              0.07371146300283726,
+              0.0667402750113979
+            ],
+            "median": 0.06945787399308756
+          },
+          "parquet_write": {
+            "samples": [
+              0.28952602000358185,
+              0.25451303700054684,
+              0.2769203750011976,
+              0.34469637000672554,
+              0.3442015599948967
+            ],
+            "median": 0.28952602000358185
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.252793815,
+              0.222733549,
+              0.271840255,
+              0.236797985,
+              0.252872516
+            ],
+            "median": 0.252793815
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.002195869994466193,
+              0.002092454000376165,
+              0.0021205389930400997,
+              0.0031782040023244917,
+              0.0021649989939760417
+            ],
+            "median": 0.0021649989939760417
+          },
+          "hashing": {
+            "samples": [
+              0.06927372400241438,
+              0.07256122901162598,
+              0.07251276899478398,
+              0.0739858640008606,
+              0.06652245100121945
+            ],
+            "median": 0.07251276899478398
+          },
+          "parquet_write": {
+            "samples": [
+              0.2729649910006169,
+              0.3297267079995301,
+              0.24663172201106248,
+              0.24302331799392785,
+              0.28428679300890075
+            ],
+            "median": 0.2729649910006169
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.238427886,
+              0.231314158,
+              0.237924984,
+              0.277380728,
+              0.248173861
+            ],
+            "median": 0.238427886
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "container_seconds_samples": {
+        "baseline": [
+          1.06863764,
+          1.079938071,
+          1.070959104,
+          1.020207422,
+          0.929796225
+        ],
+        "candidate": [
+          0.991696249,
+          1.092293742,
+          1.07587423,
+          1.096455179,
+          0.99540668
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 1.06863764,
+        "candidate": 1.07587423
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 1.06863764,
+          "candidate_seconds": 0.991696249,
+          "candidate_time_change_pct": -7.199951426004414
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 1.079938071,
+          "candidate_seconds": 1.092293742,
+          "candidate_time_change_pct": 1.144109216240441
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 1.070959104,
+          "candidate_seconds": 1.07587423,
+          "candidate_time_change_pct": 0.45894618960165
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 1.020207422,
+          "candidate_seconds": 1.096455179,
+          "candidate_time_change_pct": 7.473750470323481
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.929796225,
+          "candidate_seconds": 0.99540668,
+          "candidate_time_change_pct": 7.056433790102767
+        }
+      ],
+      "candidate_faster_pairs": 1,
+      "time_reduction_pct": -0.6771790295539315,
+      "time_change_pct": 0.6771790295539315,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.002262790992972441,
+              0.0026907519932137802,
+              0.0022517100005643442,
+              0.0021195860026637092,
+              0.0023182550066849217
+            ],
+            "median": 0.002262790992972441
+          },
+          "hashing": {
+            "samples": [
+              0.09767758700763807,
+              0.0992961560114054,
+              0.09912497000186704,
+              0.09601870201004203,
+              0.086521580000408
+            ],
+            "median": 0.09767758700763807
+          },
+          "parquet_write": {
+            "samples": [
+              0.34054059700020883,
+              0.3511670479959069,
+              0.43201828899967404,
+              0.3769909559907614,
+              0.3219186820008725
+            ],
+            "median": 0.3511670479959069
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.346404376,
+              0.349380589,
+              0.307787961,
+              0.306994499,
+              0.298864135
+            ],
+            "median": 0.307787961
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0021454590023495257,
+              0.0022170010051922873,
+              0.002817795000737533,
+              0.002482836993294768,
+              0.002412671994534321
+            ],
+            "median": 0.002412671994534321
+          },
+          "hashing": {
+            "samples": [
+              0.0979103599966038,
+              0.09864925799774937,
+              0.08814868899935391,
+              0.087417627000832,
+              0.09737524601223413
+            ],
+            "median": 0.09737524601223413
+          },
+          "parquet_write": {
+            "samples": [
+              0.3545213040009009,
+              0.3733141030062773,
+              0.36734380899893543,
+              0.40096778099400554,
+              0.3216676209993507
+            ],
+            "median": 0.36734380899893543
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.307160948,
+              0.362798512,
+              0.334301645,
+              0.330493256,
+              0.321496662
+            ],
+            "median": 0.330493256
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "container_seconds_samples": {
+        "baseline": [
+          0.354477128,
+          0.351006497,
+          0.415168008,
+          0.335601557,
+          0.352811617
+        ],
+        "candidate": [
+          0.336226641,
+          0.350059439,
+          0.352568115,
+          0.352229086,
+          0.34209477
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.352811617,
+        "candidate": 0.350059439
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.354477128,
+          "candidate_seconds": 0.336226641,
+          "candidate_time_change_pct": -5.148565466824695
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.351006497,
+          "candidate_seconds": 0.350059439,
+          "candidate_time_change_pct": -0.26981209980281307
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.415168008,
+          "candidate_seconds": 0.352568115,
+          "candidate_time_change_pct": -15.078207326610759
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.335601557,
+          "candidate_seconds": 0.352229086,
+          "candidate_time_change_pct": 4.954544653676929
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.352811617,
+          "candidate_seconds": 0.34209477,
+          "candidate_time_change_pct": -3.0375550247258576
+        }
+      ],
+      "candidate_faster_pairs": 4,
+      "time_reduction_pct": 0.7800701188362624,
+      "time_change_pct": -0.7800701188362624,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0021611719857901335,
+              0.002072087998385541,
+              0.002598215010948479,
+              0.0020975469960831106,
+              0.0022398809960577637
+            ],
+            "median": 0.0021611719857901335
+          },
+          "hashing": {
+            "samples": [
+              0.013621074002003297,
+              0.011263110995059833,
+              0.015656206000130624,
+              0.012559534006868489,
+              0.010819070012075827
+            ],
+            "median": 0.012559534006868489
+          },
+          "parquet_write": {
+            "samples": [
+              0.08737891500116421,
+              0.10492130300131194,
+              0.14048777199397036,
+              0.09434229199274656,
+              0.08555285699243644
+            ],
+            "median": 0.09434229199274656
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.021115841,
+              0.020793843,
+              0.022140931,
+              0.020726013,
+              0.021052681
+            ],
+            "median": 0.021052681
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.0022375469998223707,
+              0.0021650459966622293,
+              0.002123630009009503,
+              0.002142547004041262,
+              0.002155921989469789
+            ],
+            "median": 0.002155921989469789
+          },
+          "hashing": {
+            "samples": [
+              0.011104360004537739,
+              0.011543611995875835,
+              0.011138278001453727,
+              0.011288695997791365,
+              0.012110157986171544
+            ],
+            "median": 0.011288695997791365
+          },
+          "parquet_write": {
+            "samples": [
+              0.09139667799312162,
+              0.0825402850086043,
+              0.09626141498604696,
+              0.08672426900361693,
+              0.09072354001035772
+            ],
+            "median": 0.09072354001035772
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.023091472,
+              0.023071015,
+              0.023112517,
+              0.023894479,
+              0.023037605
+            ],
+            "median": 0.023091472
+          }
+        }
+      }
+    },
+    {
+      "unit": "t3-coarse-tick-ties",
+      "container_seconds_samples": {
+        "baseline": [
+          0.406327288,
+          0.430691209,
+          0.366907909,
+          0.396852219,
+          0.348060079
+        ],
+        "candidate": [
+          0.38625975,
+          0.368552961,
+          0.442162658,
+          0.374764385,
+          0.380232652
+        ]
+      },
+      "median_container_seconds": {
+        "baseline": 0.396852219,
+        "candidate": 0.380232652
+      },
+      "pairs": [
+        {
+          "index": 0,
+          "baseline_seconds": 0.406327288,
+          "candidate_seconds": 0.38625975,
+          "candidate_time_change_pct": -4.93876207497046
+        },
+        {
+          "index": 1,
+          "baseline_seconds": 0.430691209,
+          "candidate_seconds": 0.368552961,
+          "candidate_time_change_pct": -14.4275635772264
+        },
+        {
+          "index": 2,
+          "baseline_seconds": 0.366907909,
+          "candidate_seconds": 0.442162658,
+          "candidate_time_change_pct": 20.51052788834813
+        },
+        {
+          "index": 3,
+          "baseline_seconds": 0.396852219,
+          "candidate_seconds": 0.374764385,
+          "candidate_time_change_pct": -5.5657579679553315
+        },
+        {
+          "index": 4,
+          "baseline_seconds": 0.348060079,
+          "candidate_seconds": 0.380232652,
+          "candidate_time_change_pct": 9.24339645397827
+        }
+      ],
+      "candidate_faster_pairs": 3,
+      "time_reduction_pct": 4.187847819492729,
+      "time_change_pct": -4.187847819492729,
+      "secondary_market_phase_sums": {
+        "baseline": {
+          "configuration": {
+            "samples": [
+              0.0037816359981661662,
+              0.003552636000677012,
+              0.00230229900626,
+              0.002637591998791322,
+              0.002139589996659197
+            ],
+            "median": 0.002637591998791322
+          },
+          "hashing": {
+            "samples": [
+              0.012396702004480176,
+              0.010952783006359823,
+              0.011215866994461976,
+              0.01443446300982032,
+              0.00981469900580123
+            ],
+            "median": 0.011215866994461976
+          },
+          "parquet_write": {
+            "samples": [
+              0.11917917400101607,
+              0.13553036899308443,
+              0.10420786200019672,
+              0.10126298899172596,
+              0.0836671869967609
+            ],
+            "median": 0.10420786200019672
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.026424326,
+              0.029071753,
+              0.025994662,
+              0.029207885,
+              0.026748086
+            ],
+            "median": 0.026748086
+          }
+        },
+        "candidate": {
+          "configuration": {
+            "samples": [
+              0.002345132001210004,
+              0.0029366750095505267,
+              0.0029275929991854355,
+              0.0031521350028924644,
+              0.003767470989259891
+            ],
+            "median": 0.0029366750095505267
+          },
+          "hashing": {
+            "samples": [
+              0.01032907199987676,
+              0.010152531001949683,
+              0.015376298004412092,
+              0.010784284007968381,
+              0.011638746989774518
+            ],
+            "median": 0.010784284007968381
+          },
+          "parquet_write": {
+            "samples": [
+              0.08424291400572108,
+              0.11096195199480213,
+              0.11352435299213834,
+              0.096255552988533,
+              0.11087311200972093
+            ],
+            "median": 0.11087311200972093
+          },
+          "simulation_and_trace_finalize": {
+            "samples": [
+              0.030367671,
+              0.030240047,
+              0.033902605,
+              0.030671222,
+              0.027371881
+            ],
+            "median": 0.030367671
+          }
+        }
+      }
+    }
+  ],
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-component-radical/worktrees/h03-protocol-fusion/experiments/20261008-component-radical/h03-protocol-fusion/focused-pinned",
+  "summary_sha256": "f72801f221a217bd3fcb0480fe7df6083905e127bc93766acc4927f95ee4d98b",
+  "runner_sha256": "05039525703a7210c6ccb79230c3cf9074cb45dcd08893169722c2c675ddb0f7",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "error": null
+}

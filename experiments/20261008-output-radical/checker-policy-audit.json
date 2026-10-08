@@ -1,0 +1,67 @@
+{
+  "executive_summary": "The experiment-only physical-encoding policy accepts changed file representation with exact schema and values, while rejecting changed values, nulls, metadata and order. Byte-exact experiments retain all three requirements.",
+  "accepted": true,
+  "fixtures": [
+    {
+      "fixture": "same_values_new_encoding",
+      "comparison": {
+        "byte_equal": false,
+        "schema_equal": true,
+        "semantic_exact_equal": true
+      },
+      "accepted_by_policy": {
+        "semantic_exact": true,
+        "byte_exact": false
+      }
+    },
+    {
+      "fixture": "changed_value",
+      "comparison": {
+        "byte_equal": false,
+        "schema_equal": true,
+        "semantic_exact_equal": false
+      },
+      "accepted_by_policy": {
+        "semantic_exact": false,
+        "byte_exact": false
+      }
+    },
+    {
+      "fixture": "changed_metadata",
+      "comparison": {
+        "byte_equal": false,
+        "schema_equal": false,
+        "semantic_exact_equal": true
+      },
+      "accepted_by_policy": {
+        "semantic_exact": false,
+        "byte_exact": false
+      }
+    },
+    {
+      "fixture": "changed_order",
+      "comparison": {
+        "byte_equal": false,
+        "schema_equal": true,
+        "semantic_exact_equal": false
+      },
+      "accepted_by_policy": {
+        "semantic_exact": false,
+        "byte_exact": false
+      }
+    },
+    {
+      "fixture": "changed_null",
+      "comparison": {
+        "byte_equal": false,
+        "schema_equal": true,
+        "semantic_exact_equal": false
+      },
+      "accepted_by_policy": {
+        "semantic_exact": false,
+        "byte_exact": false
+      }
+    }
+  ],
+  "shared_checker_source_unchanged": true
+}

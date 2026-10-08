@@ -1,0 +1,127 @@
+{
+  "executive_summary": "The one authorized fixed timing series passed all correctness, identity, schedule and storage checks; all samples are retained.",
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "implementation_commit": "3cb8784279483ce8ba7206d937ee2fddd109f786",
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "exact_comparisons": 64,
+  "exact_journal_file_pairs": 128,
+  "actual_native_market_executions": 48,
+  "all_parquet_files_plain_single_link": true,
+  "results": [
+    {
+      "unit": "t3-gb-mega-throughput",
+      "baseline_median_seconds": 1.72861465,
+      "candidate_median_seconds": 1.708198889,
+      "full_container_time_reduction_pct": 1.181047551575476,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "unit": "t3-gb-horizon-240s",
+      "baseline_median_seconds": 0.998866013,
+      "candidate_median_seconds": 0.943128445,
+      "full_container_time_reduction_pct": 5.580084543331032,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_median_seconds": 1.184253422,
+      "candidate_median_seconds": 0.753805739,
+      "full_container_time_reduction_pct": 36.34759883345306,
+      "candidate_faster_pairs": 4
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_median_seconds": 0.712181137,
+      "candidate_median_seconds": 0.625825197,
+      "full_container_time_reduction_pct": 12.12555844483142,
+      "candidate_faster_pairs": 2
+    }
+  ],
+  "scope": "First 1Mi canonical lifecycle rowgroup, six immutable columns encoded during Sim; msg_type deferred.",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "images": {
+    "baseline": {
+      "tag": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "digest": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+      "repo_digests": [
+        "track3-output-base@sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5"
+    },
+    "candidate": {
+      "tag": "sha256:ff2a2f6032dd5650508b6847843b93380ed9e12776d5f4bba127f5e24847329a",
+      "digest": "sha256:ff2a2f6032dd5650508b6847843b93380ed9e12776d5f4bba127f5e24847329a",
+      "repo_digests": [
+        "track3-output-h04@sha256:ff2a2f6032dd5650508b6847843b93380ed9e12776d5f4bba127f5e24847329a"
+      ],
+      "architecture": "amd64",
+      "labels": {
+        "qfbench2.interface_version": "2.0"
+      },
+      "versions": {
+        "python": "3.11.17",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "pyarrow": "15.0.2",
+          "scipy": "1.17.1",
+          "abides-core": "0.0.0",
+          "abides-markets": "0.0.0"
+        }
+      },
+      "source_commit_declared": "3cb8784279483ce8ba7206d937ee2fddd109f786"
+    }
+  },
+  "result_copy_sha256": "c105f0586905092c9d0b6b771b6858d6c05df90cec5dc04d7b84468221916ab7",
+  "summary_sha256": "135cd0544159f6a301b2d2487e1b226d3e2a0a04d884c6875acb8d21a7880957",
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "shared_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "source_unchanged_during_measurement": true,
+  "all_samples_retained": true,
+  "retries": 0,
+  "extra_profile_runs": 0,
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/evidence/phase2-timing/runs"
+}

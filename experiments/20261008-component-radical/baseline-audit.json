@@ -1,0 +1,31 @@
+{
+  "executive_summary": "The current develop native/build sources exactly match the cached baseline builder. The baseline runtime and compiler image IDs are pinned for fresh paired runs.",
+  "accepted": true,
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "baseline_image": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
+  "builder_image": "sha256:902a221eca63fc3781587c30114edd3d33e16d057049b30a23b552a0e4bc0d57",
+  "source_hashes": {
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "baselines/native/pqwrite.cpp": "2f73e7a8277d02d02b94954f46f37ca09202662b1333a6dc3b775b32abf715bb",
+    "baselines/native/module.cpp": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/engine.cpp": "fde55c5cce3c98411b5b99b4e4d449b6ba8844f4faf96d1aa3deb093f9138719",
+    "baselines/native/pqwrite.hpp": "3aa697fb903aac0a6936e0756d1928c3b60f005c2b5fcb71715b2defcf0b3c2a",
+    "baselines/build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea"
+  },
+  "runtime": {
+    "python": "3.11.17",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "1.5.3",
+      "pyarrow": "15.0.2",
+      "scipy": "1.17.1"
+    },
+    "native_sha256": "63f44f6ccb74410972a83e096c3f26b9511a77d5cfe2c6e73a96661c4606848c"
+  },
+  "rankable": false
+}

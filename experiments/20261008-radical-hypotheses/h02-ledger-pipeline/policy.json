@@ -1,0 +1,76 @@
+{
+  "executive_summary": "Fixed selected scenarios and checks for a 64Ki-block message pipeline; all timing remains pending.",
+  "slug": "h02-ledger-pipeline",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-pop-horizon-scale",
+    "t3-gb-horizon-240s",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gbatch-hetero-mix"
+  ],
+  "block_rows": 65536,
+  "column_buffers": 3,
+  "max_worker_blocks": 2,
+  "row_group_rows": 1048576,
+  "worker_flush": "encode/compress each block; write buffered rowgroup at 1Mi boundary or close",
+  "numeric_flags": [
+    "-fno-fast-math",
+    "-ffp-contract=off"
+  ],
+  "python": "3.11",
+  "arrow": "15.0.2",
+  "policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "correctness": "Exact bytes, schema, ordered values for BOTH journals plus unchanged shared developer gates; assert actual native engine every market.",
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "phase1": "Implementation, host checks, fixed scenario plan, immutable commit; no Docker until coordinator phase2 dispatch."
+  },
+  "formula": "100*(1-median(candidate)/median(baseline))",
+  "failed_correctness_speedup_claim": false,
+  "source_scope": [
+    "baselines/native/engine.hpp",
+    "baselines/native/engine.cpp",
+    "baselines/native/module.cpp",
+    "baselines/native/message_pipeline.hpp",
+    "baselines/native/pqwrite.hpp",
+    "baselines/native/pqwrite.cpp"
+  ],
+  "controls": [
+    "empty output preservation",
+    "tiny/no full block",
+    "64Ki block before/at/after",
+    "1Mi rowgroup before/at/after",
+    "multiple rowgroups",
+    "writer/close/simulation errors",
+    "blocked producer wakeup",
+    "cancel/join",
+    "native buffer/count equality",
+    "both journals bytes/schema/ordered-values",
+    "manifest/firewall selected corpus"
+  ],
+  "phase1_docker_runs": 0,
+  "rankable": false,
+  "adopted": false
+}

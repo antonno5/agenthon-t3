@@ -1,0 +1,20 @@
+{
+  "executive_summary": "Experiment-only baseline adds counters and a trace-finalization-free entry point, without changing event logic.",
+  "base_commit": "33027d74553e9a318d66557fe0f7b7bed84cfa38",
+  "original_source_hashes": {
+    "engine.cpp": "fde55c5cce3c98411b5b99b4e4d449b6ba8844f4faf96d1aa3deb093f9138719",
+    "engine.hpp": "ea32228db6c86760a0e036c7bea8881d8c63d94819c50f0e6bfc09a44710da30",
+    "book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d"
+  },
+  "adapted_engine_sha256": "486e763a10fbdfed1cb34177d21b3ae193accf835627a70241a1b22e97ddec3c",
+  "production_flags": [
+    "-std=c++17",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-strict-aliasing",
+    "-Wall",
+    "-Wno-unused-function"
+  ]
+}

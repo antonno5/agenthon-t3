@@ -1,0 +1,132 @@
+{
+  "executive_summary": "Read-only manifest and firewall checks on the nine selected public units.",
+  "all_passed": true,
+  "rows": [
+    {
+      "unit": "t3-coarse-tick-ties",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-coarse-tick-ties\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-coarse-tick-ties",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-coarse-tick-ties\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq-deterministic-baseline\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq-deterministic-baseline\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s012-partial-fill-cancel-race\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s012-partial-fill-cancel-race\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gb-pop-horizon-scale\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gb-pop-horizon-scale\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s019-latency-jitter-kendall",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s019-latency-jitter-kendall\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-s019-latency-jitter-kendall",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s019-latency-jitter-kendall\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-eq001-pareto-latency-tail",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq001-pareto-latency-tail\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-eq001-pareto-latency-tail",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq001-pareto-latency-tail\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-mp07-heavy-flow-oldest\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-mp07-heavy-flow-oldest\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "check": "verify",
+      "exit_code": 0,
+      "stdout": "OK   manifest /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix\n",
+      "stderr": ""
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "check": "assert-public-safe",
+      "exit_code": 0,
+      "stdout": "OK   public-safe /Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "executive_summary": "Neither experiment establishes a general end-to-end speedup. Streaming file hashes show small, inconsistent single-market changes; the combined heterogeneous batch and batch-only worker pool are slower on this local emulated host. All recorded correctness checks pass and simulation algorithms remain unchanged.",
+  "complete": true,
+  "correctness_accepted": true,
+  "performance_adopted": false,
+  "rankable": false,
+  "date": "2026-10-08",
+  "base_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "base_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "clock": "Docker FinishedAt minus StartedAt",
+  "warmups_per_mode": 1,
+  "timed_repeats_per_mode": 5,
+  "timed_samples_total": 100,
+  "warmup_samples_total": 20,
+  "local_environment": "arm64 host, linux/amd64 containers, colima-agenthon, sequential builds and containers, 4 CPUs, 16g memory/swap, no network; not official fleet timing",
+  "experiment_A": {
+    "branch": "codex/exp-20261008-stream-hash-batch",
+    "thread_id": "01a11851-f93e-74e2-bcf9-9977b874aa03",
+    "candidate_image": "sha256:5692ca0d3619cc5ad71f9e932d31410f5ddafbb84f48543621287f78e4a9d4c9",
+    "summary_sha256": "5bb756316c7631b96e08726b921555dd9781a87ab6ef560ad0302c3bee2fb5fb",
+    "results": [
+      {
+        "unit": "t3-s001-price-time-priority",
+        "baseline_sec": 0.326659513,
+        "candidate_sec": 0.32444059,
+        "time_change_percent": -0.6792770183307151,
+        "samples": {
+          "baseline": [
+            0.311865448,
+            0.391685206,
+            0.416932307,
+            0.31541461,
+            0.326659513
+          ],
+          "candidate": [
+            0.297284835,
+            0.32444059,
+            0.33269482,
+            0.420614798,
+            0.316310331
+          ]
+        },
+        "candidate_faster_pairs": 4
+      },
+      {
+        "unit": "t3-mr-deep-book-state-size",
+        "baseline_sec": 0.552394447,
+        "candidate_sec": 0.544644961,
+        "time_change_percent": -1.4028899171754206,
+        "samples": {
+          "baseline": [
+            0.584564137,
+            0.549264825,
+            0.607586383,
+            0.552394447,
+            0.522408777
+          ],
+          "candidate": [
+            0.810514073,
+            0.664069463,
+            0.544644961,
+            0.529450717,
+            0.526165122
+          ]
+        },
+        "candidate_faster_pairs": 2
+      },
+      {
+        "unit": "t3-mp05-cancel-churn-newest",
+        "baseline_sec": 0.447199972,
+        "candidate_sec": 0.460976089,
+        "time_change_percent": 3.0805272501224445,
+        "samples": {
+          "baseline": [
+            0.435767274,
+            0.447199972,
+            0.479055932,
+            0.435076915,
+            0.492961543
+          ],
+          "candidate": [
+            0.460976089,
+            0.452372208,
+            0.436531707,
+            0.488200898,
+            0.464905959
+          ]
+        },
+        "candidate_faster_pairs": 2
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "baseline_sec": 0.361630426,
+        "candidate_sec": 0.484834873,
+        "time_change_percent": 34.06915960107848,
+        "samples": {
+          "baseline": [
+            0.347485492,
+            0.349964229,
+            0.377648314,
+            0.361630426,
+            0.424796271
+          ],
+          "candidate": [
+            0.476025229,
+            0.480426818,
+            0.528038079,
+            0.497469055,
+            0.484834873
+          ]
+        },
+        "candidate_faster_pairs": 0
+      }
+    ],
+    "final_commit": "a56a293f949c0d12fbbb6475ec1de0a1e7a2deac",
+    "completion_record_sha256": "49e28b0e0e0765aaead48bb0436af23a6d85708c66ba991c10c8ce56b9fb8b95"
+  },
+  "experiment_B": {
+    "branch": "codex/exp-20261008-native-batch-parallel",
+    "thread_id": "01a11851-fcf2-7013-a299-a7717552ed7f",
+    "summary_sha256": "b7a309dbad796564dbbfd23e3fd7a6674b8957d7a25345e633e5b19c98e2d395",
+    "results": [
+      {
+        "unit": "t3-gbatch-homog-4",
+        "baseline_sec": 0.325511309,
+        "candidate_workers1_sec": 0.370445585,
+        "candidate_workers2_sec": 0.496246318,
+        "workers1_time_change_percent": 13.804213481258799,
+        "workers2_time_change_percent": 52.45132942523971,
+        "samples": {
+          "base_serial": [
+            0.310078042,
+            0.383047556,
+            0.340915499,
+            0.318656104,
+            0.325511309
+          ],
+          "workers1": [
+            0.370445585,
+            0.375169438,
+            0.35574156,
+            0.416087703,
+            0.34373405
+          ],
+          "workers2": [
+            0.518200021,
+            0.411609093,
+            0.426521429,
+            0.496246318,
+            0.527203443
+          ]
+        },
+        "candidate_faster_pairs": 0
+      },
+      {
+        "unit": "t3-gbatch-homog-8",
+        "baseline_sec": 0.414841926,
+        "candidate_workers1_sec": 0.478138671,
+        "candidate_workers2_sec": 0.535288664,
+        "workers1_time_change_percent": 15.258039516478373,
+        "workers2_time_change_percent": 29.03436958780292,
+        "samples": {
+          "base_serial": [
+            0.378106347,
+            0.486011154,
+            0.419953876,
+            0.414841926,
+            0.413316107
+          ],
+          "workers1": [
+            0.478138671,
+            0.536456703,
+            0.589129477,
+            0.449411766,
+            0.450652698
+          ],
+          "workers2": [
+            0.558162976,
+            0.478816636,
+            0.522350143,
+            0.557653803,
+            0.535288664
+          ]
+        },
+        "candidate_faster_pairs": 1
+      },
+      {
+        "unit": "t3-gbatch-hetero-mix",
+        "baseline_sec": 0.35875487,
+        "candidate_workers1_sec": 0.428321071,
+        "candidate_workers2_sec": 0.439507644,
+        "workers1_time_change_percent": 19.391012308766697,
+        "workers2_time_change_percent": 22.509178481674684,
+        "samples": {
+          "base_serial": [
+            0.434257649,
+            0.35875487,
+            0.415574564,
+            0.229302788,
+            0.350889203
+          ],
+          "workers1": [
+            0.439785315,
+            0.426347272,
+            0.372918653,
+            0.460126487,
+            0.428321071
+          ],
+          "workers2": [
+            0.5172457,
+            0.436860802,
+            0.439507644,
+            0.423907925,
+            0.546050043
+          ]
+        },
+        "candidate_faster_pairs": 0
+      },
+      {
+        "unit": "t3-gbatch-varsize",
+        "baseline_sec": 0.34187755,
+        "candidate_workers1_sec": 0.367066118,
+        "candidate_workers2_sec": 0.40754475,
+        "workers1_time_change_percent": 7.367716306613303,
+        "workers2_time_change_percent": 19.207812855801755,
+        "samples": {
+          "base_serial": [
+            0.319075633,
+            0.3624179,
+            0.34187755,
+            0.334905369,
+            0.374936824
+          ],
+          "workers1": [
+            0.430471018,
+            0.359771112,
+            0.367066118,
+            0.425314915,
+            0.363858744
+          ],
+          "workers2": [
+            0.441511753,
+            0.397323925,
+            0.40703064,
+            0.465165013,
+            0.40754475
+          ]
+        },
+        "candidate_faster_pairs": 0
+      }
+    ],
+    "final_commit": "546d7f0e9ceba4e17a39a9891d7e2be72f85d294",
+    "completion_record_sha256": "a73cb86146423d66a29a7cb13c8e297f17792d290a3e7fe02f87a7dd2177257f",
+    "candidate_image": "sha256:f1305d6a2cfb50d5b5bb3a9b6b46be16895576006a191c06457d796362a7f5dc"
+  },
+  "limitations": [
+    "Five repeats do not establish tiny single-market effects; all outliers retained.",
+    "A and B have separate fresh paired baseline series; their heterogeneous-batch candidate times cannot isolate the hashing effect by direct subtraction.",
+    "Additional hashing work moves into parquet_write; missing hashing phase is not treated as eliminated CPU work.",
+    "Batch profile sums overlap between concurrent markets and are not total batch wall time."
+  ],
+  "audit": "orchestration-audit.json",
+  "development_branch_unchanged": true
+}

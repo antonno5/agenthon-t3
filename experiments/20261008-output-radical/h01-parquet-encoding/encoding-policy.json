@@ -1,0 +1,27 @@
+{
+  "executive_summary": "Use cheaper physical Parquet encoding without changing decoded journals.",
+  "frozen_before_timing": true,
+  "codec": "SNAPPY",
+  "codec_reason": "Already supported by pinned Arrow15 and used in the baseline; fast compression avoids uncompressed IO expansion and adds no dependency or codec sweep.",
+  "dictionary_columns": [
+    "msg_type",
+    "side"
+  ],
+  "all_other_columns_dictionary": false,
+  "write_statistics": false,
+  "unchanged": [
+    "Arrow15.0.2 writer",
+    "DataPageV1",
+    "Parquet2.6",
+    "schema metadata",
+    "nulls",
+    "decoded values/order",
+    "1024-row write batches",
+    "1048576-row groups",
+    "65536-row message blocks",
+    "encoder pool size 2",
+    "launcher",
+    "staging and journal digest publication"
+  ],
+  "selection_method": "reasoned policy, no synthetic timing or scenario sweeps"
+}

@@ -1,0 +1,34 @@
+{
+  "executive_summary": "Rebuild only the native extension on the common pinned baseline; keep the runtime and dependency versions.",
+  "dockerfile": "Dockerfile",
+  "shared_overlay_recipe": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/Dockerfile",
+  "shared_overlay_sha256": "d9fe30aced239160868e366f635e2f2d5f111d6c19b7372872c24549edec0b33",
+  "build_context": "worktree root",
+  "platform": "linux/amd64",
+  "base_image_arg": "BASE_IMAGE",
+  "baseline_image_observed_phase1": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "phase2_instruction": "Use the coordinator-dispatched baseline identity as --build-arg BASE_IMAGE. Every Docker action, including build and probes, must go through the shared serial docker_slot.py. Phase2 dispatch is required before running this recipe.",
+  "build_native_script_sha256": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
+  "phase2_command_template": [
+    "docker",
+    "--context",
+    "colima-agenthon",
+    "build",
+    "--platform=linux/amd64",
+    "--build-arg",
+    "BASE_IMAGE=<coordinator pinned baseline identity>",
+    "--build-arg",
+    "IMPLEMENTATION_COMMIT=<current committed HEAD>",
+    "-f",
+    "expirements/20261008-radical-hypotheses/h03-recipient-scheduler/Dockerfile",
+    "-t",
+    "track3-radical-h03-recipient-scheduler:phase2",
+    "."
+  ],
+  "phase2_overlay_extensions": [
+    "Embed native-source-manifest.json and implementation commit label for installed provenance audit",
+    "Compile/run the independently extracted queue differential tests with Linux g++ and frozen numeric flags; install separate correctness-only test binary"
+  ],
+  "dockerfile_sha256": "656e5fc6dba8303209e1f1f3ec4f72030c9e1c112ea846535e2db3a1209f8c8a",
+  "buildkit_local_image_id_handling": "Use the baseline tag only after inspecting it under the lock and asserting it resolves to the dispatched immutable image ID; BuildKit FROM treats bare sha256 image IDs as registry names. All runtime checks still use immutable IDs. Candidate RootFS must retain every baseline layer as its prefix."
+}

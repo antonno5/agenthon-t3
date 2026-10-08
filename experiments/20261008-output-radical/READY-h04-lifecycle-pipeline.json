@@ -1,0 +1,168 @@
+{
+  "slug": "h04-lifecycle-pipeline",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline",
+  "branch": "codex/exp-20261008-output-h04-lifecycle-pipeline",
+  "base_commit": "ff2c1d6d3eaf4829c95c39a6032585fa9b49b7b5",
+  "implementation_commit": "3cb8784279483ce8ba7206d937ee2fddd109f786",
+  "source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "90171d743c5afc0ff09ec109aa939eac8402bf832e1444da3df35042ccea7407",
+    "baselines/native/engine.hpp": "5b04d349a45d19a11626c7209fb4b8ebef45636992b283c1a736e2b9ddf1f709",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "59b51a81d5a136040df2481c2faa2cd6f22beb0825fbac3ca0cf2d65a12bf7cf",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "fdf3761c1a974cd58d5499bbf96aeb2786aeab892b841ab090e038083955a298",
+    "baselines/native/pqwrite.hpp": "6a1d3b4a6b6803a67bb487411e32562baf4e58d9b56602707a30fb5b99943309",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/trace_pipeline.hpp": "3678dc1ab838f543f242c7ee5b09694cf056bc09b4f6c683a5d7e9f24748b20b",
+    "baselines/native/trace_stream.hpp": "0591c65b7738bbef5cdc235ddc571e93caef53e586c37df7bc0389635d13689e"
+  },
+  "host_checks": {
+    "executive_summary": "Phase-1 lifecycle pipeline is implemented with native host overlap evidence; pinned validation remains scheduled.",
+    "host_synthetic": {
+      "pairs": 12,
+      "byte_equal": 7,
+      "schema_metadata_ordered_values_equal": true,
+      "asan_ubsan": true
+    },
+    "host_bindings": {
+      "both_units": true,
+      "both_journals_byte_equal": true,
+      "buffers_equal": true,
+      "empty_exception_controls": true,
+      "diagnostics": {
+        "t3-s001-price-time-priority": {
+          "immutable_rows": 604,
+          "encoded_while_sim_rows": 0,
+          "blocks": 1,
+          "row_cap": 1048576
+        },
+        "t3-s012-partial-fill-cancel-race": {
+          "immutable_rows": 202291,
+          "encoded_while_sim_rows": 131072,
+          "blocks": 4,
+          "row_cap": 1048576
+        }
+      }
+    },
+    "test_only_arrow25_page_cap": {
+      "pairs": 12,
+      "all_byte_equal": true
+    },
+    "native_source_sha256": {
+      "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+      "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+      "baselines/native/engine.cpp": "90171d743c5afc0ff09ec109aa939eac8402bf832e1444da3df35042ccea7407",
+      "baselines/native/engine.hpp": "5b04d349a45d19a11626c7209fb4b8ebef45636992b283c1a736e2b9ddf1f709",
+      "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+      "baselines/native/module.cpp": "59b51a81d5a136040df2481c2faa2cd6f22beb0825fbac3ca0cf2d65a12bf7cf",
+      "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+      "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+      "baselines/native/pqwrite.cpp": "fdf3761c1a974cd58d5499bbf96aeb2786aeab892b841ab090e038083955a298",
+      "baselines/native/pqwrite.hpp": "6a1d3b4a6b6803a67bb487411e32562baf4e58d9b56602707a30fb5b99943309",
+      "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+      "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+      "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+      "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+      "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+      "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+      "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+      "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+      "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+      "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+      "baselines/native/trace_pipeline.hpp": "3678dc1ab838f543f242c7ee5b09694cf056bc09b4f6c683a5d7e9f24748b20b",
+      "baselines/native/trace_stream.hpp": "0591c65b7738bbef5cdc235ddc571e93caef53e586c37df7bc0389635d13689e"
+    },
+    "evidence_sha256": {
+      "evidence/failed-attempts.json": "d0da61875b293902e4b90965472a33e503a1b96abdad7e5e439aa10503d8bfda",
+      "evidence/host-attempt02/commands.json": "7160b0ab2b67f0477af34e2313c87c29e73d8fb97cb0faf1766bf66964a12d98",
+      "evidence/host-attempt03/commands.json": "15b95fd2fb544aca94b4af03bdbd60e1b8b416e538a58a987bed8fa9f6f1c326",
+      "evidence/host-attempt04/commands.json": "4b4dad18cfe2c0d0e74b1ce4a91cdd98edcc8deeacc4d379e343f0d350ba2520",
+      "evidence/host-attempt04/summary.json": "564b2451088f8665bed5b97af3720a2597efdecca4b9e6bd481990b565949530",
+      "evidence/host-bindings-attempt01/baseline/diagnostics.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "evidence/host-bindings-attempt01/baseline/summary.json": "e12a5b24d957cee0916246a94b52468f8083b1940401e9ea869e531f29f51be2",
+      "evidence/host-bindings-attempt01/baseline-build-command.json": "3b7c86977e276284ba2a16cdf2fa03b176351f0eef9a1f41665527096ea7ee45",
+      "evidence/host-bindings-attempt01/candidate/diagnostics.json": "4b77f189c028372553d1f3aa8a293313acba64600ce2670f8a478bb3b7664b84",
+      "evidence/host-bindings-attempt01/candidate/summary.json": "e12a5b24d957cee0916246a94b52468f8083b1940401e9ea869e531f29f51be2",
+      "evidence/host-bindings-attempt01/candidate-build-command.json": "0db8c011ab555f753bac049d4b7aa7ccaa14f4ad3e78868ea3fe9b82a067ce9a",
+      "evidence/host-bindings-attempt01/summary.json": "055cbc1446b7d1fe0c31d45820bc9d721f4010cf3d79400ed68308dfb9c6764f",
+      "evidence/host-page-cap-attempt01/command.json": "71a4930fb67bee0eff61a75ba7632def7faf6d6576f1681a250905617d4e567c",
+      "evidence/host-page-cap-attempt01/summary.json": "e6160d82efa8615837fa5cee02ec82cbf5775dcb2fc47860dd5d3cabc1fd731f"
+    },
+    "docker_operations_phase1": 0,
+    "pinned_correctness": "pending_phase2",
+    "timing": "not_started",
+    "final_trace_boundary_check": {
+      "cpp_standard": "c++17",
+      "optimized_exit_code": 0,
+      "asan_ubsan_exit_code": 0,
+      "large_single_timestamp_tie_boundary": true
+    }
+  },
+  "host_evidence_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/evidence/host-summary.json",
+  "host_evidence_sha256": "1aaeacc790a2c1b62125c60654c88644c26f346000a66fbd7dc7acf739ceeb38",
+  "dockerfile_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/Dockerfile",
+  "build_recipe_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/recipe.py",
+  "integration_constraints": [
+    "First canonical 1Mi lifecycle rowgroup only is encoded during Sim. Full retained trace and deferred msg_type remain necessary.",
+    "Two dispatcher threads and one shared 2-worker encoder pool; no nested encoder pools.",
+    "Negative-latency guard retains buffered lifecycle writer.",
+    "Arrow25 large synthetic byte differences are page-row-cap behavior; unmodified Arrow15 exact-byte preflight is mandatory before timing."
+  ],
+  "planned_runtime_diagnostics": [
+    "lifecycle_pipeline_diagnostics encoded_while_sim_rows counted before event loop exits; s012 must be positive, s001 zero.",
+    "Installed native-source and extension manifest hashes.",
+    "Adapter phases remain secondary; full container Docker clock primary."
+  ],
+  "comparison_policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-horizon-240s",
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-partialfill-atomicity",
+    "t3-coarse-tick-ties",
+    "t3-s001-price-time-priority",
+    "t3-gbatch-hetero-mix"
+  ],
+  "phase1_docker_operations": 0,
+  "phase1_status": "ready",
+  "phase2_preflight": "newly_authorized_not_started",
+  "timing_status": "not_started"
+}

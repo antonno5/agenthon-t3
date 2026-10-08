@@ -1,0 +1,183 @@
+{
+  "executive_summary": "Host standalone checks for stable native price levels; actual pinned Docker correctness and timing remain pending.",
+  "slug": "h03-level-pool",
+  "status": "host_passed",
+  "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+  "host_python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "compiler": "/usr/bin/clang++",
+  "source_sha256": {
+    "baselines/native/book.hpp": "d3ae721ac4dc178c6a289aa25fba2429f4f8ad7ed90da33782a5d35dad98d096"
+  },
+  "checks": [
+    {
+      "name": "compiler-version",
+      "command": [
+        "/usr/bin/clang++",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compiler-version.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compiler-version.stderr.txt"
+    },
+    {
+      "name": "compile-baseline-book-optimized",
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+        "-O2",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native/tests/book_test.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-optimized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-optimized.stderr.txt"
+    },
+    {
+      "name": "run-baseline-book-optimized",
+      "command": [
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-optimized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-optimized.stderr.txt"
+    },
+    {
+      "name": "compile-level-pool-optimized",
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+        "-O2",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/expirements/20261008-native-hypotheses/h03-level-pool/level_pool_test.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-optimized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-optimized.stderr.txt"
+    },
+    {
+      "name": "run-level-pool-optimized",
+      "command": [
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-optimized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-optimized.stderr.txt"
+    },
+    {
+      "name": "compile-baseline-book-sanitized",
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native/tests/book_test.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-sanitized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-baseline-book-sanitized.stderr.txt"
+    },
+    {
+      "name": "run-baseline-book-sanitized",
+      "command": [
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/baseline-book-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-sanitized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-baseline-book-sanitized.stderr.txt"
+    },
+    {
+      "name": "compile-level-pool-sanitized",
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/expirements/20261008-native-hypotheses/h03-level-pool/level_pool_test.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-sanitized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/compile-level-pool-sanitized.stderr.txt"
+    },
+    {
+      "name": "run-level-pool-sanitized",
+      "command": [
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/level-pool-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-sanitized.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/run-level-pool-sanitized.stderr.txt"
+    },
+    {
+      "name": "engine-syntax",
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wno-unused-function",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-fsyntax-only",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/baselines/native/engine.cpp"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/engine-syntax.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/engine-syntax.stderr.txt"
+    },
+    {
+      "name": "diff-whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/diff-whitespace.stdout.txt",
+      "stderr": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h03-level-pool/out/h03-level-pool/host/diff-whitespace.stderr.txt"
+    }
+  ],
+  "error": null,
+  "docker_executed": false,
+  "actual_docker_checks": "pending explicit orchestrator grant",
+  "timing_executed": false,
+  "performance_claim": null,
+  "rankable": false,
+  "adopted": false
+}

@@ -1,0 +1,140 @@
+{
+  "executive_summary": "Pinned preflight passed exact byte/schema/value comparisons for both journals, all selected developer gates, actual native provenance and active-Sim lifecycle overlap.",
+  "accepted": true,
+  "slug": "h04-lifecycle-pipeline",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline",
+  "branch": "codex/exp-20261008-output-h04-lifecycle-pipeline",
+  "implementation_commit": "3cb8784279483ce8ba7206d937ee2fddd109f786",
+  "candidate_commit": "3cb8784279483ce8ba7206d937ee2fddd109f786",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "candidate_image": "sha256:ff2a2f6032dd5650508b6847843b93380ed9e12776d5f4bba127f5e24847329a",
+  "candidate_tag": "track3-output-h04:3cb878427948",
+  "native_source_hashes": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
+    "baselines/native/engine.cpp": "90171d743c5afc0ff09ec109aa939eac8402bf832e1444da3df35042ccea7407",
+    "baselines/native/engine.hpp": "5b04d349a45d19a11626c7209fb4b8ebef45636992b283c1a736e2b9ddf1f709",
+    "baselines/native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
+    "baselines/native/module.cpp": "59b51a81d5a136040df2481c2faa2cd6f22beb0825fbac3ca0cf2d65a12bf7cf",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "fdf3761c1a974cd58d5499bbf96aeb2786aeab892b841ab090e038083955a298",
+    "baselines/native/pqwrite.hpp": "6a1d3b4a6b6803a67bb487411e32562baf4e58d9b56602707a30fb5b99943309",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "d77fa9b828661c1bd559cdd459bd834dcc26ba644d1151e774efa4018826a97b",
+    "baselines/native/tests/pipeline_test.cpp": "815311e11f29a3e9b0e78b95e2b0eda632e3616df4c3a5511f764807ad802861",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5",
+    "baselines/native/trace_pipeline.hpp": "3678dc1ab838f543f242c7ee5b09694cf056bc09b4f6c683a5d7e9f24748b20b",
+    "baselines/native/trace_stream.hpp": "0591c65b7738bbef5cdc235ddc571e93caef53e586c37df7bc0389635d13689e"
+  },
+  "extension_sha256": {
+    "_t3engine.cpython-311-x86_64-linux-gnu.so": "4128f56fd57544037445af82f47a1d805e39da8398d67d9f46230c5c6a269ef3"
+  },
+  "runtime_packages": {
+    "numpy": "1.26.4",
+    "pandas": "1.5.3",
+    "pyarrow": "15.0.2",
+    "scipy": "1.17.1"
+  },
+  "unchanged_adapter_and_preserved_baseline_extension": true,
+  "pinned_synthetic": {
+    "pairs": 12,
+    "all_byte_schema_metadata_ordered_values_equal": true
+  },
+  "linux_amd64_asan_ubsan": {
+    "passed": true,
+    "tests": [
+      "trace boundaries, mutations, tie order, overlap",
+      "queue reuse, backpressure, exceptions, cancellation"
+    ]
+  },
+  "pinned_bindings": {
+    "passed": true,
+    "diagnostics": {
+      "t3-s001-price-time-priority": {
+        "immutable_rows": 604,
+        "encoded_while_sim_rows": 0,
+        "blocks": 1,
+        "row_cap": 1048576
+      },
+      "t3-s012-partial-fill-cancel-race": {
+        "immutable_rows": 202291,
+        "encoded_while_sim_rows": 131072,
+        "blocks": 4,
+        "row_cap": 1048576
+      }
+    },
+    "both_journals_byte_exact": true,
+    "empty_and_exception_controls": true
+  },
+  "selected_controls": {
+    "executive_summary": "All selected controls and retained files satisfy strict native, exact output and plain-file conditions.",
+    "units": 9,
+    "runs": 18,
+    "native_market_executions": 26,
+    "journal_file_pairs": 26,
+    "plain_single_link_parquet_files": 130,
+    "all_checks_passed": true,
+    "summary_sha256": "1a99a93393827bb60ad16fd95e1f2224a1a6cd260d40335560e086e7bebfa38a"
+  },
+  "scope": "Immutable columns of first canonical 1Mi lifecycle rowgroup; msg_type and remaining groups finalized after Sim.",
+  "thread_budget": "Sim plus two external dispatchers and a single shared two-worker encoder pool: five C++ application threads, no nested pools; runtime CPU quota remains four.",
+  "comparison_policy": {
+    "clock": "Docker State FinishedAt minus StartedAt",
+    "warmups_per_side": 1,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "platform": "linux/amd64",
+    "docker_context": "colima-agenthon",
+    "rankable": false,
+    "selected_only": true,
+    "all_samples_retained": true,
+    "no_production_adoption": true,
+    "correctness": "Both journal schemas including metadata and all ordered decoded values must match exactly; hashes bind each own file; unchanged shared developer gates. H02/H04 additionally require canonical file bytes. H01/H03 investigate physical encoding and may change bytes only."
+  },
+  "timing_units": [
+    "t3-gb-mega-throughput",
+    "t3-gb-horizon-240s",
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest"
+  ],
+  "correctness_only_units": [
+    "t3-s012-partial-fill-cancel-race",
+    "t3-partialfill-atomicity",
+    "t3-coarse-tick-ties",
+    "t3-s001-price-time-priority",
+    "t3-gbatch-hetero-mix"
+  ],
+  "shared_corpus_preflight_sha256": "7b611749827e83377dee13472d60fbc4e189f86c18b07404173250104b6e0a51",
+  "evidence_sha256": {
+    "evidence/phase2-runtime-audit/audit.json": "862d22f6b5b0b91d72b55efdfb2cc17739a25d788ed17680a25fbe97a81cd3ac",
+    "evidence/phase2-preflight-integrity/summary.json": "3d5b9f2b8d2dfc4460ef32e0e5ccb8c334ff9b4c91ddc60b87e3704454b25a50",
+    "evidence/phase2-controls-attempt01/focused/summary.json": "1a99a93393827bb60ad16fd95e1f2224a1a6cd260d40335560e086e7bebfa38a",
+    "evidence/phase2-controls-attempt01/bindings/summary.json": "e0ad574a4d08a98c3fb4c5b407ef14253440bf770702a64bd183ab0ecdfc9b7e",
+    "evidence/phase2-sanitizers-attempt01/result.json": "a1f51845c605db60afbf811c68d8cf61a0a5a7427670b8ff55176c0ffd807d96",
+    "evidence/phase2-build-attempt01/build.log": "03e806cc2d1199b9b0edd430f7ec317578a293dd395177f0bab7119030a0bfc5"
+  },
+  "timing_started": false,
+  "timing_status": "awaiting_coordinator_schedule",
+  "rankable": false,
+  "adopted": false,
+  "phase2_failed_attempts": 0,
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h04-lifecycle-pipeline/experiments/20261008-output-radical/h04-lifecycle-pipeline/evidence"
+}

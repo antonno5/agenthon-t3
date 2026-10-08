@@ -1,0 +1,59 @@
+{
+  "executive_summary": "Test the recipient queues on busy markets, preserving both journals exactly; retain every fixed paired sample. Host diagnostics do not measure speed.",
+  "slug": "h03-recipient-scheduler",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "timing_units": [
+    "t3-coarse-tick-ties",
+    "t3-eq-deterministic-baseline",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gb-pop-horizon-scale",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-s019-latency-jitter-kendall",
+    "t3-eq001-pareto-latency-tail",
+    "t3-mp07-heavy-flow-oldest",
+    "t3-gbatch-hetero-mix"
+  ],
+  "selection_before_timing": true,
+  "selection_change": "Move s012 to timing and mp07 to correctness-only based on untimed requeue counts. Coordinator must synchronize these arrays into the shared plan before phase2.",
+  "mandatory_unit": "t3-s001-price-time-priority",
+  "clock": "Docker State FinishedAt minus StartedAt",
+  "warmups_per_side": 1,
+  "timed_pairs_per_unit": 5,
+  "pair_order": [
+    "AB",
+    "BA",
+    "AB",
+    "BA",
+    "AB"
+  ],
+  "cpus": 4,
+  "memory": "16g",
+  "memory_swap": "16g",
+  "network": "none",
+  "platform": "linux/amd64",
+  "docker_context": "colima-agenthon",
+  "rankable": false,
+  "correctness": "Exact bytes, schema, ordered values for BOTH journals plus unchanged shared developer gates; assert actual native engine every market.",
+  "selected_only": true,
+  "all_samples_retained": true,
+  "no_production_adoption": true,
+  "phase1": "Implementation, host checks, fixed scenario plan, immutable commit; no Docker until coordinator phase2 dispatch.",
+  "correctness_before_timing": true,
+  "full_run_percent": "100*(1-median(candidate)/median(baseline)); positive faster, negative slower",
+  "diagnostic_counts_clock": "none",
+  "no_repeats_or_tuning_after_results": true,
+  "phase2_docker_slot": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/docker_slot.py",
+  "phase2_runner": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/run_focused.py",
+  "numeric_stack": {
+    "python": "3.11",
+    "pyarrow": "15.0.2",
+    "compiler_flags": [
+      "-fno-fast-math",
+      "-ffp-contract=off"
+    ],
+    "build_script": "baselines/build_native.py unchanged"
+  },
+  "phase2_status": "not_started"
+}

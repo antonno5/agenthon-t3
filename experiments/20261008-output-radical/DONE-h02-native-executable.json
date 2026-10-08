@@ -1,0 +1,74 @@
+{
+  "slug": "h02-native-executable",
+  "complete": true,
+  "accepted": true,
+  "implementation_commit": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+  "reports_commit": "13c24e56c1275aa9c11bde597107ab7879c03790",
+  "branch": "codex/exp-20261008-output-h02-native-executable",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable",
+  "baseline_image": "sha256:e96d4ea0b819cdf88eb9dde55a6a61d59eefd2247df88139ab0cda03ca0ba1d2",
+  "candidate_image": "sha256:8957952bff08dbac958064408af26343b925fbf81b1f35d453a8b5b978c47499",
+  "builder_image": "sha256:c0add3d93b48acb8c7fb429aabf5e751b3c96335e55fb4c57704b021062a616e",
+  "runner_sha256": "5e04867e8d11a6d4983648d1647d028623b2a2307c1c22e589991d575341ea70",
+  "implementation_and_tests_unchanged_after_timing": true,
+  "counts": {
+    "accepted_runs": 48,
+    "timed_samples": 40,
+    "warmups": 8
+  },
+  "results": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "baseline_median_seconds": 0.420833991,
+      "candidate_median_seconds": 0.233071856,
+      "time_reduction_pct": 44.61667522479191,
+      "candidate_faster_pairs": 5,
+      "pairs": 5
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "baseline_median_seconds": 0.393511605,
+      "candidate_median_seconds": 0.219683266,
+      "time_reduction_pct": 44.173624561847426,
+      "candidate_faster_pairs": 5,
+      "pairs": 5
+    },
+    {
+      "unit": "t3-multilevel-crossing",
+      "baseline_median_seconds": 0.541636108,
+      "candidate_median_seconds": 0.287358218,
+      "time_reduction_pct": 46.94625898168516,
+      "candidate_faster_pairs": 4,
+      "pairs": 5
+    },
+    {
+      "unit": "t3-gb-mega-throughput",
+      "baseline_median_seconds": 1.68251234,
+      "candidate_median_seconds": 1.511683445,
+      "time_reduction_pct": 10.153203096269703,
+      "candidate_faster_pairs": 3,
+      "pairs": 5
+    }
+  ],
+  "correctness": "Both journals byte-exact with full schema+metadata+ordered decoded values; unchanged developer gates accepted; all actual native, own digests valid.",
+  "preflight_accepted": true,
+  "batch_policy": "Original adapter unchanged, native independent markets; untimed correctness only",
+  "artifacts": {
+    "README.md": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/README.md",
+    "result.json": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/result.json",
+    "samples.json": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/samples.json",
+    "preflight.json": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/preflight.json",
+    "report-audit.json": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/report-audit.json"
+  },
+  "evidence_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence",
+  "failed_attempts": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h02-native-executable/experiments/20261008-output-radical/h02-native-executable/evidence/failure-history.json",
+  "reports_only_commit": true,
+  "host_work_finished": true,
+  "docker_work_finished": true,
+  "timing_series_count": 1,
+  "tuned_after_timing": false,
+  "rankable": false,
+  "adopted": false,
+  "merged": false,
+  "pushed": false
+}

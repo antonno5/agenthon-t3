@@ -1,0 +1,59 @@
+{
+  "host-final": {
+    "passed": true,
+    "files_checked": 42,
+    "summary_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/host-final/summary.json",
+    "summary_sha256": "abd83a471573516fc29b8b822b3e74e0850c879878b1ea65d480f4ef7d93b5e1",
+    "runtime": {
+      "python": "3.13.3",
+      "arrow": "25.0.1",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cxx_standard": "c++20"
+    }
+  },
+  "host-sanitized": {
+    "passed": true,
+    "files_checked": 42,
+    "summary_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-output-radical/worktrees/h03-specialized-writer/experiments/20261008-output-radical/h03-specialized-writer/evidence/host-sanitized/summary.json",
+    "summary_sha256": "b2b2add77d0141be6c6bf6a9d445208b74b57b33c2cd869f3e83078ca8579d67",
+    "runtime": {
+      "python": "3.13.3",
+      "arrow": "25.0.1",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cxx_standard": "c++20"
+    }
+  },
+  "pipeline": {
+    "passed": true,
+    "test": "baselines/native/tests/pipeline_test.cpp",
+    "checks": [
+      "ownership",
+      "backpressure",
+      "write_error",
+      "close_error",
+      "blocked_producer_error",
+      "cancellation"
+    ]
+  },
+  "diff_check": {
+    "passed": true
+  },
+  "preserved_failure_logs": {
+    "host-attempt01": {
+      "evidence/host-attempt01/baseline-compile.log": "b22eea8af6ece40033e5ac7776441ce28a69e21d9efea9355cd2d00de0d19184"
+    },
+    "host-attempt02": {
+      "evidence/host-attempt02/baseline-compile.log": "34a7b32c92d04474f13d94b22e0832977ee4a6873aa49fe803a40c8234935110",
+      "evidence/host-attempt02/baseline-probe.log": "7b0f3f92dc918c971473a99c05cbfec3cd75142c66b0346be862797bbe15d7ce",
+      "evidence/host-attempt02/candidate-compile.log": "e186b6ac487a08258b2ee8552c7f24c1ba27fe205428d8c9e1c577ba6d8c5300"
+    },
+    "host-attempt03": {
+      "evidence/host-attempt03/baseline-compile.log": "64f6f415c1146289cbef81c80aefb7621375a925858a89c4bc7c50537508ee89",
+      "evidence/host-attempt03/baseline-probe.log": "7b0f3f92dc918c971473a99c05cbfec3cd75142c66b0346be862797bbe15d7ce",
+      "evidence/host-attempt03/candidate-compile.log": "256c64f3197f2c7a5574bf411fcccee9faa8898207ebbf5a18ac2263875640f3",
+      "evidence/host-attempt03/candidate-probe.log": "859e8f7a49c11437f1913a9dce3bd359c7cf9e3cd3a9943ebd0319b3b34d0384"
+    }
+  }
+}

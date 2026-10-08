@@ -1,0 +1,867 @@
+{
+  "executive_summary": "All correctness checks passed. The three single-market measurements are mixed and noisy, and do not establish a consistent improvement from streaming hashes. The combined heterogeneous batch took 34.1% longer in median and was slower in all five pairs. These local measurements do not justify adopting the combined change.",
+  "date": "2026-10-08",
+  "experiment": "A: streaming SHA256 plus exact shared native batch workers",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "profile": "local developer experiment",
+  "performance_outcome": "no consistent single-market gain; combined hetero batch regression",
+  "adopted": false,
+  "adoption_recommendation": "retain as an experiment; this run does not support adoption",
+  "base_commit": "7a5abca889c1fdd77e01edfa9f85762becc1f17b",
+  "hash_implementation_commit": "eececa6b9a2518366b2fdeb3b590de806b166d4e",
+  "shared_batch_commit": "11a9a6c77184d3335932a026c1dee93bea8e3ad6",
+  "shared_batch_cherry_pick_commit": "f4f6ada50dbcdec9dd63628f21a65ece6a1a804b",
+  "candidate_build_source_commit": "2e8004a22491bfbfffa344288f1128d4fefc8ba5",
+  "runner_commit": "ccb57b06fc786b1a68cec280ed0d6cb8aa6c4251",
+  "images": {
+    "baseline": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+    "hash_only": "sha256:61bc5d7883203db9e34dbaeab9d725684c9e5dbcb2d79daef199fdde85824039",
+    "combined": "sha256:5692ca0d3619cc5ad71f9e932d31410f5ddafbb84f48543621287f78e4a9d4c9"
+  },
+  "source_hashes": {
+    "native": {
+      "LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+      "book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+      "engine.cpp": "d49f2a50a2f7f98b4e50dd051f5022c950adbd8245299a5dfcf8534a87088cd6",
+      "engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+      "hash_stream.hpp": "e61804072d2bbc7330653cefbb235d0ff9ffaeb6d534745134088a42fa58187c",
+      "module.cpp": "698c45500f3ee2301f490fbbb97013ec199be010db62a8a535eb3da2447d9211",
+      "nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+      "nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+      "pqwrite.cpp": "8a6edd66aeb118236f3d5010ea7b3b4f38ae1cc82b7ac8289ae629a1be1084ea",
+      "pqwrite.hpp": "aa795b25d83ca267de2b0b14456afdd04f708260466e0f024e83605d52385b37",
+      "rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+      "svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+      "svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+      "svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+      "svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+      "tests/__pycache__/check_stream_hash.cpython-313.pyc": "24a5a3cd9d93ffe321f5d2b89623fd183b4f0fb24741485f4eb3cc4acdaffea5",
+      "tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+      "tests/check_module_hash.py": "161637d524095a42b2509e724d18025db963453c33b2a7d072661842eeaac23a",
+      "tests/check_stream_hash.py": "0b783e2a919f0fef6f737407974d436e62a8858aca6bce4888312140789abc55",
+      "tests/hash_stream_test.cpp": "74587fa070ed97e3fb3ec6d9b4729f1042eb26096e995752d9a7c15a8e92b981",
+      "tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+      "tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+      "tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+    },
+    "adapters": {
+      "native.py": "30ac774402511277abca9feff70007c23349808a963e45dffbd07ec86cbdcbed",
+      "simulate.py": "d31187595a9f94b9e1bb67443bc197496696f426bc9f9e0d1bc16764d53dce50",
+      "simulate_batch.py": "0202822ab8059e82c8594fbe58afe03ddf38504a4e562dedaa25940ce9703717"
+    },
+    "recipe": {
+      "experiments/stream-hash/Dockerfile": "e0474e145958ecf3d364e5f8982a7574428529d5f95021eb3f782f596d54f77c",
+      "experiments/stream-hash/Dockerfile.dockerignore": "558e781d1baaadb1232cbfb9ce0d1827d61d33f58cb932f59af410dd0180b2b2",
+      "experiments/stream-hash/README.md": "5717d6368a3007c3094a86180c60ce40d5b8da88b60110d8542db1a2852e215f",
+      "experiments/stream-hash/check_combined.py": "3abb6060c951d910fcbfb1ad6aec15411b57bf640647b7daa321a5de63c54635",
+      "experiments/stream-hash/verify_combined.py": "d0d61255bc2a8947839f484037c8e36980472973de080188568ceb7b3c99d3d7",
+      "experiments/stream-hash/verify_docker.py": "d4b6b6502f9cf3904862a9e9d91d21493b6ae477e56d6e8b38dcf5b5d9478575"
+    }
+  },
+  "runtime_identity": {
+    "python": "3.11.17",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "1.5.3",
+      "pyarrow": "15.0.2",
+      "scipy": "1.17.1",
+      "abides-core": "0.0.0",
+      "abides-markets": "0.0.0"
+    },
+    "crypto_runtime": "OpenSSL 3.5.7 9 Jun 2026",
+    "gcc": null,
+    "g++": null,
+    "openssl_headers": false,
+    "installed_hashes": {
+      "__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
+      "_t3engine.cpython-311-x86_64-linux-gnu.so": "b84ffb900dc643b21d7fb1b77a0ee936a5ac6e07be5ca7c04f5949b28e7de34b",
+      "agents.py": "f4521ce1e9d0093761df7b92e996e63a879ce909b42d158a03458eef552c636a",
+      "buffered_trace.py": "c6b3031cded1f2f792c5376d4b5331068f465c49337065852767b74ed445c003",
+      "components.py": "ae0020680c002ccb37c1fc62d3b28fadefd321866e2dd64d55df992979d01c11",
+      "config.py": "5cd0ecfd25b999ff44f961111c84b5da718be2a548cfd2b6ea725bcedf8cccbd",
+      "native.py": "30ac774402511277abca9feff70007c23349808a963e45dffbd07ec86cbdcbed",
+      "python_simulate.py": "7d5d9638828448bebba12e86344f8a0728076a549abd2e67198fd3f326669be7",
+      "scenario_io.py": "74d053bddb4ba95f45621b3b6d6277296b0dcce80e4960b59bbceec3fefc22fe",
+      "scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+      "simulate.py": "d31187595a9f94b9e1bb67443bc197496696f426bc9f9e0d1bc16764d53dce50",
+      "simulate_batch.py": "0202822ab8059e82c8594fbe58afe03ddf38504a4e562dedaa25940ce9703717",
+      "trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e"
+    }
+  },
+  "timing_image_versions": {
+    "baseline": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      }
+    },
+    "candidate": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1",
+        "abides-core": "0.0.0",
+        "abides-markets": "0.0.0"
+      }
+    }
+  },
+  "host": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+  "docker_host": {
+    "Architecture": "aarch64",
+    "OperatingSystem": "Ubuntu 24.04.4 LTS",
+    "NCPU": 4,
+    "MemTotal": 18818052096,
+    "ServerVersion": "29.5.2",
+    "Name": "colima-agenthon",
+    "OSType": "linux"
+  },
+  "policy": {
+    "warmup_per_mode": 1,
+    "warmups_excluded": true,
+    "timed_repeats_per_mode": 5,
+    "paired_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "fresh_baseline_per_sample": true,
+    "historical_samples_reused": false,
+    "scheduled_runs": 48,
+    "warmup_runs": 8,
+    "timed_runs": 40,
+    "units": [
+      "t3-s001-price-time-priority",
+      "t3-mr-deep-book-state-size",
+      "t3-mp05-cancel-churn-newest",
+      "t3-gbatch-hetero-mix"
+    ],
+    "single_engine": "strict native",
+    "candidate_batch_workers": 2,
+    "baseline_batch": "original serial adapter",
+    "profile_components": false,
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "container_order": "sequential; exclusive whole-phase Docker slot",
+    "primary_metric": "Docker State FinishedAt - StartedAt",
+    "secondary_metric": "parquet_write + hashing by market and their sum; overlapping market phases are not batch elapsed time",
+    "workers1_timing_control": false,
+    "untimed_memory_diagnostics": 4,
+    "after_timing_code_or_repeat_selection": false
+  },
+  "correctness": {
+    "all_scheduled_runs_accepted": true,
+    "developer_gates_admissible": true,
+    "actual_native_every_market": true,
+    "market_runs_checked": 96,
+    "independent_complete_journal_sha256_checks": 192,
+    "both_journals_declared_and_independently_verified": true,
+    "all_reference_schema_ordered_values_and_direct_bytes_equal": true,
+    "baseline_candidate_and_repeat_stability_comparisons": 64,
+    "direct_byte_comparison": true,
+    "message_journal_checked_every_market": true,
+    "sealed_data_used": false
+  },
+  "timing_results": [
+    {
+      "unit": "t3-s001-price-time-priority",
+      "n_events": 604,
+      "mode": "hash-only effect on a single native market",
+      "container_seconds_samples": {
+        "baseline": [
+          0.311865448,
+          0.391685206,
+          0.416932307,
+          0.31541461,
+          0.326659513
+        ],
+        "candidate": [
+          0.297284835,
+          0.32444059,
+          0.33269482,
+          0.420614798,
+          0.316310331
+        ]
+      },
+      "container_seconds_median": {
+        "baseline": 0.326659513,
+        "candidate": 0.32444059
+      },
+      "ratio_of_container_medians_baseline_over_candidate": 1.0068392274838363,
+      "candidate_container_change_pct": -0.6792770183307151,
+      "paired_container_samples": [
+        {
+          "index": 0,
+          "order": "AB",
+          "baseline_sec": 0.311865448,
+          "candidate_sec": 0.297284835,
+          "baseline_over_candidate": 1.0490459360296664
+        },
+        {
+          "index": 1,
+          "order": "BA",
+          "baseline_sec": 0.391685206,
+          "candidate_sec": 0.32444059,
+          "baseline_over_candidate": 1.2072632650557071
+        },
+        {
+          "index": 2,
+          "order": "AB",
+          "baseline_sec": 0.416932307,
+          "candidate_sec": 0.33269482,
+          "baseline_over_candidate": 1.253197470883376
+        },
+        {
+          "index": 3,
+          "order": "BA",
+          "baseline_sec": 0.31541461,
+          "candidate_sec": 0.420614798,
+          "baseline_over_candidate": 0.7498894748824314
+        },
+        {
+          "index": 4,
+          "order": "AB",
+          "baseline_sec": 0.326659513,
+          "candidate_sec": 0.316310331,
+          "baseline_over_candidate": 1.0327184444696498
+        }
+      ],
+      "median_paired_baseline_over_candidate": 1.0490459360296664,
+      "candidate_faster_pairs": 4,
+      "write_plus_hash_seconds_per_market_samples": {
+        "baseline": [
+          {
+            "single": 0.07722002600508625
+          },
+          {
+            "single": 0.10564045600474194
+          },
+          {
+            "single": 0.1180297999965165
+          },
+          {
+            "single": 0.08470516100177557
+          },
+          {
+            "single": 0.06573909099721807
+          }
+        ],
+        "candidate": [
+          {
+            "single": 0.07627004800346975
+          },
+          {
+            "single": 0.09982534599851339
+          },
+          {
+            "single": 0.09516691400358532
+          },
+          {
+            "single": 0.08858837599956007
+          },
+          {
+            "single": 0.08660317299586734
+          }
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_samples": {
+        "baseline": [
+          0.07722002600508625,
+          0.10564045600474194,
+          0.1180297999965165,
+          0.08470516100177557,
+          0.06573909099721807
+        ],
+        "candidate": [
+          0.07627004800346975,
+          0.09982534599851339,
+          0.09516691400358532,
+          0.08858837599956007,
+          0.08660317299586734
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_median": {
+        "baseline": 0.08470516100177557,
+        "candidate": 0.08858837599956007
+      },
+      "write_plus_hash_note": "Secondary self-reported adapter phases: parquet_write + hashing. Baseline hashing includes small metadata work. For batch these sums include overlapping market phases and are not whole-batch elapsed time.",
+      "run_records": {
+        "baseline": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-00/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-01/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-02/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-03/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-04/baseline/record.json"
+        ],
+        "candidate": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-00/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-01/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-02/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-03/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-s001-price-time-priority/timing-04/candidate/record.json"
+        ]
+      }
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "n_events": 319488,
+      "mode": "hash-only effect on a single native market",
+      "container_seconds_samples": {
+        "baseline": [
+          0.584564137,
+          0.549264825,
+          0.607586383,
+          0.552394447,
+          0.522408777
+        ],
+        "candidate": [
+          0.810514073,
+          0.664069463,
+          0.544644961,
+          0.529450717,
+          0.526165122
+        ]
+      },
+      "container_seconds_median": {
+        "baseline": 0.552394447,
+        "candidate": 0.544644961
+      },
+      "ratio_of_container_medians_baseline_over_candidate": 1.01422850949685,
+      "candidate_container_change_pct": -1.4028899171754206,
+      "paired_container_samples": [
+        {
+          "index": 0,
+          "order": "AB",
+          "baseline_sec": 0.584564137,
+          "candidate_sec": 0.810514073,
+          "baseline_over_candidate": 0.7212263876385524
+        },
+        {
+          "index": 1,
+          "order": "BA",
+          "baseline_sec": 0.549264825,
+          "candidate_sec": 0.664069463,
+          "baseline_over_candidate": 0.827119534331004
+        },
+        {
+          "index": 2,
+          "order": "AB",
+          "baseline_sec": 0.607586383,
+          "candidate_sec": 0.544644961,
+          "baseline_over_candidate": 1.1155641316949594
+        },
+        {
+          "index": 3,
+          "order": "BA",
+          "baseline_sec": 0.552394447,
+          "candidate_sec": 0.529450717,
+          "baseline_over_candidate": 1.0433349682289692
+        },
+        {
+          "index": 4,
+          "order": "AB",
+          "baseline_sec": 0.522408777,
+          "candidate_sec": 0.526165122,
+          "baseline_over_candidate": 0.9928609008029232
+        }
+      ],
+      "median_paired_baseline_over_candidate": 0.9928609008029232,
+      "candidate_faster_pairs": 2,
+      "write_plus_hash_seconds_per_market_samples": {
+        "baseline": [
+          {
+            "single": 0.23838917300655194
+          },
+          {
+            "single": 0.19852338100079306
+          },
+          {
+            "single": 0.22565514299666464
+          },
+          {
+            "single": 0.20708547499903898
+          },
+          {
+            "single": 0.18489800700258616
+          }
+        ],
+        "candidate": [
+          {
+            "single": 0.4007859850014973
+          },
+          {
+            "single": 0.2409819890020444
+          },
+          {
+            "single": 0.18780944099883135
+          },
+          {
+            "single": 0.19240779999929908
+          },
+          {
+            "single": 0.18739836299859502
+          }
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_samples": {
+        "baseline": [
+          0.23838917300655194,
+          0.19852338100079306,
+          0.22565514299666464,
+          0.20708547499903898,
+          0.18489800700258616
+        ],
+        "candidate": [
+          0.4007859850014973,
+          0.2409819890020444,
+          0.18780944099883135,
+          0.19240779999929908,
+          0.18739836299859502
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_median": {
+        "baseline": 0.20708547499903898,
+        "candidate": 0.19240779999929908
+      },
+      "write_plus_hash_note": "Secondary self-reported adapter phases: parquet_write + hashing. Baseline hashing includes small metadata work. For batch these sums include overlapping market phases and are not whole-batch elapsed time.",
+      "run_records": {
+        "baseline": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-00/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-01/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-02/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-03/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-04/baseline/record.json"
+        ],
+        "candidate": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-00/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-01/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-02/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-03/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mr-deep-book-state-size/timing-04/candidate/record.json"
+        ]
+      }
+    },
+    {
+      "unit": "t3-mp05-cancel-churn-newest",
+      "n_events": 240829,
+      "mode": "hash-only effect on a single native market",
+      "container_seconds_samples": {
+        "baseline": [
+          0.435767274,
+          0.447199972,
+          0.479055932,
+          0.435076915,
+          0.492961543
+        ],
+        "candidate": [
+          0.460976089,
+          0.452372208,
+          0.436531707,
+          0.488200898,
+          0.464905959
+        ]
+      },
+      "container_seconds_median": {
+        "baseline": 0.447199972,
+        "candidate": 0.460976089
+      },
+      "ratio_of_container_medians_baseline_over_candidate": 0.9701153328150173,
+      "candidate_container_change_pct": 3.0805272501224445,
+      "paired_container_samples": [
+        {
+          "index": 0,
+          "order": "AB",
+          "baseline_sec": 0.435767274,
+          "candidate_sec": 0.460976089,
+          "baseline_over_candidate": 0.9453142676994685
+        },
+        {
+          "index": 1,
+          "order": "BA",
+          "baseline_sec": 0.447199972,
+          "candidate_sec": 0.452372208,
+          "baseline_over_candidate": 0.9885664152029427
+        },
+        {
+          "index": 2,
+          "order": "AB",
+          "baseline_sec": 0.479055932,
+          "candidate_sec": 0.436531707,
+          "baseline_over_candidate": 1.0974138288653568
+        },
+        {
+          "index": 3,
+          "order": "BA",
+          "baseline_sec": 0.435076915,
+          "candidate_sec": 0.488200898,
+          "baseline_over_candidate": 0.8911841759865013
+        },
+        {
+          "index": 4,
+          "order": "AB",
+          "baseline_sec": 0.492961543,
+          "candidate_sec": 0.464905959,
+          "baseline_over_candidate": 1.060346793705004
+        }
+      ],
+      "median_paired_baseline_over_candidate": 0.9885664152029427,
+      "candidate_faster_pairs": 2,
+      "write_plus_hash_seconds_per_market_samples": {
+        "baseline": [
+          {
+            "single": 0.1683596470012944
+          },
+          {
+            "single": 0.17142437199720606
+          },
+          {
+            "single": 0.17938979299481345
+          },
+          {
+            "single": 0.16606228300008688
+          },
+          {
+            "single": 0.1858950619986598
+          }
+        ],
+        "candidate": [
+          {
+            "single": 0.18399179700518725
+          },
+          {
+            "single": 0.17851290199864822
+          },
+          {
+            "single": 0.162532384995748
+          },
+          {
+            "single": 0.18789691199872452
+          },
+          {
+            "single": 0.16600611700420118
+          }
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_samples": {
+        "baseline": [
+          0.1683596470012944,
+          0.17142437199720606,
+          0.17938979299481345,
+          0.16606228300008688,
+          0.1858950619986598
+        ],
+        "candidate": [
+          0.18399179700518725,
+          0.17851290199864822,
+          0.162532384995748,
+          0.18789691199872452,
+          0.16600611700420118
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_median": {
+        "baseline": 0.17142437199720606,
+        "candidate": 0.17851290199864822
+      },
+      "write_plus_hash_note": "Secondary self-reported adapter phases: parquet_write + hashing. Baseline hashing includes small metadata work. For batch these sums include overlapping market phases and are not whole-batch elapsed time.",
+      "run_records": {
+        "baseline": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-00/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-01/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-02/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-03/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-04/baseline/record.json"
+        ],
+        "candidate": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-00/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-01/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-02/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-03/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-mp05-cancel-churn-newest/timing-04/candidate/record.json"
+        ]
+      }
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "n_events": 56712,
+      "mode": "streaming hashes plus shared parallel native batch workers2",
+      "container_seconds_samples": {
+        "baseline": [
+          0.347485492,
+          0.349964229,
+          0.377648314,
+          0.361630426,
+          0.424796271
+        ],
+        "candidate": [
+          0.476025229,
+          0.480426818,
+          0.528038079,
+          0.497469055,
+          0.484834873
+        ]
+      },
+      "container_seconds_median": {
+        "baseline": 0.361630426,
+        "candidate": 0.484834873
+      },
+      "ratio_of_container_medians_baseline_over_candidate": 0.7458836938901464,
+      "candidate_container_change_pct": 34.06915960107848,
+      "paired_container_samples": [
+        {
+          "index": 0,
+          "order": "AB",
+          "baseline_sec": 0.347485492,
+          "candidate_sec": 0.476025229,
+          "baseline_over_candidate": 0.7299728477206405
+        },
+        {
+          "index": 1,
+          "order": "BA",
+          "baseline_sec": 0.349964229,
+          "candidate_sec": 0.480426818,
+          "baseline_over_candidate": 0.7284444079472683
+        },
+        {
+          "index": 2,
+          "order": "AB",
+          "baseline_sec": 0.377648314,
+          "candidate_sec": 0.528038079,
+          "baseline_over_candidate": 0.7151914398203846
+        },
+        {
+          "index": 3,
+          "order": "BA",
+          "baseline_sec": 0.361630426,
+          "candidate_sec": 0.497469055,
+          "baseline_over_candidate": 0.7269405450757134
+        },
+        {
+          "index": 4,
+          "order": "AB",
+          "baseline_sec": 0.424796271,
+          "candidate_sec": 0.484834873,
+          "baseline_over_candidate": 0.8761669068305654
+        }
+      ],
+      "median_paired_baseline_over_candidate": 0.7284444079472683,
+      "candidate_faster_pairs": 0,
+      "write_plus_hash_seconds_per_market_samples": {
+        "baseline": [
+          {
+            "sub_00_noise": 0.057596865004511166,
+            "sub_01_value": 0.013868931000332069,
+            "sub_02_mm": 0.020916787993350575,
+            "sub_03_momentum": 0.013340228996931143,
+            "sub_04_base": 0.013798003000114549
+          },
+          {
+            "sub_00_noise": 0.06072826000219939,
+            "sub_01_value": 0.014633875998537826,
+            "sub_02_mm": 0.02248868799837824,
+            "sub_03_momentum": 0.014189038997116245,
+            "sub_04_base": 0.013745203000083927
+          },
+          {
+            "sub_00_noise": 0.06638692099915498,
+            "sub_01_value": 0.017555689993447962,
+            "sub_02_mm": 0.029883542994672604,
+            "sub_03_momentum": 0.015061046996312059,
+            "sub_04_base": 0.0160334989987305
+          },
+          {
+            "sub_00_noise": 0.06288091799798323,
+            "sub_01_value": 0.013626257999918725,
+            "sub_02_mm": 0.021895327998190245,
+            "sub_03_momentum": 0.015235945006741304,
+            "sub_04_base": 0.015549687000090535
+          },
+          {
+            "sub_00_noise": 0.07109321100034234,
+            "sub_01_value": 0.021650879003900905,
+            "sub_02_mm": 0.03080847499932355,
+            "sub_03_momentum": 0.020132948993811812,
+            "sub_04_base": 0.01846927300164724
+          }
+        ],
+        "candidate": [
+          {
+            "sub_00_noise": 0.18329510499456736,
+            "sub_01_value": 0.18434310900003054,
+            "sub_02_mm": 0.02306874600288194,
+            "sub_03_momentum": 0.01908914299983938,
+            "sub_04_base": 0.012157183998292166
+          },
+          {
+            "sub_00_noise": 0.17820927600205821,
+            "sub_01_value": 0.17656231599732536,
+            "sub_02_mm": 0.028406864002743122,
+            "sub_03_momentum": 0.021292051999170863,
+            "sub_04_base": 0.01779017600300085
+          },
+          {
+            "sub_00_noise": 0.2267272110025593,
+            "sub_01_value": 0.22787775700158594,
+            "sub_02_mm": 0.023312404998595878,
+            "sub_03_momentum": 0.019386537003063798,
+            "sub_04_base": 0.013889321000949178
+          },
+          {
+            "sub_00_noise": 0.1891770140039166,
+            "sub_01_value": 0.1902625180030003,
+            "sub_02_mm": 0.028795640995929926,
+            "sub_03_momentum": 0.026682399001682455,
+            "sub_04_base": 0.014628125001507494
+          },
+          {
+            "sub_00_noise": 0.17226485100047487,
+            "sub_01_value": 0.17337989899820455,
+            "sub_02_mm": 0.027774983001668453,
+            "sub_03_momentum": 0.021441045001814277,
+            "sub_04_base": 0.01821881200588914
+          }
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_samples": {
+        "baseline": [
+          0.1195208159952395,
+          0.12578506599631564,
+          0.1449206999823181,
+          0.12918813600292403,
+          0.16215478699902586
+        ],
+        "candidate": [
+          0.4219532869956114,
+          0.4222606840042984,
+          0.5111932310067541,
+          0.4495456970060368,
+          0.4130795900080513
+        ]
+      },
+      "write_plus_hash_market_sum_seconds_median": {
+        "baseline": 0.12918813600292403,
+        "candidate": 0.4222606840042984
+      },
+      "write_plus_hash_note": "Secondary self-reported adapter phases: parquet_write + hashing. Baseline hashing includes small metadata work. For batch these sums include overlapping market phases and are not whole-batch elapsed time.",
+      "run_records": {
+        "baseline": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-00/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-01/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-02/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-03/baseline/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-04/baseline/record.json"
+        ],
+        "candidate": [
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-00/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-01/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-02/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-03/candidate/record.json",
+          "out/stream-hash-batch-timing-20261008/runs/t3-gbatch-hetero-mix/timing-04/candidate/record.json"
+        ]
+      }
+    }
+  ],
+  "memory_diagnostics": [
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "baseline",
+      "cgroup_peak_bytes": 200429568,
+      "cgroup_peak_mib": 191.14453125,
+      "source": "/sys/fs/cgroup/memory.peak",
+      "child_peak_rss_bytes": 202952704,
+      "excluded_from_timings": true,
+      "same_small_parent_included": true,
+      "record": "out/stream-hash-batch-timing-20261008/memory/t3-mr-deep-book-state-size/baseline/container/record.json"
+    },
+    {
+      "unit": "t3-mr-deep-book-state-size",
+      "side": "candidate",
+      "cgroup_peak_bytes": 201236480,
+      "cgroup_peak_mib": 191.9140625,
+      "source": "/sys/fs/cgroup/memory.peak",
+      "child_peak_rss_bytes": 206077952,
+      "excluded_from_timings": true,
+      "same_small_parent_included": true,
+      "record": "out/stream-hash-batch-timing-20261008/memory/t3-mr-deep-book-state-size/candidate/container/record.json"
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "side": "baseline",
+      "cgroup_peak_bytes": 54820864,
+      "cgroup_peak_mib": 52.28125,
+      "source": "/sys/fs/cgroup/memory.peak",
+      "child_peak_rss_bytes": 65982464,
+      "excluded_from_timings": true,
+      "same_small_parent_included": true,
+      "record": "out/stream-hash-batch-timing-20261008/memory/t3-gbatch-hetero-mix/baseline/container/record.json"
+    },
+    {
+      "unit": "t3-gbatch-hetero-mix",
+      "side": "candidate",
+      "cgroup_peak_bytes": 64544768,
+      "cgroup_peak_mib": 61.5546875,
+      "source": "/sys/fs/cgroup/memory.peak",
+      "child_peak_rss_bytes": 77352960,
+      "excluded_from_timings": true,
+      "same_small_parent_included": true,
+      "record": "out/stream-hash-batch-timing-20261008/memory/t3-gbatch-hetero-mix/candidate/container/record.json"
+    }
+  ],
+  "limitations": [
+    "Five paired samples per mode on this local macOS arm64/aarch64 Docker host running linux/amd64 images are not official or rankable timing.",
+    "Single-market pair ratios vary in both directions; a ratio of medians close to one does not establish a reliable improvement.",
+    "Batch combines hashing and worker/publication changes. No workers1 timing control was scheduled, so these samples do not isolate each contribution.",
+    "Write-plus-hash values are self-reported adapter phase data. Concurrent market phase sums overlap and cannot be interpreted as whole-batch elapsed time.",
+    "Each memory mode has one untimed diagnostic, with the small parent included and cgroup file cache semantics; RSS is separately recorded."
+  ],
+  "evidence": {
+    "summary": {
+      "path": "out/stream-hash-batch-timing-20261008/summary.json",
+      "sha256": "5bb756316c7631b96e08726b921555dd9781a87ab6ef560ad0302c3bee2fb5fb"
+    },
+    "plan": {
+      "path": "out/stream-hash-batch-timing-20261008/experiment-A-plan.json",
+      "sha256": "0bd243effe3502dc7f14ad85af958ccbf449981d8406e4b275907e490446020b"
+    },
+    "write_hash_samples": {
+      "path": "out/stream-hash-batch-timing-20261008/write-hash-samples.json",
+      "sha256": "4ac1e956604a810b8d540735882234a565afe06c790edab72ea8ab05be84b91c"
+    },
+    "memory_summary": {
+      "path": "out/stream-hash-batch-timing-20261008/memory-summary.json",
+      "sha256": "c2650893eb8dfafc8bdd11dca939ea6e4ab54c0d40db61bef5ed074797631938"
+    },
+    "memory_probe": {
+      "path": "out/stream-hash-batch-timing-20261008/audit/memory_probe.py",
+      "sha256": "f29f5c932efb023d8ed1c72123128a23bf99acc81416d2050cb6b42fd267a1d2"
+    },
+    "full_file_inventory": {
+      "path": "out/stream-hash-batch-timing-20261008/evidence-sha256.json",
+      "sha256": "8ebe948ae3a459037ff627fd9fbf554b8ea503d80f73ece7b1051212f3bef5b9"
+    },
+    "docker_verification": {
+      "path": "experiments/stream-hash/docker-verification.json",
+      "sha256": "e4a68e6b11c7d876fb9f02eadadcfde7a229e364280a53622c252ecbce3bda4d"
+    }
+  },
+  "evidence_directory": "out/stream-hash-batch-timing-20261008",
+  "timing_phase_log": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-io-batch/stream-hash-timing-phase.log",
+  "worktree_clean_before_timing": true,
+  "engine_book_rng_changed_after_readiness": false,
+  "shared_batch_source_identical": true,
+  "merged_to_develop": false,
+  "pushed": false,
+  "timing_phase_log_sha256": "5e3963a072ca82933939280c948e8604b9750e5cc5247236bfcabecb5bbcacd2"
+}

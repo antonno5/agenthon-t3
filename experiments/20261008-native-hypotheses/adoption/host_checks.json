@@ -1,0 +1,177 @@
+{
+  "executive_summary": "Optimized and ASan/UBSan checks passed for the combined trace path and agent registry. Exact complete simulation columns match the frozen production engine.",
+  "accepted": true,
+  "baseline_commit": "94e66380b9152d76a193ee84c70a3660c6098845",
+  "platform": "macOS-15.7.4-arm64-arm-64bit",
+  "checks": [
+    {
+      "name": "baseline-compile-optimized",
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O2",
+        "-Dt3=t3_baseline",
+        "-c",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/baseline/engine.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/baseline-optimized.o"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "integration-compile-optimized",
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O2",
+        "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/baselines/native",
+        "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-native-hypotheses/adoption/host_checks.cpp",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/baseline-optimized.o",
+        "-o",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/integration-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "integration-test-optimized",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/integration-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: direct quote merge, timestamp ties, absent sides, 128 randomized combined histories and a 100000-quote/20000-order case\nPASS: focused lifecycle/tie/quote cases, 512 histories (1,024,000 rows), 144 full engine differential simulations; filled=57150 partial=41854 cancelled=8777\n",
+      "stderr": ""
+    },
+    {
+      "name": "registry-compile-optimized",
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O2",
+        "-Werror",
+        "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/baselines/native",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/baselines/native/tests/agent_orders_test.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/registry-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "registry-test-optimized",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/registry-optimized"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: lifecycle, independent snapshots, full/partial fills, repeated/unknown cancels, stable/recycled slots, bounded compaction, 50,000 map differential steps\n",
+      "stderr": ""
+    },
+    {
+      "name": "baseline-compile-sanitized",
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Dt3=t3_baseline",
+        "-c",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/baseline/engine.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/baseline-sanitized.o"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "integration-compile-sanitized",
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/baselines/native",
+        "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/experiments/20261008-native-hypotheses/adoption/host_checks.cpp",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/baseline-sanitized.o",
+        "-o",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/integration-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "integration-test-sanitized",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/integration-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: direct quote merge, timestamp ties, absent sides, 128 randomized combined histories and a 100000-quote/20000-order case\nPASS: focused lifecycle/tie/quote cases, 512 histories (1,024,000 rows), 144 full engine differential simulations; filled=57150 partial=41854 cancelled=8777\n",
+      "stderr": ""
+    },
+    {
+      "name": "registry-compile-sanitized",
+      "command": [
+        "c++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Werror",
+        "-I/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/baselines/native",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/baselines/native/tests/agent_orders_test.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/registry-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "registry-test-sanitized",
+      "command": [
+        "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/out/native-adoption-20261008/host/registry-sanitized"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: lifecycle, independent snapshots, full/partial fills, repeated/unknown cancels, stable/recycled slots, bounded compaction, 50,000 map differential steps\n",
+      "stderr": ""
+    }
+  ],
+  "test_source_sha256": "66ad0113521c7e6422b0009e5db8b2ce320fbc77b9e2eb76b9bede8e4154f141",
+  "timing_claim": false
+}

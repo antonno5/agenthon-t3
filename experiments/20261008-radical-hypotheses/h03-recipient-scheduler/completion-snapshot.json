@@ -1,0 +1,68 @@
+{
+  "executive_summary": "H03 preserved correctness but did not demonstrate a general full-container speed benefit in the one fixed local paired series. Every sample is retained and no production adoption occurred.",
+  "slug": "h03-recipient-scheduler",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "branch": "codex/exp-20261008-radical-h03-recipient-scheduler",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_image": "sha256:1e7fcc47642b134db12feba0cc04a91475785f7ffdf0d38af48a93ccd196f1e7",
+  "image": "sha256:1e7fcc47642b134db12feba0cc04a91475785f7ffdf0d38af48a93ccd196f1e7",
+  "implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+  "measurement_implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+  "candidate_build_commit": "b05b1a210e7b0f690a802095954648d65cfd0a45",
+  "final_report_commit": "94beeb12244fa22d1ec604c090d9fd9a633b67a9",
+  "report_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/README.md",
+  "result_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/result.json",
+  "report_directory": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler",
+  "evidence_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2b-timing",
+  "phase2a_controls_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2a-03/controls",
+  "counts": {
+    "accepted_runs": 60,
+    "timed_samples": 50,
+    "warmups": 10
+  },
+  "results": [
+    {
+      "unit": "t3-coarse-tick-ties",
+      "time_reduction_pct": 0.8549492764652444,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "time_reduction_pct": -3.9594949342452113,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "time_reduction_pct": -10.91338822625556,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "time_reduction_pct": -16.80556283437329,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "time_reduction_pct": -3.6595469469124176,
+      "candidate_faster_pairs": 2
+    }
+  ],
+  "source_unchanged_during_measurement": true,
+  "final_commit_reports_only": true,
+  "worktree_clean": true,
+  "serial_slot_released": true,
+  "all_outliers_retained": true,
+  "additional_timing_repeats": 0,
+  "artifact_sha256": {
+    "README.md": "b9e3866ef0cd121c3824c705c191d30d64487ca41f47cd3701c323b0bf020777",
+    "result.json": "39f2b99da018eaffac5cdd075dcc93e1bc27abc75ce1bb4a6f1a96b109d11acc",
+    "report_audit.json": "8d0207f20929aa3a0970252b636f275919fe494636308cd3568f752eea8ae366",
+    "phase2-readiness.json": "6dc4267c4a1c3c92018dcbe17f39dce316b798898365109e9afa985ed1ce0a38",
+    "policy.json": "d3bd081143fcc58b138f5cff954a15336c6169ff4425227965113b0da6cee99b",
+    "structural_counts.json": "18b0a5c671e0f385b01b42bff2dd0b50a4db97d0e7388d14a561a3dd64e840d9"
+  }
+}

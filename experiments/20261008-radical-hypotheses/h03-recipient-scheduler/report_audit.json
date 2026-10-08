@@ -1,0 +1,72 @@
+{
+  "executive_summary": "The one fixed timing series completed and all raw samples remain retained. H03 does not establish a general full-run benefit.",
+  "complete": true,
+  "accepted": true,
+  "rankable": false,
+  "adopted": false,
+  "timing_series_count": 1,
+  "additional_repeats": 0,
+  "post_result_code_changes": false,
+  "all_outliers_retained": true,
+  "phase2a_readiness": "phase2-readiness.json",
+  "phase2a_controls": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2a-03/controls",
+  "timing_implementation_commit": "f4f39fcf114219afddefd2cac7da2a97ab479d1e",
+  "candidate_build_commit": "b05b1a210e7b0f690a802095954648d65cfd0a45",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_image": "sha256:1e7fcc47642b134db12feba0cc04a91475785f7ffdf0d38af48a93ccd196f1e7",
+  "counts": {
+    "accepted_runs": 60,
+    "timed_samples": 50,
+    "warmups": 10
+  },
+  "pair_order_checked": [
+    "AB",
+    "BA",
+    "AB",
+    "BA",
+    "AB"
+  ],
+  "correctness_comparisons": 80,
+  "source_unchanged_during_measurement": true,
+  "result_copied_verbatim": true,
+  "result_sha256": "39f2b99da018eaffac5cdd075dcc93e1bc27abc75ce1bb4a6f1a96b109d11acc",
+  "summary_sha256": "6ef9c0169a2f8e9ce44e7d5347e06b689567f3a321a1dd0a9f985f3acc1ca9ca",
+  "raw_evidence_path": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2b-timing",
+  "launch_log": "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-radical-hypotheses/worktrees/h03-recipient-scheduler/expirements/20261008-radical-hypotheses/h03-recipient-scheduler/evidence/phase2b-timing-launch.log",
+  "source_manifest": "native-source-manifest.json",
+  "structural_counts": "structural_counts.json",
+  "limitations": [
+    "Mac ARM64 host with emulated Linux amd64 containers; not official timing hardware.",
+    "Native core timing includes trace finalization; it is not matcher-only time.",
+    "Batch per-market phase sums overlap or include per-market fixed costs and are secondary diagnostics.",
+    "Process peak values in profiles are not independent per-market memory peaks.",
+    "Historical Python measurements are motivation only; every control here is a fresh current-native run."
+  ],
+  "results": [
+    {
+      "unit": "t3-coarse-tick-ties",
+      "time_reduction_pct": 0.8549492764652444,
+      "candidate_faster_pairs": 3
+    },
+    {
+      "unit": "t3-eq-deterministic-baseline",
+      "time_reduction_pct": -3.9594949342452113,
+      "candidate_faster_pairs": 2
+    },
+    {
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "time_reduction_pct": -10.91338822625556,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "unit": "t3-gb-pop-horizon-scale",
+      "time_reduction_pct": -16.80556283437329,
+      "candidate_faster_pairs": 1
+    },
+    {
+      "unit": "t3-s001-price-time-priority",
+      "time_reduction_pct": -3.6595469469124176,
+      "candidate_faster_pairs": 2
+    }
+  ]
+}

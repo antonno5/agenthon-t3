@@ -1,0 +1,13 @@
+{
+  "executive_summary": "RNG, floating-point dispatch, scenario mapping and compiler flags are unchanged from previous develop. The previous image source has identical baselines at this revision.",
+  "protected_source_sha256": {
+    "native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "abides_fork/native.py": "31ee7ace965769c935b328ef45310bd9e5241a408df965cd1326df888c443e71",
+    "abides_fork/scenario_params.py": "c0067a61fa7e0e6d9f164d668fb21db07a6f53b2fdf1b0809dceb3dd925bf1e0",
+    "build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea"
+  },
+  "baseline_source_equivalent": true,
+  "candidate_source_commit": "286ae974641e4ad23e81288b5beee2d7d9da20c5"
+}

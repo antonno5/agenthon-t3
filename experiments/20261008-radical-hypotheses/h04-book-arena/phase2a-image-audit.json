@@ -1,0 +1,75 @@
+{
+  "executive_summary": "The candidate preserves the frozen Python/Arrow/numeric runtime and changes only the isolated native implementation.",
+  "baseline_source_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "baseline_image": "sha256:51fcf856e5c5ee4b33a6f43e059bf23035eeba44e2cb2b96692851696179e4c6",
+  "candidate_build_commit": "8162577af0251257b96834c804925bd6306d2669",
+  "candidate_image": "sha256:fb1eb09f18518152ce8140a35031da789c2363c3b29d24afa03cb5e4a556b070",
+  "runtime": {
+    "baseline": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1"
+      },
+      "native_sha256": "bd7f659ed60e17da0269cefc4c70b75cdb6a2ab6881601162e295893b97f788d",
+      "numpy_log_dispatch": "libm"
+    },
+    "candidate": {
+      "python": "3.11.17",
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "1.5.3",
+        "pyarrow": "15.0.2",
+        "scipy": "1.17.1"
+      },
+      "native_sha256": "b3dccd198015ca561ccb33b5bf388e86e9f9e68cea793a8f6b78f1034ec6b955",
+      "numpy_log_dispatch": "libm"
+    }
+  },
+  "native_source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "99072d25fde6a11514eb7c53bad2db68147fb63889aabc4df852a48e2ce97a8f",
+    "baselines/native/engine.cpp": "f12171da3b8b24187bc40b89cc564b4eaaa6b55d75a6a74cac78ab6e64d54247",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "0d8f531ad1fc77c2a0705daff6869639d9ea33600cc6fffae228db4135d5baf9",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "recipe_sha256": "fd229d7ed96a876929d8dfc3a08d51ce0b09a8fe2dc0c573bbbaaef7e208785b",
+  "unchanged_checker_sha256": "772996ec0edf047afaf8c4aa1cf6cea01ed3d677b2243e4b8b8a70f9babf5a7c",
+  "raw": {
+    "baseline-image-inspect.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/baseline-image-inspect.json",
+      "sha256": "325e1800847b77b475f05b1eb4f4251c5121fede556a2790546e6aa4a874203c"
+    },
+    "candidate-image-inspect.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/candidate-image-inspect.json",
+      "sha256": "eed2e0e8919a68dcd14c56ddf5dd94497f48c6c77007b140be064f6cc9306d19"
+    },
+    "runtime-audit.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/runtime-audit.json",
+      "sha256": "995c9b9102eecdece6c11c53ff398ca71a6f29e7ba83e6e7a42d987e3260d272"
+    },
+    "phase2a-record.json": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/phase2a-record.json",
+      "sha256": "16b5be1c2e64daf1e606a7c90137de3a3062f10976b6eb27f220d239ac60cc3f"
+    },
+    "build.log": {
+      "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/evidence/phase2a-attempt-02/build.log",
+      "sha256": "428d024e5353c92d5bab8655ab334c354d84de383ff94eddb38193fae0b74fe7"
+    }
+  }
+}

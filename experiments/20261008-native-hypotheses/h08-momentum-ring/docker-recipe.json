@@ -1,0 +1,82 @@
+{
+  "executive_summary": "Build and verify this frozen momentum-ring candidate only after the orchestration grant, then time exactly three unchanged public units against the immutable production image.",
+  "slug": "h08-momentum-ring",
+  "status": "executed_once_after_grant",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "implementation_commit_source": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/READY-h08-momentum-ring.json",
+  "shared_orchestration_directory": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses",
+  "source_context": "assigned h08 worktree only",
+  "build_recipe_after_grant": [
+    "Verify HEAD equals implementation_commit and native source hashes match READY; confirm only the two allowed production sources changed from the base.",
+    "Use the shared Dockerfile with BASE_IMAGE=track3-native:20261008 and this assigned worktree as build context. Inspect the local tag before and after each build and require its image ID to equal the immutable production baseline. Use immutable image IDs for all runs.",
+    "Capture build log, image ID and inspection JSON, native extension SHA-256 and Python/Arrow runtime versions. Freeze the candidate image ID; never use mutable tags in retained runs.",
+    "Run the standalone history_test.cpp inside the Linux/amd64 builder runtime (mount or copy the focused test outside production source); it must pass all six lookbacks.",
+    "Use the shared campaign runner after its explicit grant. Do not invoke older experiment scripts with broader scopes or historical Python controls."
+  ],
+  "runtime_assertions": {
+    "python": "3.11.17",
+    "pyarrow": "15.0.2",
+    "native_cli": "simulate --config /input/scenario.json --out /output/trace.parquet --engine native",
+    "native_environment": {
+      "T3_REQUIRE_NATIVE": "1"
+    },
+    "retained_events_engine": "native",
+    "extension": "abides_fork._t3engine import must succeed; retain extension identity on both sides"
+  },
+  "units": [
+    "t3-momentum-mix-priority",
+    "t3-ra05-shock-momentum-heavy",
+    "t3-sf-03-vol-clustering-momentum"
+  ],
+  "policy": {
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "sequential": true,
+    "warmups_per_side_per_unit": 1,
+    "warmups_excluded_from_timing": true,
+    "timed_pairs_per_unit": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "fresh_baseline_per_pair": true,
+    "all_outliers_retained": true,
+    "rankable": false,
+    "tune_after_times": false,
+    "full71": false,
+    "all_public": false,
+    "change_public_configs": false
+  },
+  "correctness_for_every_retained_output": [
+    "Native CLI cannot fallback; events.json engine equals native on both sides.",
+    "Read the original unit configs/cards/manifests unchanged; retain staged input hashes.",
+    "Validate with the shared developer gate wiring and imported qfbench2_common scorer for every retained output, including warmups.",
+    "Compare trace.parquet and message_trace.parquet byte-for-byte against the same fresh baseline; separately compare Arrow schemas and every ordered value including nulls.",
+    "Preserve deterministic candidate journals across repeats; retain all validation results and both journals, without committing Parquet."
+  ],
+  "primary_clock": "Docker State.FinishedAt minus State.StartedAt",
+  "secondary_phases": [
+    "simulation_and_trace_finalize",
+    "parquet_write",
+    "hashing"
+  ],
+  "raw_evidence_root": "out/h08-momentum-ring",
+  "report_root": "expirements/20261008-native-hypotheses/h08-momentum-ring",
+  "outcomes": [
+    "correct_and_faster",
+    "correct_but_slower",
+    "correct_no_clear_gain",
+    "correctness_failed"
+  ],
+  "performance_claim": "No stable gain established; all three unit medians and five paired samples are retained in result.json.",
+  "actual_candidate_image": "sha256:5adf25c85ca3be219ecba1202a2520658cdf1158bd5674637374ac669d1726bf",
+  "actual_evidence": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h08-momentum-ring/out/h08-momentum-ring/phase2"
+}

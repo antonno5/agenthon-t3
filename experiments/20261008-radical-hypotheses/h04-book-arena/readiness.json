@@ -1,0 +1,64 @@
+{
+  "executive_summary": "Phase 1 is ready: the arena/radix candidate is committed and all focused host checks pass. Pinned Docker correctness and paired timing await coordinator phase 2.",
+  "slug": "h04-book-arena",
+  "state": "ready",
+  "ready": true,
+  "phase": 1,
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena",
+  "branch": "codex/exp-20261008-radical-h04-book-arena",
+  "base_commit": "a7fb6c36d88395e49d40bc3b71e6dc79b2099bc9",
+  "source_commit": "9cdb933544a6e3f84c448d3b5f02b4470225f2e2",
+  "timing_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-multilevel-crossing",
+    "t3-s001-price-time-priority"
+  ],
+  "correctness_only_units": [
+    "t3-mp02-stp-oldest-baseline",
+    "t3-partialfill-atomicity",
+    "t3-s012-partial-fill-cancel-race",
+    "t3-gbatch-hetero-mix"
+  ],
+  "test_evidence": {
+    "generated_mutations": 80000,
+    "asan_ubsan_pass": true,
+    "sanitizer_stderr_empty": true,
+    "integration_markets": 12,
+    "trace_rows_exact": 1036275,
+    "ledger_rows_exact": 897242,
+    "focused_manifest_firewall_pass": true,
+    "structure_memory_and_operation_counts_measured": true,
+    "scope_and_source_identity_audit_pass": true,
+    "artifacts": {
+      "policy.json": {
+        "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/policy.json",
+        "sha256": "ffd6e25243f23c6db7d21a178b372a45defd462d3a423cf4d8ac577bf66352c6"
+      },
+      "recipe.json": {
+        "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/recipe.json",
+        "sha256": "e07aa11d63e4a863472276a77fd3e24b3c2da2d55875d01c03060163835ef901"
+      },
+      "host-results.json": {
+        "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/host-results.json",
+        "sha256": "e062f93acb3005b949b38bc586f5789a8081ee9cd871cabcb40a464379104432"
+      },
+      "engine-host-results.json": {
+        "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/engine-host-results.json",
+        "sha256": "a709a67d174241cec41cef38c3eb21001695402459cc1bd854b851cb0def0cd3"
+      },
+      "corpus-checks.json": {
+        "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/corpus-checks.json",
+        "sha256": "6dd2a211e31d518582080173d8f7ea3f46cfe176ab77d3f7d45afbbf448c44c5"
+      },
+      "scope-audit.json": {
+        "path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-radical-hypotheses/worktrees/h04-book-arena/expirements/20261008-radical-hypotheses/h04-book-arena/scope-audit.json",
+        "sha256": "c8db60c4a9b97385c8512f86b517931d6c83dad21f3f3430dc619e032a6de098"
+      }
+    }
+  },
+  "baselines_clean_after_source_commit": true,
+  "docker_run_in_phase1": false,
+  "phase2_result_exists": false,
+  "phase2_required": true
+}

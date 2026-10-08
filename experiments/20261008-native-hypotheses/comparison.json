@@ -1,0 +1,325 @@
+{
+  "executive_summary": "All eight isolated experiments completed their assigned public scenarios. Per-case percentages use fresh paired controls and median complete Docker time; positive means faster. Production code was not adopted.",
+  "sign_convention": "100 * (1 - candidate_median / baseline_median); positive = faster, negative = slower",
+  "primary_clock": "Docker State FinishedAt - StartedAt",
+  "rankable": false,
+  "adopted": false,
+  "counts": {
+    "hypotheses": 8,
+    "hypothesis_scenario_cases": 29,
+    "distinct_scenarios": 14,
+    "accepted_scheduled_runs": 348,
+    "timed_samples": 290,
+    "excluded_warmups": 58
+  },
+  "policy": {
+    "warmups_per_mode": 1,
+    "timed_pairs": 5,
+    "pair_order": "AB BA AB BA AB",
+    "primary_clock": "Docker State FinishedAt - StartedAt",
+    "context": "colima-agenthon",
+    "platform": "linux/amd64",
+    "cpus": 4,
+    "memory": "16g",
+    "memory_swap": "16g",
+    "network": "none",
+    "rankable": false,
+    "all_outliers_retained": true,
+    "full_suite": false,
+    "production_adoption": false,
+    "docker_phase": "sequential, exclusively granted by orchestrator after all preparations finish",
+    "reports_folder": "expirements/20261008-native-hypotheses"
+  },
+  "rows": [
+    {
+      "slug": "h01-trace-finalize",
+      "title": "Упростить финализацию трасс",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.651054174,
+      "candidate_seconds": 0.57853438,
+      "time_reduction_pct": 11.138826367466004,
+      "candidate_faster_pairs": 4,
+      "core_and_finalize_reduction_pct": 18.168433990719222
+    },
+    {
+      "slug": "h01-trace-finalize",
+      "title": "Упростить финализацию трасс",
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_seconds": 0.476837902,
+      "candidate_seconds": 0.484320265,
+      "time_reduction_pct": -1.5691628053509987,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": 14.378086240896204
+    },
+    {
+      "slug": "h01-trace-finalize",
+      "title": "Упростить финализацию трасс",
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "baseline_seconds": 0.459449916,
+      "candidate_seconds": 0.442077186,
+      "time_reduction_pct": 3.781202127807115,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": 23.002733482059156
+    },
+    {
+      "slug": "h02-time-groups",
+      "title": "Сортировка событий по группам времени",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.567585058,
+      "candidate_seconds": 0.574227379,
+      "time_reduction_pct": -1.170277636167083,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": 5.511877372226126
+    },
+    {
+      "slug": "h02-time-groups",
+      "title": "Сортировка событий по группам времени",
+      "unit": "t3-cancelmodify-lifecycle",
+      "baseline_seconds": 0.469391126,
+      "candidate_seconds": 0.399512634,
+      "time_reduction_pct": 14.887050080277831,
+      "candidate_faster_pairs": 5,
+      "core_and_finalize_reduction_pct": 10.225169283839497
+    },
+    {
+      "slug": "h02-time-groups",
+      "title": "Сортировка событий по группам времени",
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "baseline_seconds": 0.421060235,
+      "candidate_seconds": 0.460693346,
+      "time_reduction_pct": -9.412693886897205,
+      "candidate_faster_pairs": 1,
+      "core_and_finalize_reduction_pct": 0.11204483308969726
+    },
+    {
+      "slug": "h02-time-groups",
+      "title": "Сортировка событий по группам времени",
+      "unit": "t3-s001-price-time-priority",
+      "baseline_seconds": 0.267087371,
+      "candidate_seconds": 0.261583662,
+      "time_reduction_pct": 2.0606399244537887,
+      "candidate_faster_pairs": 4,
+      "core_and_finalize_reduction_pct": -2.8747089223569944
+    },
+    {
+      "slug": "h03-level-pool",
+      "title": "Пул стабильных уровней стакана",
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_seconds": 0.489491018,
+      "candidate_seconds": 0.500883057,
+      "time_reduction_pct": -2.327323399425496,
+      "candidate_faster_pairs": 1,
+      "core_and_finalize_reduction_pct": 0.5438671840469422
+    },
+    {
+      "slug": "h03-level-pool",
+      "title": "Пул стабильных уровней стакана",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.581231922,
+      "candidate_seconds": 0.571694049,
+      "time_reduction_pct": 1.6409754246085595,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": -2.127419703568534
+    },
+    {
+      "slug": "h03-level-pool",
+      "title": "Пул стабильных уровней стакана",
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "baseline_seconds": 0.336064269,
+      "candidate_seconds": 0.331344145,
+      "time_reduction_pct": 1.4045301555102419,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": 0.15785456333938797
+    },
+    {
+      "slug": "h03-level-pool",
+      "title": "Пул стабильных уровней стакана",
+      "unit": "t3-cancelmodify-lifecycle",
+      "baseline_seconds": 0.414584971,
+      "candidate_seconds": 0.434842413,
+      "time_reduction_pct": -4.886197864610953,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": 6.813407078697454
+    },
+    {
+      "slug": "h04-agent-orders",
+      "title": "Компактный реестр заявок агента",
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_seconds": 0.500643178,
+      "candidate_seconds": 0.503447745,
+      "time_reduction_pct": -0.5601927926400352,
+      "candidate_faster_pairs": 1,
+      "core_and_finalize_reduction_pct": 2.8962697443127072
+    },
+    {
+      "slug": "h04-agent-orders",
+      "title": "Компактный реестр заявок агента",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.648350347,
+      "candidate_seconds": 0.601350131,
+      "time_reduction_pct": 7.2492004080010215,
+      "candidate_faster_pairs": 4,
+      "core_and_finalize_reduction_pct": 12.303860048440562
+    },
+    {
+      "slug": "h04-agent-orders",
+      "title": "Компактный реестр заявок агента",
+      "unit": "t3-cancelmodify-lifecycle",
+      "baseline_seconds": 0.422032818,
+      "candidate_seconds": 0.444428552,
+      "time_reduction_pct": -5.306633286513751,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": -0.7246762666710982
+    },
+    {
+      "slug": "h05-order-fifo",
+      "title": "Индексированная FIFO заявок уровня",
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_seconds": 0.547049363,
+      "candidate_seconds": 0.559365662,
+      "time_reduction_pct": -2.2514054184174404,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": -6.814417703075848
+    },
+    {
+      "slug": "h05-order-fifo",
+      "title": "Индексированная FIFO заявок уровня",
+      "unit": "t3-s012-partial-fill-cancel-race",
+      "baseline_seconds": 0.458291811,
+      "candidate_seconds": 0.487354082,
+      "time_reduction_pct": -6.341433624263471,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": 6.765418283623914
+    },
+    {
+      "slug": "h05-order-fifo",
+      "title": "Индексированная FIFO заявок уровня",
+      "unit": "t3-mp02-stp-oldest-baseline",
+      "baseline_seconds": 0.340825041,
+      "candidate_seconds": 0.330397936,
+      "time_reduction_pct": 3.059371743756345,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": -12.045890519204882
+    },
+    {
+      "slug": "h05-order-fifo",
+      "title": "Индексированная FIFO заявок уровня",
+      "unit": "t3-partialfill-atomicity",
+      "baseline_seconds": 0.388270332,
+      "candidate_seconds": 0.366358153,
+      "time_reduction_pct": 5.6435367819965165,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": 14.45867035849977
+    },
+    {
+      "slug": "h06-arrow-strings",
+      "title": "Однократное выделение строковых буферов Arrow",
+      "unit": "t3-mr-deep-book-state-size",
+      "baseline_seconds": 0.65882065,
+      "candidate_seconds": 0.626916601,
+      "time_reduction_pct": 4.842600030827815,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": 12.01711240645469
+    },
+    {
+      "slug": "h06-arrow-strings",
+      "title": "Однократное выделение строковых буферов Arrow",
+      "unit": "t3-mp05-cancel-churn-newest",
+      "baseline_seconds": 0.503741558,
+      "candidate_seconds": 0.508624139,
+      "time_reduction_pct": -0.9692630918491929,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": 14.265612536597484
+    },
+    {
+      "slug": "h06-arrow-strings",
+      "title": "Однократное выделение строковых буферов Arrow",
+      "unit": "t3-s001-price-time-priority",
+      "baseline_seconds": 0.288067125,
+      "candidate_seconds": 0.274220913,
+      "time_reduction_pct": 4.8065922135335555,
+      "candidate_faster_pairs": 4,
+      "core_and_finalize_reduction_pct": -9.999640721420878
+    },
+    {
+      "slug": "h06-arrow-strings",
+      "title": "Однократное выделение строковых буферов Arrow",
+      "unit": "t3-gbatch-hetero-mix",
+      "baseline_seconds": 0.393789536,
+      "candidate_seconds": 0.394783024,
+      "time_reduction_pct": -0.25228908063215094,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": -2.080444262957548
+    },
+    {
+      "slug": "h07-event-heap",
+      "title": "Четырёхарная очередь событий",
+      "unit": "t3-mp07-heavy-flow-oldest",
+      "baseline_seconds": 0.409291692,
+      "candidate_seconds": 0.418395074,
+      "time_reduction_pct": -2.224179522314862,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": -16.547379099786784
+    },
+    {
+      "slug": "h07-event-heap",
+      "title": "Четырёхарная очередь событий",
+      "unit": "t3-momentum-mix-priority",
+      "baseline_seconds": 0.339874028,
+      "candidate_seconds": 0.391727933,
+      "time_reduction_pct": -15.256801264025977,
+      "candidate_faster_pairs": 1,
+      "core_and_finalize_reduction_pct": -25.70842131626452
+    },
+    {
+      "slug": "h07-event-heap",
+      "title": "Четырёхарная очередь событий",
+      "unit": "t3-s019-latency-jitter-kendall",
+      "baseline_seconds": 0.322311921,
+      "candidate_seconds": 0.301633713,
+      "time_reduction_pct": 6.415588953658336,
+      "candidate_faster_pairs": 4,
+      "core_and_finalize_reduction_pct": 16.193201432144555
+    },
+    {
+      "slug": "h07-event-heap",
+      "title": "Четырёхарная очередь событий",
+      "unit": "t3-eq001-pareto-latency-tail",
+      "baseline_seconds": 0.313915904,
+      "candidate_seconds": 0.309089941,
+      "time_reduction_pct": 1.5373426253675992,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": 10.784470277913593
+    },
+    {
+      "slug": "h08-momentum-ring",
+      "title": "Кольцевая история MomentumTrader",
+      "unit": "t3-momentum-mix-priority",
+      "baseline_seconds": 0.368097817,
+      "candidate_seconds": 0.369470299,
+      "time_reduction_pct": -0.37285795693811075,
+      "candidate_faster_pairs": 2,
+      "core_and_finalize_reduction_pct": 8.082798769363864
+    },
+    {
+      "slug": "h08-momentum-ring",
+      "title": "Кольцевая история MomentumTrader",
+      "unit": "t3-ra05-shock-momentum-heavy",
+      "baseline_seconds": 0.315961023,
+      "candidate_seconds": 0.320945222,
+      "time_reduction_pct": -1.577472737831953,
+      "candidate_faster_pairs": 1,
+      "core_and_finalize_reduction_pct": -6.65724599827946
+    },
+    {
+      "slug": "h08-momentum-ring",
+      "title": "Кольцевая история MomentumTrader",
+      "unit": "t3-sf-03-vol-clustering-momentum",
+      "baseline_seconds": 0.355240477,
+      "candidate_seconds": 0.353676733,
+      "time_reduction_pct": 0.4401930808126897,
+      "candidate_faster_pairs": 3,
+      "core_and_finalize_reduction_pct": -2.575488547512106
+    }
+  ]
+}

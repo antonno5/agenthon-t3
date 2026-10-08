@@ -1,0 +1,87 @@
+{
+  "executive_summary": "Host source differential checks and sanitizers passed; pinned Docker checks remain pending.",
+  "status": "passed",
+  "baseline_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "unchanged_simulation_sort_and_fill_classification": true,
+  "candidate_source_sha256": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+  "generated_test_sha256": "f8c9f4fe0ad23c0702a05382fa0fd27ef729fd216f85bd691f52b6183d3d9bb6",
+  "checks": [
+    {
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-fsyntax-only",
+        "baselines/native/engine.cpp"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O2",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/baselines/native",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/actual_extract.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_optimized"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_optimized"
+      ],
+      "stdout": "PASS: transitions, lifecycle/ties, all trace/ledger columns, 2000 generated cases, decreasing-time rejection\n",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/baselines/native",
+        "-I",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/actual_extract.cpp",
+        "-o",
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_sanitized"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/Users/iopogiba/Documents/ChatGPT/\u0410\u0433\u0435\u043d\u0442\u043e\u043d/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_sanitized"
+      ],
+      "stdout": "PASS: transitions, lifecycle/ties, all trace/ledger columns, 2000 generated cases, decreasing-time rejection\n",
+      "stderr": "",
+      "exit_code": 0
+    }
+  ],
+  "limitations": "Extraction methods are compiled from actual source with fixture state; host checks do not validate the full simulation or Parquet writer."
+}

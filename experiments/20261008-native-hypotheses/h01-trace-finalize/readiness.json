@@ -1,0 +1,164 @@
+{
+  "executive_summary": "The trace-finalization candidate is committed and host correctness checks passed. Docker build, full pinned-runtime correctness and the three assigned paired measurements remain pending an explicit grant.",
+  "slug": "h01-trace-finalize",
+  "branch": "codex/exp-20261008-h01-trace-finalize",
+  "worktree": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize",
+  "implementation_commit": "5ed05198f536c4c3f8e1577312491a1c36c275ad",
+  "base_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+  "allowed_changed_sources": [
+    "baselines/native/engine.cpp"
+  ],
+  "source_sha256": {
+    "baselines/native/engine.cpp": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2"
+  },
+  "all_native_source_sha256": {
+    "baselines/native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
+    "baselines/native/book.hpp": "000261837b7fae1dc8bcc8bafcb3a5da5db7351d0324188d58b960c266f133ad",
+    "baselines/native/engine.cpp": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+    "baselines/native/engine.hpp": "0b918fbaea16f10679a8ec6220572ee0e6f1bec77053e5b9b53ecd15c09fc89a",
+    "baselines/native/module.cpp": "a799d6b7bcdc394f0bcf96aa579e7a20854f68a8d2542bf9e12a035471aac564",
+    "baselines/native/nplog.cpp": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f",
+    "baselines/native/nplog.hpp": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da",
+    "baselines/native/pqwrite.cpp": "211b34b1a0360bd62c8d6a487966b334f4c175dbc6cf10a77e485b5436c93675",
+    "baselines/native/pqwrite.hpp": "459b11316036044b2ea3ecb94c88614b5ca19893942a43b0eb9c8eb836c44ab0",
+    "baselines/native/rng.hpp": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d",
+    "baselines/native/svml/.gitattributes": "e92634ce9422195b33b26ae88e94539f067fb8074ef43ae4d432bdc818344ad4",
+    "baselines/native/svml/LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "baselines/native/svml/README.md": "f54d6784aaf752df7d6d3c4a2261379d4d88c9d0d14b61aefbd07870ab538bbf",
+    "baselines/native/svml/svml_z0_log_d_la.s": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c",
+    "baselines/native/tests/book_test.cpp": "8503260f8ad5179dc289dc5c0a570893ab3c08a31366648047dbc41685c95c1b",
+    "baselines/native/tests/rngdump.cpp": "1da72fb1970f9bd182902e8785035f4437e8e3caa2eb15d41215b5840f433128",
+    "baselines/native/tests/test_nplog.py": "7445cf56a399c535120df52d89ec30b40b6a01a834accb33fad710ef2a368fa6",
+    "baselines/native/tests/test_rng.py": "acb488685d2822d46f495b22ba8af884a68b999deabb37e0e41f51a736ff8fc5"
+  },
+  "assigned_units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-s012-partial-fill-cancel-race"
+  ],
+  "units": [
+    "t3-mr-deep-book-state-size",
+    "t3-mp05-cancel-churn-newest",
+    "t3-s012-partial-fill-cancel-race"
+  ],
+  "host_checks": {
+    "executive_summary": "Host source differential checks and sanitizers passed; pinned Docker checks remain pending.",
+    "status": "passed",
+    "baseline_commit": "ebb266470bee09a426df85d0b2c342b4854b7082",
+    "unchanged_simulation_sort_and_fill_classification": true,
+    "candidate_source_sha256": "366ba0f53b4ba236a8a88127199cfe2f2c8d2a9ca33a91035ff148d2bf2868f2",
+    "generated_test_sha256": "f8c9f4fe0ad23c0702a05382fa0fd27ef729fd216f85bd691f52b6183d3d9bb6",
+    "checks": [
+      {
+        "command": [
+          "clang++",
+          "-std=c++17",
+          "-fno-fast-math",
+          "-ffp-contract=off",
+          "-Wall",
+          "-Wextra",
+          "-fsyntax-only",
+          "baselines/native/engine.cpp"
+        ],
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "clang++",
+          "-std=c++17",
+          "-fno-fast-math",
+          "-ffp-contract=off",
+          "-Wall",
+          "-Wextra",
+          "-O2",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/baselines/native",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/actual_extract.cpp",
+          "-o",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_optimized"
+        ],
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_optimized"
+        ],
+        "stdout": "PASS: transitions, lifecycle/ties, all trace/ledger columns, 2000 generated cases, decreasing-time rejection\n",
+        "stderr": "",
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "clang++",
+          "-std=c++17",
+          "-fno-fast-math",
+          "-ffp-contract=off",
+          "-Wall",
+          "-Wextra",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-omit-frame-pointer",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/baselines/native",
+          "-I",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/actual_extract.cpp",
+          "-o",
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_sanitized"
+        ],
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/host/host_cases_sanitized"
+        ],
+        "stdout": "PASS: transitions, lifecycle/ties, all trace/ledger columns, 2000 generated cases, decreasing-time rejection\n",
+        "stderr": "",
+        "exit_code": 0
+      }
+    ],
+    "limitations": "Extraction methods are compiled from actual source with fixture state; host checks do not validate the full simulation or Parquet writer."
+  },
+  "pending_actual_docker_checks": [
+    "Build the frozen candidate through the campaign Dockerfile under an explicit exclusive grant",
+    "Verify actual native extension and Python 3.11.17 / Arrow 15.0.2",
+    "Exact bytes, schema and ordered values for trace.parquet and message_trace.parquet on every retained output",
+    "Shared developer gates and digest audits for each retained baseline/candidate output",
+    "One excluded warmup per side and five AB/BA pairs on each assigned unit",
+    "Complete Docker lifetime primary timing plus core/finalization, write and hashing secondary diagnostics; retain all samples"
+  ],
+  "docker_executed": false,
+  "docker_recipe": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize/docker_recipe.sh",
+  "report_dir": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize",
+  "result_json": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/expirements/20261008-native-hypotheses/h01-trace-finalize/result.json",
+  "evidence_dir": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize",
+  "baseline_image": "sha256:e7f01b18f284f8ff9a5e0fb5591a80dfdaa9e051f76e7076e07ae82293aedd89",
+  "status": "ready",
+  "rankable": false,
+  "adopted": false,
+  "notes": [
+    "Simulation prefix, log_best, stable_sort and last execution classification unchanged.",
+    "Candidate implementation is frozen before any timing."
+  ],
+  "original_implementation_commit": "0ca20940c509b23a4ecae062da7546f24fb49394",
+  "failed_preflight_attempts": [
+    {
+      "attempt": 1,
+      "stage": "recipe interpreter path",
+      "docker_started": false,
+      "timing_started": false,
+      "exit_code": 127,
+      "log_path": "/Users/iopogiba/Documents/ChatGPT/Агентон/orchestration/2026-10-08-native-hypotheses/worktrees/h01-trace-finalize/out/h01-trace-finalize/phase2-attempt01.log",
+      "reason": "The recipe failed to quote the checker Python path containing spaces; only recipe quoting changed."
+    }
+  ]
+}
