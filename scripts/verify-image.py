@@ -22,7 +22,7 @@ runtime = {'python': platform.python_version(), 'packages': dict(sorted((d.metad
 identity = {'order_book': order_book.OrderBook.__module__, 'price_level': price_level.PriceLevel.__module__, 'facade_same_class': facade.OrderBook is order_book.OrderBook, 'level_same_class': PriceLevel is price_level.PriceLevel, 'logger_same_object': facade.logger is order_book.logger}
 native_sources = {}
 for path in sorted(Path('/opt/native-source').rglob('*')):
-    if path.is_file():
+    if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
         native_sources['native/' + path.relative_to('/opt/native-source').as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
 native_sources['build_native.py'] = hashlib.sha256(Path('/opt/native_build.py').read_bytes()).hexdigest()
 from abides_fork import _t3engine
