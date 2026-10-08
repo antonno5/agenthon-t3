@@ -123,7 +123,7 @@ COPY build_executable.py /src/build_executable.py
 RUN mkdir /native-output && python /src/native_build.py /src /native-output \
     && python /src/build_executable.py /src /native-output
 
-FROM python_base AS runtime
+FROM python_base
 COPY --from=native_build /native-output/_t3engine*.so /opt/abides_fork/
 COPY --from=native_build /native-output/t3-native /usr/local/bin/t3-native
 COPY native /opt/native-source
@@ -137,39 +137,8 @@ COPY native/vendor/LICENSE.json /opt/licenses/native-json-LICENSE
 RUN rm /usr/local/bin/simulate /usr/local/bin/simulate-batch \
     && ln -s /usr/local/bin/t3-native /usr/local/bin/simulate \
     && ln -s /usr/local/bin/t3-native /usr/local/bin/simulate-batch
-# Drop what no run path imports: package test suites, pip/setuptools/wheel, pyarrow headers and
-# its Flight/Substrait libraries (pyarrow dataset/acero stay: the Python adapter's
-# pandas.to_parquet needs them). Every container start reads less from disk.
-RUN SP=/usr/local/lib/python3.11/site-packages \
-    && find "$SP" -depth -type d \( -name tests -o -name test \) -exec rm -rf {} + \
-    && rm -rf "$SP"/pip "$SP"/pip-* "$SP"/setuptools "$SP"/setuptools-* "$SP"/wheel "$SP"/wheel-* \
-              "$SP"/_distutils_hack "$SP"/distutils-precedence.pth "$SP"/pyarrow/include \
-              "$SP"/pyarrow/libarrow_flight.so* "$SP"/pyarrow/libarrow_substrait.so* \
-              "$SP"/pyarrow/_flight* "$SP"/pyarrow/_substrait* "$SP"/pyarrow/libarrow_python_flight.so \
-              /usr/local/bin/pip* /usr/local/bin/wheel /usr/local/bin/idle* /usr/local/bin/pydoc*
 RUN python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt
 ENV T3_ENGINE=auto
 WORKDIR /tmp
 # No ENTRYPOINT: the harness passes `simulate --config ... --out ...` as the command.
-CMD ["simulate", "--help"]
-
-# ---------------------------------------------------------------------------------------------
-# Published image: the runtime file system flattened into ONE layer (one overlay lower dir to
-# mount per container start instead of ~15), with the runtime stage's config re-declared
-# verbatim (same Env order, WorkingDir, Cmd, label).
-# ---------------------------------------------------------------------------------------------
-FROM scratch
-COPY --from=runtime / /
-LABEL qfbench2.interface_version="2.0"
-ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    LANG=C.UTF-8 \
-    GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D \
-    PYTHON_VERSION=3.11.17 \
-    PYTHON_SHA256=bfb74ad39efae27cda510f134ab408e00f9992c56851cfc0b1cdb5646da11599 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PYTHONPATH=/opt \
-    T3_ENGINE=auto
-WORKDIR /tmp
 CMD ["simulate", "--help"]

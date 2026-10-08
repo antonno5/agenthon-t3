@@ -1,8 +1,8 @@
 // Standalone front end. Engine, RNG, numpy log and Parquet writer remain unchanged.
 #include "scenario.hpp"
 #include "message_pipeline.hpp"
-#include "pqwrite.hpp"
-#include "sha256.hpp"
+#include "pqlite.hpp"
+#include "sha256_lite.hpp"
 #include <chrono>
 #include <filesystem>
 #include <fstream>
@@ -18,9 +18,6 @@ namespace {
 using t3cli::Json;
 using Clock = std::chrono::steady_clock;
 double since(Clock::time_point t) { return std::chrono::duration<double>(Clock::now() - t).count(); }
-std::string sha(const std::filesystem::path& p) {
-  return t3cli::sha256_file(p.string());
-}
 void write_json(const std::filesystem::path& path, const Json& j) {
   std::ofstream f(path); f << j.dump(2) << '\n'; f.close();
   if (!f) throw std::runtime_error("cannot write " + path.string());
@@ -47,23 +44,26 @@ struct StagedMessage {
   }
   ~StagedMessage() { std::remove(path.c_str()); }
 };
-struct Output { size_t events, messages; double seconds; };
+struct Output { size_t events, messages; double seconds; std::string trace_hash, message_hash; };
 Output run_write(t3::Params p, const std::string& trace, const std::string& msg) {
-  // Keep the same pipeline, stage/publish order and measurement boundary as module.cpp.
+  // The ledger streams into a staged file while the kernel runs (pages are compressed on the
+  // pipeline thread); the lifecycle trace is written after the run. Both writers build the
+  // file in memory and return its SHA-256, so neither file is read back for events.json.
   std::unique_ptr<StagedMessage> staged;
-  std::unique_ptr<t3::MessageParquetWriter> writer;
+  std::unique_ptr<t3::pqlite::MessageWriter> writer;
+  std::string message_hash;
   t3::MessagePipeline pipeline([&](const t3::MessageColumns& block, size_t offset) {
-    if (!writer) { staged = std::make_unique<StagedMessage>(msg); writer = std::make_unique<t3::MessageParquetWriter>(staged->path); }
+    if (!writer) { staged = std::make_unique<StagedMessage>(msg); writer = std::make_unique<t3::pqlite::MessageWriter>(staged->path); }
     writer->append(block, offset);
   }, [&] {
-    if (!writer) { staged = std::make_unique<StagedMessage>(msg); writer = std::make_unique<t3::MessageParquetWriter>(staged->path); }
-    writer->close();
+    if (!writer) { staged = std::make_unique<StagedMessage>(msg); writer = std::make_unique<t3::pqlite::MessageWriter>(staged->path); }
+    message_hash = writer->close();
   });
   auto t0 = Clock::now(); auto r = t3::run(std::move(p), &pipeline); double seconds = since(t0);
   if (r.trace.t_ns.empty()) { pipeline.cancel(); throw t3cli::Unsupported("empty trace requires original adapter dtypes"); }
-  t3::write_trace(r.trace, trace); pipeline.finish();
+  std::string trace_hash = t3::pqlite::write_trace(r.trace, trace); pipeline.finish();
   if (std::rename(staged->path.c_str(), msg.c_str()) != 0) throw std::runtime_error("cannot publish staged message parquet");
-  return {r.trace.t_ns.size(), r.n_messages, seconds};
+  return {r.trace.t_ns.size(), r.n_messages, seconds, trace_hash, message_hash};
 }
 
 // Python-equivalent result of one `simulate` run on the native path, or nullopt when the
@@ -98,13 +98,8 @@ std::optional<Json> run_scenario(const std::string& config, const std::string& o
   try { result = run_write(std::move(params), trace.string(), msg.string()); }
   catch (const std::runtime_error&) { if (strict) throw; return std::nullopt; }
   double written = since(started);
-  // The two files are independent: hash them concurrently.
-  std::string trace_hash, message_hash;
-  std::exception_ptr hash_error;
-  std::thread hasher([&] { try { message_hash = sha(msg); } catch (...) { hash_error = std::current_exception(); } });
-  try { trace_hash = sha(trace); } catch (...) { hasher.join(); throw; }
-  hasher.join();
-  if (hash_error) std::rethrow_exception(hash_error);
+  const std::string& trace_hash = result.trace_hash;  // computed while writing
+  const std::string& message_hash = result.message_hash;
   struct rusage usage{}; if (getrusage(RUSAGE_SELF, &usage)) throw std::runtime_error("getrusage failed");
   auto peak = static_cast<int64_t>(usage.ru_maxrss) * 1024;
   Json ev = {{"scenario_id", scenario["scenario_id"]}, {"seed", scenario["seed"]},
@@ -121,7 +116,7 @@ std::optional<Json> run_scenario(const std::string& config, const std::string& o
     {"components", Json::object()}, {"simulation_components", Json::object()}, {"component_calls", Json::object()},
     {"gpu_utilization", 0.0}, {"peak_memory_bytes", peak},
     {"native_executable", true}, {"numpy_log_dispatch", t3::numpy_log_dispatch()},
-    {"hash_provider", t3cli::Sha256().provider()}, {"openssl_version", OpenSSL_version(0)}};
+    {"hash_provider", t3::sha256_lite::Sha256::provider()}, {"parquet_writer", "pqlite"}};
   write_json(parent / "profile.json", profile);
   ev["wall_clock_sec"] = since(started); ev["events_per_sec"] = result.events / ev["wall_clock_sec"].get<double>();
   write_json(parent / "events.json", ev);
