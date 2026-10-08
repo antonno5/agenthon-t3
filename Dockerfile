@@ -1,11 +1,11 @@
-# Team 523 bisect image: pinned upstream ABIDES + the measured matching engine.
+# Track 3 baseline image: pinned upstream ABIDES + the `abides_fork` simulate adapter.
 #
 # This is the pre-built baseline the organizers ship. ABIDES itself is NOT vendored
 # in this repo; it is fetched at build time at the pinned commit (see README.md) and
 # the `abides_fork` adapter (this directory) layers the canonical `simulate` verb on
-# top of the unmodified engine.
+# top of the patched Python engine and the supported native simulation path.
 #
-# Build context is this directory (baselines/). Build for the evaluation platform:
+# Build context is the team repository root. Build for the evaluation platform:
 #
 #   docker build --platform=linux/amd64 -t agenthon-t3:local .
 #
@@ -21,7 +21,7 @@
 # no cp313 wheels; this is also the exact stack that generated the frozen reference traces. The
 # image is self-contained (the harness only reads the parquet it writes), so it does not constrain
 # the 3.13 evaluation container or participant submission images.
-FROM --platform=linux/amd64 python:3.11-slim@sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce
+FROM --platform=linux/amd64 python:3.11-slim@sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce AS python_base
 
 # Required on every submission image by the published contract (SUBMISSION_CLI.md and the
 # CodaBench Submission Format page). The reference baseline satisfies the same rule it asks
@@ -112,6 +112,27 @@ RUN chmod +x /usr/local/bin/simulate /usr/local/bin/simulate-batch
 
 # ABIDES writes its summary log under ./log even with per-agent logging disabled.
 # The platform makes the root filesystem read-only and provides a writable /tmp.
+WORKDIR /tmp
+# Build tools stay in the builder; the runtime retains the optimized Python fallback.
+FROM python_base AS native_build
+RUN apt-get update && apt-get install -y --no-install-recommends g++ gcc libc6-dev \
+    && rm -rf /var/lib/apt/lists/*
+COPY native /src/native
+COPY build_native.py /src/native_build.py
+RUN mkdir /native-output && python /src/native_build.py /src /native-output \
+    && g++ -std=c++17 -O2 -Wall -I/src/native /src/native/tests/book_test.cpp -o /native-output/book_test \
+    && /native-output/book_test \
+    && g++ -std=c++17 -O2 -Wall -pthread -I/src/native /src/native/tests/pipeline_test.cpp -o /native-output/pipeline_test \
+    && /native-output/pipeline_test
+
+FROM python_base
+COPY --from=native_build /native-output/_t3engine*.so /opt/abides_fork/
+COPY native /opt/native-source
+COPY build_native.py /opt/native_build.py
+COPY native/LICENSE.abides /opt/licenses/native-abides-LICENSE
+COPY native/svml/LICENSE /opt/licenses/native-numpy-LICENSE
+RUN python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt
+ENV T3_ENGINE=auto
 WORKDIR /tmp
 # No ENTRYPOINT: the harness passes `simulate --config ... --out ...` as the command.
 CMD ["simulate", "--help"]

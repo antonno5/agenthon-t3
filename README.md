@@ -1,17 +1,11 @@
-# Agenthon T3
+The latest develop simulator combines streaming ledger output with a shared arena order book. All 71 public units pass local developer gates; both verbs also pass the current Development runtime restrictions. GitHub Actions publishes the selected sources after verifying the measured runtime.
 
-Репозиторий iMak AI Lab для решения Track 3 и публикации Docker-образа в `ghcr.io/antonno5/agenthon-t3`.
+# Agenthon T3 — team 523
 
-В репозиторий перенесён вариант с bisect-поиском из подготовленной посылки от 7 октября 2026 года. Исходники адаптера, matching engine, upstream-патчи и CLI совпадают с проверенным образом; Python и зависимости закреплены на его версиях. Происхождение и исходное покрытие проверок записаны в `provenance/`.
+Исходная версия: Track3 codex/develop 57b1a40. Образ публикуется в ghcr.io/antonno5/agenthon-t3, linux/amd64, с тегом sha-<commit>. Происхождение, hashes исходников, полного прогона и отдельных runtime-проверок сохранены в provenance/. Эти результаты локальные, rankable:false.
 
-Для публикации откройте **Actions → Publish Docker image → Run workflow** и выберите ветку. Push в `master` или `codex/publish-*` тоже запускает публикацию. Workflow использует автоматический `GITHUB_TOKEN`; отдельный PAT не нужен. Он собирает `linux/amd64`, сверяет установленный код и версии всех Python-пакетов с измеренным образом и только после успешной сверки публикует тег `sha-<commit>`. Точная ссылка с digest появляется в отчёте запуска. Эта сверка не запускает сценарии и не расширяет покрытие прежних проверок.
+Полное покрытие developer gates — 71/71. Отдельное покрытие ограничений Development — single t3-s001-price-time-priority и batch t3-gbatch-homog-4: read-only root, uid 65534, tmpfs 64 MiB, без сети, 4 CPU, 16 GiB без swap, ограничения процессов/файлов и 256 MiB output.
 
-Локальная сборка: `docker --context colima-agenthon build --platform linux/amd64 -t agenthon-t3:local .`. Для сверки: `python3 scripts/verify-image.py --context colima-agenthon agenthon-t3:local`. Сохранённое покрытие — 6 из 71 публичного задания; результаты локальные (`rankable=false`). При дальнейших изменениях решения обновляйте доказательства и `provenance/expected-runtime.json` вместе с кодом.
+Workflow Publish Docker image запускается push в codex/publish-* либо вручную. Он собирает из корня, проверяет Python/upstream/CLI, все package versions, native sources/API и Docker config по измеренным данным, затем публикует immutable digest. Проверка Actions не запускает сценарии. Бинарный hash расширения не сравнивается между сборками: компилятор может изменить binary bytes; проверяются исходники, build flags, API и runtime.
 
-После первой публикации владелец должен открыть **Package settings → Change visibility → Public** и проверить анонимное скачивание. Публичность GitHub-репозитория не делает GHCR package публичным автоматически. [Документация GitHub](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#configuring-visibility-of-packages-for-your-personal-account).
-
-Секреты команды и заполненная памятка с доступами хранятся отдельно от этого публичного репозитория.
-
-После публикации нужно упаковать новую посылку с адресом `ghcr.io/antonno5/agenthon-t3` и digest из Actions. Архив прежней посылки с другим repository сам по себе не меняется. Team Key нужен только локальному упаковщику; Actions его не использует.
-
-[Официальный starter kit T3](https://github.com/Agenthon-2026/track3-simulation-public)
+Для CodaBench нужен новый ZIP с опубликованным digest и новым team proof. Team Key используется только локальным упаковщиком. Исходные посылки сохраняются. Ключи, ZIP, claim, .venv и логи исключены из репозитория и Docker context.

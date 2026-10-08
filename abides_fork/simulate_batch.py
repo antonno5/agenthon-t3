@@ -25,6 +25,8 @@ Contract (Docker entrypoint form; track-owned, no shared-infra change):
 from __future__ import annotations
 
 import argparse
+import os
+import sys
 import json
 import pathlib
 import time
@@ -132,4 +134,7 @@ def main(argv: Optional[list[str]] = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    code = main()
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os._exit(code)

@@ -1,0 +1,2 @@
+# Preserve the pinned upstream assembly verbatim, including comment whitespace.
+svml_z0_log_d_la.s -whitespace

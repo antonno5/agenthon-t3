@@ -12,11 +12,10 @@ from .price_level import PriceLevel
 
 
 class _PriceLevels(list):
-    """List-compatible storage with an invalidatable ordering certificate.
+    """Numeric search keys with a reusable discarded prefix and bounded storage.
 
-    No price index or key array is stored. Ordinary ordered inserts/deletes keep
-    the certificate in O(1); public reorderings are checked once before reuse.
-    Plain replacement lists and custom PriceLevel objects use the legacy scan.
+    Best-level removal advances the active start instead of shifting key entries.
+    Public reorderings and price edits retain the certified-vector fallback.
     """
 
     def __init__(self, side):
@@ -26,6 +25,8 @@ class _PriceLevels(list):
         self._ordered = True
         self._revision = PriceLevel._price_revision
         self._length = 0
+        self._prices = []
+        self._prices_start = 0
 
     def _key(self, level):
         return -level.price if self._side.is_bid() else level.price
@@ -35,7 +36,7 @@ class _PriceLevels(list):
             return False
         fields = vars(level)
         return (
-            type(fields.get("price")) is int  # noqa: E721 - exclude custom numeric operators
+            type(fields.get("price")) is int  # noqa: E721
             and fields.get("side") == self._side
             and "order_has_equal_price" not in fields
             and "order_has_better_price" not in fields
@@ -49,6 +50,7 @@ class _PriceLevels(list):
             or self._length != len(self)
         ):
             self._ordered = True
+            prices = []
             previous = None
             for level in self:
                 if not self._eligible_level(level):
@@ -58,32 +60,52 @@ class _PriceLevels(list):
                 if previous is not None and key < previous:
                     self._ordered = False
                     break
+                prices.append(key)
                 previous = key
+            self._prices = prices if self._ordered else []
+            self._prices_start = 0
             self._dirty = False
             self._revision = PriceLevel._price_revision
             self._length = len(self)
         return (
             self._ordered
             and order.side == self._side
-            and type(order.limit_price) is int  # noqa: E721 - exclude custom numeric operators
+            and type(order.limit_price) is int  # noqa: E721
         )
 
+    def _position(self, order):
+        # Only called after _ordered_for has certified the vector and order.
+        key = -order.limit_price if self._side.is_bid() else order.limit_price
+        start = self._prices_start
+        if start == len(self._prices) or key <= self._prices[start]:
+            return 0
+        return bisect_left(self._prices, key, start + 1) - start
+
     def _inserted(self, index):
-        # Pickle may append records before restoring this object's attributes.
+        # Pickle/deepcopy can append before restoring the container attributes.
         if (
             getattr(self, "_dirty", True)
             or self._revision != PriceLevel._price_revision
             or not self._ordered
+            or len(self._prices) - self._prices_start != len(self) - 1
         ):
             self._dirty = True
             return
         level = self[index]
         if not self._eligible_level(level):
             self._dirty = True
-        elif (index > 0 and self._key(self[index - 1]) > self._key(level)) or (
-            index + 1 < len(self) and self._key(level) > self._key(self[index + 1])
-        ):
-            self._dirty = True
+        else:
+            key = self._key(level)
+            absolute = self._prices_start + index
+            if (index > 0 and self._prices[absolute - 1] > key) or (
+                absolute < len(self._prices) and key > self._prices[absolute]
+            ):
+                self._dirty = True
+            elif index == 0 and self._prices_start:
+                self._prices_start -= 1
+                self._prices[self._prices_start] = key
+            else:
+                self._prices.insert(absolute, key)
         self._length = len(self)
 
     def append(self, level):
@@ -95,28 +117,62 @@ class _PriceLevels(list):
         super().insert(index, level)
         self._inserted(max(0, length + index) if index < 0 else min(index, length))
 
+    def _remove_key(self, index):
+        if not self:
+            self._prices = []
+            self._prices_start = 0
+            return
+        if index == 0:
+            self._prices_start += 1
+        else:
+            del self._prices[self._prices_start + index]
+        start = self._prices_start
+        # At most twice the live count plus 63 discarded integer keys remain.
+        # Compaction work is amortized over preceding removals, not every search.
+        if start >= 64 and start >= len(self):
+            self._prices = self._prices[start:]
+            self._prices_start = 0
+
     def __delitem__(self, index):
+        length = len(self)
         super().__delitem__(index)
-        # Deleting any subsequence preserves an existing ordering certificate.
-        self._length = len(self)
-        if not self._ordered:
+        if (
+            self._ordered
+            and not self._dirty
+            and self._revision == PriceLevel._price_revision
+            and type(index) is int  # noqa: E721
+        ):
+            self._remove_key(index if index >= 0 else length + index)
+        else:
+            # Arbitrary public slices/custom index objects are revalidated once.
             self._dirty = True
+        self._length = len(self)
 
     def pop(self, index=-1):
+        length = len(self)
         result = super().pop(index)
-        self._length = len(self)
-        if not self._ordered:
+        if (
+            self._ordered
+            and not self._dirty
+            and self._revision == PriceLevel._price_revision
+            and type(index) is int  # noqa: E721
+        ):
+            self._remove_key(index if index >= 0 else length + index)
+        else:
             self._dirty = True
+        self._length = len(self)
         return result
 
     def remove(self, level):
+        # Public remove uses equality rather than a certified numeric position.
         super().remove(level)
+        self._dirty = True
         self._length = len(self)
-        if not self._ordered:
-            self._dirty = True
 
     def clear(self):
         super().clear()
+        self._prices = []
+        self._prices_start = 0
         self._dirty = False
         self._ordered = True
         self._revision = PriceLevel._price_revision
@@ -176,11 +232,7 @@ class OrderBookState:
     def _matching_price_levels(self, book, order):
         """Find the first price in logarithmic time; retain live duplicate traversal."""
         if type(book) is _PriceLevels and book._ordered_for(order):
-            index = bisect_left(
-                book,
-                -order.limit_price if order.side.is_bid() else order.limit_price,
-                key=book._key,
-            )
+            index = book._position(order)
             # Do not precompute a range: cancellation can delete a yielded level.
             # Advancing the live index reproduces enumerate's duplicate behavior.
             while index < len(book):
@@ -236,11 +288,7 @@ class OrderBookState:
                 book, len(book), PriceLevel([(order, metadata or {})])
             )
         elif type(book) is _PriceLevels and book._ordered_for(order):
-            index = bisect_left(
-                book,
-                -order.limit_price if order.side.is_bid() else order.limit_price,
-                key=book._key,
-            )
+            index = book._position(order)
             if index < len(book) and book[index].order_has_equal_price(order):
                 book[index].add_order(order, metadata or {})
             elif index < len(book):

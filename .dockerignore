@@ -19,3 +19,7 @@ README.md
 **/__pycache__
 **/*.py[cod]
 **/.DS_Store
+
+experiments
+expirements
+.agents

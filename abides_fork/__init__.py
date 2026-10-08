@@ -15,4 +15,11 @@ from __future__ import annotations
 
 __all__ = ["extract_trace", "TRACE_COLUMNS"]
 
-from abides_fork.trace import TRACE_COLUMNS, extract_trace
+
+def __getattr__(name: str):
+    # Lazy: importing trace pulls in pandas, which the native simulate path never needs.
+    if name in __all__:
+        from abides_fork import trace
+
+        return getattr(trace, name)
+    raise AttributeError(name)

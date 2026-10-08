@@ -20,7 +20,14 @@ from abides_markets.matching import facade
 from abides_markets.matching.price_level import PriceLevel
 runtime = {'python': platform.python_version(), 'packages': dict(sorted((d.metadata['Name'].lower(), d.version) for d in importlib.metadata.distributions()))}
 identity = {'order_book': order_book.OrderBook.__module__, 'price_level': price_level.PriceLevel.__module__, 'facade_same_class': facade.OrderBook is order_book.OrderBook, 'level_same_class': PriceLevel is price_level.PriceLevel, 'logger_same_object': facade.logger is order_book.logger}
-print(json.dumps({'files': files, 'runtime': runtime, 'extra_files': extra, 'identity': identity}))
+native_sources = {}
+for path in sorted(Path('/opt/native-source').rglob('*')):
+    if path.is_file():
+        native_sources['native/' + path.relative_to('/opt/native-source').as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+native_sources['build_native.py'] = hashlib.sha256(Path('/opt/native_build.py').read_bytes()).hexdigest()
+from abides_fork import _t3engine
+native_api = {name: callable(getattr(_t3engine, name, None)) for name in ['run', 'run_write', 'numpy_log']}
+print(json.dumps({'files': files, 'runtime': runtime, 'extra_files': extra, 'identity': identity, 'native_sources': native_sources, 'native_api': native_api}))
 '''
 
 
@@ -39,6 +46,7 @@ def main():
     if result.returncode:
         raise SystemExit(result.stderr)
     actual = json.loads(result.stdout)
+    actual['docker_config'] = {key: inspect['Config'].get(key) for key in ['WorkingDir', 'Entrypoint', 'Cmd', 'Env', 'User', 'Volumes']}
     expected = json.loads((Path(__file__).resolve().parents[1] / 'provenance/expected-runtime.json').read_text())
     differences = [key for key in expected if actual.get(key) != expected[key]]
     if differences:
@@ -47,7 +55,7 @@ def main():
         raise SystemExit('Runtime differs from the measured image: ' + ', '.join(differences))
     for verb in ['simulate', 'simulate-batch']:
         subprocess.run(docker + ['run', '--rm', '--platform', 'linux/amd64', '--network', 'none', '--read-only', args.image, verb, '--help'], check=True, stdout=subprocess.DEVNULL)
-    print(f'Exact runtime match: {len(actual["files"])} Python sources, CLI/control files, all package versions; both verbs start offline. No scenarios executed.')
+    print(f'Exact runtime match: {len(actual["files"])} Python sources, CLI/control, native sources/API, package versions and Docker config; both verbs start offline. No scenarios executed.')
 
 
 if __name__ == '__main__':
