@@ -71,17 +71,20 @@
       "numpy": "1.26.4",
       "packaging": "26.3",
       "pandas": "1.5.3",
+      "pip": "24.0",
       "pyarrow": "15.0.2",
       "python-dateutil": "2.9.0.post0",
       "pytz": "2026.5",
       "scipy": "1.17.1",
-      "six": "1.17.0"
+      "setuptools": "79.0.1",
+      "six": "1.17.0",
+      "wheel": "0.46.3"
     }
   },
   "extra_files": {
     "/opt/_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
     "/usr/local/bin/simulate": "9aecf72dbc3c8c138fc2b03247c7bbcb05aaca430f07f93dbc6639252a5f6b1b",
-    "/usr/local/bin/simulate-batch": "21b4f43bf3a133f736034b64357ef3690cd492f52245aa18dea34576c894810d"
+    "/usr/local/bin/simulate-batch": "0d6419bba5572ef19312f7fc09fe74cefdc7a29e74bb43323968fad2d980a4ca"
   },
   "identity": {
     "order_book": "abides_markets.order_book",

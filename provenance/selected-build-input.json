@@ -15,7 +15,7 @@
     "abides_fork/simulate.py": "9a9248940db2d9fac50d95d74e540e2247bb40fffa1ad42262f5bfcac6c90bd3",
     "abides_fork/simulate_batch.py": "e258db6c351b4c441c11a3715fc07c15dd0cbd4bcfd41c2f6ca15ed1e64ea6e7",
     "abides_fork/trace.py": "40e046bb50b457bedeac3b4a471bdd78efce84f4f47772630afc24785425a41e",
-    "build_executable.py": "f6477b2586b8c04faf035bab1876b277eead99f002e5b8c5e7a7b4b8ffb61939",
+    "build_executable.py": "3c18c316fb7483eb623ea5f7658e104a18f91efd5b06844ee7628a09155e44a3",
     "build_native.py": "fbfcdb90ff1f1237c2c7aa85b63af69239a2dce8610af1c5409b750f1aba5fea",
     "install_matching.py": "9a121604ce1ca4979e2d9612d522b06189f7b4bc99e80079b5b76ed1464f8fd6",
     "matching/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
@@ -30,7 +30,7 @@
     "matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
     "native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
     "native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
-    "native/cli.cpp": "6b35a81a9ca1c33efcce69dc0a7c81bead6fc99ec15d560e2332e858ce8e7768",
+    "native/cli.cpp": "ac4500c413c66ee6d0552259c9573033944037ec3d0b92897fc16bf84f89ecb2",
     "native/engine.cpp": "85cce4744e67ddd7c3add6d9cf85e2d65e0cd3f64185aebdf23be628207e5d4a",
     "native/engine.hpp": "e97d0782b5b8e7bbcf61180d4aae53ba967d585c6fcbe2f53ee8cb6a54b345b6",
     "native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",
@@ -63,9 +63,15 @@
     "patches/oracle_scheduled_jump.patch": "e3f50b265f6ecfee7a3068b122c4de99be8da139db5672dd4b516df5db1cc0b8",
     "patches/order_size_model.pomegranate-free.patch": "ae9627813ce1f6a066f5eb2b66f49cea70475412626df5d48f8d10ab365ad0a1",
     "simulate": "9aecf72dbc3c8c138fc2b03247c7bbcb05aaca430f07f93dbc6639252a5f6b1b",
-    "simulate-batch": "7a56826516e69c5e44e51b36d168f2cac2c466c87bad3a5b0ec6f3eafacd2ccf"
+    "simulate-batch": "7a56826516e69c5e44e51b36d168f2cac2c466c87bad3a5b0ec6f3eafacd2ccf",
+    "native/pqlite.cpp": "02be127fac7edcea51e7168f14b061aaca9c01ea451b719604cefa593ac0c4a2",
+    "native/pqlite.hpp": "d7d4a8262351f9012053edae63fc289e1a4d0652cf185cbf7e75006bc6677ca0",
+    "native/pqmeta.hpp": "9df20e9f8ccc25df853136ab9ad917264ee0efd8d863ac0ca5a0f048d8f09bcf",
+    "native/sha256_lite.hpp": "a13884849adea681ee377f2d93a137597d0daa80b3ec18ab088381d7a5e3b468",
+    "native/snappy_lite.hpp": "694f6f691a30ec2a13692428fe2f60df26e918da3e69882368e30c2ff1f40339"
   },
   "runtime_validation": "skipped_by_user",
   "rankable": false,
-  "perf_combined_note": "Build inputs updated for branch perf-combined (C1-C3): native/cli.cpp, engine.cpp, pqwrite.cpp, trace_stream.hpp, Dockerfile. Validated locally: 71/71 public units byte-identical to the pqnative image, regression suite 65/65, official batch gates 6/6, platform flags."
+  "perf_combined_note": "Build inputs updated for branch perf-combined (C1-C3): native/cli.cpp, engine.cpp, pqwrite.cpp, trace_stream.hpp, Dockerfile. Validated locally: 71/71 public units byte-identical to the pqnative image, regression suite 65/65, official batch gates 6/6, platform flags.",
+  "perf_static_note": "perf-static S1: static dependency-free t3-native (pqlite writer, snappy_lite, sha256_lite); layered python:3.11-slim runtime restored. Validated locally: decoded outputs = d21df9d on 71/71 units, regression 65/65, batch gates 6/6."
 }
