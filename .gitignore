@@ -12,3 +12,7 @@ submission*.json
 __pycache__/
 *.py[cod]
 run_outputs/
+
+# build artifacts (Cython / native engine)
+*.so
+*.c
