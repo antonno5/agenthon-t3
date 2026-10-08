@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <deque>
+#include <memory>
 #include <limits>
 #include <stdexcept>
 #include <unordered_map>
@@ -115,20 +116,52 @@ struct Message {
 
 // Heap entry; the Python heap item is (time, (sender_id, recipient_id, message)) and
 // messages compare by message_id, so (time, sender, recipient, message_id) is the order.
+// Message storage: fixed-size blocks, never moved once allocated, so references held by a
+// handler stay valid while it creates new messages (the property std::deque gave us) --
+// with plain shift/mask indexing instead of deque iterator arithmetic.
+class MessageSlab {
+ public:
+  Message& operator[](size_t i) { return blocks_[i >> kShift][i & kMask]; }
+  const Message& operator[](size_t i) const { return blocks_[i >> kShift][i & kMask]; }
+  size_t size() const { return size_; }
+  void push_back(const Message& m) {
+    if ((size_ & kMask) == 0) blocks_.emplace_back(new Message[kBlock]);
+    (*this)[size_++] = m;
+  }
+
+ private:
+  static constexpr size_t kShift = 12, kBlock = size_t{1} << kShift, kMask = kBlock - 1;
+  std::vector<std::unique_ptr<Message[]>> blocks_;
+  size_t size_ = 0;
+};
+
+// Heap entry, 32 bytes. The Python heap item is (time, (sender_id, recipient_id, message))
+// and messages compare by message_id, so the order is (time, sender, recipient, message_id);
+// agent ids are non-negative, so (sender, recipient) compares as one unsigned 64-bit route.
+// The send-time ledger fields live in Sim::send_info (index `info`, -1 for wakeups, whose
+// ledger row is built on delivery): the Python ledger row is fixed at send time, and a
+// requeue moves `time` but not the recorded t_recv.
 struct QEntry {
   int64_t time;
-  int32_t sender, recipient;
+  uint64_t route;  // (sender << 32) | recipient
   int64_t msg_id;
-  int32_t slot;  // index into Sim::msgs
-  // Send-time ledger fields (the Python ledger row is fixed at send time; a requeue moves
-  // `time` but not `t_recv`). t_send < 0 marks a wakeup, whose row is built on delivery.
-  int64_t t_send, t_recv, causal;  // causal < 0: None
+  int32_t slot;    // index into Sim::msgs
+  int32_t info;    // index into Sim::send_info, -1 for wakeups
+  int32_t sender() const { return static_cast<int32_t>(route >> 32); }
+  int32_t recipient() const { return static_cast<int32_t>(route & 0xffffffffu); }
+  static uint64_t make_route(int32_t sender, int32_t recipient) {
+    return (static_cast<uint64_t>(static_cast<uint32_t>(sender)) << 32) |
+           static_cast<uint32_t>(recipient);
+  }
   bool operator>(const QEntry& o) const {
     if (time != o.time) return time > o.time;
-    if (sender != o.sender) return sender > o.sender;
-    if (recipient != o.recipient) return recipient > o.recipient;
+    if (route != o.route) return route > o.route;
     return msg_id > o.msg_id;
   }
+};
+
+struct SendInfo {
+  int64_t t_send, t_recv, causal;  // causal < 0: None
 };
 
 
@@ -167,9 +200,11 @@ class Sim {
   int64_t current_time = 0;
   std::vector<int64_t> agent_times, comp_delays;
   std::vector<QEntry> heap;
+  std::vector<SendInfo> send_info;
+  std::vector<int32_t> free_info;
   // deque: handlers hold references to the message being delivered while creating new
   // ones, and push_back on a deque never invalidates references to existing elements.
-  std::deque<Message> msgs;
+  MessageSlab msgs;
   std::vector<int32_t> free_slots;  // recycled message slots
   MessageSink* message_sink;
   size_t n_messages = 0;
@@ -230,15 +265,42 @@ class Sim {
     ++n_messages;
     if (message_sink && c.t_recv.size() == kMessageBlockRows) message_sink->submit(c);
   }
+  // 4-ary min-heap on QEntry's total order (keys are unique: msg_id is unique per message and
+  // route separates a shared message's recipients), so it pops exactly the sequence the
+  // binary std:: heap -- and Python's heapq -- would; it is shallower and touches fewer
+  // cache lines per pop.
   void heap_push(const QEntry& e) {
+    size_t i = heap.size();
     heap.push_back(e);
-    std::push_heap(heap.begin(), heap.end(), std::greater<QEntry>());
+    while (i > 0) {
+      const size_t parent = (i - 1) >> 2;
+      if (!(heap[parent] > e)) break;
+      heap[i] = heap[parent];
+      i = parent;
+    }
+    heap[i] = e;
   }
   QEntry heap_pop() {
-    std::pop_heap(heap.begin(), heap.end(), std::greater<QEntry>());
-    QEntry e = heap.back();
+    const QEntry top = heap[0];
+    const QEntry last = heap.back();
     heap.pop_back();
-    return e;
+    const size_t n = heap.size();
+    if (n > 0) {
+      size_t i = 0;
+      while (true) {
+        const size_t c = (i << 2) + 1;
+        if (c >= n) break;
+        size_t best = c;
+        const size_t end = std::min(c + 4, n);
+        for (size_t k = c + 1; k < end; k++)
+          if (heap[best] > heap[k]) best = k;
+        if (!(last > heap[best])) break;
+        heap[i] = heap[best];
+        i = best;
+      }
+      heap[i] = last;
+    }
+    return top;
   }
   // ScenarioLatencyModel.get_latency
   int64_t latency(int32_t s, int32_t r) {
@@ -264,8 +326,17 @@ class Sim {
     const int64_t deliver_at = sent_time + latency(sender, recipient);
     Message& m = msgs[slot];
     m.refs++;
-    heap_push(QEntry{deliver_at, sender, recipient, m.id, slot, sent_time, deliver_at,
-                     has_causal ? causal : -1});
+    int32_t info;
+    const SendInfo si{sent_time, deliver_at, has_causal ? causal : -1};
+    if (!free_info.empty()) {
+      info = free_info.back();
+      free_info.pop_back();
+      send_info[info] = si;
+    } else {
+      info = static_cast<int32_t>(send_info.size());
+      send_info.push_back(si);
+    }
+    heap_push(QEntry{deliver_at, QEntry::make_route(sender, recipient), m.id, slot, info});
   }
   // Kernel.set_wakeup
   void set_wakeup(int32_t agent, int64_t t) {
@@ -273,7 +344,7 @@ class Sim {
       throw std::runtime_error("set_wakeup() called with requested time not in future");
     const int32_t slot = new_msg(MT_WAKEUP);
     msgs[slot].refs = 1;
-    heap_push(QEntry{t, agent, agent, msgs[slot].id, slot, -1, t, -1});
+    heap_push(QEntry{t, QEntry::make_route(agent, agent), msgs[slot].id, slot, -1});
   }
 
   // --- oracle (SparseMeanRevertingOracle) ---
@@ -746,7 +817,7 @@ Result Sim::run() {
   while (!heap.empty() && current_time != 0 && current_time <= P.stop_time) {
     const QEntry e = heap_pop();
     current_time = e.time;
-    const int32_t r = e.recipient;
+    const int32_t r = e.recipient();
     const Message& m = msgs[e.slot];
     if (agent_times[r] > current_time) {  // agent still "in the future": requeue
       QEntry re = e;
@@ -768,10 +839,12 @@ Result Sim::run() {
       agent_times[r] += comp_delays[r];
       has_causal = true;
       causal = m.id;
-      deliver_row(m.id, e.sender, r, true, e.t_send, e.t_recv, m.type, m.has_order(),
-                  m.order.order_id, e.causal);
+      const SendInfo si = send_info[e.info];
+      free_info.push_back(e.info);
+      deliver_row(m.id, e.sender(), r, true, si.t_send, si.t_recv, m.type, m.has_order(),
+                  m.order.order_id, si.causal);
       if (r == 0)
-        exchange_receive(current_time, e.sender, e.slot);
+        exchange_receive(current_time, e.sender(), e.slot);
       else
         trader_receive(trader(r), current_time, e.slot);
     }

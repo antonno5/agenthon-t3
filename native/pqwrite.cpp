@@ -10,6 +10,7 @@
 #include <parquet/properties.h>
 
 #include <algorithm>
+#include <cstring>
 #include <stdexcept>
 #include <string>
 
@@ -79,11 +80,23 @@ std::shared_ptr<arrow::Array> string_array(int64_t n, const std::vector<uint8_t>
   own.bytes.emplace_back();
   std::vector<int32_t>& off = own.offsets.back();
   std::vector<uint8_t>& data = own.bytes.back();
+  // Code columns hold a handful of distinct values: size each name once, then fill the
+  // offsets and the exactly-sized data buffer with no per-row reallocation.
+  size_t len[256];
+  for (size_t c = 0; c < 256; c++) len[c] = 0;
+  size_t total = 0;
+  for (uint8_t c : codes) {
+    if (len[c] == 0) len[c] = std::char_traits<char>::length(names[c]);
+    total += len[c];
+  }
+  data.resize(total);
   off[0] = 0;
+  size_t pos = 0;
   for (size_t i = 0; i < codes.size(); i++) {
-    const char* s = names[codes[i]];
-    data.insert(data.end(), s, s + std::char_traits<char>::length(s));
-    off[i + 1] = static_cast<int32_t>(data.size());
+    const size_t l = len[codes[i]];
+    std::memcpy(data.data() + pos, names[codes[i]], l);
+    pos += l;
+    off[i + 1] = static_cast<int32_t>(pos);
   }
   return arrow::MakeArray(
       arrow::ArrayData::Make(arrow::utf8(), n, {nullptr, view(off), view(data)}, 0));

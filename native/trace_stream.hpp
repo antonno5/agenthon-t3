@@ -78,12 +78,16 @@ class TraceStream {
   }
 
   void flush() {
-    std::sort(pending_.begin(), pending_.end(), [](const Row& a, const Row& b) {
+    // Most timestamps hold one or two rows that already arrive in key order; only sort
+    // when they do not (the key is unique per row via `ordinal`, so the result is the same).
+    auto less = [](const Row& a, const Row& b) {
       if (a.t != b.t) return a.t < b.t;
       if (a.oid != b.oid) return a.oid < b.oid;
       if (a.owner != b.owner) return a.owner < b.owner;
       return a.ordinal < b.ordinal;
-    });
+    };
+    if (pending_.size() > 1 && !std::is_sorted(pending_.begin(), pending_.end(), less))
+      std::sort(pending_.begin(), pending_.end(), less);
     for (const Row& r : pending_) {
       uint8_t type = r.type;
       if (type == TM_PARTIAL_FILL) {
