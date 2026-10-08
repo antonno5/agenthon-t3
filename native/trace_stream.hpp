@@ -14,7 +14,19 @@ class TraceStream {
  public:
   // Negative latency is accepted by the existing config mapper. It can move the
   // kernel backwards across agents, so retain compact rows for that guarded case.
-  explicit TraceStream(bool chronological = true) : chronological_(chronological) {}
+  explicit TraceStream(bool chronological = true) : chronological_(chronological) {
+    // Large initial capacity: growing these by doubling copied every column again and again
+    // (~18% of a large run's CPU). Untouched capacity is never faulted in, so small runs
+    // pay nothing for it.
+    constexpr size_t kInitialRows = size_t{1} << 21;
+    columns_.t_ns.reserve(kInitialRows);
+    columns_.agent_id.reserve(kInitialRows);
+    columns_.msg_type.reserve(kInitialRows);
+    columns_.side.reserve(kInitialRows);
+    columns_.price.reserve(kInitialRows);
+    columns_.size.reserve(kInitialRows);
+    columns_.order_id.reserve(kInitialRows);
+  }
 
   void order(int64_t t, int32_t owner, int32_t agent, uint8_t type, uint8_t side,
              int64_t price, int64_t size, int64_t oid) {

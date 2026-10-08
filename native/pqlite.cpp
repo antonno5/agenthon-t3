@@ -114,11 +114,15 @@ void dict_indices(Bytes& o, const uint8_t* codes, size_t n, int width) {
   put_uvarint(o, (static_cast<uint64_t>(groups) << 1) | 1);
   const size_t start = o.size();
   o.resize(start + groups * width, 0);
-  size_t bit = 0;
-  for (size_t i = 0; i < n; i++, bit += width) {
-    const uint32_t v = codes[i];
-    for (int b = 0; b < width; b++)
-      if (v & (1u << b)) o[start + ((bit + b) >> 3)] |= static_cast<uint8_t>(1u << ((bit + b) & 7));
+  // Each group of 8 values packs into exactly `width` bytes: assemble it in a 64-bit word.
+  uint8_t* dst = o.data() + start;
+  for (size_t g = 0; g < groups; g++) {
+    uint64_t word = 0;
+    const size_t base = g * 8;
+    for (size_t k = 0; k < 8 && base + k < n; k++)
+      word |= static_cast<uint64_t>(codes[base + k]) << (k * static_cast<size_t>(width));
+    std::memcpy(dst, &word, static_cast<size_t>(width));  // little-endian: low bytes first
+    dst += width;
   }
 }
 
@@ -132,23 +136,47 @@ void put_zigzag(Bytes& o, int64_t v) {
 void pack_bits(Bytes& o, const uint64_t* v, size_t count, int width) {
   if (width == 0) return;
   const size_t start = o.size();
-  o.resize(start + (count * static_cast<size_t>(width) + 7) / 8, 0);
+  o.resize(start + (count * static_cast<size_t>(width) + 7) / 8);
   uint8_t* dst = o.data() + start;
-  size_t bit = 0;
-  for (size_t i = 0; i < count; i++, bit += static_cast<size_t>(width)) {
-    uint64_t x = v[i];
-    size_t pos = bit;
-    int left = width;
-    while (left > 0) {
-      const int off = static_cast<int>(pos & 7);
-      const int take = std::min(left, 8 - off);
-      dst[pos >> 3] |= static_cast<uint8_t>((x & ((1u << take) - 1)) << off);
-      x >>= take;
-      pos += static_cast<size_t>(take);
-      left -= take;
+  if (width <= 32) {
+    // Common case: a 64-bit accumulator, flushed 4 bytes at a time.
+    const uint64_t m = (width == 32) ? 0xffffffffull : ((1ull << width) - 1);
+    uint64_t acc = 0;
+    int bits = 0;
+    for (size_t i = 0; i < count; i++) {
+      acc |= (v[i] & m) << bits;
+      bits += width;
+      if (bits >= 32) {
+        const uint32_t lo = static_cast<uint32_t>(acc);
+        std::memcpy(dst, &lo, 4);
+        dst += 4;
+        acc >>= 32;
+        bits -= 32;
+      }
+    }
+    while (bits > 0) {
+      *dst++ = static_cast<uint8_t>(acc);
+      acc >>= 8;
+      bits -= 8;
+    }
+    return;
+  }
+  // LSB-first bit stream through a 128-bit accumulator (widths up to 64).
+  unsigned __int128 acc = 0;
+  int bits = 0;
+  const unsigned __int128 mask = (width == 64) ? ~static_cast<uint64_t>(0) : ((static_cast<uint64_t>(1) << width) - 1);
+  for (size_t i = 0; i < count; i++) {
+    acc |= (static_cast<unsigned __int128>(v[i]) & mask) << bits;
+    bits += width;
+    while (bits >= 8) {
+      *dst++ = static_cast<uint8_t>(acc);
+      acc >>= 8;
+      bits -= 8;
     }
   }
+  if (bits > 0) *dst++ = static_cast<uint8_t>(acc);
 }
+
 template <class T>
 void delta_binary_packed(Bytes& o, const T* v, size_t n) {
   constexpr size_t kBlock = 128, kMini = 4, kPer = kBlock / kMini;
@@ -204,8 +232,9 @@ struct Column {
   int32_t type;
   const char* const* vocab = nullptr;  // dictionary-encoded string column when set
   size_t vocab_n = 0;
-  // Encoded chunk: [dictionary page][data pages...]
-  Bytes dict_page, pages;
+  // Encoded chunk: [dictionary page][data pages...], each page kept as its own buffers
+  // (header, compressed body) and written in order -- never concatenated in memory.
+  std::vector<Bytes> dict_page, pages;
   int64_t num_values = 0, uncompressed = 0;
 };
 
@@ -232,16 +261,23 @@ void page_header(Bytes& o, bool dictionary, int32_t unc, int32_t comp, int32_t n
 }
 
 // Compresses `body` into a page appended to `out`; returns header+uncompressed size.
-int64_t add_page(Bytes& out, const Bytes& body, bool dictionary, int32_t num_values,
-                 int32_t encoding) {
+int64_t add_page(std::vector<Bytes>& out, const Bytes& body, bool dictionary,
+                 int32_t num_values, int32_t encoding) {
   Bytes comp;
+  comp.reserve(32 + body.size() + body.size() / 6);  // snappy worst case: no growth
   snappy_lite::compress(body.data(), body.size(), comp);
   Bytes header;
   page_header(header, dictionary, static_cast<int32_t>(body.size()),
               static_cast<int32_t>(comp.size()), num_values, encoding);
-  out.insert(out.end(), header.begin(), header.end());
-  out.insert(out.end(), comp.begin(), comp.end());
-  return static_cast<int64_t>(header.size() + body.size());
+  const int64_t unc = static_cast<int64_t>(header.size() + body.size());
+  out.push_back(std::move(header));
+  out.push_back(std::move(comp));
+  return unc;
+}
+size_t bytes_of(const std::vector<Bytes>& v) {
+  size_t n = 0;
+  for (const Bytes& b : v) n += b.size();
+  return n;
 }
 
 void ensure_dict_page(Column& c) {
@@ -258,6 +294,7 @@ void ensure_dict_page(Column& c) {
 template <class T>
 void numeric_page(Column& c, const T* v, const uint8_t* nulls, size_t n) {
   Bytes body;
+  body.reserve(64 + n / 8 + n * (sizeof(T) + 1) + n / 32);  // levels + worst-case delta
   def_levels(body, nulls, n);
   if (!nulls) {
     delta_binary_packed(body, v, n);
@@ -275,6 +312,7 @@ void numeric_page(Column& c, const T* v, const uint8_t* nulls, size_t n) {
 void string_page(Column& c, const uint8_t* codes, size_t n) {
   ensure_dict_page(c);
   Bytes body;
+  body.reserve(64 + n);
   def_levels(body, nullptr, n);
   dict_indices(body, codes, n, bit_width(c.vocab_n - 1));
   c.uncompressed += add_page(c.pages, body, false, static_cast<int32_t>(n), 8);  // RLE_DICTIONARY
@@ -304,29 +342,26 @@ void parallel_for(size_t n, size_t threads, F fn) {
     if (e) std::rethrow_exception(e);
 }
 
-// Builds the file in memory, writes it and returns its SHA-256 (computed concurrently).
+// Writes the file from the column page buffers in order (no concatenation), hashing the same
+// pieces on a second thread; returns the SHA-256 hex.
 std::string write_file(const std::string& path, std::vector<Column>& cols, int64_t num_rows,
                        const char* arrow_schema, const char* pandas) {
-  Bytes file;
-  size_t total = 8;
-  for (auto& c : cols) total += c.dict_page.size() + c.pages.size();
-  file.reserve(total + 4096);
-  const uint8_t magic[4] = {'P', 'A', 'R', '1'};
-  file.insert(file.end(), magic, magic + 4);
+  static const uint8_t magic[4] = {'P', 'A', 'R', '1'};
   struct Placed { int64_t start, data_offset, size; };
   std::vector<Placed> placed;
+  int64_t pos = 4;
   for (auto& c : cols) {
     Placed p;
-    p.start = static_cast<int64_t>(file.size());
-    file.insert(file.end(), c.dict_page.begin(), c.dict_page.end());
-    p.data_offset = static_cast<int64_t>(file.size());
-    file.insert(file.end(), c.pages.begin(), c.pages.end());
-    p.size = static_cast<int64_t>(file.size()) - p.start;
+    p.start = pos;
+    pos += static_cast<int64_t>(bytes_of(c.dict_page));
+    p.data_offset = pos;
+    pos += static_cast<int64_t>(bytes_of(c.pages));
+    p.size = pos - p.start;
     placed.push_back(p);
   }
-  const size_t footer_start = file.size();
+  Bytes footer;
   {
-    Thrift t(file);
+    Thrift t(footer);
     t.i32(1, 2);  // version
     t.list(2, T_STRUCT, cols.size() + 1);
     t.elem_begin();  // root
@@ -398,17 +433,32 @@ std::string write_file(const std::string& path, std::vector<Column>& cols, int64
     }
     t.stop();
   }
-  put_u32le(file, static_cast<uint32_t>(file.size() - footer_start));
-  file.insert(file.end(), magic, magic + 4);
+  put_u32le(footer, static_cast<uint32_t>(footer.size()));
+  footer.insert(footer.end(), magic, magic + 4);
+
+  // Ordered list of byte ranges making up the file.
+  std::vector<std::pair<const uint8_t*, size_t>> pieces;
+  pieces.emplace_back(magic, 4);
+  for (auto& c : cols) {
+    for (const Bytes& b : c.dict_page) pieces.emplace_back(b.data(), b.size());
+    for (const Bytes& b : c.pages) pieces.emplace_back(b.data(), b.size());
+  }
+  pieces.emplace_back(footer.data(), footer.size());
 
   std::string hex;
   std::thread hasher([&] {
     sha256_lite::Sha256 s;
-    s.update(file.data(), file.size());
+    for (const auto& pc : pieces) s.update(pc.first, pc.second);
     hex = s.hex();
   });
   FILE* f = std::fopen(path.c_str(), "wb");
-  const bool ok = f && std::fwrite(file.data(), 1, file.size(), f) == file.size();
+  bool ok = f != nullptr;
+  if (ok) {
+    static thread_local std::vector<char> iobuf(1 << 20);
+    std::setvbuf(f, iobuf.data(), _IOFBF, iobuf.size());
+    for (const auto& pc : pieces)
+      if (std::fwrite(pc.first, 1, pc.second, f) != pc.second) { ok = false; break; }
+  }
   const bool closed = f && std::fclose(f) == 0;
   hasher.join();
   if (!ok || !closed) throw std::runtime_error("cannot write " + path);

@@ -59,10 +59,14 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
     if (!writer) { staged = std::make_unique<StagedMessage>(msg); writer = std::make_unique<t3::pqlite::MessageWriter>(staged->path); }
     message_hash = writer->close();
   });
-  auto t0 = Clock::now(); auto r = t3::run(std::move(p), &pipeline); double seconds = since(t0);
+  // The result (multi-MB columns) and the ledger writer's page buffers are deliberately never
+  // freed: the process exits right after writing its outputs, and freeing them (munmap of
+  // large blocks) would only add wall time to the run.
+  auto t0 = Clock::now(); auto& r = *new t3::Result(t3::run(std::move(p), &pipeline)); double seconds = since(t0);
   if (r.trace.t_ns.empty()) { pipeline.cancel(); throw t3cli::Unsupported("empty trace requires original adapter dtypes"); }
   std::string trace_hash = t3::pqlite::write_trace(r.trace, trace); pipeline.finish();
   if (std::rename(staged->path.c_str(), msg.c_str()) != 0) throw std::runtime_error("cannot publish staged message parquet");
+  (void)writer.release();  // keep its page buffers alive until _exit (see above)
   return {r.trace.t_ns.size(), r.n_messages, seconds, trace_hash, message_hash};
 }
 
@@ -189,7 +193,9 @@ int batch_main(int argc, char** argv) {
     if (!f) throw std::runtime_error("cannot write batch_events.json");
   }
   std::cout << agg.dump() << '\n';
-  return 0;
+  std::cout.flush();
+  std::fflush(nullptr);
+  _exit(0);
 }
 }  // namespace
 
@@ -235,6 +241,9 @@ int main(int argc, char** argv) {
     }
     auto ev = run_scenario(config, out, seed, strict);
     if (!ev) return fallback(argc, argv);
-    std::cout << ev->dump() << '\n'; return 0;
+    std::cout << ev->dump() << '\n';
+    std::cout.flush();
+    std::fflush(nullptr);
+    _exit(0);  // outputs are written and closed; skip teardown of the large in-memory state
   } catch (const std::exception& e) { std::cerr << "simulate: " << e.what() << '\n'; return 1; }
 }
