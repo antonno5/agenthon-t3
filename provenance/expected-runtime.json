@@ -137,7 +137,7 @@
       "PYTHONPATH=/opt",
       "T3_ENGINE=auto"
     ],
-    "User": null,
+    "User": "",
     "Volumes": null
   }
 }
