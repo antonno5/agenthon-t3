@@ -1,18 +1,6 @@
 {
-  "executive_summary": "All fresh runs passed exact journals and native provenance. Percentages and digests were independently rechecked; monotonic host intervals prove serial launches.",
-  "accepted": true,
-  "complete": true,
-  "previous_develop_commit": "18af3d5b56c017bc7297a5f0aa38a449043c97a6",
-  "implementation_commit": "286ae974641e4ad23e81288b5beee2d7d9da20c5",
-  "correctness_runs": 22,
-  "timing_runs": 70,
-  "warmup_runs": 14,
-  "journal_digests_independently_rechecked": 228,
-  "host_monotonic_intervals_checked": 106,
-  "all_host_launches_serial": true,
-  "docker_wall_clock_anomalies": [],
-  "controls_summary_sha256": "2cd15275dfe065a26ffa214ea60f17d64242204376445edbb4e70e86e5fc4067",
-  "timing_summary_sha256": "1b4d8238201a6b60420eb438b8ac85f18e29be0bcdfdee00ab6680889f755536",
-  "native_source_and_image_build_hashes_match": true,
-  "working_sources_unchanged": true
+  "executive_summary": "Historical evidence was moved under provenance/historical. This file does not claim validation of the current combined solution.",
+  "status": "skipped_by_user",
+  "source_commit": "e7225f883226a7f25da2457c0950660ca5c2771d",
+  "rankable": false
 }

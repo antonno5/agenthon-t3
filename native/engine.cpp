@@ -2,6 +2,7 @@
 // checked against the reference.
 #include "engine.hpp"
 #include "book.hpp"
+#include "trace_stream.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -131,19 +132,6 @@ struct QEntry {
 };
 
 
-// agent.log rows that extract_trace keeps.
-enum OrderEvent : uint8_t { EV_SUBMITTED, EV_ACCEPTED, EV_CANCELLED, EV_EXECUTED };
-struct OrderLog {
-  int64_t t;
-  uint8_t ev;
-  Order order;  // the _OrderSnapshot fields
-};
-struct QuoteLog {
-  int64_t t;
-  uint8_t side;
-  int64_t price, qty;
-};
-
 // ------------------------------------------------------------------------------------------
 // Simulation
 // ------------------------------------------------------------------------------------------
@@ -163,12 +151,14 @@ struct Trader {
   int64_t kb_p = 0, kb_q = 0, ka_p = 0, ka_q = 0;
   std::map<int64_t, Order> orders;  // insertion order == ascending order_id
   std::vector<double> mid_hist;
-  std::vector<OrderLog> log;
 };
 
 class Sim {
  public:
-  explicit Sim(Params p, MessageSink* sink) : P(std::move(p)), message_sink(sink) {}
+  explicit Sim(Params p, MessageSink* sink)
+      : P(std::move(p)), message_sink(sink),
+        trace(P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
+              P.pipeline_delay >= 0 && P.computation_delay >= 0) {}
   Result run();
 
  private:
@@ -201,7 +191,7 @@ class Sim {
   bool has_last_trade = true;
   int64_t last_trade = 0;
   std::vector<int32_t> close_price_subs;
-  std::vector<QuoteLog> quotes;
+  TraceStream trace;
   // traders (agent ids 1..n)
   std::vector<Trader> traders;
 
@@ -300,8 +290,8 @@ class Sim {
   bool execute_order(Order& order, int64_t& matched_qty, int64_t& matched_price);
   void enter_order(const Order& order);
   void log_best() {
-    if (!bids.empty()) quotes.push_back(QuoteLog{ex_time, SIDE_BID, bids.best().price, bids.best().total});
-    if (!asks.empty()) quotes.push_back(QuoteLog{ex_time, SIDE_ASK, asks.best().price, asks.best().total});
+    if (!bids.empty()) trace.quote(ex_time, SIDE_BID, bids.best().price, bids.best().total);
+    if (!asks.empty()) trace.quote(ex_time, SIDE_ASK, asks.best().price, asks.best().total);
   }
   void ex_send(int32_t recipient, int32_t slot) {
     const uint8_t t = msgs[slot].type;
@@ -317,6 +307,11 @@ class Sim {
   void act(Trader& a);
   void place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price);
 
+  void log_order(const Trader& a, int64_t t, uint8_t type, const Order& o) {
+    trace.order(t, a.id, o.agent_id, type, o.side == BID ? SIDE_BID : SIDE_ASK,
+                type == TM_PARTIAL_FILL ? (o.has_fill ? o.fill_price : 0) : o.limit_price,
+                o.quantity, o.order_id);
+  }
   Result extract();
 };
 
@@ -555,7 +550,7 @@ void Sim::place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price) 
   const int32_t slot = new_msg(MT_LIMIT_ORDER);
   msgs[slot].order = o;
   send(a.id, 0, slot);
-  a.log.push_back(OrderLog{a.current_time, EV_SUBMITTED, o});
+  log_order(a, a.current_time, TM_ORDER_SUBMITTED, o);
 }
 
 void Sim::trader_wakeup(Trader& a, int64_t t) {
@@ -590,7 +585,7 @@ void Sim::trader_receive(Trader& a, int64_t t, int32_t slot) {
       a.mkt_closed = true;
       break;
     case MT_ORDER_EXECUTED: {
-      a.log.push_back(OrderLog{t, EV_EXECUTED, m.order});
+      log_order(a, t, TM_PARTIAL_FILL, m.order);
       auto it = a.orders.find(m.order.order_id);
       if (it != a.orders.end()) {
         if (m.order.quantity >= it->second.quantity)
@@ -601,10 +596,10 @@ void Sim::trader_receive(Trader& a, int64_t t, int32_t slot) {
       break;
     }
     case MT_ORDER_ACCEPTED:
-      a.log.push_back(OrderLog{t, EV_ACCEPTED, m.order});
+      log_order(a, t, TM_ORDER_ACCEPTED, m.order);
       break;
     case MT_ORDER_CANCELLED:
-      a.log.push_back(OrderLog{t, EV_CANCELLED, m.order});
+      log_order(a, t, TM_ORDER_CANCELLED, m.order);
       a.orders.erase(m.order.order_id);
       break;
     case MT_QUERY_SPREAD_RESP:
@@ -789,99 +784,7 @@ Result Sim::run() {
 // trace.extract_trace + trace.extract_message_trace
 Result Sim::extract() {
   Result res;
-  // --- order-lifecycle rows: agents in list order, each log in append order ---
-  struct Row {
-    int64_t t;
-    int32_t agent;
-    uint8_t type;
-    uint8_t side;
-    int64_t price, size, oid;
-  };
-  std::vector<Row> orows;
-  for (const Trader& a : traders) {
-    for (const OrderLog& l : a.log) {
-      Row r;
-      r.t = l.t;
-      r.agent = l.order.agent_id;
-      r.side = l.order.side == BID ? SIDE_BID : SIDE_ASK;
-      r.size = l.order.quantity;
-      r.oid = l.order.order_id;
-      switch (l.ev) {
-        case EV_SUBMITTED: r.type = TM_ORDER_SUBMITTED; r.price = l.order.limit_price; break;
-        case EV_ACCEPTED: r.type = TM_ORDER_ACCEPTED; r.price = l.order.limit_price; break;
-        case EV_CANCELLED: r.type = TM_ORDER_CANCELLED; r.price = l.order.limit_price; break;
-        default:
-          r.type = TM_PARTIAL_FILL;
-          r.price = l.order.has_fill ? l.order.fill_price : 0;
-      }
-      orows.push_back(r);
-    }
-  }
-  // Python: stable sort by EventTime, mark the last ORDER_EXECUTED per order_id, then a
-  // final stable sort by (t_ns, order_id). One stable sort by (t, order_id) gives the same
-  // final order, and rows sharing an order_id keep the same relative order in both, so the
-  // "last execution" is the same row.
-  std::stable_sort(orows.begin(), orows.end(), [](const Row& a, const Row& b) {
-    if (a.t != b.t) return a.t < b.t;
-    return a.oid < b.oid;
-  });
-  {
-    std::unordered_map<int64_t, size_t> last_exec;
-    last_exec.reserve(orows.size() / 2 + 16);
-    for (size_t i = 0; i < orows.size(); i++)
-      if (orows[i].type == TM_PARTIAL_FILL) last_exec[orows[i].oid] = i;
-    for (const auto& kv : last_exec) orows[kv.second].type = TM_ORDER_FILLED;
-  }
-  // --- quotes: keep the last row per (t_ns, side), ordered by first appearance ---
-  std::vector<QuoteLog> qrows;
-  {
-    const size_t missing = std::numeric_limits<size_t>::max();
-    size_t pos[2] = {missing, missing};
-    for (const QuoteLog& q : quotes) {
-      if (qrows.empty() || q.t != qrows.back().t) {
-        if (!qrows.empty() && q.t < qrows.back().t)
-          throw std::runtime_error("quote log not time-ordered");
-        pos[SIDE_BID] = pos[SIDE_ASK] = missing;
-      }
-      // An absent side emits no row. Keep its position even if it disappears and
-      // reappears at this timestamp: first appearance fixes order, last value wins.
-      if (pos[q.side] == missing) {
-        pos[q.side] = qrows.size();
-        qrows.push_back(q);
-      } else {
-        qrows[pos[q.side]] = q;
-      }
-    }
-  }
-  // Quotes come from the exchange's log, whose time never decreases, so qrows is already
-  // sorted by t; with order_id -1 they precede every order row at the same t. A stable
-  // merge of the two runs is the (t_ns, order_id) stable sort of their concatenation.
-  TraceColumns& tc = res.trace;
-  const size_t n = orows.size() + qrows.size();
-  tc.t_ns.resize(n);
-  tc.agent_id.resize(n);
-  tc.msg_type.resize(n);
-  tc.side.resize(n);
-  tc.price.resize(n);
-  tc.size.resize(n);
-  tc.order_id.resize(n);
-  size_t i = 0, j = 0;
-  for (size_t k = 0; k < n; k++) {
-    Row r;
-    if (j == qrows.size() || (i < orows.size() && orows[i].t < qrows[j].t)) {
-      r = orows[i++];
-    } else {
-      const QuoteLog& q = qrows[j++];
-      r = Row{q.t, 0, TM_QUOTE_UPDATE, q.side, q.price, q.qty, -1};
-    }
-    tc.t_ns[k] = r.t;
-    tc.agent_id[k] = r.agent;
-    tc.msg_type[k] = r.type;
-    tc.side[k] = r.side;
-    tc.price[k] = r.price;
-    tc.size[k] = r.size;
-    tc.order_id[k] = r.oid;
-  }
+  res.trace = trace.finish();
   // --- message ledger: rows were appended in delivery (seq) order ---
   res.messages = std::move(mcols);
   res.n_messages = n_messages;

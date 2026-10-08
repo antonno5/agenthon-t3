@@ -3,7 +3,9 @@
 ``_t3engine`` re-implements, step for step, the ABIDES code path this adapter drives (kernel,
 exchange/order book, the four ``agents.py`` traders, the sparse mean-reverting oracle, the
 scenario latency model, and ``trace.py``'s extraction), including every numpy RandomState
-draw. It produces byte-identical ``trace.parquet`` / ``message_trace.parquet``.
+draw. Both Parquet journals preserve exact decoded schemas, metadata, values and
+row order. Their physical encoding uses dictionaries only for finite type/side
+vocabularies and omits column statistics, so file bytes differ from Python output.
 
 ``build_native_config`` maps a scenario with exactly the rules ``config.build_config`` and
 the agent constructors apply, and returns ``None`` for anything outside the envelope the

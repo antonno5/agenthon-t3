@@ -1,8 +1,6 @@
 {
-  "executive_summary": "Publish the selected current develop solution. Historical pinned-environment expectations are retained. The user explicitly skips real Docker scenario validation for this preparation.",
-  "source_repository": "https://github.com/Agenthon-2026/track3-simulation-public",
-  "source_branch": "codex/develop",
-  "source_commit": "e7225f883226a7f25da2457c0950660ca5c2771d",
+  "executive_summary": "Build inputs are frozen from develop. Environment expectations remain from the previously validated pin; real Docker scenario checks for this build are explicitly skipped by the user.",
+  "solution_commit": "e7225f883226a7f25da2457c0950660ca5c2771d",
   "build_ingredients_sha256": {
     "_abides_python_control.py": "7fbf805f638a5b21f3e0f3aad3b2e6db9cbb232d2ea3c855624b7f93171ce53d",
     "abides_fork/__init__.py": "ccc8bc790da859e42c259052a4ded978e62399969e4b8f873400c49a19226612",
@@ -67,18 +65,6 @@
     "simulate": "9aecf72dbc3c8c138fc2b03247c7bbcb05aaca430f07f93dbc6639252a5f6b1b",
     "simulate-batch": "7a56826516e69c5e44e51b36d168f2cac2c466c87bad3a5b0ec6f3eafacd2ccf"
   },
-  "pinned_python_base": "python:3.11-slim@sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce",
-  "publication_dockerfile_sha256": "6c60ef044da69b97c66637da86fd8ca911093a67bb5b71858c530b2726542c9f",
-  "publication_dockerignore_sha256": "b4050aa625da6254eb2c4883e9e7e3bc61277231582ddcd23e3314e61104febc",
-  "historical_environment_image_id": "sha256:0bace6e254c0ecf48b5a598e6001ff79fda062f1de81bf003d151ae51510b36c",
-  "historical_reports": "provenance/historical/",
-  "current_runtime_validation": "skipped_by_user",
-  "current_developer_gates": "skipped_by_user",
-  "rankable": false,
-  "build_only_change": "Build-time book/pipeline unit-test invocations omitted; build flags and final runtime unchanged by this omission.",
-  "evidence_paths": [
-    "provenance/evidence/h01-validation.json",
-    "provenance/evidence/h02-report-audit.json",
-    "provenance/evidence/integration-host-checks.json"
-  ]
+  "runtime_validation": "skipped_by_user",
+  "rankable": false
 }

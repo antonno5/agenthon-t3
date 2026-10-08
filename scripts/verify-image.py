@@ -1,4 +1,8 @@
-"""Compare an image with the measured runtime; never execute simulation tasks."""
+"""Check selected source inputs against a previously validated pinned environment.
+
+Executive summary: this source/environment audit runs no market simulations and
+does not establish semantic or restricted-runtime readiness of a new binary.
+"""
 
 import argparse
 import json
@@ -7,14 +11,14 @@ from pathlib import Path
 
 
 PROBE = r'''
-import hashlib, importlib.metadata, importlib.util, json, platform
+import hashlib, importlib.metadata, importlib.util, json, platform, os
 from pathlib import Path
 files = {}
 for prefix, module in [('core', 'abides_core'), ('markets', 'abides_markets'), ('adapter', 'abides_fork')]:
     root = Path(importlib.util.find_spec(module).origin).parent
     for path in sorted(root.rglob('*.py')):
         files[prefix + '/' + path.relative_to(root).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
-extra = {path: hashlib.sha256(Path(path).read_bytes()).hexdigest() for path in ['/opt/_abides_python_control.py', '/usr/local/bin/simulate', '/usr/local/bin/simulate-batch']}
+extra = {path: hashlib.sha256(Path(path).read_bytes()).hexdigest() for path in ['/opt/_abides_python_control.py', '/usr/local/bin/simulate-batch']}
 from abides_markets import order_book, price_level
 from abides_markets.matching import facade
 from abides_markets.matching.price_level import PriceLevel
@@ -25,9 +29,14 @@ for path in sorted(Path('/opt/native-source').rglob('*')):
     if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
         native_sources['native/' + path.relative_to('/opt/native-source').as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
 native_sources['build_native.py'] = hashlib.sha256(Path('/opt/native_build.py').read_bytes()).hexdigest()
+native_sources['build_executable.py'] = hashlib.sha256(Path('/opt/build_executable.py').read_bytes()).hexdigest()
+binary = Path('/usr/local/bin/simulate').resolve()
+header = binary.read_bytes()[:20]
+executable = {'target': str(binary), 'elf_magic': header[:4].hex(),
+              'machine': int.from_bytes(header[18:20], 'little'), 'executable': os.access(binary, os.X_OK)}
 from abides_fork import _t3engine
 native_api = {name: callable(getattr(_t3engine, name, None)) for name in ['run', 'run_write', 'numpy_log']}
-print(json.dumps({'files': files, 'runtime': runtime, 'extra_files': extra, 'identity': identity, 'native_sources': native_sources, 'native_api': native_api}))
+print(json.dumps({'files': files, 'runtime': runtime, 'extra_files': extra, 'identity': identity, 'native_sources': native_sources, 'native_api': native_api, 'native_executable': executable}))
 '''
 
 
@@ -48,6 +57,16 @@ def main():
     actual = json.loads(result.stdout)
     actual['docker_config'] = {key: inspect['Config'].get(key) for key in ['WorkingDir', 'Entrypoint', 'Cmd', 'Env', 'User', 'Volumes']}
     expected = json.loads((Path(__file__).resolve().parents[1] / 'provenance/expected-runtime.json').read_text())
+    selected = json.loads((Path(__file__).resolve().parents[1] / 'provenance/selected-build-input.json').read_text())['build_ingredients_sha256']
+    # Keep the historical environment witness unchanged. Source updates come only
+    # from the frozen selected Git revision, independently of the rebuilt image.
+    for name, digest in selected.items():
+        if name.startswith('abides_fork/') and name.endswith('.py'):
+            expected['files']['adapter/' + name[len('abides_fork/'):]] = digest
+    expected['native_sources'] = {name: digest for name, digest in selected.items()
+                                  if name.startswith('native/') or name in ('build_native.py', 'build_executable.py')}
+    del expected['extra_files']['/usr/local/bin/simulate']
+    expected['native_executable'] = {'target': '/usr/local/bin/t3-native', 'elf_magic': '7f454c46', 'machine': 62, 'executable': True}
     differences = [key for key in expected if actual.get(key) != expected[key]]
     if differences:
         for key in differences:
@@ -55,7 +74,7 @@ def main():
         raise SystemExit('Runtime differs from the measured image: ' + ', '.join(differences))
     for verb in ['simulate', 'simulate-batch']:
         subprocess.run(docker + ['run', '--rm', '--platform', 'linux/amd64', '--network', 'none', '--read-only', args.image, verb, '--help'], check=True, stdout=subprocess.DEVNULL)
-    print(f'Exact runtime match: {len(actual["files"])} Python sources, CLI/control, native sources/API, package versions and Docker config; both verbs start offline. No scenarios executed.')
+    print(f'Selected-source and pinned-environment match: {len(actual["files"])} Python sources, CLI/control, native sources/API, ELF launcher, package versions and Docker config; both verbs start offline. No scenarios executed; semantic/restricted-runtime evidence is separate.')
 
 
 if __name__ == '__main__':

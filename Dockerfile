@@ -119,18 +119,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends g++ gcc libc6-d
     && rm -rf /var/lib/apt/lists/*
 COPY native /src/native
 COPY build_native.py /src/native_build.py
+COPY build_executable.py /src/build_executable.py
 RUN mkdir /native-output && python /src/native_build.py /src /native-output \
-    && g++ -std=c++17 -O2 -Wall -I/src/native /src/native/tests/book_test.cpp -o /native-output/book_test \
-    && /native-output/book_test \
-    && g++ -std=c++17 -O2 -Wall -pthread -I/src/native /src/native/tests/pipeline_test.cpp -o /native-output/pipeline_test \
-    && /native-output/pipeline_test
+    && python /src/build_executable.py /src /native-output
 
 FROM python_base
 COPY --from=native_build /native-output/_t3engine*.so /opt/abides_fork/
+COPY --from=native_build /native-output/t3-native /usr/local/bin/t3-native
 COPY native /opt/native-source
 COPY build_native.py /opt/native_build.py
+COPY build_executable.py /opt/build_executable.py
 COPY native/LICENSE.abides /opt/licenses/native-abides-LICENSE
 COPY native/svml/LICENSE /opt/licenses/native-numpy-LICENSE
+COPY native/vendor/LICENSE.json /opt/licenses/native-json-LICENSE
+RUN rm /usr/local/bin/simulate && ln -s /usr/local/bin/t3-native /usr/local/bin/simulate
 RUN python -m compileall -q -j 0 /usr/local/lib/python3.11 /opt
 ENV T3_ENGINE=auto
 WORKDIR /tmp

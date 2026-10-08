@@ -4,7 +4,8 @@
 // adapter's four ScheduledAgent subclasses, SparseMeanRevertingOracle, ScenarioLatencyModel,
 // and trace.py's extraction. Every RNG draw, message id, order id, tie-break and float
 // operation is taken in the same order as the Python reference, so the emitted trace and
-// message ledger are byte-identical. Scenarios outside the validated envelope never reach
+// message ledger have identical decoded values. Physical Parquet encoding is set by
+// pqwrite.cpp. Scenarios outside the validated envelope never reach
 // this code: abides_fork/native.py routes them to the Python ABIDES path instead.
 #pragma once
 

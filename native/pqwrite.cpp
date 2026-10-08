@@ -1,13 +1,11 @@
-// Parquet output through the libarrow/libparquet that ship inside the pinned pyarrow wheel,
-// configured exactly as pyarrow.parquet.write_table(table, path, compression="snappy") does
-// (pyarrow 15.0.2: parquet/core.py ParquetWriter + _parquet.pyx _create_writer_properties /
-// _create_arrow_writer_properties / ParquetWriter.write_table). Same library, same
-// properties, same input arrays -> the same bytes the pandas/pyarrow path writes, without
-// importing pyarrow (and with it numpy) into the process.
+// Parquet output through the pinned Arrow15 writer. H01 changes only physical
+// encoding: Snappy, dictionary for finite type/side vocabularies, no statistics.
+// Decoded schemas (including pandas metadata), values and ordering are unchanged.
 #include "pqwrite.hpp"
 
 #include <arrow/api.h>
 #include <arrow/io/file.h>
+#include <arrow/util/thread_pool.h>
 #include <parquet/arrow/writer.h>
 #include <parquet/properties.h>
 
@@ -111,14 +109,19 @@ std::shared_ptr<arrow::Array> nullable_int64(int64_t n, const std::vector<int64_
 
 std::unique_ptr<parquet::arrow::FileWriter> open_writer(
     const std::shared_ptr<arrow::Schema>& schema,
-    const std::shared_ptr<arrow::io::FileOutputStream>& sink) {
-  // _create_writer_properties(...) with write_table's defaults
+    const std::shared_ptr<arrow::io::OutputStream>& sink) {
+  // Frozen H01 physical encoding policy; shared by both journal writers.
   parquet::WriterProperties::Builder props;
   props.data_page_version(parquet::ParquetDataPageVersion::V1);  // data_page_version="1.0"
   props.version(parquet::ParquetVersion::PARQUET_2_6);           // version="2.6"
   props.compression(parquet::Compression::SNAPPY);               // compression="snappy"
-  props.enable_dictionary();                                     // use_dictionary=True
-  props.enable_statistics();                                     // write_statistics=True
+  // Numeric columns skip dictionary construction/fallback. The only dictionaries
+  // are finite vocabularies: lifecycle/ledger types and lifecycle side.
+  props.disable_dictionary();
+  props.enable_dictionary("msg_type");
+  props.enable_dictionary("side");
+  // Consumers read complete journals; statistics do not participate in semantics.
+  props.disable_statistics();
   props.max_row_group_length(64 * 1024 * 1024);                  // _MAX_ROW_GROUP_SIZE
   props.disable_page_checksum();                                 // write_page_checksum=False
   props.disable_write_page_index();                              // write_page_index=False
@@ -128,25 +131,49 @@ std::unique_ptr<parquet::arrow::FileWriter> open_writer(
   aprops.disable_deprecated_int96_timestamps();
   aprops.disallow_truncated_timestamps();
   aprops.enable_compliant_nested_types();
+  // One process-wide pool, shared by lifecycle and message files. Only column
+  // encoding runs here: caller + MessagePipeline dispatcher remain outside the
+  // pool, so concurrent WriteRecordBatch calls cannot nest blocking work in it.
+  // Simulation + ledger dispatcher + two encoders fit the four-CPU contract.
+  static auto encoders = value(arrow::internal::ThreadPool::Make(2));
+  aprops.set_use_threads(true);
+  aprops.set_executor(encoders.get());
 
   return value(parquet::arrow::FileWriter::Open(*schema, arrow::default_memory_pool(),
                                                sink, props.build(), aprops.build()));
 }
+void write_buffered_table(const std::shared_ptr<arrow::Table>& table,
+                          parquet::arrow::FileWriter* writer) {
+  // Arrow15 WriteTable does not use the executor. Buffered row groups preserve
+  // the same per-column encoder and its progressive dictionary/page thresholds.
+  // Keep the default 1024 write batch size and the original 1Mi row groups.
+  check(table->Validate());  // retain WriteTable's pre-encoding error behavior
+  if (table->num_rows() == 0) {
+    check(writer->WriteTable(*table, 0));
+    return;
+  }
+  std::vector<std::shared_ptr<arrow::Array>> columns;
+  for (const auto& column : table->columns()) columns.push_back(column->chunk(0));
+  auto batch = arrow::RecordBatch::Make(table->schema(), table->num_rows(), columns);
+  for (int64_t offset = 0; offset < table->num_rows(); offset += kMessageRowGroupRows) {
+    check(writer->NewBufferedRowGroup());
+    check(writer->WriteRecordBatch(*batch->Slice(
+        offset, std::min<int64_t>(kMessageRowGroupRows, table->num_rows() - offset))));
+  }
+}
 void write_table(const std::shared_ptr<arrow::Table>& table, const std::string& path) {
   auto sink = value(arrow::io::FileOutputStream::Open(path));
   auto writer = open_writer(table->schema(), sink);
-  // ParquetWriter.write_table: row_group_size=None -> min(num_rows, _DEFAULT_ROW_GROUP_SIZE)
-  const int64_t chunk = std::min<int64_t>(table->num_rows(), 1024 * 1024);
-  check(writer->WriteTable(*table, chunk));
+  write_buffered_table(table, writer.get());
   check(writer->Close());
   check(sink->Close());
 }
 
 }  // namespace
 
-void write_trace(const TraceColumns& t, const std::string& path) {
+namespace {
+std::shared_ptr<arrow::Table> trace_table(const TraceColumns& t, OwnedBuffers& own) {
   const int64_t n = static_cast<int64_t>(t.t_ns.size());
-  OwnedBuffers own;
   auto schema = arrow::schema(
       {arrow::field("t_ns", arrow::int64()), arrow::field("agent_id", arrow::int32()),
        arrow::field("msg_type", arrow::utf8()), arrow::field("side", arrow::utf8()),
@@ -160,7 +187,12 @@ void write_trace(const TraceColumns& t, const std::string& path) {
                string_array(n, t.side, kSides, own), int_array(arrow::int64(), n, view(t.price)),
                int_array(arrow::int64(), n, view(t.size)),
                int_array(arrow::int64(), n, view(t.order_id))});
-  write_table(table, path);
+  return table;
+}
+}  // namespace
+void write_trace(const TraceColumns& t, const std::string& path) {
+  OwnedBuffers own;
+  write_table(trace_table(t, own), path);
 }
 
 namespace {

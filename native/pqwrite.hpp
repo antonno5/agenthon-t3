@@ -1,5 +1,5 @@
-// Writes the engine's columns as trace.parquet / message_trace.parquet, byte-identical to
-// pandas.DataFrame.to_parquet(compression="snappy", index=False) on pyarrow 15.0.2.
+// Writes both journals with exact decoded values and schemas from the pinned
+// pandas/Arrow15 contract. Physical encoding follows the frozen H01 policy.
 #pragma once
 
 #include <string>

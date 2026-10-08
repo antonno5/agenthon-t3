@@ -1,0 +1,573 @@
+{
+  "pass": true,
+  "docker_builds": 0,
+  "docker_test_runs": 0,
+  "timing_runs": 0,
+  "platform": "darwin",
+  "arrow_version": "25.0.1",
+  "source_identity": {
+    "baselines/native/pqwrite.cpp": {
+      "experiment_revision": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+      "sha256": "83d91247689a8cacf761a47ffcae58ce0f49bb384e78e539c2bd175345e20b94",
+      "exact": true
+    },
+    "baselines/native/pqwrite.hpp": {
+      "experiment_revision": "fc1fff3ac35152577a4fb4cabd5197dd596325d3",
+      "sha256": "1cd37798d6ac5d2bd1daf1026b57f69f4d7d08674525f176df1d83494413c372",
+      "exact": true
+    },
+    "baselines/build_executable.py": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "f6477b2586b8c04faf035bab1876b277eead99f002e5b8c5e7a7b4b8ffb61939",
+      "exact": true
+    },
+    "baselines/native/cli.cpp": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "03616a8111fa7b966aacbc82ae9b922eafbcf22340c77135b06b1320b6ec63a4",
+      "exact": true
+    },
+    "baselines/native/scenario.hpp": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "87a57e627ec24a8ddbae620281255939464d4ae4526ce09f0668456bfa25149b",
+      "exact": true
+    },
+    "baselines/native/sha256.hpp": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "feb021c09075101a9194dd9b03e303eda66f66e777fe0a73c523e7dacefd0a17",
+      "exact": true
+    },
+    "baselines/native/vendor/json.hpp": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "9bea4c8066ef4a1c206b2be5a36302f8926f7fdc6087af5d20b417d0cf103ea6",
+      "exact": true
+    },
+    "baselines/native/vendor/LICENSE.json": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "62176251affdda17bece4ddd44271d68019e2448ca721d2c1af4c650f29c9898",
+      "exact": true
+    },
+    "baselines/native/vendor/README.md": {
+      "experiment_revision": "a91b789ef63f7bb0a70e7a734e5657a999b90c10",
+      "sha256": "5070a59dff2ee073b7cc6659f4ef7a369da3f0a7f77c11421e0443367fc7d372",
+      "exact": true
+    }
+  },
+  "mapping": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "t3-s001-price-time-priority/scenario.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-eq-deterministic-baseline/scenario.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-multilevel-crossing/scenario.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-gb-mega-throughput/scenario.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-s012-partial-fill-cancel-race/scenario.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-eq001-pareto-latency-tail/scenario.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-gbatch-hetero-mix/scenarios/sub_00_noise.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-gbatch-hetero-mix/scenarios/sub_01_value.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-gbatch-hetero-mix/scenarios/sub_02_mm.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-gbatch-hetero-mix/scenarios/sub_03_momentum.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "t3-gbatch-hetero-mix/scenarios/sub_04_base.json",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "seed-override",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/NoiseTrader/{}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/NoiseTrader/{'arrival_rate_hz': 0}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/NoiseTrader/{'arrival_rate_hz': 3}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/NoiseTrader/{'rebalance_interval_ns': -1}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/NoiseTrader/{'rebalance_interval_ns': 1.9}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MarketMaker/{}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MarketMaker/{'arrival_rate_hz': 0}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MarketMaker/{'arrival_rate_hz': 3}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MarketMaker/{'rebalance_interval_ns': -1}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MarketMaker/{'rebalance_interval_ns': 1.9}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/ValueTrader/{}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/ValueTrader/{'arrival_rate_hz': 0}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/ValueTrader/{'arrival_rate_hz': 3}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/ValueTrader/{'rebalance_interval_ns': -1}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/ValueTrader/{'rebalance_interval_ns': 1.9}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MomentumTrader/{}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MomentumTrader/{'arrival_rate_hz': 0}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MomentumTrader/{'arrival_rate_hz': 3}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MomentumTrader/{'rebalance_interval_ns': -1}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "agent-defaults/MomentumTrader/{'rebalance_interval_ns': 1.9}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/ValueTrader/-3.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/MomentumTrader/-3.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/ValueTrader/0.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/MomentumTrader/0.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/ValueTrader/1.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/MomentumTrader/1.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/ValueTrader/2.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/MomentumTrader/2.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/ValueTrader/3.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/MomentumTrader/3.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/ValueTrader/999999999999.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "ties-to-even/MomentumTrader/999999999999.5",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "stp/None",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "stp/",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "stp/cancel_oldest",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "stp/cancel_newest",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "stp/other",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "python-truth/False",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "python-truth/''",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "python-truth/[]",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "python-truth/{}",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "python-truth/0",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "python-truth/True",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "latency/uniform",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "latency/pareto",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "latency/log_normal",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "latency/unknown",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "rejected/seed/-1",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "rejected/seed/True",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "rejected/seed/4294967296",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "rejected/horizon_ns/0",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "rejected/horizon_ns/1000000000000001",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "rejected/latency_config/{}",
+        "supported": false,
+        "pass": true
+      },
+      {
+        "name": "scheduled-jump-negative",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "fractional-clamps-negative-count",
+        "supported": true,
+        "pass": true
+      },
+      {
+        "name": "conservative-fallback/scenario/horizon_ns",
+        "supported": false,
+        "python_accepts": true,
+        "pass": true
+      },
+      {
+        "name": "conservative-fallback/oracle/initial_price",
+        "supported": false,
+        "python_accepts": true,
+        "pass": true
+      },
+      {
+        "name": "conservative-fallback/exchange/stp_policy",
+        "supported": false,
+        "python_accepts": true,
+        "pass": true
+      }
+    ],
+    "count": 70,
+    "public_configs": [
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s001-price-time-priority/scenario.json",
+        "sha256": "66033b26ba7b90df6d08d23733497d6d2d77230ab52761d917822faf0bcb874b"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq-deterministic-baseline/scenario.json",
+        "sha256": "a7443084be120140edbaed8db5fd1363c827292ff8b765e277c9b705fb955947"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-multilevel-crossing/scenario.json",
+        "sha256": "99a22e9dc9e8ffe21e6c207ff4a73fd0b2a76f6d419c3ee2141107405940f863"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gb-mega-throughput/scenario.json",
+        "sha256": "af565789aeb35a1c70e39dee4f067563d1bdd0e605c2a470c7ab4079d2e34fab"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-s012-partial-fill-cancel-race/scenario.json",
+        "sha256": "944e6bcce6db0f7693378e135ba4913fe7304e894026377dade7e18e1bd25e9c"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-eq001-pareto-latency-tail/scenario.json",
+        "sha256": "0db4f8f6062a99647434b66ed3abc1f73e08eb680b8455f6a8c95b87db16bc42"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_00_noise.json",
+        "sha256": "6b08dade5cc3da793c301f6fbaa37a77c538dc092604ae45809dfe3727688177"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_01_value.json",
+        "sha256": "885a671c7a0d752367d2046c7cc7945c285e93d9d4c22434691c5162da0ce6e7"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_02_mm.json",
+        "sha256": "9e50ce27969a3d491dcfabcb676c3cd24cb8681a3f6dd29034b17be195623006"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_03_momentum.json",
+        "sha256": "62ea32772b8bca3834419b67a73bb3693c6b53e9bc8407f49d90d67a1aa2d39c"
+      },
+      {
+        "path": "/Users/iopogiba/Documents/HSE/Year 1/Module 3/infra/track3-simulation-public/units/t3-gbatch-hetero-mix/scenarios/sub_04_base.json",
+        "sha256": "c7d68ac77ebb9e8632276040df7e067f030d6fa1da25e7b4127f1cb40fbc1cd3"
+      }
+    ],
+    "host_log_dispatch": "injected matching libm; production x86 dispatch deferred to Docker"
+  },
+  "cli_host_syntax": true,
+  "writer_comparisons": [
+    {
+      "fixture": "1-messages-stream.parquet",
+      "rows": 1,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "1-messages-table.parquet",
+      "rows": 1,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "1-trace.parquet",
+      "rows": 1,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "1025-messages-stream.parquet",
+      "rows": 1025,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "1025-messages-table.parquet",
+      "rows": 1025,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "1025-trace.parquet",
+      "rows": 1025,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "65537-messages-stream.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "65537-messages-table.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "65537-trace.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "errors.parquet",
+      "rows": 1,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "null-1-stream.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "null-1-table.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "null-2-stream.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    },
+    {
+      "fixture": "null-2-table.parquet",
+      "rows": 65537,
+      "schema_metadata_and_ordered_values_exact": true
+    }
+  ],
+  "writer_error_and_empty_status_exact": true,
+  "verb_dispatch_checks": 7,
+  "python_syntax_and_diff_check": true,
+  "limitations": [
+    "Host ARM/libm mapping only; no production x86 executable link or run.",
+    "Host Arrow25 writer fixtures only; pinned Arrow15 validation is historical.",
+    "Combined performance and complete-container correctness were not measured."
+  ],
+  "unchanged_simulation_sources": {
+    "baselines/native/engine.cpp": {
+      "unchanged": true,
+      "sha256": "26b5e791da1e152ea9c3d7e040b7897f313e96364d5bf9195a18e806718791b7"
+    },
+    "baselines/native/rng.hpp": {
+      "unchanged": true,
+      "sha256": "e0d34f85bdf539f8212829a6b9f2ccd66a60eb83fb69064970a6ffa41ffbf92d"
+    },
+    "baselines/native/message_pipeline.hpp": {
+      "unchanged": true,
+      "sha256": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8"
+    },
+    "baselines/native/module.cpp": {
+      "unchanged": true,
+      "sha256": "8592ca9704446956aeabb9866267e61bc4e06479d918566c2d5cad0357df9d0e"
+    },
+    "baselines/native/nplog.cpp": {
+      "unchanged": true,
+      "sha256": "4f865a23b1b6653d155f08b56f8e524833e97183f17fd716a8b5aed83ee2562f"
+    },
+    "baselines/native/nplog.hpp": {
+      "unchanged": true,
+      "sha256": "6c921251d07b44b7fe4da37fdb48b83404c862989416352ba668c37966a646da"
+    },
+    "baselines/native/svml/svml_z0_log_d_la.s": {
+      "unchanged": true,
+      "sha256": "7a83c2eaac9b508d6e53828d42ab4e5401dafa4072fb5a2d838df45c3e62c10c"
+    }
+  },
+  "git_staged_whitespace_check": true
+}
