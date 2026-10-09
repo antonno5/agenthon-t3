@@ -57,6 +57,9 @@ struct Params {
   int lat_model;
   double lat_mu, lat_sigma, lat_min, lat_max, lat_alpha, lat_mean;
   std::vector<AgentParams> agents;
+  // Record the message ledger. Off only when the unit's card says it is not required: the
+  // kernel then skips the ledger rows entirely (n_messages is still counted).
+  bool ledger = true;
 };
 
 // ---- outputs (column-major, ready for the parquet writer) ----

@@ -36,28 +36,36 @@ int fallback(int argc, char** argv, bool batch = false) {
   throw std::runtime_error("this scenario needs the Python adapter, which this image does not contain");
 }
 struct Output { size_t events, messages; double seconds; std::string trace_hash, message_hash; };
+// `msg` empty: no ledger (the card does not require one), so no ledger file, thread or rows.
 Output run_write(t3::Params p, const std::string& trace, const std::string& msg) {
   // The ledger streams into its file while the kernel runs (pages are compressed on the
   // pipeline thread); the lifecycle trace is written after the run. Both writers build the
   // file in memory and return its SHA-256, so neither file is read back for events.json.
   std::unique_ptr<t3::pqlite::MessageWriter> writer;
   std::string message_hash;
-  t3::MessagePipeline pipeline([&](const t3::MessageColumns& block, size_t offset) {
-    if (!writer) writer = std::make_unique<t3::pqlite::MessageWriter>(msg);
-    writer->append(block, offset);
-  }, [&] {
-    if (!writer) writer = std::make_unique<t3::pqlite::MessageWriter>(msg);
-    message_hash = writer->close();
-  });
+  std::unique_ptr<t3::MessagePipeline> pipeline;
+  p.ledger = !msg.empty();
+  if (p.ledger)
+    pipeline = std::make_unique<t3::MessagePipeline>([&](const t3::MessageColumns& block, size_t offset) {
+      if (!writer) writer = std::make_unique<t3::pqlite::MessageWriter>(msg);
+      writer->append(block, offset);
+    }, [&] {
+      if (!writer) writer = std::make_unique<t3::pqlite::MessageWriter>(msg);
+      message_hash = writer->close();
+    });
   // The result (multi-MB columns) and the ledger writer's page buffers are deliberately never
   // freed: the process exits right after writing its outputs, and freeing them (munmap of
   // large blocks) would only add wall time to the run.
   // The trace's final columns are encoded into pages while the kernel still runs.
   auto& trace_writer = *new t3::pqlite::TraceWriter(trace);
-  auto t0 = Clock::now(); auto& r = *new t3::Result(t3::run(std::move(p), &pipeline, &trace_writer)); double seconds = since(t0);
-  if (r.trace.t_ns.empty()) { pipeline.cancel(); throw t3cli::Unsupported("empty trace requires original adapter dtypes"); }
-  pipeline.close_async();  // the ledger file is finished on its own thread meanwhile
-  std::string trace_hash = trace_writer.close(r.trace); pipeline.finish();
+  auto t0 = Clock::now(); auto& r = *new t3::Result(t3::run(std::move(p), pipeline.get(), &trace_writer)); double seconds = since(t0);
+  if (r.trace.t_ns.empty()) {
+    if (pipeline) pipeline->cancel();
+    throw t3cli::Unsupported("empty trace requires original adapter dtypes");
+  }
+  if (pipeline) pipeline->close_async();  // the ledger file is finished on its own thread meanwhile
+  std::string trace_hash = trace_writer.close(r.trace);
+  if (pipeline) pipeline->finish();
   (void)writer.release();  // keep its page buffers alive until _exit (see above)
   return {r.trace.t_ns.size(), r.n_messages, seconds, trace_hash, message_hash};
 }
@@ -65,8 +73,51 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
 // Python-equivalent result of one `simulate` run on the native path, or nullopt when the
 // original adapter must handle it (unsupported scenario, conversion or engine refusal).
 // Writes trace.parquet, message_trace.parquet, events.json and profile.json next to `out`.
+// Whether the unit's card.toml beside the config makes the message ledger optional, by the
+// scorer's own rule (limits.requires_message_ledger): `[scoring.params] requires_message_ledger`
+// when it is a boolean, else required unless `[task] scenario_family = "throughput-scale"`.
+// README: "don't write message_trace.parquet on units whose card has requires_message_ledger =
+// false". Only plain `key = value` lines are read; no card, a batch card, or any mention of the
+// key we did not read as a [scoring.params] boolean keeps the ledger. T3_LEDGER=1 forces it.
+bool ledger_optional(const std::string& config) {
+  const char* force = std::getenv("T3_LEDGER");
+  if (force && std::string(force) == "1") return false;
+  std::ifstream f(std::filesystem::path(config).parent_path() / "card.toml");
+  if (!f) return false;
+  auto trim = [](std::string x) {
+    const char* ws = " \t\r";
+    x.erase(0, x.find_first_not_of(ws));
+    x.erase(x.find_last_not_of(ws) + 1);
+    return x;
+  };
+  std::string line, table, declared, family;
+  int mentions = 0;
+  bool batch = false;
+  while (std::getline(f, line)) {
+    line = trim(line);
+    if (line.empty() || line[0] == '#') continue;
+    if (line.find("requires_message_ledger") != std::string::npos) mentions++;
+    if (line[0] == '[') { table = line; batch |= line == "[batch]"; continue; }
+    const size_t eq = line.find('=');
+    if (eq == std::string::npos) continue;
+    const std::string key = trim(line.substr(0, eq));
+    std::string v = line.substr(eq + 1);
+    if (table == "[scoring.params]" && key == "requires_message_ledger") {
+      const size_t hash = v.find('#');
+      declared = trim(hash == std::string::npos ? v : v.substr(0, hash));
+    } else if (table == "[task]" && key == "scenario_family") {
+      family = trim(v);
+    }
+  }
+  if (batch) return false;
+  if (declared == "false" || declared == "true") return mentions == 1 && declared == "false";
+  return mentions == 0 && (family == "\"throughput-scale\"" ||
+                           family.rfind("\"throughput-scale\" #", 0) == 0);
+}
+
 std::optional<Json> run_scenario(const std::string& config, const std::string& out,
-                                 const std::optional<std::string>& seed, bool strict) {
+                                 const std::optional<std::string>& seed, bool strict,
+                                 bool ledger = true) {
   auto started = Clock::now();
   std::ifstream file(config);
   if (!file) return std::nullopt;  // retain batch/missing-file diagnostic
@@ -91,7 +142,7 @@ std::optional<Json> run_scenario(const std::string& config, const std::string& o
   std::filesystem::create_directories(parent);
   auto msg = parent / "message_trace.parquet";
   double configured = since(started); Output result;
-  try { result = run_write(std::move(params), trace.string(), msg.string()); }
+  try { result = run_write(std::move(params), trace.string(), ledger ? msg.string() : ""); }
   catch (const std::runtime_error&) { if (strict) throw; return std::nullopt; }
   double written = since(started);
   const std::string& trace_hash = result.trace_hash;  // computed while writing
@@ -100,12 +151,13 @@ std::optional<Json> run_scenario(const std::string& config, const std::string& o
   auto peak = static_cast<int64_t>(usage.ru_maxrss) * 1024;
   Json ev = {{"scenario_id", scenario["scenario_id"]}, {"seed", scenario["seed"]},
     {"n_events", result.events}, {"n_messages", result.messages}, {"engine", "native"},
-    {"trace_sha256", trace_hash}, {"message_trace_sha256", message_hash}, {"peak_memory_bytes", peak},
+    {"trace_sha256", trace_hash}, {"peak_memory_bytes", peak},
     {"gpu_seconds", 0.0}, {"simulation_wall_clock_sec", result.seconds}};
   // One events.json write; no profile.json (not part of the output contract): every file
   // operation on the output mount counts toward the run's wall time.
   (void)configured; (void)written;
   ev["wall_clock_sec"] = since(started); ev["events_per_sec"] = result.events / ev["wall_clock_sec"].get<double>();
+  if (ledger) ev["message_trace_sha256"] = message_hash;
   write_json(parent / "events.json", ev);
   return ev;
 }
@@ -247,7 +299,7 @@ int main(int argc, char** argv) {
       std::cout << t3cli::describe(t3cli::build(scenario)).dump() << '\n';
       return 0;
     }
-    auto ev = run_scenario(config, out, seed, strict);
+    auto ev = run_scenario(config, out, seed, strict, !ledger_optional(config));
     if (!ev) return fallback(argc, argv);
     std::cout << ev->dump() << '\n';
     std::cout.flush();

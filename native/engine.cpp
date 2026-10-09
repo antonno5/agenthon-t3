@@ -208,7 +208,7 @@ class Sim {
       : P(std::move(p)),
         out(P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
                 P.pipeline_delay >= 0 && P.computation_delay >= 0,
-            sink, trace_sink) {}
+            sink, trace_sink, P.ledger) {}
   Result run();
 
  private:
@@ -270,7 +270,7 @@ class Sim {
   }
   void deliver_row(int64_t msg_id, int32_t src, int32_t dst, bool has_send, int64_t t_send,
                    int64_t t_recv, uint8_t type, bool has_oid, int64_t oid, int64_t causal_v) {
-    out.deliver(msg_id, src, dst, has_send, t_send, t_recv, type, has_oid, oid, causal_v);
+    if (P.ledger) out.deliver(msg_id, src, dst, has_send, t_send, t_recv, type, has_oid, oid, causal_v);
     ++n_messages;
   }
   // 4-ary min-heap on QEntry's total order (keys are unique: msg_id is unique per message and

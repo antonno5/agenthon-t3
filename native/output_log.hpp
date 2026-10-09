@@ -117,9 +117,10 @@ class Lane {
 
 class OutputLog {
  public:
-  OutputLog(bool chronological, MessageSink* sink, TraceSink* trace_sink = nullptr)
-      : sink_(sink), trace_sink_(trace_sink), trace_(chronological) {
-    ledger_.start([this](const LedgerRec& r) { apply(r); },
+  OutputLog(bool chronological, MessageSink* sink, TraceSink* trace_sink = nullptr,
+            bool ledger = true)
+      : sink_(sink), trace_sink_(trace_sink), ledger_on_(ledger), trace_(chronological) {
+    if (ledger_on_) ledger_.start([this](const LedgerRec& r) { apply(r); },
                   [this] {
                     if (sink_ && !mcols_.t_recv.empty()) sink_->submit(mcols_);
                   });
@@ -152,7 +153,7 @@ class OutputLog {
   // Drains both rings, joins the consumers and returns the trace and the ledger rows not yet
   // handed to the sink (all of them when there is no sink).
   std::pair<TraceColumns, MessageColumns> finish() {
-    ledger_.join();
+    if (ledger_on_) ledger_.join();
     lifecycle_.join();
     return {std::move(trace_columns_), std::move(mcols_)};
   }
@@ -172,6 +173,7 @@ class OutputLog {
 
   MessageSink* sink_;
   TraceSink* trace_sink_;
+  bool ledger_on_;
   size_t reported_ = 0;  // final trace rows already reported to trace_sink_
   TraceStream trace_;  // touched only by the lifecycle consumer
   MessageColumns mcols_;  // touched only by the ledger consumer
