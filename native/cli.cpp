@@ -87,10 +87,12 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
 // when it is a boolean, else required unless `[task] scenario_family = "throughput-scale"`.
 // README: "don't write message_trace.parquet on units whose card has requires_message_ledger =
 // false". Only plain `key = value` lines are read; no card, a batch card, or any mention of the
-// key we did not read as a [scoring.params] boolean keeps the ledger. T3_LEDGER=1 forces it.
+// key we did not read as a [scoring.params] boolean keeps the ledger.
+// Off by default: the ledger is always written unless T3_LEDGER_FROM_CARD=1 (the Development
+// score of the image that skipped it dropped unexplained, 190 -> 181 thousand).
 bool ledger_optional(const std::string& config) {
-  const char* force = std::getenv("T3_LEDGER");
-  if (force && std::string(force) == "1") return false;
+  const char* from_card = std::getenv("T3_LEDGER_FROM_CARD");
+  if (!from_card || std::string(from_card) != "1") return false;
   std::ifstream f(std::filesystem::path(config).parent_path() / "card.toml");
   if (!f) return false;
   auto trim = [](std::string x) {
