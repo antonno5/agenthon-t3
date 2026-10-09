@@ -4,6 +4,7 @@
 #include "book.hpp"
 #include "latency_feed.hpp"
 #include "output_log.hpp"
+#include "radix_queue.hpp"
 #include "trace_stream.hpp"
 
 #include <algorithm>
@@ -217,7 +218,9 @@ class Sim {
   std::vector<int64_t> agent_times, comp_delays;
   std::vector<QEntry> heap;
   std::vector<PackedEntry> pheap;
-  bool packed = false;  // pheap in use (see PackedEntry)
+  RadixQueue<PackedEntry> rqueue;
+  bool packed = false;  // pheap (or rqueue) in use (see PackedEntry)
+  bool radix = false;   // rqueue in use: packed keys and no negative latency/delay
   std::vector<SendInfo> send_info;
   std::vector<int32_t> free_info;
   // deque: handlers hold references to the message being delivered while creating new
@@ -311,20 +314,25 @@ class Sim {
   }
   static bool packed_gt(const PackedEntry& a, const PackedEntry& b) { return a.key() > b.key(); }
   static bool full_gt(const QEntry& a, const QEntry& b) { return a > b; }
-  bool heap_empty() const { return packed ? pheap.empty() : heap.empty(); }
+  bool heap_empty() const {
+    return radix ? rqueue.empty() : packed ? pheap.empty() : heap.empty();
+  }
   void heap_push(const QEntry& e) {
     if (packed) {
       const uint64_t k2 = (static_cast<uint64_t>(e.sender()) << 48) |
                           (static_cast<uint64_t>(e.recipient()) << 32) |
                           static_cast<uint64_t>(e.msg_id);
-      heap_push_impl(pheap, PackedEntry{e.time, k2, e.slot, e.info}, packed_gt);
+      if (radix)
+        rqueue.push(PackedEntry{e.time, k2, e.slot, e.info});
+      else
+        heap_push_impl(pheap, PackedEntry{e.time, k2, e.slot, e.info}, packed_gt);
     } else {
       heap_push_impl(heap, e, full_gt);
     }
   }
   QEntry heap_pop() {
     if (packed) {
-      const PackedEntry p = heap_pop_impl(pheap, packed_gt);
+      const PackedEntry p = radix ? rqueue.pop() : heap_pop_impl(pheap, packed_gt);
       return QEntry{p.time, QEntry::make_route(static_cast<int32_t>(p.k2 >> 48),
                                                static_cast<int32_t>((p.k2 >> 32) & 0xffff)),
                     static_cast<int64_t>(p.k2 & 0xffffffffu), p.slot, p.info};
@@ -853,6 +861,9 @@ Result Sim::run() {
 
   // --- Kernel.__init__ / initialize ---
   packed = n_agents <= 0x10000;  // agent ids 0..n_agents-1 fit 16 bits
+  // Without negative latencies/delays nothing is ever scheduled before the current time.
+  radix = packed && P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
+          P.pipeline_delay >= 0 && P.computation_delay >= 0;
   current_time = P.start_time;
   agent_times.assign(n_agents, P.start_time);
   comp_delays.assign(n_agents, P.default_delay);
