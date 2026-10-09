@@ -30,7 +30,7 @@
     "matching_compat/price_level.py": "5fa07ffa5fbed27b91ed2dd29a0465f6b3ea920bbb92994a464aac59caa833e3",
     "native/LICENSE.abides": "eb7436304f90842b81820fe1bff61e4cfba74584021797bd2273680b8c15e8f9",
     "native/book.hpp": "680af668cca583efa1eba36d6e6f534cb201ca5c194f78820cb8fd565e75f269",
-    "native/cli.cpp": "54282715831dc691a21ec627962acced836d6a2c9c36ee32f8c9981e75c565d9",
+    "native/cli.cpp": "9969adec08f6354b0117ca0e8892eb8c37364f842a09bb6d60ba3b87621d91b6",
     "native/engine.cpp": "85cce4744e67ddd7c3add6d9cf85e2d65e0cd3f64185aebdf23be628207e5d4a",
     "native/engine.hpp": "e97d0782b5b8e7bbcf61180d4aae53ba967d585c6fcbe2f53ee8cb6a54b345b6",
     "native/message_pipeline.hpp": "fd60f99cda03cd0b53b6d78e64dcaf7fb145d0700b8ac96d40d5419c10fb3eb8",

@@ -42,7 +42,12 @@ jobs:
             --tag "$IMAGE:sha-$GITHUB_SHA" .
 
       - name: Verify measured runtime without running scenarios
-        run: python3 scripts/verify-image.py "$IMAGE:sha-$GITHUB_SHA"
+        run: |
+          if grep -q '^FROM scratch' Dockerfile; then
+            python3 scripts/verify-tiny-image.py "$IMAGE:sha-$GITHUB_SHA"
+          else
+            python3 scripts/verify-image.py "$IMAGE:sha-$GITHUB_SHA"
+          fi
 
       - name: Authenticate to GHCR
         env:

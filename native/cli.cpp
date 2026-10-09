@@ -32,7 +32,8 @@ int fallback(int argc, char** argv, bool batch = false) {
   std::vector<char*> raw;
   for (auto& a : args) raw.push_back(a.data());
   raw.push_back(nullptr);
-  execvp(raw[0], raw.data()); throw std::runtime_error("cannot execute original Python adapter");
+  execvp(raw[0], raw.data());
+  throw std::runtime_error("this scenario needs the Python adapter, which this image does not contain");
 }
 struct Output { size_t events, messages; double seconds; std::string trace_hash, message_hash; };
 Output run_write(t3::Params p, const std::string& trace, const std::string& msg) {
@@ -117,6 +118,10 @@ int batch_main(int argc, char** argv) {
   if (env_engine && std::string(env_engine) == "python") return fallback(argc, argv, true);
   for (int i = 1; i < argc; ++i) {
     std::string a = argv[i]; if (i == 1 && a == "simulate-batch") continue;
+    if (a == "--help" || a == "-h") {
+      std::cout << "simulate-batch --batch-dir DIR --out-dir DIR [--trace-mode buffered]\n";
+      return 0;
+    }
     if (i + 1 >= argc) return fallback(argc, argv, true);  // argparse owns usage/errors
     std::string v = argv[++i];
     if (a == "--batch-dir") batch_dir = v;
