@@ -17,7 +17,7 @@ out.mkdir(parents=True, exist_ok=True)
 obj = out / "cli_svml.o"
 subprocess.run(["gcc", "-c", str(src / "svml/svml_z0_log_d_la.s"), "-o", str(obj)], check=True)
 subprocess.run([
-    "g++", "-std=c++17", "-O2", "-fno-fast-math", "-ffp-contract=off",
+    "g++", "-std=c++17", "-O3", "-fno-fast-math", "-ffp-contract=off",
     "-fno-strict-aliasing", "-Wall", "-Wno-unused-function", "-pthread", f"-I{src}",
     *[str(src / name) for name in ("cli.cpp", "engine.cpp", "pqlite.cpp", "nplog.cpp")],
     str(obj), "-static", "-s", "-o", str(out / "t3-native"),

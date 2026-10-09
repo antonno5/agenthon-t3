@@ -187,6 +187,56 @@ struct SendInfo {
 
 class Sim;
 
+// TradingAgent.orders: a dict keyed by order id. This engine hands out order ids in ascending
+// order, so a trader's open orders arrive already sorted: they live in a flat vector (append on
+// insert, a tombstone on erase, compacted once half are dead) that iterates in the dict's
+// insertion order without a node allocation per order. Lookups go through `pos`, shared by all
+// traders: order id -> index in its owner's vector (-1 once erased).
+class OpenOrders {
+ public:
+  void insert(const Order& o, std::vector<int32_t>& pos) {  // o.order_id exceeds every earlier id
+    const size_t id = static_cast<size_t>(o.order_id);
+    if (id >= pos.size()) pos.resize(std::max(id + 1, 2 * pos.size()), -1);
+    pos[id] = static_cast<int32_t>(v_.size());
+    v_.push_back(o);
+    dead_.push_back(0);
+  }
+  Order* find(int64_t id, const std::vector<int32_t>& pos) {
+    if (id < 0 || static_cast<size_t>(id) >= pos.size()) return nullptr;
+    const int32_t i = pos[static_cast<size_t>(id)];
+    if (i < 0 || static_cast<size_t>(i) >= v_.size() || v_[i].order_id != id || dead_[i])
+      return nullptr;
+    return &v_[i];
+  }
+  void erase(Order* o, std::vector<int32_t>& pos) {
+    pos[static_cast<size_t>(o->order_id)] = -1;
+    dead_[static_cast<size_t>(o - v_.data())] = 1;
+    if (++n_dead_ >= 16 && 2 * n_dead_ >= v_.size()) compact(pos);
+  }
+  template <class F>
+  void for_each(F f) const {
+    for (size_t i = 0; i < v_.size(); i++)
+      if (!dead_[i]) f(v_[i]);
+  }
+
+ private:
+  std::vector<Order> v_;
+  std::vector<uint8_t> dead_;
+  size_t n_dead_ = 0;
+  void compact(std::vector<int32_t>& pos) {
+    size_t k = 0;
+    for (size_t i = 0; i < v_.size(); i++)
+      if (!dead_[i]) {
+        v_[k] = v_[i];
+        pos[static_cast<size_t>(v_[k].order_id)] = static_cast<int32_t>(k);
+        k++;
+      }
+    v_.resize(k);
+    dead_.assign(k, 0);
+    n_dead_ = 0;
+  }
+};
+
 struct Trader {
   int32_t id;
   AgentParams p;
@@ -198,7 +248,7 @@ struct Trader {
   bool awaiting_spread = false;
   bool kb = false, ka = false;  // known_bids / known_asks non-empty
   int64_t kb_p = 0, kb_q = 0, ka_p = 0, ka_q = 0;
-  std::map<int64_t, Order> orders;  // insertion order == ascending order_id
+  OpenOrders orders;
   std::vector<double> mid_hist;
 };
 
@@ -248,22 +298,28 @@ class Sim {
   OutputLog out;  // trace + ledger, built on its own thread in call order
   // traders (agent ids 1..n)
   std::vector<Trader> traders;
+  std::vector<int32_t> order_pos;  // order id -> index in its trader's OpenOrders
 
   // --- kernel ---
   int32_t new_msg(uint8_t type) {
     if (packed && next_msg_id > 0xffffffffll)
       throw std::runtime_error("message id exceeds the packed heap key");
-    Message m;
+    // A recycled slot keeps its old payload: every reader only looks at the fields its
+    // message type's creator sets (order for order messages, the spread fields for
+    // QuerySpreadResponseMsg), so only the header is reset.
+    int32_t slot;
+    if (!free_slots.empty()) {
+      slot = free_slots.back();
+      free_slots.pop_back();
+    } else {
+      msgs.push_back(Message{});
+      slot = static_cast<int32_t>(msgs.size() - 1);
+    }
+    Message& m = msgs[slot];
     m.id = next_msg_id++;
     m.type = type;
-    if (!free_slots.empty()) {
-      const int32_t slot = free_slots.back();
-      free_slots.pop_back();
-      msgs[slot] = m;
-      return slot;
-    }
-    msgs.push_back(m);
-    return static_cast<int32_t>(msgs.size() - 1);
+    m.refs = 0;
+    return slot;
   }
   void release(int32_t slot) {
     if (--msgs[slot].refs == 0) free_slots.push_back(slot);
@@ -535,6 +591,8 @@ void Sim::exchange_receive(int64_t t, int32_t sender, int32_t slot) {
     case MT_QUERY_SPREAD: {
       const int32_t r = new_msg(MT_QUERY_SPREAD_RESP);
       Message& m = msgs[r];
+      m.has_bid = m.has_ask = false;
+      m.bid_p = m.bid_q = m.ask_p = m.ask_q = 0;
       // get_l2_bid_data(depth=1): first level if its visible total > 0
       if (!bids.empty() && bids.best().total > 0) {
         m.has_bid = true;
@@ -664,7 +722,7 @@ void Sim::place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price) 
   o.limit_price = price;
   o.quantity = qty;
   if (qty <= 0) return;  // "ignored limit order of quantity zero"
-  a.orders[o.order_id] = o;
+  a.orders.insert(o, order_pos);
   const int32_t slot = new_msg(MT_LIMIT_ORDER);
   msgs[slot].order = o;
   send(a.id, 0, slot);
@@ -704,12 +762,11 @@ void Sim::trader_receive(Trader& a, int64_t t, int32_t slot) {
       break;
     case MT_ORDER_EXECUTED: {
       log_order(a, t, TM_PARTIAL_FILL, m.order);
-      auto it = a.orders.find(m.order.order_id);
-      if (it != a.orders.end()) {
-        if (m.order.quantity >= it->second.quantity)
-          a.orders.erase(it);
+      if (Order* o = a.orders.find(m.order.order_id, order_pos)) {
+        if (m.order.quantity >= o->quantity)
+          a.orders.erase(o, order_pos);
         else
-          it->second.quantity -= m.order.quantity;
+          o->quantity -= m.order.quantity;
       }
       break;
     }
@@ -718,7 +775,7 @@ void Sim::trader_receive(Trader& a, int64_t t, int32_t slot) {
       break;
     case MT_ORDER_CANCELLED:
       log_order(a, t, TM_ORDER_CANCELLED, m.order);
-      a.orders.erase(m.order.order_id);
+      if (Order* o = a.orders.find(m.order.order_id, order_pos)) a.orders.erase(o, order_pos);
       break;
     case MT_QUERY_SPREAD_RESP:
       if (m.mkt_closed) a.mkt_closed = true;
@@ -763,11 +820,11 @@ void Sim::act(Trader& a) {
     case MARKET_MAKER: {
       const int64_t mid = (bid && ask) ? floordiv(bp + ap, 2) : a.p.i3;
       // cancel_all_orders: iterate self.orders.values() (insertion order)
-      for (const auto& kv : a.orders) {
+      a.orders.for_each([&](const Order& o) {
         const int32_t slot = new_msg(MT_CANCEL_ORDER);
-        msgs[slot].order = kv.second;
+        msgs[slot].order = o;
         send(a.id, 0, slot);
-      }
+      });
       const int64_t half = floordiv(a.p.i0, 2);
       for (int64_t lvl = 0; lvl < a.p.i1; lvl++) {
         place_limit_order(a, a.p.i2, BID, mid - half - lvl);
