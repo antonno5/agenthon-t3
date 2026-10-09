@@ -15,6 +15,15 @@
 #include <sys/resource.h>
 #include <unistd.h>
 
+// Present only in the profile-training build (-fprofile-generate), where _exit would otherwise
+// drop the counts; a weak reference resolves to null in every other build.
+extern "C" void __gcov_dump() __attribute__((weak));
+[[noreturn]] void t3_exit(int code) {
+  if (__gcov_dump) __gcov_dump();
+  _exit(code);
+}
+#define T3_EXIT(code) t3_exit(code)
+
 namespace {
 using t3cli::Json;
 using Clock = std::chrono::steady_clock;
@@ -255,7 +264,7 @@ int batch_main(int argc, char** argv) {
   std::cout << agg.dump() << '\n';
   std::cout.flush();
   std::fflush(nullptr);
-  _exit(0);
+  T3_EXIT(0);
 }
 }  // namespace
 
@@ -304,6 +313,6 @@ int main(int argc, char** argv) {
     std::cout << ev->dump() << '\n';
     std::cout.flush();
     std::fflush(nullptr);
-    _exit(0);  // outputs are written and closed; skip teardown of the large in-memory state
+    T3_EXIT(0);  // outputs are written and closed; skip teardown of the large in-memory state
   } catch (const std::exception& e) { std::cerr << "simulate: " << e.what() << '\n'; return 1; }
 }

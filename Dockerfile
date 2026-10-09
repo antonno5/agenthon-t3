@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends g++ gcc libc6-d
     && rm -rf /var/lib/apt/lists/*
 COPY native /src/native
 COPY build_executable.py /src/build_executable.py
+COPY pgo /src/pgo
 RUN python /src/build_executable.py /src /out/usr/local/bin \
     && ln -s t3-native /out/usr/local/bin/simulate \
     && ln -s t3-native /out/usr/local/bin/simulate-batch \

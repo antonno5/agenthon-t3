@@ -1,0 +1,86 @@
+{
+ "scenario_id": "7cb84d14-8249-55ee-af71-83f84b344345",
+ "seed": 12,
+ "horizon_ns": 10000000000,
+ "schema_version": 2,
+ "exchange_config": {
+  "symbol": "SYM",
+  "tick_size": 1,
+  "lot_size": 1,
+  "min_price": 1,
+  "max_price": 1000000,
+  "stp_policy": "cancel_oldest",
+  "order_types_allowed": [
+   "LIMIT",
+   "MARKET",
+   "CANCEL",
+   "REPLACE"
+  ],
+  "protocol_enforcement": true,
+  "ack_delay_ns": 200,
+  "compute_delay_ns": 100
+ },
+ "oracle_config": {
+  "type": "mean_reverting",
+  "params": {
+   "initial_price": 100000,
+   "kappa": 0.05,
+   "sigma": 0.001,
+   "dt_ns": 1000000,
+   "noise_type": "gaussian",
+   "jump_intensity": 0.0,
+   "jump_sigma": 0.0
+  }
+ },
+ "latency_config": {
+  "model": "log_normal",
+  "params": {
+   "mean_ns": 800,
+   "sigma": 0.4,
+   "min_ns": 100,
+   "max_ns": 2000000
+  }
+ },
+ "agent_configs": [
+  {
+   "agent_type": "NoiseTrader",
+   "count": 30,
+   "params": {
+    "order_size_mean": 10,
+    "order_size_std": 2,
+    "arrival_rate_hz": 12.0,
+    "price_offset_ticks": 3
+   }
+  },
+  {
+   "agent_type": "MarketMaker",
+   "count": 8,
+   "params": {
+    "spread_ticks": 2,
+    "depth_levels": 4,
+    "size_per_level": 10,
+    "rebalance_interval_ns": 80000000
+   }
+  },
+  {
+   "agent_type": "ValueTrader",
+   "count": 10,
+   "params": {
+    "fundamental_value_source": "oracle",
+    "order_size_mean": 25,
+    "threshold_ticks": 2,
+    "arrival_rate_hz": 5.0
+   }
+  },
+  {
+   "agent_type": "MomentumTrader",
+   "count": 6,
+   "params": {
+    "order_size_mean": 15,
+    "threshold_ticks": 2,
+    "lookback": 5,
+    "arrival_rate_hz": 5.0
+   }
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "scenario_id": "9efd375d-10b7-5414-9691-71902f947e59",
+ "seed": 13,
+ "horizon_ns": 8000000000,
+ "schema_version": 2,
+ "exchange_config": {
+  "symbol": "SYM",
+  "tick_size": 1,
+  "lot_size": 1,
+  "min_price": 1,
+  "max_price": 1000000,
+  "stp_policy": "cancel_newest",
+  "order_types_allowed": [
+   "LIMIT",
+   "MARKET",
+   "CANCEL",
+   "REPLACE"
+  ],
+  "protocol_enforcement": true,
+  "ack_delay_ns": 0,
+  "compute_delay_ns": 0
+ },
+ "oracle_config": {
+  "type": "mean_reverting",
+  "params": {
+   "initial_price": 100000,
+   "kappa": 0.05,
+   "sigma": 0.001,
+   "dt_ns": 1000000,
+   "noise_type": "gaussian",
+   "jump_intensity": 0.0,
+   "jump_sigma": 0.0
+  }
+ },
+ "latency_config": {
+  "model": "uniform",
+  "params": {
+   "min_ns": 200,
+   "max_ns": 3000
+  }
+ },
+ "agent_configs": [
+  {
+   "agent_type": "NoiseTrader",
+   "count": 20,
+   "params": {
+    "order_size_mean": 10,
+    "order_size_std": 2,
+    "arrival_rate_hz": 15.0,
+    "price_offset_ticks": 5
+   }
+  },
+  {
+   "agent_type": "MarketMaker",
+   "count": 20,
+   "params": {
+    "spread_ticks": 3,
+    "depth_levels": 6,
+    "size_per_level": 5,
+    "rebalance_interval_ns": 30000000
+   }
+  }
+ ]
+}
