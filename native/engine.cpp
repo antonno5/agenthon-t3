@@ -429,15 +429,17 @@ class Sim {
     const int64_t deliver_at = sent_time + latency(sender, recipient);
     Message& m = msgs[slot];
     m.refs++;
-    int32_t info;
-    const SendInfo si{sent_time, deliver_at, has_causal ? causal : -1};
-    if (!free_info.empty()) {
-      info = free_info.back();
-      free_info.pop_back();
-      send_info[info] = si;
-    } else {
-      info = static_cast<int32_t>(send_info.size());
-      send_info.push_back(si);
+    int32_t info = 0;  // the send-time ledger fields, kept only for a ledger
+    if (P.ledger) {
+      const SendInfo si{sent_time, deliver_at, has_causal ? causal : -1};
+      if (!free_info.empty()) {
+        info = free_info.back();
+        free_info.pop_back();
+        send_info[info] = si;
+      } else {
+        info = static_cast<int32_t>(send_info.size());
+        send_info.push_back(si);
+      }
     }
     heap_push(QEntry{deliver_at, QEntry::make_route(sender, recipient), m.id, slot, info});
   }
@@ -955,10 +957,14 @@ Result Sim::run() {
       agent_times[r] += comp_delays[r];
       has_causal = true;
       causal = m.id;
-      const SendInfo si = send_info[e.info];
-      free_info.push_back(e.info);
-      deliver_row(m.id, e.sender(), r, true, si.t_send, si.t_recv, m.type, m.has_order(),
-                  m.order.order_id, si.causal);
+      if (P.ledger) {
+        const SendInfo si = send_info[e.info];
+        free_info.push_back(e.info);
+        deliver_row(m.id, e.sender(), r, true, si.t_send, si.t_recv, m.type, m.has_order(),
+                    m.order.order_id, si.causal);
+      } else {
+        ++n_messages;
+      }
       if (r == 0)
         exchange_receive(current_time, e.sender(), e.slot);
       else

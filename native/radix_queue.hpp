@@ -77,8 +77,26 @@ class RadixQueue {
   uint64_t last_ = 0;  // last popped time
   size_t size_ = 0;
 
-  static bool key_desc(const E& a, const E& b) {
-    return a.time != b.time ? a.time > b.time : a.k2 > b.k2;
+  // (time, k2) as one unsigned 128-bit integer: a single wide compare instead of two branches.
+  static unsigned __int128 key(const E& e) {
+    return (static_cast<unsigned __int128>(ukey(e.time)) << 64) | e.k2;
+  }
+  static bool key_desc(const E& a, const E& b) { return key(a) > key(b); }
+  // Descending sort; runs are mostly a handful of entries, where insertion sort beats
+  // std::sort's dispatch.
+  static void sort_desc(std::vector<E>& v) {
+    const size_t n = v.size();
+    if (n > 32) {
+      std::sort(v.begin(), v.end(), key_desc);
+      return;
+    }
+    for (size_t i = 1; i < n; i++) {
+      const E x = v[i];
+      const unsigned __int128 kx = key(x);
+      size_t j = i;
+      for (; j > 0 && key(v[j - 1]) < kx; j--) v[j] = v[j - 1];
+      v[j] = x;
+    }
   }
   static uint64_t ukey(int64_t t) { return static_cast<uint64_t>(t) ^ (uint64_t{1} << 63); }
   int bucket_of(uint64_t t) const {
@@ -97,7 +115,7 @@ class RadixQueue {
       if (b == 0 || (b <= kSortMaxBit && src.size() <= kSortWhole)) {
         run_.swap(src);  // the bucket keeps the run's empty buffer
         clear_bucket(b);
-        if (run_.size() > 1) std::sort(run_.begin(), run_.end(), key_desc);
+        if (run_.size() > 1) sort_desc(run_);
         return;
       }
       uint64_t lo = ukey(src[0].time);
