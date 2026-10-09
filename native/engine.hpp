@@ -114,6 +114,15 @@ struct MessageSink {
   virtual void submit(MessageColumns& block) = 0;
 };
 
+// Optional observer of the lifecycle trace while it is built: rows_final(cols, n) says rows
+// [0, n) of `cols` are final in every column except msg_type (a later execution can still
+// demote an earlier ORDER_FILLED to PARTIAL_FILL). Called on the trace-building thread; `cols`
+// stays valid and unchanged for the duration of the call.
+struct TraceSink {
+  virtual ~TraceSink() = default;
+  virtual void rows_final(const TraceColumns& cols, size_t n) = 0;
+};
+
 struct Result {
   TraceColumns trace;
   MessageColumns messages;
@@ -121,6 +130,6 @@ struct Result {
 };
 
 // Throws std::runtime_error on any state the Python reference would have raised on.
-Result run(Params params, MessageSink* sink = nullptr);
+Result run(Params params, MessageSink* sink = nullptr, TraceSink* trace_sink = nullptr);
 
 }  // namespace t3

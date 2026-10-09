@@ -2,6 +2,8 @@
 // checked against the reference.
 #include "engine.hpp"
 #include "book.hpp"
+#include "latency_feed.hpp"
+#include "output_log.hpp"
 #include "trace_stream.hpp"
 
 #include <algorithm>
@@ -160,6 +162,19 @@ struct QEntry {
   }
 };
 
+// Compact heap entry for runs with < 2^16 agents and < 2^32 messages (every realistic run):
+// (sender:16 | recipient:16 | msg_id:32) orders exactly like (sender, recipient, msg_id), so
+// the whole key is (time, k2) and compares as one 128-bit integer. 24 bytes instead of 32.
+struct PackedEntry {
+  int64_t time;
+  uint64_t k2;
+  int32_t slot, info;
+  unsigned __int128 key() const {
+    return (static_cast<unsigned __int128>(static_cast<uint64_t>(time) ^ (uint64_t{1} << 63))
+            << 64) | k2;
+  }
+};
+
 struct SendInfo {
   int64_t t_send, t_recv, causal;  // causal < 0: None
 };
@@ -188,10 +203,11 @@ struct Trader {
 
 class Sim {
  public:
-  explicit Sim(Params p, MessageSink* sink)
-      : P(std::move(p)), message_sink(sink),
-        trace(P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
-              P.pipeline_delay >= 0 && P.computation_delay >= 0) {}
+  explicit Sim(Params p, MessageSink* sink, TraceSink* trace_sink)
+      : P(std::move(p)),
+        out(P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
+                P.pipeline_delay >= 0 && P.computation_delay >= 0,
+            sink, trace_sink) {}
   Result run();
 
  private:
@@ -200,15 +216,15 @@ class Sim {
   int64_t current_time = 0;
   std::vector<int64_t> agent_times, comp_delays;
   std::vector<QEntry> heap;
+  std::vector<PackedEntry> pheap;
+  bool packed = false;  // pheap in use (see PackedEntry)
   std::vector<SendInfo> send_info;
   std::vector<int32_t> free_info;
   // deque: handlers hold references to the message being delivered while creating new
   // ones, and push_back on a deque never invalidates references to existing elements.
   MessageSlab msgs;
   std::vector<int32_t> free_slots;  // recycled message slots
-  MessageSink* message_sink;
   size_t n_messages = 0;
-  MessageColumns mcols;              // delivered ledger rows, appended in seq order
   bool has_causal = false;
   int64_t causal = 0;
   int64_t next_msg_id = 1;
@@ -226,12 +242,14 @@ class Sim {
   bool has_last_trade = true;
   int64_t last_trade = 0;
   std::vector<int32_t> close_price_subs;
-  TraceStream trace;
+  OutputLog out;  // trace + ledger, built on its own thread in call order
   // traders (agent ids 1..n)
   std::vector<Trader> traders;
 
   // --- kernel ---
   int32_t new_msg(uint8_t type) {
+    if (packed && next_msg_id > 0xffffffffll)
+      throw std::runtime_error("message id exceeds the packed heap key");
     Message m;
     m.id = next_msg_id++;
     m.type = type;
@@ -249,42 +267,31 @@ class Sim {
   }
   void deliver_row(int64_t msg_id, int32_t src, int32_t dst, bool has_send, int64_t t_send,
                    int64_t t_recv, uint8_t type, bool has_oid, int64_t oid, int64_t causal_v) {
-    MessageColumns& c = mcols;
-    c.t_recv.push_back(t_recv);
-    c.t_send.push_back(has_send ? t_send : 0);
-    c.t_send_null.push_back(!has_send);
-    c.latency.push_back(has_send ? t_recv - t_send : 0);
-    c.src.push_back(src);
-    c.dst.push_back(dst);
-    c.message_id.push_back(msg_id);
-    c.msg_type.push_back(type);
-    c.order_id.push_back(has_oid ? oid : 0);
-    c.order_id_null.push_back(!has_oid);
-    c.causal_parent.push_back(causal_v >= 0 ? causal_v : 0);
-    c.causal_null.push_back(causal_v < 0);
+    out.deliver(msg_id, src, dst, has_send, t_send, t_recv, type, has_oid, oid, causal_v);
     ++n_messages;
-    if (message_sink && c.t_recv.size() == kMessageBlockRows) message_sink->submit(c);
   }
   // 4-ary min-heap on QEntry's total order (keys are unique: msg_id is unique per message and
   // route separates a shared message's recipients), so it pops exactly the sequence the
   // binary std:: heap -- and Python's heapq -- would; it is shallower and touches fewer
   // cache lines per pop.
-  void heap_push(const QEntry& e) {
-    size_t i = heap.size();
-    heap.push_back(e);
+  template <class E, class Greater>
+  static void heap_push_impl(std::vector<E>& h, const E& e, Greater gt) {
+    size_t i = h.size();
+    h.push_back(e);
     while (i > 0) {
       const size_t parent = (i - 1) >> 2;
-      if (!(heap[parent] > e)) break;
-      heap[i] = heap[parent];
+      if (!gt(h[parent], e)) break;
+      h[i] = h[parent];
       i = parent;
     }
-    heap[i] = e;
+    h[i] = e;
   }
-  QEntry heap_pop() {
-    const QEntry top = heap[0];
-    const QEntry last = heap.back();
-    heap.pop_back();
-    const size_t n = heap.size();
+  template <class E, class Greater>
+  static E heap_pop_impl(std::vector<E>& h, Greater gt) {
+    const E top = h[0];
+    const E last = h.back();
+    h.pop_back();
+    const size_t n = h.size();
     if (n > 0) {
       size_t i = 0;
       while (true) {
@@ -293,32 +300,64 @@ class Sim {
         size_t best = c;
         const size_t end = std::min(c + 4, n);
         for (size_t k = c + 1; k < end; k++)
-          if (heap[best] > heap[k]) best = k;
-        if (!(last > heap[best])) break;
-        heap[i] = heap[best];
+          if (gt(h[best], h[k])) best = k;
+        if (!gt(last, h[best])) break;
+        h[i] = h[best];
         i = best;
       }
-      heap[i] = last;
+      h[i] = last;
     }
     return top;
   }
-  // ScenarioLatencyModel.get_latency
+  static bool packed_gt(const PackedEntry& a, const PackedEntry& b) { return a.key() > b.key(); }
+  static bool full_gt(const QEntry& a, const QEntry& b) { return a > b; }
+  bool heap_empty() const { return packed ? pheap.empty() : heap.empty(); }
+  void heap_push(const QEntry& e) {
+    if (packed) {
+      const uint64_t k2 = (static_cast<uint64_t>(e.sender()) << 48) |
+                          (static_cast<uint64_t>(e.recipient()) << 32) |
+                          static_cast<uint64_t>(e.msg_id);
+      heap_push_impl(pheap, PackedEntry{e.time, k2, e.slot, e.info}, packed_gt);
+    } else {
+      heap_push_impl(heap, e, full_gt);
+    }
+  }
+  QEntry heap_pop() {
+    if (packed) {
+      const PackedEntry p = heap_pop_impl(pheap, packed_gt);
+      return QEntry{p.time, QEntry::make_route(static_cast<int32_t>(p.k2 >> 48),
+                                               static_cast<int32_t>((p.k2 >> 32) & 0xffff)),
+                    static_cast<int64_t>(p.k2 & 0xffffffffu), p.slot, p.info};
+    }
+    return heap_pop_impl(heap, full_gt);
+  }
+  // ScenarioLatencyModel.get_latency: one draw per message between distinct agents.
+  struct LatencyDraw {
+    int model;
+    double mu, sigma, lo, hi, alpha, mean;
+    RandomState rs;
+    int64_t operator()() {
+      double value;
+      switch (model) {
+        case LAT_LOGNORMAL: value = rs.lognormal(mu, sigma); break;
+        case LAT_UNIFORM: value = rs.uniform(lo, hi); break;
+        case LAT_PARETO: {
+          const double base = lo > 0 ? lo : 1.0;
+          value = base * (1.0 + rs.pareto(alpha));
+          break;
+        }
+        default: value = mean;
+      }
+      double c = (lo > value) ? lo : value;  // max(value, min_ns)
+      c = (hi < c) ? hi : c;                  // min(.., max_ns)
+      return py_round(c);
+    }
+  };
+  LatencyFeed latency_feed;  // draws computed ahead on a helper thread
+  int64_t constant_latency = 0;
   int64_t latency(int32_t s, int32_t r) {
     if (s == r) return 0;
-    double value;
-    switch (P.lat_model) {
-      case LAT_LOGNORMAL: value = latency_rs.lognormal(P.lat_mu, P.lat_sigma); break;
-      case LAT_UNIFORM: value = latency_rs.uniform(P.lat_min, P.lat_max); break;
-      case LAT_PARETO: {
-        const double base = P.lat_min > 0 ? P.lat_min : 1.0;
-        value = base * (1.0 + latency_rs.pareto(P.lat_alpha));
-        break;
-      }
-      default: value = P.lat_mean;
-    }
-    double c = (P.lat_min > value) ? P.lat_min : value;  // max(value, min_ns)
-    c = (P.lat_max < c) ? P.lat_max : c;                  // min(.., max_ns)
-    return py_round(c);
+    return latency_feed.active() ? latency_feed.next() : constant_latency;
   }
   // Kernel.send_message (+ ExchangeAgent.send_message's pipeline delay via `delay`)
   void send(int32_t sender, int32_t recipient, int32_t slot, int64_t delay = 0) {
@@ -361,8 +400,8 @@ class Sim {
   bool execute_order(Order& order, int64_t& matched_qty, int64_t& matched_price);
   void enter_order(const Order& order);
   void log_best() {
-    if (!bids.empty()) trace.quote(ex_time, SIDE_BID, bids.best().price, bids.best().total);
-    if (!asks.empty()) trace.quote(ex_time, SIDE_ASK, asks.best().price, asks.best().total);
+    if (!bids.empty()) out.quote(ex_time, SIDE_BID, bids.best().price, bids.best().total);
+    if (!asks.empty()) out.quote(ex_time, SIDE_ASK, asks.best().price, asks.best().total);
   }
   void ex_send(int32_t recipient, int32_t slot) {
     const uint8_t t = msgs[slot].type;
@@ -379,7 +418,7 @@ class Sim {
   void place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price);
 
   void log_order(const Trader& a, int64_t t, uint8_t type, const Order& o) {
-    trace.order(t, a.id, o.agent_id, type, o.side == BID ? SIDE_BID : SIDE_ASK,
+    out.order(t, a.id, o.agent_id, type, o.side == BID ? SIDE_BID : SIDE_ASK,
                 type == TM_PARTIAL_FILL ? (o.has_fill ? o.fill_price : 0) : o.limit_price,
                 o.quantity, o.order_id);
   }
@@ -802,9 +841,18 @@ Result Sim::run() {
     traders.push_back(std::move(t));
   }
   latency_rs.seed(global_rs.randint_u32_full());
+  {
+    LatencyDraw draw{P.lat_model, P.lat_mu, P.lat_sigma, P.lat_min, P.lat_max, P.lat_alpha,
+                     P.lat_mean, latency_rs};
+    if (P.lat_model == LAT_LOGNORMAL || P.lat_model == LAT_UNIFORM || P.lat_model == LAT_PARETO)
+      latency_feed.start(draw);
+    else
+      constant_latency = draw();  // no RNG involved: the same value every time
+  }
   (void)global_rs.randint_u32_full();  // random_state_kernel (unused by abides.run)
 
   // --- Kernel.__init__ / initialize ---
+  packed = n_agents <= 0x10000;  // agent ids 0..n_agents-1 fit 16 bits
   current_time = P.start_time;
   agent_times.assign(n_agents, P.start_time);
   comp_delays.assign(n_agents, P.default_delay);
@@ -814,7 +862,7 @@ Result Sim::run() {
   current_time = P.start_time;
 
   // --- Kernel.runner ---
-  while (!heap.empty() && current_time != 0 && current_time <= P.stop_time) {
+  while (!heap_empty() && current_time != 0 && current_time <= P.stop_time) {
     const QEntry e = heap_pop();
     current_time = e.time;
     const int32_t r = e.recipient();
@@ -850,24 +898,25 @@ Result Sim::run() {
     }
     release(e.slot);
   }
-  if (message_sink && !mcols.t_recv.empty()) message_sink->submit(mcols);
   return extract();
 }
 
 // trace.extract_trace + trace.extract_message_trace
 Result Sim::extract() {
   Result res;
-  res.trace = trace.finish();
-  // --- message ledger: rows were appended in delivery (seq) order ---
-  res.messages = std::move(mcols);
+  // Trace rows and the ledger rows not handed to the sink (all of them without a sink),
+  // both in seq order.
+  auto built = out.finish();
+  res.trace = std::move(built.first);
+  res.messages = std::move(built.second);
   res.n_messages = n_messages;
   return res;
 }
 
 }  // namespace
 
-Result run(Params params, MessageSink* sink) {
-  Sim sim(std::move(params), sink);
+Result run(Params params, MessageSink* sink, TraceSink* trace_sink) {
+  Sim sim(std::move(params), sink, trace_sink);
   return sim.run();
 }
 

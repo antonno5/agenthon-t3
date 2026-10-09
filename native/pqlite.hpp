@@ -35,5 +35,20 @@ class MessageWriter {
 // Writes trace.parquet; returns its SHA-256 hex.
 std::string write_trace(const TraceColumns& t, const std::string& path);
 
+// The same file, encoded while the trace is built: rows_final() encodes every complete page of
+// the columns that are already final (all but msg_type); close() encodes the rest and writes
+// the file. Pages are split exactly as write_trace() splits them, so the bytes are identical.
+class TraceWriter final : public TraceSink {
+ public:
+  explicit TraceWriter(std::string path);
+  ~TraceWriter() override;
+  void rows_final(const TraceColumns& cols, size_t n) override;
+  std::string close(const TraceColumns& t);
+
+ private:
+  struct Impl;
+  std::unique_ptr<Impl> impl_;
+};
+
 }  // namespace pqlite
 }  // namespace t3

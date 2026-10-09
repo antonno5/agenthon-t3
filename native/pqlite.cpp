@@ -472,7 +472,8 @@ constexpr size_t kTracePageRows = 64 * 1024;
 
 }  // namespace
 
-std::string write_trace(const TraceColumns& t, const std::string& path) {
+namespace {
+std::vector<Column> trace_columns() {
   std::vector<Column> cols(7);
   cols[0] = {"t_ns", PT_INT64};
   cols[1] = {"agent_id", PT_INT32};
@@ -481,23 +482,58 @@ std::string write_trace(const TraceColumns& t, const std::string& path) {
   cols[4] = {"price", PT_INT64};
   cols[5] = {"size", PT_INT64};
   cols[6] = {"order_id", PT_INT64};
+  return cols;
+}
+// Encodes the trace page [off, off + k) of column ci.
+void trace_page(std::vector<Column>& cols, const TraceColumns& t, size_t ci, size_t off, size_t k) {
+  switch (ci) {
+    case 0: numeric_page(cols[0], t.t_ns.data() + off, nullptr, k); break;
+    case 1: numeric_page(cols[1], t.agent_id.data() + off, nullptr, k); break;
+    case 2: string_page(cols[2], t.msg_type.data() + off, k); break;
+    case 3: string_page(cols[3], t.side.data() + off, k); break;
+    case 4: numeric_page(cols[4], t.price.data() + off, nullptr, k); break;
+    case 5: numeric_page(cols[5], t.size.data() + off, nullptr, k); break;
+    case 6: numeric_page(cols[6], t.order_id.data() + off, nullptr, k); break;
+  }
+}
+// Encodes the pages of column ci from row `from` (a page boundary) to the end.
+void trace_pages_from(std::vector<Column>& cols, const TraceColumns& t, size_t ci, size_t from) {
   const size_t n = t.t_ns.size();
-  parallel_for(cols.size(), 4, [&](size_t ci) {
-    for (size_t off = 0; off < n || (off == 0 && n == 0); off += kTracePageRows) {
-      const size_t k = std::min(kTracePageRows, n - off);
-      switch (ci) {
-        case 0: numeric_page(cols[0], t.t_ns.data() + off, nullptr, k); break;
-        case 1: numeric_page(cols[1], t.agent_id.data() + off, nullptr, k); break;
-        case 2: string_page(cols[2], t.msg_type.data() + off, k); break;
-        case 3: string_page(cols[3], t.side.data() + off, k); break;
-        case 4: numeric_page(cols[4], t.price.data() + off, nullptr, k); break;
-        case 5: numeric_page(cols[5], t.size.data() + off, nullptr, k); break;
-        case 6: numeric_page(cols[6], t.order_id.data() + off, nullptr, k); break;
-      }
-      if (n == 0) break;
-    }
-  });
-  return write_file(path, cols, static_cast<int64_t>(n), pqmeta::kTraceArrowSchema,
+  for (size_t off = from; off < n || (off == 0 && n == 0); off += kTracePageRows) {
+    trace_page(cols, t, ci, off, std::min(kTracePageRows, n - off));
+    if (n == 0) break;
+  }
+}
+}  // namespace
+
+std::string write_trace(const TraceColumns& t, const std::string& path) {
+  std::vector<Column> cols = trace_columns();
+  parallel_for(cols.size(), 4, [&](size_t ci) { trace_pages_from(cols, t, ci, 0); });
+  return write_file(path, cols, static_cast<int64_t>(t.t_ns.size()), pqmeta::kTraceArrowSchema,
+                    pqmeta::kTracePandas);
+}
+
+struct TraceWriter::Impl {
+  std::string path;
+  std::vector<Column> cols = trace_columns();
+  size_t encoded = 0;  // rows already encoded in every column but msg_type (a page boundary)
+};
+
+TraceWriter::TraceWriter(std::string path) : impl_(new Impl) { impl_->path = std::move(path); }
+TraceWriter::~TraceWriter() = default;
+
+void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
+  Impl& w = *impl_;
+  for (; w.encoded + kTracePageRows <= n; w.encoded += kTracePageRows)
+    for (size_t ci = 0; ci < w.cols.size(); ci++)
+      if (ci != 2) trace_page(w.cols, t, ci, w.encoded, kTracePageRows);
+}
+
+std::string TraceWriter::close(const TraceColumns& t) {
+  Impl& w = *impl_;
+  parallel_for(w.cols.size(), 4,
+               [&](size_t ci) { trace_pages_from(w.cols, t, ci, ci == 2 ? 0 : w.encoded); });
+  return write_file(w.path, w.cols, static_cast<int64_t>(t.t_ns.size()), pqmeta::kTraceArrowSchema,
                     pqmeta::kTracePandas);
 }
 

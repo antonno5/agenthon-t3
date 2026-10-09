@@ -55,6 +55,11 @@ class TraceStream {
     }
   }
 
+  // Rows [0, final_rows()) are final except msg_type (see TraceSink); with a non-chronological
+  // kernel nothing is final before finish().
+  size_t final_rows() const { return chronological_ ? columns_.t_ns.size() : 0; }
+  const TraceColumns& columns() const { return columns_; }
+
   TraceColumns finish() {
     flush();
     return std::move(columns_);

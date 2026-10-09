@@ -43,12 +43,17 @@ class MessagePipeline final : public MessageSink {
     pending_.push_back(std::move(buffer));
     changed_.notify_all();
   }
-  void finish() {
+  // No more blocks: the worker writes what is queued and closes the file. finish() waits for it;
+  // calling close_async() first lets the caller do other work (the trace file) meanwhile.
+  void close_async() {
     {
       std::lock_guard<std::mutex> lock(mutex_);
       stopped_ = true;
     }
     changed_.notify_all();
+  }
+  void finish() {
+    close_async();
     if (worker_.joinable()) worker_.join();
     if (error_) std::rethrow_exception(error_);
   }

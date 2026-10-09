@@ -52,9 +52,12 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
   // The result (multi-MB columns) and the ledger writer's page buffers are deliberately never
   // freed: the process exits right after writing its outputs, and freeing them (munmap of
   // large blocks) would only add wall time to the run.
-  auto t0 = Clock::now(); auto& r = *new t3::Result(t3::run(std::move(p), &pipeline)); double seconds = since(t0);
+  // The trace's final columns are encoded into pages while the kernel still runs.
+  auto& trace_writer = *new t3::pqlite::TraceWriter(trace);
+  auto t0 = Clock::now(); auto& r = *new t3::Result(t3::run(std::move(p), &pipeline, &trace_writer)); double seconds = since(t0);
   if (r.trace.t_ns.empty()) { pipeline.cancel(); throw t3cli::Unsupported("empty trace requires original adapter dtypes"); }
-  std::string trace_hash = t3::pqlite::write_trace(r.trace, trace); pipeline.finish();
+  pipeline.close_async();  // the ledger file is finished on its own thread meanwhile
+  std::string trace_hash = trace_writer.close(r.trace); pipeline.finish();
   (void)writer.release();  // keep its page buffers alive until _exit (see above)
   return {r.trace.t_ns.size(), r.n_messages, seconds, trace_hash, message_hash};
 }
