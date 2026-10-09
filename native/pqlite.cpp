@@ -12,6 +12,8 @@
 
 #include "pqmeta.hpp"
 #include "sha256_lite.hpp"
+
+#include <sys/mman.h>
 #include "snappy_lite.hpp"
 
 namespace t3 {
@@ -519,14 +521,36 @@ struct TraceWriter::Impl {
   size_t encoded = 0;  // rows already encoded in every column but msg_type (a page boundary)
 };
 
+// Returns the memory of rows [from, to) of a column to the OS. Only for rows that are encoded
+// and never read again: nothing reads a trace value after its page is encoded except msg_type
+// (a later execution can still change it), and the process exits right after the file is
+// written -- so the exit no longer has to free tens of MB on the largest runs.
+template <class T>
+void release_rows(const std::vector<T>& v, size_t from, size_t to) {
+  constexpr uintptr_t kPage = 4096;
+  const uintptr_t base = reinterpret_cast<uintptr_t>(v.data());
+  const uintptr_t lo = (base + from * sizeof(T) + kPage - 1) & ~(kPage - 1);
+  const uintptr_t hi = (base + to * sizeof(T)) & ~(kPage - 1);
+  if (hi > lo) madvise(reinterpret_cast<void*>(lo), hi - lo, MADV_DONTNEED);
+}
+
 TraceWriter::TraceWriter(std::string path) : impl_(new Impl) { impl_->path = std::move(path); }
 TraceWriter::~TraceWriter() = default;
 
 void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
   Impl& w = *impl_;
+  const size_t before = w.encoded;
   for (; w.encoded + kTracePageRows <= n; w.encoded += kTracePageRows)
     for (size_t ci = 0; ci < w.cols.size(); ci++)
       if (ci != 2) trace_page(w.cols, t, ci, w.encoded, kTracePageRows);
+  if (w.encoded > before) {
+    release_rows(t.t_ns, before, w.encoded);
+    release_rows(t.agent_id, before, w.encoded);
+    release_rows(t.side, before, w.encoded);
+    release_rows(t.price, before, w.encoded);
+    release_rows(t.size, before, w.encoded);
+    release_rows(t.order_id, before, w.encoded);
+  }
 }
 
 std::string TraceWriter::close(const TraceColumns& t) {
