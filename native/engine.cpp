@@ -447,9 +447,10 @@ class Sim {
   void set_wakeup(int32_t agent, int64_t t) {
     if (current_time != 0 && t < current_time)
       throw std::runtime_error("set_wakeup() called with requested time not in future");
-    const int32_t slot = new_msg(MT_WAKEUP);
-    msgs[slot].refs = 1;
-    heap_push(QEntry{t, QEntry::make_route(agent, agent), msgs[slot].id, slot, -1});
+    // A wake-up carries nothing but its message id, so it takes no message slot (slot -1).
+    if (packed && next_msg_id > 0xffffffffll)
+      throw std::runtime_error("message id exceeds the packed heap key");
+    heap_push(QEntry{t, QEntry::make_route(agent, agent), next_msg_id++, -1, -1});
   }
 
   // --- oracle (SparseMeanRevertingOracle) ---
@@ -936,7 +937,6 @@ Result Sim::run() {
     const QEntry e = heap_pop();
     current_time = e.time;
     const int32_t r = e.recipient();
-    const Message& m = msgs[e.slot];
     if (agent_times[r] > current_time) {  // agent still "in the future": requeue
       QEntry re = e;
       re.time = agent_times[r];
@@ -944,16 +944,17 @@ Result Sim::run() {
       continue;
     }
     agent_times[r] = current_time;
-    if (m.type == MT_WAKEUP) {
+    if (e.slot < 0) {  // wake-up
       has_causal = true;
-      causal = m.id;
-      deliver_row(m.id, r, r, false, 0, current_time, MT_WAKEUP, false, 0, -1);
+      causal = e.msg_id;
+      deliver_row(e.msg_id, r, r, false, 0, current_time, MT_WAKEUP, false, 0, -1);
       if (r == 0)
         exchange_wakeup(current_time);
       else
         trader_wakeup(trader(r), current_time);
       agent_times[r] += comp_delays[r];
     } else {
+      const Message& m = msgs[e.slot];
       agent_times[r] += comp_delays[r];
       has_causal = true;
       causal = m.id;
@@ -969,8 +970,8 @@ Result Sim::run() {
         exchange_receive(current_time, e.sender(), e.slot);
       else
         trader_receive(trader(r), current_time, e.slot);
+      release(e.slot);
     }
-    release(e.slot);
   }
   return extract();
 }

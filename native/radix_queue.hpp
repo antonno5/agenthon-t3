@@ -7,7 +7,7 @@
 // Buckets order by time relative to a reference `ref_` (<= every queued time): bucket 0 holds
 // times equal to it, bucket b > 0 times whose highest bit differing from it is b-1, so every
 // entry of a lower non-empty bucket is smaller than every entry of a higher one. Pops drain
-// `run_`, the smallest entries sorted by descending key (a pop takes its back). When the run is
+// `run_`, the smallest entries sorted by ascending key, from `head_` on. When the run is
 // empty, the lowest non-empty bucket becomes the next run: sorted whole when it is small,
 // otherwise first spread over the buckets below it around its minimum, which becomes the new
 // reference (higher buckets stay valid: the new reference agrees with the old one on every bit
@@ -45,8 +45,8 @@ class RadixQueue {
     // than misorder.
     if (t < last_) throw std::runtime_error("event scheduled before the current time");
     size_++;
-    if (!run_.empty() && key_desc(run_.front(), e)) {  // below the run's largest entry
-      run_.insert(std::upper_bound(run_.begin(), run_.end(), e, key_desc), e);
+    if (head_ < run_.size() && key(e) < key(run_.back())) {  // below the run's largest entry
+      run_.insert(std::upper_bound(run_.begin() + head_, run_.end(), e, key_asc), e);
       return;
     }
     const int b = bucket_of(t);
@@ -55,9 +55,8 @@ class RadixQueue {
   }
 
   E pop() {
-    if (run_.empty()) refill();
-    const E e = run_.back();
-    run_.pop_back();
+    if (head_ == run_.size()) refill();
+    const E e = run_[head_++];
     size_--;
     last_ = ukey(e.time);
     return e;
@@ -70,7 +69,8 @@ class RadixQueue {
   static constexpr int kSortMaxBit = T3_RQ_MAXBIT;
   // 65 buckets: bit b of mask_ marks bucket b (< 64) non-empty; bucket 64 is tracked by high_.
   std::vector<E> buckets_[65];
-  std::vector<E> run_;  // the smallest entries, by descending key
+  std::vector<E> run_;  // the smallest entries, by ascending key; [head_, end) not yet popped
+  size_t head_ = 0;
   uint64_t mask_ = 0;
   bool high_ = false;
   uint64_t ref_ = 0;   // bucket reference
@@ -81,20 +81,21 @@ class RadixQueue {
   static unsigned __int128 key(const E& e) {
     return (static_cast<unsigned __int128>(ukey(e.time)) << 64) | e.k2;
   }
-  static bool key_desc(const E& a, const E& b) { return key(a) > key(b); }
-  // Descending sort; runs are mostly a handful of entries, where insertion sort beats
-  // std::sort's dispatch.
-  static void sort_desc(std::vector<E>& v) {
+  static bool key_asc(const E& a, const E& b) { return key(a) < key(b); }
+  // Ascending insertion sort: buckets fill mostly in time order, so it is close to linear
+  // (a descending sort of the same input was quadratic).
+  static void sort_asc(std::vector<E>& v) {
     const size_t n = v.size();
-    if (n > 32) {
-      std::sort(v.begin(), v.end(), key_desc);
+    if (n > 32) {  // e.g. many agents waking at one nanosecond, in no particular order
+      std::sort(v.begin(), v.end(), key_asc);
       return;
     }
     for (size_t i = 1; i < n; i++) {
       const E x = v[i];
       const unsigned __int128 kx = key(x);
+      if (!(kx < key(v[i - 1]))) continue;
       size_t j = i;
-      for (; j > 0 && key(v[j - 1]) < kx; j--) v[j] = v[j - 1];
+      for (; j > 0 && kx < key(v[j - 1]); j--) v[j] = v[j - 1];
       v[j] = x;
     }
   }
@@ -113,9 +114,11 @@ class RadixQueue {
       const int b = mask_ ? __builtin_ctzll(mask_) : 64;  // else only bucket 64 is left
       std::vector<E>& src = buckets_[b];
       if (b == 0 || (b <= kSortMaxBit && src.size() <= kSortWhole)) {
-        run_.swap(src);  // the bucket keeps the run's empty buffer
+        run_.clear();
+        head_ = 0;
+        run_.swap(src);  // the bucket keeps the run's emptied buffer
         clear_bucket(b);
-        if (run_.size() > 1) sort_desc(run_);
+        if (run_.size() > 1) sort_asc(run_);
         return;
       }
       uint64_t lo = ukey(src[0].time);
