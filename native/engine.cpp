@@ -124,17 +124,27 @@ struct Message {
 // with plain shift/mask indexing instead of deque iterator arithmetic.
 class MessageSlab {
  public:
-  Message& operator[](size_t i) { return blocks_[i >> kShift][i & kMask]; }
-  const Message& operator[](size_t i) const { return blocks_[i >> kShift][i & kMask]; }
+  // Recycled slots are reused last-freed-first, so nearly every live slot is in the first
+  // block: one load instead of two.
+  Message& operator[](size_t i) {
+    return i < kBlock ? first_[i] : blocks_[i >> kShift][i & kMask];
+  }
+  const Message& operator[](size_t i) const {
+    return i < kBlock ? first_[i] : blocks_[i >> kShift][i & kMask];
+  }
   size_t size() const { return size_; }
   void push_back(const Message& m) {
-    if ((size_ & kMask) == 0) blocks_.emplace_back(new Message[kBlock]);
+    if ((size_ & kMask) == 0) {
+      blocks_.emplace_back(new Message[kBlock]);
+      if (!first_) first_ = blocks_[0].get();
+    }
     (*this)[size_++] = m;
   }
 
  private:
   static constexpr size_t kShift = 12, kBlock = size_t{1} << kShift, kMask = kBlock - 1;
   std::vector<std::unique_ptr<Message[]>> blocks_;
+  Message* first_ = nullptr;
   size_t size_ = 0;
 };
 
