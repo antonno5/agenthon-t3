@@ -11,6 +11,8 @@
 #include <stdexcept>
 #include <vector>
 
+#include "stable_array.hpp"
+
 namespace t3 {
 struct Order {  // 40 bytes
   int64_t order_id;
@@ -57,7 +59,7 @@ class BookArena {
     size_t active = 0;
     HandleBlock() { handles.fill(NO_BOOK_HANDLE); }
   };
-  std::deque<ArenaOrder> slots_;
+  StableArray<ArenaOrder> slots_;
   std::vector<BookHandle> free_;
   std::vector<std::unique_ptr<HandleBlock>> index_;
   size_t active_ = 0;

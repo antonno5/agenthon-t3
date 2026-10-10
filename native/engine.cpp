@@ -5,6 +5,7 @@
 #include "latency_feed.hpp"
 #include "output_log.hpp"
 #include "radix_queue.hpp"
+#include "stable_array.hpp"
 #include "trace_stream.hpp"
 
 #include <sys/mman.h>
@@ -132,45 +133,9 @@ static_assert(sizeof(Message) == 64, "one cache line");
 // Message storage: fixed-size blocks, never moved once allocated, so references held by a
 // handler stay valid while it creates new messages (the property std::deque gave us) --
 // with plain shift/mask indexing instead of deque iterator arithmetic.
-class MessageSlab {
- public:
-  // Message storage: one reserved address range, committed in chunks as it fills, so slots
-  // never move (handlers hold references to the message being delivered while creating new
-  // ones) and indexing is a plain array access.
-  MessageSlab() {
-    for (size_t n = kReserve; n >= kChunk; n /= 2) {
-      void* p = mmap(nullptr, n * sizeof(Message), PROT_NONE,
-                     MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-      if (p != MAP_FAILED) {
-        base_ = static_cast<Message*>(p);
-        reserved_ = n;
-        return;
-      }
-    }
-    throw std::bad_alloc();
-  }
-  ~MessageSlab() { munmap(base_, reserved_ * sizeof(Message)); }
-  MessageSlab(const MessageSlab&) = delete;
-  MessageSlab& operator=(const MessageSlab&) = delete;
-  Message& operator[](size_t i) { return base_[i]; }
-  const Message& operator[](size_t i) const { return base_[i]; }
-  size_t size() const { return size_; }
-  void push_back(const Message& m) {
-    if (size_ == committed_) {
-      if (committed_ == reserved_) throw std::bad_alloc();
-      if (mprotect(base_ + committed_, kChunk * sizeof(Message), PROT_READ | PROT_WRITE) != 0)
-        throw std::bad_alloc();
-      committed_ += kChunk;
-    }
-    base_[size_++] = m;
-  }
-
- private:
-  static constexpr size_t kChunk = 4096;          // 256 KiB
-  static constexpr size_t kReserve = size_t{1} << 28;  // 16 GiB of address space
-  Message* base_ = nullptr;
-  size_t reserved_ = 0, committed_ = 0, size_ = 0;
-};
+// Message storage: slots never move (handlers hold references to the message being
+// delivered while creating new ones).
+using MessageSlab = StableArray<Message>;
 
 // Heap entry, 32 bytes. The Python heap item is (time, (sender_id, recipient_id, message))
 // and messages compare by message_id, so the order is (time, sender, recipient, message_id);
@@ -327,7 +292,7 @@ class Sim {
   std::vector<int64_t> agent_times, comp_delays;
   std::vector<QEntry> heap;
   std::vector<PackedEntry> pheap;
-  CalendarQueue<PackedEntry> rqueue;
+  CalendarQueue<PackedEntry, true> rqueue;  // radix runs have no negative time (see t3::run)
   bool packed = kRadix;  // pheap (or rqueue) in use (see PackedEntry)
   static constexpr bool radix = kRadix;  // rqueue in use: packed keys and no negative latency/delay
   // Deliveries waiting for a busy agent (radix runs only; see Sim::defer). waiting[r] is a
@@ -1150,7 +1115,8 @@ Result run(Params params, MessageSink* sink, TraceSink* trace_sink) {
   const bool packed = params.agents.size() + 1 <= 0x10000;
   const bool radix = packed && params.lat_min >= 0 && params.lat_max >= 0 &&
                      params.default_delay >= 0 && params.pipeline_delay >= 0 &&
-                     params.computation_delay >= 0;
+                     params.computation_delay >= 0 && params.start_time >= 0 &&
+                     params.mkt_open >= 0 && params.mkt_close >= 0;
   if (params.ledger) {
     if (radix) return std::make_unique<Sim<true, true>>(std::move(params), sink, trace_sink)->run();
     return std::make_unique<Sim<true, false>>(std::move(params), sink, trace_sink)->run();

@@ -29,7 +29,8 @@
 
 namespace t3 {
 
-template <class E>  // E has int64_t time; uint64_t k2
+// kNonNeg: every time is >= 0, so times compare as unsigned without the sign-bit flip.
+template <class E, bool kNonNeg = false>  // E has int64_t time; uint64_t k2
 class RadixQueue {
  public:
   RadixQueue() {
@@ -112,7 +113,9 @@ class RadixQueue {
       v[j] = x;
     }
   }
-  static uint64_t ukey(int64_t t) { return static_cast<uint64_t>(t) ^ (uint64_t{1} << 63); }
+  static uint64_t ukey(int64_t t) {
+    return kNonNeg ? static_cast<uint64_t>(t) : static_cast<uint64_t>(t) ^ (uint64_t{1} << 63);
+  }
   int bucket_of(uint64_t t) const {
     const uint64_t x = t ^ ref_;
     return x == 0 ? 0 : 64 - __builtin_clzll(x);
@@ -180,7 +183,7 @@ class RadixQueue {
 // minimum is popped and its invariant -- nothing queued before the last pop -- still holds),
 // so the order is exactly the (time, k2) order. Valid when no entry is pushed before the last
 // popped time (as for RadixQueue): a bucket the current time has passed is then empty.
-template <class E>
+template <class E, bool kNonNeg = false>
 class CalendarQueue {
  public:
   bool empty() const { return mask_ == 0 && far_n_ == 0; }
@@ -244,13 +247,14 @@ class CalendarQueue {
   // Bucket number and time of the last pop; before the first pop, nothing is near (the
   // initial wake-ups all go to the heap).
   int64_t q0_ = INT64_MIN / 2, last_ = INT64_MIN;
-  RadixQueue<E> far_;
+  RadixQueue<E, kNonNeg> far_;
   size_t far_n_ = 0;
   unsigned __int128 far_min_ = kNone;  // far_'s smallest key
 
   static unsigned __int128 key(const E& e) {
-    return (static_cast<unsigned __int128>(static_cast<uint64_t>(e.time) ^ (uint64_t{1} << 63))
-            << 64) | e.k2;
+    const uint64_t t = kNonNeg ? static_cast<uint64_t>(e.time)
+                               : static_cast<uint64_t>(e.time) ^ (uint64_t{1} << 63);
+    return (static_cast<unsigned __int128>(t) << 64) | e.k2;
   }
   void advance(int64_t t) {
     last_ = t;
