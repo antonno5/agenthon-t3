@@ -265,6 +265,9 @@ struct alignas(64) Trader {
   bool mkt_closed = false, first_wake = true;
   bool awaiting_spread = false;
   bool kb = false, ka = false;  // known_bids / known_asks non-empty
+  // TradingAgent.orders is read only by MarketMaker (cancel_all_orders); the other agents'
+  // bookkeeping of it has no observable effect, so they skip it.
+  bool tracks_orders = false;
   int64_t current_time = 0;
   int64_t mkt_open = 0, mkt_close = 0;
   int64_t kb_p = 0, kb_q = 0, ka_p = 0, ka_q = 0;
@@ -814,7 +817,7 @@ void Sim<kLedger, kRadix>::place_limit_order(Trader& a, int64_t qty, int8_t side
   o.limit_price = price;
   o.quantity = qty;
   if (qty <= 0) return;  // "ignored limit order of quantity zero"
-  a.orders.insert(o, order_pos);
+  if (a.tracks_orders) a.orders.insert(o, order_pos);
   const int32_t slot = new_msg(MT_LIMIT_ORDER);
   msgs[slot].order = o;
   send(a.id, 0, slot);
@@ -856,6 +859,7 @@ void Sim<kLedger, kRadix>::trader_receive(Trader& a, int64_t t, int32_t slot) {
       break;
     case MT_ORDER_EXECUTED: {
       log_order(a, t, TM_PARTIAL_FILL, m.order);
+      if (!a.tracks_orders) break;
       if (Order* o = a.orders.find(m.order.order_id, order_pos)) {
         if (m.order.quantity >= o->quantity)
           a.orders.erase(o, order_pos);
@@ -869,6 +873,7 @@ void Sim<kLedger, kRadix>::trader_receive(Trader& a, int64_t t, int32_t slot) {
       break;
     case MT_ORDER_CANCELLED:
       log_order(a, t, TM_ORDER_CANCELLED, m.order);
+      if (!a.tracks_orders) break;
       if (Order* o = a.orders.find(m.order.order_id, order_pos)) a.orders.erase(o, order_pos);
       break;
     case MT_QUERY_SPREAD_RESP:
@@ -998,6 +1003,7 @@ Result Sim<kLedger, kRadix>::run() {
     Trader t;
     t.id = static_cast<int32_t>(i + 1);
     t.p = P.agents[i];
+    t.tracks_orders = t.p.kind == MARKET_MAKER;
     t.rs.seed(global_rs.randint_u32_full());
     traders.push_back(std::move(t));
   }
