@@ -12,14 +12,14 @@
 #include <vector>
 
 namespace t3 {
-struct Order {
+struct Order {  // 40 bytes
   int64_t order_id;
-  int32_t agent_id;
-  int8_t side;
   int64_t limit_price;
   int64_t quantity;
-  bool has_fill = false;
   int64_t fill_price = 0;
+  int32_t agent_id;
+  int8_t side;
+  bool has_fill = false;
 };
 using BookHandle = uint32_t;
 constexpr BookHandle NO_BOOK_HANDLE = std::numeric_limits<BookHandle>::max();

@@ -103,19 +103,26 @@ inline int64_t floordiv(int64_t a, int64_t b) {
 
 constexpr int8_t BID = 1, ASK = -1;
 
-struct Message {
+// One cache line. A message carries either an order or a spread, never both.
+struct alignas(64) Message {
   int64_t id;
-  uint8_t type;
   int32_t refs = 0;  // pending deliveries (heap entries); the slot is recycled at 0
-  Order order{};  // LimitOrder / CancelOrder / OrderAccepted / OrderExecuted / OrderCancelled
+  uint8_t type;
   // QuerySpreadResponseMsg (depth 1)
   bool has_bid = false, has_ask = false, mkt_closed = false;
-  int64_t bid_p = 0, bid_q = 0, ask_p = 0, ask_q = 0;
+  union {
+    Order order{};  // LimitOrder / CancelOrder / OrderAccepted / OrderExecuted / OrderCancelled
+    struct {
+      int64_t bid_p, bid_q, ask_p, ask_q;
+    };
+  };
   bool has_order() const {
     return type == MT_LIMIT_ORDER || type == MT_CANCEL_ORDER || type == MT_ORDER_ACCEPTED ||
            type == MT_ORDER_EXECUTED || type == MT_ORDER_CANCELLED;
   }
 };
+
+static_assert(sizeof(Message) == 64, "one cache line");
 
 // Heap entry; the Python heap item is (time, (sender_id, recipient_id, message)) and
 // messages compare by message_id, so (time, sender, recipient, message_id) is the order.
@@ -195,6 +202,7 @@ struct SendInfo {
 // Simulation
 // ------------------------------------------------------------------------------------------
 
+template <bool kLedger, bool kRadix>
 class Sim;
 
 // TradingAgent.orders: a dict keyed by order id. This engine hands out order ids in ascending
@@ -262,6 +270,9 @@ struct Trader {
   std::vector<double> mid_hist;
 };
 
+// kLedger: P.ledger; kRadix: the CalendarQueue path (packed keys, no negative delay). Both
+// fixed per run, so each combination is compiled without their branches.
+template <bool kLedger, bool kRadix>
 class Sim {
  public:
   explicit Sim(Params p, MessageSink* sink, TraceSink* trace_sink)
@@ -279,8 +290,8 @@ class Sim {
   std::vector<QEntry> heap;
   std::vector<PackedEntry> pheap;
   CalendarQueue<PackedEntry> rqueue;
-  bool packed = false;  // pheap (or rqueue) in use (see PackedEntry)
-  bool radix = false;   // rqueue in use: packed keys and no negative latency/delay
+  bool packed = kRadix;  // pheap (or rqueue) in use (see PackedEntry)
+  static constexpr bool radix = kRadix;  // rqueue in use: packed keys and no negative latency/delay
   // Deliveries waiting for a busy agent (radix runs only; see Sim::defer). waiting[r] is a
   // min-heap by (route, msg_id); the queue holds one stand-in entry for it (slot kStandIn,
   // info = its generation), keyed like the heap's smallest entry. A newer stand-in makes the
@@ -343,7 +354,7 @@ class Sim {
   }
   void deliver_row(int64_t msg_id, int32_t src, int32_t dst, bool has_send, int64_t t_send,
                    int64_t t_recv, uint8_t type, bool has_oid, int64_t oid, int64_t causal_v) {
-    if (P.ledger) out.deliver(msg_id, src, dst, has_send, t_send, t_recv, type, has_oid, oid, causal_v);
+    if (kLedger) out.deliver(msg_id, src, dst, has_send, t_send, t_recv, type, has_oid, oid, causal_v);
     ++n_messages;
   }
   // 4-ary min-heap on QEntry's total order (keys are unique: msg_id is unique per message and
@@ -388,7 +399,8 @@ class Sim {
   static bool packed_gt(const PackedEntry& a, const PackedEntry& b) { return a.key() > b.key(); }
   static bool full_gt(const QEntry& a, const QEntry& b) { return a > b; }
   bool heap_empty() const {
-    return radix ? rqueue.empty() : packed ? pheap.empty() : heap.empty();
+    if (radix) return rqueue.empty();
+    return packed ? pheap.empty() : heap.empty();
   }
   void heap_push(const QEntry& e) {
     if (packed) {
@@ -447,7 +459,7 @@ class Sim {
     Message& m = msgs[slot];
     m.refs++;
     int32_t info = 0;  // the send-time ledger fields, kept only for a ledger
-    if (P.ledger) {
+    if (kLedger) {
       const SendInfo si{sent_time, deliver_at, has_causal ? causal : -1};
       if (!free_info.empty()) {
         info = free_info.back();
@@ -555,7 +567,8 @@ class Sim {
 // ------------------------------------------------------------------------------------------
 
 // sparse_mean_reverting_oracle.compute_fundamental_at_timestamp
-int64_t Sim::compute_fundamental(const Num& ts, double v_adj, bool adj_is_float, const Num& pt,
+template <bool kLedger, bool kRadix>
+int64_t Sim<kLedger, kRadix>::compute_fundamental(const Num& ts, double v_adj, bool adj_is_float, const Num& pt,
                                  int64_t pv) {
   const Num d = sub(ts, pt);
   const double dd = d.as_double();
@@ -586,7 +599,8 @@ int64_t Sim::compute_fundamental(const Num& ts, double v_adj, bool adj_is_float,
 }
 
 // advance_fundamental_value_series
-int64_t Sim::advance(const Num& t) {
+template <bool kLedger, bool kRadix>
+int64_t Sim<kLedger, kRadix>::advance(const Num& t) {
   Num pt = r_t;
   int64_t pv = r_v;
   if (le(t, pt)) return pv;
@@ -608,7 +622,8 @@ int64_t Sim::advance(const Num& t) {
 }
 
 // observe_price
-int64_t Sim::observe(int64_t t, RandomState& rs, double sigma_n) {
+template <bool kLedger, bool kRadix>
+int64_t Sim<kLedger, kRadix>::observe(int64_t t, RandomState& rs, double sigma_n) {
   const int64_t r = (t >= P.oracle_close) ? advance(Num::of_int(P.oracle_close - 1))
                                            : advance(Num::of_int(t));
   if (sigma_n == 0) return r;
@@ -620,7 +635,8 @@ int64_t Sim::observe(int64_t t, RandomState& rs, double sigma_n) {
 // ------------------------------------------------------------------------------------------
 
 // ExchangeAgent.wakeup
-void Sim::exchange_wakeup(int64_t t) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::exchange_wakeup(int64_t t) {
   ex_time = t;
   if (t >= P.mkt_close) {
     const int32_t slot = new_msg(MT_MKT_CLOSE_PRICE);  // one message, many recipients
@@ -630,7 +646,8 @@ void Sim::exchange_wakeup(int64_t t) {
 }
 
 // ExchangeAgent.receive_message
-void Sim::exchange_receive(int64_t t, int32_t sender, int32_t slot) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::exchange_receive(int64_t t, int32_t sender, int32_t slot) {
   ex_time = t;
   comp_delays[0] = P.computation_delay;  // set_computation_delay(self.computation_delay)
   const uint8_t type = msgs[slot].type;
@@ -681,12 +698,14 @@ void Sim::exchange_receive(int64_t t, int32_t sender, int32_t slot) {
 }
 
 // OrderBook.enter_order (no PTC / hidden / insert_by_id orders on this path)
-void Sim::enter_order(const Order& order) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::enter_order(const Order& order) {
   PriceSide& book = order.side == BID ? bids : asks;
   book.enter(order);
 }
 
-bool Sim::cancel_order(const Order& order) {
+template <bool kLedger, bool kRadix>
+bool Sim<kLedger, kRadix>::cancel_order(const Order& order) {
   PriceSide& book = order.side == BID ? bids : asks;
   Order cancelled;
   if (!book.cancel(order, cancelled)) return false;
@@ -697,7 +716,8 @@ bool Sim::cancel_order(const Order& order) {
 }
 
 // OrderBook.execute_order. Returns false for "None" (no match).
-bool Sim::execute_order(Order& order, int64_t& matched_qty, int64_t& matched_price) {
+template <bool kLedger, bool kRadix>
+bool Sim<kLedger, kRadix>::execute_order(Order& order, int64_t& matched_qty, int64_t& matched_price) {
   PriceSide& book = order.side == BID ? asks : bids;
   if (book.empty()) return false;
   const PriceLevel& lvl = book.best();
@@ -724,7 +744,8 @@ bool Sim::execute_order(Order& order, int64_t& matched_qty, int64_t& matched_pri
 }
 
 // OrderBook.handle_limit_order (quiet=False)
-void Sim::handle_limit_order(Order order) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::handle_limit_order(Order order) {
   if (order.quantity <= 0 || order.limit_price < 0) return;  // discarded with a warning
   int64_t trade_qty = 0;
   bool executed_any = false;
@@ -775,7 +796,8 @@ void Sim::handle_limit_order(Order order) {
 // Traders (TradingAgent + abides_fork.agents.ScheduledAgent subclasses)
 // ------------------------------------------------------------------------------------------
 
-void Sim::place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price) {
   Order o;
   o.order_id = next_order_id++;  // LimitOrder() takes an id even if then ignored
   o.agent_id = a.id;
@@ -790,7 +812,8 @@ void Sim::place_limit_order(Trader& a, int64_t qty, int8_t side, int64_t price) 
   log_order(a, a.current_time, TM_ORDER_SUBMITTED, o);
 }
 
-void Sim::trader_wakeup(Trader& a, int64_t t) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::trader_wakeup(Trader& a, int64_t t) {
   a.current_time = t;
   // TradingAgent.wakeup
   if (a.first_wake) {
@@ -806,7 +829,8 @@ void Sim::trader_wakeup(Trader& a, int64_t t) {
   a.awaiting_spread = true;
 }
 
-void Sim::trader_receive(Trader& a, int64_t t, int32_t slot) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::trader_receive(Trader& a, int64_t t, int32_t slot) {
   a.current_time = t;
   const Message& m = msgs[slot];
   const bool had_hours = a.have_hours;
@@ -858,7 +882,8 @@ void Sim::trader_receive(Trader& a, int64_t t, int32_t slot) {
   }
 }
 
-void Sim::act(Trader& a) {
+template <bool kLedger, bool kRadix>
+void Sim<kLedger, kRadix>::act(Trader& a) {
   // get_known_bid_ask: None when the side is empty; Python truthiness also treats 0 as false.
   const bool bid = a.kb && a.kb_p != 0;
   const bool ask = a.ka && a.ka_p != 0;
@@ -943,7 +968,8 @@ void Sim::act(Trader& a) {
 // Run
 // ------------------------------------------------------------------------------------------
 
-Result Sim::run() {
+template <bool kLedger, bool kRadix>
+Result Sim<kLedger, kRadix>::run() {
   const int32_t n_agents = static_cast<int32_t>(P.agents.size()) + 1;
   // --- abides_fork.config.build_config: global RNG draw order ---
   global_rs.seed(P.seed);
@@ -980,8 +1006,7 @@ Result Sim::run() {
   // --- Kernel.__init__ / initialize ---
   packed = n_agents <= 0x10000;  // agent ids 0..n_agents-1 fit 16 bits
   // Without negative latencies/delays nothing is ever scheduled before the current time.
-  radix = packed && P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
-          P.pipeline_delay >= 0 && P.computation_delay >= 0;
+  // radix (kRadix) == packed && no negative latency/delay: see t3::run.
   current_time = P.start_time;
   // Capacity for 2M order ids up front (only the pages written are touched): growing it by
   // doubling copied it and returned the old block to the OS each time.
@@ -1044,7 +1069,7 @@ Result Sim::run() {
       agent_times[r] += comp_delays[r];
       has_causal = true;
       causal = m.id;
-      if (P.ledger) {
+      if (kLedger) {
         const SendInfo si = send_info[e.info];
         free_info.push_back(e.info);
         deliver_row(m.id, e.sender(), r, true, si.t_send, si.t_recv, m.type, m.has_order(),
@@ -1064,7 +1089,8 @@ Result Sim::run() {
 }
 
 // trace.extract_trace + trace.extract_message_trace
-Result Sim::extract() {
+template <bool kLedger, bool kRadix>
+Result Sim<kLedger, kRadix>::extract() {
   Result res;
   // Trace rows and the ledger rows not handed to the sink (all of them without a sink),
   // both in seq order.
@@ -1078,8 +1104,16 @@ Result Sim::extract() {
 }  // namespace
 
 Result run(Params params, MessageSink* sink, TraceSink* trace_sink) {
-  Sim sim(std::move(params), sink, trace_sink);
-  return sim.run();
+  const bool packed = params.agents.size() + 1 <= 0x10000;
+  const bool radix = packed && params.lat_min >= 0 && params.lat_max >= 0 &&
+                     params.default_delay >= 0 && params.pipeline_delay >= 0 &&
+                     params.computation_delay >= 0;
+  if (params.ledger) {
+    if (radix) return std::make_unique<Sim<true, true>>(std::move(params), sink, trace_sink)->run();
+    return std::make_unique<Sim<true, false>>(std::move(params), sink, trace_sink)->run();
+  }
+  if (radix) return std::make_unique<Sim<false, true>>(std::move(params), sink, trace_sink)->run();
+  return std::make_unique<Sim<false, false>>(std::move(params), sink, trace_sink)->run();
 }
 
 }  // namespace t3

@@ -99,8 +99,8 @@ class RadixQueue {
   // (a descending sort of the same input was quadratic).
   static void sort_asc(std::vector<E>& v) {
     const size_t n = v.size();
-    if (n > 32) {  // e.g. many agents waking at one nanosecond, in no particular order
-      std::sort(v.begin(), v.end(), key_asc);
+    if (n > 32) {  // e.g. many agents waking at one nanosecond (often pushed in order)
+      if (!std::is_sorted(v.begin(), v.end(), key_asc)) std::sort(v.begin(), v.end(), key_asc);
       return;
     }
     for (size_t i = 1; i < n; i++) {
