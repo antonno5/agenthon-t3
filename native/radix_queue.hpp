@@ -197,8 +197,9 @@ class CalendarQueue {
  public:
   bool empty() const { return near_n_ == 0 && far_n_ == 0; }
 
-  void push(const E& e) {
-    if (e.time < last_) throw std::runtime_error("event scheduled before the current time");
+  // The near path inline, the rest (radix heap, errors) out of line.
+  __attribute__((always_inline)) void push(const E& e) {
+    if (__builtin_expect(e.time < last_, 0)) refuse();
     const int64_t q = e.time >> kShift;
     if (q - q0_ < kNear) {  // q >= q0_ since e.time >= last_
       const int s = static_cast<int>(q & (kNear - 1));
@@ -288,7 +289,10 @@ class CalendarQueue {
     last_ = t;
     q0_ = t >> kShift;
   }
-  void far_push(const E& e) {
+  [[noreturn]] __attribute__((noinline, cold)) static void refuse() {
+    throw std::runtime_error("event scheduled before the current time");
+  }
+  __attribute__((noinline)) void far_push(const E& e) {
     far_.push(e);
     far_n_++;
     const unsigned __int128 k = key(e);
