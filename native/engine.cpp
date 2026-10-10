@@ -329,8 +329,6 @@ class Sim {
   int64_t ex_time = 0;
   BookArena exchange_orders;
   PriceSide bids{true, exchange_orders}, asks{false, exchange_orders};
-  bool has_last_trade = true;
-  int64_t last_trade = 0;
   std::vector<int32_t> close_price_subs;
   OutputLog out;  // trace + ledger, built on its own thread in call order
   // traders (agent ids 1..n)
@@ -765,9 +763,8 @@ bool Sim<kLedger, kRadix>::execute_order(Order& order, int64_t& matched_qty, int
 template <bool kLedger, bool kRadix>
 void Sim<kLedger, kRadix>::handle_limit_order(Order order) {
   if (order.quantity <= 0 || order.limit_price < 0) return;  // discarded with a warning
-  int64_t trade_qty = 0;
-  bool executed_any = false;
-  int64_t trade_price_i = 0;
+  // The exchange's last_trade (avg_price = int(round(trade_price / trade_qty)) after an
+  // execution) only feeds mark_to_market, which nothing here reports: not computed.
   while (true) {
     if (P.stp != STP_NONE) {
       PriceSide& opp = order.side == BID ? asks : bids;
@@ -790,9 +787,6 @@ void Sim<kLedger, kRadix>::handle_limit_order(Order order) {
     }
     int64_t q, p;
     if (execute_order(order, q, p)) {
-      executed_any = true;
-      trade_qty += q;
-      trade_price_i += p * q;
       if (order.quantity <= 0) break;
     } else {
       enter_order(order);
@@ -803,11 +797,6 @@ void Sim<kLedger, kRadix>::handle_limit_order(Order order) {
     }
   }
   log_best();
-  if (executed_any) {
-    // avg_price = int(round(trade_price / trade_qty)) -- int/int true division
-    last_trade = py_round(static_cast<double>(trade_price_i) / static_cast<double>(trade_qty));
-    has_last_trade = true;
-  }
 }
 
 // ------------------------------------------------------------------------------------------
@@ -914,13 +903,11 @@ void Sim<kLedger, kRadix>::act(Trader& a) {
       const int64_t size = std::max<int64_t>(1, py_round(draw));
       const bool buy = a.rs.randint(0, 2) != 0;
       const int64_t offset = a.rs.randint(0, a.p.i0 + 1);
-      if (buy) {
-        const int64_t anchor = ask ? ap : (bid ? bp : a.p.i1);
-        place_limit_order(a, size, BID, anchor + offset);
-      } else {
-        const int64_t anchor = bid ? bp : (ask ? ap : a.p.i1);
-        place_limit_order(a, size, ASK, anchor - offset);
-      }
+      // buy: BID at (ask, else bid, else reference) + offset; sell: ASK at (bid, else ask, else
+      // reference) - offset. Selects, not branches: the side is a coin flip.
+      const int64_t buy_anchor = ask ? ap : (bid ? bp : a.p.i1);
+      const int64_t sell_anchor = bid ? bp : (ask ? ap : a.p.i1);
+      place_limit_order(a, size, buy ? BID : ASK, buy ? buy_anchor + offset : sell_anchor - offset);
       break;
     }
     case MARKET_MAKER: {
@@ -1034,7 +1021,6 @@ Result Sim<kLedger, kRadix>::run() {
   order_pos.reserve(size_t{1} << 21);
   agent_times.assign(n_agents, P.start_time);
   comp_delays.assign(n_agents, P.default_delay);
-  last_trade = P.r_bar;  // ExchangeAgent.kernel_initializing: oracle.get_daily_open_price
   set_wakeup(0, P.mkt_close);
   for (int32_t a = 0; a < n_agents; a++) set_wakeup(a, P.start_time);  // Agent.kernel_starting
   current_time = P.start_time;
