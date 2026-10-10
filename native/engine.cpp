@@ -268,7 +268,7 @@ class Sim {
   std::vector<int64_t> agent_times, comp_delays;
   std::vector<QEntry> heap;
   std::vector<PackedEntry> pheap;
-  RadixQueue<PackedEntry> rqueue;
+  CalendarQueue<PackedEntry> rqueue;
   bool packed = false;  // pheap (or rqueue) in use (see PackedEntry)
   bool radix = false;   // rqueue in use: packed keys and no negative latency/delay
   // Deliveries waiting for a busy agent (radix runs only; see Sim::defer). waiting[r] is a
@@ -973,6 +973,9 @@ Result Sim::run() {
   radix = packed && P.lat_min >= 0 && P.lat_max >= 0 && P.default_delay >= 0 &&
           P.pipeline_delay >= 0 && P.computation_delay >= 0;
   current_time = P.start_time;
+  // Capacity for 2M order ids up front (only the pages written are touched): growing it by
+  // doubling copied it and returned the old block to the OS each time.
+  order_pos.reserve(size_t{1} << 21);
   agent_times.assign(n_agents, P.start_time);
   comp_delays.assign(n_agents, P.default_delay);
   last_trade = P.r_bar;  // ExchangeAgent.kernel_initializing: oracle.get_daily_open_price

@@ -695,6 +695,9 @@ struct TraceWriter::Impl {
   std::vector<std::vector<Column>> rgs;
   std::vector<std::vector<Placed>> placed;
   std::vector<int64_t> rows;
+  // Row copies the writer is done with, reused so their pages are not faulted in again.
+  std::mutex pool_m;
+  std::vector<std::shared_ptr<TraceColumns>> pool;
   // Writer thread: encodes rows [off, off + k) of t's columns but msg_type as a row group.
   void row_group(const TraceColumns& t, size_t off, size_t k, bool parallel) {
     rgs.push_back(trace_columns());
@@ -712,9 +715,9 @@ struct TraceWriter::Impl {
 };
 
 template <class T>
-std::vector<T> copy_rows(const std::vector<T>& v, size_t off, size_t k) {
-  return std::vector<T>(v.begin() + static_cast<std::ptrdiff_t>(off),
-                        v.begin() + static_cast<std::ptrdiff_t>(off + k));
+void copy_rows(std::vector<T>& to, const std::vector<T>& v, size_t off, size_t k) {
+  to.assign(v.begin() + static_cast<std::ptrdiff_t>(off),
+            v.begin() + static_cast<std::ptrdiff_t>(off + k));
 }
 
 // Returns the memory of rows [from, to) of a column to the OS. Only for rows that are encoded
@@ -738,14 +741,26 @@ void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
   const size_t before = w.encoded;
   for (; w.encoded + kTraceGroupRows <= n; w.encoded += kTraceGroupRows) {
     if (!w.file) w.file = std::make_unique<StreamFile>(w.path);
-    auto rows = std::make_shared<TraceColumns>();
-    rows->t_ns = copy_rows(t.t_ns, w.encoded, kTraceGroupRows);
-    rows->agent_id = copy_rows(t.agent_id, w.encoded, kTraceGroupRows);
-    rows->side = copy_rows(t.side, w.encoded, kTraceGroupRows);
-    rows->price = copy_rows(t.price, w.encoded, kTraceGroupRows);
-    rows->size = copy_rows(t.size, w.encoded, kTraceGroupRows);
-    rows->order_id = copy_rows(t.order_id, w.encoded, kTraceGroupRows);
-    w.file->post([&w, rows] { w.row_group(*rows, 0, kTraceGroupRows, false); });
+    std::shared_ptr<TraceColumns> rows;
+    {
+      std::lock_guard<std::mutex> l(w.pool_m);
+      if (!w.pool.empty()) {
+        rows = std::move(w.pool.back());
+        w.pool.pop_back();
+      }
+    }
+    if (!rows) rows = std::make_shared<TraceColumns>();
+    copy_rows(rows->t_ns, t.t_ns, w.encoded, kTraceGroupRows);
+    copy_rows(rows->agent_id, t.agent_id, w.encoded, kTraceGroupRows);
+    copy_rows(rows->side, t.side, w.encoded, kTraceGroupRows);
+    copy_rows(rows->price, t.price, w.encoded, kTraceGroupRows);
+    copy_rows(rows->size, t.size, w.encoded, kTraceGroupRows);
+    copy_rows(rows->order_id, t.order_id, w.encoded, kTraceGroupRows);
+    w.file->post([&w, rows] {
+      w.row_group(*rows, 0, kTraceGroupRows, false);
+      std::lock_guard<std::mutex> l(w.pool_m);
+      w.pool.push_back(rows);
+    });
   }
   if (w.encoded > before) {
     release_rows(t.t_ns, before, w.encoded);

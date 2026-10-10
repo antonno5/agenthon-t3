@@ -47,6 +47,7 @@ class RadixQueue {
     size_++;
     if (head_ < run_.size() && key(e) < key(run_.back())) {  // below the run's largest entry
       run_.insert(std::upper_bound(run_.begin() + head_, run_.end(), e, key_asc), e);
+      if (run_.size() - head_ > kRunMax) spill();
       return;
     }
     const int b = bucket_of(t);
@@ -54,6 +55,17 @@ class RadixQueue {
     if (b == 64) high_ = true; else mask_ |= uint64_t{1} << b;
   }
 
+  // The smallest key, without reordering anything (the queue is not empty).
+  unsigned __int128 min_key() const {
+    if (head_ < run_.size()) return key(run_[head_]);
+    const std::vector<E>& src = buckets_[mask_ ? __builtin_ctzll(mask_) : 64];
+    unsigned __int128 m = key(src[0]);
+    for (size_t i = 1; i < src.size(); i++) {
+      const unsigned __int128 k = key(src[i]);
+      if (k < m) m = k;
+    }
+    return m;
+  }
   E pop() {
     if (head_ == run_.size()) refill();
     const E e = run_[head_++];
@@ -67,6 +79,7 @@ class RadixQueue {
   // a run keeps taking the pushes below its largest entry, so it must not reach far ahead.
   static constexpr size_t kSortWhole = 32;
   static constexpr int kSortMaxBit = T3_RQ_MAXBIT;
+  static constexpr size_t kRunMax = 64;
   // 65 buckets: bit b of mask_ marks bucket b (< 64) non-empty; bucket 64 is tracked by high_.
   std::vector<E> buckets_[65];
   std::vector<E> run_;  // the smallest entries, by ascending key; [head_, end) not yet popped
@@ -108,6 +121,21 @@ class RadixQueue {
     if (b == 64) high_ = false; else mask_ &= ~(uint64_t{1} << b);
   }
 
+  // Once the run outgrows kRunMax, its upper half goes back to the buckets: a run that is not
+  // being drained (CalendarQueue's far part takes the pushes below its largest entry while
+  // the near part is popped) would otherwise grow without bound, each insert moving all of
+  // it. Every bucket entry is at least the old run's largest, hence at least the remaining
+  // run's largest; and every queued time is at least ref_ (pushes are not before the last pop).
+  void spill() {
+    const size_t keep = head_ + kRunMax / 2;
+    for (size_t i = keep; i < run_.size(); i++) {
+      const int b = bucket_of(ukey(run_[i].time));
+      buckets_[b].push_back(run_[i]);
+      if (b == 64) high_ = true; else mask_ |= uint64_t{1} << b;
+    }
+    run_.resize(keep);
+  }
+
   // Makes the lowest non-empty bucket the run (the queue is not empty, the run is).
   void refill() {
     for (;;) {
@@ -138,6 +166,101 @@ class RadixQueue {
       moving.clear();
       src.swap(moving);  // keep the bucket's capacity
     }
+  }
+};
+
+// The kernel's event queue for radix runs: a calendar ring for the near future in front of the
+// radix heap. Most entries are messages due within a few microseconds of the current time
+// (latency draws); they go straight into a ring of kNear buckets of 2^kShift ns each, covering
+// [current bucket, current bucket + kNear), each a small array sorted by key, in one
+// contiguous block (so the ring stays in cache), with a bitmask of non-empty buckets.
+// Everything later -- agents' next wake-ups -- and any entry whose bucket is full goes to the
+// radix heap. pop() takes the smaller of the first non-empty bucket's head and the radix heap's
+// minimum (cached; read without reordering it, so the radix heap only advances when its own
+// minimum is popped and its invariant -- nothing queued before the last pop -- still holds),
+// so the order is exactly the (time, k2) order. Valid when no entry is pushed before the last
+// popped time (as for RadixQueue): a bucket the current time has passed is then empty.
+template <class E>
+class CalendarQueue {
+ public:
+  bool empty() const { return mask_ == 0 && far_n_ == 0; }
+
+  void push(const E& e) {
+    if (e.time < last_) throw std::runtime_error("event scheduled before the current time");
+    const int64_t q = e.time >> kShift;
+    if (q - q0_ < kNear) {  // q >= q0_ since e.time >= last_
+      const int s = static_cast<int>(q & (kNear - 1));
+      Bucket& b = bucket_[s];
+      if (b.end < kCap) {
+        E* v = slot_[s];
+        const unsigned __int128 k = key(e);
+        int i = b.end++;
+        while (i > b.head && k < key(v[i - 1])) {
+          v[i] = v[i - 1];
+          i--;
+        }
+        v[i] = e;
+        mask_ |= uint64_t{1} << s;
+        return;
+      }
+    }
+    far_push(e);
+  }
+
+  E pop() {
+    if (mask_) {
+      const int s0 = static_cast<int>(q0_ & (kNear - 1));
+      const uint64_t rot = s0 ? (mask_ >> s0) | (mask_ << (kNear - s0)) : mask_;
+      const int s = (s0 + __builtin_ctzll(rot)) & (kNear - 1);
+      Bucket& b = bucket_[s];
+      const E& head = slot_[s][b.head];
+      if (key(head) < far_min_) {
+        const E e = head;
+        if (++b.head == b.end) {
+          b.head = b.end = 0;
+          mask_ &= ~(uint64_t{1} << s);
+        }
+        advance(e.time);
+        return e;
+      }
+    }
+    const E e = far_.pop();
+    far_min_ = --far_n_ ? far_.min_key() : kNone;
+    advance(e.time);
+    return e;
+  }
+
+ private:
+  static constexpr int kShift = 5;  // 32 ns buckets
+  static constexpr int kNear = 64;  // ring of 2 us (one bit of mask_ per bucket)
+  static constexpr int kCap = 16;   // entries per bucket; more go to the radix heap
+  static constexpr unsigned __int128 kNone = ~static_cast<unsigned __int128>(0);
+  struct Bucket {
+    int head = 0, end = 0;  // slot_[s][head, end) sorted by key
+  };
+  Bucket bucket_[kNear];
+  E slot_[kNear][kCap];
+  uint64_t mask_ = 0;  // bit s: bucket s holds entries
+  // Bucket number and time of the last pop; before the first pop, nothing is near (the
+  // initial wake-ups all go to the heap).
+  int64_t q0_ = INT64_MIN / 2, last_ = INT64_MIN;
+  RadixQueue<E> far_;
+  size_t far_n_ = 0;
+  unsigned __int128 far_min_ = kNone;  // far_'s smallest key
+
+  static unsigned __int128 key(const E& e) {
+    return (static_cast<unsigned __int128>(static_cast<uint64_t>(e.time) ^ (uint64_t{1} << 63))
+            << 64) | e.k2;
+  }
+  void advance(int64_t t) {
+    last_ = t;
+    q0_ = t >> kShift;
+  }
+  void far_push(const E& e) {
+    far_.push(e);
+    far_n_++;
+    const unsigned __int128 k = key(e);
+    if (k < far_min_) far_min_ = k;
   }
 };
 
