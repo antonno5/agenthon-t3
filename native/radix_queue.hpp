@@ -205,14 +205,7 @@ class CalendarQueue {
       const int s = static_cast<int>(q & (kNear - 1));
       Bucket& b = bucket_[s];
       if (b.end < kCap) {
-        E* v = slot_[s];
-        const unsigned __int128 k = key(e);
-        int i = b.end++;
-        while (i > b.head && k < key(v[i - 1])) {
-          v[i] = v[i - 1];
-          i--;
-        }
-        v[i] = e;
+        slot_[s][b.end++] = e;  // unordered: pop() picks the smallest
         mask_[s >> 6] |= uint64_t{1} << (s & 63);
         near_n_++;
         return;
@@ -225,13 +218,19 @@ class CalendarQueue {
     if (near_n_) {
       const int s = first_from(static_cast<int>(q0_ & (kNear - 1)));
       Bucket& b = bucket_[s];
-      const E& head = slot_[s][b.head];
-      if (key(head) < far_min_) {
-        const E e = head;
-        if (++b.head == b.end) {
-          b.head = b.end = 0;
-          mask_[s >> 6] &= ~(uint64_t{1} << (s & 63));
-        }
+      E* v = slot_[s];
+      int j = 0;
+      unsigned __int128 kj = key(v[0]);
+      for (int i = 1; i < b.end; i++) {
+        const unsigned __int128 ki = key(v[i]);
+        const bool lt = ki < kj;
+        kj = lt ? ki : kj;
+        j = lt ? i : j;
+      }
+      if (kj < far_min_) {
+        const E e = v[j];
+        v[j] = v[--b.end];
+        if (b.end == 0) mask_[s >> 6] &= ~(uint64_t{1} << (s & 63));
         near_n_--;
         advance(e.time);
         return e;
@@ -251,7 +250,7 @@ class CalendarQueue {
   static_assert(kNear % 64 == 0 && (kNear & (kNear - 1)) == 0, "ring of 64-bucket words");
   static constexpr unsigned __int128 kNone = ~static_cast<unsigned __int128>(0);
   struct Bucket {
-    int head = 0, end = 0;  // slot_[s][head, end) sorted by key
+    int end = 0;  // slot_[s][0, end) holds the bucket's entries, in no particular order
   };
   Bucket bucket_[kNear];
   E slot_[kNear][kCap];
