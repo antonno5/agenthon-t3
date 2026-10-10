@@ -45,10 +45,8 @@ class Lane {
   }
 
   Rec& next() {
-    if (fill_ == kChunkRecs) publish();
-    if (fill_ == 0 && head_ - consumed_.load() >= kChunks)  // the slot's chunk is still in use
-      space_.wait_until([this] { return head_ - consumed_.load() < kChunks; });
-    return ring_[head_ % kChunks].recs[fill_++];
+    if (cur_ == end_) open_chunk();
+    return *cur_++;
   }
   // Publishes the tail, waits for the consumer; rethrows its error.
   void join() {
@@ -69,7 +67,8 @@ class Lane {
   };
   std::unique_ptr<Chunk[]> ring_;
   size_t head_ = 0;  // producer: chunks published
-  size_t fill_ = 0;  // producer: records in the current chunk
+  Rec* cur_ = nullptr;  // producer: next record of the open chunk (null: none open)
+  Rec* end_ = nullptr;
   alignas(64) std::atomic<size_t> published_{0};
   alignas(64) std::atomic<size_t> consumed_{0};
   std::atomic<bool> done_{false}, abort_{false};
@@ -79,13 +78,24 @@ class Lane {
 
   // A sleeping consumer is woken (a futex syscall) only once kWakeChunks are waiting, or by
   // join(); a spinning one sees every chunk as it is published.
+  // Publishes the open (full) chunk and opens the next one once its slot is free.
+  void open_chunk() {
+    if (cur_) publish();
+    if (head_ - consumed_.load() >= kChunks)  // the slot's chunk is still in use
+      space_.wait_until([this] { return head_ - consumed_.load() < kChunks; });
+    Chunk& c = ring_[head_ % kChunks];
+    cur_ = c.recs;
+    end_ = c.recs + kChunkRecs;
+  }
   void publish(bool wake = false) {
-    if (fill_ == 0) {
+    Chunk& c = ring_[head_ % kChunks];
+    const size_t fill = cur_ ? static_cast<size_t>(cur_ - c.recs) : 0;
+    cur_ = end_ = nullptr;
+    if (fill == 0) {
       if (wake) data_.notify();
       return;
     }
-    ring_[head_ % kChunks].n = fill_;
-    fill_ = 0;
+    c.n = fill;
     published_.store(++head_);
     if (wake || head_ - consumed_.load(std::memory_order_relaxed) >= kWakeChunks) data_.notify();
   }

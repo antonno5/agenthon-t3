@@ -7,12 +7,15 @@
 #include "radix_queue.hpp"
 #include "trace_stream.hpp"
 
+#include <sys/mman.h>
+
 #include <algorithm>
 #include <cmath>
 #include <deque>
 #include <memory>
 #include <limits>
 #include <stdexcept>
+#include <type_traits>
 #include <unordered_map>
 
 namespace t3 {
@@ -131,28 +134,42 @@ static_assert(sizeof(Message) == 64, "one cache line");
 // with plain shift/mask indexing instead of deque iterator arithmetic.
 class MessageSlab {
  public:
-  // Recycled slots are reused last-freed-first, so nearly every live slot is in the first
-  // block: one load instead of two.
-  Message& operator[](size_t i) {
-    return i < kBlock ? first_[i] : blocks_[i >> kShift][i & kMask];
+  // Message storage: one reserved address range, committed in chunks as it fills, so slots
+  // never move (handlers hold references to the message being delivered while creating new
+  // ones) and indexing is a plain array access.
+  MessageSlab() {
+    for (size_t n = kReserve; n >= kChunk; n /= 2) {
+      void* p = mmap(nullptr, n * sizeof(Message), PROT_NONE,
+                     MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+      if (p != MAP_FAILED) {
+        base_ = static_cast<Message*>(p);
+        reserved_ = n;
+        return;
+      }
+    }
+    throw std::bad_alloc();
   }
-  const Message& operator[](size_t i) const {
-    return i < kBlock ? first_[i] : blocks_[i >> kShift][i & kMask];
-  }
+  ~MessageSlab() { munmap(base_, reserved_ * sizeof(Message)); }
+  MessageSlab(const MessageSlab&) = delete;
+  MessageSlab& operator=(const MessageSlab&) = delete;
+  Message& operator[](size_t i) { return base_[i]; }
+  const Message& operator[](size_t i) const { return base_[i]; }
   size_t size() const { return size_; }
   void push_back(const Message& m) {
-    if ((size_ & kMask) == 0) {
-      blocks_.emplace_back(new Message[kBlock]);
-      if (!first_) first_ = blocks_[0].get();
+    if (size_ == committed_) {
+      if (committed_ == reserved_) throw std::bad_alloc();
+      if (mprotect(base_ + committed_, kChunk * sizeof(Message), PROT_READ | PROT_WRITE) != 0)
+        throw std::bad_alloc();
+      committed_ += kChunk;
     }
-    (*this)[size_++] = m;
+    base_[size_++] = m;
   }
 
  private:
-  static constexpr size_t kShift = 12, kBlock = size_t{1} << kShift, kMask = kBlock - 1;
-  std::vector<std::unique_ptr<Message[]>> blocks_;
-  Message* first_ = nullptr;
-  size_t size_ = 0;
+  static constexpr size_t kChunk = 4096;          // 256 KiB
+  static constexpr size_t kReserve = size_t{1} << 28;  // 16 GiB of address space
+  Message* base_ = nullptr;
+  size_t reserved_ = 0, committed_ = 0, size_ = 0;
 };
 
 // Heap entry, 32 bytes. The Python heap item is (time, (sender_id, recipient_id, message))
@@ -169,6 +186,15 @@ struct QEntry {
   int32_t info;    // index into Sim::send_info, -1 for wakeups
   int32_t sender() const { return static_cast<int32_t>(route >> 32); }
   int32_t recipient() const { return static_cast<int32_t>(route & 0xffffffffu); }
+  int64_t mid() const { return msg_id; }
+  static QEntry make(int64_t time, int32_t sender, int32_t recipient, int64_t msg_id,
+                     int32_t slot, int32_t info) {
+    return QEntry{time, make_route(sender, recipient), msg_id, slot, info};
+  }
+  // (route, msg_id) order, without the time
+  static bool route_gt(const QEntry& a, const QEntry& b) {
+    return a.route != b.route ? a.route > b.route : a.msg_id > b.msg_id;
+  }
   static uint64_t make_route(int32_t sender, int32_t recipient) {
     return (static_cast<uint64_t>(static_cast<uint32_t>(sender)) << 32) |
            static_cast<uint32_t>(recipient);
@@ -191,6 +217,18 @@ struct PackedEntry {
     return (static_cast<unsigned __int128>(static_cast<uint64_t>(time) ^ (uint64_t{1} << 63))
             << 64) | k2;
   }
+  int32_t sender() const { return static_cast<int32_t>(k2 >> 48); }
+  int32_t recipient() const { return static_cast<int32_t>((k2 >> 32) & 0xffff); }
+  int64_t mid() const { return static_cast<int64_t>(k2 & 0xffffffffu); }
+  static PackedEntry make(int64_t time, int32_t sender, int32_t recipient, int64_t msg_id,
+                          int32_t slot, int32_t info) {
+    return PackedEntry{time,
+                       (static_cast<uint64_t>(sender) << 48) |
+                           (static_cast<uint64_t>(recipient) << 32) |
+                           static_cast<uint64_t>(msg_id),
+                       slot, info};
+  }
+  static bool route_gt(const PackedEntry& a, const PackedEntry& b) { return a.k2 > b.k2; }
 };
 
 struct SendInfo {
@@ -297,7 +335,9 @@ class Sim {
   // info = its generation), keyed like the heap's smallest entry. A newer stand-in makes the
   // older ones stale (their generation no longer matches waiting_gen[r]).
   static constexpr int32_t kStandIn = -2;
-  std::vector<std::vector<QEntry>> waiting;
+  // The queue's entry: packed on the radix path (no conversion on push/pop).
+  using Entry = std::conditional_t<kRadix, PackedEntry, QEntry>;
+  std::vector<std::vector<Entry>> waiting;
   std::vector<int32_t> waiting_gen;
   std::vector<SendInfo> send_info;
   std::vector<int32_t> free_info;
@@ -330,7 +370,7 @@ class Sim {
 
   // --- kernel ---
   int32_t new_msg(uint8_t type) {
-    if (packed && next_msg_id > 0xffffffffll)
+    if ((kRadix || packed) && next_msg_id > 0xffffffffll)
       throw std::runtime_error("message id exceeds the packed heap key");
     // A recycled slot keeps its old payload: every reader only looks at the fields its
     // message type's creator sets (order for order messages, the spread fields for
@@ -402,27 +442,29 @@ class Sim {
     if (radix) return rqueue.empty();
     return packed ? pheap.empty() : heap.empty();
   }
-  void heap_push(const QEntry& e) {
-    if (packed) {
+  void heap_push(const Entry& e) {
+    if constexpr (kRadix) {
+      rqueue.push(e);
+    } else if (packed) {
       const uint64_t k2 = (static_cast<uint64_t>(e.sender()) << 48) |
                           (static_cast<uint64_t>(e.recipient()) << 32) |
                           static_cast<uint64_t>(e.msg_id);
-      if (radix)
-        rqueue.push(PackedEntry{e.time, k2, e.slot, e.info});
-      else
-        heap_push_impl(pheap, PackedEntry{e.time, k2, e.slot, e.info}, packed_gt);
+      heap_push_impl(pheap, PackedEntry{e.time, k2, e.slot, e.info}, packed_gt);
     } else {
       heap_push_impl(heap, e, full_gt);
     }
   }
-  QEntry heap_pop() {
-    if (packed) {
-      const PackedEntry p = radix ? rqueue.pop() : heap_pop_impl(pheap, packed_gt);
+  Entry heap_pop() {
+    if constexpr (kRadix) {
+      return rqueue.pop();
+    } else if (packed) {
+      const PackedEntry p = heap_pop_impl(pheap, packed_gt);
       return QEntry{p.time, QEntry::make_route(static_cast<int32_t>(p.k2 >> 48),
                                                static_cast<int32_t>((p.k2 >> 32) & 0xffff)),
                     static_cast<int64_t>(p.k2 & 0xffffffffu), p.slot, p.info};
+    } else {
+      return heap_pop_impl(heap, full_gt);
     }
-    return heap_pop_impl(heap, full_gt);
   }
   // ScenarioLatencyModel.get_latency: one draw per message between distinct agents.
   struct LatencyDraw {
@@ -470,7 +512,7 @@ class Sim {
         send_info.push_back(si);
       }
     }
-    heap_push(QEntry{deliver_at, QEntry::make_route(sender, recipient), m.id, slot, info});
+    heap_push(Entry::make(deliver_at, sender, recipient, m.id, slot, info));
   }
   // Kernel.runner requeues a delivery whose recipient is still busy (agent_times[r] after its
   // time) at agent_times[r]; while that agent stays busy, each of its other pending deliveries
@@ -480,16 +522,17 @@ class Sim {
   // would, and the order of every processed delivery stays the same (all parked deliveries of
   // r end up at the same time, agent_times[r], and leave by key). Near stop_time the plain
   // requeue is kept, so the loop ends after the same pop.
-  static bool waiting_gt(const QEntry& a, const QEntry& b) {
-    return a.route != b.route ? a.route > b.route : a.msg_id > b.msg_id;
-  }
+  static bool waiting_gt(const Entry& a, const Entry& b) { return Entry::route_gt(a, b); }
   void push_stand_in(int32_t r) {
-    const QEntry& top = waiting[r].front();
-    heap_push(QEntry{agent_times[r], top.route, top.msg_id, kStandIn, ++waiting_gen[r]});
+    Entry e = waiting[r].front();
+    e.time = agent_times[r];
+    e.slot = kStandIn;
+    e.info = ++waiting_gen[r];
+    heap_push(e);
   }
   // Parks e (recipient r busy, agent_times[r] <= stop_time).
-  void defer(const QEntry& e, int32_t r) {
-    std::vector<QEntry>& w = waiting[r];
+  void defer(const Entry& e, int32_t r) {
+    std::vector<Entry>& w = waiting[r];
     const bool smallest = w.empty() || waiting_gt(w.front(), e);
     w.push_back(e);
     std::push_heap(w.begin(), w.end(), waiting_gt);
@@ -497,7 +540,7 @@ class Sim {
   }
   // The parked deliveries go back into the queue at agent_times[r] as plain requeues.
   void unpark(int32_t r) {
-    for (QEntry re : waiting[r]) {
+    for (Entry re : waiting[r]) {
       re.time = agent_times[r];
       heap_push(re);
     }
@@ -518,9 +561,9 @@ class Sim {
     if (current_time != 0 && t < current_time)
       throw std::runtime_error("set_wakeup() called with requested time not in future");
     // A wake-up carries nothing but its message id, so it takes no message slot (slot -1).
-    if (packed && next_msg_id > 0xffffffffll)
+    if ((kRadix || packed) && next_msg_id > 0xffffffffll)
       throw std::runtime_error("message id exceeds the packed heap key");
-    heap_push(QEntry{t, QEntry::make_route(agent, agent), next_msg_id++, -1, -1});
+    heap_push(Entry::make(t, agent, agent, next_msg_id++, -1, -1));
   }
 
   // --- oracle (SparseMeanRevertingOracle) ---
@@ -1024,7 +1067,7 @@ Result Sim<kLedger, kRadix>::run() {
     waiting_gen.assign(n_agents, 0);
   }
   while (!heap_empty() && current_time != 0 && current_time <= P.stop_time) {
-    QEntry e = heap_pop();
+    Entry e = heap_pop();
     current_time = e.time;
     const int32_t r = e.recipient();
     const bool parked = e.slot == kStandIn;
@@ -1039,7 +1082,7 @@ Result Sim<kLedger, kRadix>::run() {
         }
         continue;
       }
-      std::vector<QEntry>& w = waiting[r];
+      std::vector<Entry>& w = waiting[r];
       std::pop_heap(w.begin(), w.end(), waiting_gt);
       e = w.back();
       w.pop_back();
@@ -1049,7 +1092,7 @@ Result Sim<kLedger, kRadix>::run() {
         defer(e, r);
         continue;
       }
-      QEntry re = e;
+      Entry re = e;
       re.time = agent_times[r];
       heap_push(re);
       continue;
@@ -1057,8 +1100,8 @@ Result Sim<kLedger, kRadix>::run() {
     agent_times[r] = current_time;
     if (e.slot < 0) {  // wake-up
       has_causal = true;
-      causal = e.msg_id;
-      deliver_row(e.msg_id, r, r, false, 0, current_time, MT_WAKEUP, false, 0, -1);
+      causal = e.mid();
+      deliver_row(e.mid(), r, r, false, 0, current_time, MT_WAKEUP, false, 0, -1);
       if (r == 0)
         exchange_wakeup(current_time);
       else
