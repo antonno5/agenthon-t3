@@ -258,19 +258,20 @@ class OpenOrders {
   }
 };
 
-struct Trader {
+// Hot fields first and together, the RNG's 2.5 KB key array last (see RandomState).
+struct alignas(64) Trader {
   int32_t id;
-  AgentParams p;
-  RandomState rs;
-  int64_t current_time = 0;
   bool have_hours = false;
-  int64_t mkt_open = 0, mkt_close = 0;
   bool mkt_closed = false, first_wake = true;
   bool awaiting_spread = false;
   bool kb = false, ka = false;  // known_bids / known_asks non-empty
+  int64_t current_time = 0;
+  int64_t mkt_open = 0, mkt_close = 0;
   int64_t kb_p = 0, kb_q = 0, ka_p = 0, ka_q = 0;
+  AgentParams p;
   OpenOrders orders;
   std::vector<double> mid_hist;
+  RandomState rs;
 };
 
 // kLedger: P.ledger; kRadix: the CalendarQueue path (packed keys, no negative delay). Both

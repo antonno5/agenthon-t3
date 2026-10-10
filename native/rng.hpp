@@ -146,10 +146,12 @@ class RandomState {
     return val;
   }
 
-  uint32_t key_[N];
+  // The small state first: an owner that keeps hot fields just before a RandomState then
+  // touches one cache line for them and pos_, plus the line of key_[pos_].
   int pos_;
   bool has_gauss_;
   double gauss_;
+  uint32_t key_[N];
 };
 
 }  // namespace t3
