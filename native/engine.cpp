@@ -549,8 +549,14 @@ class Sim {
   bool execute_order(Order& order, int64_t& matched_qty, int64_t& matched_price);
   void enter_order(const Order& order);
   void log_best() {
-    if (!bids.empty()) out.quote(ex_time, SIDE_BID, bids.best().price, bids.best().total);
-    if (!asks.empty()) out.quote(ex_time, SIDE_ASK, asks.best().price, asks.best().total);
+    const bool b = !bids.empty(), a = !asks.empty();
+    if (b && a)
+      out.quotes(ex_time, bids.best().price, bids.best().total, asks.best().price,
+                 asks.best().total);
+    else if (b)
+      out.quote(ex_time, SIDE_BID, bids.best().price, bids.best().total);
+    else if (a)
+      out.quote(ex_time, SIDE_ASK, asks.best().price, asks.best().total);
   }
   void ex_send(int32_t recipient, int32_t slot) {
     const uint8_t t = msgs[slot].type;

@@ -12,6 +12,8 @@
 #pragma once
 
 #include <atomic>
+#include <cstddef>
+#include <cstring>
 #include <cstdint>
 #include <exception>
 #include <memory>
@@ -163,7 +165,14 @@ class OutputLog {
   void quote(int64_t t, uint8_t side, int64_t price, int64_t size) {
     TraceRec& r = lifecycle_.next();
     r.t = t; r.price = price; r.size = size;
-    r.quote = true; r.side = side;
+    r.quote = true; r.type = 0; r.side = side;
+  }
+  // quote(t, BID, bid_price, bid_size) then quote(t, ASK, ask_price, ask_size), in one record.
+  void quotes(int64_t t, int64_t bid_price, int64_t bid_size, int64_t ask_price, int64_t ask_size) {
+    TraceRec& r = lifecycle_.next();
+    r.t = t; r.price = bid_price; r.size = bid_size; r.oid = ask_price;
+    std::memcpy(&r.owner, &ask_size, sizeof ask_size);  // owner, agent: unused by quotes
+    r.quote = true; r.type = 1;
   }
 
   // Drains both rings, joins the consumers and returns the trace and the ledger rows not yet
@@ -184,8 +193,9 @@ class OutputLog {
     int64_t t, price, size, oid;
     int32_t owner, agent;
     bool quote;
-    uint8_t type, side;
+    uint8_t type, side;  // quote: type 1 = a bid/ask pair (see quotes())
   };
+  static_assert(offsetof(TraceRec, agent) == offsetof(TraceRec, owner) + 4, "owner, agent adjacent");
 
   MessageSink* sink_;
   TraceSink* trace_sink_;
@@ -216,7 +226,12 @@ class OutputLog {
     if (sink_ && c.t_recv.size() == kMessageBlockRows) sink_->submit(c);
   }
   void apply(const TraceRec& r) {
-    if (r.quote)
+    if (r.quote && r.type) {  // a bid and an ask (quotes())
+      int64_t ask_size;
+      std::memcpy(&ask_size, &r.owner, sizeof ask_size);
+      trace_.quote(r.t, SIDE_BID, r.price, r.size);
+      trace_.quote(r.t, SIDE_ASK, r.oid, ask_size);
+    } else if (r.quote)
       trace_.quote(r.t, r.side, r.price, r.size);
     else
       trace_.order(r.t, r.owner, r.agent, r.type, r.side, r.price, r.size, r.oid);
