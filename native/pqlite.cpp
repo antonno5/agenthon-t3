@@ -188,6 +188,42 @@ void pack_bits(Bytes& o, const uint64_t* v, size_t count, int width) {
   if (bits > 0) *dst++ = static_cast<uint8_t>(acc);
 }
 
+// 32 values of `width` bits, LSB first: exactly 4 * width bytes at dst.
+inline uint8_t* pack32(uint8_t* dst, const uint64_t* v, int width) {
+  if (width == 0) return dst;
+  if (width <= 32) {
+    const uint64_t m = (width == 32) ? 0xffffffffull : ((1ull << width) - 1);
+    uint64_t acc = 0;
+    int bits = 0;
+    for (int i = 0; i < 32; i++) {
+      acc |= (v[i] & m) << bits;
+      bits += width;
+      if (bits >= 32) {
+        const uint32_t lo = static_cast<uint32_t>(acc);
+        std::memcpy(dst, &lo, 4);
+        dst += 4;
+        acc >>= 32;
+        bits -= 32;
+      }
+    }
+    return dst;  // 32 * width bits: nothing left over
+  }
+  unsigned __int128 acc = 0;
+  int bits = 0;
+  const unsigned __int128 mask =
+      (width == 64) ? ~static_cast<uint64_t>(0) : ((static_cast<uint64_t>(1) << width) - 1);
+  for (int i = 0; i < 32; i++) {
+    acc |= (static_cast<unsigned __int128>(v[i]) & mask) << bits;
+    bits += width;
+    while (bits >= 8) {
+      *dst++ = static_cast<uint8_t>(acc);
+      acc >>= 8;
+      bits -= 8;
+    }
+  }
+  return dst;
+}
+
 template <class T>
 void delta_binary_packed(Bytes& o, const T* v, size_t n) {
   constexpr size_t kBlock = 128, kMini = 4, kPer = kBlock / kMini;
@@ -196,6 +232,7 @@ void delta_binary_packed(Bytes& o, const T* v, size_t n) {
   put_uvarint(o, n);
   put_zigzag(o, n ? static_cast<int64_t>(v[0]) : 0);
   uint64_t d[kBlock];
+  uint8_t buf[kMini + kBlock * 8];  // one block's widths and packed miniblocks, worst case
   for (size_t i = 1; i < n; i += kBlock) {
     const size_t cnt = std::min(kBlock, n - i);
     int64_t min_delta = 0;
@@ -204,26 +241,23 @@ void delta_binary_packed(Bytes& o, const T* v, size_t n) {
       const int64_t delta = static_cast<int64_t>(static_cast<T>(
           static_cast<std::make_unsigned_t<T>>(v[i + k]) - static_cast<std::make_unsigned_t<T>>(v[i + k - 1])));
       d[k] = static_cast<uint64_t>(delta);
-      if (k == 0 || delta < min_delta) min_delta = delta;
+      min_delta = (k == 0 || delta < min_delta) ? delta : min_delta;
     }
     put_zigzag(o, min_delta);
-    int widths[kMini] = {0, 0, 0, 0};
+    uint64_t mx[kMini] = {0, 0, 0, 0};
+    for (size_t k = 0; k < cnt; k++) {
+      d[k] -= static_cast<uint64_t>(min_delta);
+      mx[k / kPer] |= d[k];
+    }
+    for (size_t k = cnt; k < kBlock; k++) d[k] = 0;  // a partial last miniblock is padded
+    uint8_t* p = buf;
+    int widths[kMini];
     for (size_t m = 0; m < kMini; m++) {
-      uint64_t mx = 0;
-      for (size_t k = m * kPer; k < std::min(cnt, (m + 1) * kPer); k++) {
-        d[k] = d[k] - static_cast<uint64_t>(min_delta);
-        mx |= d[k];
-      }
-      int w = 0;
-      while (w < 64 && (mx >> w) != 0) w++;
-      widths[m] = m * kPer < cnt ? w : 0;
+      widths[m] = (m * kPer < cnt && mx[m]) ? 64 - __builtin_clzll(mx[m]) : 0;
+      *p++ = static_cast<uint8_t>(widths[m]);
     }
-    for (size_t m = 0; m < kMini; m++) o.push_back(static_cast<uint8_t>(widths[m]));
-    for (size_t m = 0; m < kMini && m * kPer < cnt; m++) {
-      uint64_t tmp[kPer] = {0};
-      for (size_t k = 0; k < kPer && m * kPer + k < cnt; k++) tmp[k] = d[m * kPer + k];
-      pack_bits(o, tmp, kPer, widths[m]);  // a partial last miniblock is padded to 32 values
-    }
+    for (size_t m = 0; m < kMini && m * kPer < cnt; m++) p = pack32(p, d + m * kPer, widths[m]);
+    o.insert(o.end(), buf, p);
   }
 }
 
