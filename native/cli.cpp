@@ -4,6 +4,8 @@
 #include "pqlite.hpp"
 #include "sha256_lite.hpp"
 #include <chrono>
+#include <cstdio>
+#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -67,7 +69,13 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
   // large blocks) would only add wall time to the run.
   // The trace's final columns are encoded into pages while the kernel still runs.
   auto& trace_writer = *new t3::pqlite::TraceWriter(trace);
+  timespec cpu0{}, cpu1{};
+  clock_gettime(CLOCK_THREAD_CPUTIME_ID, &cpu0);
   auto t0 = Clock::now(); auto& r = *new t3::Result(t3::run(std::move(p), pipeline.get(), &trace_writer)); double seconds = since(t0);
+  clock_gettime(CLOCK_THREAD_CPUTIME_ID, &cpu1);
+  if (std::getenv("T3_CPU_REPORT"))  // measurement aid: the kernel thread's CPU time, in ms
+    std::fprintf(stderr, "kernel_cpu_ms %.3f\n",
+                 (cpu1.tv_sec - cpu0.tv_sec) * 1e3 + (cpu1.tv_nsec - cpu0.tv_nsec) / 1e6);
   if (r.trace.t_ns.empty()) {
     if (pipeline) pipeline->cancel();
     throw t3cli::Unsupported("empty trace requires original adapter dtypes");

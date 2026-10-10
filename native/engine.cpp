@@ -271,6 +271,13 @@ class Sim {
   RadixQueue<PackedEntry> rqueue;
   bool packed = false;  // pheap (or rqueue) in use (see PackedEntry)
   bool radix = false;   // rqueue in use: packed keys and no negative latency/delay
+  // Deliveries waiting for a busy agent (radix runs only; see Sim::defer). waiting[r] is a
+  // min-heap by (route, msg_id); the queue holds one stand-in entry for it (slot kStandIn,
+  // info = its generation), keyed like the heap's smallest entry. A newer stand-in makes the
+  // older ones stale (their generation no longer matches waiting_gen[r]).
+  static constexpr int32_t kStandIn = -2;
+  std::vector<std::vector<QEntry>> waiting;
+  std::vector<int32_t> waiting_gen;
   std::vector<SendInfo> send_info;
   std::vector<int32_t> free_info;
   // deque: handlers hold references to the message being delivered while creating new
@@ -443,6 +450,47 @@ class Sim {
     }
     heap_push(QEntry{deliver_at, QEntry::make_route(sender, recipient), m.id, slot, info});
   }
+  // Kernel.runner requeues a delivery whose recipient is still busy (agent_times[r] after its
+  // time) at agent_times[r]; while that agent stays busy, each of its other pending deliveries
+  // is requeued again on every pop -- quadratic in a burst. Those pops change nothing but
+  // current_time, so a radix run parks the deliveries instead and keeps one stand-in in the
+  // queue with the smallest parked key: it pops exactly where that delivery's own requeue
+  // would, and the order of every processed delivery stays the same (all parked deliveries of
+  // r end up at the same time, agent_times[r], and leave by key). Near stop_time the plain
+  // requeue is kept, so the loop ends after the same pop.
+  static bool waiting_gt(const QEntry& a, const QEntry& b) {
+    return a.route != b.route ? a.route > b.route : a.msg_id > b.msg_id;
+  }
+  void push_stand_in(int32_t r) {
+    const QEntry& top = waiting[r].front();
+    heap_push(QEntry{agent_times[r], top.route, top.msg_id, kStandIn, ++waiting_gen[r]});
+  }
+  // Parks e (recipient r busy, agent_times[r] <= stop_time).
+  void defer(const QEntry& e, int32_t r) {
+    std::vector<QEntry>& w = waiting[r];
+    const bool smallest = w.empty() || waiting_gt(w.front(), e);
+    w.push_back(e);
+    std::push_heap(w.begin(), w.end(), waiting_gt);
+    if (smallest) push_stand_in(r);
+  }
+  // The parked deliveries go back into the queue at agent_times[r] as plain requeues.
+  void unpark(int32_t r) {
+    for (QEntry re : waiting[r]) {
+      re.time = agent_times[r];
+      heap_push(re);
+    }
+    waiting[r].clear();
+    ++waiting_gen[r];
+  }
+  // After r handled a delivery taken from its parked set.
+  void repark(int32_t r) {
+    if (waiting[r].empty()) return;
+    if (agent_times[r] > P.stop_time)
+      unpark(r);
+    else
+      push_stand_in(r);
+  }
+
   // Kernel.set_wakeup
   void set_wakeup(int32_t agent, int64_t t) {
     if (current_time != 0 && t < current_time)
@@ -933,11 +981,36 @@ Result Sim::run() {
   current_time = P.start_time;
 
   // --- Kernel.runner ---
+  if (radix) {
+    waiting.resize(n_agents);
+    waiting_gen.assign(n_agents, 0);
+  }
   while (!heap_empty() && current_time != 0 && current_time <= P.stop_time) {
-    const QEntry e = heap_pop();
+    QEntry e = heap_pop();
     current_time = e.time;
     const int32_t r = e.recipient();
-    if (agent_times[r] > current_time) {  // agent still "in the future": requeue
+    const bool parked = e.slot == kStandIn;
+    if (parked) {
+      if (e.info != waiting_gen[r]) continue;  // stale stand-in
+      if (agent_times[r] > current_time) {
+        if (agent_times[r] > P.stop_time) {
+          unpark(r);
+        } else {
+          e.time = agent_times[r];
+          heap_push(e);
+        }
+        continue;
+      }
+      std::vector<QEntry>& w = waiting[r];
+      std::pop_heap(w.begin(), w.end(), waiting_gt);
+      e = w.back();
+      w.pop_back();
+      e.time = current_time;
+    } else if (agent_times[r] > current_time) {  // agent still "in the future": requeue
+      if (radix && agent_times[r] <= P.stop_time) {
+        defer(e, r);
+        continue;
+      }
       QEntry re = e;
       re.time = agent_times[r];
       heap_push(re);
@@ -972,6 +1045,7 @@ Result Sim::run() {
         trader_receive(trader(r), current_time, e.slot);
       release(e.slot);
     }
+    if (parked) repark(r);
   }
   return extract();
 }
