@@ -4,6 +4,9 @@
 
 #include <algorithm>
 #include <condition_variable>
+#include <exception>
+#include <functional>
+#include <memory>
 #include <mutex>
 #include <cstdio>
 #include <cstring>
@@ -491,10 +494,12 @@ std::string write_file(const std::string& path, std::vector<Column>& cols, int64
   return hex;
 }
 
-// A file written front to back while it is still being encoded: put() places a column chunk
-// at the current end of the file and hands its pages to a writer thread, which writes and
-// hashes them in order (and frees them); finish() appends the footer and returns the SHA-256
-// hex. The chunk's counts stay with the caller for the footer.
+// A file written front to back while it is still being encoded, by a writer thread that writes
+// and hashes the bytes in order (and frees them). Either put() is used -- the producer places a
+// column chunk at the current end of the file and queues its pages -- or post(), which runs a
+// job on the writer thread that places chunks itself with write_now(); not both on one file.
+// finish() appends the footer and returns the file's SHA-256 hex. The chunk's counts stay with
+// the caller for the footer.
 class StreamFile {
  public:
   explicit StreamFile(std::string path) : path_(std::move(path)) {
@@ -508,74 +513,99 @@ class StreamFile {
     }
   }
   Placed put(Column& c) {
+    const Placed p = place(c);
+    push({take(c), {}});
+    return p;
+  }
+  void post(std::function<void()> job) { push({{}, std::move(job)}); }
+  // Writer thread only (from a posted job).
+  Placed write_now(Column& c) {
+    const Placed p = place(c);
+    write_pieces(take(c));
+    return p;
+  }
+  // `footer` is built on the writer thread after everything queued before.
+  std::string finish(std::function<Bytes()> footer) {
+    post([this, footer] { write_pieces({footer()}); });
+    {
+      std::lock_guard<std::mutex> l(m_);
+      done_ = true;
+    }
+    cv_.notify_one();
+    worker_.join();
+    if (error_) std::rethrow_exception(error_);
+    if (!ok_) throw std::runtime_error("cannot write " + path_);
+    return hex_;
+  }
+
+ private:
+  struct Item {
+    std::vector<Bytes> pieces;
+    std::function<void()> job;
+  };
+  std::string path_;
+  int64_t pos_ = 4;  // after the leading magic
+  std::thread worker_;
+  std::mutex m_;
+  std::condition_variable cv_;
+  std::vector<Item> queue_;
+  bool done_ = false, ok_ = true;
+  std::exception_ptr error_;
+  std::string hex_;
+  // writer thread
+  int fd_ = -1;
+  sha256_lite::Sha256 sha_;
+  std::vector<iovec> iov_;
+
+  Placed place(const Column& c) {
     Placed p;
     p.start = pos_;
     pos_ += static_cast<int64_t>(bytes_of(c.dict_page));
     p.data_offset = pos_;
     pos_ += static_cast<int64_t>(bytes_of(c.pages));
     p.size = pos_ - p.start;
+    return p;
+  }
+  static std::vector<Bytes> take(Column& c) {
     std::vector<Bytes> pieces = std::move(c.dict_page);
     for (Bytes& b : c.pages) pieces.push_back(std::move(b));
     c.dict_page.clear();
     c.pages.clear();
+    return pieces;
+  }
+  void push(Item item) {
     {
       std::lock_guard<std::mutex> l(m_);
-      queue_.push_back(std::move(pieces));
+      queue_.push_back(std::move(item));
     }
     cv_.notify_one();
-    return p;
   }
-  std::string finish(Bytes footer) {
-    {
-      std::lock_guard<std::mutex> l(m_);
-      queue_.push_back({std::move(footer)});
-      done_ = true;
+  // Plain writev(2), no stdio buffer: the bytes reach the file while the run goes on, so
+  // finish() only waits for what close() adds.
+  void write_pieces(const std::vector<Bytes>& pieces) {
+    iov_.clear();
+    for (const Bytes& b : pieces) {
+      sha_.update(b.data(), b.size());
+      if (!b.empty()) iov_.push_back({const_cast<uint8_t*>(b.data()), b.size()});
     }
-    cv_.notify_one();
-    worker_.join();
-    if (!ok_) throw std::runtime_error("cannot write " + path_);
-    return hex_;
+    for (size_t i = 0; ok_ && i < iov_.size();) {
+      const int n = static_cast<int>(std::min<size_t>(iov_.size() - i, IOV_MAX));
+      ssize_t w = ::writev(fd_, iov_.data() + i, n);
+      if (w < 0) { ok_ = false; break; }
+      // Skip what was written (a short write resumes inside an iovec).
+      while (w > 0 && i < iov_.size()) {
+        if (static_cast<size_t>(w) >= iov_[i].iov_len) { w -= iov_[i].iov_len; i++; }
+        else { iov_[i].iov_base = static_cast<uint8_t*>(iov_[i].iov_base) + w; iov_[i].iov_len -= w; w = 0; }
+      }
+    }
   }
-
- private:
-  std::string path_;
-  int64_t pos_ = 4;  // after the leading magic
-  std::thread worker_;
-  std::mutex m_;
-  std::condition_variable cv_;
-  std::vector<std::vector<Bytes>> queue_;
-  bool done_ = false, ok_ = true;
-  std::string hex_;
-
   void run() {
     static const uint8_t magic[4] = {'P', 'A', 'R', '1'};
-    sha256_lite::Sha256 sha;
-    // Plain write(2) per queued batch, no stdio buffer: the bytes reach the file while the
-    // run goes on, so close() only waits for the last row group and the footer.
-    const int fd = ::open(path_.c_str(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0666);
-    ok_ = fd >= 0;
-    std::vector<iovec> iov;
-    auto write_all = [&](const std::vector<std::vector<Bytes>>& batch) {
-      iov.clear();
-      for (const auto& pieces : batch)
-        for (const Bytes& b : pieces) {
-          sha.update(b.data(), b.size());
-          if (!b.empty()) iov.push_back({const_cast<uint8_t*>(b.data()), b.size()});
-        }
-      for (size_t i = 0; ok_ && i < iov.size();) {
-        const int n = static_cast<int>(std::min<size_t>(iov.size() - i, IOV_MAX));
-        ssize_t w = ::writev(fd, iov.data() + i, n);
-        if (w < 0) { ok_ = false; break; }
-        // Skip what was written (a short write resumes inside an iovec).
-        while (w > 0 && i < iov.size()) {
-          if (static_cast<size_t>(w) >= iov[i].iov_len) { w -= iov[i].iov_len; i++; }
-          else { iov[i].iov_base = static_cast<uint8_t*>(iov[i].iov_base) + w; iov[i].iov_len -= w; w = 0; }
-        }
-      }
-    };
-    write_all({{Bytes(magic, magic + 4)}});
+    fd_ = ::open(path_.c_str(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0666);
+    ok_ = fd_ >= 0;
+    write_pieces({Bytes(magic, magic + 4)});
     for (;;) {
-      std::vector<std::vector<Bytes>> batch;
+      std::vector<Item> batch;
       bool last;
       {
         std::unique_lock<std::mutex> l(m_);
@@ -583,11 +613,23 @@ class StreamFile {
         batch.swap(queue_);
         last = done_;
       }
-      write_all(batch);
+      for (Item& item : batch) {
+        if (item.job) {
+          if (!error_) {
+            try {
+              item.job();
+            } catch (...) {
+              error_ = std::current_exception();
+            }
+          }
+        } else {
+          write_pieces(item.pieces);
+        }
+      }
       if (last) break;
     }
-    if (fd >= 0 && ::close(fd) != 0) ok_ = false;
-    hex_ = sha.hex();
+    if (fd_ >= 0 && ::close(fd_) != 0) ok_ = false;
+    hex_ = sha_.hex();
   }
 };
 
@@ -641,19 +683,20 @@ std::string write_trace(const TraceColumns& t, const std::string& path) {
                     pqmeta::kTracePandas);
 }
 
-// Every kTraceGroupRows rows become a row group, written as soon as its final columns
-// are encoded; msg_type (which can still change) is encoded per row group at close() and its
-// chunks follow all the others. The file decodes to the same table as write_trace()'s.
+// Every kTraceGroupRows rows become a row group, written as soon as its final columns are
+// encoded; msg_type (which can still change) is encoded per row group at close() and its
+// chunks follow all the others. The file decodes to the same table as write_trace()'s. The
+// lifecycle consumer only copies a group's final rows; the writer thread encodes them.
 struct TraceWriter::Impl {
   std::string path;
   std::unique_ptr<StreamFile> file;
-  size_t encoded = 0;  // rows already in a row group (a multiple of kTraceGroupRows)
+  size_t encoded = 0;  // rows already handed over (a multiple of kTraceGroupRows)
+  // Writer thread (and close() once it waits for it):
   std::vector<std::vector<Column>> rgs;
   std::vector<std::vector<Placed>> placed;
   std::vector<int64_t> rows;
-  // Encodes rows [off, off + k) of every column but msg_type as a new row group and queues it.
+  // Writer thread: encodes rows [off, off + k) of t's columns but msg_type as a row group.
   void row_group(const TraceColumns& t, size_t off, size_t k, bool parallel) {
-    if (!file) file = std::make_unique<StreamFile>(path);
     rgs.push_back(trace_columns());
     std::vector<Column>& cols = rgs.back();
     auto encode = [&](size_t ci) { if (ci != 2) trace_page(cols, t, ci, off, k); };
@@ -663,10 +706,16 @@ struct TraceWriter::Impl {
       for (size_t ci = 0; ci < cols.size(); ci++) encode(ci);
     placed.emplace_back(cols.size());
     for (size_t ci = 0; ci < cols.size(); ci++)
-      if (ci != 2) placed.back()[ci] = file->put(cols[ci]);
+      if (ci != 2) placed.back()[ci] = file->write_now(cols[ci]);
     rows.push_back(static_cast<int64_t>(k));
   }
 };
+
+template <class T>
+std::vector<T> copy_rows(const std::vector<T>& v, size_t off, size_t k) {
+  return std::vector<T>(v.begin() + static_cast<std::ptrdiff_t>(off),
+                        v.begin() + static_cast<std::ptrdiff_t>(off + k));
+}
 
 // Returns the memory of rows [from, to) of a column to the OS. Only for rows that are encoded
 // and never read again: nothing reads a trace value after its page is encoded except msg_type
@@ -687,8 +736,17 @@ TraceWriter::~TraceWriter() = default;
 void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
   Impl& w = *impl_;
   const size_t before = w.encoded;
-  for (; w.encoded + kTraceGroupRows <= n; w.encoded += kTraceGroupRows)
-    w.row_group(t, w.encoded, kTraceGroupRows, false);
+  for (; w.encoded + kTraceGroupRows <= n; w.encoded += kTraceGroupRows) {
+    if (!w.file) w.file = std::make_unique<StreamFile>(w.path);
+    auto rows = std::make_shared<TraceColumns>();
+    rows->t_ns = copy_rows(t.t_ns, w.encoded, kTraceGroupRows);
+    rows->agent_id = copy_rows(t.agent_id, w.encoded, kTraceGroupRows);
+    rows->side = copy_rows(t.side, w.encoded, kTraceGroupRows);
+    rows->price = copy_rows(t.price, w.encoded, kTraceGroupRows);
+    rows->size = copy_rows(t.size, w.encoded, kTraceGroupRows);
+    rows->order_id = copy_rows(t.order_id, w.encoded, kTraceGroupRows);
+    w.file->post([&w, rows] { w.row_group(*rows, 0, kTraceGroupRows, false); });
+  }
   if (w.encoded > before) {
     release_rows(t.t_ns, before, w.encoded);
     release_rows(t.agent_id, before, w.encoded);
@@ -703,17 +761,21 @@ std::string TraceWriter::close(const TraceColumns& t) {
   Impl& w = *impl_;
   const size_t n = t.t_ns.size();
   if (n == 0) return write_trace(t, w.path);  // nothing streamed: one empty page per column
-  if (w.encoded < n) w.row_group(t, w.encoded, n - w.encoded, n - w.encoded > kTraceGroupRows);
-  parallel_for(w.rgs.size(), 4, [&](size_t g) {
-    trace_page(w.rgs[g], t, 2, g * kTraceGroupRows, static_cast<size_t>(w.rows[g]));
+  if (!w.file) w.file = std::make_unique<StreamFile>(w.path);
+  // On the writer thread, after the queued row groups; this thread waits in finish(), so t
+  // stays as it is meanwhile.
+  w.file->post([&w, &t, n] {
+    if (w.encoded < n) w.row_group(t, w.encoded, n - w.encoded, n - w.encoded > kTraceGroupRows);
+    parallel_for(w.rgs.size(), 4, [&](size_t g) {
+      trace_page(w.rgs[g], t, 2, g * kTraceGroupRows, static_cast<size_t>(w.rows[g]));
+    });
+    for (size_t g = 0; g < w.rgs.size(); g++) w.placed[g][2] = w.file->write_now(w.rgs[g][2]);
   });
-  for (size_t g = 0; g < w.rgs.size(); g++) w.placed[g][2] = w.file->put(w.rgs[g][2]);
-  return w.file->finish(footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kTraceArrowSchema,
-                                     pqmeta::kTracePandas));
+  return w.file->finish([&w] {
+    return footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kTraceArrowSchema, pqmeta::kTracePandas);
+  });
 }
 
-// Every appended block becomes its own row group, written while the run goes on; close()
-// only adds the footer.
 struct MessageWriter::Impl {
   std::string path;
   std::vector<Column> cols;
@@ -773,8 +835,10 @@ std::string MessageWriter::close() {
   Impl& w = *impl_;
   if (!w.file)  // no rows: one empty page per column, as before
     return write_file(w.path, w.cols, 0, pqmeta::kMessagesArrowSchema, pqmeta::kMessagesPandas);
-  return w.file->finish(footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kMessagesArrowSchema,
-                                     pqmeta::kMessagesPandas));
+  return w.file->finish([&w] {
+    return footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kMessagesArrowSchema,
+                        pqmeta::kMessagesPandas);
+  });
 }
 
 }  // namespace pqlite
