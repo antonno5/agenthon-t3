@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 #include <deque>
 #include <memory>
 #include <limits>
@@ -123,6 +124,14 @@ struct alignas(64) Message {
   bool has_order() const {
     return type == MT_LIMIT_ORDER || type == MT_CANCEL_ORDER || type == MT_ORDER_ACCEPTED ||
            type == MT_ORDER_EXECUTED || type == MT_ORDER_CANCELLED;
+  }
+  // Order's copy is field-wise, so the union's is not implicit; a whole message (only ever
+  // copied when the slab grows) is plain bytes.
+  Message() = default;
+  Message(const Message& m) { std::memcpy(static_cast<void*>(this), &m, sizeof m); }
+  Message& operator=(const Message& m) {
+    std::memcpy(static_cast<void*>(this), &m, sizeof m);
+    return *this;
   }
 };
 

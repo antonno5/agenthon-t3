@@ -22,6 +22,23 @@ struct Order {  // 40 bytes
   int32_t agent_id;
   int8_t side;
   bool has_fill = false;
+  // Copies field by field: orders are mostly copied right after some of their fields were
+  // written, and a block copy (16-byte loads over the 4- and 1-byte fields just stored) then
+  // stalls on store-to-load forwarding.
+  Order() = default;
+  Order(const Order& o)
+      : order_id(o.order_id), limit_price(o.limit_price), quantity(o.quantity),
+        fill_price(o.fill_price), agent_id(o.agent_id), side(o.side), has_fill(o.has_fill) {}
+  Order& operator=(const Order& o) {
+    order_id = o.order_id;
+    limit_price = o.limit_price;
+    quantity = o.quantity;
+    fill_price = o.fill_price;
+    agent_id = o.agent_id;
+    side = o.side;
+    has_fill = o.has_fill;
+    return *this;
+  }
 };
 using BookHandle = uint32_t;
 constexpr BookHandle NO_BOOK_HANDLE = std::numeric_limits<BookHandle>::max();
