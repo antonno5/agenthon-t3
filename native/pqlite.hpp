@@ -6,8 +6,10 @@
 // Layout per file: one row group; per column one chunk of Snappy-compressed V1 data pages
 // (definition levels RLE/bit-packed; numbers PLAIN; the string vocabularies msg_type and
 // side dictionary-encoded with a PLAIN dictionary page). No statistics. Footer in the
-// Thrift compact protocol. The whole file is built in memory, hashed (SHA-256) and written
-// in one pass, so no re-read is needed for events.json.
+// Thrift compact protocol. Files are hashed (SHA-256) as they are written, so no re-read is
+// needed for events.json. The streaming writers (TraceWriter, MessageWriter) write one row
+// group per 64K rows while the run goes on, from a writer thread; only the last row group,
+// the trace's msg_type chunks (placed after all the others) and the footer are left for close().
 #pragma once
 
 #include <memory>
@@ -18,8 +20,9 @@
 namespace t3 {
 namespace pqlite {
 
-// Streams the message ledger: append() encodes and compresses one block as one page per
-// column (columns in parallel); close() writes the file and returns its SHA-256 hex.
+// Streams the message ledger: append() encodes and compresses one block as a row group (one
+// page per column, columns in parallel) and queues it for writing; close() adds the footer and
+// returns the file's SHA-256 hex.
 class MessageWriter {
  public:
   explicit MessageWriter(std::string path);
@@ -35,9 +38,9 @@ class MessageWriter {
 // Writes trace.parquet; returns its SHA-256 hex.
 std::string write_trace(const TraceColumns& t, const std::string& path);
 
-// The same file, encoded while the trace is built: rows_final() encodes every complete page of
-// the columns that are already final (all but msg_type); close() encodes the rest and writes
-// the file. Pages are split exactly as write_trace() splits them, so the bytes are identical.
+// The same table, written while the trace is built: rows_final() encodes every complete page of
+// the columns that are already final (all but msg_type) as a row group and queues it for
+// writing; close() encodes the rest and finishes the file. Decodes exactly as write_trace()'s.
 class TraceWriter final : public TraceSink {
  public:
   explicit TraceWriter(std::string path);

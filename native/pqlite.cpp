@@ -3,6 +3,8 @@
 #include "pqlite.hpp"
 
 #include <algorithm>
+#include <condition_variable>
+#include <mutex>
 #include <cstdio>
 #include <cstring>
 #include <stdexcept>
@@ -344,23 +346,19 @@ void parallel_for(size_t n, size_t threads, F fn) {
     if (e) std::rethrow_exception(e);
 }
 
-// Writes the file from the column page buffers in order (no concatenation), hashing the same
-// pieces on a second thread; returns the SHA-256 hex.
-std::string write_file(const std::string& path, std::vector<Column>& cols, int64_t num_rows,
-                       const char* arrow_schema, const char* pandas) {
+// Where a column chunk lies in the file.
+struct Placed { int64_t start, data_offset, size; };
+
+// The file footer for row groups whose column chunks may lie anywhere in the file:
+// rgs[g][ci] is the chunk of column ci in row group g (pages may already be released, the
+// counts are kept), placed[g][ci] where it was written, rows[g] its row count.
+Bytes footer_bytes(const std::vector<std::vector<Column>>& rgs,
+                   const std::vector<std::vector<Placed>>& placed, const std::vector<int64_t>& rows,
+                   const char* arrow_schema, const char* pandas) {
   static const uint8_t magic[4] = {'P', 'A', 'R', '1'};
-  struct Placed { int64_t start, data_offset, size; };
-  std::vector<Placed> placed;
-  int64_t pos = 4;
-  for (auto& c : cols) {
-    Placed p;
-    p.start = pos;
-    pos += static_cast<int64_t>(bytes_of(c.dict_page));
-    p.data_offset = pos;
-    pos += static_cast<int64_t>(bytes_of(c.pages));
-    p.size = pos - p.start;
-    placed.push_back(p);
-  }
+  const std::vector<Column>& cols = rgs.front();
+  int64_t num_rows = 0;
+  for (int64_t r : rows) num_rows += r;
   Bytes footer;
   {
     Thrift t(footer);
@@ -385,43 +383,45 @@ std::string write_file(const std::string& path, std::vector<Column>& cols, int64
       t.end();
     }
     t.i64(3, num_rows);
-    t.list(4, T_STRUCT, 1);
-    t.elem_begin();  // RowGroup
-    t.list(1, T_STRUCT, cols.size());
-    int64_t rg_unc = 0, rg_comp = 0;
-    for (size_t i = 0; i < cols.size(); i++) {
-      const Column& c = cols[i];
-      const Placed& p = placed[i];
-      t.elem_begin();  // ColumnChunk
-      t.i64(2, p.start);
-      t.begin(3);  // ColumnMetaData
-      t.i32(1, c.type);
-      if (c.vocab) {
-        t.list(2, T_I32, 3);
-        t.elem_i32(0); t.elem_i32(3); t.elem_i32(8);  // PLAIN, RLE, RLE_DICTIONARY
-      } else {
-        t.list(2, T_I32, 2);
-        t.elem_i32(3); t.elem_i32(5);  // RLE, DELTA_BINARY_PACKED
+    t.list(4, T_STRUCT, rgs.size());
+    for (size_t g = 0; g < rgs.size(); g++) {
+      t.elem_begin();  // RowGroup
+      t.list(1, T_STRUCT, cols.size());
+      int64_t rg_unc = 0, rg_comp = 0;
+      for (size_t i = 0; i < cols.size(); i++) {
+        const Column& c = rgs[g][i];
+        const Placed& p = placed[g][i];
+        t.elem_begin();  // ColumnChunk
+        t.i64(2, p.start);
+        t.begin(3);  // ColumnMetaData
+        t.i32(1, c.type);
+        if (c.vocab) {
+          t.list(2, T_I32, 3);
+          t.elem_i32(0); t.elem_i32(3); t.elem_i32(8);  // PLAIN, RLE, RLE_DICTIONARY
+        } else {
+          t.list(2, T_I32, 2);
+          t.elem_i32(3); t.elem_i32(5);  // RLE, DELTA_BINARY_PACKED
+        }
+        t.list(3, T_BINARY, 1);
+        t.raw_str(c.name);
+        t.i32(4, 1);  // SNAPPY
+        t.i64(5, c.num_values);
+        t.i64(6, c.uncompressed);
+        t.i64(7, p.size);
+        t.i64(9, p.data_offset);
+        if (c.vocab) t.i64(11, p.start);
+        t.end();
+        t.end();
+        rg_unc += c.uncompressed;
+        rg_comp += p.size;
       }
-      t.list(3, T_BINARY, 1);
-      t.raw_str(c.name);
-      t.i32(4, 1);  // SNAPPY
-      t.i64(5, c.num_values);
-      t.i64(6, c.uncompressed);
-      t.i64(7, p.size);
-      t.i64(9, p.data_offset);
-      if (c.vocab) t.i64(11, p.start);
+      t.i64(2, rg_unc);
+      t.i64(3, rows[g]);
+      t.i64(5, placed[g][0].start);
+      t.i64(6, rg_comp);
+      t.i16(7, static_cast<int16_t>(g));
       t.end();
-      t.end();
-      rg_unc += c.uncompressed;
-      rg_comp += p.size;
     }
-    t.i64(2, rg_unc);
-    t.i64(3, num_rows);
-    t.i64(5, 4);
-    t.i64(6, rg_comp);
-    t.i16(7, 0);
-    t.end();
     t.list(5, T_STRUCT, 2);
     t.elem_begin(); t.str(1, "ARROW:schema"); t.str(2, arrow_schema); t.end();
     t.elem_begin(); t.str(1, "pandas"); t.str(2, pandas); t.end();
@@ -437,6 +437,26 @@ std::string write_file(const std::string& path, std::vector<Column>& cols, int64
   }
   put_u32le(footer, static_cast<uint32_t>(footer.size()));
   footer.insert(footer.end(), magic, magic + 4);
+  return footer;
+}
+
+// Writes the file from the column page buffers in order (no concatenation), hashing the same
+// pieces on a second thread; returns the SHA-256 hex. One row group.
+std::string write_file(const std::string& path, std::vector<Column>& cols, int64_t num_rows,
+                       const char* arrow_schema, const char* pandas) {
+  static const uint8_t magic[4] = {'P', 'A', 'R', '1'};
+  std::vector<Placed> placed;
+  int64_t pos = 4;
+  for (auto& c : cols) {
+    Placed p;
+    p.start = pos;
+    pos += static_cast<int64_t>(bytes_of(c.dict_page));
+    p.data_offset = pos;
+    pos += static_cast<int64_t>(bytes_of(c.pages));
+    p.size = pos - p.start;
+    placed.push_back(p);
+  }
+  const Bytes footer = footer_bytes({cols}, {placed}, {num_rows}, arrow_schema, pandas);
 
   // Ordered list of byte ranges making up the file.
   std::vector<std::pair<const uint8_t*, size_t>> pieces;
@@ -466,6 +486,92 @@ std::string write_file(const std::string& path, std::vector<Column>& cols, int64
   if (!ok || !closed) throw std::runtime_error("cannot write " + path);
   return hex;
 }
+
+// A file written front to back while it is still being encoded: put() places a column chunk
+// at the current end of the file and hands its pages to a writer thread, which writes and
+// hashes them in order (and frees them); finish() appends the footer and returns the SHA-256
+// hex. The chunk's counts stay with the caller for the footer.
+class StreamFile {
+ public:
+  explicit StreamFile(std::string path) : path_(std::move(path)) {
+    worker_ = std::thread([this] { run(); });
+  }
+  ~StreamFile() {
+    if (worker_.joinable()) {
+      { std::lock_guard<std::mutex> l(m_); done_ = true; }
+      cv_.notify_one();
+      worker_.join();
+    }
+  }
+  Placed put(Column& c) {
+    Placed p;
+    p.start = pos_;
+    pos_ += static_cast<int64_t>(bytes_of(c.dict_page));
+    p.data_offset = pos_;
+    pos_ += static_cast<int64_t>(bytes_of(c.pages));
+    p.size = pos_ - p.start;
+    std::vector<Bytes> pieces = std::move(c.dict_page);
+    for (Bytes& b : c.pages) pieces.push_back(std::move(b));
+    c.dict_page.clear();
+    c.pages.clear();
+    {
+      std::lock_guard<std::mutex> l(m_);
+      queue_.push_back(std::move(pieces));
+    }
+    cv_.notify_one();
+    return p;
+  }
+  std::string finish(Bytes footer) {
+    {
+      std::lock_guard<std::mutex> l(m_);
+      queue_.push_back({std::move(footer)});
+      done_ = true;
+    }
+    cv_.notify_one();
+    worker_.join();
+    if (!ok_) throw std::runtime_error("cannot write " + path_);
+    return hex_;
+  }
+
+ private:
+  std::string path_;
+  int64_t pos_ = 4;  // after the leading magic
+  std::thread worker_;
+  std::mutex m_;
+  std::condition_variable cv_;
+  std::vector<std::vector<Bytes>> queue_;
+  bool done_ = false, ok_ = true;
+  std::string hex_;
+
+  void run() {
+    static const uint8_t magic[4] = {'P', 'A', 'R', '1'};
+    sha256_lite::Sha256 sha;
+    FILE* f = std::fopen(path_.c_str(), "wb");
+    ok_ = f != nullptr;
+    std::vector<char> iobuf(1 << 20);
+    auto write = [&](const uint8_t* p, size_t n) {
+      sha.update(p, n);
+      if (ok_ && std::fwrite(p, 1, n, f) != n) ok_ = false;
+    };
+    if (f) std::setvbuf(f, iobuf.data(), _IOFBF, iobuf.size());
+    write(magic, 4);
+    for (;;) {
+      std::vector<std::vector<Bytes>> batch;
+      bool last;
+      {
+        std::unique_lock<std::mutex> l(m_);
+        cv_.wait(l, [this] { return done_ || !queue_.empty(); });
+        batch.swap(queue_);
+        last = done_;
+      }
+      for (const auto& pieces : batch)
+        for (const Bytes& b : pieces) write(b.data(), b.size());
+      if (last) break;
+    }
+    if (f && std::fclose(f) != 0) ok_ = false;
+    hex_ = sha.hex();
+  }
+};
 
 const char* const kTraceMsgTypes[] = {"ORDER_SUBMITTED", "ORDER_ACCEPTED", "ORDER_CANCELLED",
                                       "PARTIAL_FILL",    "ORDER_FILLED",   "QUOTE_UPDATE"};
@@ -515,10 +621,31 @@ std::string write_trace(const TraceColumns& t, const std::string& path) {
                     pqmeta::kTracePandas);
 }
 
+// Every complete page of rows becomes its own row group, written as soon as its final columns
+// are encoded; msg_type (which can still change) is encoded per row group at close() and its
+// chunks follow all the others. The file decodes to the same table as write_trace()'s.
 struct TraceWriter::Impl {
   std::string path;
-  std::vector<Column> cols = trace_columns();
-  size_t encoded = 0;  // rows already encoded in every column but msg_type (a page boundary)
+  std::unique_ptr<StreamFile> file;
+  size_t encoded = 0;  // rows already in a row group (a multiple of kTracePageRows)
+  std::vector<std::vector<Column>> rgs;
+  std::vector<std::vector<Placed>> placed;
+  std::vector<int64_t> rows;
+  // Encodes rows [off, off + k) of every column but msg_type as a new row group and queues it.
+  void row_group(const TraceColumns& t, size_t off, size_t k, bool parallel) {
+    if (!file) file = std::make_unique<StreamFile>(path);
+    rgs.push_back(trace_columns());
+    std::vector<Column>& cols = rgs.back();
+    auto encode = [&](size_t ci) { if (ci != 2) trace_page(cols, t, ci, off, k); };
+    if (parallel)
+      parallel_for(cols.size(), 4, encode);
+    else
+      for (size_t ci = 0; ci < cols.size(); ci++) encode(ci);
+    placed.emplace_back(cols.size());
+    for (size_t ci = 0; ci < cols.size(); ci++)
+      if (ci != 2) placed.back()[ci] = file->put(cols[ci]);
+    rows.push_back(static_cast<int64_t>(k));
+  }
 };
 
 // Returns the memory of rows [from, to) of a column to the OS. Only for rows that are encoded
@@ -541,8 +668,7 @@ void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
   Impl& w = *impl_;
   const size_t before = w.encoded;
   for (; w.encoded + kTracePageRows <= n; w.encoded += kTracePageRows)
-    for (size_t ci = 0; ci < w.cols.size(); ci++)
-      if (ci != 2) trace_page(w.cols, t, ci, w.encoded, kTracePageRows);
+    w.row_group(t, w.encoded, kTracePageRows, false);
   if (w.encoded > before) {
     release_rows(t.t_ns, before, w.encoded);
     release_rows(t.agent_id, before, w.encoded);
@@ -555,16 +681,26 @@ void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
 
 std::string TraceWriter::close(const TraceColumns& t) {
   Impl& w = *impl_;
-  parallel_for(w.cols.size(), 4,
-               [&](size_t ci) { trace_pages_from(w.cols, t, ci, ci == 2 ? 0 : w.encoded); });
-  return write_file(w.path, w.cols, static_cast<int64_t>(t.t_ns.size()), pqmeta::kTraceArrowSchema,
-                    pqmeta::kTracePandas);
+  const size_t n = t.t_ns.size();
+  if (n == 0) return write_trace(t, w.path);  // nothing streamed: one empty page per column
+  if (w.encoded < n) w.row_group(t, w.encoded, n - w.encoded, true);
+  parallel_for(w.rgs.size(), 4, [&](size_t g) {
+    trace_page(w.rgs[g], t, 2, g * kTracePageRows, static_cast<size_t>(w.rows[g]));
+  });
+  for (size_t g = 0; g < w.rgs.size(); g++) w.placed[g][2] = w.file->put(w.rgs[g][2]);
+  return w.file->finish(footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kTraceArrowSchema,
+                                     pqmeta::kTracePandas));
 }
 
+// Every appended block becomes its own row group, written while the run goes on; close()
+// only adds the footer.
 struct MessageWriter::Impl {
   std::string path;
   std::vector<Column> cols;
-  int64_t rows = 0;
+  std::unique_ptr<StreamFile> file;
+  std::vector<std::vector<Column>> rgs;
+  std::vector<std::vector<Placed>> placed;
+  std::vector<int64_t> rows;
 };
 
 MessageWriter::MessageWriter(std::string path) : impl_(new Impl) {
@@ -588,9 +724,12 @@ MessageWriter::~MessageWriter() = default;
 void MessageWriter::append(const MessageColumns& m, size_t seq_offset) {
   const size_t n = m.t_recv.size();
   if (n == 0) return;
+  Impl& w = *impl_;
+  if (!w.file) w.file = std::make_unique<StreamFile>(w.path);
   std::vector<int64_t> seq(n);
   for (size_t i = 0; i < n; i++) seq[i] = static_cast<int64_t>(seq_offset + i);
-  auto& c = impl_->cols;
+  w.rgs.push_back(w.cols);  // empty chunks with the column names and types
+  auto& c = w.rgs.back();
   parallel_for(c.size(), 3, [&](size_t ci) {
     switch (ci) {
       case 0: numeric_page(c[0], seq.data(), nullptr, n); break;
@@ -605,12 +744,17 @@ void MessageWriter::append(const MessageColumns& m, size_t seq_offset) {
       case 9: numeric_page(c[9], m.causal_parent.data(), m.causal_null.data(), n); break;
     }
   });
-  impl_->rows += static_cast<int64_t>(n);
+  w.placed.emplace_back();
+  for (Column& col : c) w.placed.back().push_back(w.file->put(col));
+  w.rows.push_back(static_cast<int64_t>(n));
 }
 
 std::string MessageWriter::close() {
-  return write_file(impl_->path, impl_->cols, impl_->rows, pqmeta::kMessagesArrowSchema,
-                    pqmeta::kMessagesPandas);
+  Impl& w = *impl_;
+  if (!w.file)  // no rows: one empty page per column, as before
+    return write_file(w.path, w.cols, 0, pqmeta::kMessagesArrowSchema, pqmeta::kMessagesPandas);
+  return w.file->finish(footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kMessagesArrowSchema,
+                                     pqmeta::kMessagesPandas));
 }
 
 }  // namespace pqlite
