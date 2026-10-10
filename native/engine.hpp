@@ -111,7 +111,7 @@ struct MessageColumns {
 // Its lifetime encloses run(); implementations may apply bounded backpressure.
 constexpr size_t kMessageRowGroupRows = 1024 * 1024;
 // Multiple of the pinned writer write_batch_size=1024; divide the row group exactly.
-constexpr size_t kMessageBlockRows = 64 * 1024;
+constexpr size_t kMessageBlockRows = 16 * 1024;
 struct MessageSink {
   virtual ~MessageSink() = default;
   virtual void submit(MessageColumns& block) = 0;
