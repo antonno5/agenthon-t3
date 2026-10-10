@@ -60,8 +60,8 @@ class Lane {
   }
 
  private:
-  static constexpr size_t kChunkRecs = 4096;
-  static constexpr size_t kChunks = 16;
+  static constexpr size_t kChunkRecs = 1024;
+  static constexpr size_t kChunks = 32;
   struct Chunk {
     Rec recs[kChunkRecs];
     size_t n = 0;
