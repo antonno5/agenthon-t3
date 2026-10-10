@@ -76,7 +76,7 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
   if (std::getenv("T3_CPU_REPORT"))  // measurement aid: the kernel thread's CPU time, in ms
     std::fprintf(stderr, "kernel_cpu_ms %.3f\n",
                  (cpu1.tv_sec - cpu0.tv_sec) * 1e3 + (cpu1.tv_nsec - cpu0.tv_nsec) / 1e6);
-  if (r.trace.t_ns.empty()) {
+  if (r.trace.rows() == 0) {
     if (pipeline) pipeline->cancel();
     throw t3cli::Unsupported("empty trace requires original adapter dtypes");
   }
@@ -84,7 +84,7 @@ Output run_write(t3::Params p, const std::string& trace, const std::string& msg)
   std::string trace_hash = trace_writer.close(r.trace);
   if (pipeline) pipeline->finish();
   (void)writer.release();  // keep its page buffers alive until _exit (see above)
-  return {r.trace.t_ns.size(), r.n_messages, seconds, trace_hash, message_hash};
+  return {r.trace.rows(), r.n_messages, seconds, trace_hash, message_hash};
 }
 
 // Python-equivalent result of one `simulate` run on the native path, or nullopt when the

@@ -222,7 +222,7 @@ class OutputLog {
       trace_.order(r.t, r.owner, r.agent, r.type, r.side, r.price, r.size, r.oid);
     if (trace_sink_ && trace_.final_rows() >= reported_ + kTraceReportRows) {
       reported_ = trace_.final_rows();
-      trace_sink_->rows_final(trace_.columns(), reported_);
+      trace_.drop_before(trace_sink_->rows_final(trace_.columns(), reported_));
     }
   }
   static constexpr size_t kTraceReportRows = 16 * 1024;

@@ -57,7 +57,22 @@ class TraceStream {
 
   // Rows [0, final_rows()) are final except msg_type (see TraceSink); with a non-chronological
   // kernel nothing is final before finish().
-  size_t final_rows() const { return chronological_ ? columns_.t_ns.size() : 0; }
+  size_t final_rows() const { return chronological_ ? columns_.rows() : 0; }
+  // Drops rows [base, row) from every column but msg_type once enough have piled up, moving
+  // the rest to the front: the columns then reuse the same (cache-warm, already faulted-in)
+  // memory instead of growing through fresh pages for the whole run.
+  void drop_before(size_t row) {
+    TraceColumns& c = columns_;
+    if (row < c.base + kDropRows) return;
+    const auto k = static_cast<std::ptrdiff_t>(row - c.base);
+    c.t_ns.erase(c.t_ns.begin(), c.t_ns.begin() + k);
+    c.agent_id.erase(c.agent_id.begin(), c.agent_id.begin() + k);
+    c.side.erase(c.side.begin(), c.side.begin() + k);
+    c.price.erase(c.price.begin(), c.price.begin() + k);
+    c.size.erase(c.size.begin(), c.size.begin() + k);
+    c.order_id.erase(c.order_id.begin(), c.order_id.begin() + k);
+    c.base = row;
+  }
   const TraceColumns& columns() const { return columns_; }
 
   TraceColumns finish() {
@@ -67,6 +82,7 @@ class TraceStream {
 
  private:
   static constexpr size_t missing = std::numeric_limits<size_t>::max();
+  static constexpr size_t kDropRows = 64 * 1024;
   struct Row {
     int64_t t, price, size, oid;
     size_t ordinal;

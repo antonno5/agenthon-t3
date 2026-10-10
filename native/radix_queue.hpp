@@ -183,10 +183,19 @@ class RadixQueue {
 // minimum is popped and its invariant -- nothing queued before the last pop -- still holds),
 // so the order is exactly the (time, k2) order. Valid when no entry is pushed before the last
 // popped time (as for RadixQueue): a bucket the current time has passed is then empty.
+#ifndef T3_CQ_SHIFT
+#define T3_CQ_SHIFT 5
+#endif
+#ifndef T3_CQ_NEAR
+#define T3_CQ_NEAR 64
+#endif
+#ifndef T3_CQ_CAP
+#define T3_CQ_CAP 16
+#endif
 template <class E, bool kNonNeg = false>
 class CalendarQueue {
  public:
-  bool empty() const { return mask_ == 0 && far_n_ == 0; }
+  bool empty() const { return near_n_ == 0 && far_n_ == 0; }
 
   void push(const E& e) {
     if (e.time < last_) throw std::runtime_error("event scheduled before the current time");
@@ -203,7 +212,8 @@ class CalendarQueue {
           i--;
         }
         v[i] = e;
-        mask_ |= uint64_t{1} << s;
+        mask_[s >> 6] |= uint64_t{1} << (s & 63);
+        near_n_++;
         return;
       }
     }
@@ -211,18 +221,17 @@ class CalendarQueue {
   }
 
   E pop() {
-    if (mask_) {
-      const int s0 = static_cast<int>(q0_ & (kNear - 1));
-      const uint64_t rot = s0 ? (mask_ >> s0) | (mask_ << (kNear - s0)) : mask_;
-      const int s = (s0 + __builtin_ctzll(rot)) & (kNear - 1);
+    if (near_n_) {
+      const int s = first_from(static_cast<int>(q0_ & (kNear - 1)));
       Bucket& b = bucket_[s];
       const E& head = slot_[s][b.head];
       if (key(head) < far_min_) {
         const E e = head;
         if (++b.head == b.end) {
           b.head = b.end = 0;
-          mask_ &= ~(uint64_t{1} << s);
+          mask_[s >> 6] &= ~(uint64_t{1} << (s & 63));
         }
+        near_n_--;
         advance(e.time);
         return e;
       }
@@ -234,16 +243,35 @@ class CalendarQueue {
   }
 
  private:
-  static constexpr int kShift = 5;  // 32 ns buckets
-  static constexpr int kNear = 64;  // ring of 2 us (one bit of mask_ per bucket)
-  static constexpr int kCap = 16;   // entries per bucket; more go to the radix heap
+  static constexpr int kShift = T3_CQ_SHIFT;  // 2^kShift ns buckets
+  static constexpr int kNear = T3_CQ_NEAR;    // buckets in the ring (a multiple of 64)
+  static constexpr int kWords = kNear / 64;
+  static constexpr int kCap = T3_CQ_CAP;      // entries per bucket; more go to the radix heap
+  static_assert(kNear % 64 == 0 && (kNear & (kNear - 1)) == 0, "ring of 64-bucket words");
   static constexpr unsigned __int128 kNone = ~static_cast<unsigned __int128>(0);
   struct Bucket {
     int head = 0, end = 0;  // slot_[s][head, end) sorted by key
   };
   Bucket bucket_[kNear];
   E slot_[kNear][kCap];
-  uint64_t mask_ = 0;  // bit s: bucket s holds entries
+  uint64_t mask_[kWords] = {};  // bit s: bucket s holds entries
+  size_t near_n_ = 0;
+  // The first non-empty bucket at or after s0 in ring order (some bucket is non-empty).
+  int first_from(int s0) const {
+    if constexpr (kWords == 1) {
+      const uint64_t m = mask_[0];
+      const uint64_t rot = s0 ? (m >> s0) | (m << (64 - s0)) : m;
+      return (s0 + __builtin_ctzll(rot)) & 63;
+    } else {
+      int w = s0 >> 6;
+      uint64_t bits = mask_[w] & (~uint64_t{0} << (s0 & 63));
+      while (!bits) {  // back at word s0 >> 6 last: its bits below s0 come after the rest
+        w = (w + 1) & (kWords - 1);
+        bits = mask_[w];
+      }
+      return (w << 6) | __builtin_ctzll(bits);
+    }
+  }
   // Bucket number and time of the last pop; before the first pop, nothing is near (the
   // initial wake-ups all go to the heap).
   int64_t q0_ = INT64_MIN / 2, last_ = INT64_MIN;

@@ -720,25 +720,11 @@ void copy_rows(std::vector<T>& to, const std::vector<T>& v, size_t off, size_t k
             v.begin() + static_cast<std::ptrdiff_t>(off + k));
 }
 
-// Returns the memory of rows [from, to) of a column to the OS. Only for rows that are encoded
-// and never read again: nothing reads a trace value after its page is encoded except msg_type
-// (a later execution can still change it), and the process exits right after the file is
-// written -- so the exit no longer has to free tens of MB on the largest runs.
-template <class T>
-void release_rows(const std::vector<T>& v, size_t from, size_t to) {
-  constexpr uintptr_t kPage = 4096;
-  const uintptr_t base = reinterpret_cast<uintptr_t>(v.data());
-  const uintptr_t lo = (base + from * sizeof(T) + kPage - 1) & ~(kPage - 1);
-  const uintptr_t hi = (base + to * sizeof(T)) & ~(kPage - 1);
-  if (hi > lo) madvise(reinterpret_cast<void*>(lo), hi - lo, MADV_DONTNEED);
-}
-
 TraceWriter::TraceWriter(std::string path) : impl_(new Impl) { impl_->path = std::move(path); }
 TraceWriter::~TraceWriter() = default;
 
-void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
+size_t TraceWriter::rows_final(const TraceColumns& t, size_t n) {
   Impl& w = *impl_;
-  const size_t before = w.encoded;
   for (; w.encoded + kTraceGroupRows <= n; w.encoded += kTraceGroupRows) {
     if (!w.file) w.file = std::make_unique<StreamFile>(w.path);
     std::shared_ptr<TraceColumns> rows;
@@ -750,37 +736,33 @@ void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
       }
     }
     if (!rows) rows = std::make_shared<TraceColumns>();
-    copy_rows(rows->t_ns, t.t_ns, w.encoded, kTraceGroupRows);
-    copy_rows(rows->agent_id, t.agent_id, w.encoded, kTraceGroupRows);
-    copy_rows(rows->side, t.side, w.encoded, kTraceGroupRows);
-    copy_rows(rows->price, t.price, w.encoded, kTraceGroupRows);
-    copy_rows(rows->size, t.size, w.encoded, kTraceGroupRows);
-    copy_rows(rows->order_id, t.order_id, w.encoded, kTraceGroupRows);
+    const size_t off = w.encoded - t.base;  // column row of trace row w.encoded
+    copy_rows(rows->t_ns, t.t_ns, off, kTraceGroupRows);
+    copy_rows(rows->agent_id, t.agent_id, off, kTraceGroupRows);
+    copy_rows(rows->side, t.side, off, kTraceGroupRows);
+    copy_rows(rows->price, t.price, off, kTraceGroupRows);
+    copy_rows(rows->size, t.size, off, kTraceGroupRows);
+    copy_rows(rows->order_id, t.order_id, off, kTraceGroupRows);
     w.file->post([&w, rows] {
       w.row_group(*rows, 0, kTraceGroupRows, false);
       std::lock_guard<std::mutex> l(w.pool_m);
       w.pool.push_back(rows);
     });
   }
-  if (w.encoded > before) {
-    release_rows(t.t_ns, before, w.encoded);
-    release_rows(t.agent_id, before, w.encoded);
-    release_rows(t.side, before, w.encoded);
-    release_rows(t.price, before, w.encoded);
-    release_rows(t.size, before, w.encoded);
-    release_rows(t.order_id, before, w.encoded);
-  }
+  return w.encoded;
 }
 
 std::string TraceWriter::close(const TraceColumns& t) {
   Impl& w = *impl_;
-  const size_t n = t.t_ns.size();
+  const size_t n = t.rows();
   if (n == 0) return write_trace(t, w.path);  // nothing streamed: one empty page per column
   if (!w.file) w.file = std::make_unique<StreamFile>(w.path);
   // On the writer thread, after the queued row groups; this thread waits in finish(), so t
   // stays as it is meanwhile.
   w.file->post([&w, &t, n] {
-    if (w.encoded < n) w.row_group(t, w.encoded, n - w.encoded, n - w.encoded > kTraceGroupRows);
+    // Columns other than msg_type hold rows from t.base on (msg_type keeps all of them).
+    if (w.encoded < n)
+      w.row_group(t, w.encoded - t.base, n - w.encoded, n - w.encoded > kTraceGroupRows);
     parallel_for(w.rgs.size(), 4, [&](size_t g) {
       trace_page(w.rgs[g], t, 2, g * kTraceGroupRows, static_cast<size_t>(w.rows[g]));
     });

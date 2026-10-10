@@ -79,6 +79,10 @@ struct TraceColumns {
   std::vector<uint8_t> msg_type;
   std::vector<uint8_t> side;
   std::vector<int64_t> price, size, order_id;
+  // Rows [0, base) were handed to a TraceSink and dropped from every column but msg_type (which
+  // keeps all rows): column row i is trace row base + i. Always 0 without a sink.
+  size_t base = 0;
+  size_t rows() const { return msg_type.size(); }
 };
 
 // Ledger msg_type codes; names in kMsgTypeNames (engine.cpp).
@@ -120,10 +124,11 @@ struct MessageSink {
 // Optional observer of the lifecycle trace while it is built: rows_final(cols, n) says rows
 // [0, n) of `cols` are final in every column except msg_type (a later execution can still
 // demote an earlier ORDER_FILLED to PARTIAL_FILL). Called on the trace-building thread; `cols`
-// stays valid and unchanged for the duration of the call.
+// stays valid and unchanged for the duration of the call. Returns the row up to which it no
+// longer needs the columns other than msg_type (the builder may then drop those rows).
 struct TraceSink {
   virtual ~TraceSink() = default;
-  virtual void rows_final(const TraceColumns& cols, size_t n) = 0;
+  virtual size_t rows_final(const TraceColumns& cols, size_t n) = 0;
 };
 
 struct Result {

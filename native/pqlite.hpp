@@ -45,7 +45,7 @@ class TraceWriter final : public TraceSink {
  public:
   explicit TraceWriter(std::string path);
   ~TraceWriter() override;
-  void rows_final(const TraceColumns& cols, size_t n) override;
+  size_t rows_final(const TraceColumns& cols, size_t n) override;
   std::string close(const TraceColumns& t);
 
  private:
