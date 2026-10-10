@@ -177,7 +177,26 @@ class PriceSide {
     }
     return h;
   }
+  // Recently used price levels, direct-mapped by price: new orders mostly land on a handful of
+  // prices near the top, so this skips the walk down the index. A slot is trusted only while
+  // it still names a live level (bit == -1) of that price; removed levels get bit -2.
+  static constexpr size_t kLevelCache = 64;
+  BookHandle level_cache_[kLevelCache];
+  BookHandle cached_level(int64_t price) const {
+    const BookHandle h = level_cache_[static_cast<uint64_t>(price) % kLevelCache];
+    return h != NO_BOOK_HANDLE && h < nodes_.size() && nodes_[h].bit == -1 &&
+                   nodes_[h].price == price
+               ? h
+               : NO_BOOK_HANDLE;
+  }
   BookHandle get_level(int64_t price) {
+    const BookHandle hit = cached_level(price);
+    if (hit != NO_BOOK_HANDLE) return hit;
+    const BookHandle h = find_or_add_level(price);
+    level_cache_[static_cast<uint64_t>(price) % kLevelCache] = h;
+    return h;
+  }
+  BookHandle find_or_add_level(int64_t price) {
     const uint64_t k = key(price);
     auto old = leaf(k);
     if (old != NO_BOOK_HANDLE && nodes_[old].price == price) return old;
@@ -212,8 +231,10 @@ class PriceSide {
       nodes_[sibling].parent = grand;
       if (grand == NO_BOOK_HANDLE) root_ = sibling;
       else nodes_[grand].child[nodes_[grand].child[0] == parent ? 0 : 1] = sibling;
+      nodes_[parent].bit = -2;
       free_.push_back(parent);
     }
+    nodes_[h].bit = -2;  // no longer a live level (see cached_level)
     free_.push_back(h); --size_;
     if (best_ == h) best_ = extreme();
   }
@@ -242,8 +263,12 @@ class PriceSide {
     }
   }
  public:
-  explicit PriceSide(bool bid): bid_(bid), owned_(std::make_unique<BookArena>()), arena_(owned_.get()) {}
-  PriceSide(bool bid, BookArena& arena): bid_(bid), arena_(&arena) {}
+  explicit PriceSide(bool bid): bid_(bid), owned_(std::make_unique<BookArena>()), arena_(owned_.get()) {
+    std::fill(std::begin(level_cache_), std::end(level_cache_), NO_BOOK_HANDLE);
+  }
+  PriceSide(bool bid, BookArena& arena): bid_(bid), arena_(&arena) {
+    std::fill(std::begin(level_cache_), std::end(level_cache_), NO_BOOK_HANDLE);
+  }
   size_t size() const { return size_; }
   bool empty() const { return size_ == 0; }
   const PriceLevel& best() const { assert(!empty()); return nodes_[best_]; }
