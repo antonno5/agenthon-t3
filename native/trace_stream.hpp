@@ -63,6 +63,7 @@ class TraceStream {
   // memory instead of growing through fresh pages for the whole run.
   void drop_before(size_t row) {
     TraceColumns& c = columns_;
+    taken_ = row;
     if (row < c.base + kDropRows) return;
     const auto k = static_cast<std::ptrdiff_t>(row - c.base);
     c.t_ns.erase(c.t_ns.begin(), c.t_ns.begin() + k);
@@ -98,6 +99,7 @@ class TraceStream {
   // Each slot points into final msg_type columns, so later executions can demote the
   // previous retained execution without a hash table or a final classification pass.
   std::vector<size_t> last_execution_;
+  size_t taken_ = 0;  // rows the sink has taken (drop_before)
   TraceColumns columns_;
 
   void advance(int64_t t) {
@@ -127,7 +129,14 @@ class TraceStream {
         const size_t oid = static_cast<size_t>(r.oid);
         if (oid >= last_execution_.size()) last_execution_.resize(oid + 1, missing);
         size_t& previous = last_execution_[oid];
-        if (previous != missing) columns_.msg_type[previous] = TM_PARTIAL_FILL;
+        if (previous != missing) {
+          columns_.msg_type[previous] = TM_PARTIAL_FILL;
+          if (previous < taken_) {  // the sink already has this row's old msg_type
+            const size_t g = previous / kTraceGroupRows;
+            if (g >= columns_.msg_dirty.size()) columns_.msg_dirty.resize(g + 1, 0);
+            columns_.msg_dirty[g] = 1;
+          }
+        }
         previous = columns_.msg_type.size();
         // This means last execution in the retained trace, not zero remaining qty.
         type = TM_ORDER_FILLED;

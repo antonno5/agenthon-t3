@@ -77,12 +77,17 @@ inline void compress_fragment(std::vector<uint8_t>& o, const uint8_t* base, size
   const size_t limit = len - kMargin;
   size_t next_emit = 0;
   size_t ip = 1;
+  // libsnappy's skipping: after 32 lookups without a match, probe every 2nd byte, after 16 more
+  // every 3rd, ... so incompressible input (most delta-packed pages) costs little; a match
+  // resets it.
+  uint32_t skip = 32;
   while (ip < limit) {
     const uint32_t cur = load32(base + ip);
     const uint32_t h = hash(cur);
     const size_t cand = table[h];
     table[h] = static_cast<uint16_t>(ip);
     if (cand < ip && load32(base + cand) == cur) {
+      skip = 32;
       emit_literal(o, base + next_emit, ip - next_emit);
       size_t matched = 4;
       while (ip + matched < len && base[cand + matched] == base[ip + matched]) matched++;
@@ -91,7 +96,7 @@ inline void compress_fragment(std::vector<uint8_t>& o, const uint8_t* base, size
       next_emit = ip;
       if (ip < limit) table[hash(load32(base + ip - 1))] = static_cast<uint16_t>(ip - 1);
     } else {
-      ip++;
+      ip += skip++ >> 5;
     }
   }
   emit_literal(o, base + next_emit, len - next_emit);

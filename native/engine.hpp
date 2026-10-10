@@ -82,8 +82,13 @@ struct TraceColumns {
   // Rows [0, base) were handed to a TraceSink and dropped from every column but msg_type (which
   // keeps all rows): column row i is trace row base + i. Always 0 without a sink.
   size_t base = 0;
+  // msg_dirty[g]: a msg_type of row group g (kTraceGroupRows rows) changed after the sink had
+  // taken the group's rows (see TraceSink).
+  std::vector<uint8_t> msg_dirty;
   size_t rows() const { return msg_type.size(); }
 };
+// Rows per row group of the streamed trace file.
+constexpr size_t kTraceGroupRows = 16 * 1024;
 
 // Ledger msg_type codes; names in kMsgTypeNames (engine.cpp).
 enum MsgType : uint8_t {

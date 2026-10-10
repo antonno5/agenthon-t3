@@ -637,8 +637,6 @@ const char* const kTraceMsgTypes[] = {"ORDER_SUBMITTED", "ORDER_ACCEPTED", "ORDE
                                       "PARTIAL_FILL",    "ORDER_FILLED",   "QUOTE_UPDATE"};
 const char* const kSides[] = {"BID", "ASK"};
 constexpr size_t kTracePageRows = 64 * 1024;
-// Row group size of the streamed trace: small, so close() has little left to encode.
-constexpr size_t kTraceGroupRows = 16 * 1024;
 
 }  // namespace
 
@@ -695,14 +693,18 @@ struct TraceWriter::Impl {
   std::vector<std::vector<Column>> rgs;
   std::vector<std::vector<Placed>> placed;
   std::vector<int64_t> rows;
+  std::vector<uint8_t> has_msg_type;  // rgs[g][2] already encoded (from the copied rows)
   // Row copies the writer is done with, reused so their pages are not faulted in again.
   std::mutex pool_m;
   std::vector<std::shared_ptr<TraceColumns>> pool;
-  // Writer thread: encodes rows [off, off + k) of t's columns but msg_type as a row group.
-  void row_group(const TraceColumns& t, size_t off, size_t k, bool parallel) {
+  // Writer thread: encodes rows [off, off + k) of t's columns as a row group; msg_type too when
+  // `msg_type` (t then holds the group's own copy of it at the same offset). Its chunk is
+  // written only at close (it may still change; see TraceColumns::msg_dirty).
+  void row_group(const TraceColumns& t, size_t off, size_t k, bool parallel, bool msg_type) {
     rgs.push_back(trace_columns());
+    has_msg_type.push_back(msg_type);
     std::vector<Column>& cols = rgs.back();
-    auto encode = [&](size_t ci) { if (ci != 2) trace_page(cols, t, ci, off, k); };
+    auto encode = [&](size_t ci) { if (ci != 2 || msg_type) trace_page(cols, t, ci, off, k); };
     if (parallel)
       parallel_for(cols.size(), 4, encode);
     else
@@ -743,8 +745,9 @@ size_t TraceWriter::rows_final(const TraceColumns& t, size_t n) {
     copy_rows(rows->price, t.price, off, kTraceGroupRows);
     copy_rows(rows->size, t.size, off, kTraceGroupRows);
     copy_rows(rows->order_id, t.order_id, off, kTraceGroupRows);
+    copy_rows(rows->msg_type, t.msg_type, w.encoded, kTraceGroupRows);  // msg_type keeps all rows
     w.file->post([&w, rows] {
-      w.row_group(*rows, 0, kTraceGroupRows, false);
+      w.row_group(*rows, 0, kTraceGroupRows, false, true);
       std::lock_guard<std::mutex> l(w.pool_m);
       w.pool.push_back(rows);
     });
@@ -762,8 +765,14 @@ std::string TraceWriter::close(const TraceColumns& t) {
   w.file->post([&w, &t, n] {
     // Columns other than msg_type hold rows from t.base on (msg_type keeps all of them).
     if (w.encoded < n)
-      w.row_group(t, w.encoded - t.base, n - w.encoded, n - w.encoded > kTraceGroupRows);
-    parallel_for(w.rgs.size(), 4, [&](size_t g) {
+      w.row_group(t, w.encoded - t.base, n - w.encoded, n - w.encoded > kTraceGroupRows, false);
+    // msg_type of the groups encoded without it or changed since.
+    std::vector<size_t> todo;
+    for (size_t g = 0; g < w.rgs.size(); g++)
+      if (!w.has_msg_type[g] || (g < t.msg_dirty.size() && t.msg_dirty[g])) todo.push_back(g);
+    parallel_for(todo.size(), todo.size() > 2 ? 4 : 1, [&](size_t i) {
+      const size_t g = todo[i];
+      w.rgs[g][2] = trace_columns()[2];
       trace_page(w.rgs[g], t, 2, g * kTraceGroupRows, static_cast<size_t>(w.rows[g]));
     });
     for (size_t g = 0; g < w.rgs.size(); g++) w.placed[g][2] = w.file->write_now(w.rgs[g][2]);
