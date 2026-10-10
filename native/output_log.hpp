@@ -52,7 +52,7 @@ class Lane {
   }
   // Publishes the tail, waits for the consumer; rethrows its error.
   void join() {
-    publish();
+    publish(true);
     done_.store(true);
     data_.notify();
     worker_.join();
@@ -62,6 +62,7 @@ class Lane {
  private:
   static constexpr size_t kChunkRecs = 1024;
   static constexpr size_t kChunks = 32;
+  static constexpr size_t kWakeChunks = 4;
   struct Chunk {
     Rec recs[kChunkRecs];
     size_t n = 0;
@@ -76,12 +77,17 @@ class Lane {
   std::exception_ptr error_;
   std::thread worker_;
 
-  void publish() {
-    if (fill_ == 0) return;
+  // A sleeping consumer is woken (a futex syscall) only once kWakeChunks are waiting, or by
+  // join(); a spinning one sees every chunk as it is published.
+  void publish(bool wake = false) {
+    if (fill_ == 0) {
+      if (wake) data_.notify();
+      return;
+    }
     ring_[head_ % kChunks].n = fill_;
     fill_ = 0;
     published_.store(++head_);
-    data_.notify();
+    if (wake || head_ - consumed_.load(std::memory_order_relaxed) >= kWakeChunks) data_.notify();
   }
 
   template <class Apply, class Done>
