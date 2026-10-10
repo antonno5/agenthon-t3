@@ -15,7 +15,11 @@
 #include "pqmeta.hpp"
 #include "sha256_lite.hpp"
 
+#include <fcntl.h>
+#include <limits.h>
 #include <sys/mman.h>
+#include <sys/uio.h>
+#include <unistd.h>
 #include "snappy_lite.hpp"
 
 namespace t3 {
@@ -546,15 +550,30 @@ class StreamFile {
   void run() {
     static const uint8_t magic[4] = {'P', 'A', 'R', '1'};
     sha256_lite::Sha256 sha;
-    FILE* f = std::fopen(path_.c_str(), "wb");
-    ok_ = f != nullptr;
-    std::vector<char> iobuf(1 << 20);
-    auto write = [&](const uint8_t* p, size_t n) {
-      sha.update(p, n);
-      if (ok_ && std::fwrite(p, 1, n, f) != n) ok_ = false;
+    // Plain write(2) per queued batch, no stdio buffer: the bytes reach the file while the
+    // run goes on, so close() only waits for the last row group and the footer.
+    const int fd = ::open(path_.c_str(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0666);
+    ok_ = fd >= 0;
+    std::vector<iovec> iov;
+    auto write_all = [&](const std::vector<std::vector<Bytes>>& batch) {
+      iov.clear();
+      for (const auto& pieces : batch)
+        for (const Bytes& b : pieces) {
+          sha.update(b.data(), b.size());
+          if (!b.empty()) iov.push_back({const_cast<uint8_t*>(b.data()), b.size()});
+        }
+      for (size_t i = 0; ok_ && i < iov.size();) {
+        const int n = static_cast<int>(std::min<size_t>(iov.size() - i, IOV_MAX));
+        ssize_t w = ::writev(fd, iov.data() + i, n);
+        if (w < 0) { ok_ = false; break; }
+        // Skip what was written (a short write resumes inside an iovec).
+        while (w > 0 && i < iov.size()) {
+          if (static_cast<size_t>(w) >= iov[i].iov_len) { w -= iov[i].iov_len; i++; }
+          else { iov[i].iov_base = static_cast<uint8_t*>(iov[i].iov_base) + w; iov[i].iov_len -= w; w = 0; }
+        }
+      }
     };
-    if (f) std::setvbuf(f, iobuf.data(), _IOFBF, iobuf.size());
-    write(magic, 4);
+    write_all({{Bytes(magic, magic + 4)}});
     for (;;) {
       std::vector<std::vector<Bytes>> batch;
       bool last;
@@ -564,11 +583,10 @@ class StreamFile {
         batch.swap(queue_);
         last = done_;
       }
-      for (const auto& pieces : batch)
-        for (const Bytes& b : pieces) write(b.data(), b.size());
+      write_all(batch);
       if (last) break;
     }
-    if (f && std::fclose(f) != 0) ok_ = false;
+    if (fd >= 0 && ::close(fd) != 0) ok_ = false;
     hex_ = sha.hex();
   }
 };
@@ -577,6 +595,8 @@ const char* const kTraceMsgTypes[] = {"ORDER_SUBMITTED", "ORDER_ACCEPTED", "ORDE
                                       "PARTIAL_FILL",    "ORDER_FILLED",   "QUOTE_UPDATE"};
 const char* const kSides[] = {"BID", "ASK"};
 constexpr size_t kTracePageRows = 64 * 1024;
+// Row group size of the streamed trace: small, so close() has little left to encode.
+constexpr size_t kTraceGroupRows = 16 * 1024;
 
 }  // namespace
 
@@ -621,13 +641,13 @@ std::string write_trace(const TraceColumns& t, const std::string& path) {
                     pqmeta::kTracePandas);
 }
 
-// Every complete page of rows becomes its own row group, written as soon as its final columns
+// Every kTraceGroupRows rows become a row group, written as soon as its final columns
 // are encoded; msg_type (which can still change) is encoded per row group at close() and its
 // chunks follow all the others. The file decodes to the same table as write_trace()'s.
 struct TraceWriter::Impl {
   std::string path;
   std::unique_ptr<StreamFile> file;
-  size_t encoded = 0;  // rows already in a row group (a multiple of kTracePageRows)
+  size_t encoded = 0;  // rows already in a row group (a multiple of kTraceGroupRows)
   std::vector<std::vector<Column>> rgs;
   std::vector<std::vector<Placed>> placed;
   std::vector<int64_t> rows;
@@ -667,8 +687,8 @@ TraceWriter::~TraceWriter() = default;
 void TraceWriter::rows_final(const TraceColumns& t, size_t n) {
   Impl& w = *impl_;
   const size_t before = w.encoded;
-  for (; w.encoded + kTracePageRows <= n; w.encoded += kTracePageRows)
-    w.row_group(t, w.encoded, kTracePageRows, false);
+  for (; w.encoded + kTraceGroupRows <= n; w.encoded += kTraceGroupRows)
+    w.row_group(t, w.encoded, kTraceGroupRows, false);
   if (w.encoded > before) {
     release_rows(t.t_ns, before, w.encoded);
     release_rows(t.agent_id, before, w.encoded);
@@ -683,9 +703,9 @@ std::string TraceWriter::close(const TraceColumns& t) {
   Impl& w = *impl_;
   const size_t n = t.t_ns.size();
   if (n == 0) return write_trace(t, w.path);  // nothing streamed: one empty page per column
-  if (w.encoded < n) w.row_group(t, w.encoded, n - w.encoded, true);
+  if (w.encoded < n) w.row_group(t, w.encoded, n - w.encoded, n - w.encoded > kTraceGroupRows);
   parallel_for(w.rgs.size(), 4, [&](size_t g) {
-    trace_page(w.rgs[g], t, 2, g * kTracePageRows, static_cast<size_t>(w.rows[g]));
+    trace_page(w.rgs[g], t, 2, g * kTraceGroupRows, static_cast<size_t>(w.rows[g]));
   });
   for (size_t g = 0; g < w.rgs.size(); g++) w.placed[g][2] = w.file->put(w.rgs[g][2]);
   return w.file->finish(footer_bytes(w.rgs, w.placed, w.rows, pqmeta::kTraceArrowSchema,
